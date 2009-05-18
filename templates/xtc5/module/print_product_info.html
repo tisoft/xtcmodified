@@ -1,0 +1,43 @@
+{config_load file="$language/lang_$language.conf" section="print_product_info"} 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{$PRODUCTS_NAME} / {$PRODUCTS_MODEL}</title>
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}" /> 
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" type="text/css" href="templates/xtc5/stylesheet.css" />
+</head>
+
+<body class="popupproductinfo" onload="window.print()">
+
+<!-- head -->
+<h1 style="margin-top:0px;">{$PRODUCTS_NAME}</h1>
+<div id="productinfowrap">
+	{if $PRODUCTS_IMAGE!=''}
+	<div id="productinfoimages"><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE}" alt="{$module_data.NAME}" border="0" />
+	{if $PRODUCTS_IMAGE_1 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_1}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
+	{if $PRODUCTS_IMAGE_2 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_2}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
+	{if $PRODUCTS_IMAGE_3 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_3}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
+	{if $PRODUCTS_IMAGE_4 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_4}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
+	</div>
+	{/if}
+	<div id="productinfodescription">
+		{if $PRODUCTS_MODEL != ''}<p>{$PRODUCTS_MODEL}</p>{/if}
+		<p>{$PRODUCTS_DESCRIPTION}</p>
+		{if $module_content !=''}
+		<h2>{#options#}</h2>
+		<ul>{foreach name=aussen item=module_data from=$module_content} 
+		<li>{$module_data.GROUP}: {$module_data.NAME}</li>
+		{/foreach}
+		</ul>
+		{/if}
+		<h2>{#price#}</h2>
+		<p><strong>{$PRODUCTS_PRICE}</strong>, {$PRODUCTS_TAX_INFO}{$PRODUCTS_SHIPPING_LINK}</p>
+		{if $PRODUCTS_VPE}
+		<p>{$PRODUCTS_VPE}</p>
+		{/if}
+	</div>
+	<div style="clear:left; height:15px;"></div>
+</div>
+</body>
+</html>

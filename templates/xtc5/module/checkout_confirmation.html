@@ -1,0 +1,50 @@
+{config_load file="$language/lang_$language.conf" section="checkout_confirmation"} {config_load file="$language/lang_$language.conf" section="checkout_navigation"}
+<ul id="checkoutnavigation">
+    <li class="inactive"><span class="number">1.</span> <span class="title">{#title_shipping#}</span><br />
+        <span class="description">{#desc_shipping#}</span></li>
+    <li class="inactive"><span class="number">2.</span> <span class="title">{#title_payment#}</span><br />
+        <span class="description">{#desc_payment#}</span></li>
+    <li class="active"><span class="number">3.</span> <span class="title">{#title_confirmation#}</span><br />
+        <span class="description">{#desc_confirmation#}</span></li>
+    <li class="inactive"><span class="number">4.</span> <span class="title">{#title_success#}</span><br />
+        <span class="description">{#desc_success#}</span></li>
+</ul>
+<div style="clear:both"></div>
+<br />
+<h1>{#heading_confirmation#}</h1>
+<p>{#text_information#}</p>
+{if $IP_LOG=='true'}
+<p>{#text_ip#}:&nbsp;<strong>{$CUSTOMERS_IP}</strong></p>
+<p>{/if}</p>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td width="40%"><strong>{#text_shipping_address#}</strong><br />
+            {$DELIVERY_LABEL}<br />
+            <a href="{$SHIPPING_ADDRESS_EDIT}">{#text_edit#}</a></span></td>
+        <td width="60%">{if $BILLING_LABEL}<strong>{#text_payment_address#}</strong><br />
+            {$BILLING_LABEL}<br />
+            <a href="{$BILLING_ADDRESS_EDIT}">{#text_edit#}</a>{/if}</td>
+    </tr>
+</table>
+{if $SHIPPING_METHOD}
+<h2>{#text_shipping_method#}</h2>
+<p>{$SHIPPING_METHOD}&nbsp;<a href="{$SHIPPING_EDIT}">{#text_edit#}</a></p>
+{/if} {if $PAYMENT_METHOD!=''}
+<h2>{#text_payment_method#}</h2>
+<p>{$PAYMENT_METHOD}&nbsp;<a href="{$PAYMENT_EDIT}">{#text_edit#}</a></p>
+{/if} {if $ORDER_COMMENTS!=''}
+<h2>{#text_comments#}</h2>
+<p>{$ORDER_COMMENTS}&nbsp;<a href="{$PAYMENT_EDIT}">{#text_edit#}</a></p>
+{/if} {if $PAYMENT_INFORMATION!=''}
+<h2>{#text_payment_info#}</h2>
+<p>{$PAYMENT_INFORMATION}</p>
+{/if}
+<h2>{#text_products#}</h2>
+<p>{#text_products#}</strong>&nbsp;<a href="{$PRODUCTS_EDIT}">{#text_edit#}</a></p>
+<div class="highlightbox"> {$PRODUCTS_BLOCK}
+    <div class="hr"></div>
+    {$TOTAL_BLOCK} </div>
+<br />
+{if $REVOCATION} <strong>{$REVOCATION_TITLE} </strong> {$REVOCATION} <strong>{$REVOCATION_TITLE}</strong> {$REVOCATION_LINK}<br />
+<strong>{$AGB_TITLE}</strong> {$AGB_LINK} {/if}
+<p>{$CHECKOUT_FORM}{if $MODULE_BUTTONS!=''}&nbsp;{$MODULE_BUTTONS}{/if}&nbsp;{$CHECKOUT_BUTTON}</p>

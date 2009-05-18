@@ -1,0 +1,178 @@
+/*------------------------------------------------------------------------------
+  $Id: stylesheet_stocklist.css,v 1.00 2006/05/21 GERMANN.NEWMEDIA
+
+  XTC-CC - Contribution for XT-Commerce http://www.xt-commerce.com
+  -----------------------------------------------------------------------------
+
+  Copyright (c) 2006 GNM
+  http://www.internetauftritte.ch
+
+  Released under the GNU General Public License
+------------------------------------------------------------------------------*/
+
+
+
+/* data table */
+
+
+.dataTableHeadingContent {
+vertical-align:top;
+}
+
+.dataTableRow2 {
+background-color: #F9F0F1;
+}
+.dataTableRowOver2 {
+background-color: #F6F6F6; 
+}
+.dataTableRowSelected2 {
+background-color: #FFF9E9;
+font-weight: bold;
+}
+
+
+.dataTableRow3 {
+}
+.dataTableRowOver3 {
+background-color: #F9F0F1; 
+}
+
+.dataTableContent3 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000;
+vertical-align: top;
+border-top: 1px dashed #cccccc;
+}
+
+
+.dataTableContent2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000;
+vertical-align: top;
+border-bottom: 1px dashed #cccccc;
+}
+
+td.categories_view_data2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000;
+vertical-align: top;
+border-bottom: 1px dashed #cccccc;
+text-align: center;
+}
+
+.dataTableContent_products2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000; 
+vertical-align: top;
+background-color: #FFF2F2;
+} 
+
+
+.dataTableContentRow2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000; 
+vertical-align: top;
+border-bottom: 1px solid;
+border-color: #cccccc;
+}
+
+
+
+
+
+
+
+/*------------------------------------------------------------------------------
+  $Id: stylesheet_stocklist.css,v 1.00 2006/05/21 GERMANN.NEWMEDIA
+
+  XTC-CC - Contribution for XT-Commerce http://www.xt-commerce.com
+  -----------------------------------------------------------------------------
+
+  Copyright (c) 2006 GNM
+  http://www.internetauftritte.ch
+
+  Released under the GNU General Public License
+------------------------------------------------------------------------------*/
+
+
+
+/* data table */
+
+
+.dataTableHeadingContent {
+vertical-align:top;
+}
+
+.dataTableRow2 {
+background-color: #F9F0F1;
+}
+.dataTableRowOver2 {
+background-color: #F6F6F6; 
+}
+.dataTableRowSelected2 {
+background-color: #FFF9E9;
+font-weight: bold;
+}
+
+
+.dataTableRow3 {
+}
+.dataTableRowOver3 {
+background-color: #F9F0F1; 
+}
+
+.dataTableContent3 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000;
+vertical-align: top;
+border-top: 1px dashed #cccccc;
+}
+
+
+.dataTableContent2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000;
+vertical-align: top;
+border-bottom: 1px dashed #cccccc;
+}
+
+td.categories_view_data2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000;
+vertical-align: top;
+border-bottom: 1px dashed #cccccc;
+text-align: center;
+}
+
+.dataTableContent_products2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000; 
+vertical-align: top;
+background-color: #FFF2F2;
+} 
+
+
+.dataTableContentRow2 {
+font-family: Verdana, Arial, sans-serif; 
+font-size: 10px; 
+color: #000000; 
+vertical-align: top;
+border-bottom: 1px solid;
+border-color: #cccccc;
+}
+
+
+
+
+
+
+
