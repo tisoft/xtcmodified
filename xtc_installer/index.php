@@ -69,7 +69,11 @@
 </head>
 
 <body>
+<!-- START - DokuMan - Webbug nach "www.xt-commerce.com" entfernt. //-->
+<!--
 <img src='http://www.xt-commerce.com/_banner/adview.php?what=zone:18&amp;n=a61c088d' border='0' alt=''>
+//-->
+<!-- ENDE - DokuMan - Webbug nach "www.xt-commerce.com" entfernt. //-->
 <table width="800" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="95" colspan="2" ><table width="100%" border="0" cellpadding="0" cellspacing="0">
