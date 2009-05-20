@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Marxe entre Celas",
 DlgTableCellPad		: "Marxe interior",
 DlgTableCaption		: "Título",
 DlgTableSummary		: "Sumario",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Propriedades da Cela",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Arriba",
 DlgCellVerAlignMiddle	: "Medio",
 DlgCellVerAlignBottom	: "Abaixo",
 DlgCellVerAlignBaseline	: "Liña de Base",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Ocupar Filas",
 DlgCellCollSpan		: "Ocupar Columnas",
 DlgCellBackColor	: "Color de Fondo",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Vista Previa",
 // Templates Dialog
 Templates			: "Plantillas",
 DlgTemplatesTitle	: "Plantillas de Contido",
-DlgTemplatesSelMsg	: "Por favor, seleccione a plantilla a abrir no editor<br />(o contido actual perderase):",
+DlgTemplatesSelMsg	: "Por favor, seleccione a plantilla a abrir no editor<br>(o contido actual perderase):",
 DlgTemplatesLoading	: "Cargando listado de plantillas. Por favor, espere...",
 DlgTemplatesNoTpl	: "(Non hai plantillas definidas)",
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING

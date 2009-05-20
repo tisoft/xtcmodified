@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Rūtiņu atstatums",
 DlgTableCellPad		: "Rūtiņu nobīde",
 DlgTableCaption		: "Leģenda",
 DlgTableSummary		: "Anotācija",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Rūtiņas īpašības",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Augša",
 DlgCellVerAlignMiddle	: "Vidus",
 DlgCellVerAlignBottom	: "Apakša",
 DlgCellVerAlignBaseline	: "Pamatrindā",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Rindu pārnese",
 DlgCellCollSpan		: "Kolonnu pārnese",
 DlgCellBackColor	: "Fona krāsa",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Priekšskats",
 // Templates Dialog
 Templates			: "Sagataves",
 DlgTemplatesTitle	: "Satura sagataves",
-DlgTemplatesSelMsg	: "Lūdzu, norādiet sagatavi, ko atvērt editorā<br />(patreizējie dati tiks zaudēti):",
+DlgTemplatesSelMsg	: "Lūdzu, norādiet sagatavi, ko atvērt editorā<br>(patreizējie dati tiks zaudēti):",
 DlgTemplatesLoading	: "Notiek sagatavju saraksta ielāde. Lūdzu, uzgaidiet...",
 DlgTemplatesNoTpl	: "(Nav norādītas sagataves)",
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING

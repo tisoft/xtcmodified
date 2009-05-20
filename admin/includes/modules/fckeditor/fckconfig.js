@@ -1,6 +1,7 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ * Modified for xt:Commerce v3.0.4 SP2.1 by Hetfield - Copyright (c) 2009 by MerZ IT-SerVice http://www.merz-it-service.de
  *
  * == BEGIN LICENSE ==
  *
@@ -42,7 +43,7 @@ FCKConfig.StartupShowBlocks = false ;
 FCKConfig.Debug = false ;
 FCKConfig.AllowQueryStringDebug = true ;
 
-FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/office2003/' ;
+FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/default/' ;
 FCKConfig.SkinEditorCSS = '' ;	// FCKConfig.SkinPath + "|<minified css>" ;
 FCKConfig.SkinDialogCSS = '' ;	// FCKConfig.SkinPath + "|<minified css>" ;
 
@@ -59,7 +60,7 @@ FCKConfig.AutoGrowMax = 400 ;
 // FCKConfig.ProtectedSource.Add( /(<asp:[^\>]+>[\s|\S]*?<\/asp:[^\>]+>)|(<asp:[^\>]+\/>)/gi ) ;	// ASP.Net style tags <asp:control>
 
 FCKConfig.AutoDetectLanguage	= true ;
-FCKConfig.DefaultLanguage		= 'de' ;
+FCKConfig.DefaultLanguage		= 'en' ;
 FCKConfig.ContentLangDirection	= 'ltr' ;
 
 FCKConfig.ProcessHTMLEntities	= true ;
@@ -76,7 +77,7 @@ FCKConfig.FormatSource		= true ;
 FCKConfig.FormatOutput		= true ;
 FCKConfig.FormatIndentator	= '    ' ;
 
-FCKConfig.EMailProtection = 'encode' ; // none | encode | function
+FCKConfig.EMailProtection = 'none' ; // none | encode | function
 FCKConfig.EMailProtectionFunction = 'mt(NAME,DOMAIN,SUBJECT,BODY)' ;
 
 FCKConfig.StartupFocus	= false ;
@@ -160,7 +161,7 @@ FCKConfig.FontSizes		= 'smaller;larger;xx-small;x-small;small;medium;large;x-lar
 FCKConfig.StylesXmlPath		= FCKConfig.EditorPath + 'fckstyles.xml' ;
 FCKConfig.TemplatesXmlPath	= FCKConfig.EditorPath + 'fcktemplates.xml' ;
 
-FCKConfig.SpellChecker			= 'ieSpell' ;	// 'ieSpell' | 'SpellerPages'
+FCKConfig.SpellChecker			= 'WSC' ;	// 'WSC' | 'SpellerPages' | 'ieSpell'
 FCKConfig.IeSpellDownloadUrl	= 'http://www.iespell.com/download.php' ;
 FCKConfig.SpellerPagesServerScript = 'server-scripts/spellchecker.php' ;	// Available extension: .php .cfm .pl
 FCKConfig.FirefoxSpellChecker	= false ;

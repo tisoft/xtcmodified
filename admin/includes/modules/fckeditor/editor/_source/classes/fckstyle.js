@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -787,7 +787,7 @@ FCKStyle.prototype =
 			{
 				if ( !isTag )
 				{
-					value = value.replace( /\n/g, '<br />' ) ;
+					value = value.replace( /\n/g, '<br>' ) ;
 					value = value.replace( /[ \t]{2,}/g,
 							function ( match )
 							{
@@ -889,7 +889,7 @@ FCKStyle.prototype =
 
 		var cursor = newBlock.firstChild ;
 
-		// We are not splitting <br /><br /> at the beginning of the block, so
+		// We are not splitting <br><br> at the beginning of the block, so
 		// we'll start from the second child.
 		cursor = cursor && cursor.nextSibling ;
 
@@ -902,13 +902,13 @@ FCKStyle.prototype =
 			// Stop processing if we are at the last child couple.
 			if ( next && next.nextSibling && cursor.nodeName.IEquals( 'br' ) && next.nodeName.IEquals( 'br' ) )
 			{
-				// Remove the first <br />.
+				// Remove the first <br>.
 				FCKDomTools.RemoveNode( cursor ) ;
 
-				// Move to the node after the second <br />.
+				// Move to the node after the second <br>.
 				cursor = next.nextSibling ;
 
-				// Remove the second <br />.
+				// Remove the second <br>.
 				FCKDomTools.RemoveNode( next ) ;
 
 				// Create the block that will hold the child nodes from now on.
@@ -982,7 +982,7 @@ FCKStyle.prototype =
 				previousPreBlock = newBlock ;
 			}
 			else if ( fromPre )
-				this._CheckAndSplitPre( newBlock ) ;	// Split <br /><br /> in successive <pre>s.
+				this._CheckAndSplitPre( newBlock ) ;	// Split <br><br> in successive <pre>s.
 		}
 
 		// Re-select the original range.

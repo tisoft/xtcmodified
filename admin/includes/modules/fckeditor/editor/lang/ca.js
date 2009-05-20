@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Espaiat de cel·les",
 DlgTableCellPad		: "Encoixinament de cel·les",
 DlgTableCaption		: "Títol",
 DlgTableSummary		: "Resum",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Propietats de la cel·la",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Top",
 DlgCellVerAlignMiddle	: "Middle",
 DlgCellVerAlignBottom	: "Bottom",
 DlgCellVerAlignBaseline	: "Baseline",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Rows Span",
 DlgCellCollSpan		: "Columns Span",
 DlgCellBackColor	: "Color de fons",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Vista prèvia",
 // Templates Dialog
 Templates			: "Plantilles",
 DlgTemplatesTitle	: "Contingut plantilles",
-DlgTemplatesSelMsg	: "Si us plau, seleccioneu la plantilla per obrir a l'editor<br />(el contingut actual no serà enregistrat):",
+DlgTemplatesSelMsg	: "Si us plau, seleccioneu la plantilla per obrir a l'editor<br>(el contingut actual no serà enregistrat):",
 DlgTemplatesLoading	: "Carregant la llista de plantilles. Si us plau, espereu...",
 DlgTemplatesNoTpl	: "(No hi ha plantilles definides)",
 DlgTemplatesReplace	: "Reemplaça el contingut actual",

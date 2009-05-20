@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -71,7 +71,7 @@ FCKXHtml.GetXHTML = function( node, includeNode, format )
 	sXHTML = sXHTML.substr( 7, sXHTML.length - 15 ).Trim() ;
 
 	// According to the doctype set the proper end for self-closing tags
-	// HTML: <br />
+	// HTML: <br>
 	// XHTML: Add a space, like <br/> -> <br />
 	if (FCKConfig.DocType.length > 0 && FCKRegexLib.HtmlDocType.test( FCKConfig.DocType ) )
 		sXHTML = sXHTML.replace( FCKRegexLib.SpaceNoClose, '>');
@@ -185,7 +185,7 @@ FCKXHtml._AppendNode = function( xmlNode, htmlNode )
 	{
 		// Element Node.
 		case 1 :
-			// If we detect a <br /> inside a <pre> in Gecko, turn it into a line break instead.
+			// If we detect a <br> inside a <pre> in Gecko, turn it into a line break instead.
 			// This is a workaround for the Gecko bug here: https://bugzilla.mozilla.org/show_bug.cgi?id=92921
 			if ( FCKBrowserInfo.IsGecko
 					&& htmlNode.tagName.toLowerCase() == 'br'
@@ -296,7 +296,7 @@ FCKXHtml._AppendNode = function( xmlNode, htmlNode )
 // Append an item to the SpecialBlocks array and returns the tag to be used.
 FCKXHtml._AppendSpecialItem = function( item )
 {
-	return '___FCKsi___' + FCKXHtml.SpecialBlocks.AddItem( item ) ;
+	return '___FCKsi___' + ( FCKXHtml.SpecialBlocks.push( item ) - 1 ) ;
 }
 
 FCKXHtml._AppendEntity = function( xmlNode, entity )

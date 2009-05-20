@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -37,8 +37,8 @@ FCK.DataProcessor =
         data = data.replace( /</g, '&lt;' ) ;
         data = data.replace( />/g, '&gt;' ) ;
 
-        // Convert line breaks to <br />.
-        data = data.replace( /(?:\r\n|\n|\r)/g, '<br />' ) ;
+        // Convert line breaks to <br>.
+        data = data.replace( /(?:\r\n|\n|\r)/g, '<br>' ) ;
 
         // [url]
         data = data.replace( /\[url\](.+?)\[\/url]/gi, '<a href="$1">$1</a>' ) ;
@@ -69,7 +69,7 @@ FCK.DataProcessor =
 	{
 		var data = rootNode.innerHTML ;
 
-		// Convert <br /> to line breaks.
+		// Convert <br> to line breaks.
 		data = data.replace( /<br(?=[ \/>]).*?>/gi, '\r\n') ;
 
 		// [url]
@@ -104,7 +104,7 @@ FCK.DataProcessor =
 	}
 } ;
 
-// This Data Processor doesn't support <p>, so let's use <br />.
+// This Data Processor doesn't support <p>, so let's use <br>.
 FCKConfig.EnterMode = 'br' ;
 
 // To avoid pasting invalid markup (which is discarded in any case), let's

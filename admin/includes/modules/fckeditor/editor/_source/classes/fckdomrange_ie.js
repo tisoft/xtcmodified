@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -124,7 +124,7 @@ FCKDomRange.prototype.SelectBookmark = function( bookmark, forceExpand )
 
 		if ( bIsStartMakerAlone )
 		{
-			// To expand empty blocks or line spaces after <br />, we need
+			// To expand empty blocks or line spaces after <br>, we need
 			// instead to have any char, which will be later deleted using the
 			// selection.
 			// \ufeff = Zero Width No-Break Space (U+FEFF). See #1359.

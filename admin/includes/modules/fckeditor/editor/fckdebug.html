@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -68,17 +68,17 @@ function OutputObject( anyObject, color )
 			try
 			{
 				var sVal = anyObject[ prop ] != null ? anyObject[ prop ] + '' : '[null]' ;
-				message += '<b>' + prop + '</b> : ' + sVal.replace(/</g, '&lt;') + '<br />' ;
+				message += '<b>' + prop + '</b> : ' + sVal.replace(/</g, '&lt;') + '<br>' ;
 			}
 			catch (e)
 			{
 				try
 				{
-					message += '<b>' + prop + '</b> : [' + typeof( anyObject[ prop ] ) + ']<br />' ;
+					message += '<b>' + prop + '</b> : [' + typeof( anyObject[ prop ] ) + ']<br>' ;
 				}
 				catch (e)
 				{
-					message += '<b>' + prop + '</b> : [-error-]<br />' ;
+					message += '<b>' + prop + '</b> : [-error-]<br>' ;
 				}
 			}
 		}

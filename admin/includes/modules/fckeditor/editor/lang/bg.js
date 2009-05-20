@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Разстояние между клетките",
 DlgTableCellPad		: "Отстъп на съдържанието в клетките",
 DlgTableCaption		: "Заглавие",
 DlgTableSummary		: "Резюме",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Параметри на клетката",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Горе",
 DlgCellVerAlignMiddle	: "По средата",
 DlgCellVerAlignBottom	: "Долу",
 DlgCellVerAlignBaseline	: "По базовата линия",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "повече от един ред",
 DlgCellCollSpan		: "повече от една колона",
 DlgCellBackColor	: "фонов цвят",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Изглед",
 // Templates Dialog
 Templates			: "Шаблони",
 DlgTemplatesTitle	: "Шаблони",
-DlgTemplatesSelMsg	: "Изберете шаблон <br />(текущото съдържание на редактора ще бъде загубено):",
+DlgTemplatesSelMsg	: "Изберете шаблон <br>(текущото съдържание на редактора ще бъде загубено):",
 DlgTemplatesLoading	: "Зареждане на списъка с шаблоните. Моля изчакайте...",
 DlgTemplatesNoTpl	: "(Няма дефинирани шаблони)",
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING

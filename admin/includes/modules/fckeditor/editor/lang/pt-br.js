@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Espaçamento",
 DlgTableCellPad		: "Enchimento",
 DlgTableCaption		: "Legenda",
 DlgTableSummary		: "Resumo",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Formatar célula",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Superior",
 DlgCellVerAlignMiddle	: "Centralizado",
 DlgCellVerAlignBottom	: "Inferior",
 DlgCellVerAlignBaseline	: "Baseline",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Transpor Linhas",
 DlgCellCollSpan		: "Transpor Colunas",
 DlgCellBackColor	: "Cor do Plano de Fundo",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Visualizar",
 // Templates Dialog
 Templates			: "Modelos de layout",
 DlgTemplatesTitle	: "Modelo de layout do conteúdo",
-DlgTemplatesSelMsg	: "Selecione um modelo de layout para ser aberto no editor<br />(o conteúdo atual será perdido):",
+DlgTemplatesSelMsg	: "Selecione um modelo de layout para ser aberto no editor<br>(o conteúdo atual será perdido):",
 DlgTemplatesLoading	: "Carregando a lista de modelos de layout. Aguarde...",
 DlgTemplatesNoTpl	: "(Não foram definidos modelos de layout)",
 DlgTemplatesReplace	: "Substituir o conteúdo atual",

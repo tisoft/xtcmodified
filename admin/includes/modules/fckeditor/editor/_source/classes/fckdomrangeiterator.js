@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -33,7 +33,7 @@ var FCKDomRangeIterator = function( range )
 	this.Range = range ;
 
 	/**
-	 * Indicates that <br /> elements must be used as paragraph boundaries.
+	 * Indicates that <br> elements must be used as paragraph boundaries.
 	 */
 	this.ForceBrBreak = false ;
 
@@ -114,7 +114,7 @@ FCKDomRangeIterator.prototype =
 
 				if ( boundarySet[ nodeName ] && ( !FCKBrowserInfo.IsIE || currentNode.scopeName == 'HTML' ) )
 				{
-					// <br /> boundaries must be part of the range. It will
+					// <br> boundaries must be part of the range. It will
 					// happen only if ForceBrBreak.
 					if ( nodeName == 'br' )
 						includeNode = true ;
@@ -136,7 +136,7 @@ FCKDomRangeIterator.prototype =
 						// The found boundary must be set as the next one at this
 						// point. (#1717)
 						if ( nodeName != 'br' )
-							this._NextNode = FCKDomTools.GetNextSourceNode( currentNode, true, null, lastNode ) ;
+							this._NextNode = FCKDomTools.GetNextSourceNode( currentNode, true, null, lastNode ) || currentNode ;
 					}
 
 					closeRange = true ;

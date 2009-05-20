@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -168,19 +168,19 @@ FCKEnterKey.prototype.DoBackspace = function()
 	}
 
 	// On IE, it is better for us handle the deletion if the caret is preceeded
-	// by a <br /> (#1383).
+	// by a <br> (#1383).
 	if ( FCKBrowserInfo.IsIE )
 	{
 		var previousElement = FCKDomTools.GetPreviousSourceElement( oRange.StartNode, true ) ;
 
 		if ( previousElement && previousElement.nodeName.toLowerCase() == 'br' )
 		{
-			// Create a range that starts after the <br /> and ends at the
+			// Create a range that starts after the <br> and ends at the
 			// current range position.
 			var testRange = oRange.Clone() ;
 			testRange.SetStart( previousElement, 4 ) ;
 
-			// If that range is empty, we can proceed cleaning that <br /> manually.
+			// If that range is empty, we can proceed cleaning that <br> manually.
 			if ( testRange.CheckIsEmpty() )
 			{
 				previousElement.parentNode.removeChild( previousElement ) ;
@@ -531,7 +531,27 @@ FCKEnterKey.prototype._ExecuteEnterBlock = function( blockTag, range )
 		}
 
 		if ( FCKBrowserInfo.IsGeckoLike )
-			FCKDomTools.ScrollIntoView( eNextBlock || eNewBlock, false ) ;
+		{
+			if ( eNextBlock )
+			{
+				// If we have split the block, adds a temporary span at the
+				// range position and scroll relatively to it.
+				var tmpNode = this.Window.document.createElement( 'span' ) ;
+
+				// We need some content for Safari.
+				tmpNode.innerHTML = '&nbsp;';
+
+				oRange.InsertNode( tmpNode ) ;
+				FCKDomTools.ScrollIntoView( tmpNode, false ) ;
+				oRange.DeleteContents() ;
+			}
+			else
+			{
+				// We may use the above scroll logic for the new block case
+				// too, but it gives some weird result with Opera.
+				FCKDomTools.ScrollIntoView( eNextBlock || eNewBlock, false ) ;
+			}
+		}
 
 		oRange.Select() ;
 	}

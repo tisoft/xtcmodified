@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Απόσταση κελιών",
 DlgTableCellPad		: "Γέμισμα κελιών",
 DlgTableCaption		: "Υπέρτιτλος",
 DlgTableSummary		: "Περίληψη",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Ιδιότητες Κελιού",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Πάνω (Top)",
 DlgCellVerAlignMiddle	: "Μέση (Middle)",
 DlgCellVerAlignBottom	: "Κάτω (Bottom)",
 DlgCellVerAlignBaseline	: "Γραμμή Βάσης (Baseline)",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Αριθμός Γραμμών (Rows Span)",
 DlgCellCollSpan		: "Αριθμός Κολωνών (Columns Span)",
 DlgCellBackColor	: "Χρώμα Υποβάθρου",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Προεπισκόπηση",
 // Templates Dialog
 Templates			: "Πρότυπα",
 DlgTemplatesTitle	: "Πρότυπα περιεχομένου",
-DlgTemplatesSelMsg	: "Παρακαλώ επιλέξτε πρότυπο για εισαγωγή στο πρόγραμμα<br />(τα υπάρχοντα περιεχόμενα θα χαθούν):",
+DlgTemplatesSelMsg	: "Παρακαλώ επιλέξτε πρότυπο για εισαγωγή στο πρόγραμμα<br>(τα υπάρχοντα περιεχόμενα θα χαθούν):",
 DlgTemplatesLoading	: "Φόρτωση καταλόγου προτύπων. Παρακαλώ περιμένετε...",
 DlgTemplatesNoTpl	: "(Δεν έχουν καθοριστεί πρότυπα)",
 DlgTemplatesReplace	: "Αντικατάσταση υπάρχοντων περιεχομένων",

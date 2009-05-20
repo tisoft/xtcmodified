@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -265,7 +265,7 @@ FCKDomRange.prototype =
 	 * Checks if the end boundary of the current range is "visually" (like a
 	 * selection caret) at the end of the block. It means that some things
 	 * could be after the range, like spaces, empty inline elements, or a
-	 * single <br />, but it would still be considered at the end of the block.
+	 * single <br>, but it would still be considered at the end of the block.
 	 */
 	CheckEndOfBlock : function( refreshSelection )
 	{
@@ -317,7 +317,7 @@ FCKDomRange.prototype =
 					if ( FCKListsLib.InlineChildReqElements[ nodeName ] )
 						break ;
 
-					// It is the first <br /> found.
+					// It is the first <br> found.
 					if ( nodeName == 'br' && !hadBr )
 					{
 						hadBr = true ;
@@ -469,13 +469,13 @@ FCKDomRange.prototype =
 		// Also note that the node that we use for "address base" would change during backtracking.
 		var addrStart = this._Range.startContainer ;
 		var addrEnd = this._Range.endContainer ;
-		while ( curStart && addrStart.nodeType == 3 )
+		while ( curStart && curStart.nodeType == 3 && addrStart.nodeType == 3 )
 		{
 			bookmark.Start[0] += curStart.length ;
 			addrStart = curStart ;
 			curStart = curStart.previousSibling ;
 		}
-		while ( curEnd && addrEnd.nodeType == 3 )
+		while ( curEnd && curEnd.nodeType == 3 && addrEnd.nodeType == 3 )
 		{
 			bookmark.End[0] += curEnd.length ;
 			addrEnd = curEnd ;
@@ -739,7 +739,7 @@ FCKDomRange.prototype =
 						oNode = oNode.nextSibling || oNode.parentNode ;
 					}
 
-					// In EnterMode='br', the end <br /> boundary element must
+					// In EnterMode='br', the end <br> boundary element must
 					// be included in the expanded range.
 					if ( oNode && oNode.nodeName.toLowerCase() == 'br' )
 						this._Range.setEndAfter( oNode ) ;
@@ -835,8 +835,8 @@ FCKDomRange.prototype =
 
 					this.MoveToPosition( eStartBlock, 4 ) ;
 
-					// In Gecko, the last child node must be a bogus <br />.
-					// Note: bogus <br /> added under <ul> or <ol> would cause lists to be incorrectly rendered.
+					// In Gecko, the last child node must be a bogus <br>.
+					// Note: bogus <br> added under <ul> or <ol> would cause lists to be incorrectly rendered.
 					if ( FCKBrowserInfo.IsGecko &&
 							! eStartBlock.nodeName.IEquals( ['ul', 'ol'] ) )
 						FCKTools.AppendBogusBr( eStartBlock ) ;

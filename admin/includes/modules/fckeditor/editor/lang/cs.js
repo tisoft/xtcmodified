@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Vzdálenost buněk",
 DlgTableCellPad		: "Odsazení obsahu",
 DlgTableCaption		: "Popis",
 DlgTableSummary		: "Souhrn",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Vlastnosti buňky",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Nahoru",
 DlgCellVerAlignMiddle	: "Doprostřed",
 DlgCellVerAlignBottom	: "Dolů",
 DlgCellVerAlignBaseline	: "Na účaří",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Sloučené řádky",
 DlgCellCollSpan		: "Sloučené sloupce",
 DlgCellBackColor	: "Barva pozadí",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Náhled",
 // Templates Dialog
 Templates			: "Šablony",
 DlgTemplatesTitle	: "Šablony obsahu",
-DlgTemplatesSelMsg	: "Prosím zvolte šablonu pro otevření v editoru<br />(aktuální obsah editoru bude ztracen):",
+DlgTemplatesSelMsg	: "Prosím zvolte šablonu pro otevření v editoru<br>(aktuální obsah editoru bude ztracen):",
 DlgTemplatesLoading	: "Nahrávám přeheld šablon. Prosím čekejte...",
 DlgTemplatesNoTpl	: "(Není definována žádná šablona)",
 DlgTemplatesReplace	: "Nahradit aktuální obsah",

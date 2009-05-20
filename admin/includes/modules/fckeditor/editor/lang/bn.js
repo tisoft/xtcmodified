@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "সেল স্পেস",
 DlgTableCellPad		: "সেল প্যাডিং",
 DlgTableCaption		: "শীর্ষক",
 DlgTableSummary		: "সারাংশ",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "সেল প্রোপার্টি",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "উপর",
 DlgCellVerAlignMiddle	: "মধ্য",
 DlgCellVerAlignBottom	: "নীচে",
 DlgCellVerAlignBaseline	: "মূলরেখা",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "রো স্প্যান",
 DlgCellCollSpan		: "কলাম স্প্যান",
 DlgCellBackColor	: "ব্যাকগ্রাউন্ড রং",
@@ -506,7 +514,7 @@ DlgDocPreview		: "প্রীভিউ",
 // Templates Dialog
 Templates			: "টেমপ্লেট",
 DlgTemplatesTitle	: "কনটেন্ট টেমপ্লেট",
-DlgTemplatesSelMsg	: "অনুগ্রহ করে এডিটরে ওপেন করার জন্য টেমপ্লেট বাছাই করুন<br />(আসল কনটেন্ট হারিয়ে যাবে):",
+DlgTemplatesSelMsg	: "অনুগ্রহ করে এডিটরে ওপেন করার জন্য টেমপ্লেট বাছাই করুন<br>(আসল কনটেন্ট হারিয়ে যাবে):",
 DlgTemplatesLoading	: "টেমপ্লেট লিস্ট হারিয়ে যাবে। অনুগ্রহ করে অপেক্ষা করুন...",
 DlgTemplatesNoTpl	: "(কোন টেমপ্লেট ডিফাইন করা নেই)",
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING

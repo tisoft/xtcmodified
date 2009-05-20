@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Tarpas tarp langelių",
 DlgTableCellPad		: "Trapas nuo langelio rėmo iki teksto",
 DlgTableCaption		: "Antraštė",
 DlgTableSummary		: "Santrauka",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Langelio savybės",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Viršų",
 DlgCellVerAlignMiddle	: "Vidurį",
 DlgCellVerAlignBottom	: "Apačią",
 DlgCellVerAlignBaseline	: "Apatinę liniją",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Eilučių apjungimas",
 DlgCellCollSpan		: "Stulpelių apjungimas",
 DlgCellBackColor	: "Fono spalva",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Peržiūra",
 // Templates Dialog
 Templates			: "Šablonai",
 DlgTemplatesTitle	: "Turinio šablonai",
-DlgTemplatesSelMsg	: "Pasirinkite norimą šabloną<br />(<b>Dėmesio!</b> esamas turinys bus prarastas):",
+DlgTemplatesSelMsg	: "Pasirinkite norimą šabloną<br>(<b>Dėmesio!</b> esamas turinys bus prarastas):",
 DlgTemplatesLoading	: "Įkeliamas šablonų sąrašas. Prašome palaukti...",
 DlgTemplatesNoTpl	: "(Šablonų sąrašas tuščias)",
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING

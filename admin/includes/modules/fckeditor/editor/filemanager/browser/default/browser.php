@@ -3,7 +3,8 @@
    "http://www.w3.org/TR/html4/frameset.dtd">
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ * Modified for xt:Commerce v3.0.4 SP2.1 by Hetfield - Copyright (c) 2009 by MerZ IT-SerVice http://www.merz-it-service.de
  *
  * == BEGIN LICENSE ==
  *

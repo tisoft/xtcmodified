@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Esp. e/células",
 DlgTableCellPad		: "Esp. interior",
 DlgTableCaption		: "Título",
 DlgTableSummary		: "Sumário",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Propriedades da Célula",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Topo",
 DlgCellVerAlignMiddle	: "Médio",
 DlgCellVerAlignBottom	: "Fundi",
 DlgCellVerAlignBaseline	: "Linha de Base",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Unir Linhas",
 DlgCellCollSpan		: "Unir Colunas",
 DlgCellBackColor	: "Cor do Fundo",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Pré-visualizar",
 // Templates Dialog
 Templates			: "Modelos",
 DlgTemplatesTitle	: "Modelo de Conteúdo",
-DlgTemplatesSelMsg	: "Por favor, seleccione o modelo a abrir no editor<br />(o conteúdo actual será perdido):",
+DlgTemplatesSelMsg	: "Por favor, seleccione o modelo a abrir no editor<br>(o conteúdo actual será perdido):",
 DlgTemplatesLoading	: "A carregar a lista de modelos. Aguarde por favor...",
 DlgTemplatesNoTpl	: "(Sem modelos definidos)",
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING

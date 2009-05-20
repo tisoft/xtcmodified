@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -370,8 +370,8 @@ FCKListCommand.prototype =
 		}
 
 		var newList = FCKDomTools.ArrayToList( listArray, markerObj ) ;
-		// If groupObj.root is the last element in its parent, or its nextSibling is a <br />, then we should
-		// not add a <br /> after the final item. So, check for the cases and trim the <br />.
+		// If groupObj.root is the last element in its parent, or its nextSibling is a <br>, then we should
+		// not add a <br> after the final item. So, check for the cases and trim the <br>.
 		if ( groupObj.root.nextSibling == null || groupObj.root.nextSibling.nodeName.IEquals( 'br' ) )
 		{
 			if ( newList.listNode.lastChild.nodeName.IEquals( 'br' ) )

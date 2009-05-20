@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -136,7 +136,7 @@ FCK.InitializeBehaviors = function( dontReturn )
 
 	this.EditorDocument.attachEvent("ondblclick", Doc_OnDblClick ) ;
 
-	this.EditorDocument.attachEvent("onbeforedeactivate", function(){ FCKSelection.Save( true ) ; } ) ;
+	this.EditorDocument.attachEvent("onbeforedeactivate", function(){ FCKSelection.Save() ; } ) ;
 
 	// Catch cursor selection changes.
 	this.EditorDocument.attachEvent("onselectionchange", Doc_OnSelectionChange ) ;
@@ -419,7 +419,7 @@ FCK.CreateLink = function( url, noUndo )
 				oLink.href = url ;
 				oLink.innerHTML = sInnerHtml ;		// Restore the innerHTML.
 
-				// If the last child is a <br /> move it outside the link or it
+				// If the last child is a <br> move it outside the link or it
 				// will be too easy to select this link again #388.
 				var oLastChild = oLink.lastChild ;
 				if ( oLastChild && oLastChild.nodeName == 'BR' )

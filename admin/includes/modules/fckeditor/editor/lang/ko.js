@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "셀 간격",
 DlgTableCellPad		: "셀 여백",
 DlgTableCaption		: "캡션",
 DlgTableSummary		: "Summary",	//MISSING
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "셀 설정",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "위",
 DlgCellVerAlignMiddle	: "중간",
 DlgCellVerAlignBottom	: "아래",
 DlgCellVerAlignBaseline	: "기준선",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "세로 합치기",
 DlgCellCollSpan		: "가로 합치기",
 DlgCellBackColor	: "배경 색상",
@@ -506,7 +514,7 @@ DlgDocPreview		: "미리보기",
 // Templates Dialog
 Templates			: "템플릿",
 DlgTemplatesTitle	: "내용 템플릿",
-DlgTemplatesSelMsg	: "에디터에서 사용할 템플릿을 선택하십시요.<br />(지금까지 작성된 내용은 사라집니다.):",
+DlgTemplatesSelMsg	: "에디터에서 사용할 템플릿을 선택하십시요.<br>(지금까지 작성된 내용은 사라집니다.):",
 DlgTemplatesLoading	: "템플릿 목록을 불러오는중입니다. 잠시만 기다려주십시요.",
 DlgTemplatesNoTpl	: "(템플릿이 없습니다.)",
 DlgTemplatesReplace	: "현재 내용 바꾸기",

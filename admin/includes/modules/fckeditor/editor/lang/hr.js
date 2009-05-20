@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "Prostornost ćelija",
 DlgTableCellPad		: "Razmak ćelija",
 DlgTableCaption		: "Naslov",
 DlgTableSummary		: "Sažetak",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Svojstva ćelije",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "Gornje",
 DlgCellVerAlignMiddle	: "Srednišnje",
 DlgCellVerAlignBottom	: "Donje",
 DlgCellVerAlignBaseline	: "Bazno",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Spajanje redova",
 DlgCellCollSpan		: "Spajanje kolona",
 DlgCellBackColor	: "Boja pozadine",
@@ -506,7 +514,7 @@ DlgDocPreview		: "Pregledaj",
 // Templates Dialog
 Templates			: "Predlošci",
 DlgTemplatesTitle	: "Predlošci sadržaja",
-DlgTemplatesSelMsg	: "Molimo odaberite predložak koji želite otvoriti<br />(stvarni sadržaj će biti izgubljen):",
+DlgTemplatesSelMsg	: "Molimo odaberite predložak koji želite otvoriti<br>(stvarni sadržaj će biti izgubljen):",
 DlgTemplatesLoading	: "Učitavam listu predložaka. Molimo pričekajte...",
 DlgTemplatesNoTpl	: "(Nema definiranih predložaka)",
 DlgTemplatesReplace	: "Zamijeni trenutne sadržaje",

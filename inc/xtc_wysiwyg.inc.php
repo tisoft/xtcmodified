@@ -7,7 +7,7 @@
     
     H.H.G. group
     Hasan H. Gürsoy
-	Updated for FCKEditor 2.6 by Hetfield
+	Updated for FCKEditor 2.6.3 by Hetfield
 	 
     Copyright (c) 2005 XT-Commerce & H.H.G. group
 	Copyright (c) 2008 Hetfield

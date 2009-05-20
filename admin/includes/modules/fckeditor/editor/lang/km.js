@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,6 +308,11 @@ DlgTableCellSpace	: "គំលាតសែល",
 DlgTableCellPad		: "គែមសែល",
 DlgTableCaption		: "ចំណងជើង",
 DlgTableSummary		: "សេចក្តីសង្ខេប",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "ការកំណត់ សែល",
@@ -330,6 +335,9 @@ DlgCellVerAlignTop	: "ខាងលើ",
 DlgCellVerAlignMiddle	: "កណ្តាល",
 DlgCellVerAlignBottom	: "ខាងក្រោម",
 DlgCellVerAlignBaseline	: "បន្ទាត់ជាមូលដ្ឋាន",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "បញ្ជូលជួរផ្តេក",
 DlgCellCollSpan		: "បញ្ជូលជួរឈរ",
 DlgCellBackColor	: "ពណ៌ផ្នែកខាងក្រោម",
@@ -506,7 +514,7 @@ DlgDocPreview		: "មើលសាកល្បង",
 // Templates Dialog
 Templates			: "ឯកសារគំរូ",
 DlgTemplatesTitle	: "ឯកសារគំរូ របស់អត្ថន័យ",
-DlgTemplatesSelMsg	: "សូមជ្រើសរើសឯកសារគំរូ ដើម្បីបើកនៅក្នុងកម្មវិធីតាក់តែងអត្ថបទ<br />(អត្ថបទនឹងបាត់បង់):",
+DlgTemplatesSelMsg	: "សូមជ្រើសរើសឯកសារគំរូ ដើម្បីបើកនៅក្នុងកម្មវិធីតាក់តែងអត្ថបទ<br>(អត្ថបទនឹងបាត់បង់):",
 DlgTemplatesLoading	: "កំពុងអានបញ្ជីឯកសារគំរូ ។ សូមរងចាំ...",
 DlgTemplatesNoTpl	: "(ពុំមានឯកសារគំរូត្រូវបានកំណត់)",
 DlgTemplatesReplace	: "Replace actual contents",	//MISSING
