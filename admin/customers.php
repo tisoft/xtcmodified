@@ -27,10 +27,10 @@ require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC.'xtc_js_lang.php');
 
-// JUNG GESTALTEN - 27.11.2008 KUNDENUMSÄTZE BOF
+// BOF - JUNG GESTALTEN - 27.11.2008 - KUNDENUMSÄTZE
 require(DIR_WS_CLASSES . 'currencies.php');
 $currencies = new currencies();
-// JUNG GESTALTEN - 27.11.2008 KUNDENUMSÄTZE EOF
+// EOF - JUNG GESTALTEN - 27.11.2008 - KUNDENUMSÄTZE
 
 $customers_statuses_array = xtc_get_customers_statuses();
 
@@ -66,7 +66,7 @@ if ($_GET['action']) {
 			$stat_query = xtc_db_query("select * from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$customers1[customers_status]."' ");
 			$stat = xtc_db_fetch_array($stat_query);
 
-      //BUGFIX: first and last name were not saved when creating manual orders
+      // BOF - DokuMan - 2009-05-22 - BUGFIX: first and last name were not saved when creating manual orders
 			//$sql_data_array = array ('customers_id' => xtc_db_prepare_input($customers['customers_id']), 'customers_cid' => xtc_db_prepare_input($customers1['customers_cid']), 'customers_vat_id' => xtc_db_prepare_input($customers1['customers_vat_id']), 'customers_status' => xtc_db_prepare_input($customers1['customers_status']), 'customers_status_name' => xtc_db_prepare_input($stat['customers_status_name']), 'customers_status_image' => xtc_db_prepare_input($stat['customers_status_image']), 'customers_status_discount' => xtc_db_prepare_input($stat['customers_status_discount']), 'customers_name' => xtc_db_prepare_input($customers['entry_firstname'].' '.$customers['entry_lastname']), 'customers_company' => xtc_db_prepare_input($customers['entry_company']), 'customers_street_address' => xtc_db_prepare_input($customers['entry_street_address']), 'customers_suburb' => xtc_db_prepare_input($customers['entry_suburb']), 'customers_city' => xtc_db_prepare_input($customers['entry_city']), 'customers_postcode' => xtc_db_prepare_input($customers['entry_postcode']), 'customers_state' => xtc_db_prepare_input($customers['entry_state']), 'customers_country' => xtc_db_prepare_input($country['countries_name']), 'customers_telephone' => xtc_db_prepare_input($customers1['customers_telephone']), 'customers_email_address' => xtc_db_prepare_input($customers1['customers_email_address']), 'customers_address_format_id' => '5', 'customers_ip' => '0', 'delivery_name' => xtc_db_prepare_input($customers['entry_firstname'].' '.$customers['entry_lastname']), 'delivery_company' => xtc_db_prepare_input($customers['entry_company']), 'delivery_street_address' => xtc_db_prepare_input($customers['entry_street_address']), 'delivery_suburb' => xtc_db_prepare_input($customers['entry_suburb']), 'delivery_city' => xtc_db_prepare_input($customers['entry_city']), 'delivery_postcode' => xtc_db_prepare_input($customers['entry_postcode']), 'delivery_state' => xtc_db_prepare_input($customers['entry_state']), 'delivery_country' => xtc_db_prepare_input($country['countries_name']), 'delivery_address_format_id' => '5', 'billing_name' => xtc_db_prepare_input($customers['entry_firstname'].' '.$customers['entry_lastname']), 'billing_company' => xtc_db_prepare_input($customers['entry_company']), 'billing_street_address' => xtc_db_prepare_input($customers['entry_street_address']), 'billing_suburb' => xtc_db_prepare_input($customers['entry_suburb']), 'billing_city' => xtc_db_prepare_input($customers['entry_city']), 'billing_postcode' => xtc_db_prepare_input($customers['entry_postcode']), 'billing_state' => xtc_db_prepare_input($customers['entry_state']), 'billing_country' => xtc_db_prepare_input($country['countries_name']), 'billing_address_format_id' => '5', 'payment_method' => 'cod', 'cc_type' => '', 'cc_owner' => '', 'cc_number' => '', 'cc_expires' => '', 'cc_start' => '', 'cc_issue' => '', 'cc_cvv' => '', 'comments' => '', 'last_modified' => 'now()', 'date_purchased' => 'now()', 'orders_status' => '1', 'orders_date_finished' => '', 'currency' => 'EUR', 'currency_value' => '1.0000', 'account_type' => '0', 'payment_class' => 'cod', 'shipping_method' => 'Pauschale Versandkosten', 'shipping_class' => 'flat_flat', 'customers_ip' => '', 'language' => 'german');
 			
 			$sql_data_array = array ('customers_id' => xtc_db_prepare_input($customers['customers_id']),
@@ -128,7 +128,7 @@ if ($_GET['action']) {
                               'shipping_class' => 'flat_flat',
                               'customers_ip' => '',
                               'language' => 'german');
-      //BUGFIX: first and last name were not saved when creating manual orders
+      // EOF - DokuMan - 2009-05-22 - BUGFIX: first and last name were not saved when creating manual orders
 
 			$insert_sql_data = array ('currency_value' => '1.0000');
 			$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
@@ -342,14 +342,14 @@ if ($_GET['action']) {
 			}
 			*/
 			
-			//Bugfix #0000218 - force to enter password when editing users
+			// BOF - DokuMan - 2009-05-22 - Bugfix #0000218 - force to enter password when editing users
 			if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH && $password != '') {
 				$error = true;
 				$entry_password_error = true;
 			} else {
 				$entry_password_error = false;
 			}
-			//Bugfix #0000218
+			// EOF - DokuMan - 2009-05-22 - Bugfix #0000218 - force to enter password when editing users
 				
 			$check_email = xtc_db_query("select customers_email_address from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($customers_email_address)."' and customers_id <> '".xtc_db_input($customers_id)."'");
 			if (xtc_db_num_rows($check_email)) {
@@ -1124,10 +1124,10 @@ if ($error == true) {
 		$info_query = xtc_db_query("select customers_info_date_account_created as date_account_created, customers_info_date_account_last_modified as date_account_last_modified, customers_info_date_of_last_logon as date_last_logon, customers_info_number_of_logons as number_of_logons from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".$customers['customers_id']."'");
 		$info = xtc_db_fetch_array($info_query);
 		
-		// JUNG GESTALTEN - 27.11.2008 KUNDENUMSÄTZE BOF
+		// BOF - JUNG GESTALTEN - 27.11.2008 - KUNDENUMSÄTZE
 		$umsatz_query = xtc_db_query("select sum(op.final_price) as ordersum from " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS . " o where '".$customers['customers_id']."' = o.customers_id and o.orders_id = op.orders_id");
 		$umsatz = xtc_db_fetch_array($umsatz_query);
-		// JUNG GESTALTEN - 27.11.2008 KUNDENUMSÄTZE EOF
+		// EOF - JUNG GESTALTEN - 27.11.2008 - KUNDENUMSÄTZE
 		
 		
 
