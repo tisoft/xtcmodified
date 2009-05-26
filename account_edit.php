@@ -80,9 +80,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
 	$customers_status = $vatID->vat_info['status'];
 	$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
-	$error = $vatID->vat_info['error'];
-
-	if($error==1){
+	
+	// BOF - DokuMan - 2009-05-26 - Code optimization
+	//$error = $vatID->vat_info['error'];
+	//if($error==1){
+	if($vatID->vat_info['error']==1){
+	// BOF - DokuMan - 2009-05-26 - Code optimization
+	
 	$messageStack->add('account_edit', ENTRY_VAT_ERROR);
 	$error = true;
   }
@@ -120,11 +124,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if ($error == false) {
 		$sql_data_array = array ('customers_vat_id' => $vat, 'customers_vat_id_status' => $customers_vat_id_status, 'customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_email_address' => $email_address, 'customers_telephone' => $telephone, 'customers_fax' => $fax,'customers_last_modified' => 'now()');
 
-		if (ACCOUNT_GENDER == 'true')
+		if (ACCOUNT_GENDER == 'true') {
 			$sql_data_array['customers_gender'] = $gender;
-		if (ACCOUNT_DOB == 'true')
+		}
+		if (ACCOUNT_DOB == 'true') {
 			$sql_data_array['customers_dob'] = xtc_date_raw($dob);
-
+		}
+		
 		xtc_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '".(int) $_SESSION['customer_id']."'");
 
 		xtc_db_query("update ".TABLE_CUSTOMERS_INFO." set customers_info_date_account_last_modified = now() where customers_info_id = '".(int) $_SESSION['customer_id']."'");
@@ -186,8 +192,11 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_edit.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+
+if (!defined(RM)) {
 	$smarty->load_filter('output', 'note');
+}
+
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

@@ -200,6 +200,8 @@ define('ICON_CART', 'In den Warenkorb');
 define('ICON_SUCCESS', 'Erfolg');
 define('ICON_WARNING', 'Warnung');
 
+define('TEXT_PRINT', 'drucken'); //BOF - DokuMan - 2009-05-26 - Added description for 'account_history_info.php'
+
 /*
  * 
  *  GREETINGS

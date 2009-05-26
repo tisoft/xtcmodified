@@ -52,7 +52,12 @@ if (($orders_total = xtc_count_customer_orders()) > 0) {
 			$order_type = TEXT_ORDER_BILLED_TO;
 			$order_name = $history['billing_name'];
 		}
-		$module_content[] = array ('ORDER_ID' => $history['orders_id'], 'ORDER_STATUS' => $history['orders_status_name'], 'ORDER_DATE' => xtc_date_long($history['date_purchased']), 'ORDER_PRODUCTS' => $products['count'], 'ORDER_TOTAL' => strip_tags($history['order_total']), 'ORDER_BUTTON' => '<a href="'.xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'page='.(empty($_GET['page']) ? "1" : (int)$_GET['page']) .'&order_id='.$history['orders_id'], 'SSL').'">'.xtc_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW).'</a>');
+		$module_content[] = array ('ORDER_ID' => $history['orders_id'],
+                               'ORDER_STATUS' => $history['orders_status_name'],
+                               'ORDER_DATE' => xtc_date_long($history['date_purchased']),
+                               'ORDER_PRODUCTS' => $products['count'],
+                               'ORDER_TOTAL' => strip_tags($history['order_total']),
+                               'ORDER_BUTTON' => '<a href="'.xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'page='.(empty($_GET['page']) ? "1" : (int)$_GET['page']) .'&order_id='.$history['orders_id'], 'SSL').'">'.xtc_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW).'</a>');
 
 	}
 }
@@ -73,8 +78,11 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_history.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+
+if (!defined(RM)) {
 	$smarty->load_filter('output', 'note');
+}
+
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>
