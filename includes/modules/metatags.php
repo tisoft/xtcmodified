@@ -11,7 +11,9 @@
 //	(c) 2003 xt:Commerce (metatags.php, v.1140 2005/08/10); www.xt-commerce.de
 //	(c) 2003 nextcommerce (metatags.php, v1.7 2003/08/14); www.nextcommerce.org
 // ---------------------------------------------------------------------------------------
-//	Version 0.9d / Security Fix 25. November 2008 / Fix für Shops ohne ShopStat
+//	Version 0.9f / 21. Mai 2009
+//  - 	Auf der Shop-Startseite werden die Standard-Meta-Angaben gezeigt
+//  - 	BugFix bei Hersteller-Auswahl
 // ---------------------------------------------------------------------------------------
 //	Inspired by "Dynamic Meta" - Ein WordPress-PlugIn von Michael Schwarz
 //	http://www.php-vision.de/plugins-scripte/dynamicmeta-wpplugin.php
@@ -27,9 +29,9 @@
 // ---------------------------------------------------------------------------------------
 //	Konfiguration ... 
 // ---------------------------------------------------------------------------------------
-	global $metaStopWords, $metaGoWords, $metaMinLength, $metaMaxLength;
-		$metaStopWords 	=	('aber,alle,alles,als,auch,auf,aus,bei,beim,beinahe,bin,bis,ist,dabei,dadurch,daher,dank,darum,danach,das,daß,dass,dein,deine,dem,den,der,des,dessen,dadurch,deshalb,die,dies,diese,dieser,diesen,diesem,dieses,doch,dort,durch,eher,ein,eine,einem,einen,einer,eines,einige,einigen,einiges,eigene,eigenes,eigener,endlich,euer,eure,etwas,fast,findet,für,gab,gibt,geben,hatte,hatten,hattest,hattet,heute,hier,hinter,ich,ihr,ihre,ihn,ihm,im,immer,in,ist,ja,jede,jedem,jeden,jeder,jedes,jener,jenes,jetzt,kann,kannst,kein,können,könnt,machen,man,mein,meine,mehr,mit,muß,mußt,musst,müssen,müßt,nach,nachdem,neben,nein,nicht,nichts,noch,nun,nur,oder,statt,anstatt,seid,sein,seine,seiner,sich,sicher,sie,sind,soll,sollen,sollst,sollt,sonst,soweit,sowie,und,uns,unser,unsere,unserem,unseren,unter,vom,von,vor,wann,warum,was,war,weiter,weitere,wenn,wer,werde,widmen,widmet,viel,viele,vieles,weil,werden,werdet,weshalb,wie,wieder,wieso,wir,wird,wirst,wohl,woher,wohin,wurdezum,zur,über');
-		$metaGoWords 	=	('gola,adidas'); // Hier rein, was nicht gefiltert werden soll
+	global $metaStopWords, $metaGoWords, $metaMinLength, $metaMaxLength, $metaDesLength;
+		$metaStopWords 	=	('aber,alle,alles,als,auch,auf,aus,bei,beim,beinahe,bin,bis,ist,dabei,dadurch,daher,dank,darum,danach,das,daß,dass,dein,deine,dem,den,der,des,dessen,dadurch,deshalb,die,dies,diese,dieser,diesen,diesem,dieses,doch,dort,durch,eher,ein,eine,einem,einen,einer,eines,einige,einigen,einiges,eigene,eigenes,eigener,endlich,euer,eure,etwas,fast,findet,für,gab,gibt,geben,hatte,hatten,hattest,hattet,heute,hier,hinter,ich,ihr,ihre,ihn,ihm,im,immer,in,ist,ja,jede,jedem,jeden,jeder,jedes,jener,jenes,jetzt,kann,kannst,kein,können,könnt,machen,man,mein,meine,mehr,mit,muß,mußt,musst,müssen,müßt,nach,nachdem,neben,nein,nicht,nichts,noch,nun,nur,oder,statt,anstatt,seid,sein,seine,seiner,sich,sicher,sie,sind,soll,sollen,sollst,sollt,sonst,soweit,sowie,und,uns,unser,unsere,unserem,unseren,unter,vom,von,vor,wann,warum,was,war,weiter,weitere,wenn,wer,werde,widmen,widmet,viel,viele,vieles,weil,werden,werdet,weshalb,wie,wieder,wieso,wir,wird,wirst,wohl,woher,wohin,wurde,zum,zur,über');
+		$metaGoWords 	=	('gola,adidas,nike,puma,bench,vans,friis,co,nümph'); // Hier rein, was nicht gefiltert werden soll
 		$metaMinLength 	=	9;		// Mindestlänge eines Keywords
 		$metaMaxLength 	=	18;		// Maximallänge eines Keywords
 		$metaDesLength 	=	364;	// maximale Länge der "description" (in Buchstaben)
@@ -89,7 +91,7 @@
 		$StopWords 	=	WordArray($metaStopWords);
 		$KeyWords 	= 	array_diff($KeyWords,$StopWords);
 		$KeyWords 	= 	array_filter($KeyWords,filterKeyWordArray);
-		natsort($KeyWords);
+		//natsort($KeyWords); // <-- keine alphabetische Sortierung
 		return $KeyWords;
 	}
 // ---------------------------------------------------------------------------------------
@@ -112,10 +114,10 @@
 // ---------------------------------------------------------------------------------------
 //	GoWords: Werden grundsätzlich nicht gefiltert
 //	Sofern angelegt, werden (zusätzlich zu den Einstellungen oben) die "normalen"
-//	Meta-Angaben genommen. 
+//	Meta-Angaben genommen (gefixed - 17. Dezember 2008)
 // ---------------------------------------------------------------------------------------
 	function getGoWords(){
-		global $metaGoWords;
+		global $metaGoWords, $categories_meta, $product;
 		$GoWords = $metaGoWords.' '.META_KEYWORDS;
 		if(!empty($categories_meta['categories_meta_keywords'])) {
 			$GoWords .= ' '.$categories_meta['categories_meta_keywords'];
@@ -164,24 +166,38 @@
 // ---------------------------------------------------------------------------------------
 	if(basename($_SERVER['SCRIPT_NAME']) == FILENAME_PRODUCT_INFO) { 
 		if($product->isProduct()) { 
+			
+			// KeyWords ...
 			if(!empty($product->data['products_meta_keywords'])) { 
-				$meta_keyw = metaKeyWords($product->data['products_meta_keywords']); 
+				//$meta_keyw = metaKeyWords($product->data['products_meta_keywords']); 
+				$meta_keyw = $product->data['products_meta_keywords']; // <-- 1:1 übernehmen! 
 			} else { 
 				$meta_keyw = metaKeyWords($product->data['products_name'].' '.$product->data['products_description']);
-			} 
+			}
+			
+			// Description ...
 			if(!empty($product->data['products_meta_description'])) { 
-				$meta_descr = $product->data['products_meta_description']; 
+				$meta_descr = $product->data['products_meta_description']; // <-- 1:1 übernehmen!
+				$metaDesLength = false; // <-- dann auch nicht kürzen!
 			} else { 
-				$meta_descr = $product->data['products_name'].': '. 
-				$product->data['products_description']; 
+				$meta_descr = $product->data['products_name'].': '.$product->data['products_description']; 
+			}
+			
+			// Neu: Title - In den vorigen Versionen wurden vorhandene MetaTitles bei Produkten ignoriert
+			// und immer ein automatischer gebildet. Das passiert jetzt nur noch, wenn kein Title eingegeben wurde
+			if(!empty($product->data['products_meta_title'])) {
+				$meta_title = $product->data['products_meta_title']; // <-- 1:1 übernehmen!
+			} else {
+				$meta_title = metaTitle($product->data['products_name'],$product->data['manufacturers_name'],TITLE);
 			} 
-			$meta_title = metaTitle($product->data['products_name'],$product->data['manufacturers_name'],TITLE); 
 		} 
 	} 
 // ---------------------------------------------------------------------------------------
 //	Daten holen: Kategorie
 // ---------------------------------------------------------------------------------------
 	elseif(basename($_SERVER['SCRIPT_NAME']) == FILENAME_DEFAULT) { 
+		
+		// Sind wir in einer Kategorie?
 		if(!empty($current_category_id)) {
 			$categories_meta_query = xtDBquery("
 				select 	categories_meta_keywords, 
@@ -198,16 +214,18 @@
 		
 		$manu_id = $manu_name = false;
 
+		// Nachsehen, ob ein Hersteller gewählt ist
 		if(!empty($_GET['manu'])) {
 			$manu_id = $_GET['manu'];
 		}
 		if(!empty($_GET['manufacturers_id'])) {
 			$manu_id = $_GET['manufacturers_id'];
 		}
-		if(!empty($_GET['filter_id'])) {
+		if(!empty($_GET['filter_id']) && !$manu_id) {
 			$manu_id = $_GET['filter_id'];
 		}
 
+		// ggf. Herstellernamen herausfinden ...
 		if($manu_id) {
 			$manu_name_query = xtDBquery("
 				select 	manufacturers_name 
@@ -219,18 +237,22 @@
 		
 		// KeyWords ...
 		if(!empty($categories_meta['categories_meta_keywords'])) { 
-			$meta_keyw = metaKeyWords($categories_meta['categories_meta_keywords']); 
+			//$meta_keyw = metaKeyWords($categories_meta['categories_meta_keywords']);
+			$meta_keyw = $categories_meta['categories_meta_keywords']; // <-- 1:1 übernehmen!
 		} else{ 
 			$meta_keyw = metaKeyWords($categories_meta['categories_name'].' '.$manu_name.' '.$categories_meta['categories_description']);
 		} 
 		
 		// Description ...
 		if(!empty($categories_meta['categories_meta_description'])) { 
-			$meta_descr = $categories_meta['categories_meta_description']; 
+			$meta_descr = $categories_meta['categories_meta_description']; // <-- 1:1 übernehmen!
+			$metaDesLength = false; // <-- dann auch nicht kürzen!
 		} else{ 
-			$meta_descr = TITLE.' - '.$categories_meta['categories_name'];
+			if(!empty($categories_meta['categories_name'])) {
+				$meta_descr = TITLE.' - '.$categories_meta['categories_name'];
+			}
 			if(!empty($manu_name)) {
-				$meta_descr .= ' von: '.$manu_name;
+				$meta_descr .= ' Produkte von: '.$manu_name;
 			} 
 			if(!empty($categories_meta['categories_description'])) {
 				$meta_descr .= ' - '.$categories_meta['categories_description'];
@@ -239,7 +261,8 @@
 		
 		// Title ...
 		if(!empty($categories_meta['categories_meta_title'])) { 
-			$meta_title = metaTitle($categories_meta['categories_meta_title'],TITLE); 
+			//$meta_title = metaTitle($categories_meta['categories_meta_title'],TITLE);
+			$meta_title = $categories_meta['categories_meta_title']; // <-- 1:1 übernehmen!
 		} else{ 
 			$meta_title = metaTitle($categories_meta['categories_name'],$manu_name,TITLE); 
 		} 
@@ -265,13 +288,24 @@
 		}
 	}
 // ---------------------------------------------------------------------------------------
+//	Title für: Specials / Products New
+// ---------------------------------------------------------------------------------------
+	elseif(basename($_SERVER['SCRIPT_NAME']) == FILENAME_SPECIALS) {
+		$meta_title = metaTitle(NAVBAR_TITLE_SPECIALS,TITLE);
+	} 
+	elseif(basename($_SERVER['SCRIPT_NAME']) == FILENAME_PRODUCTS_NEW) {
+		$meta_title = metaTitle(NAVBAR_TITLE_PRODUCTS_NEW,TITLE);
+	}
+// ---------------------------------------------------------------------------------------
 //	... und wenn nix drin, dann Standard-Werte nehmen
 // ---------------------------------------------------------------------------------------
 	if(empty($meta_keyw)) {
-		$meta_keyw    = metaKeyWords(META_KEYWORDS); 
+		//$meta_keyw    = metaKeyWords(META_KEYWORDS); 
+		$meta_keyw    = META_KEYWORDS; // <-- 1:1 übernehmen!
 	} 
 	if(empty($meta_descr)) {
 		$meta_descr   = META_DESCRIPTION; 
+		$metaDesLength = false; // <-- dann auch nicht kürzen!
 	}
 	if(empty($meta_title)) {
 		$meta_title   = TITLE;
@@ -286,7 +320,7 @@
 <meta http-equiv="content-language" content="<?php echo $_SESSION['language_code']; ?>" /> 
 <meta http-equiv="cache-control" content="no-cache" /> 
 
-<meta name="keywords" content="<?php echo $meta_keyw; ?>" /> 
+<meta name="keywords" content="<?php echo metaClean($meta_keyw); ?>" /> 
 <meta name="description" content="<?php echo metaClean($meta_descr,$metaDesLength); ?>" /> 
 
 <meta name="robots" content="<?php echo META_ROBOTS; ?>" />
