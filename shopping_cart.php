@@ -48,15 +48,23 @@ if ($_SESSION['cart']->count_contents() > 0) {
 		if (isset ($products[$i]['attributes'])) {
 			while (list ($option, $value) = each($products[$i]['attributes'])) {
 				$hidden_options .= xtc_draw_hidden_field('id['.$products[$i]['id'].']['.$option.']', $value);
-				$attributes = xtc_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix,pa.attributes_stock,pa.products_attributes_id,pa.attributes_model
-				                                      from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, ".TABLE_PRODUCTS_ATTRIBUTES." pa
-				                                      where pa.products_id = '".$products[$i]['id']."'
-				                                       and pa.options_id = '".$option."'
-				                                       and pa.options_id = popt.products_options_id
-				                                       and pa.options_values_id = '".$value."'
-				                                       and pa.options_values_id = poval.products_options_values_id
-				                                       and popt.language_id = '".(int) $_SESSION['languages_id']."'
-				                                       and poval.language_id = '".(int) $_SESSION['languages_id']."'");
+				$attributes = xtc_db_query("select popt.products_options_name, 
+                                           poval.products_options_values_name, 
+                                           pa.options_values_price,
+                                           pa.price_prefix,
+                                           pa.attributes_stock,
+                                           pa.products_attributes_id,
+                                           pa.attributes_model
+                                    from ".TABLE_PRODUCTS_OPTIONS." popt, 
+                                         ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, 
+                                         ".TABLE_PRODUCTS_ATTRIBUTES." pa
+				                            where pa.products_id = '".$products[$i]['id']."'
+				                            and pa.options_id = '".$option."'
+				                            and pa.options_id = popt.products_options_id
+				                            and pa.options_values_id = '".$value."'
+				                            and pa.options_values_id = poval.products_options_values_id
+				                            and popt.language_id = '".(int) $_SESSION['languages_id']."'
+				                            and poval.language_id = '".(int) $_SESSION['languages_id']."'");
 				$attributes_values = xtc_db_fetch_array($attributes);
 
 				$products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
@@ -140,8 +148,7 @@ $smarty->assign('main_content', $main_content);
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

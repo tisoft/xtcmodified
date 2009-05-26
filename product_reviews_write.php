@@ -29,7 +29,10 @@ if ($_SESSION['customers_status']['customers_status_write_reviews'] == 0) {
 if (isset ($_GET['action']) && $_GET['action'] == 'process') {
 	if (is_object($product) && $product->isProduct()) { // We got to the process but it is an illegal product, don't write
 
-		$customer = xtc_db_query("select customers_firstname, customers_lastname from ".TABLE_CUSTOMERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
+		$customer = xtc_db_query("select customers_firstname,
+                                     customers_lastname
+                              from ".TABLE_CUSTOMERS."
+                              where customers_id = '".(int) $_SESSION['customer_id']."'");
 		$customer_values = xtc_db_fetch_array($customer);
 		$date_now = date('Ymd');
 		if ($customer_values['customers_lastname'] == '')
@@ -54,7 +57,10 @@ if (xtc_not_null($get_params_back)) {
 
 $breadcrumb->add(NAVBAR_TITLE_REVIEWS_WRITE, xtc_href_link(FILENAME_PRODUCT_REVIEWS, $get_params));
 
-$customer_info_query = xtc_db_query("select customers_firstname, customers_lastname from ".TABLE_CUSTOMERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
+$customer_info_query = xtc_db_query("select customers_firstname,
+                                            customers_lastname
+                                     from ".TABLE_CUSTOMERS."
+                                     where customers_id = '".(int) $_SESSION['customer_id']."'");
 $customer_info = xtc_db_fetch_array($customer_info_query);
 
 require (DIR_WS_INCLUDES.'header.php');
@@ -82,8 +88,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/product_reviews_write.h
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

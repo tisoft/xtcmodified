@@ -54,28 +54,26 @@ $products_new_query_raw = "select distinct
                                     p.products_price,
                                	    p.products_vpe,
                                	    p.products_vpe_status,
-                                    p.products_vpe_value,                                                          
+                               	    p.products_vpe_value,
                                     p.products_tax_class_id,
                                     p.products_date_added,
                                     m.manufacturers_name
-                                    from ".TABLE_PRODUCTS." p
-                                    left join ".TABLE_MANUFACTURERS." m
+                           from ".TABLE_PRODUCTS." p
+                           left join ".TABLE_MANUFACTURERS." m
                                     on p.manufacturers_id = m.manufacturers_id
-                                    left join ".TABLE_PRODUCTS_DESCRIPTION." pd
+                           left join ".TABLE_PRODUCTS_DESCRIPTION." pd
                                     on p.products_id = pd.products_id,
                                     ".TABLE_CATEGORIES." c,
                                     ".TABLE_PRODUCTS_TO_CATEGORIES." p2c 
-                                    WHERE pd.language_id = '".(int) $_SESSION['languages_id']."'
-                                    and c.categories_status=1
-                                    and p.products_id = p2c.products_id
-                                    and c.categories_id = p2c.categories_id
-                                    and products_status = '1'
+                           where pd.language_id = '".(int) $_SESSION['languages_id']."'
+                           and c.categories_status=1
+                           and p.products_id = p2c.products_id
+                           and c.categories_id = p2c.categories_id
+                           and products_status = '1'
                                     ".$group_check."
                                     ".$fsk_lock."                                    
                                     ".$days."
-                                    order
-                                    by
-                                    p.products_date_added DESC ";
+                           order by p.products_date_added DESC ";
 
 
 $products_new_split = new splitPageResults($products_new_query_raw, $_GET['page'], MAX_DISPLAY_PRODUCTS_NEW, 'p.products_id');
@@ -132,7 +130,14 @@ if ($products_new_split->number_of_rows > 0) {
 		if (SHOW_SHIPPING=='true') {
 		$ship_info=' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>';
 		}
-		$module_content[] = array ('PRODUCTS_NAME' => $products_new['products_name'],'PRODUCTS_SHIPPING_LINK' => $ship_info,'PRODUCTS_TAX_INFO' => $tax_info, 'PRODUCTS_DESCRIPTION' => $products_new['products_short_description'], 'PRODUCTS_PRICE' => $products_price['formated'], 'PRODUCTS_VPE' => $vpePrice, 'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products_new['products_id'], $products_new['products_name'])), 'PRODUCTS_IMAGE' => $products_image, 'BUTTON_BUY_NOW' => $buy_now);
+		$module_content[] = array ('PRODUCTS_NAME' => $products_new['products_name'],
+                               'PRODUCTS_SHIPPING_LINK' => $ship_info,
+                               'PRODUCTS_TAX_INFO' => $tax_info,
+                               'PRODUCTS_DESCRIPTION' => $products_new['products_short_description'], 
+                               'PRODUCTS_PRICE' => $products_price['formated'],
+                               'PRODUCTS_VPE' => $vpePrice,
+                               'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products_new['products_id'], $products_new['products_name'])),
+                               'PRODUCTS_IMAGE' => $products_image, 'BUTTON_BUY_NOW' => $buy_now);
 
 	}
 } else {
@@ -149,8 +154,7 @@ $smarty->assign('main_content', $main_content);
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

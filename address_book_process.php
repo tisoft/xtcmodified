@@ -26,8 +26,9 @@ require_once (DIR_FS_INC.'xtc_count_customer_address_book_entries.inc.php');
 require_once (DIR_FS_INC.'xtc_address_label.inc.php');
 require_once (DIR_FS_INC.'xtc_get_country_name.inc.php');
 
-if (!isset ($_SESSION['customer_id']))
+if (!isset ($_SESSION['customer_id'])) {
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
+}
 
 if (isset ($_GET['action']) && ($_GET['action'] == 'deleteconfirm') && isset ($_GET['delete']) && is_numeric($_GET['delete'])) {
 	xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where address_book_id = '".(int) $_GET['delete']."' and customers_id = '".(int) $_SESSION['customer_id']."'");
@@ -197,7 +198,20 @@ if (isset ($_POST['action']) && (($_POST['action'] == 'process') || ($_POST['act
 }
 
 if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
-	$entry_query = xtc_db_query("select entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int) $_SESSION['customer_id']."' and address_book_id = '".(int) $_GET['edit']."'");
+	$entry_query = xtc_db_query("select entry_gender,
+                                      entry_company,
+                                      entry_firstname,
+                                      entry_lastname,
+                                      entry_street_address,
+                                      entry_suburb,
+                                      entry_postcode,
+                                      entry_city,
+                                      entry_state,
+                                      entry_zone_id,
+                                      entry_country_id
+                                from ".TABLE_ADDRESS_BOOK."
+                                where customers_id = '".(int) $_SESSION['customer_id']."'
+                                and address_book_id = '".(int) $_GET['edit']."'");
 
 	if (xtc_db_num_rows($entry_query) == false) {
 		$messageStack->add_session('addressbook', ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY);
@@ -291,8 +305,11 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/address_book_process.ht
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+
+if (!defined(RM)) {
 	$smarty->load_filter('output', 'note');
+}
+
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

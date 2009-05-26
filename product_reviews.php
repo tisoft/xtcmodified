@@ -35,7 +35,13 @@ if (xtc_not_null($get_params_back)) {
 	$get_params_back = $get_params;
 }
 
-$product_info_query = xtc_db_query("select pd.products_name from ".TABLE_PRODUCTS_DESCRIPTION." pd left join ".TABLE_PRODUCTS." p on pd.products_id = p.products_id where pd.language_id = '".(int) $_SESSION['languages_id']."' and p.products_status = '1' and pd.products_id = '".(int) $_GET['products_id']."'");
+$product_info_query = xtc_db_query("select pd.products_name
+                                    from ".TABLE_PRODUCTS_DESCRIPTION." pd
+                                    left join ".TABLE_PRODUCTS." p 
+                                    on pd.products_id = p.products_id
+                                    where pd.language_id = '".(int) $_SESSION['languages_id']."' 
+                                    and p.products_status = '1' 
+                                    and pd.products_id = '".(int) $_GET['products_id']."'");
 if (!xtc_db_num_rows($product_info_query))
 	xtc_redirect(xtc_href_link(FILENAME_REVIEWS));
 $product_info = xtc_db_fetch_array($product_info_query);
@@ -47,7 +53,15 @@ require (DIR_WS_INCLUDES.'header.php');
 $smarty->assign('PRODUCTS_NAME', $product_info['products_name']);
 
 $data_reviews = array ();
-$reviews_query = xtc_db_query("select reviews_rating, reviews_id, customers_name, date_added, last_modified, reviews_read from ".TABLE_REVIEWS." where products_id = '".(int) $_GET['products_id']."' order by reviews_id DESC");
+$reviews_query = xtc_db_query("select reviews_rating,
+                                      reviews_id,
+                                      customers_name,
+                                      date_added,
+                                      last_modified,
+                                      reviews_read 
+                               from ".TABLE_REVIEWS."
+                               where products_id = '".(int) $_GET['products_id']."'
+                               order by reviews_id DESC");
 if (xtc_db_num_rows($reviews_query)) {
 	$row = 0;
 	while ($reviews = xtc_db_fetch_array($reviews_query)) {
@@ -77,8 +91,7 @@ $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

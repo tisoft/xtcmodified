@@ -27,7 +27,7 @@ require_once (DIR_FS_INC.'xtc_get_products_mo_images.inc.php');
 <body bgcolor="#FFFFFF">
 <table align="center">
 <tr>
-<?
+<?php
 
 $mo_images = xtc_get_products_mo_images((int) $_GET['pID']);
 if ((int) $_GET['imgID'] == 0)

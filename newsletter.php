@@ -139,7 +139,11 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'activate')) {
 
 // Accountdeaktivierung per Emaillink
 if (isset ($_GET['action']) && ($_GET['action'] == 'remove')) {
-	$check_mail_query = xtc_db_query("select customers_email_address, mail_key from ".TABLE_NEWSLETTER_RECIPIENTS." where customers_email_address = '".xtc_db_input($_GET['email'])."' and mail_key = '".xtc_db_input($_GET['key'])."'");
+	$check_mail_query = xtc_db_query("select customers_email_address,
+                                           mail_key
+                                    from ".TABLE_NEWSLETTER_RECIPIENTS."
+                                    where customers_email_address = '".xtc_db_input($_GET['email'])."' 
+                                    and mail_key = '".xtc_db_input($_GET['key'])."'");
 	if (!xtc_db_num_rows($check_mail_query)) {
 		$info_message = TEXT_EMAIL_NOT_EXIST;
 	} else {
@@ -177,8 +181,7 @@ $smarty->assign('main_content', $main_content);
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

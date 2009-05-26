@@ -50,12 +50,14 @@ if (!isset ($_SESSION['customer_id'])) {
 }
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-if ($_SESSION['cart']->count_contents() < 1)
+if ($_SESSION['cart']->count_contents() < 1) {
 	xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
+}
 
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
-if (!isset ($_SESSION['shipping']))
+if (!isset ($_SESSION['shipping'])) {
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+}
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID
 if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
@@ -63,8 +65,10 @@ if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
 		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
 }
 
-if (isset ($_SESSION['credit_covers']))
+if (isset ($_SESSION['credit_covers'])) {
 	unset ($_SESSION['credit_covers']); //ICW ADDED FOR CREDIT CLASS SYSTEM
+}
+
 // Stock Check
 if ((STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true')) {
 	$products = $_SESSION['cart']->get_products();
@@ -73,8 +77,9 @@ if ((STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true')) {
 		if (xtc_check_stock($products[$i]['id'], $products[$i]['quantity']))
 			$any_out_of_stock = 1;
 	}
-	if ($any_out_of_stock == 1)
+	if ($any_out_of_stock == 1) {
 		xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
+	}
 
 }
 
@@ -93,8 +98,9 @@ if (!isset ($_SESSION['billto'])) {
 	}
 }
 
-if (!isset ($_SESSION['sendto']) || $_SESSION['sendto'] == "")
+if (!isset ($_SESSION['sendto']) || $_SESSION['sendto'] == "") {
 	$_SESSION['sendto'] = $_SESSION['billto'];
+}
 
 require (DIR_WS_CLASSES . 'order.php');
 $order = new order();
@@ -184,14 +190,13 @@ if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 		$group_check = "and group_ids LIKE '%c_" . $_SESSION['customers_status']['customers_status_id'] . "_group%'";
 	}
 
-	$shop_content_query = xtc_db_query("SELECT
-	                                                content_title,
-	                                                content_heading,
-	                                                content_text,
-	                                                content_file
-	                                                FROM " . TABLE_CONTENT_MANAGER . "
-	                                                WHERE content_group='3' " . $group_check . "
-	                                                AND languages_id='" . $_SESSION['languages_id'] . "'");
+	$shop_content_query = xtc_db_query("SELECT content_title,
+	                                           content_heading,
+	                                           content_text,
+	                                           content_file
+	                                     FROM " . TABLE_CONTENT_MANAGER . "
+	                                     WHERE content_group='3' " . $group_check . "
+	                                     AND languages_id='" . $_SESSION['languages_id'] . "'");
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
 
 	if ($shop_content_data['content_file'] != '') {
@@ -223,8 +228,11 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_payment.html
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+
+if (!defined(RM)) {
 	$smarty->load_filter('output', 'note');
+}
+
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 include ('includes/application_bottom.php');
 ?>

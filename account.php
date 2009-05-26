@@ -34,8 +34,9 @@ $breadcrumb->add(NAVBAR_TITLE_ACCOUNT, xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'
 
 require (DIR_WS_INCLUDES.'header.php');
 
-if ($messageStack->size('account') > 0)
+if ($messageStack->size('account') > 0) {
 	$smarty->assign('error_message', $messageStack->output('account'));
+}
 
 $i = 0;
 $max = count($_SESSION['tracking']['products_history']);
@@ -66,14 +67,14 @@ if (xtc_count_customer_orders() > 0) {
 	                                  o.billing_country,
 	                                  ot.text as order_total,
 	                                  s.orders_status_name
-	                                  from ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL."
+	                              from ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL."
 	                                  ot, ".TABLE_ORDERS_STATUS." s
-	                                  where o.customers_id = '".(int) $_SESSION['customer_id']."'
-	                                  and o.orders_id = ot.orders_id
-	                                  and ot.class = 'ot_total'
-	                                  and o.orders_status = s.orders_status_id
-	                                  and s.language_id = '".(int) $_SESSION['languages_id']."'
-	                                  order by orders_id desc limit 3");
+	                              where o.customers_id = '".(int) $_SESSION['customer_id']."'
+	                              and o.orders_id = ot.orders_id
+	                              and ot.class = 'ot_total'
+	                              and o.orders_status = s.orders_status_id
+	                              and s.language_id = '".(int) $_SESSION['languages_id']."'
+	                              order by orders_id desc limit 3");
 
 	while ($orders = xtc_db_fetch_array($orders_query)) {
 		if (xtc_not_null($orders['delivery_name'])) {
@@ -106,8 +107,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

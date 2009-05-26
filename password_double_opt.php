@@ -133,7 +133,7 @@ switch ($case) {
 		
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
-		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'">');
+		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		$smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
@@ -151,7 +151,7 @@ switch ($case) {
 
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
-		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'">');
+		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		$smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
@@ -177,7 +177,7 @@ switch ($case) {
 
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
-		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'">');
+		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		//    $smarty->assign('info_message', $info_message);
 		$smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
@@ -197,8 +197,7 @@ switch ($case) {
 $smarty->assign('main_content', $main_content);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

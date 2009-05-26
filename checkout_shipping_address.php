@@ -32,7 +32,6 @@ require_once (DIR_FS_INC.'xtc_get_zone_code.inc.php');
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset ($_SESSION['customer_id'])) {
-
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
 
@@ -226,7 +225,19 @@ if ($process == false) {
 		$address_content = '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
 		$radio_buttons = 0;
 
-		$addresses_query = xtc_db_query("select address_book_id, entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from ".TABLE_ADDRESS_BOOK." where customers_id = '".$_SESSION['customer_id']."'");
+		$addresses_query = xtc_db_query("select address_book_id,
+                                            entry_firstname as firstname,
+                                            entry_lastname as lastname,
+                                            entry_company as company,
+                                            entry_street_address as street_address, 
+                                            entry_suburb as suburb,
+                                            entry_city as city,
+                                            entry_postcode as postcode,
+                                            entry_state as state,
+                                            entry_zone_id as zone_id,
+                                            entry_country_id as country_id
+                                     from ".TABLE_ADDRESS_BOOK."
+                                     where customers_id = '".$_SESSION['customer_id']."'");
 		while ($addresses = xtc_db_fetch_array($addresses_query)) {
 			$format_id = xtc_get_address_format_id($address['country_id']);
 
@@ -288,8 +299,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_shipping_addre
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

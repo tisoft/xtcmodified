@@ -28,11 +28,13 @@ require_once (DIR_FS_INC.'xtc_validate_email.inc.php');
 require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_get_customers_country.inc.php');
 
-if (!isset ($_SESSION['customer_id']))
+if (!isset ($_SESSION['customer_id'])) {
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-	
-if ($_SESSION['customers_status']['customers_status_id']==0)
+}
+
+if ($_SESSION['customers_status']['customers_status_id']==0) {
 	xtc_redirect(xtc_href_link_admin(FILENAME_CUSTOMERS, 'cID='.$_SESSION['customer_id'].'&action=edit', 'SSL'));
+}
 
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if (ACCOUNT_GENDER == 'true')

@@ -51,7 +51,11 @@ $breadcrumb->add(NAVBAR_TITLE_2_CHECKOUT_SUCCESS);
 
 require (DIR_WS_INCLUDES.'header.php');
 
-$orders_query = xtc_db_query("select orders_id, orders_status from ".TABLE_ORDERS." where customers_id = '".$_SESSION['customer_id']."' order by orders_id desc limit 1");
+$orders_query = xtc_db_query("select orders_id,
+                                     orders_status
+                              from ".TABLE_ORDERS."
+                              where customers_id = '".$_SESSION['customer_id']."'
+                              order by orders_id desc limit 1");
 $orders = xtc_db_fetch_array($orders_query);
 $last_order = $orders['orders_id'];
 $order_status = $orders['orders_status'];
@@ -91,8 +95,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_success.html')
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

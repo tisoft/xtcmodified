@@ -42,12 +42,14 @@ require_once (DIR_FS_INC . 'xtc_display_tax_value.inc.php');
 
 // if the customer is not logged on, redirect them to the login page
 
-if (!isset ($_SESSION['customer_id']))
+if (!isset ($_SESSION['customer_id'])) {
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
+}
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-if ($_SESSION['cart']->count_contents() < 1)
+if ($_SESSION['cart']->count_contents() < 1) {
 	xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
+}
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID
 if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
@@ -56,20 +58,24 @@ if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
 }
 
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
-if (!isset ($_SESSION['shipping']))
+if (!isset ($_SESSION['shipping'])) {
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+}
 
 //check if display conditions on checkout page is true
 
-if (isset ($_POST['payment']))
+if (isset ($_POST['payment'])) {
 	$_SESSION['payment'] = xtc_db_prepare_input($_POST['payment']);
+}
 
-if ($_POST['comments_added'] != '')
+if ($_POST['comments_added'] != '') {
 	$_SESSION['comments'] = xtc_db_prepare_input($_POST['comments']);
+}
 
 //-- TheMedia Begin check if display conditions on checkout page is true
-if (isset ($_POST['cot_gv']))
+if (isset ($_POST['cot_gv'])) {
 	$_SESSION['cot_gv'] = true;
+}
 // if conditions are not accepted, redirect the customer to the payment method selection page
 
 if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
@@ -103,8 +109,9 @@ if ((is_array($payment_modules->modules) && (sizeof($payment_modules->modules) >
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
 }
 
-if (is_array($payment_modules->modules))
+if (is_array($payment_modules->modules)) {
 	$payment_modules->pre_confirmation_check();
+}
 
 // load the selected shipping module
 require (DIR_WS_CLASSES . 'shipping.php');
@@ -257,14 +264,13 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 		$group_check = "and group_ids LIKE '%c_" . $_SESSION['customers_status']['customers_status_id'] . "_group%'";
 	}
 
-	$shop_content_query = "SELECT
-		                                                content_title,
-		                                                content_heading,
-		                                                content_text,
-		                                                content_file
-		                                                FROM " . TABLE_CONTENT_MANAGER . "
-		                                                WHERE content_group='" . REVOCATION_ID . "' " . $group_check . "
-		                                                AND languages_id='" . $_SESSION['languages_id'] . "'";
+	$shop_content_query = "SELECT content_title,
+		                            content_heading,
+		                            content_text,
+		                            content_file
+		                     FROM " . TABLE_CONTENT_MANAGER . "
+		                     WHERE content_group='" . REVOCATION_ID . "' " . $group_check . "
+		                     AND languages_id='" . $_SESSION['languages_id'] . "'";
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
@@ -286,14 +292,13 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 	$smarty->assign('REVOCATION_TITLE', $shop_content_data['content_heading']);
 	$smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO));
 	
-	$shop_content_query = "SELECT
-		                                                content_title,
-		                                                content_heading,
-		                                                content_text,
-		                                                content_file
-		                                                FROM " . TABLE_CONTENT_MANAGER . "
-		                                                WHERE content_group='3' " . $group_check . "
-		                                                AND languages_id='" . $_SESSION['languages_id'] . "'";
+	$shop_content_query = "SELECT content_title,
+		                            content_heading,
+		                            content_text,
+		                            content_file
+		                     FROM " . TABLE_CONTENT_MANAGER . "
+		                     WHERE content_group='3' " . $group_check . "
+		                     AND languages_id='" . $_SESSION['languages_id'] . "'";
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
@@ -311,8 +316,11 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_confirmation
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+
+if (!defined(RM)) {
 	$smarty->load_filter('output', 'note');
+}
+	
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 include ('includes/application_bottom.php');
 ?>

@@ -41,13 +41,13 @@
   $smarty->assign('language', $_SESSION['language']);
   // include boxes
   require(DIR_FS_CATALOG .'templates/'.CURRENT_TEMPLATE. '/source/boxes.php');
-   require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/sofortueberweisung_abort.php');
+  require(DIR_WS_LANGUAGES . $_SESSION['language'] . '/sofortueberweisung_abort.php');
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_draw_checkbox_field.inc.php');
   require_once(DIR_FS_INC . 'xtc_image_button.inc.php');
 
- $breadcrumb->add(NAVBAR_TITLE);
- require(DIR_WS_INCLUDES . 'header.php');
+  $breadcrumb->add(NAVBAR_TITLE);
+  require(DIR_WS_INCLUDES . 'header.php');
 
   $smarty->caching = 0;
 
@@ -58,6 +58,6 @@
   $main_content=$smarty->fetch(CURRENT_TEMPLATE . '/module/sofortueberweisung_abort.html');
   $smarty->assign('main_content',$main_content);
   $smarty->caching = 0;
-  if (!defined(RM)) $smarty->load_filter('output', 'note');
+  if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
   $smarty->display(CURRENT_TEMPLATE . '/index.html');
 ?>
