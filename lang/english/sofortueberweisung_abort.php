@@ -41,11 +41,11 @@ define('HEADING_TITLE', 'Sofortüberweisung');
 
 define('TEXT_INFORMATION', 'Leider funktioniert Sofortueberweisung.de derzeit noch nicht mit Ihrem
 Kreditinstitut. Wir werden uns bemühen, dass auch Sie in Kürze diesen
-Paymentdienst nutzen können.<br>
-<br>
-Bitte überweisen Sie uns den Rechnungsbetrag auf das folgende Konto:<br>
-....<br>
-....<br>
-....<br>
+Paymentdienst nutzen können.<br />
+<br />
+Bitte überweisen Sie uns den Rechnungsbetrag auf das folgende Konto:<br />
+....<br />
+....<br />
+....<br />
 ');
 ?>

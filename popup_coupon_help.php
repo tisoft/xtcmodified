@@ -49,7 +49,7 @@ switch ($coupon['coupon_type']) {
 if ($coupon['coupon_minimum_order'] > 0)
 	$text_coupon_help .= sprintf(TEXT_COUPON_HELP_MINORDER, $xtPrice->xtcFormat($coupon['coupon_minimum_order'], true));
 $text_coupon_help .= sprintf(TEXT_COUPON_HELP_DATE, xtc_date_short($coupon['coupon_start_date']), xtc_date_short($coupon['coupon_expire_date']));
-$text_coupon_help .= '<b>'.TEXT_COUPON_HELP_RESTRICT.'</b>';
+$text_coupon_help .= '<strong>'.TEXT_COUPON_HELP_RESTRICT.'</strong>';
 $text_coupon_help .= '<br /><br />'.TEXT_COUPON_HELP_CATEGORIES;
 $coupon_get = xtc_db_query("select restrict_to_categories from ".TABLE_COUPONS." where coupon_id='".(int)$_GET['cID']."'");
 $get_result = xtc_db_fetch_array($coupon_get);

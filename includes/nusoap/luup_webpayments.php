@@ -223,8 +223,8 @@ class luup_webpayments {
 		
 		// debugging:
 		if ($this->debug) {
-		$message = 'Request:<br> <pre>'. htmlspecialchars($this->proxy->request, ENT_QUOTES).'</pre>';
-		$message .= '<br>Response:<br> <pre>' . htmlspecialchars($this->proxy->response, ENT_QUOTES).'</pre>';
+		$message = 'Request:<br /> <pre>'. htmlspecialchars($this->proxy->request, ENT_QUOTES).'</pre>';
+		$message .= '<br />Response:<br /> <pre>' . htmlspecialchars($this->proxy->response, ENT_QUOTES).'</pre>';
 		
 		xtc_php_mail(EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, '', EMAIL_BILLING_REPLY_ADDRESS, EMAIL_BILLING_REPLY_ADDRESS_NAME, '', '', 'LUUPAY DEBUG MESSAGE', $message, $message);
 		

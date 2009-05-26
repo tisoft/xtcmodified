@@ -34,14 +34,14 @@
     $categories_string .= '">';
 
     if ( ($id) && (in_array($counter, $id)) ) {
-      $categories_string .= '<b>';
+      $categories_string .= '<strong>';
     }
 
     // display category name
     $categories_string .= $foo[$counter]['name'];
 
     if ( ($id) && (in_array($counter, $id)) ) {
-      $categories_string .= '</b>';
+      $categories_string .= '</strong>';
     }
 
     if (xtc_has_category_subcategories($counter)) {
@@ -57,7 +57,7 @@
     //  }
     //}
 
-    $categories_string .= '<br>';
+    $categories_string .= '<br />';
 
     if ($foo[$counter]['next_id']) {
       xtc_show_category_content($foo[$counter]['next_id']);

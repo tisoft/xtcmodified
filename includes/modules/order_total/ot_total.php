@@ -34,18 +34,18 @@
       if ($_SESSION['customers_status']['customers_status_show_price_tax'] != 0) {
 
         $this->output[] = array('title' => $this->title . ':',
-                                'text' => '<b>' . $xtPrice->xtcFormat($order->info['total'],true) . '</b>',
+                                'text' => '<strong>' . $xtPrice->xtcFormat($order->info['total'],true) . '</strong>',
                                 'value' => $xtPrice->xtcFormat($order->info['total'],false));
       }
 
       if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
         $this->output[] = array('title' => MODULE_ORDER_TOTAL_TOTAL_TITLE_NO_TAX_BRUTTO . ':',                          
-                                'text' => '<b>' . $xtPrice->xtcFormat($order->info['tax']+$order->info['total'],true) . '</b>',
+                                'text' => '<strong>' . $xtPrice->xtcFormat($order->info['tax']+$order->info['total'],true) . '</strong>',
                                 'value' => $xtPrice->xtcFormat($order->info['total']+$order->info['tax'],false));
       }
       if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 0) {
         $this->output[] = array('title' => MODULE_ORDER_TOTAL_TOTAL_TITLE_NO_TAX . ':',
-                                'text' => '<b>' . $xtPrice->xtcFormat($order->info['total'],true) . '</b>',
+                                'text' => '<strong>' . $xtPrice->xtcFormat($order->info['total'],true) . '</strong>',
                                 'value' => $xtPrice->xtcFormat($order->info['total'], false));
       }
     }

@@ -105,7 +105,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       // if a background was choosen don't print cell BGCOLOR
       if (!$vals['background']) $start_graph_string .= ' bgcolor="' . $vals['hbgcolor'] . '"';
 
-      $start_graph_string .= ' colspan="' . $colspan . '"><font color="' . $vals['hfcolor'] . '" style="' . $vals['hfstyle'] . '"><b>' . $vals['hlabel'] . '</b></font></td>' . "\n" .
+      $start_graph_string .= ' colspan="' . $colspan . '"><font color="' . $vals['hfcolor'] . '" style="' . $vals['hfstyle'] . '"><strong>' . $vals['hlabel'] . '</strong></font></td>' . "\n" .
                              '  </tr>' . "\n" .
                              '  <tr>' . "\n" .
                              '    <td align="center" valign="center"';
@@ -113,7 +113,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       // if a background was choosen don't print cell BGCOLOR
       if (!$vals['background']) $start_graph_string .= ' bgcolor="' . $vals['vbgcolor'] . '"';
 
-      $start_graph_string .=  ' rowspan="' . $rowspan . '"><font color="' . $vals['vfcolor'] . '" style="' . $vals['vfstyle'] . '"><b>' . $vals['vlabel'] . '</b></font></td>' . "\n" .
+      $start_graph_string .=  ' rowspan="' . $rowspan . '"><font color="' . $vals['vfcolor'] . '" style="' . $vals['vfstyle'] . '"><strong>' . $vals['vlabel'] . '</strong></font></td>' . "\n" .
                               '  </tr>' . "\n";
     }
 
@@ -200,7 +200,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $vertical_graph_string .= '>';
 
       if (!$vals['noshowvals']) {
-        $vertical_graph_string .= '<i><font size="-2" color="' . $vals['valuefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $values[$i] . ')</font></i><br>';
+        $vertical_graph_string .= '<i><font size="-2" color="' . $vals['valuefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $values[$i] . ')</font></i><br />';
       }
 
       $vertical_graph_string .= '<img src="' . $bars[$i] . '" width="5" height="';
@@ -314,7 +314,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $double_vertical_graph_string .= '>';
 
       if (!$vals['noshowvals'] && $values[$i]) {
-        $double_vertical_graph_string .= '<i><font size="-2" color="' . $vals['valuefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $values[$i] . ')</font></i><br>';
+        $double_vertical_graph_string .= '<i><font size="-2" color="' . $vals['valuefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $values[$i] . ')</font></i><br />';
       }
 
       $double_vertical_graph_string .= '<img src="' . $bars[$i] . '" width="10" height="';
@@ -334,7 +334,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $double_vertical_graph_string .= '>';
 
       if (!$vals['noshowvals'] && $dvalues[$i]) {
-        $double_vertical_graph_string .= '<i><font size="-2" color="' . $vals['doublefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $dvalues[$i] . ')</font></i><br>';
+        $double_vertical_graph_string .= '<i><font size="-2" color="' . $vals['doublefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $dvalues[$i] . ')</font></i><br />';
       }
 
       $double_vertical_graph_string .= '<img src="' . $dbars[$i] . '" width="10" height="';

@@ -54,36 +54,36 @@
           <tr>
             <td align="center"><table border="0" cellspacing="0" cellpadding="3">
               <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_HOST; ?></b></td>
+                <td class="smallText"><strong><?php echo TITLE_SERVER_HOST; ?></strong></td>
                 <td class="smallText"><?php echo $system['host'] . ' (' . $system['ip'] . ')'; ?></td>
-                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?php echo TITLE_DATABASE_HOST; ?></b></td>
+                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo TITLE_DATABASE_HOST; ?></strong></td>
                 <td class="smallText"><?php echo $system['db_server'] . ' (' . $system['db_ip'] . ')'; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_OS; ?></b></td>
+                <td class="smallText"><strong><?php echo TITLE_SERVER_OS; ?></strong></td>
                 <td class="smallText"><?php echo $system['system'] . ' ' . $system['kernel']; ?></td>
-                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?php echo TITLE_DATABASE; ?></b></td>
+                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo TITLE_DATABASE; ?></strong></td>
                 <td class="smallText"><?php echo $system['db_version']; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_DATE; ?></b></td>
+                <td class="smallText"><strong><?php echo TITLE_SERVER_DATE; ?></strong></td>
                 <td class="smallText"><?php echo $system['date']; ?></td>
-                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?php echo TITLE_DATABASE_DATE; ?></b></td>
+                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><?php echo TITLE_DATABASE_DATE; ?></strong></td>
                 <td class="smallText"><?php echo $system['db_date']; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_UP_TIME; ?></b></td>
+                <td class="smallText"><strong><?php echo TITLE_SERVER_UP_TIME; ?></strong></td>
                 <td colspan="3" class="smallText"><?php echo $system['uptime']; ?></td>
               </tr>
               <tr>
                 <td colspan="4"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TITLE_HTTP_SERVER; ?></b></td>
+                <td class="smallText"><strong><?php echo TITLE_HTTP_SERVER; ?></strong></td>
                 <td colspan="3" class="smallText"><?php echo $system['http_server']; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TITLE_PHP_VERSION; ?></b></td>
+                <td class="smallText"><strong><?php echo TITLE_PHP_VERSION; ?></strong></td>
                 <td colspan="3" class="smallText"><?php echo $system['php'] . ' (' . TITLE_ZEND_VERSION . ' ' . $system['zend'] . ')'; ?></td>
               </tr>
             </table></td>
@@ -122,7 +122,7 @@
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
+<br />
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

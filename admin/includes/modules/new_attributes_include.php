@@ -51,14 +51,14 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
       $current_product_option_id = $line['products_options_id'];
       // Print the Option Name
       echo "<TR class=\"dataTableHeadingRow\">";
-      echo "<TD class=\"dataTableHeadingContent\"><B>" . $current_product_option_name . "</B></TD>";
-      echo "<TD class=\"dataTableHeadingContent\"><B>".SORT_ORDER."</B></TD>";
-      echo "<TD class=\"dataTableHeadingContent\"><B>".ATTR_MODEL."</B></TD>";
-      echo "<TD class=\"dataTableHeadingContent\"><B>".ATTR_STOCK."</B></TD>";
-      echo "<TD class=\"dataTableHeadingContent\"><B>".ATTR_WEIGHT."</B></TD>";
-      echo "<TD class=\"dataTableHeadingContent\"><B>".ATTR_PREFIXWEIGHT."</B></TD>";
-      echo "<TD class=\"dataTableHeadingContent\"><B>".ATTR_PRICE."</B></TD>";
-      echo "<TD class=\"dataTableHeadingContent\"><B>".ATTR_PREFIXPRICE."</B></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>" . $current_product_option_name . "</strong></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>".SORT_ORDER."</strong></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>".ATTR_MODEL."</strong></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>".ATTR_STOCK."</strong></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>".ATTR_WEIGHT."</strong></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>".ATTR_PREFIXWEIGHT."</strong></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>".ATTR_PRICE."</strong></TD>";
+      echo "<TD class=\"dataTableHeadingContent\"><strong>".ATTR_PREFIXPRICE."</strong></TD>";
 
       echo "</TR>";
 
@@ -104,7 +104,7 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
             echo "<TD class=\"main\" align=\"left\"><input type=\"text\" name=\"" . $current_value_id . "_price\" value=\"" . $attribute_value_price_calculate . "\" size=\"10\">";
             // brutto Admin
             if (PRICE_IS_BRUTTO=='true'){
-             echo TEXT_NETTO .'<b>'.$xtPrice->xtcFormat(xtc_round($attribute_value_price,PRICE_PRECISION),true).'</b>  ';
+             echo TEXT_NETTO .'<strong>'.$xtPrice->xtcFormat(xtc_round($attribute_value_price,PRICE_PRECISION),true).'</strong>  ';
             }
 
             echo "</TD>";
@@ -137,7 +137,7 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
   }
 ?>
   <tr>
-    <td colspan="10" class="main"><br>
+    <td colspan="10" class="main"><br />
 <?php
 echo xtc_button(BUTTON_SAVE) . '&nbsp;';
 echo xtc_button_link(BUTTON_CANCEL,'javascript:history.back()');

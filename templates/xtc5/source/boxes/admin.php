@@ -49,7 +49,7 @@ $box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
     $admin_link='<a href="' . xtc_href_link_admin(FILENAME_EDIT_PRODUCTS, 'cPath=' . $cPath . '&amp;pID=' . $product->data['products_id']) . '&amp;action=new_product' . '" onclick="window.open(this.href); return false;">' . xtc_image_button('edit_product.gif', IMAGE_BUTTON_PRODUCT_EDIT) . '</a>';
   }
 
-  $box_content= '<b>' . BOX_TITLE_STATISTICS . '</b><br />' . $orders_contents . '<br />' .
+  $box_content= '<strong>' . BOX_TITLE_STATISTICS . '</strong><br />' . $orders_contents . '<br />' .
                                          BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br />' .
                                          BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br />' .
                                          BOX_ENTRY_REVIEWS . ' ' . $reviews['count'] .'<br />' .

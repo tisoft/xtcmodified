@@ -45,7 +45,7 @@ while ($group_values = xtc_db_fetch_array($group_query)) {
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr><td><span class="main" style="padding-left: 10px;"><?php echo HEADING_PRICES_OPTIONS; ?></span></td></tr>
 </table>
-<br>
+<br />
 <table width="100%" border="0" bgcolor="f3f3f3" style="border: 1px solid; border-color: #cccccc;">
           <tr>
             <td width="50%" class="main"><?php echo TEXT_PRODUCTS_PRICE; ?></td>
@@ -66,7 +66,7 @@ if (PRICE_IS_BRUTTO == 'true') {
 
 
 if (PRICE_IS_BRUTTO == 'true') {
-	echo TEXT_NETTO.'<b>'.$xtPrice->xtcFormat($pInfo->products_price, false).'</b>  ';
+	echo TEXT_NETTO.'<strong>'.$xtPrice->xtcFormat($pInfo->products_price, false).'</strong>  ';
 }
 ?>
 </td>
@@ -96,7 +96,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 
 		if (PRICE_IS_BRUTTO == 'true' && get_group_price($group_data[$col]['STATUS_ID'], $pInfo->products_id) != '0') {
 
-			echo TEXT_NETTO.'<b>'.$xtPrice->xtcFormat(get_group_price($group_data[$col]['STATUS_ID'], $pInfo->products_id), false).'</b>  ';
+			echo TEXT_NETTO.'<strong>'.$xtPrice->xtcFormat(get_group_price($group_data[$col]['STATUS_ID'], $pInfo->products_id), false).'</strong>  ';
 
 		}
 
@@ -108,7 +108,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		}
 		if ($_GET['pID'] != '') {
 		}
-?><div id="staffel_<?php echo $group_data[$col]['STATUS_ID']; ?>" class="longDescription"><br><?php
+?><div id="staffel_<?php echo $group_data[$col]['STATUS_ID']; ?>" class="longDescription"><br /><?php
 
 
 		// ok, lets check if there is already a staffelpreis
@@ -143,7 +143,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 			}
 			echo $products_price;
 			if (PRICE_IS_BRUTTO == 'true') {
-				echo ' <br>'.TEXT_NETTO.'<b>'.$xtPrice->xtcFormat($staffel_values['personal_offer'], false).'</b>  ';
+				echo ' <br />'.TEXT_NETTO.'<strong>'.$xtPrice->xtcFormat($staffel_values['personal_offer'], false).'</strong>  ';
 
 			}
 ?>
@@ -165,7 +165,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		echo xtc_draw_input_field('products_price_staffel_'.$group_data[$col]['STATUS_ID'], 0);
 		echo xtc_draw_separator('pixel_trans.gif', '10', '10');
 		echo '<input type="submit" class="button" onClick="return confirm(\''.SAVE_ENTRY.'\')" value="' . BUTTON_INSERT . '"/>';
-?><br></td>
+?><br /></td>
           </tr>
 <?php
 

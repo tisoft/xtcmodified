@@ -50,7 +50,7 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 <h4>Valid Categories List</h4>
 </td>
 </tr>
-<?
+<?php
    $coupon_get=xtc_db_query("select restrict_to_categories from " . TABLE_COUPONS . " where coupon_id='".$_GET['cid']."'");
    $get_result=xtc_db_fetch_array($coupon_get);
    echo "<tr><th>Category ID</th><th>Category Name</th></tr><tr>";
@@ -65,7 +65,7 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
    }
     echo "</table>\n";
 ?>
-<br>
+<br />
 <table width="550" border="0" cellspacing="1">
 <tr>
 <td align=middle><input type="button" value="Close Window" onClick="window.close()"></td>

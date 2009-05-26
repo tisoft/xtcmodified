@@ -46,7 +46,7 @@ class tag_cloud {
 	function process($file) {}
 	
 	function display() {
-		return array('text' => '<br>'.xtc_button(BUTTON_SAVE).xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set='.$_GET['set'].'&module=tag_cloud')));
+		return array('text' => '<br />'.xtc_button(BUTTON_SAVE).xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set='.$_GET['set'].'&module=tag_cloud')));
 	}
 	
 	function check() {

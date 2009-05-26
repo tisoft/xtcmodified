@@ -80,7 +80,7 @@ define('VOUCHER_NUMBER_USED', 'Anzahl Verwendet');
 define('DATE_CREATED', 'erstellt am');
 define('DATE_MODIFIED', 'ge&auml;ndert am');
 define('TEXT_HEADING_NEW_COUPON', 'Neuen Kupon erstellen');
-define('TEXT_NEW_INTRO', 'Bitte geben Sie die folgende Informationen f&uuml;r den neuen Kupon an.<br>');
+define('TEXT_NEW_INTRO', 'Bitte geben Sie die folgende Informationen f&uuml;r den neuen Kupon an.<br />');
 
 
 define('COUPON_NAME_HELP', 'Eine Kurzbezeichnung f&uuml;r den Kupon');
@@ -88,7 +88,7 @@ define('COUPON_AMOUNT_HELP', 'Tragen Sie hier den Rabatt für diesen Kupon ein. E
 define('COUPON_CODE_HELP', 'Hier k&ouml;nnen Sie einen eigenen Code eintragen (max. 16 Zeichen). Lassen Sie das Feld frei, dann wird dieser Code automatisch generiert.');
 define('COUPON_STARTDATE_HELP', 'Das Datum ab dem der Kupon g&uuml;ltig ist');
 define('COUPON_FINISHDATE_HELP', 'Das Datium an dem der Kupon abl&auml;uft');
-define('COUPON_FREE_SHIP_HELP', 'Kupon für eine versandkostenfreie Lieferung. <b>Achtung:</b> Der Kupon Wert wird dabei nicht mehr ber&uuml;cksichtigt! Der Mindestbestellwert bleibt g&uuml;ltig.');
+define('COUPON_FREE_SHIP_HELP', 'Kupon für eine versandkostenfreie Lieferung. <strong>Achtung:</strong> Der Kupon Wert wird dabei nicht mehr ber&uuml;cksichtigt! Der Mindestbestellwert bleibt g&uuml;ltig.');
 define('COUPON_DESC_HELP', 'Beschreibung des Kupons für den Kunden');
 define('COUPON_MIN_ORDER_HELP', 'Mindestbestellwert ab dem dieser Kupon g&uuml;ltig ist');
 define('COUPON_USES_COUPON_HELP', 'Tragen Sie hier ein wie oft dieser Kupon eingel&ouml;st werden darf. Lassen Sie das Feld frei, dann ist die Benutzung unlimitiert.');

@@ -90,7 +90,7 @@
       <table width="180" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td height="17" background="images/bg_left_blocktitle.gif">
-<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><font color="FFAF00">xtc:</font><font color="#999999">Install</font></b></font></div></td>
+<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="FFAF00">xtc:</font><font color="#999999">Install</font></strong></font></div></td>
         </tr>
         <tr>
           <td bgcolor="F3F3F3" ><br />
@@ -151,7 +151,7 @@
     $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/includes/configure.org.php<br />';
  }
  $status='OK';
- if ($error_flag==true) $status='<b><font color="#ff0000">ERROR</font></b>';
+ if ($error_flag==true) $status='<strong><font color="#ff0000">ERROR</font></strong>';
  $ok_message.='FILE Permissions .............................. '.$status.'<br /><hr noshade>';
 
  // smarty folders
@@ -235,7 +235,7 @@
  }
 
  $status='OK';
- if ($folder_flag==true) $status='<b><font color="#ff0000">ERROR</font></b>';
+ if ($folder_flag==true) $status='<strong><font color="#ff0000">ERROR</font></strong>';
  $ok_message.='FOLDER Permissions .............................. '.$status.'<br /><hr noshade>';
 
  // check PHP-Version
@@ -244,19 +244,19 @@
  if (xtc_check_version()!=1) {
      $error_flag=true;
      $php_flag=true;
-    $message .='<b>ATTENTION!, your PHP Version is to old, XT-Commerce requires atleast PHP 4.1.3.</b><br /><br />
-                 Your php Version: <b><?php echo phpversion(); ?></b><br /><br />
+    $message .='<strong>ATTENTION!, your PHP Version is to old, XT-Commerce requires atleast PHP 4.1.3.</strong><br /><br />
+                 Your php Version: <strong><?php echo phpversion(); ?></strong><br /><br />
                  XT-Commerce wont work on this server, update PHP or change Server.';
  }
 
  $status='OK';
- if ($php_flag==true) $status='<b><font color="#ff0000">ERROR</font></b>';
+ if ($php_flag==true) $status='<strong><font color="#ff0000">ERROR</font></strong>';
  $ok_message.='PHP VERSION .............................. '.$status.'<br /><hr noshade>';
 
 
  $gd=gd_info();
 
- if ($gd['GD Version']=='') $gd['GD Version']='<b><font color="#ff0000">ERROR NO GDLIB FOUND!</font></b>';
+ if ($gd['GD Version']=='') $gd['GD Version']='<strong><font color="#ff0000">ERROR NO GDLIB FOUND!</font></strong>';
 
  $status=$gd['GD Version'].' <br />  if GDlib Version < 2+ , klick here for further instructions';
 
@@ -266,14 +266,14 @@
  if ($gd['GIF Read Support']==1 or $gd['GIF Support']==1) {
  $status='OK';
  } else {
- $status='<b><font color="#ff0000">ERROR</font></b><br />You don\'t have GIF support within your GDlib, you won\'t be able to use GIF images, and GIF overlayfunctions in XT-Commerce!';
+ $status='<strong><font color="#ff0000">ERROR</font></strong><br />You don\'t have GIF support within your GDlib, you won\'t be able to use GIF images, and GIF overlayfunctions in XT-Commerce!';
  }
  $ok_message.='GDlib GIF-Support .............................. '.$status.'<br /><hr noshade>';
 
 if ($error_flag==true) {
 ?>
         <td style="border: 1px solid; border-color: #ff0000;" bgcolor="#FFCCCC">
-<font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b>Attention:<br /></b>
+<font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>Attention:<br /></strong>
 <?php echo $message; ?>
 </font>
 </td>
@@ -285,7 +285,7 @@ if ($ok_message!='') {
 ?>
 <td height="20"></td></tr><tr>
 <td style="border: 1px solid; border-color: #4CC534;" bgcolor="#C2FFB6">
-<font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b>Checking:<br /></b>
+<font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>Checking:<br /></strong>
 <?php echo $ok_message; ?>
 </font>
 </td>

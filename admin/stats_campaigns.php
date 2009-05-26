@@ -214,7 +214,7 @@ if ($srExp < 1) {
                   <td rowspan="2" align="left" class="menuBoxHeading"> <?php echo REPORT_STATUS_FILTER; ?><br /> 
                     <?php echo xtc_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $orders_statuses), $_GET['status']); ?> 
                     
-                    <br><?php echo REPORT_CAMPAIGN_FILTER; ?><br /> 
+                    <br /><?php echo REPORT_CAMPAIGN_FILTER; ?><br /> 
 <?php echo xtc_draw_pull_down_menu('campaign', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $campaigns), $_GET['campaign']); ?> 
                     
                     </td>
@@ -333,7 +333,7 @@ if (count($campaign->result)) {
   
   
   <tr class="dataTableRow"> 
-    <td class="main" colspan="7" style="border-bottom: 2px solid;"><br><?php echo $campaign->result[$n]['text'].' '.TEXT_REFERER .' ('.$campaign->result[$n]['id'].')'; ?></td>
+    <td class="main" colspan="7" style="border-bottom: 2px solid;"><br /><?php echo $campaign->result[$n]['text'].' '.TEXT_REFERER .' ('.$campaign->result[$n]['id'].')'; ?></td>
   </tr>
   
   <?php
@@ -358,13 +358,13 @@ if (count($campaign->result)) {
   
   
     <tr class="dataTableRow"> 
-    <td class="dataTableContent"><b><?php echo HEADING_SUM; ?></b></td>
+    <td class="dataTableContent"><strong><?php echo HEADING_SUM; ?></strong></td>
     <td class="dataTableContent">&nbsp;</td>
-    <td class="dataTableContent"><b><?php echo $campaign->result[$n]['hits_s']; ?></b></td>
-    <td class="dataTableContent"><b><?php echo $campaign->result[$n]['leads_s'].' ('.($campaign->total['leads']> 0 ? ($campaign->result[$n]['leads_s']/$campaign->total['leads']*100):'0').'%)'; ?></b></td>
-    <td class="dataTableContent"><b><?php echo $campaign->result[$n]['sells_s'].' ('.($campaign->total['sells']> 0 ? ($campaign->result[$n]['sells_s']/$campaign->total['sells']*100):'0').'%)'; ?></b></td>
-    <td class="dataTableContent"><b><?php echo $campaign->result[$n]['late_sells_s'].' ('.($campaign->total['sells']> 0 ? ($campaign->result[$n]['late_sells_s']/$campaign->total['sells']*100):'0').'%)'; ?></b></td>
-    <td class="dataTableContent"><b><?php echo $campaign->result[$n]['sum_s'].' ('.($campaign->total['sum_plain']> 0 ? round(($campaign->result[$n]['sum_s']/$campaign->total['sum_plain']*100),0):'0').'%)'; ?></b></td>
+    <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['hits_s']; ?></strong></td>
+    <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['leads_s'].' ('.($campaign->total['leads']> 0 ? ($campaign->result[$n]['leads_s']/$campaign->total['leads']*100):'0').'%)'; ?></strong></td>
+    <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['sells_s'].' ('.($campaign->total['sells']> 0 ? ($campaign->result[$n]['sells_s']/$campaign->total['sells']*100):'0').'%)'; ?></strong></td>
+    <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['late_sells_s'].' ('.($campaign->total['sells']> 0 ? ($campaign->result[$n]['late_sells_s']/$campaign->total['sells']*100):'0').'%)'; ?></strong></td>
+    <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['sum_s'].' ('.($campaign->total['sum_plain']> 0 ? round(($campaign->result[$n]['sum_s']/$campaign->total['sum_plain']*100),0):'0').'%)'; ?></strong></td>
   </tr>
   
   

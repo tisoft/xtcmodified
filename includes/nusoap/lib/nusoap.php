@@ -1617,10 +1617,10 @@ class XMLSchema extends nusoap_base  {
     */
 	function getPHPType($type,$ns){
 		if(isset($this->typemap[$ns][$type])){
-			//print "found type '$type' and ns $ns in typemap<br>";
+			//print "found type '$type' and ns $ns in typemap<br />";
 			return $this->typemap[$ns][$type];
 		} elseif(isset($this->complexTypes[$type])){
-			//print "getting type '$type' and ns $ns from complexTypes array<br>";
+			//print "getting type '$type' and ns $ns from complexTypes array<br />";
 			return $this->complexTypes[$type]['phpType'];
 		}
 		return false;
@@ -1718,7 +1718,7 @@ class XMLSchema extends nusoap_base  {
     * @deprecated
     */
     function serializeTypeDef($type){
-    	//print "in sTD() for type $type<br>";
+    	//print "in sTD() for type $type<br />";
 	if($typeDef = $this->getTypeDef($type)){
 		$str .= '<'.$type;
 	    if(is_array($typeDef['attrs'])){
@@ -2714,10 +2714,10 @@ class soap_transport_http extends nusoap_base {
 
         $cErr = curl_error($this->ch);
 		if ($cErr != '') {
-        	$err = 'cURL ERROR: '.curl_errno($this->ch).': '.$cErr.'<br>';
+        	$err = 'cURL ERROR: '.curl_errno($this->ch).': '.$cErr.'<br />';
         	// TODO: there is a PHP bug that can cause this to SEGV for CURLINFO_CONTENT_TYPE
 			foreach(curl_getinfo($this->ch) as $k => $v){
-				$err .= "$k: $v<br>";
+				$err .= "$k: $v<br />";
 			}
 			$this->debug($err);
 			$this->setError($err);
@@ -4828,7 +4828,7 @@ class wsdl extends nusoap_base {
 		</head>
 		<body>
 		<div class=content>
-			<br><br>
+			<br /><br />
 			<div class=title>'.$this->serviceName.'</div>
 			<div class=nav>
 				<p>View the <a href="'.$PHP_SELF.'?wsdl">WSDL</a> for the service.
@@ -4838,24 +4838,24 @@ class wsdl extends nusoap_base {
 				    $b .= "<li><a href='#' onclick=\"popout();popup('$op')\">$op</a></li>";
 				    // create hidden div
 				    $b .= "<div id='$op' class='hidden'>
-				    <a href='#' onclick='popout()'><font color='#ffffff'>Close</font></a><br><br>";
+				    <a href='#' onclick='popout()'><font color='#ffffff'>Close</font></a><br /><br />";
 				    foreach($data as $donnie => $marie){ // loop through opdata
 						if($donnie == 'input' || $donnie == 'output'){ // show input/output data
-						    $b .= "<font color='white'>".ucfirst($donnie).':</font><br>';
+						    $b .= "<font color='white'>".ucfirst($donnie).':</font><br />';
 						    foreach($marie as $captain => $tenille){ // loop through data
 								if($captain == 'parts'){ // loop thru parts
-								    $b .= "&nbsp;&nbsp;$captain:<br>";
+								    $b .= "&nbsp;&nbsp;$captain:<br />";
 					                //if(is_array($tenille)){
 								    	foreach($tenille as $joanie => $chachi){
-											$b .= "&nbsp;&nbsp;&nbsp;&nbsp;$joanie: $chachi<br>";
+											$b .= "&nbsp;&nbsp;&nbsp;&nbsp;$joanie: $chachi<br />";
 								    	}
 					        		//}
 								} else {
-								    $b .= "&nbsp;&nbsp;$captain: $tenille<br>";
+								    $b .= "&nbsp;&nbsp;$captain: $tenille<br />";
 								}
 						    }
 						} else {
-						    $b .= "<font color='white'>".ucfirst($donnie).":</font> $marie<br>";
+						    $b .= "<font color='white'>".ucfirst($donnie).":</font> $marie<br />";
 						}
 				    }
 					$b .= '</div>';
@@ -4917,11 +4917,11 @@ class wsdl extends nusoap_base {
 				$xml .= "\n<message name=\"" . $msgName . '">';
 				if(is_array($msgParts)){
 					foreach($msgParts as $partName => $partType) {
-						// print 'serializing '.$partType.', sv: '.$this->XMLSchemaVersion.'<br>';
+						// print 'serializing '.$partType.', sv: '.$this->XMLSchemaVersion.'<br />';
 						if (strpos($partType, ':')) {
 						    $typePrefix = $this->getPrefixFromNamespace($this->getPrefix($partType));
 						} elseif (isset($this->typemap[$this->namespaces['xsd']][$partType])) {
-						    // print 'checking typemap: '.$this->XMLSchemaVersion.'<br>';
+						    // print 'checking typemap: '.$this->XMLSchemaVersion.'<br />';
 						    $typePrefix = 'xsd';
 						} else {
 						    foreach($this->typemap as $ns => $types) {
@@ -6680,7 +6680,7 @@ class soapclientw extends nusoap_base  {
 				$this->fault = true;
 				foreach($return as $k => $v){
 					$this->$k = $v;
-					$this->debug("$k = $v<br>");
+					$this->debug("$k = $v<br />");
 				}
 				return $return;
 			} elseif ($style == 'document') {

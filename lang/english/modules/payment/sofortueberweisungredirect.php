@@ -36,10 +36,10 @@
  */
 
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_TEXT_TITLE',  xtc_image(DIR_WS_IMAGES . 'icons/sofortueberweisung_icon.gif', 'Sofortüberweisung direkt (empfohlen)', '', '', ' align="middle"' ) . 'Sofortüberweisung direkt (empfohlen)');
-  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_TEXT_DESCRIPTION', '<div align="center">' . (MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STATUS != 'True' ? '<a class="button" onClick="this.blur();" href=' . xtc_catalog_href_link('sofortueberweisung_install.php', 'install=sofortueberweisungredirect', 'SSL') . '>' . xtc_image(DIR_WS_IMAGES . 'icons/sofortueberweisung_autoinstaller.gif', 'Autoinstaller (empfohlen)') . '</a><br>' : '') .  '<b>Sofortüberweisung direkt (empfohlen)</b><br>Der Kunde wird vor Abschluss des Bestellvorgangs zur Sofortüberweisungseite geleitet. Mit Abschluss der Zahlung wird die Bestellung in die Shopdatenbank geschrieben. Bricht der Kunde ab kommt er zurück zur  Zahlungsausswahlseite des Shops.<br><b>Hinweis zu diesem Modul:</b><br>Schliest der Kunde bei Sofortüberweisung den Browser, bzw. scheitert der Rücksprung wird keine Bestellung im Shop aufgenommen.</small><br><b>Bei gleichzeitiger Verwendung mit einem der anderen Sofortüberweisungsmodule muß ein eigenes Projekt bei Sofortüberweisung angelegt werden.</b>');
+  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_TEXT_DESCRIPTION', '<div align="center">' . (MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STATUS != 'True' ? '<a class="button" onClick="this.blur();" href=' . xtc_catalog_href_link('sofortueberweisung_install.php', 'install=sofortueberweisungredirect', 'SSL') . '>' . xtc_image(DIR_WS_IMAGES . 'icons/sofortueberweisung_autoinstaller.gif', 'Autoinstaller (empfohlen)') . '</a><br />' : '') .  '<strong>Sofortüberweisung direkt (empfohlen)</strong><br />Der Kunde wird vor Abschluss des Bestellvorgangs zur Sofortüberweisungseite geleitet. Mit Abschluss der Zahlung wird die Bestellung in die Shopdatenbank geschrieben. Bricht der Kunde ab kommt er zurück zur  Zahlungsausswahlseite des Shops.<br /><strong>Hinweis zu diesem Modul:</strong><br />Schliest der Kunde bei Sofortüberweisung den Browser, bzw. scheitert der Rücksprung wird keine Bestellung im Shop aufgenommen.</small><br /><strong>Bei gleichzeitiger Verwendung mit einem der anderen Sofortüberweisungsmodule muß ein eigenes Projekt bei Sofortüberweisung angelegt werden.</strong>');
 
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_ALLOWED_TITLE', 'Erlaubte Zonen');
-  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_ALLOWED_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, welche für dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
+  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_ALLOWED_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, welche für dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STATUS_TITLE', 'Sofortüberweisung Direkter (redirect) Modus aktivieren');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STATUS_DESC', 'Bezahlung per Vorkasse mit integrierter Sofortüberweisung acceptieren?');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_ZONE_TITLE', 'Zahlungszone');
@@ -55,7 +55,7 @@
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_INPUT_PASSWORT_TITLE', 'Inputpasswort');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_INPUT_PASSWORT_DESC', 'Das Input-Passwort (unter "Nicht änderbare Parameter / Input-Passwort")');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_CNT_PASSWORT_TITLE', 'Contentpasswort');
-  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_CNT_PASSWORT_DESC', 'Das Contentpasswort (unter "Content-Passwort")<br>Variablenname für Passwort (Default: pw) und Variablenname für Text (Default: text) bitte die Standardwerte (pw und text) eintragen');
+  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_CNT_PASSWORT_DESC', 'Das Contentpasswort (unter "Content-Passwort")<br />Variablenname für Passwort (Default: pw) und Variablenname für Text (Default: text) bitte die Standardwerte (pw und text) eintragen');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STORE_TRANSACTION_DETAILS_TITLE', 'Transactiondetails speichern');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STORE_TRANSACTION_DETAILS_DESC', 'Transactionsdetails bei Benachrichtigung in das Kommentarfeld speichern (zum debuggen, ist für Kunden via Konto sichtbar)');
 
@@ -70,7 +70,7 @@
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_TEXT_DESCRIPTION_CHECKOUT_CONFIRMATION', '
     <table border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td class="main">Sofortüberweisung beschleunigt den Warenversand Ihrer Bestellung um Tage. Außerdem können Sie mit Sofortüberweisung bequem während Ihrer Bestellung die Online-Zahlung durchführen.<br>Unser Service ist für Sie als Kunde kostenlos, es fallen lediglich die Gebühren (Überweisungsgebühr) Ihrer Hausbank an.<br><a href="#" onclick="window.open(\'https://www.sofort-ueberweisung.de/paynetag/anbieter/download/informationen.html\', \'Popup\',\'toolbar=yes,status=no,menubar=no,scrollbars=yes,width=690,height=500\'); return false;"><b>Mehr Informationen</b></a></td>
+        <td class="main">Sofortüberweisung beschleunigt den Warenversand Ihrer Bestellung um Tage. Außerdem können Sie mit Sofortüberweisung bequem während Ihrer Bestellung die Online-Zahlung durchführen.<br />Unser Service ist für Sie als Kunde kostenlos, es fallen lediglich die Gebühren (Überweisungsgebühr) Ihrer Hausbank an.<br /><a href="#" onclick="window.open(\'https://www.sofort-ueberweisung.de/paynetag/anbieter/download/informationen.html\', \'Popup\',\'toolbar=yes,status=no,menubar=no,scrollbars=yes,width=690,height=500\'); return false;"><strong>Mehr Informationen</strong></a></td>
       </tr>
     </table>');
 

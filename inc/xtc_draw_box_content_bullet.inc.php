@@ -25,7 +25,7 @@ function xtc_draw_box_content_bullet($bullet_text, $bullet_link = '') {
               '            <td class="infoboxText">';
     if ($bullet_link) {
       if ($bullet_link == $page_file) {
-        $bullet .= '<font color="#0033cc"><b>' . $bullet_text . '</b></font>';
+        $bullet .= '<font color="#0033cc"><strong>' . $bullet_text . '</strong></font>';
       } else {
         $bullet .= '<a href="' . $bullet_link . '">' . $bullet_text . '</a>';
       }

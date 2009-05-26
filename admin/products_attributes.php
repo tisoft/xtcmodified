@@ -270,7 +270,7 @@ function go_option() {
       if ($i != $option_page) {
         echo '<a href="' . xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $i.'&searchoption='.$_GET['searchoption']) . '">' . $i . '</a> | ';
       } else {
-        echo '<b><font color=red>' . $i . '</font></b> | ';
+        echo '<strong><font color=red>' . $i . '</font></strong> | ';
       }
     }
 
@@ -428,7 +428,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_VAL; ?>&nbsp;</td>
-                             <td colspan="2" align="right"><br>
+                             <td colspan="2" align="right"><br />
 <table border="0">
 	<tr>
 	<td class="main">
@@ -498,7 +498,7 @@ function go_option() {
       if ($i != $_GET['value_page']) {
          echo '<a href="' . xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_order_by=' . $option_order_by . '&value_page=' . $i.'&search_optionsname='.$_GET['search_optionsname']) . '">' . $i . '</a> | ';
       } else {
-         echo '<b><font color=red>' . $i . '</font></b> | ';
+         echo '<strong><font color=red>' . $i . '</font></strong> | ';
       }
     }
 

@@ -15,7 +15,7 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 ?>
-<br>
+<br />
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr>
     <td align="center" class="smallText"><?php
@@ -31,7 +31,7 @@
   Copyright announcement changed due to the permissions
   from LG Hamburg from 28th February 2003 / AZ 308 O 70/03
 */
-?>E-Commerce Engine Copyright &copy; 2006 <a href="http://www.xt-commerce.com" target="_blank">xt:Commerce</a><br>
+?>E-Commerce Engine Copyright &copy; 2006 <a href="http://www.xt-commerce.com" target="_blank">xt:Commerce</a><br />
 xt:Commerce provides no warranty and is redistributable under the <a href="http://www.fsf.org/licenses/gpl.txt" target="_blank">GNU General Public License</a></td>
   </tr>
   <tr>
@@ -43,7 +43,7 @@ xt:Commerce provides no warranty and is redistributable under the <a href="http:
 </table>
 <?php
 /*
-  echo ('<font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b>Session Debug:</b><br>');
+  echo ('<font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>Session Debug:</strong><br />');
   echo "<pre>";
   print_r($_SESSION);
   echo "</pre>";

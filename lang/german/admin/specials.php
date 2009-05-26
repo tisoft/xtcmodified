@@ -25,8 +25,8 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_SPECIALS_PRODUCT', 'Artikel:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Angebotspreis:');
 define('TEXT_SPECIALS_SPECIAL_QUANTITY', 'Anzahl:');
-define('TEXT_SPECIALS_EXPIRES_DATE', 'G&uuml;ltig bis:<br><small>(dd.mm.yyyy)</small>');
-define('TEXT_SPECIALS_PRICE_TIP', '<b>Bemerkung:</b><ul><li>Sie k&ouml;nnen im Feld Angebotspreis auch prozentuale Werte angeben, z.B.: <b>20%</b></li><li>Wenn Sie einen neuen Preis eingeben, m&uuml;ssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <b>49.99</b></li><li>Lassen Sie das Feld <b>\'G&uuml;ltig bis\'</b> leer, wenn der Angebotspreis zeitlich unbegrenzt gelten soll.</li></ul>');
+define('TEXT_SPECIALS_EXPIRES_DATE', 'G&uuml;ltig bis:<br /><small>(dd.mm.yyyy)</small>');
+define('TEXT_SPECIALS_PRICE_TIP', '<strong>Bemerkung:</strong><ul><li>Sie k&ouml;nnen im Feld Angebotspreis auch prozentuale Werte angeben, z.B.: <strong>20%</strong></li><li>Wenn Sie einen neuen Preis eingeben, m&uuml;ssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <strong>49.99</strong></li><li>Lassen Sie das Feld <strong>\'G&uuml;ltig bis\'</strong> leer, wenn der Angebotspreis zeitlich unbegrenzt gelten soll.</li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');

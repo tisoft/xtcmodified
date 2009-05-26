@@ -21,7 +21,7 @@ define('TRACKING_ECONDA_ACTIVE_TITLE','ECONDA Shop Monitor aktivieren ?');
 define('TRACKING_ECONDA_ACTIVE_DESC','Wenn auf true gesetzt, wird der ECONDA Shop Monitor gestartet.');
 
 define('TRACKING_ECONDA_ID_TITLE','Aktivierungscode');
-define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie von ECONDA erhalten.<br>Einen 14-t&auml;gigen, kostenlosen Testzugang k&ouml;nnen Sie <a href="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_new">[HIER]</a> anfordern!');
+define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie von ECONDA erhalten.<br />Einen 14-t&auml;gigen, kostenlosen Testzugang k&ouml;nnen Sie <a href="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_new">[HIER]</a> anfordern!');
 
   if ($_GET['action']) {
     switch ($_GET['action']) {
@@ -78,7 +78,7 @@ define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie 
       <th colspan="3">Aktivierung </th>
     </tr>
     <tr>
-      <td class="text_box_image"><br>      </td>
+      <td class="text_box_image"><br />      </td>
       <td class="text_box_text"><p>
 	  
 	  <?php echo xtc_draw_form('configuration', 'econda.php', 'action=save'); ?>
@@ -121,7 +121,7 @@ define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie 
 
    echo '
   <tr>
-    <td width="300" valign="top" class="dataTableContent"><b>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</b></td>
+    <td width="300" valign="top" class="dataTableContent"><strong>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</strong></td>
     <td valign="top" class="dataTableContent">
     <table width="100%"  border="0" cellspacing="0" cellpadding="2">
       <tr>
@@ -151,13 +151,13 @@ define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie 
 			</tr>
 			<tr>
 			  <td class="text_box_image"><a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank"><img src="../includes/econda/gfx/exitbereiche.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /></a>
-                  <br>
-                  <br>				
+                  <br />
+                  <br />				
                 <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank"><img src="../includes/econda/gfx/diff.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /></a>			  </td>
 				<td class="text_box_text">
 				    <p><strong>ECONDA</strong> ist exklusiver Web-Controlling Partner von xt:Commerce. 
-                      <br>
-                      <br>
+                      <br />
+                      <br />
                       ECONDA Shop Monitor liefert Ihnen ab 29,90 Euro im Monat mehr als 120 wertvolle Statistiken zum Controlling Ihres xt:C-Shops, wie u.a:				  </p>
 				    <ul>
 						<li>Kaufprozess- und Warenkorbanalysen</li>
@@ -188,8 +188,8 @@ define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie 
 			</tr>
 			<tr>
 			  <td class="text_box_image"><a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank"><img src="../includes/econda/gfx/searchConversion.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /></a>
-                  <br>
-                  <br>	
+                  <br />
+                  <br />	
 				
                 <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank"><img src="../includes/econda/gfx/srcumsatz.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /></a>			  </td>
 				<td class="text_box_text">
@@ -203,8 +203,8 @@ define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie 
 			          <li class="main">er datenschutzrechtlich unbedenklich ist und </li>
 			          <li class="main">er f&uuml;r jeden Versandhandelsprofi unverzichtbar ist.</li>
 			      </ul>              
-			      <p><br>
-			        <br>
+			      <p><br />
+			        <br />
 			        <strong>LINKS: </strong> </p>
 				    <ul>
                       <li><a href="http://www.econda.de/webstatistiken/loesungen/shop_monitor_release_2006/live_demo/index.html" target="_new"> Online-Demo</a></li>
@@ -222,12 +222,12 @@ define('TRACKING_ECONDA_ID_DESC','Geben Sie ihren Aktivierungscode ein, den Sie 
       <th colspan="3">Kostenlos Testen </th>
     </tr>
     <tr>
-      <td class="text_box_image"><br>
+      <td class="text_box_image"><br />
           <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank"><img src="../includes/econda/gfx/crtl.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /></a> </td>
       <td class="text_box_text"><p><strong>Jetzt kostenlos Testen und in 5 Minuten Ihre Statistiken sehen!</strong></p>
-        <p>ECONDA bietet Ihnen gerne einen 14-t&auml;gigen, unverbindlichen und kostenlosen Test inkl. eines pers&ouml;nlichen Optimierungsgespr&auml;chs am Ende der Testphase. <br>
-          Verwenden Sie bitte das folgende Formular, um einen Testaccount zu bestellen. Sie erhalten dann umgehend Ihren Aktivierungscode und Ihre Log-in Informationen von ECONDA. <br>
-          <br>
+        <p>ECONDA bietet Ihnen gerne einen 14-t&auml;gigen, unverbindlichen und kostenlosen Test inkl. eines pers&ouml;nlichen Optimierungsgespr&auml;chs am Ende der Testphase. <br />
+          Verwenden Sie bitte das folgende Formular, um einen Testaccount zu bestellen. Sie erhalten dann umgehend Ihren Aktivierungscode und Ihre Log-in Informationen von ECONDA. <br />
+          <br />
           <a href="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank">&gt;&gt; Jetzt 14-t&auml;gigen Testzugang f&uuml;r Ihren xt:Commerce Shop anfordern. </a></p>
         <ul>
           <p></p>

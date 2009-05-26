@@ -30,7 +30,7 @@ $adminImages = DIR_WS_CATALOG . "lang/". $_SESSION['language'] ."/admin/images/b
 <?php
 echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
   echo "<TR>";
-  echo "<TD class=\"main\"><br /><B>".SELECT_PRODUCT."<br /></TD>";
+  echo "<TD class=\"main\"><br /><strong>".SELECT_PRODUCT."</strong><br /></TD>";
   echo "</TR>";
   echo "<TR>";
   echo "<TD class=\"main\"><SELECT NAME=\"current_product_id\">";
@@ -66,7 +66,7 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
 <br /><br />
 <?php
   echo "<TR>";
-  echo "<TD class=\"main\"><br /><B>".SELECT_COPY."<br /></TD>";
+  echo "<TD class=\"main\"><br /><strong>".SELECT_COPY."<br /></TD>";
   echo "</TR>";
   echo "<TR>";
   echo "<TD class=\"main\"><SELECT NAME=\"copy_product_id\">";

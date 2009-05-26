@@ -21,7 +21,7 @@
   function xtc_db_query($query, $link = 'db_link') {
     global $$link;
 
-    //echo $query.'<br>';
+    //echo $query.'<br />';
 
     if (STORE_DB_TRANSACTIONS == 'true') {
       error_log('QUERY ' . $query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
@@ -30,7 +30,7 @@
     $result = mysql_query($query, $$link) or xtc_db_error($query, mysql_errno(), mysql_error());
 //	$queryEndTime = array_sum(explode(" ",microtime())); 
 //	$processTime = $queryEndTime - $queryStartTime;
-//	echo 'time: '.$processTime.' Query: '.$query.'<br>';
+//	echo 'time: '.$processTime.' Query: '.$query.'<br />';
 
 
     if (STORE_DB_TRANSACTIONS == 'true') {

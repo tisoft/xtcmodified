@@ -43,7 +43,7 @@ require('includes/application_top.php');
 <?php echo TEXT_VALID_PRODUCTS_LIST; ?>
 </td>
 </tr>
-<?
+<?php
     echo "<tr><th class=\"dataTableHeadingContent\">". TEXT_VALID_PRODUCTS_ID . "</th><th class=\"dataTableHeadingContent\">" . TEXT_VALID_PRODUCTS_NAME . "</th><th class=\"dataTableHeadingContent\">" . TEXT_VALID_PRODUCTS_MODEL . "</th></tr><tr>";
    
   //BUGFIX JUNG GESTALTEN.com -- fehlendes pd bei WHERE eigebunden
@@ -65,7 +65,7 @@ require('includes/application_top.php');
     }
     echo "</table>\n";
 ?>
-<br>
+<br />
 <table width="550" border="0" cellspacing="1">
 <tr>
 <td align=middle><input type="button" value="Close Window" onClick="window.close()"></td>

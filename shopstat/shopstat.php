@@ -17,7 +17,7 @@
             @unlink(dirname(__FILE__)."/test.txt");
             }
         else{
-            print "<br><br><font color=red><b><center>Directory 'shopstat' is not writeable -> please do a chmod 777 !</center></b></font><br><br>";
+            print "<br /><br /><font color=red><strong><center>Directory 'shopstat' is not writeable -> please do a chmod 777 !</center></strong></font><br /><br />";
             exit;
             }
         }
@@ -375,7 +375,7 @@ if( $shopstat_debug ){$shopstat_debug_msg .= '\nPARAS:\n------------\n';$shopsta
                     while (! @feof($sl_handle))
                        {
                         $s=fgets($sl_handle,2048);
-                        echo strlen($s)."<br>";flush();
+                        echo strlen($s)."<br />";flush();
                         gzputs($fz,$s);
                         }
                     gzclose($fz);

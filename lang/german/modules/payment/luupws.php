@@ -15,9 +15,9 @@
 
   define('MODULE_PAYMENT_LUUPWS_TEXT_COUNTRIES', 'DEU|Deutschland');
   
-  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE', '<font color="#ff0000"><b>LUUPAY</b></font>');
-  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE_SHOP', '<font color="#2A0075"><b>LUUPAY</b></font> : Dein Geld wird mobil. Einfach, schnell und sicher!');
-  define('MODULE_PAYMENT_LUUPWS_TEXT_DESCRIPTION', ' LUUPAY Konto<br><br><b>!Achtung!</b> Als xt:Commerce User erhalten Sie Sonderkonditionen, Details siehe <a href="http://www.xt-commerce.com/index.php?option=com_content&task=view&id=28&Itemid=43" target="_new">[Link]</a>');
+  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE', '<font color="#ff0000"><strong>LUUPAY</strong></font>');
+  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE_SHOP', '<font color="#2A0075"><strong>LUUPAY</strong></font> : Dein Geld wird mobil. Einfach, schnell und sicher!');
+  define('MODULE_PAYMENT_LUUPWS_TEXT_DESCRIPTION', ' LUUPAY Konto<br /><br /><strong>!Achtung!</strong> Als xt:Commerce User erhalten Sie Sonderkonditionen, Details siehe <a href="http://www.xt-commerce.com/index.php?option=com_content&task=view&id=28&Itemid=43" target="_new">[Link]</a>');
   define('MODULE_PAYMENT_LUUPWS_TEXT_LINK_REGISTER', 'LUUPAY hat eine E-Geld-Lizenz und ist unabh&auml;ngig ob Vertrags-, Prepaid- oder Dienst-Handy. Die Abwicklung der Zahlungen erfolgt &uuml;ber das kostenfreie LUUPAY-Konto. Keine laufenden Kosten, keine Kontof&uuml;hrungskosten, keine Verpflichtungen und kein Abonnement. Noch kein Kunde? Einfach <a href="https://www.luupay.de/Signup.aspx?c=de" target="_blank"><span style="font-weight: normal;"><u>hier anmelden</u></span></a>.');
   
   // labels, etc
@@ -54,7 +54,7 @@
   //define('MODULE_PAYMENT_LUUPWS_TEXT_ERROR_MESSAGE', 'Beim Bearbeiten deiner Transaktion ist ein Fehler aufgetreten, bitte versuche es erneut.');
   
   define('MODULE_PAYMENT_LUUPWS_ALLOWED_TITLE' , 'Erlaubte Zonen');
-  define('MODULE_PAYMENT_LUUPWS_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
+  define('MODULE_PAYMENT_LUUPWS_ALLOWED_DESC' , 'Geben Sie <strong>einzeln</strong> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
   
   
   // infobox text

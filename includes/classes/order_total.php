@@ -52,7 +52,7 @@ class order_total {
 			$header_string = '<tr>'."\n";
 			$header_string .= '   <td><table border="0" width="100%" cellspacing="0" cellpadding="2">'."\n";
 			$output1_string .= '      <tr>'."\n";
-			$header_string .= '        <td class="main"><b>'.TABLE_HEADING_CREDIT.'</b></td>'."\n";
+			$header_string .= '        <td class="main"><strong>'.TABLE_HEADING_CREDIT.'</strong></td>'."\n";
 			$header_string .= '      </tr>'."\n";
 			$header_string .= '    </table></td>'."\n";
 			$header_string .= '  </tr>'."\n";
@@ -75,7 +75,7 @@ class order_total {
 						$selection_string = $GLOBALS[$class]->credit_selection();
 					if (($use_credit_string != '') || ($selection_string != '')) {
 						$output_string .= '<tr colspan="4"><td colspan="4" width="100%">'.xtc_draw_separator('pixel_trans.gif', '100%', '10').'</td></tr>';
-						$output_string = ' <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >'."\n".'   <td s width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>'.'     <td   class="main"><b>'.$GLOBALS[$class]->header.'</b></td>'.$use_credit_string;
+						$output_string = ' <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >'."\n".'   <td s width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>'.'     <td   class="main"><strong>'.$GLOBALS[$class]->header.'</strong></td>'.$use_credit_string;
 						$output_string .= '<td  width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
 						$output_string .= '  </tr>'."\n";
 						$output_string .= $selection_string;

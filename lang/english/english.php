@@ -144,11 +144,11 @@ define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'Your passwords do not match.');
  */
 
 define('TEXT_RESULT_PAGE', 'Sites:');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Show <b>%d</b> to <b>%d</b> (of in total <b>%d</b> products)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Show <b>%d</b> to <b>%d</b> (of in total <b>%d</b> orders)');
-define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Show <b>%d</b> to <b>%d</b> (of in total <b>%d</b> reviews)');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Show <b>%d</b> to <b>%d</b> (of in total <b>%d</b> new products)');
-define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Show <b>%d</b> to <b>%d</b> (of in total <b>%d</b> special offers)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Show <strong>%d</strong> to <strong>%d</strong> (of in total <strong>%d</strong> products)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Show <strong>%d</strong> to <strong>%d</strong> (of in total <strong>%d</strong> orders)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Show <strong>%d</strong> to <strong>%d</strong> (of in total <strong>%d</strong> reviews)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Show <strong>%d</strong> to <strong>%d</strong> (of in total <strong>%d</strong> new products)');
+define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Show <strong>%d</strong> to <strong>%d</strong> (of in total <strong>%d</strong> special offers)');
 
 /*
  *
@@ -242,7 +242,7 @@ define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Warning: Directory for articl
 define('SUCCESS_ACCOUNT_UPDATED', 'Your account has been updated successfully.');
 define('SUCCESS_PASSWORD_UPDATED', 'Your password has been changed successfully!');
 define('ERROR_CURRENT_PASSWORD_NOT_MATCHING', 'The entered password does not match with the stored password. Please try again.');
-define('TEXT_MAXIMUM_ENTRIES', '<font color="#ff0000"><b>Reference:</b></font> You are able to choose out of %s entries in you address book!');
+define('TEXT_MAXIMUM_ENTRIES', '<font color="#ff0000"><strong>Reference:</strong></font> You are able to choose out of %s entries in you address book!');
 define('SUCCESS_ADDRESS_BOOK_ENTRY_DELETED', 'The selected entry has been deleted successfully.');
 define('SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED', 'Your address book has been updated sucessfully!');
 define('WARNING_PRIMARY_ADDRESS_DELETION', 'The standard postal address can not be deleted. Please create another address and define it as standard postal address first. Than this entry can be deleted.');
@@ -285,8 +285,8 @@ define('JS_PRICE_FROM_MUST_BE_NUM', '* Price over, must be a number\n');
 define('JS_PRICE_TO_MUST_BE_NUM', '* Price up to, must be a number\n');
 define('JS_PRICE_TO_LESS_THAN_PRICE_FROM', '* Price up to must be larger or same size as Price over.\n');
 define('JS_INVALID_KEYWORDS', '* Invalid search key\n');
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> The entered \'eMail-address\' and/or the \'password\' do not match.');
-define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><b>WARNING:</b></font> The entered e-mail address is not registered. Please try again.');
+define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><strong>ERROR:</strong></font> The entered \'eMail-address\' and/or the \'password\' do not match.');
+define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><strong>WARNING:</strong></font> The entered e-mail address is not registered. Please try again.');
 define('TEXT_PASSWORD_SENT', 'A new password was sent by e-mail.');
 define('TEXT_PRODUCT_NOT_FOUND', 'Product not found!');
 define('TEXT_MORE_INFORMATION', 'For further information, please visit the <a style="text-decoration:underline;" href="%s" onclick="window.open(this.href); return false;">homepage</a> of this product.');

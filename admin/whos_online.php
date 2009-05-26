@@ -99,7 +99,7 @@
   $heading = array();
   $contents = array();
   if ($info) {
-    $heading[] = array('text' => '<b>' . TABLE_HEADING_SHOPPING_CART . '</b>');
+    $heading[] = array('text' => '<strong>' . TABLE_HEADING_SHOPPING_CART . '</strong>');
 
     if (STORE_SESSIONS == 'mysql') {
       $session_data = xtc_db_query("select value from " . TABLE_SESSIONS . " WHERE sesskey = '" . $info . "'");
@@ -150,7 +150,7 @@
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
+<br />
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

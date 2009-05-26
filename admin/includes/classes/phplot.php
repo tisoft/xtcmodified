@@ -521,7 +521,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
 				break;
 			default:
-				$this->PrintError('Please select an image type!<br>');
+				$this->PrintError('Please select an image type!<br />');
 				break;
 		}
 		ImageDestroy($this->img);
@@ -1081,7 +1081,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
 	function PrintError($error_message) {
 	// prints the error message to stdout and die
-		echo "<p><b>Fatal error</b>: $error_message<p>";
+		echo "<p><strong>Fatal error</strong>: $error_message<p>";
 		die;
 	}
 
@@ -1169,7 +1169,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 		}
 
 		$this->y_label_width = $size[0] * 2;
-//echo "SYLW: $this->y_label_width<br>";
+//echo "SYLW: $this->y_label_width<br />";
 //exit;
 
 		$this->SetMargins();
@@ -1953,7 +1953,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 			$i = 0;
 
 			while (list($key, $val) = each($row)) {
-//echo "$key, $i, $val<br>";
+//echo "$key, $i, $val<br />";
 				if ($key == 0) {
 					$lab = $val;
 				} elseif ($key == 1) {
@@ -1972,7 +1972,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 					$barcol = $this->ndx_data_color[$color_index];
 					$error_barcol = $this->ndx_error_bar_color[$color_index];
 
-//echo "start = $start_lines<br>";
+//echo "start = $start_lines<br />";
 					if ($start_lines == 1) {
 						for ($width = 0; $width < $this->line_width; $width++) {
 							ImageLine($this->img, $x_now_pixels, $y_now_pixels + $width,
@@ -2218,7 +2218,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 		while (list(, $row) = each($posarr)) {
 			if ($color_index >= count($this->ndx_data_color)) $color_index=0;
 			$barcol = $this->ndx_data_color[$color_index];
-//echo "$row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9],$row[10],$row[11],$row[12], $barcol<br>";
+//echo "$row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9],$row[10],$row[11],$row[12], $barcol<br />";
 			ImageFilledPolygon($this->img, $row, (count($row)) / 2, $barcol);
 			$color_index++;
 		}
@@ -2270,7 +2270,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 		while (list(, $row) = each($posarr)) {
 			if ($color_index >= count($this->ndx_data_color)) $color_index=0;
 			$barcol = $this->ndx_data_color[$color_index];
-//echo "$row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9],$row[10],$row[11],$row[12], $barcol<br>";
+//echo "$row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9],$row[10],$row[11],$row[12], $barcol<br />";
 			ImageFilledPolygon($this->img, $row, (count($row)) / 2, $barcol);
 			$color_index++;
 		}

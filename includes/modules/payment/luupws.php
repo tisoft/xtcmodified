@@ -32,10 +32,10 @@ class luupws {
       
       // curl check
       
-      $this->description.='<br>';
+      $this->description.='<br />';
       if (!function_exists(curl_init)) {
       	$this->description.='<font color="#ff0000">ERROR: NO CURL INSTALLED</font>';
-      	$this->description.='<br>Please contact your admin to enable cURL library on your server!';
+      	$this->description.='<br />Please contact your admin to enable cURL library on your server!';
       }
       
       
@@ -314,9 +314,9 @@ class luupws {
 	
 	} else {
 		
-		echo 'luupws_country_code = '.$countrycode.'<br>';
-		echo 'pin = '.$pin.'<br>';
-		echo 'luupws_userid = '.$userid.'<br>';
+		echo 'luupws_country_code = '.$countrycode.'<br />';
+		echo 'pin = '.$pin.'<br />';
+		echo 'luupws_userid = '.$userid.'<br />';
 		
 	}
 	
@@ -393,7 +393,7 @@ class luupws {
 		$this->transaction_id = $this->client->transactionId;
 		
 		if(MODULE_PAYMENT_LUUPWS_USE_DB != 'Yes')
-			$order->info['comments'] .= 'LUUP transaction id: ' .$this->transaction_id .'<br>';
+			$order->info['comments'] .= 'LUUP transaction id: ' .$this->transaction_id .'<br />';
 			
 		if(MODULE_PAYMENT_LUUPWS_TESTMODE == 'True')
 			$order->info['comments'] .= 'LUUP TEST ORDER - NOT VALID PAYMENT - DO NOT SHIP';
@@ -409,12 +409,12 @@ class luupws {
 	}
 	} else {  // debug
 	
-		echo 'CURR : '.$curr.'<br>';
-		echo 'AMOUNT : '.$amount.'<br>';
-		echo 'REF : '.$paymentRef.'<br>';
-		echo 'MERCHANTREF : '.$merchantRef.'<br>';
-		echo 'VER CODE : '.$verificationCode.'<br>';
-		echo 'EXPIRES : '.$expires.'<br>';
+		echo 'CURR : '.$curr.'<br />';
+		echo 'AMOUNT : '.$amount.'<br />';
+		echo 'REF : '.$paymentRef.'<br />';
+		echo 'MERCHANTREF : '.$merchantRef.'<br />';
+		echo 'VER CODE : '.$verificationCode.'<br />';
+		echo 'EXPIRES : '.$expires.'<br />';
 	
 	}
 	

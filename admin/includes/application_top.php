@@ -274,7 +274,7 @@
     function xtDBquery($query) {
        if (DB_CACHE=='true') {
              $result=xtc_db_queryCached($query);
-             //echo 'cached query: '.$query.'<br>';
+             //echo 'cached query: '.$query.'<br />';
           } else {
              $result=xtc_db_query($query);
     }

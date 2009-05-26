@@ -766,7 +766,7 @@ class wsdl extends nusoap_base {
 		</head>
 		<body>
 		<div class=content>
-			<br><br>
+			<br /><br />
 			<div class=title>'.$this->serviceName.'</div>
 			<div class=nav>
 				<p>View the <a href="'.$PHP_SELF.'?wsdl">WSDL</a> for the service.
@@ -776,24 +776,24 @@ class wsdl extends nusoap_base {
 				    $b .= "<li><a href='#' onclick=\"popout();popup('$op')\">$op</a></li>";
 				    // create hidden div
 				    $b .= "<div id='$op' class='hidden'>
-				    <a href='#' onclick='popout()'><font color='#ffffff'>Close</font></a><br><br>";
+				    <a href='#' onclick='popout()'><font color='#ffffff'>Close</font></a><br /><br />";
 				    foreach($data as $donnie => $marie){ // loop through opdata
 						if($donnie == 'input' || $donnie == 'output'){ // show input/output data
-						    $b .= "<font color='white'>".ucfirst($donnie).':</font><br>';
+						    $b .= "<font color='white'>".ucfirst($donnie).':</font><br />';
 						    foreach($marie as $captain => $tenille){ // loop through data
 								if($captain == 'parts'){ // loop thru parts
-								    $b .= "&nbsp;&nbsp;$captain:<br>";
+								    $b .= "&nbsp;&nbsp;$captain:<br />";
 					                //if(is_array($tenille)){
 								    	foreach($tenille as $joanie => $chachi){
-											$b .= "&nbsp;&nbsp;&nbsp;&nbsp;$joanie: $chachi<br>";
+											$b .= "&nbsp;&nbsp;&nbsp;&nbsp;$joanie: $chachi<br />";
 								    	}
 					        		//}
 								} else {
-								    $b .= "&nbsp;&nbsp;$captain: $tenille<br>";
+								    $b .= "&nbsp;&nbsp;$captain: $tenille<br />";
 								}
 						    }
 						} else {
-						    $b .= "<font color='white'>".ucfirst($donnie).":</font> $marie<br>";
+						    $b .= "<font color='white'>".ucfirst($donnie).":</font> $marie<br />";
 						}
 				    }
 					$b .= '</div>';
@@ -855,11 +855,11 @@ class wsdl extends nusoap_base {
 				$xml .= "\n<message name=\"" . $msgName . '">';
 				if(is_array($msgParts)){
 					foreach($msgParts as $partName => $partType) {
-						// print 'serializing '.$partType.', sv: '.$this->XMLSchemaVersion.'<br>';
+						// print 'serializing '.$partType.', sv: '.$this->XMLSchemaVersion.'<br />';
 						if (strpos($partType, ':')) {
 						    $typePrefix = $this->getPrefixFromNamespace($this->getPrefix($partType));
 						} elseif (isset($this->typemap[$this->namespaces['xsd']][$partType])) {
-						    // print 'checking typemap: '.$this->XMLSchemaVersion.'<br>';
+						    // print 'checking typemap: '.$this->XMLSchemaVersion.'<br />';
 						    $typePrefix = 'xsd';
 						} else {
 						    foreach($this->typemap as $ns => $types) {

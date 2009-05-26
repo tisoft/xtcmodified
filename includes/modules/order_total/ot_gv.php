@@ -71,7 +71,7 @@ class ot_gv {
 			$order->info['total'] = $order->info['total'] - $od_amount;
 
 			if ($od_amount > 0) {
-				$this->output[] = array ('title' => $this->title.':', 'text' => '<b><font color="#ff0000">-'.$xtPrice->xtcFormat($od_amount, true).'</font></b>', 'value' => $xtPrice->xtcFormat($od_amount, false));
+				$this->output[] = array ('title' => $this->title.':', 'text' => '<strong><font color="#ff0000">-'.$xtPrice->xtcFormat($od_amount, true).'</font></strong>', 'value' => $xtPrice->xtcFormat($od_amount, false));
 			}
 		}
 	}
@@ -125,7 +125,7 @@ class ot_gv {
 		$_SESSION['cot_gv'] = false;
 		if ($this->selection_test()) {
 			$output_string .= '    <td nowrap align="right" class="main">';
-			$output_string .= '<b>'.$this->checkbox.'</b>'.'</td>'."\n";
+			$output_string .= '<strong>'.$this->checkbox.'</strong>'.'</td>'."\n";
 		}
 		return $output_string;
 	}

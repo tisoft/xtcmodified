@@ -73,8 +73,8 @@
             <?php
             if ($cInfo->categories_image) {
             	?>
-            <br><img src="<?php echo DIR_WS_CATALOG.'images/categories/'.$cInfo->categories_image; ?>" width="200">
-            <br><?php echo '&nbsp;' .$cInfo->categories_image;
+            <br /><img src="<?php echo DIR_WS_CATALOG.'images/categories/'.$cInfo->categories_image; ?>" width="200">
+            <br /><?php echo '&nbsp;' .$cInfo->categories_image;
             echo xtc_draw_selection_field('del_cat_pic', 'checkbox', 'yes').TEXT_DELETE;
             
             } ?>

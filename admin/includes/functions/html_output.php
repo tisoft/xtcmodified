@@ -19,7 +19,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   // The HTML href link wrapper function
   function xtc_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
     if ($page == '') {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>Function used:<br><br>xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
+      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><strong>Error!</strong></font><br /><br /><strong>Unable to determine the page link!<br /><br />Function used:<br /><br />xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</strong>');
     }
     if ($connection == 'NONSSL') {
       $link = HTTP_SERVER . DIR_WS_ADMIN;
@@ -30,7 +30,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
         $link = HTTP_SERVER . DIR_WS_ADMIN;
       }
     } else {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL<br><br>Function used:<br><br>xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
+      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><strong>Error!</strong></font><br /><br /><strong>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</strong>');
     }
     if ($parameters == '') {
       $link = $link . $page . '?' . SID;
@@ -53,7 +53,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
         $link = HTTP_CATALOG_SERVER . DIR_WS_CATALOG;
       }
     } else {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL<br><br>Function used:<br><br>xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
+      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><strong>Error!</strong></font><br /><br /><strong>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</strong>');
     }
     if ($parameters == '') {
       $link .= $page;
@@ -286,7 +286,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       switch ($page) {
           case FILENAME_CUSTOMERS:
 
-          $nav='<br><a href="'.xtc_href_link(FILENAME_CUSTOMERS,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
+          $nav='<br /><a href="'.xtc_href_link(FILENAME_CUSTOMERS,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
           $nav.=xtc_image(DIR_WS_ICONS . 'sort_down.gif', '', '20' ,'20').'</a>';
           $nav.='<a href="'.xtc_href_link(FILENAME_CUSTOMERS,'sorting='.$sort.'-desc&'.xtc_get_all_get_params(array('action','sorting'))).'">';
           $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a>';
@@ -295,7 +295,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           
           case FILENAME_CATEGORIES:
 
-          $nav='<br><div><a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
+          $nav='<br /><div><a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
           $nav.=xtc_image(DIR_WS_ICONS . 'sort_down.gif', '', '20' ,'20').'</a>';
           $nav.='<a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'-desc&'.xtc_get_all_get_params(array('action','sorting'))).'">';
           $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a></div>';

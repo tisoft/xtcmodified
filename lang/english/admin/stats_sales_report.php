@@ -60,5 +60,5 @@ define('REPORT_PAYMENT_FILTER','Paymenttype');
 
 define('SR_SEPARATOR1', ';');
 define('SR_SEPARATOR2', ';');
-define('SR_NEWLINE', '<br>');
+define('SR_NEWLINE', '<br />');
 ?>

@@ -193,10 +193,10 @@ require_once (DIR_FS_INC.'xtc_Security.inc.php');
 
 function xtDBquery($query) {
 	if (DB_CACHE == 'true') {
-//			echo  'cached query: '.$query.'<br>';
+//			echo  'cached query: '.$query.'<br />';
 		$result = xtc_db_queryCached($query);
 	} else {
-//				echo '::'.$query .'<br>';
+//				echo '::'.$query .'<br />';
 		$result = xtc_db_query($query);
 
 	}

@@ -125,7 +125,7 @@ while ($cross_data = xtc_db_fetch_array($cross_query)) {
 <td class="pageHeading"><hr noshade><?php echo CROSS_SELLING_SEARCH; ?>
 
 <table>
-<br><br>
+<br /><br />
 <tr class="dataTableRow">
 <?php
 

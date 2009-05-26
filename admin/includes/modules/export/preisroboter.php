@@ -16,22 +16,22 @@ Released under the GNU General Public License
 ---------------------------------------------------------------------------------------*/
 
 
-define('MODULE_PREISROBOTER_TEXT_DESCRIPTION', 'Export - preisroboter.de (| getrennt)<br><b>Format:</b><br>Artikelnummer|Artikelname|Kurzbeschreibung|Preis|Bild-URL|Deeplink|Lieferzeit|Versandkostenfrei');
+define('MODULE_PREISROBOTER_TEXT_DESCRIPTION', 'Export - preisroboter.de (| getrennt)<br /><strong>Format:</strong><br />Artikelnummer|Artikelname|Kurzbeschreibung|Preis|Bild-URL|Deeplink|Lieferzeit|Versandkostenfrei');
 define('MODULE_PREISROBOTER_TEXT_TITLE', 'PreisRoboter.de - CSV');
 define('MODULE_PREISROBOTER_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_PREISROBOTER_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
+define('MODULE_PREISROBOTER_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
 define('MODULE_PREISROBOTER_STATUS_DESC','Modulstatus');
 define('MODULE_PREISROBOTER_STATUS_TITLE','Status');
 define('MODULE_PREISROBOTER_CURRENCY_TITLE','Währung');
 define('MODULE_PREISROBOTER_CURRENCY_DESC','Welche Währung soll exportiert werden?');
 define('EXPORT_YES','Nur Herunterladen');
 define('EXPORT_NO','Am Server Speichern');
-define('CURRENCY','<hr noshade><b>Währung:</b>');
+define('CURRENCY','<hr noshade><strong>Währung:</strong>');
 define('CURRENCY_DESC','Währung in der Exportdatei');
 define('EXPORT','Bitte den Sicherungsprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
-define('EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
-define('EXPORT_STATUS_TYPE','<hr noshade><b>Kundengruppe:</b>');
-define('EXPORT_STATUS','Bitte wählen Sie die Kundengruppe, die Basis für den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, wählen Sie <i>Gast</i>):</b>');
+define('EXPORT_TYPE','<hr noshade><strong>Speicherart:</strong>');
+define('EXPORT_STATUS_TYPE','<hr noshade><strong>Kundengruppe:</strong>');
+define('EXPORT_STATUS','Bitte wählen Sie die Kundengruppe, die Basis für den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, wählen Sie <i>Gast</i>):</strong>');
 define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
 define('VERSANDKOSTENFREI_AB',999999999);
 
@@ -168,20 +168,20 @@ $customers_statuses_array = xtc_get_customers_statuses();
 $curr='';
 $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
 while ($currencies_data=xtc_db_fetch_array($currencies)) {
-$curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br>';
+$curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
 }
 
-return array('text' => EXPORT_STATUS_TYPE.'<br>'.
-EXPORT_STATUS.'<br>'.
-xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br>'.
-CURRENCY.'<br>'.
-CURRENCY_DESC.'<br>'.
+return array('text' => EXPORT_STATUS_TYPE.'<br />'.
+EXPORT_STATUS.'<br />'.
+xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
+CURRENCY.'<br />'.
+CURRENCY_DESC.'<br />'.
 $curr.
-EXPORT_TYPE.'<br>'.
-EXPORT.'<br>'.
-xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br>'.
-xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br>'.
-'<br>' . xtc_image_submit('button_export.gif', IMAGE_UPDATE) .
+EXPORT_TYPE.'<br />'.
+EXPORT.'<br />'.
+xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
+xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
+'<br />' . xtc_image_submit('button_export.gif', IMAGE_UPDATE) .
 
 '<a href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preisroboter') . '">' .
 xtc_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');

@@ -919,7 +919,7 @@ function xtc_set_time_limit($limit) {
 function xtc_cfg_select_option($select_array, $key_value, $key = '') {
 	for ($i = 0, $n = sizeof($select_array); $i < $n; $i ++) {
 		$name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
-		$string .= '<br><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
+		$string .= '<br /><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
 		if ($key_value == $select_array[$i])
 			$string .= ' CHECKED';
 		$string .= '> '.$select_array[$i];
@@ -935,7 +935,7 @@ function xtc_mod_select_option($select_array, $key_name, $key_value) {
 	while (list ($key, $value) = each($select_array)) {
 		if (is_int($key))
 			$key = $value;
-		$string .= '<br><input type="radio" name="configuration['.$key_name.']" value="'.$key.'"';
+		$string .= '<br /><input type="radio" name="configuration['.$key_name.']" value="'.$key.'"';
 		if ($key_value == $key)
 			$string .= ' CHECKED';
 		$string .= '> '.$value;
@@ -1028,7 +1028,7 @@ function xtc_output_generated_category_path($id, $from = 'category') {
 		for ($j = 0, $k = sizeof($calculated_category_path[$i]); $j < $k; $j ++) {
 			$calculated_category_path_string .= $calculated_category_path[$i][$j]['text'].'&nbsp;&gt;&nbsp;';
 		}
-		$calculated_category_path_string = substr($calculated_category_path_string, 0, -16).'<br>';
+		$calculated_category_path_string = substr($calculated_category_path_string, 0, -16).'<br />';
 	}
 	$calculated_category_path_string = substr($calculated_category_path_string, 0, -4);
 

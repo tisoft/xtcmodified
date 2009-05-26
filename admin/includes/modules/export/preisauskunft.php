@@ -16,23 +16,23 @@
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
-define('MODULE_PREISAUSKUNFT_TEXT_DESCRIPTION', 'Export - Preisauskunft.de (; getrennt)<br><b>Format:</b><br>Bezeichnung;Artikelnr;Preis;Beschreibung;Produktlink;FotoLink;Kategorie');
+define('MODULE_PREISAUSKUNFT_TEXT_DESCRIPTION', 'Export - Preisauskunft.de (; getrennt)<br /><strong>Format:</strong><br />Bezeichnung;Artikelnr;Preis;Beschreibung;Produktlink;FotoLink;Kategorie');
 define('MODULE_PREISAUSKUNFT_TEXT_TITLE', 'Preisauskunft.de - CSV');
 define('MODULE_PREISAUSKUNFT_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_PREISAUSKUNFT_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
+define('MODULE_PREISAUSKUNFT_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
 define('MODULE_PREISAUSKUNFT_STATUS_DESC','Modulstatus');
 define('MODULE_PREISAUSKUNFT_STATUS_TITLE','Status');
 define('MODULE_PREISAUSKUNFT_CURRENCY_TITLE','W&auml;hrung');
 define('MODULE_PREISAUSKUNFT_CURRENCY_DESC','Welche W&auml;hrung soll exportiert werden?');
 define('EXPORT_YES','Nur Herunterladen');
 define('EXPORT_NO','Am Server Speichern');
-define('CURRENCY','<hr noshade><b>W&auml;hrung:</b>');
+define('CURRENCY','<hr noshade><strong>W&auml;hrung:</strong>');
 define('CURRENCY_DESC','W&auml;hrung in der Exportdatei');
 define('EXPORT','Bitte den Sicherungsprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
-define('EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
-define('EXPORT_STATUS_TYPE','<hr noshade><b>Kundengruppe:</b>');
-define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml;r den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</b>');
-define('CAMPAIGNS','<hr noshade><b>Kampagnen:</b>');
+define('EXPORT_TYPE','<hr noshade><strong>Speicherart:</strong>');
+define('EXPORT_STATUS_TYPE','<hr noshade><strong>Kundengruppe:</strong>');
+define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml;r den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</strong>');
+define('CAMPAIGNS','<hr noshade><strong>Kampagnen:</strong>');
 define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
 // include needed functions
 
@@ -153,7 +153,7 @@ define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
     $curr='';
     $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
     while ($currencies_data=xtc_db_fetch_array($currencies)) {
-     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br>';
+     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
     }
 
     $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
@@ -162,20 +162,20 @@ define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
 	$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
 	}
 
-    return array('text' =>  EXPORT_STATUS_TYPE.'<br>'.
-                          	EXPORT_STATUS.'<br>'.
-                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br>'.
-                            CURRENCY.'<br>'.
-                            CURRENCY_DESC.'<br>'.
+    return array('text' =>  EXPORT_STATUS_TYPE.'<br />'.
+                          	EXPORT_STATUS.'<br />'.
+                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
+                            CURRENCY.'<br />'.
+                            CURRENCY_DESC.'<br />'.
                             $curr.
-                            CAMPAIGNS.'<br>'.
-                            CAMPAIGNS_DESC.'<br>'.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br>'.                             
-                            EXPORT_TYPE.'<br>'.
-                            EXPORT.'<br>'.
-                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br>'.
-                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br>'.
-                            '<br>' . xtc_button(BUTTON_EXPORT) .
+                            CAMPAIGNS.'<br />'.
+                            CAMPAIGNS_DESC.'<br />'.
+                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.                             
+                            EXPORT_TYPE.'<br />'.
+                            EXPORT.'<br />'.
+                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
+                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
+                            '<br />' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preisauskunft')));
 
 

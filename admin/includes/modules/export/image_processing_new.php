@@ -20,20 +20,20 @@
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
-define('MODULE_NEW_IMAGE_PROCESS_TEXT_DESCRIPTION', 'Es werden nur die noch fehlenden Bilder in den Verzeichnissen<br><br> 
+define('MODULE_NEW_IMAGE_PROCESS_TEXT_DESCRIPTION', 'Es werden nur die noch fehlenden Bilder in den Verzeichnissen<br /><br /> 
 
-/images/product_images/popup_images/<br>
+/images/product_images/popup_images/<br />
 
-/images/product_images/info_images/<br>
+/images/product_images/info_images/<br />
 
-/images/product_images/thumbnail_images/ <br><br>neu erstellt.<br>
+/images/product_images/thumbnail_images/ <br /><br />neu erstellt.<br />
 
 ');
 define('MODULE_NEW_IMAGE_PROCESS_TEXT_TITLE', 'XT-Imageprocessing-New - Variante A');
 define('MODULE_NEW_IMAGE_PROCESS_STATUS_DESC','Modulstatus');
 define('MODULE_NEW_IMAGE_PROCESS_STATUS_TITLE','Status');
 define('IMAGE_EXPORT','Dr&uuml;cken Sie Ok um die Stapelverarbeitung zu starten, dieser Vorgang kann einige Zeit dauern, auf keinen Fall unterbrechen!.');
-define('IMAGE_EXPORT_TYPE','<hr noshade><b>Stapelverarbeitung:</b>');
+define('IMAGE_EXPORT_TYPE','<hr noshade><strong>Stapelverarbeitung:</strong>');
 
 
 
@@ -84,9 +84,9 @@ define('IMAGE_EXPORT_TYPE','<hr noshade><b>Stapelverarbeitung:</b>');
 
 
     return array('text' =>
-                            IMAGE_EXPORT_TYPE.'<br>'.
-                            IMAGE_EXPORT.'<br>'.
-                            '<br>' . xtc_button(BUTTON_REVIEW_APPROVE) . '&nbsp;' .
+                            IMAGE_EXPORT_TYPE.'<br />'.
+                            IMAGE_EXPORT.'<br />'.
+                            '<br />' . xtc_button(BUTTON_REVIEW_APPROVE) . '&nbsp;' .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=image_processing_new')));
 
     }

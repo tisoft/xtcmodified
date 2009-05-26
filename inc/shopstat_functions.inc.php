@@ -300,8 +300,8 @@ function shopstat_hrefSmallmask($string)
 {
     shopstat_getRegExps($search, $replace);
 
-    //-- <br> neutralisieren
-    $newstring  = preg_replace("/<br>/i","-",$string);
+    //-- <br /> neutralisieren
+    $newstring  = preg_replace("/<br />/i","-",$string);
 
     //-- HTML entfernen
     $newstring  = strip_tags($newstring);
@@ -324,8 +324,8 @@ function shopstat_hrefMask($string)
 {
     shopstat_getRegExps($search, $replace);
 
-    //-- <br> neutralisieren
-    $newstring  = preg_replace("/<br>/i","-",$string);
+    //-- <br /> neutralisieren
+    $newstring  = preg_replace("/<br />/i","-",$string);
 
     //-- HTML entfernen
     $newstring  = strip_tags($newstring);
@@ -335,7 +335,7 @@ function shopstat_hrefMask($string)
 
     //-- Definierte Zeichen entfernen
     $newstring  = preg_replace($search,$replace,$newstring);
-//if($_REQUEST['test']){print $newstring."<br>";}
+//if($_REQUEST['test']){print $newstring."<br />";}
 
     //-- String URL-codieren
     $newstring  = urlencode($newstring);

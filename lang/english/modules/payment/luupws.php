@@ -15,9 +15,9 @@
 
   define('MODULE_PAYMENT_LUUPWS_TEXT_COUNTRIES', 'DEU|Germany');
   
-  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE', '<font color="#ff0000"><b>LUUPAY</b></font>');
-  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE_SHOP', '<font color="#2A0075"><b>LUUPAY</b></font> : Your Money is getting Mobil. Easy, fast and safe!');
-  define('MODULE_PAYMENT_LUUPWS_TEXT_DESCRIPTION', ' LUUPAY Konto<br><br><b>!Attention!</b>Specials for xt:Commerce Users: <a href="http://www.xt-commerce.com/index.php?option=com_content&task=view&id=28&Itemid=43" target="_new">[Link]</a>');
+  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE', '<font color="#ff0000"><strong>LUUPAY</strong></font>');
+  define('MODULE_PAYMENT_LUUPWS_TEXT_TITLE_SHOP', '<font color="#2A0075"><strong>LUUPAY</strong></font> : Your Money is getting Mobil. Easy, fast and safe!');
+  define('MODULE_PAYMENT_LUUPWS_TEXT_DESCRIPTION', ' LUUPAY Konto<br /><br /><strong>!Attention!</strong>Specials for xt:Commerce Users: <a href="http://www.xt-commerce.com/index.php?option=com_content&task=view&id=28&Itemid=43" target="_new">[Link]</a>');
   define('MODULE_PAYMENT_LUUPWS_TEXT_LINK_REGISTER', 'No LUUPAY Account ? Go to <a href="https://www.luupay.de/Signup.aspx?c=de" target="_blank"><span style="font-weight: normal;"><u>LUUPAY</u></span></a> and get your Account.');
   
   // labels, etc
@@ -103,7 +103,7 @@
   define('MODULE_PAYMENT_LUUPWS_ZONE_DESC','If a zone is selected, only enable this payment method for that zone.');
   
     define('MODULE_PAYMENT_LUUPWS_ALLOWED_TITLE' , 'Allowed zones');
-define('MODULE_PAYMENT_LUUPWS_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
+define('MODULE_PAYMENT_LUUPWS_ALLOWED_DESC' , 'Please enter the zones <strong>separately</strong> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
   
   
     // Admin extension

@@ -38,15 +38,15 @@
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_TITLE',  xtc_image(DIR_WS_IMAGES . 'icons/sofortueberweisung_icon.gif', 'Vorkasse / Überweisung mit Option Sofortüberweisung', '', '', ' align="middle"' ) . 'Vorkasse / Überweisung mit Option Sofortüberweisung');
   // Not Installed and Admin?
   if (!defined('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_STATUS') && function_exists('xtc_catalog_href_link')) {
-    define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_DESCRIPTION', '<div align="center"><a class="button" onClick="this.blur();" href=' . xtc_href_link('sofortueberweisung_install.php', 'install=sofortueberweisungvorkasse', 'SSL') . '>' . xtc_image(DIR_WS_IMAGES . 'icons/sofortueberweisung_autoinstaller.gif', 'Autoinstaller (empfohlen)') . '</a><br><b>Vorkasse / Überweisung mit Option Sofortüberweisung</b><br>  Das Modul "Vorkasse / Überweisung" entspricht dem aus dem Shop bekannten "moneyorder" Modul. Nach Abschluss der Bestellung bekommt der Kunde in der Checkout Success Seite jedoch zusätzlich Information und einen Link zum Bezahlen via Sofortüberweisung angezeigt. Die Bestellung wird immer in die Datenbank geschrieben, auch wenn der Kunde den Bezahlvorgang abbricht</div>');
+    define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_DESCRIPTION', '<div align="center"><a class="button" onClick="this.blur();" href=' . xtc_href_link('sofortueberweisung_install.php', 'install=sofortueberweisungvorkasse', 'SSL') . '>' . xtc_image(DIR_WS_IMAGES . 'icons/sofortueberweisung_autoinstaller.gif', 'Autoinstaller (empfohlen)') . '</a><br /><strong>Vorkasse / Überweisung mit Option Sofortüberweisung</strong><br />  Das Modul "Vorkasse / Überweisung" entspricht dem aus dem Shop bekannten "moneyorder" Modul. Nach Abschluss der Bestellung bekommt der Kunde in der Checkout Success Seite jedoch zusätzlich Information und einen Link zum Bezahlen via Sofortüberweisung angezeigt. Die Bestellung wird immer in die Datenbank geschrieben, auch wenn der Kunde den Bezahlvorgang abbricht</div>');
   } else {
-    define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_DESCRIPTION', '<div align="center"><b>Vorkasse / Überweisung mit Option Sofortüberweisung</b><br>  Das Modul "Vorkasse / Überweisung" entspricht dem aus dem Shop bekannten "moneyorder" Modul. Nach Abschluss der Bestellung bekommt der Kunde in der Checkout Success Seite jedoch zusätzlich Information und einen Link zum Bezahlen via Sofortüberweisung angezeigt. Die Bestellung wird immer in die Datenbank geschrieben, auch wenn der Kunde den Bezahlvorgang abbricht</div>');
+    define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_DESCRIPTION', '<div align="center"><strong>Vorkasse / Überweisung mit Option Sofortüberweisung</strong><br />  Das Modul "Vorkasse / Überweisung" entspricht dem aus dem Shop bekannten "moneyorder" Modul. Nach Abschluss der Bestellung bekommt der Kunde in der Checkout Success Seite jedoch zusätzlich Information und einen Link zum Bezahlen via Sofortüberweisung angezeigt. Die Bestellung wird immer in die Datenbank geschrieben, auch wenn der Kunde den Bezahlvorgang abbricht</div>');
   }
 
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_DESCRIPTION_CHECKOUT_PAYMENT', '');
-  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_DESCRIPTION_CHECKOUT_CONFIRMATION', 'Zahlbar an:<br>IN-Solution<br> KntNr 1234<br> Blz: 1234');
+  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_TEXT_DESCRIPTION_CHECKOUT_CONFIRMATION', 'Zahlbar an:<br />IN-Solution<br /> KntNr 1234<br /> Blz: 1234');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_ALLOWED_TITLE', 'Erlaubte Zonen');
-  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_ALLOWED_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
+  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_ALLOWED_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_STATUS_TITLE', 'Sofortüberweisung Vorkasse Modus aktivieren');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_STATUS_DESC', 'Bezahlung per Vorkasse mit integrierter Sofortüberweisung acceptieren?');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_ZONE_TITLE', 'Zahlungszone');
@@ -62,7 +62,7 @@
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_INPUT_PASSWORT_TITLE', 'Inputpasswort');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_INPUT_PASSWORT_DESC', 'Das Input-Passwort (unter "Nicht änderbare Parameter / Input-Passwort")');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_BNA_PASSWORT_TITLE', 'Benachrichtungspasswort');
-  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_BNA_PASSWORT_DESC', 'Das Benachrichtungspasswort (unter "Benachrichtigungen / Passwort für Benachrichtigungen")<br>Variablenname für Passwort (Default: pw) und Variablenname für Text (Default: text) bitte die Standardwerte (pw und text) eintragen');
+  define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_BNA_PASSWORT_DESC', 'Das Benachrichtungspasswort (unter "Benachrichtigungen / Passwort für Benachrichtigungen")<br />Variablenname für Passwort (Default: pw) und Variablenname für Text (Default: text) bitte die Standardwerte (pw und text) eintragen');
 
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_STORE_TR_DETAILS_TITLE', 'Transactiondetails speichern');
   define('MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_STORE_TR_DETAILS_DESC', 'Transactionsdetails bei Benachrichtigung in das Kommentarfeld speichern (zum debuggen, ist für Kunden via Konto sichtbar)');

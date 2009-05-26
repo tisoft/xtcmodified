@@ -877,7 +877,7 @@ var $PRZ; //Enthält die Prüfziffer
       $Rest = 0;
       $AltKonto = substr($BLZ,-4).substr($AccountNo,0,2);
 
-//      echo "$AltKonto <br>";
+//      echo "$AltKonto <br />";
 
       $AccountNo = Substr($AccountNo,2);
       while (substr($AccountNo,0,1) == '0') {
@@ -885,12 +885,12 @@ var $PRZ; //Enthält die Prüfziffer
       }
       $AltKonto = $AltKonto . $AccountNo;
 
-//      echo "$AltKonto <br>";
+//      echo "$AltKonto <br />";
 
       $Checksum = substr($AltKonto,5,1);
 
       $AltKonto = substr($AltKonto,0,5).'0'.substr($AltKonto,6);
-//      echo "$AltKonto <br>";
+//      echo "$AltKonto <br />";
       $Laenge = strlen($AltKonto);
 
       $Significance=substr($Significance,(12 - $Laenge));
@@ -1500,12 +1500,12 @@ var $PRZ; //Enthält die Prüfziffer
 //        $AccountNoTemp[$Run + 1] = (int) substr($AccountNo,$Run,1);
         $AccountNoTemp[$Run] = (int) substr($AccountNo,$Run,1);
       }
-// print_r($AccountNoTemp); echo "<br>";
+// print_r($AccountNoTemp); echo "<br />";
       $i = 4;
       while ($AccountNoTemp[$i] == 0) {
         $i++;
       }
-// echo"$i <br>";
+// echo"$i <br />";
       $C2 = $i % 2;
       $D2 = 0;
       $A5 = 0;
@@ -1594,10 +1594,10 @@ var $PRZ; //Enthält die Prüfziffer
         }
       }
       if ($Result <> 0 ) {
-//      echo "Fehler in Berechnung A <br>";
+//      echo "Fehler in Berechnung A <br />";
         $Result = $this->Mark33($AccountNo);
         if ($Result <> 0 ) {
-//          echo "Fehler in Berechnung B <br>";
+//          echo "Fehler in Berechnung B <br />";
           $Result = $this->Method06($AccountNo,'000065432',FALSE,10,7);
         }
       }
@@ -1815,11 +1815,11 @@ var $PRZ; //Enthält die Prüfziffer
     $AccountNo = $this->ExpandAccount($AccountNo);
     if ((int) substr($AccountNo, 2,2) != 99){
       /* Variante 1 */
-      //echo "Variante 1 <br>";
+      //echo "Variante 1 <br />";
       $MarkA4 = $this->Method06($AccountNo,'000765432',FALSE, 10,11);
       if ($MarkA4 !=0){
         /* Variante 2 */
-        //echo "Variante 2 <br>";
+        //echo "Variante 2 <br />";
         $Significance='000765432';
         $MarkA4 = 1;
         $Help = 0;
@@ -1838,16 +1838,16 @@ var $PRZ; //Enthält die Prüfziffer
       }
       if ($MarkA4 != 0){
         /* Variante 4 */
-        //echo "Variante 4 <br>";
+        //echo "Variante 4 <br />";
         $MarkA4 = $this->Mark93($AccountNo);
       }
     } else {
       /* Variante 3 */
-      //echo "Variante 3 <br>";
+      //echo "Variante 3 <br />";
       $MarkA4 = $this->Method06($AccountNo,'000065432',FALSE,10,11);
       if ($MarkA4 != 0){
         /* Variante 4 */
-        //echo "Variante 4 <br>";
+        //echo "Variante 4 <br />";
         $MarkA4 = $this->Mark93($AccountNo);
       }
     }

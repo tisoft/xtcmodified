@@ -65,7 +65,7 @@
     switch ($_GET['install']) {
       case 'sofortueberweisung':
         // Module already installed
-        if (MODULE_PAYMENT_SOFORTUEBERWEISUNG_STATUS == 'True') die('Modul bereits installiert<br><a href="' . xtc_href_link('modules.php', 'set=payment&module=sofortueberweisung', 'SSL') . '"> zurück zum ShopAdmin </a>');
+        if (MODULE_PAYMENT_SOFORTUEBERWEISUNG_STATUS == 'True') die('Modul bereits installiert<br /><a href="' . xtc_href_link('modules.php', 'set=payment&module=sofortueberweisung', 'SSL') . '"> zurück zum ShopAdmin </a>');
         $parameter = array();
         $parameter['install'] = 'sofortueberweisung';
         $parameter['action'] = 'install';
@@ -104,7 +104,7 @@
         break;
       case 'sofortueberweisungvorkasse':
         // Module already installed
-        if (MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_STATUS == 'True') die('Modul bereits installiert<br><a href="' . xtc_href_link_admin('admin/modules.php', 'set=payment&module=sofortueberweisungvorkasse', 'SSL') . '"> zurück zum ShopAdmin </a>');
+        if (MODULE_PAYMENT_SOFORTUEBERWEISUNGVORKASSE_STATUS == 'True') die('Modul bereits installiert<br /><a href="' . xtc_href_link_admin('admin/modules.php', 'set=payment&module=sofortueberweisungvorkasse', 'SSL') . '"> zurück zum ShopAdmin </a>');
         $parameter = array();
         $parameter['install'] = 'sofortueberweisungvorkasse';
         $parameter['action'] = 'install';
@@ -142,7 +142,7 @@
         break;
       case 'sofortueberweisungredirect':
         // Module already installed
-        if (MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STATUS == 'True') die('Modul bereits installiert<br><a href="' . xtc_href_link_admin('admin/modules.php', 'set=payment&module=sofortueberweisungredirect', 'SSL') . '"> zurück zum ShopAdmin </a>');
+        if (MODULE_PAYMENT_SOFORTUEBERWEISUNGREDIRECT_STATUS == 'True') die('Modul bereits installiert<br /><a href="' . xtc_href_link_admin('admin/modules.php', 'set=payment&module=sofortueberweisungredirect', 'SSL') . '"> zurück zum ShopAdmin </a>');
         $parameter = array();
         $parameter['install'] = 'sofortueberweisungredirect';
         $parameter['action'] = 'install';
@@ -339,12 +339,12 @@ select {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; backgro
 	          <tr><td>Mobil+</td><td><input id="sammel_input_mobil" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[anspr_mobil]', '', '', '', '')"></td></tr>
 	          <tr><td>Telefax</td><td><input size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[anspr_fax]','project[telefax]','user[telefax]', '', '')"></td></tr>
             <tr><td colspan="2"><hr /></td></tr>
-			      <tr><td colspan="2"><b>Konto auf welches die Zahlungseingänge gutgeschrieben werden:</b></td></tr>
+			      <tr><td colspan="2"><strong>Konto auf welches die Zahlungseingänge gutgeschrieben werden:</strong></td></tr>
 	          <tr><td>Konto Inhaber*</td><td><input id="sammel_input_konto_inhaber" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_inhaber]', 'project[an_konto_inhaber]', '', '', '')"></td></tr>
 	          <tr><td>Kontonummer*</td><td><input maxlength="15"  id="sammel_input_kontonummer" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_nr]', 'project[an_konto_nr]', '', '', '')"></td></tr>
 	          <tr><td>Bankleitzahl*</td><td><input maxlength="8" id="sammel_input_blz" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_blz]', 'project[an_konto_blz]', '', '', '')"></td></tr>
 	          <tr><td>Name der Bank*</td><td><input id="sammel_input_bank" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_bank]', 'project[an_konto_bank]', '', '', '')"></td></tr>
-            <tr><td colspan="2"><b>Hiermit beauftrage ich Sie, die fälligen <a href="https://www.sofortueberweisung.de/cms/index.php?plink=tarife&l=1&fs=" target="_blank">Beträge</a> per Lastschrift von meinem Konto einzuziehen.</b></td></tr>
+            <tr><td colspan="2"><strong>Hiermit beauftrage ich Sie, die fälligen <a href="https://www.sofortueberweisung.de/cms/index.php?plink=tarife&l=1&fs=" target="_blank">Beträge</a> per Lastschrift von meinem Konto einzuziehen.</strong></td></tr>
 	          <tr><td>Ustid</td><td><input id="sammel_input_ustid" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[ustid]', '', '', '', '')"></td></tr>
 	          <tr><td>Steuernr</td><td><input id="sammel_input_steuernummer" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[steuernr]', '', '', '', '')"></td></tr>
             <tr><td colspan="2"><hr /></td></tr>
@@ -355,7 +355,7 @@ select {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; backgro
 			      </tr>
         	  <tr>
 	            <td colspan="2">
-	              <input type="button" name="Absenden" value="Absenden" onclick="javascript:submitForm()"><br><b>Nach der Registrierung des Projekts bei Sofortüberweisung, unbedingt dem Link zurück zum Shop folgen!</b>
+	              <input type="button" name="Absenden" value="Absenden" onclick="javascript:submitForm()"><br /><strong>Nach der Registrierung des Projekts bei Sofortüberweisung, unbedingt dem Link zurück zum Shop folgen!</strong>
 		        </td>
 	          </tr>
 	        </table>

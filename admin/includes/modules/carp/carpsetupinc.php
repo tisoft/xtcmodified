@@ -30,7 +30,7 @@ function AddToFailed($failedname) {
 function CarpSetup0() {
 	global $failed,$havefailed;
 	
-	echo '<b>Checking your server\'s PHP version...</b>';
+	echo '<strong>Checking your server\'s PHP version...</strong>';
 	$vers=explode('.',PHP_VERSION);
 	$needvers=array(4,0);
 	$j=count($vers);
@@ -47,7 +47,7 @@ function CarpSetup0() {
 		}
 	}
 	
-	echo 'Pass<br /><br /><b>Checking your server\'s PHP function support...</b>';
+	echo 'Pass<br /><br /><strong>Checking your server\'s PHP function support...</strong>';
 	$failed='';
 	$havefailed=0;
 	if (trim(' a ')!='a') AddToFailed('trim');
@@ -126,7 +126,7 @@ function CarpSetup0() {
 	}
 	echo "Pass<br /><br />\n";
 	if (CarpSetupCreateDirectories(1)&&CarpSetupAccessDirectories(1)) {
-		echo '<b>Checking for cache directories...</b>Found<br /><br />'; 
+		echo '<strong>Checking for cache directories...</strong>Found<br /><br />'; 
 		CarpSetup7();
 	} else CarpSetup1();
 }
@@ -134,16 +134,16 @@ function CarpSetup0() {
 function CarpSetup1() {
 	global $carpsetup;
 	?>
-	<b>Create cache folders:</b><br/>
+	<strong>Create cache folders:</strong><br/>
 	The easiest method is to enter your FTP or Telnet login name and password, and let me try to do it automatically.
-	<b style="color:#c00;">If the automatic method fails for any reason, you will need to use the manual method.</b>
+	<b style="color:#c00;">If the automatic method fails for any reason, you will need to use the manual method.</strong>
 	Please choose your preferred method:<br /><br />
 	
 	<table border="1" cellpadding="5" cellspacing="1"><tr>
 	<td valign="top">
 		<form action="carpsetup.php" method="post">
 		<?php HiddenFields(2); ?>
-		<b>Automatic:</b><br />
+		<strong>Automatic:</strong><br />
 		<table border="0" cellspacing="0" cellpadding="2">
 		<tr><td>FTP&nbsp;or&nbsp;Telnet&nbsp;login:</td><td><input name="u" size="12"></td></tr>
 		<tr><td>Password:</td><td><input type="password" name="p" size="12"></td></tr>
@@ -161,7 +161,7 @@ function CarpSetup1() {
 	</td><td valign="top">
 		<form action="carpsetup.php" method="post">
 		<?php HiddenFields(3); ?>
-		<b>Manual:</b><br />
+		<strong>Manual:</strong><br />
 		
 		Use one of: FTP, SFTP, Telnet, SSH or your web host's control panel or file manager to temporarily give full access to the directory in which carp.php is located to all users.
 		On a UNIX, Linux, or BSD server, set the permissions to 777 or read/write/execute for everyone.
@@ -170,14 +170,14 @@ function CarpSetup1() {
 		
 		<input type="submit" value="Continue..." /><br /><br />
 		
-		<b>If you have Telnet or SSH access</b> to your server, enter this command:<br /><br />
+		<strong>If you have Telnet or SSH access</strong> to your server, enter this command:<br /><br />
 		<code>chmod 777 <?php echo $carpsetup['chrincdir']; ?></code><br /><br />
 		
 		If you get a file not found error, then your login is in a "chroot" environment, making the path for Telnet or SSH different from the path that PHP scripts see.
 		In that case, you'll either need to figure out and enter the path to the carp directory the way you see it when using Telnet or SSH,
 			or use some other method to set access permissions.<br /><br />
 
-		<b>If you do not have Telnet or SSH access</b> to your server,
+		<strong>If you do not have Telnet or SSH access</strong> to your server,
 			<a href="http://www.geckotribe.com/help/access-permissions.php" target="_blank">click here for help with using FTP, SFTP or some other method</a> (opens in a new window).
 		</form>
 	</td>
@@ -465,18 +465,18 @@ function CarpSetup8() {
 		For more information, please refer to the <a href="http://www.geckotribe.com/rss/carp/docs/" target="_blank">CaRP documentation</a>.<br /><br />
 
 		<div style="margin:15px;padding:6px;background:#ccc;border:1px solid:#333;">
-		&lt;?php<br>
+		&lt;?php<br />
 		require_once '<?php echo $carpsetup['incdir']; ?>/carp.php';<br />
 		// Add any desired configuration settings below this line using "CarpConf" and other functions<br />
 		<?php
-		if (isset($carpsetup['proxyuser'])&&strlen($carpsetup['proxyuser'])) echo "CarpConf('proxyauth',".$carpsetup['proxyuser'].':'.$carpsetup['proxypass'].");<br>\n";
-		if (isset($proxy)&&strlen($proxy)) echo "CarpConf('proxyserver',$proxy);<br>\n";
-		echo "CarpCacheShow('http://www.geckotribe.com/press/rss/pr.rss');<br>\n";
+		if (isset($carpsetup['proxyuser'])&&strlen($carpsetup['proxyuser'])) echo "CarpConf('proxyauth',".$carpsetup['proxyuser'].':'.$carpsetup['proxypass'].");<br />\n";
+		if (isset($proxy)&&strlen($proxy)) echo "CarpConf('proxyserver',$proxy);<br />\n";
+		echo "CarpCacheShow('http://www.geckotribe.com/press/rss/pr.rss');<br />\n";
 		echo "?&gt;\n";
 		echo '</div>';
 		
 		if ((isset($proxy)&&strlen($proxy))||(isset($carpsetup['proxyuser'])&&strlen($carpsetup['proxyuser']))||(isset($carpsetup['proxypass'])&&strlen($carpsetup['proxypass']))) {
-			echo "<br>You may wish to specify the proxyserver and proxyauth settings in carpconf.php rather than in every PHP file where you use CaRP.\n";
+			echo "<br />You may wish to specify the proxyserver and proxyauth settings in carpconf.php rather than in every PHP file where you use CaRP.\n";
 		}
 	} else echo "An unexpected error occurred while attempting to load carp.php. Please resolve this issue and then load the CaRP setup assistant again.";
 }

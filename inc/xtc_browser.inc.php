@@ -38,7 +38,7 @@ function browser($browser) {
 	//if($browser && trim($browser) != 'images/icons/') { $browser = 'images/icons/icons_browser/no_icon.jpg'; }
 	if(trim($browser) == 'images/icons/') { $browser = 'images/icons/icons_browser/unknown.jpg'; }
 	
-	//echo "BROWSER: $browser<br>"; // TEST
+	//echo "BROWSER: $browser<br />"; // TEST
 	return $browser;
 }
 ?>

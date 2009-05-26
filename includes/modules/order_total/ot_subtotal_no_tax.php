@@ -42,7 +42,7 @@
 	  $sub_total_price = $order->info['subtotal'];
 	}
         $this->output[] = array('title' => $this->title . ':',
-                                'text' => '<b>' . $xtPrice->xtcFormat($sub_total_price+($xtPrice->xtcFormat($order->info['shipping_cost'], false,0,true)), true).'</b>',
+                                'text' => '<strong>' . $xtPrice->xtcFormat($sub_total_price+($xtPrice->xtcFormat($order->info['shipping_cost'], false,0,true)), true).'</strong>',
                                 'value' => $xtPrice->xtcFormat($sub_total_price+($xtPrice->xtcFormat($order->info['shipping_cost'], false,0,true)), false));
       }
     }

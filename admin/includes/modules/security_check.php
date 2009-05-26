@@ -18,39 +18,39 @@ defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 $file_warning = '';
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'includes/configure.php')), '444')) {
-	$file_warning .= '<br>'.DIR_FS_CATALOG.'includes/configure.php';
+	$file_warning .= '<br />'.DIR_FS_CATALOG.'includes/configure.php';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'includes/configure.org.php')), '444')) {
-	$file_warning .= '<br>'.DIR_FS_CATALOG.'includes/configure.org.php';
+	$file_warning .= '<br />'.DIR_FS_CATALOG.'includes/configure.org.php';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'includes/configure.php')), '444')) {
-	$file_warning .= '<br>'.DIR_FS_ADMIN.'includes/configure.php';
+	$file_warning .= '<br />'.DIR_FS_ADMIN.'includes/configure.php';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'includes/configure.org.php')), '444')) {
-	$file_warning .= '<br>'.DIR_FS_ADMIN.'includes/configure.org.php';
+	$file_warning .= '<br />'.DIR_FS_ADMIN.'includes/configure.org.php';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'rss/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'admin/rss/')), '755')) {
-	$folder_warning .= '<br>'.DIR_FS_ADMIN.'rss/';
+	$folder_warning .= '<br />'.DIR_FS_ADMIN.'rss/';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'templates_c/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'templates_c/')), '755')) {
-	$folder_warning .= '<br>'.DIR_FS_CATALOG.'templates_c/';
+	$folder_warning .= '<br />'.DIR_FS_CATALOG.'templates_c/';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'cache/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'cache/')), '755')) {
-	$folder_warning .= '<br>'.DIR_FS_CATALOG.'cache/';
+	$folder_warning .= '<br />'.DIR_FS_CATALOG.'cache/';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'media/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'media/')), '755')) {
-	$folder_warning .= '<br>'.DIR_FS_CATALOG.'media/';
+	$folder_warning .= '<br />'.DIR_FS_CATALOG.'media/';
 }
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'media/content/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'media/content/')), '755')) {
-	$folder_warning .= '<br>'.DIR_FS_CATALOG.'media/content/';
+	$folder_warning .= '<br />'.DIR_FS_CATALOG.'media/content/';
 }
 
 if ($file_warning != '' or $folder_warning != '') {
@@ -71,14 +71,14 @@ if ($file_warning != '' or $folder_warning != '') {
 
 		echo TEXT_FILE_WARNING;
 
-		echo '<b>'.$file_warning.'</b><br>';
+		echo '<strong>'.$file_warning.'</strong><br />';
 	}
 
 	if ($folder_warning != '') {
 
 		echo TEXT_FOLDER_WARNING;
 
-		echo '<b>'.$folder_warning.'</b>';
+		echo '<strong>'.$folder_warning.'</strong>';
 	}
 
 	$payment_query = xtc_db_query("SELECT *
@@ -89,7 +89,7 @@ if ($file_warning != '' or $folder_warning != '') {
 
 	}
 	if ($installed_payment == '') {
-		echo '<br>'.TEXT_PAYMENT_ERROR;
+		echo '<br />'.TEXT_PAYMENT_ERROR;
 	}
 	$shipping_query = xtc_db_query("SELECT *
 				FROM ".TABLE_CONFIGURATION."
@@ -99,7 +99,7 @@ if ($file_warning != '' or $folder_warning != '') {
 
 	}
 	if ($installed_shipping == '') {
-		echo '<br>'.TEXT_SHIPPING_ERROR;
+		echo '<br />'.TEXT_SHIPPING_ERROR;
 	}
 ?>
             </td>

@@ -179,10 +179,11 @@ xtc_db_query("create table personal_offers_by_customers_status_3 (price_id INT N
       <table width="180" border="0" cellspacing="0" cellpadding="0">
         <tr> 
           <td height="17" background="images/bg_left_blocktitle.gif">
-<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><font color="FFAF00">xtc:</font><font color="#999999">Install</font></b></font></div></td>
+<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="FFAF00">xtc:</font><font color="#999999">Install</font></strong></font></div></td>
+<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="FFAF00">xtc:</font><font color="#999999">Install</font></strong></font></div></td>
         </tr>
         <tr> 
-          <td bgcolor="F3F3F3" ><br> 
+          <td bgcolor="F3F3F3" ><br /> 
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr> 
                 <td width="10">&nbsp;</td>
@@ -235,17 +236,17 @@ xtc_db_query("create table personal_offers_by_customers_status_3 (price_id INT N
   }
 ?>
             </table>
-            <br></td>
+            <br /></td>
         </tr>
       </table>
     </td>
     <td align="right" valign="top" style="border-top: 1px solid; border-bottom: 1px solid; border-right: 1px solid; border-color: #6D6D6D;"> 
-      <br>
+      <br />
       <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr> 
-          <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> <img src="images/title_index.gif" width="586" height="100" border="0"><br>
-            <br>
-            <br>
+          <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> <img src="images/title_index.gif" width="586" height="100" border="0"><br />
+            <br />
+            <br />
             <?php echo TEXT_WELCOME_STEP7; ?></font></td>
         </tr>
       </table> 
@@ -259,90 +260,90 @@ xtc_db_query("create table personal_offers_by_customers_status_3 (price_id INT N
               <input name="action" type="hidden" value="process">
               <table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr> 
-                  <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
-                    <?php echo TITLE_GUEST_CONFIG; ?> </b></font><font color="#FF0000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
-                    <b><?php echo TEXT_REQU_INFORMATION; ?></b></font></td>
+                  <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
+                    <?php echo TITLE_GUEST_CONFIG; ?> </strong></font><font color="#FF0000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
+                    <strong><?php echo TEXT_REQU_INFORMATION; ?></strong></font></td>
                   <td style="border-bottom: 1px solid; border-color: #CFCFCF">&nbsp;</td>
                 </tr>
               </table>
                           <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TITLE_GUEST_CONFIG_NOTE; ?></font>
               <table width="100%" border="0">
                 <tr> 
-                  <td><p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_DISCOUNT; ?></b><br>
-                      <?php echo xtc_draw_input_field_installer('STATUS_DISCOUNT','0.00'); ?><br>
+                  <td><p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_DISCOUNT; ?></strong><br />
+                      <?php echo xtc_draw_input_field_installer('STATUS_DISCOUNT','0.00'); ?><br />
                       <?php echo TEXT_STATUS_DISCOUNT_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_OT_DISCOUNT_FLAG; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_OT_DISCOUNT_FLAG; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_OT_DISCOUNT_FLAG', '1'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font>
-                      <?php echo xtc_draw_radio_field_installer('STATUS_OT_DISCOUNT_FLAG', '0', 'true'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_OT_DISCOUNT_FLAG', '0', 'true'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_OT_DISCOUNT_FLAG_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_OT_DISCOUNT; ?></b><br>
-                      <?php echo xtc_draw_input_field_installer('STATUS_OT_DISCOUNT','0.00'); ?><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_OT_DISCOUNT; ?></strong><br />
+                      <?php echo xtc_draw_input_field_installer('STATUS_OT_DISCOUNT','0.00'); ?><br />
                       <?php echo TEXT_STATUS_OT_DISCOUNT_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_GRADUATED_PRICE; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_GRADUATED_PRICE; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_GRADUATED_PRICE', '1'); ?>
                       <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font> 
-                      <?php echo xtc_draw_radio_field_installer('STATUS_GRADUATED_PRICE', '0', 'true'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_GRADUATED_PRICE', '0', 'true'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_GRADUATED_PRICE_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
-                      <b><?php echo TEXT_STATUS_SHOW_PRICE; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
+                      <strong><?php echo TEXT_STATUS_SHOW_PRICE; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_SHOW_PRICE', '1', 'true'); ?>
                       <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font> 
-                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_PRICE', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_PRICE', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_SHOW_PRICE_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_SHOW_TAX; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_SHOW_TAX; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_SHOW_TAX', '1', 'true'); ?>
                       <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font> 
-                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_TAX', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_TAX', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_SHOW_TAX_LONG; ?></font></p></td>     
                 </tr>
               </table>
               <p>&nbsp;</p>
                           <table width="100%" border="0" cellpadding="0" cellspacing="0">
               <tr> 
-                <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
-                  <?php echo TITLE_CUSTOMERS_CONFIG; ?> </b></font><font color="#FF0000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
-                  <b><?php echo TEXT_REQU_INFORMATION; ?></b></font></td>
+                <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
+                  <?php echo TITLE_CUSTOMERS_CONFIG; ?> </strong></font><font color="#FF0000" size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
+                  <strong><?php echo TEXT_REQU_INFORMATION; ?></strong></font></td>
                 <td style="border-bottom: 1px solid; border-color: #CFCFCF">&nbsp;</td>
               </tr>
             </table>
-              <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TITLE_CUSTOMERS_CONFIG_NOTE; ?></font><br>
+              <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TITLE_CUSTOMERS_CONFIG_NOTE; ?></font><br />
               <table width="100%" border="0">
                 <tr> 
-                  <td><p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_DISCOUNT; ?></b><br>
-                      <?php echo xtc_draw_input_field_installer('STATUS_DISCOUNT2','0.00'); ?><br>
+                  <td><p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_DISCOUNT; ?></strong><br />
+                      <?php echo xtc_draw_input_field_installer('STATUS_DISCOUNT2','0.00'); ?><br />
                       <?php echo TEXT_STATUS_DISCOUNT_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_OT_DISCOUNT_FLAG; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_OT_DISCOUNT_FLAG; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_OT_DISCOUNT_FLAG2', '1'); ?>
                       <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font> 
-                      <?php echo xtc_draw_radio_field_installer('STATUS_OT_DISCOUNT_FLAG2', '0', 'true'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_OT_DISCOUNT_FLAG2', '0', 'true'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_OT_DISCOUNT_FLAG_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_OT_DISCOUNT; ?></b><br>
-                      <?php echo xtc_draw_input_field_installer('STATUS_OT_DISCOUNT2','0.00'); ?><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_OT_DISCOUNT; ?></strong><br />
+                      <?php echo xtc_draw_input_field_installer('STATUS_OT_DISCOUNT2','0.00'); ?><br />
                       <?php echo TEXT_STATUS_OT_DISCOUNT_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_GRADUATED_PRICE; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_GRADUATED_PRICE; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_GRADUATED_PRICE2', '1', 'true'); ?>
                       <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font> 
-                      <?php echo xtc_draw_radio_field_installer('STATUS_GRADUATED_PRICE2', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_GRADUATED_PRICE2', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_GRADUATED_PRICE_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
-                      <b><?php echo TEXT_STATUS_SHOW_PRICE; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
+                      <strong><?php echo TEXT_STATUS_SHOW_PRICE; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_SHOW_PRICE2', '1', 'true'); ?>
                       <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font> 
-                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_PRICE2', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_PRICE2', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_SHOW_PRICE_LONG; ?></font></p>
-                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_STATUS_SHOW_TAX; ?></b><br>
+                    <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo TEXT_STATUS_SHOW_TAX; ?></strong><br />
                       <?php echo  TEXT_ZONE_YES; ?> </font><?php echo xtc_draw_radio_field_installer('STATUS_SHOW_TAX2', '1', 'true'); ?>
                       <font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo  TEXT_ZONE_NO; ?></font> 
-                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_TAX2', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+                      <?php echo xtc_draw_radio_field_installer('STATUS_SHOW_TAX2', '0'); ?><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br />
                       <?php echo TEXT_STATUS_SHOW_TAX_LONG; ?></font></p></td>
                     
                 </tr>
               </table>
-                          <p><br>
+                          <p><br />
               </p>
               <center>
                 <input name="image" type="image" src="images/button_continue.gif" alt="Continue" align="middle" border="0">
-                <br>
+                <br />
               </center>
             </form></td>
         </tr>
@@ -355,7 +356,7 @@ xtc_db_query("create table personal_offers_by_customers_status_3 (price_id INT N
 </table>
 
 
-<p align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_FOOTER; ?><br>
+<p align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_FOOTER; ?><br />
   </font></p>
 <p align="center">&nbsp;</p>
 </body>

@@ -24,7 +24,7 @@ if ($_GET['action'] == 'new_product') {
 	if ($pInfo->products_image) {
 		echo '<tr><td colspan="4"><table><tr><td align="center" class="main" width="'. (PRODUCT_IMAGE_THUMBNAIL_WIDTH + 15).'">'.xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$pInfo->products_image, 'Standard Image').'</td>';
 	}
-	echo '<td class="main">'.TEXT_PRODUCTS_IMAGE.'<br>'.xtc_draw_file_field('products_image').'<br>'.xtc_draw_separator('pixel_trans.gif', '24', '15').'&nbsp;'.$pInfo->products_image.xtc_draw_hidden_field('products_previous_image_0', $pInfo->products_image);
+	echo '<td class="main">'.TEXT_PRODUCTS_IMAGE.'<br />'.xtc_draw_file_field('products_image').'<br />'.xtc_draw_separator('pixel_trans.gif', '24', '15').'&nbsp;'.$pInfo->products_image.xtc_draw_hidden_field('products_previous_image_0', $pInfo->products_image);
 
 	if ($pInfo->products_image != '') {
 		echo '</tr><tr><td align="center" class="main" valign="middle">'.xtc_draw_selection_field('del_pic', 'checkbox', $pInfo->products_image).' '.TEXT_DELETE.'</td></tr></table>';
@@ -43,7 +43,7 @@ if ($_GET['action'] == 'new_product') {
 			} else {
 				echo '<tr>';
 			}
-			echo '<td class="main">'.TEXT_PRODUCTS_IMAGE.' '. ($i +1).'<br>'.xtc_draw_file_field('mo_pics_'.$i).'<br>'.xtc_draw_separator('pixel_trans.gif', '24', '15').'&nbsp;'.$mo_images[$i]["image_name"].xtc_draw_hidden_field('products_previous_image_'. ($i +1), $mo_images[$i]["image_name"]);
+			echo '<td class="main">'.TEXT_PRODUCTS_IMAGE.' '. ($i +1).'<br />'.xtc_draw_file_field('mo_pics_'.$i).'<br />'.xtc_draw_separator('pixel_trans.gif', '24', '15').'&nbsp;'.$mo_images[$i]["image_name"].xtc_draw_hidden_field('products_previous_image_'. ($i +1), $mo_images[$i]["image_name"]);
 			if (isset ($mo_images[$i]["image_name"])) {
 				echo '</tr><tr><td align="center" class="main" valign="middle">'.xtc_draw_selection_field('del_mo_pic[]', 'checkbox', $mo_images[$i]["image_name"]).' '.TEXT_DELETE.'</td></tr></table>';
 			} else {
