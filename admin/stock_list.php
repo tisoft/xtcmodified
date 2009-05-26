@@ -48,7 +48,7 @@
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
              
 			 <td class="smallText" align="right">
-			 	<? 
+			 	<?php 
 				// how many products on the page
 				echo xtc_draw_form('formpaging', FILENAME_STOCK_LIST, '', 'get');
 				echo xtc_draw_pull_down_menu('paging', $pages_array, $_GET['paging'], 'onChange="this.form.submit();"'); 
@@ -189,34 +189,34 @@
 
 	  ?>    
 		<tr class="dataTableRow2" onMouseOver="this.className='dataTableRowOver2'" onMouseOut="this.className='dataTableRow2'" valign="top">
-			<td class="dataTableContent2"><? echo $products['products_id']; ?></td>
-			<td class="dataTableContent2"><?
+			<td class="dataTableContent2"><?php echo $products['products_id']; ?></td>
+			<td class="dataTableContent2"><?php
 			if ($products['products_status'] == '1') {
                 echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN) . '&nbsp;&nbsp;' . xtc_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT);
             } else {
                 echo xtc_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT) . '&nbsp;&nbsp;' . xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED);
             } ?>
 		  	</td>
-			<td class="dataTableContent2"><? echo $products['products_model']; ?>&nbsp;</td>
-			<td class="dataTableContent2"><a href="categories.php?search=<? echo $products['products_name']; ?>" title="<?php echo TEXT_SHOW_PRODUCTS; ?>"><? echo $products['products_name']; ?></a>
+			<td class="dataTableContent2"><?php echo $products['products_model']; ?>&nbsp;</td>
+			<td class="dataTableContent2"><a href="categories.php?search=<?php echo $products['products_name']; ?>" title="<?php echo TEXT_SHOW_PRODUCTS; ?>"><?php echo $products['products_name']; ?></a>
 				<table border="0" width="100%" cellspacing="0" cellpadding="2">			
-				<? 
+				<?php 
 				// output options
 				while ($attributes = xtc_db_fetch_array($attributes_query)) {
 				?>
 				<tr class="dataTableRow3" onMouseOver="this.className='dataTableRowOver3'" onMouseOut="this.className='dataTableRow3'">
-				<td class="dataTableContent3" width="20%"><? echo $attributes['products_options_name'].":&nbsp;"; ?></td>
-				<td class="dataTableContent3" width="50%"><? echo $attributes['products_options_values_name']; ?></td>
-				<td class="dataTableContent3" align="right"><? echo $attributes['attributes_stock']; ?>&nbsp;</td>			
+				<td class="dataTableContent3" width="20%"><?php echo $attributes['products_options_name'].":&nbsp;"; ?></td>
+				<td class="dataTableContent3" width="50%"><?php echo $attributes['products_options_values_name']; ?></td>
+				<td class="dataTableContent3" align="right"><?php echo $attributes['attributes_stock']; ?>&nbsp;</td>			
 				</tr>
 				<?
 				} // end while options
 				?>
 				</table>
 			</td>
-			<td class="dataTableContent2"><? echo $products['products_quantity']; ?></td>
+			<td class="dataTableContent2"><?php echo $products['products_quantity']; ?></td>
 		</tr>
-<?
+<?php
  } // while end product loop
 ?>
 			<tr>

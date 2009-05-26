@@ -636,11 +636,11 @@ elseif ($_GET['action'] == 'custom_action') {
               </form></td>
   </tr>
   
-  <? // customers drop down
+  <?php // customers drop down
   ?>
   	<tr>
 
-  <?
+  <?php
   $customers_query = xtc_db_query("select customers_id, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " order by customers_lastname ASC");
           while ($customers = xtc_db_fetch_array($customers_query)) {
           	       $customers_firstname = $customers['customers_firstname'];
@@ -651,7 +651,7 @@ elseif ($_GET['action'] == 'custom_action') {
     ?>
                   <td class="smallText" align="left"><?php echo xtc_draw_form('customers', FILENAME_ORDERS, '', 'get') .'<br /><b>' . TABLE_HEADING_CUSTOMERS  . '</b> ( Sortierung: Nachname, Vorname )<br />'.' ' . xtc_draw_pull_down_menu('cID', array_merge(array(array('id' => '', 'text' => '')), $customers_array), (isset($HTTP_GET_VARS['cID']) ? $HTTP_GET_VARS['cID'] : ''), 'onChange="this.form.submit();"'); ?></form></td>
                 </tr>
-  <? // customers drop down
+  <?php // customers drop down
 ?>
   
 </table> 
