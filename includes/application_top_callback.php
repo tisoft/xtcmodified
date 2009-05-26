@@ -149,7 +149,9 @@ require_once (DIR_FS_INC.'xtc_input_validation.inc.php');
   }
 
     // Include Template Engine
-//  require(DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');
-
+// BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.25
+////  require(DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');
+//  require(DIR_WS_CLASSES . 'Smarty_2.6.25/Smarty.class.php');
+// EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.25
 
 ?>

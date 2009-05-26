@@ -27,10 +27,10 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.6.22
+ * @version 2.6.25
  */
 
-/* $Id: Smarty.class.php 2785 2008-09-18 21:04:12Z Uwe.Tews $ */
+/* $Id: Smarty.class.php 3149 2009-05-23 20:59:25Z monte.ohrt $ */
 
 /**
  * DIR_SEP isn't used anymore, but third party apps might
@@ -86,7 +86,10 @@ class Smarty
      *
      * @var string
      */
+// BOF - Tomcraft - 2009-05-26 - change path to "lang"
+//    var $config_dir      =  'configs';
     var $config_dir      =  'lang';
+// EOF - Tomcraft - 2009-05-26 - change path to "lang"
 
     /**
      * An array of directories searched for plugins.
@@ -107,7 +110,7 @@ class Smarty
     /**
      * When set, smarty does uses this value as error_reporting-level.
      *
-     * @var boolean
+     * @var integer
      */
     var $error_reporting  =  null;
 
@@ -236,7 +239,8 @@ class Smarty
                                     'INCLUDE_ANY'     => false,
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count'),
-                                    'ALLOW_CONSTANTS'  => false
+                                    'ALLOW_CONSTANTS'  => false,
+                                    'ALLOW_SUPER_GLOBALS' => true
                                    );
 
     /**
@@ -464,7 +468,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version              = '2.6.22';
+    var $_version              = '2.6.25';
 
     /**
      * current template inclusion depth
@@ -561,6 +565,14 @@ class Smarty
      */
     var $_cache_including = false;
 
+    /**
+     * array of super globals internally
+     *
+     * @var array
+     */
+    var $_supers = array();
+
+
     /**#@-*/
     /**
      * The class constructor.
@@ -569,6 +581,18 @@ class Smarty
     {
       $this->assign('SCRIPT_NAME', isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME']
                     : @$GLOBALS['HTTP_SERVER_VARS']['SCRIPT_NAME']);
+                    
+      $this->_supers['get'] = $this->request_use_auto_globals ? $_GET : $GLOBALS['HTTP_GET_VARS'];
+      $this->_supers['post'] = $this->request_use_auto_globals ? $_POST : $GLOBALS['HTTP_POST_VARS'];
+      $this->_supers['server'] = $this->request_use_auto_globals ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
+      if(isset($_SESSION))
+        $this->_supers['session'] = $this->request_use_auto_globals ? $_SESSION : $GLOBALS['HTTP_SESSION_VARS'];
+      else
+        $this->_supers['session'] = array();
+      $this->_supers['request'] = $this->request_use_auto_globals ? $_REQUEST : $GLOBALS['HTTP_REQUEST_VARS'];
+      $this->_supers['cookies'] = $this->request_use_auto_globals ? $_COOKIE : $GLOBALS['HTTP_COOKIE_VARS'];
+      $this->_supers['env'] = $this->request_use_auto_globals ? $_ENV : $GLOBALS['HTTP_ENV_VARS'];
+                    
     }
 
     /**
@@ -1304,13 +1328,14 @@ class Smarty
             return;
         } else {
             error_reporting($_smarty_old_error_level);
-			// Modified for xt:Commerce v3.0.4 SP2.1 by Hetfield - Begin //
+			// BOF - Tomcraft - 2009-05-26 - Modified for xt:Commerce v3.0.4 SP2.1
+            //if (isset($_smarty_results)) { return $_smarty_results; }
 			if (file_exists('includes/local/configure.php')) {
     			if (isset($_smarty_results)) { return '<!-- Begin: '.$resource_name.' -->'.$_smarty_results.'<!-- End: '.$resource_name.' -->'; }
   			} else {
     			if (isset($_smarty_results)) { return $_smarty_results; }
   			} 
-			// Modified for xt:Commerce v3.0.4 SP2.1 by Hetfield - End //
+			// EOF - Tomcraft - 2009-05-26 - Modified for xt:Commerce v3.0.4 SP2.1
         }
     }
 
@@ -1554,7 +1579,7 @@ class Smarty
                         $params['source_content'] = $this->_read_file($_resource_name);
                     }
                     $params['resource_timestamp'] = filemtime($_resource_name);
-                    $_return = is_file($_resource_name);
+                    $_return = is_file($_resource_name) && is_readable($_resource_name);
                     break;
 
                 default:
@@ -1717,7 +1742,7 @@ class Smarty
      */
     function _read_file($filename)
     {
-        if ( file_exists($filename) && ($fd = @fopen($filename, 'rb')) ) {
+        if ( file_exists($filename) && is_readable($filename) && ($fd = @fopen($filename, 'rb')) ) {
             $contents = '';
             while (!feof($fd)) {
                 $contents .= fread($fd, 8192);
@@ -1956,7 +1981,7 @@ class Smarty
 			return $function;
 		}
 	}
-    
+  
     /**#@-*/
 
 }
