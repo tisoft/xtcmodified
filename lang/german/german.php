@@ -85,7 +85,7 @@ define('JS_ERROR', 'Notwendige Angaben fehlen! Bitte richtig ausf&uuml;llen.\n\n
 define('JS_REVIEW_TEXT', '* Der Text muss aus mindestens ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n\n');
 define('JS_REVIEW_RATING', '* Geben Sie Ihre Bewertung ein.\n\n');
 define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte w&auml;hlen Sie eine Zahlungsweise f&uuml;r Ihre Bestellung.\n');
-define('JS_ERROR_SUBMITTED', 'Diese Seite wurde bereits best&auml;tigt. Klicken Sie bitte OK und warten bis der Prozess durchgef&uuml;hrt wurde.');
+define('JS_ERROR_SUBMITTED', 'Diese Seite wurde bereits best&auml;tigt. Klicken Sie bitte auf OK und warten Sie, bis der Prozess durchgef&uuml;hrt wurde.');
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte w&auml;hlen Sie eine Zahlungsweise f&uuml;r Ihre Bestellung.');
 
 /*
@@ -104,11 +104,11 @@ define('ENTRY_LAST_NAME_ERROR', 'Ihr Nachname muss aus mindestens ' . ENTRY_LAST
 define('ENTRY_LAST_NAME_TEXT', '*');
 define('ENTRY_DATE_OF_BIRTH_ERROR', 'Ihr Geburtsdatum muss im Format TT.MM.JJJJ (zB. 21.05.1970) eingeben werden');
 define('ENTRY_DATE_OF_BIRTH_TEXT', '* (zB. 21.05.1970)');
-define('ENTRY_EMAIL_ADDRESS_ERROR', 'Ihre eMail-Adresse muss aus mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.');
-define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Ihre eingegebene eMail-Adresse ist fehlerhaft - bitte &uuml;berpr&uuml;fen Sie diese.');
-define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Ihre eingegebene eMail-Adresse existiert bereits - bitte &uuml;berpr&uuml;fen Sie diese.');
+define('ENTRY_EMAIL_ADDRESS_ERROR', 'Ihre E-Mail-Adresse muss aus mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Ihre eingegebene E-Mail-Adresse ist fehlerhaft - bitte &uuml;berpr&uuml;fen Sie diese.');
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Ihre eingegebene E-Mail-Adresse existiert bereits - bitte &uuml;berpr&uuml;fen Sie diese.');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
-define('ENTRY_STREET_ADDRESS_ERROR', 'Strasse/Nr muss aus mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.');
+define('ENTRY_STREET_ADDRESS_ERROR', 'Strasse/Nr. muss aus mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.');
 define('ENTRY_STREET_ADDRESS_TEXT', '*');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE_ERROR', 'Ihre Postleitzahl muss aus mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zeichen bestehen.');
@@ -284,9 +284,9 @@ define('JS_PRICE_FROM_MUST_BE_NUM', '* \"Preis ab\" muss eine Zahl sein\n\n');
 define('JS_PRICE_TO_MUST_BE_NUM', '* \"Preis bis\" muss eine Zahl sein\n\n');
 define('JS_PRICE_TO_LESS_THAN_PRICE_FROM', '* Preis bis muss gr&ouml;sser oder gleich Preis ab sein.\n');
 define('JS_INVALID_KEYWORDS', '* Suchbegriff unzul&auml;ssig\n');
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><strong>FEHLER:</strong></font> Keine &Uuml;bereinstimmung der eingebenen \'eMail-Adresse\' und/oder dem \'Passwort\'.');
-define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><strong>ACHTUNG:</strong></font> Die eingegebene eMail-Adresse ist nicht registriert. Bitte versuchen Sie es noch einmal.');
-define('TEXT_PASSWORD_SENT', 'Ein neues Passwort wurde per eMail verschickt.');
+define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><strong>FEHLER:</strong></font> Keine &Uuml;bereinstimmung der eingebenen \'E-Mail-Adresse\' und/oder dem \'Passwort\'.');
+define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><strong>ACHTUNG:</strong></font> Die eingegebene E-Mail-Adresse ist nicht registriert. Bitte versuchen Sie es noch einmal.');
+define('TEXT_PASSWORD_SENT', 'Ein neues Passwort wurde per E-Mail verschickt.');
 define('TEXT_PRODUCT_NOT_FOUND', 'Artikel wurde nicht gefunden!');
 define('TEXT_MORE_INFORMATION', 'F&uuml;r weitere Informationen, besuchen Sie bitte die <a style="text-decoration:underline;" href="%s" onclick="window.open(this.href); return false;">Homepage</a> zu diesem Artikel.');
 define('TEXT_DATE_ADDED', 'Diesen Artikel haben wir am %s in unseren Katalog aufgenommen.');
@@ -369,28 +369,28 @@ define('NAVBAR_GV_SEND', 'Gutschein versenden');
  */
 
 define('TEXT_NEWSLETTER','Sie m&ouml;chten immer auf dem Laufenden bleiben?<br />Kein Problem, tragen Sie sich in unseren Newsletter ein und Sie sind immer auf dem neuesten Stand.');
-define('TEXT_EMAIL_INPUT','Ihre eMail-Adresse wurde in unser System eingetragen.<br />Gleichzeitig wurde Ihnen vom System eine eMail mit einem Aktivierungslink geschickt. Bitte klicken Sie nach dem Erhalt der eMail auf den Link um Ihre Eintragung zu best&auml;tigen. Ansonsten bekommen Sie keinen Newsletter von uns zugestellt!');
+define('TEXT_EMAIL_INPUT','Ihre E-Mail-Adresse wurde in unser System eingetragen.<br />Gleichzeitig wurde Ihnen vom System eine E-Mail mit einem Aktivierungslink geschickt. Bitte klicken Sie nach dem Erhalt der E-Mail auf den Link um Ihre Eintragung zu best&auml;tigen. Ansonsten bekommen Sie keinen Newsletter von uns zugestellt!');
 
 define('TEXT_WRONG_CODE','<font color="#ff0000">Ihr eingegebener Sicherheitscode stimmte nicht mit dem angezeigten Code &Uuml;berein. Bitte versuchen Sie es erneut.</font>');
-define('TEXT_EMAIL_EXIST_NO_NEWSLETTER','<font color="#ff0000">Diese eMail-Adresse existiert bereits in unserer Datenbank ist aber noch nicht f&uuml;r den Empfang des Newsletters freigeschalten!</font>');
-define('TEXT_EMAIL_EXIST_NEWSLETTER','<font color="#ff0000">Diese eMail-Adresse existiert bereits in unserer Datenbank und ist f&uuml;r den Newsletterempfang bereits freigeschalten!</font>');
-define('TEXT_EMAIL_NOT_EXIST','<font color="#ff0000">Diese eMail-Adresse existiert nicht in unserer Datenbank!</font>');
-define('TEXT_EMAIL_DEL','Ihre eMail-Adresse wurde aus unserer Newsletterdatenbank gel&ouml;scht.');
-define('TEXT_EMAIL_DEL_ERROR','<font color="#ff0000">Es ist ein Fehler aufgetreten, Ihre eMail-Adresse wurde nicht gel&ouml;scht!</font>');
-define('TEXT_EMAIL_ACTIVE','<font color="#ff0000">Ihre eMail-Adresse wurde erfolgreich f&uuml;r den Newsletterempfang freigeschalten!</font>');
-define('TEXT_EMAIL_ACTIVE_ERROR','<font color="#ff0000">Es ist ein Fehler aufgetreten, Ihre eMail-Adresse wurde nicht freigeschalten!</font>');
+define('TEXT_EMAIL_EXIST_NO_NEWSLETTER','<font color="#ff0000">Diese E-Mail-Adresse existiert bereits in unserer Datenbank ist aber noch nicht f&uuml;r den Empfang des Newsletters freigeschalten!</font>');
+define('TEXT_EMAIL_EXIST_NEWSLETTER','<font color="#ff0000">Diese E-Mail-Adresse existiert bereits in unserer Datenbank und ist f&uuml;r den Newsletterempfang bereits freigeschalten!</font>');
+define('TEXT_EMAIL_NOT_EXIST','<font color="#ff0000">Diese E-Mail-Adresse existiert nicht in unserer Datenbank!</font>');
+define('TEXT_EMAIL_DEL','Ihre E-Mail-Adresse wurde aus unserer Newsletterdatenbank gel&ouml;scht.');
+define('TEXT_EMAIL_DEL_ERROR','<font color="#ff0000">Es ist ein Fehler aufgetreten, Ihre E-Mail-Adresse wurde nicht gel&ouml;scht!</font>');
+define('TEXT_EMAIL_ACTIVE','<font color="#ff0000">Ihre E-Mail-Adresse wurde erfolgreich f&uuml;r den Newsletterempfang freigeschalten!</font>');
+define('TEXT_EMAIL_ACTIVE_ERROR','<font color="#ff0000">Es ist ein Fehler aufgetreten, Ihre E-Mail-Adresse wurde nicht freigeschalten!</font>');
 define('TEXT_EMAIL_SUBJECT','Ihre Newsletteranmeldung');
 
 define('TEXT_CUSTOMER_GUEST',' Gast');
 
-define('TEXT_LINK_MAIL_SENDED','Ihre Anfrage nach einem neuen Passwort muss von Ihnen erst best&auml;tigt werden.<br />Deshalb wurde Ihnen vom System eine eMail mit einem Best&auml;tigungslink geschickt. Bitte klicken Sie nach dem Erhalt der eMail auf den Link und eine weitere eMail mit Ihrem neuen Anmelde-Passwort zu erhalten. Andernfalls wird Ihnen das neue Passwort nicht zugestellt oder eingerichtet!');
-define('TEXT_PASSWORD_MAIL_SENDED','Eine eMail mit einem neuen Anmelde-Passwort wurde Ihnen soeben zugestellt.<br />Bitte &auml;ndern Sie nach Ihrer n&auml;chsten Anmeldung Ihr Passwort wie gew&uuml;nscht.');
-define('TEXT_CODE_ERROR','Bitte geben Sie Ihre eMail-Adresse und den Sicherheitscode erneut ein. <br />Achten Sie dabei auf Tippfehler!');
-define('TEXT_EMAIL_ERROR','Bitte geben Sie Ihre eMail-Adresse und den Sicherheitscode erneut ein. <br />Achten Sie dabei auf Tippfehler!');
+define('TEXT_LINK_MAIL_SENDED','Ihre Anfrage nach einem neuen Passwort muss von Ihnen erst best&auml;tigt werden.<br />Deshalb wurde Ihnen vom System eine E-Mail mit einem Best&auml;tigungslink geschickt. Bitte klicken Sie nach dem Erhalt der E-Mail auf den Link und eine weitere E-Mail mit Ihrem neuen Anmelde-Passwort zu erhalten. Andernfalls wird Ihnen das neue Passwort nicht zugestellt oder eingerichtet!');
+define('TEXT_PASSWORD_MAIL_SENDED','Eine E-Mail mit einem neuen Anmelde-Passwort wurde Ihnen soeben zugestellt.<br />Bitte &auml;ndern Sie nach Ihrer n&auml;chsten Anmeldung Ihr Passwort wie gew&uuml;nscht.');
+define('TEXT_CODE_ERROR','Bitte geben Sie Ihre E-Mail-Adresse und den Sicherheitscode erneut ein. <br />Achten Sie dabei auf Tippfehler!');
+define('TEXT_EMAIL_ERROR','Bitte geben Sie Ihre E-Mail-Adresse und den Sicherheitscode erneut ein. <br />Achten Sie dabei auf Tippfehler!');
 define('TEXT_NO_ACCOUNT','Leider m&uuml;ssen wir Ihnen mitteilen, dass Ihre Anfrage f&uuml;r ein neues Anmelde-Passwort entweder ung&uuml;ltig war oder abgelaufen ist.<br />Bitte versuchen Sie es erneut.');
 define('HEADING_PASSWORD_FORGOTTEN','Passwort erneuern?');
 define('TEXT_PASSWORD_FORGOTTEN','&Auml;ndern Sie Ihr Passwort in drei leichten Schritten.');
-define('TEXT_EMAIL_PASSWORD_FORGOTTEN','Best&auml;tigungs-eMail f&uuml;r Passwort&auml;nderung');
+define('TEXT_EMAIL_PASSWORD_FORGOTTEN','Best&auml;tigungs-E-Mail f&uuml;r Passwort&auml;nderung');
 define('TEXT_EMAIL_PASSWORD_NEW_PASSWORD','Ihr neues Passwort');
 define('ERROR_MAIL','Bitte &uuml;berpr&uuml;fen Sie Ihre eingegebenen Daten im Formular');
 
@@ -401,7 +401,7 @@ define('ERROR_NO_REDEEM_CODE', 'Sie haben leider keinen Code eingegeben.');
 define('ERROR_NO_INVALID_REDEEM_GV', 'Ung&uuml;ltiger Gutscheincode');
 define('TABLE_HEADING_CREDIT', 'Guthaben');
 define('EMAIL_GV_TEXT_SUBJECT', 'Ein Geschenk von %s');
-define('MAIN_MESSAGE', 'Sie haben sich dazu entschieden, einen Gutschein im Wert von %s an %s versenden, dessen eMail-Adresse %s lautet.<br /><br />Folgender Text erscheint in Ihrer eMail:<br /><br />Hallo %s<br /><br />Ihnen wurde ein Gutschein im Wert von %s durch %s geschickt.');
+define('MAIN_MESSAGE', 'Sie haben sich dazu entschieden, einen Gutschein im Wert von %s an %s versenden, dessen E-Mail-Adresse %s lautet.<br /><br />Folgender Text erscheint in Ihrer E-Mail:<br /><br />Hallo %s<br /><br />Ihnen wurde ein Gutschein im Wert von %s durch %s geschickt.');
 define('REDEEMED_AMOUNT','Ihr Gutschein wurde erfolgreich auf Ihr Konto verbucht. Gutscheinwert:');
 define('REDEEMED_COUPON','Ihr Coupon wurde erfolgreich eingebucht und wird bei Ihrer n&auml;chsten Bestellung automatisch eingel&ouml;st.');
 
