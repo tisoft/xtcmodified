@@ -1,19 +1,24 @@
 <?php
 
-/* --------------------------------------------------------------
-   $Id: campaigns.php 1176 2005-08-22 21:44:28Z mz $
+/* -----------------------------------------------------------------------------------------
+   $Id: campaigns.php 1180 2007-04-23 11:13:00Z Hetfield $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2005 XT-Commerce
-   --------------------------------------------------------------
+   -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce coding standards; www.oscommerce.com
+   
+   Released under the GNU General Public License
+   -----------------------------------------------------------------------------------------
+   Third Party contribution:
+   (c) 2007 Hits for weekly, monthly and yearly for campaigns-report by Hetfield
 
    Released under the GNU General Public License
-   --------------------------------------------------------------*/
+   ---------------------------------------------------------------------------------------*/
 
 class campaigns {
 
@@ -73,6 +78,8 @@ class campaigns {
 							$this->getLeads($start, $end, $this->type);
 							// get Sells
 							$this->getSells($start, $end, $this->type);
+							
+							$this->getHits($start, $end, $this->type);
 
 							$start = $end;
 							$this->counter++;
@@ -91,6 +98,8 @@ class campaigns {
 							$this->getLeads($start, $end, $this->type);
 							// get Sells
 							$this->getSells($start, $end, $this->type);
+							
+							$this->getHits($start, $end, $this->type);
 
 							$start = $end;
 							$this->counter++;
@@ -110,6 +119,8 @@ class campaigns {
 							$this->getLeads($start, $end, $this->type);
 							// get Sells
 							$this->getSells($start, $end, $this->type);
+							
+							$this->getHits($start, $end, $this->type);
 
 							$start = $end;
 							$this->counter++;
@@ -192,7 +203,7 @@ class campaigns {
 		$status = "";
 		if ($this->status > 0)
 			$status = " and o.orders_status='".$this->status."'";
-		$sale_query = "SELECT count(*) as sells, SUM(ot.value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total'".$selection.$status;
+		$sale_query = "SELECT count(*) as sells, SUM(ot.value/o.currency_value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total'".$selection.$status;
 		$sale_query = xtc_db_query($sale_query);
 		$sale_data = xtc_db_fetch_array($sale_query);
 
@@ -223,11 +234,11 @@ class campaigns {
 		$status = "";
 		if ($this->status > 0)
 			$status = " and o.orders_status='".$this->status."'";
-		$sell_query = "SELECT count(*) as sells, SUM(ot.value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='1' and o.refferers_id='".$this->campaign."'".$selection.$status;
+		$sell_query = "SELECT count(*) as sells, SUM(ot.value/o.currency_value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='1' and o.refferers_id='".$this->campaign."'".$selection.$status;
 		$sell_query = xtc_db_query($sell_query);
 		$sell_data = xtc_db_fetch_array($sell_query);
 
-		$late_sell_query = "SELECT count(*) as sells, SUM(ot.value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='2' and o.refferers_id='".$this->campaign."'".$selection.$status;
+		$late_sell_query = "SELECT count(*) as sells, SUM(ot.value/o.currency_value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='2' and o.refferers_id='".$this->campaign."'".$selection.$status;
 		$late_sell_query = xtc_db_query($late_sell_query);
 		$late_sell_data = xtc_db_fetch_array($late_sell_query);
 
@@ -242,7 +253,7 @@ class campaigns {
 			$this->result[$this->counterCMP]['result'][$this->counter]['sum_p'] = 0;
 		} else {
 			$this->result[$this->counterCMP]['result'][$this->counter]['sells_p'] = $sell_data['sells'] / $this->total['sells'] * 100;
-			$this->result[$this->counterCMP]['result'][$this->counter]['late_sells_p'] = $late_sell_data['sells'] / $this->total['sells'] * 100;
+			$this->result[$this->counterCMP]['result'][$this->counter]['late_sells_p'] = round($late_sell_data['sells'] / $this->total['sells'] * 100,2);
 			$this->result[$this->counterCMP]['result'][$this->counter]['sum_p'] = round(($sell_data['Summe']+$late_sell_data['Summe'])/$this->total['sum']*100,2);
 		}
 		$this->result[$this->counterCMP]['result'][$this->counter]['late_sells'] = $late_sell_data['sells'];
@@ -310,10 +321,10 @@ class campaigns {
 
 		$this->result[$this->counterCMP]['result'][$this->counter]['hits'] = $hits_data['hits'];
 		$this->result[$this->counterCMP]['hits_s'] += $hits_data['hits'];
-		if ($this->total['leads'] == 0) {
-			$this->result[$this->counterCMP]['result'][$this->counter]['leads_p'] = 0;
+		if ($this->total['hits'] == 0) {
+			$this->result[$this->counterCMP]['result'][$this->counter]['hits_s'] = 0;
 		} else {
-			$this->result[$this->counterCMP]['result'][$this->counter]['leads_p'] = $lead_data['leads'] / $this->total['leads'] * 100;
+			$this->result[$this->counterCMP]['result'][$this->counter]['hits_s'] = $hits_data['hits'] / $this->total['hits'] * 100;
 		}
 	}
 
