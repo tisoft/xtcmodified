@@ -60,6 +60,7 @@
 	define('HEADING_TITLE', 'Bestellungen');
 	define('HEADING_TITLE_SEARCH', 'Bestell-Nr.:');
 	define('HEADING_TITLE_STATUS', 'Status:');
+	define('TABLE_HEADING_AFTERBUY', 'Afterbuy'); //Dokuman - 2009-05-27 - added missing definition
 	define('TABLE_HEADING_CUSTOMERS', 'Kunden');
 	define('TABLE_HEADING_ORDER_TOTAL', 'Gesamtwert');
 	define('TABLE_HEADING_DATE_PURCHASED', 'Bestelldatum');

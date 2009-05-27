@@ -87,7 +87,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	//$error = $vatID->vat_info['error'];
 	//if($error==1){
 	if($vatID->vat_info['error']==1){
-	// BOF - DokuMan - 2009-05-26 - Code optimization
+	// EOF - DokuMan - 2009-05-26 - Code optimization
 	
 	$messageStack->add('account_edit', ENTRY_VAT_ERROR);
 	$error = true;

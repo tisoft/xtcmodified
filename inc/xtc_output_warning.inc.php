@@ -27,7 +27,7 @@
 	}
 
 	echo $result; 
-  // BOF - Dokuman - 2009-05-27 - display errors only to admins in DIV-Element
+  // EOF - Dokuman - 2009-05-27 - display errors only to admins in DIV-Element
   }
 
  ?>

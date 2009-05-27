@@ -32,7 +32,7 @@ function xtc_db_test_create_db_permission($database) {
 // BOF - Dokuman - 2009-05-27 - xtc_db_query_installer typo      
 //        if (!@xtc_db_query_installer_installer('create database ' . $database)) {
         if (!@xtc_db_query_installer('create database ' . $database)) {
-// BOF - Dokuman - 2009-05-27 - xtc_db_query_installer typo
+// EOF - Dokuman - 2009-05-27 - xtc_db_query_installer typo
         
           $db_error = mysql_error();
         }

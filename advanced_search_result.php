@@ -208,6 +208,10 @@ if ($error == 1 && $keyerror != 1) {
 						$where_str .= " ".$search_keywords[$i]." ";
 						break;
 					default :
+					// BOF - Dokuman - 2009-05-27 - search for umlaut letters
+					//see http://www.gunnart.de/tipps-und-tricks/xtcommerce-suche-nach-umlauten/
+					
+					/*
 						$where_str .= " ( ";
 						$where_str .= "pd.products_keywords LIKE ('%".addslashes($search_keywords[$i])."%') ";
 						if (SEARCH_IN_DESC == 'true') {
@@ -220,6 +224,35 @@ if ($error == 1 && $keyerror != 1) {
 						   $where_str .= "OR (pov.products_options_values_name LIKE ('%".addslashes($search_keywords[$i])."%') ";
 						   $where_str .= "AND pov.language_id = '".(int) $_SESSION['languages_id']."')";
 						}
+					*/
+					
+					// Wurde nach Umlauten gesucht?
+          $ent_keyword = htmlentities($search_keywords[$i]);
+          $ent_keyword = ($ent_keyword != $search_keywords[$i]) ? addslashes($ent_keyword) : false;
+
+          // addslashes langt einmal ...
+          $keyword = addslashes($search_keywords[$i]);
+
+          $where_str .= " ( ";
+          $where_str .= "pd.products_keywords LIKE ('%".$keyword."%') ";
+          $where_str .= ($ent_keyword) ? "OR pd.products_keywords LIKE ('%".$ent_keyword."%') " : '';
+          if (SEARCH_IN_DESC == 'true') {
+             $where_str .= "OR pd.products_description LIKE ('%".$keyword."%') ";
+             $where_str .= ($ent_keyword) ? "OR pd.products_description LIKE ('%".$ent_keyword."%') " : '';
+             $where_str .= "OR pd.products_short_description LIKE ('%".$keyword."%') ";
+             $where_str .= ($ent_keyword) ? "OR pd.products_short_description LIKE ('%".$ent_keyword."%') " : '';
+          }
+          $where_str .= "OR pd.products_name LIKE ('%".$keyword."%') ";
+          $where_str .= ($ent_keyword) ? "OR pd.products_name LIKE ('%".$ent_keyword."%') " : '';
+          $where_str .= "OR p.products_model LIKE ('%".$keyword."%') ";
+          $where_str .= ($ent_keyword) ? "OR p.products_model LIKE ('%".$ent_keyword."%') " : '';
+          if (SEARCH_IN_ATTR == 'true') {
+             $where_str .= "OR (pov.products_options_values_name LIKE ('%".$keyword."%') ";
+             $where_str .= ($ent_keyword) ? "OR pov.products_options_values_name LIKE ('%".$ent_keyword."%') " : '';
+             $where_str .= "AND pov.language_id = '".(int) $_SESSION['languages_id']."')";
+          }
+					// EOF - Dokuman - 2009-05-27 - search for umlaut letters
+					
 						$where_str .= " ) ";
 						break;
 				}

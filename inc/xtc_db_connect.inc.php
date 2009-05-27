@@ -29,7 +29,7 @@
   	if ($$link) {
     		@mysql_select_db($database) or die('Database not available');
    	}
-// BOF - Dokuman - 2009-05-27 - revised database connection
+// EOF - Dokuman - 2009-05-27 - revised database connection
 
     return $$link;
   }

@@ -489,7 +489,11 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
       <td>
 <?php echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cid=' . $_GET['cid']); ?>
+      <!--// BOF - Dokuman - 2009-05-27 - cosmetic fix
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
+      //-->
+      <table class="dataTableContent" border="1" width="100%" cellspacing="0" cellpadding="6">  
+      <!--// EOF - Dokuman - 2009-05-27 - cosmetic fix -->
 <?php
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
