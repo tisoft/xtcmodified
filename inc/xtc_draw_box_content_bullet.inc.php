@@ -21,7 +21,7 @@ function xtc_draw_box_content_bullet($bullet_text, $bullet_link = '') {
     $bullet = '      <tr>' . CR .
               '        <td><table border="0" cellspacing="0" cellpadding="0">' . CR .
               '          <tr>' . CR .
-              '            <td width="12" class="boxText"><img src="images/icon_pointer.gif" border="0"></td>' . CR .
+              '            <td width="12" class="boxText"><img src="images/icon_pointer.gif" border="0" alt=""></td>' . CR .
               '            <td class="infoboxText">';
     if ($bullet_link) {
       if ($bullet_link == $page_file) {

@@ -26,4 +26,5 @@
     if (strpos($_SERVER['HTTP_ACCEPT_ENCODING'],'gzip') !== false) return 'gzip';
 
     return false;
-  } ?>
+  } 
+?>

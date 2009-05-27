@@ -348,9 +348,11 @@ $smarty->assign('account',xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 }
 $smarty->assign('cart',xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
 $smarty->assign('checkout',xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-$smarty->assign('store_name',TITLE);
 
-    
+// BOF - Dokuman - 2009-05-27 - added htmlspecialchars
+//$smarty->assign('store_name',TITLE);
+$smarty->assign('store_name', htmlspecialchars(TITLE));
+// BOF - Dokuman - 2009-05-27 - added htmlspecialchars
 
   if (isset($_GET['error_message']) && xtc_not_null($_GET['error_message'])) {
 

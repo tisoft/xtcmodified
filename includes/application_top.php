@@ -185,8 +185,9 @@ while ($configuration = xtc_db_fetch_array($configuration_query)) {
 }
 
 require_once (DIR_WS_CLASSES.'class.phpmailer.php');
-if (EMAIL_TRANSPORT == 'smtp')
+if (EMAIL_TRANSPORT == 'smtp') {
 	require_once (DIR_WS_CLASSES.'class.smtp.php');
+}
 require_once (DIR_FS_INC.'xtc_Security.inc.php');
 
 // set the application parameters
@@ -511,14 +512,13 @@ if (isset ($cPath_array)) {
 		if (GROUP_CHECK == 'true') {
 			$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 		}
-		$categories_query = xtDBquery("select
-				                                        cd.categories_name
-				                                        from ".TABLE_CATEGORIES_DESCRIPTION." cd,
-				                                        ".TABLE_CATEGORIES." c
-				                                        where cd.categories_id = '".$cPath_array[$i]."'
-				                                        and c.categories_id=cd.categories_id
-				                                        ".$group_check."
-				                                        and cd.language_id='".(int) $_SESSION['languages_id']."'");
+		$categories_query = xtDBquery("select cd.categories_name
+				                           from ".TABLE_CATEGORIES_DESCRIPTION." cd,
+				                                ".TABLE_CATEGORIES." c
+				                           where cd.categories_id = '".$cPath_array[$i]."'
+				                           and c.categories_id=cd.categories_id
+				                                ".$group_check."
+				                           and cd.language_id='".(int) $_SESSION['languages_id']."'");
 		if (xtc_db_num_rows($categories_query,true) > 0) {
 			$categories = xtc_db_fetch_array($categories_query,true);
 
@@ -560,20 +560,18 @@ require (DIR_WS_CLASSES.'Smarty_2.6.25/Smarty.class.php');
 // EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.25
 
 if (isset ($_SESSION['customer_id'])) {
-	$account_type_query = xtc_db_query("SELECT
-		                                    account_type,
-		                                    customers_default_address_id
-		                                    FROM
-		                                    ".TABLE_CUSTOMERS."
-		                                    WHERE customers_id = '".(int) $_SESSION['customer_id']."'");
+	$account_type_query = xtc_db_query("SELECT account_type,
+                                             customers_default_address_id
+		                                  FROM ".TABLE_CUSTOMERS."
+		                                  WHERE customers_id = '".(int) $_SESSION['customer_id']."'");
 	$account_type = xtc_db_fetch_array($account_type_query);
 
 	// check if zone id is unset bug #0000169
 	if (!isset ($_SESSION['customer_country_id'])) {
-		$zone_query = xtc_db_query("SELECT  entry_country_id
-				                                     FROM ".TABLE_ADDRESS_BOOK."
-				                                     WHERE customers_id='".(int) $_SESSION['customer_id']."'
-				                                     and address_book_id='".$account_type['customers_default_address_id']."'");
+		$zone_query = xtc_db_query("SELECT entry_country_id
+				                        FROM ".TABLE_ADDRESS_BOOK."
+				                        WHERE customers_id='".(int) $_SESSION['customer_id']."'
+				                        AND address_book_id='".$account_type['customers_default_address_id']."'");
 
 		$zone = xtc_db_fetch_array($zone_query);
 		$_SESSION['customer_country_id'] = $zone['entry_country_id'];

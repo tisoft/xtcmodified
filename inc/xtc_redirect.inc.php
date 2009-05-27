@@ -26,7 +26,7 @@
 	}
     }
     
-    header('Location: ' . eregi_replace("[\r\n]+(.*)$", "", $url));
+    header('Location: ' . eregi_replace("[\r\n]+(.*)$", "", html_entity_decode($url)));
 
     xtc_exit();
     

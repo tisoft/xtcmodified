@@ -83,7 +83,7 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
 
 	if (!$mail->Send()) {
 		echo "Message was not sent <p>";
-		echo "Mailer Error: ".$mail->ErrorInfo;
+		echo "Mailer Error: ".$mail->ErrorInfo."</p>";
 		exit;
 	}
 }

@@ -19,14 +19,18 @@
     global $$link;
 
     if (USE_PCONNECT == 'true') {
-     $$link = mysql_pconnect($server, $username, $password);
+        $$link = mysql_pconnect($server, $username, $password);
     } else {
-$$link = mysql_connect($server, $username, $password);
-    
-   }
+        $$link = mysql_connect($server, $username, $password);
+    }
 
-    if ($$link) mysql_select_db($database);
+// BOF - Dokuman - 2009-05-27 - revised database connection
+//    if ($$link) mysql_select_db($database);
+  	if ($$link) {
+    		@mysql_select_db($database) or die('Database not available');
+   	}
+// BOF - Dokuman - 2009-05-27 - revised database connection
 
     return $$link;
   }
- ?>
+?>
