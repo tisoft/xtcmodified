@@ -30,7 +30,7 @@ define('MODULE_SHIPPING_ITEM_HANDLING_DESC' , 'Handling Geb&uuml;hr für diese Ve
 define('MODULE_SHIPPING_ITEM_TAX_CLASS_TITLE' , 'Steuerklasse');
 define('MODULE_SHIPPING_ITEM_TAX_CLASS_DESC' , 'Folgende Steuerklasse an Versandkosten anwenden');
 define('MODULE_SHIPPING_ITEM_ZONE_TITLE' , 'Versandzone');
-define('MODULE_SHIPPING_ITEM_ZONE_DESC' , 'Wenn eine Zone ausgew&auml;hlt ist, wird diese Versandmethode ausschliseslich f&uuml;r diese Zone angewendet');
+define('MODULE_SHIPPING_ITEM_ZONE_DESC' , 'Wenn eine Zone ausgew&auml;hlt ist, wird diese Versandmethode ausschlie&szlig;lich f&uuml;r diese Zone angewendet');
 define('MODULE_SHIPPING_ITEM_SORT_ORDER_TITLE' , 'Sortierreihenfolge');
 define('MODULE_SHIPPING_ITEM_SORT_ORDER_DESC' , 'Reihenfolge der Anzeige');
 ?>

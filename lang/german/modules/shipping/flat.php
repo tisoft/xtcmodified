@@ -28,7 +28,7 @@ define('MODULE_SHIPPING_FLAT_COST_DESC' , 'Versandkosten für alle Bestellungen u
 define('MODULE_SHIPPING_FLAT_TAX_CLASS_TITLE' , 'Steuerklasse');
 define('MODULE_SHIPPING_FLAT_TAX_CLASS_DESC' , 'Folgende Steuerklasse an Versandkosten anwenden.');
 define('MODULE_SHIPPING_FLAT_ZONE_TITLE' , 'Versandzone');
-define('MODULE_SHIPPING_FLAT_ZONE_DESC' , 'Wenn eine Zone ausgew&auml;hlt ist, wird diese Versandmethode ausschliesslich f&uuml;r diese Zone angewendet.');
+define('MODULE_SHIPPING_FLAT_ZONE_DESC' , 'Wenn eine Zone ausgew&auml;hlt ist, wird diese Versandmethode ausschlie&szlig;lich f&uuml;r diese Zone angewendet.');
 define('MODULE_SHIPPING_FLAT_SORT_ORDER_TITLE' , 'Sortierreihenfolge');
 define('MODULE_SHIPPING_FLAT_SORT_ORDER_DESC' , 'Reihenfolge der Anzeige');
 ?>

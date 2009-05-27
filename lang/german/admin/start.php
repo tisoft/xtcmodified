@@ -40,20 +40,20 @@
   define('OPERATING_SYSTEM','Betriebssystem:');
   define('REFFERING_HOST','Referring Host:');
   define('ENTRY_PAGE','Einstiegsseite:');
-    define('HOURLY_TRAFFIC_SUMMARY','St&uuml;ndliche Traffic Zusammenfassung');
-    define('WEB_BROWSER_SUMMARY','Web Browser &Uuml;bersicht');
-    define('OPERATING_SYSTEM_SUMMARY','Betriebssystem &Uuml;bersicht');
-    define('TOP_REFERRERS','Top 10 Referrer');
-    define('TOP_HOSTS','Top Ten Hosts');
-    define('LIST_ALL','Alle anzeigen');    
-    define('SEARCH_ENGINE_SUMMARY','Suchmaschinen &Uuml;bersicht');
-    define('SEARCH_ENGINE_SUMMARY_TEXT',' ( Prozentangaben basieren auf die Gesamtzahl der Besuche &uuml;ber Suchmaschinen. )');
-    define('SEARCH_QUERY_SUMMARY','Suchanfragen &Uuml;bersicht');
-    define('SEARCH_QUERY_SUMMARY_TEXT',' ) ( Prozentangaben basieren auf die Gesamtzahl der Suchanfragen die geloggt wurden. )');
-    define('REFERRING_URL','Refferrer Url');
-    define('HITS','Hits');
-    define('PERCENTAGE','Prozentanteil');
-    define('HOST','Host');
+  define('HOURLY_TRAFFIC_SUMMARY','St&uuml;ndliche Traffic Zusammenfassung');
+  define('WEB_BROWSER_SUMMARY','Web Browser &Uuml;bersicht');
+  define('OPERATING_SYSTEM_SUMMARY','Betriebssystem &Uuml;bersicht');
+  define('TOP_REFERRERS','Top 10 Referrer');
+  define('TOP_HOSTS','Top Ten Hosts');
+  define('LIST_ALL','Alle anzeigen');    
+  define('SEARCH_ENGINE_SUMMARY','Suchmaschinen &Uuml;bersicht');
+  define('SEARCH_ENGINE_SUMMARY_TEXT',' ( Prozentangaben basieren auf die Gesamtzahl der Besuche &uuml;ber Suchmaschinen. )');
+  define('SEARCH_QUERY_SUMMARY','Suchanfragen &Uuml;bersicht');
+  define('SEARCH_QUERY_SUMMARY_TEXT',' ) ( Prozentangaben basieren auf die Gesamtzahl der Suchanfragen die geloggt wurden. )');
+  define('REFERRING_URL','Refferrer Url');
+  define('HITS','Hits');
+  define('PERCENTAGE','Prozentanteil');
+  define('HOST','Host');
 	
 // NEU HINZUGEFÜGT 04.12.2008 - Neue Startseite im Admin BOF	
 	
