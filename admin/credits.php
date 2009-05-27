@@ -28,13 +28,12 @@
 #credits {
  margin: 5px;
  padding: 0px 20px;
- border: solid 1px #cccccc;
  background-color: #F7F7F7;
  font-family: Verdana, Arial, sans-serif; 
  font-size: 12px;
 }
 #contentHead dt {
-  float: left;
+  float: right;
 }
 #contentHead dd {
   padding-left: 35px;
@@ -60,17 +59,26 @@ dl#person dd {
 <!-- header_eof //-->
 
 <!-- body //-->
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
+  <tr>
+    <td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top">
+      <table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
+<!-- left_navigation //-->
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
+<!-- left_navigation_eof //-->
+      </table>
+    </td>
+    <td class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <div id="credits">
  <dl id="contentHead">
   <dt style="float: left"><?php echo xtc_image(DIR_WS_ICONS.'heading_news.gif'); ?></dt>
   <dd><span class="pageHeading">Credits</span><br /><span class="main">Danksagung</span></dd>
  </dl>
- <font color="D68000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo PROJECT_VERSION; ?></b></font>
+ <font color="D68000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo PROJECT_VERSION; ?></strong></font>
  <br />
- <strong><?= RELEASE_DATE ?></strong>
  <br />
- Released under the GNU General Public License<br /><br />
- This program is distributed in the hope that it will be useful, but <b>WITHOUT ANY WARRANTY</b>;<br />without even the implied warranty of <b>MERCHANTABILITY</b> or <b>FITNESS FOR A PARTICULAR PURPOSE</b>.<br />See the GNU General Public License for more details. You should have received a copy of the<br />GNU General Public License along with this program; if not, write to the<br />Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.<br />See <a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a> for details. <br />
+Released under the GNU General Public License<br /><br />
+This program is distributed in the hope that it will be useful, but <strong>WITHOUT ANY WARRANTY</strong>;<br />without even the implied warranty of <strong>MERCHANTABILITY</strong> or <strong>FITNESS FOR A PARTICULAR PURPOSE</strong>.<br />See the GNU General Public License for more details. You should have received a copy of the<br />GNU General Public License along with this program; if not, write to the<br />Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.<br />See <a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a> for details. <br />
 <br />
  <p>Wir danken allen Programmieren und Entwicklern, die an diesem Projekt mitarbeiten. Sollten wir jemanden in der unten stehenden Auflistung vergessen haben, so bitten wir um Mitteilung über das <a href="http://www.xtc-modified.org/forum/">Forum</a> oder an einen der genannten Entwickler.</p>
  <p>Dieses Programm wurde ver&ouml;ffentlich, in der Hoffnung hilfreich zu sein. Wir geben jedoch keinerlei Garantie auf die fehlerfreie Implementierung.</p>
@@ -100,6 +108,10 @@ dl#person dd {
   </dd>
  </dl>
 </div>
+</td>
+<!-- body_text_eof //-->
+  </tr>
+</table>
 <!-- body_eof //-->
 
 <!-- footer //-->
