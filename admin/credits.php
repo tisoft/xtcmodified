@@ -24,8 +24,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<style type="text/css">
+#credits {
+ margin: 5px;
+ padding: 0px 20px;
+ border: solid 1px #cccccc;
+ background-color: #F7F7F7;
+ font-family: Verdana, Arial, sans-serif; 
+ font-size: 12px;
+}
+#contentHead dt {
+  float: left;
+}
+#contentHead dd {
+  padding-left: 35px;
+}
+#credits dl dt {
+  color: #D68000;
+  font-weight: bold;
+}
+dl#person dt {
+ color: black;
+ font-weight: bold;
+ float: left;
+}
 
-
+dl#person dd {
+  margin-left: 90px;
+}
+</style>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -33,96 +60,46 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<!-- left_navigation //-->
-<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
-<!-- left_navigation_eof //-->
-    </table></td>
-<!-- body_text //-->
-    <td class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr> 
-    <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_news.gif'); ?></td>
-    <td class="pageHeading">Credits</td>
-  </tr>
-  <tr> 
-    <td class="main" valign="top">XT Credits</td>
-  </tr>
-</table></td>
-      </tr>
-      <tr>
-        <td class="main">
-<font color="D68000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo PROJECT_VERSION; ?></b></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><br />
-Release
-Datum: 17 Aug 2006</strong><br />
-Released under the GNU General Public License<br />
+<div id="credits">
+ <dl id="contentHead">
+  <dt style="float: left"><?php echo xtc_image(DIR_WS_ICONS.'heading_news.gif'); ?></dt>
+  <dd><span class="pageHeading">Credits</span><br /><span class="main">Danksagung</span></dd>
+ </dl>
+ <font color="D68000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo PROJECT_VERSION; ?></b></font>
+ <br />
+ <strong><?= RELEASE_DATE ?></strong>
+ <br />
+ Released under the GNU General Public License<br /><br />
+ This program is distributed in the hope that it will be useful, but <b>WITHOUT ANY WARRANTY</b>;<br />without even the implied warranty of <b>MERCHANTABILITY</b> or <b>FITNESS FOR A PARTICULAR PURPOSE</b>.<br />See the GNU General Public License for more details. You should have received a copy of the<br />GNU General Public License along with this program; if not, write to the<br />Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.<br />See <a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a> for details. <br />
 <br />
- This program is distributed
-in the hope that it will be useful, but <b>WITHOUT ANY WARRANTY</b>;<br />
-without even the implied warranty of <b>MERCHANTABILITY</b> or <b>FITNESS FOR
-A PARTICULAR PURPOSE</b>.<br />
-See the GNU General Public License for more details. You should have received
-a copy of the<br />
-GNU General Public License along with this program; if not, write to the<br />
-Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.<br />
-See <a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a>
-for details. <br />
-<br />
-<b>Das XT-Commerce-Team dankt allen Programmierern und Entwicklern die Ihre Software<br />
-zur Verf&uuml;gung gestellt haben. Sollten wir jemanden vergessen haben hier zu nennen,<br />
-bitten wir um Entschuldigung. In diesem Fall bitten wir um einen Hinweis in unter:</b><br />
-<a href="mailto://team@xtcommerce.com">team@xtcommerce.com</a><br />
-<br />
-<br />
-<font color="D68000"><b>Programmierer
-von XT-Commerce:</b></font><br />
-</font>
-<hr align="center" width="100%">
-<table width="100%" border="0" cellpadding="0" cellspacing="4" border-color: #ff0000;" bgcolor="FDAC00">
-  <tr>
-    <td width="100"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b>Mario Zanier</b></font></td>
-    <td width="80%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> <a href="mailto:mzanier@xtcommerce.com">mzanier@xtcommerce.com</a></font>
-      <font size="2" face="Verdana, Arial, Helvetica, sans-serif">Donations: <a href="http://www.amazon.de/exec/obidos/registry/ACSF85VB5HIH/ref%3Dwl%5Fs%5F3/302-6541675-2166421" target="new">Amazon
-      (DE)</a></font></td>
-  </tr>
-  <tr>
-
-    <td width="100"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b>Guido Winger</b></font></td>
-    <td width="80%"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> <a href="mailto:gwinger@xtcommerce.com">gwinger@xtcommerce.com</a></font>
-      <font size="2" face="Verdana, Arial, Helvetica, sans-serif">Donations: <a href="http://www.amazon.de/exec/obidos/wishlist/3S5KFCG2166KD/302-5779377-6867251" target="new">Amazon (DE)</a></font></td>
-  </tr>
-</table>
-<font size="2" face="Verdana, Arial, Helvetica, sans-serif"> <br />
-<br />
-<font color="D68000"><b>Die
-Shopsoftware basiert auf:</b></font><br />
-</font>
-<hr align="center" width="100%">
-<font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b>© 2000-2001 The Exchange Project</b></font>
-<font size="2" face="Verdana, Arial, Helvetica, sans-serif">© Harald Ponce de Leon | http://www.oscommerce.com</font>
-<font size="2" face="Verdana, Arial, Helvetica, sans-serif"><br />
-<b>© 2002-2003 osCommerce (Milestone2)</b></font>
-<font size="2" face="Verdana, Arial, Helvetica, sans-serif">© Harald Ponce de Leon | http://www.oscommerce.com<br />
-Released under the GNU General
-Public License - die exakten Versionsnummern der Originalfiles entnehmen Sie den
-Copyright-Headern der einzelnen Dateien<br />
-<br />
-<b>© neXTCommerce
-(XTC 0.9 RC3 CVS)</b> © 2003 neXTCommerce | http://www.nextcommerce.org ( code-modifications &amp; redesign by Guido Winger/Mario Zanier/Andreas Oberzier)<br />
-Mario Zanier <a href="mailto:mzanier@xtcommerce.com">mzanier@xtcommerce.com</a> / Guido Winger <a href="mailto:gwinger@xtcommerce.com">gwinger@xtcommerce.com</a> / Andreas Oberzier <a href="mailto:aoberzier@nextcommerce.org">aoberzier@nextcommerce.org</a><br />
-Released under the GNU General Public License - die exakten Versionsnummern
-der Originaldateien entnehmen Sie den Copyright-Headern der einzelnen Dateien<br />
-<br />
-<br />
-</td>
-      </tr>		
-    </table></td>
-<!-- body_text_eof //-->
-  </tr>
-</table>
+ <p>Wir danken allen Programmieren und Entwicklern, die an diesem Projekt mitarbeiten. Sollten wir jemanden in der unten stehenden Auflistung vergessen haben, so bitten wir um Mitteilung über das <a href="http://www.xtc-modified.org/forum/">Forum</a> oder an einen der genannten Entwickler.</p>
+ <p>Dieses Programm wurde ver&ouml;ffentlich, in der Hoffnung hilfreich zu sein. Wir geben jedoch keinerlei Garantie auf die fehlerfreie Implementierung.</p>
+ <hr />
+ <dl>
+  <dt>Entwickler der xtc-modified Shop-Software:</dt>
+  <dd>
+   <dl id="person">
+    <dt>Christian</dt><dd>&lt;hallo@xtc-modified.org&gt;</dd>
+    <dt>Tomcraft</dt><dd>&lt;tomcraft1980@users.sourceforge.net&gt;</dd>
+    <dt>DokuMan</dt><dd>&lt;dokuman@users.sourceforge.net&gt;</dd>   
+    <dt>Pufaxx</dt><dd>&lt;info@gunnart.de&gt;</dd>
+   </dl>
+  </dd>
+ </dl>
+ <hr />
+ <dl>
+  <dt style="color: #d68000; font-weight: bold;">Die Shopsoftware basiert auf:</dt>
+  <dd>
+   <ul style="list-style: none; padding-left: 0px;">
+    <li>&copy;2009 xtc-modified basierend auf V3.0.4 SP2.1 | http://www.xtc-modified.org/ </li>
+    <li>&copy;2006 xt:Commerce V3.0.4 SP2.1 | http://www.xtcommerce.de/ </li>
+    <li>&copy;2003 neXTCommerce</li>
+    <li>&copy;2002-2003 osCommerce (Milestone2) by Harald Ponce de Leon | http://www.oscommerce.com/</li>
+    <li>&copy;2000-2001 The Exchange Project by Harald Ponce de Leon | http://www.oscommerce.com/</li>
+   </ul>
+  </dd>
+ </dl>
+</div>
 <!-- body_eof //-->
 
 <!-- footer //-->
