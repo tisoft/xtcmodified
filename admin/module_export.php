@@ -3,14 +3,14 @@
    $Id: module_export.php 1179 2005-08-25 12:37:13Z mz $   
 
    XT-Commerce - community made shopping
-   <a href="http://www.xt-commerce.com" rel="nofollow">http://www.xt-commerce.com</a>
+   http://www.xt-commerce.com
 
    Copyright (c) 2003 XT-Commerce
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/2 <img src="http://www.jung-gestalten.com/forum/bb-plugins/smilies/icon_cool.gif" alt="8)" class="wp-smiley"> ; <a href="http://www.oscommerce.com" rel="nofollow">www.oscommerce.com</a>
-   (c) 2003	 nextcommerce (modules.php,v 1.23 2003/08/19); <a href="http://www.nextcommerce.org" rel="nofollow">www.nextcommerce.org</a>
+   (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/28); www.oscommerce.com 
+   (c) 2003	 nextcommerce (modules.php,v 1.23 2003/08/19); www.nextcommerce.org
 
    --------------------------------------------------------------
    Contribution
@@ -54,7 +54,7 @@
 
     $class = basename($_GET['module']);
     include($module_directory . $class . $file_extension);
-// <neu>
+// BOF - image_processing by steps
     if($class == 'image_processing_step'){
     $start = $_GET['start'];
     if($start == '') {
@@ -77,7 +77,7 @@
     $module->process($file);
     xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class));
     }
-// </neu>
+// EOF - image_processing by steps
       break;
 
     case 'install':
