@@ -55,14 +55,18 @@ if (GROUP_CHECK == 'true') {
 	$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 }
 if (isset ($current_category_id) && ($current_category_id > 0)) {
+  //BOF - Dokuman - 2009-05-28 - Performance optimization by using primary keys
+  // see http://shopnix.wordpress.com/2009/04/18/xtcommerce-performance/
+  // and http://shopnix.wordpress.com/2009/04/22/performance-optimierung/
+	/*
 	$best_sellers_query = "select distinct
 	                                        p.products_id,
 	                                        p.products_price,
 	                                        p.products_tax_class_id,
 	                                        p.products_image,
-                                           p.products_vpe,
-				                           p.products_vpe_status,
-				                           p.products_vpe_value,
+                                          p.products_vpe,
+                                          p.products_vpe_status,
+                                          p.products_vpe_value,
 	                                        pd.products_name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c
 	                                        where p.products_status = '1'
 	                                        and c.categories_status = '1'
@@ -75,14 +79,36 @@ if (isset ($current_category_id) && ($current_category_id > 0)) {
 	                                        and p2c.categories_id = c.categories_id and '".$current_category_id."'
 	                                        in (c.categories_id, c.parent_id)
 	                                        order by p.products_ordered desc limit ".MAX_DISPLAY_BESTSELLERS;
+  */
+	$best_sellers_query = "select distinct
+	                                        p.products_id,
+	                                        p.products_price,
+	                                        p.products_tax_class_id,
+	                                        p.products_image,
+                                          p.products_vpe,
+                                          p.products_vpe_status,
+                                          p.products_vpe_value,
+	                                        pd.products_name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c
+	                                        where p.products_status = '1'
+	                                        and c.categories_status = '1'
+	                                        and p.products_ordered > 0
+	                                        and p.products_id = pd.products_id
+	                                        and pd.language_id = '".(int) $_SESSION['languages_id']."'
+	                                        and p.products_id = p2c.products_id
+	                                        ".$group_check."
+	                                        ".$fsk_lock."
+	                                        and p2c.categories_id = c.categories_id 
+	                                        and (c.categories_id = '" . (int)$current_category_id . "' or c.parent_id = '" . (int)$current_category_id . "')
+	                                        order by p.products_ordered desc limit ".MAX_DISPLAY_BESTSELLERS;
+  // EOF - Dokuman - 2009-05-28 - Performance optimization
 } else {
 	$best_sellers_query = "select distinct
 	                                        p.products_id,
 	                                        p.products_image,
 	                                        p.products_price,
-                                           p.products_vpe,
-				                           p.products_vpe_status,
-				                           p.products_vpe_value,
+                                          p.products_vpe,
+                                          p.products_vpe_status,
+                                          p.products_vpe_value,
 	                                        p.products_tax_class_id,
 	                                        pd.products_name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
 	                                        where p.products_status = '1'
