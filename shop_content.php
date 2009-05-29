@@ -40,7 +40,12 @@ $shop_content_query = xtc_db_query("SELECT
                      AND languages_id='".(int) $_SESSION['languages_id']."'");
 $shop_content_data = xtc_db_fetch_array($shop_content_query);
 
-$breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CONTENT.'?coID='.(int) $_GET['coID']));
+// BOF - DokuMan - 2009-05-29 - added shopstat bugfix
+//-- SHOPSTAT --//
+//$breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CONTENT.'?coID='.(int) $_GET['coID']));
+$breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CONTENT,'coID='.(int) $_GET['coID']));
+//-- SHOPSTAT --//
+// EOF - DokuMan - 2009-05-29 - added shopstat bugfix
 
 if ($_GET['coID'] != 7) {
 	require (DIR_WS_INCLUDES.'header.php');
