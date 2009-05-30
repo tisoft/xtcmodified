@@ -66,7 +66,7 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
 <br /><br />
 <?php
   echo "<TR>";
-  echo "<TD class=\"main\"><br /><strong>".SELECT_COPY."<br /></TD>";
+  echo "<TD class=\"main\"><br /><strong>".SELECT_COPY."</strong><br /></TD>";
   echo "</TR>";
   echo "<TR>";
   echo "<TD class=\"main\"><SELECT NAME=\"copy_product_id\">";
