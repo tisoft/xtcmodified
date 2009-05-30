@@ -134,9 +134,9 @@ function CarpSetup0() {
 function CarpSetup1() {
 	global $carpsetup;
 	?>
-	<strong>Create cache folders:</strong><br/>
+	<strong>Create cache folders:</strong><br />
 	The easiest method is to enter your FTP or Telnet login name and password, and let me try to do it automatically.
-	<b style="color:#c00;">If the automatic method fails for any reason, you will need to use the manual method.</strong>
+	<strong style="color:#c00;">If the automatic method fails for any reason, you will need to use the manual method.</strong>
 	Please choose your preferred method:<br /><br />
 	
 	<table border="1" cellpadding="5" cellspacing="1"><tr>
