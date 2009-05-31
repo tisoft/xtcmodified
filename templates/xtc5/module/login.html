@@ -3,7 +3,8 @@
 {if $info_message!=''}
 <div class="errormessage">{$info_message}</div>
 {/if}
-<div class="highlightbox"> {if $account_option=='account' or $account_option=='both'}
+{if $account_option=='account' or $account_option=='both'}
+<div class="highlightbox">
       <h1>{#title_returning#}</h1>
       {$FORM_ACTION}
       <p>{#text_returning#}</p>
@@ -23,14 +24,16 @@
                   <td colspan="2"><a href="{$LINK_LOST_PASSWORD}">{#text_lost_password#}</a></td>
             </tr>
       </table>
-      {$FORM_END} </div>
+      {$FORM_END}
+</div>
 <br />
 <div class="highlightbox">
       <h1>{#title_new#}</h1>
       <p>{#text_new#}</p>
       <p>{$BUTTON_NEW_ACCOUNT}</p>
 </div>
-{/if} {if $account_option=='both' or $account_option=='guest'} <br />
+{/if} {if $account_option=='both' or $account_option=='guest'}
+<br />
 <div class="highlightbox">
       <h1>{#title_guest#}</h1>
       <p>{#text_guest#}</p>
