@@ -30,7 +30,10 @@
   reset($lng->catalog_languages);
   while (list($key, $value) = each($lng->catalog_languages)) {
   $count_lng++;
-    $languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&amp;'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
+ 	  //BOF - DokuMan - 2009-05-31 - rewrite ampersand to avoid double ampersands like "&amp;&"
+    //$languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&amp;'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
+    $languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
+ 	  //EOF - DokuMan - 2009-05-31 - rewrite ampersand to avoid double ampersands like "&amp;&"
   }
 
   // dont show box if there's only 1 language

@@ -14,31 +14,28 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
  
- class main {
+class main {
  	
  	function main () {
  		$this->SHIPPING = array();
- 		
- 		
- 		
- 		
- 				// prefetch shipping status
-		$status_query=xtDBquery("SELECT
-                                     shipping_status_name,
-                                     shipping_status_image,shipping_status_id
-                                     FROM ".TABLE_SHIPPING_STATUS."
-                                     where language_id = '".(int)$_SESSION['languages_id']."'");
+ 		 		
+ 		// prefetch shipping status
+		$status_query=xtDBquery("SELECT shipping_status_name,
+                                    shipping_status_image,
+                                    shipping_status_id
+                             FROM ".TABLE_SHIPPING_STATUS."
+                             WHERE language_id = '".(int)$_SESSION['languages_id']."'");
          
-         while ($status_data=xtc_db_fetch_array($status_query,true)) {
+     while ($status_data=xtc_db_fetch_array($status_query,true)) {
          	$this->SHIPPING[$status_data['shipping_status_id']]=array('name'=>$status_data['shipping_status_name'],'image'=>$status_data['shipping_status_image']);
-         }
-         
+     }
          
  	}
  	
  	function getShippingStatusName($id) {
  		return $this->SHIPPING[$id]['name'];
  	}
+ 	
  	function getShippingStatusImage($id) {
  		if ($this->SHIPPING[$id]['image']) {
  		return 'admin/images/icons/'.$this->SHIPPING[$id]['image'];
@@ -47,8 +44,11 @@
  		}
  	}
  	
- 		function getShippingLink() {
-		return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+ 	function getShippingLink() {
+ 	  //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
+ 	  //return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+	return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+	  //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
 	}
 
 	function getTaxNotice() {
@@ -74,7 +74,7 @@
 	
 	function getTaxInfo($tax_rate) {
 		
-		// price incl tax
+        // price incl tax
 				if ($tax_rate > 0 && $_SESSION['customers_status']['customers_status_show_price_tax'] != 0) {
 					$tax_info = sprintf(TAX_INFO_INCL, $tax_rate.' %');
 				}
@@ -97,10 +97,11 @@
 	}
 	
 	function getContentLink($coID,$text) {
-		return '<a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
+ 	  //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
+		//return '<a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
+		return '<a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
+ 	  //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
 	}
- 	
- }
- 
- 
+
+}
 ?>
