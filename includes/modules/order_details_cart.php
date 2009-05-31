@@ -103,7 +103,10 @@ if ($customer_status_value['customers_status_ot_discount'] != 0) {
 	$total_content .= TEXT_CART_OT_DISCOUNT.$customer_status_value['customers_status_ot_discount'].'%';
 }
 if (SHOW_SHIPPING == 'true') {
-	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.'<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'?KeepThis=true&TB_iframe=true&height=400&width=600" title="Information" class="thickbox""> '.SHIPPING_COSTS.'</a>');
+    //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant, added blank outside anchor, removed needless quotation mark
+	//$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.'<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'?KeepThis=true&TB_iframe=true&height=400&width=600" title="Information" class="thickbox""> '.SHIPPING_COSTS.'</a>');
+	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>');
+    //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant, added blank outside anchor, removed needless quotation mark
 }
 if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
 $module_smarty->assign('UST_CONTENT', $_SESSION['cart']->show_tax());
