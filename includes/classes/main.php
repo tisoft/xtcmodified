@@ -47,7 +47,7 @@ class main {
  	function getShippingLink() {
  	  //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
  	  //return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
-	return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+	return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
 	  //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
 	}
 
@@ -99,7 +99,7 @@ class main {
 	function getContentLink($coID,$text) {
  	  //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
 		//return '<a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
-		return '<a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
+		return '<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
  	  //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
 	}
 
