@@ -115,7 +115,8 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
             // remove trash
             
             $products_description = strip_tags($products['products_description']);         
-            $products_description = str_replace("<br />"," ",$products_description);
+            $products_description = str_replace("<br>"," ",$products_description);
+            $products_description = str_replace("<BR>"," ",$products_description);           
             $products_description = str_replace("<br />"," ",$products_description);
             $products_description = str_replace(";",", ",$products_description);
             $products_description = str_replace("'",", ",$products_description);
@@ -128,7 +129,8 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
             $products_description = str_replace(chr(13)," ",$products_description);
             
             $products_short_description = strip_tags($products['products_short_description']);         
-            $products_short_description = str_replace("<br />"," ",$products_short_description);
+            $products_short_description = str_replace("<br>"," ",$products_short_description);
+            $products_short_description = str_replace("<BR>"," ",$products_short_description);           
             $products_short_description = str_replace("<br />"," ",$products_short_description);
             $products_short_description = str_replace(";",", ",$products_short_description);
             $products_short_description = str_replace("'",", ",$products_short_description);

@@ -102,8 +102,9 @@ define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
 
                 $products_description=$products['products_description'];
                 $products_description=str_replace("\n"," ",$products_description);
-                $products_description=str_replace("<br />"," ",$products_description);
-                $products_description=str_replace("<br />"," ",$products_description);
+                $products_description=str_replace("<BR>"," ",$products_description);
+                $products_description=str_replace("<br>"," ",$products_description);
+                $products_description=str_replace("<br />"," ",$products_description);               
                 $products_description=str_replace("\r"," ",$products_description);
                 $products_description=strip_tags($products_description);
                 $products_description=str_replace('|',' ',$products_description);
