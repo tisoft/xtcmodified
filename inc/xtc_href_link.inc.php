@@ -38,7 +38,11 @@
 
     if (xtc_not_null($parameters)) {
       $link .= $page . '?' . $parameters;
-      $separator = '&';
+      //BOF - DokuMan - 2009-06-02: replace ampersand
+      //$separator = '&';
+      $separator = '&amp;';
+      //EOF - DokuMan - 2009-06-02: replace ampersand
+
     } else {
       $link .= $page;
       $separator = '?';
@@ -74,7 +78,10 @@
             $link       = $seolink;
             $elements   = parse_url($link);
             (isset($elements['query']))
-                ? $separator = '&'
+                //BOF - DokuMan - 2009-06-02: replace ampersand
+                //? $separator = '&'
+                ? $separator = '&amp;'
+                //BOF - DokuMan - 2009-06-02: replace ampersand
                 : $separator = '?';
             }
         }

@@ -45,10 +45,10 @@ class main {
  	}
  	
  	function getShippingLink() {
- 	  //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
+ 	  //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant, fixed wrong quotationmark position
  	  //return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
-	return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
-	  //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
+	return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+	  //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant, fixed wrong quotationmark position
 	}
 
 	function getTaxNotice() {

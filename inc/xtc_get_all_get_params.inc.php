@@ -25,7 +25,12 @@
       while (list($key, $value) = each($_GET)) {
 //        if ( (strlen($value) > 0) && ($key != xtc_session_name()) && ($key != 'error') && ($key != 'cPath') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
         if ( (strlen($value) > 0) && ($key != xtc_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
-          $get_url .= rawurlencode(stripslashes($key)) . '=' . rawurlencode(stripslashes($value)) . '&';
+
+          //BOF - DokuMan - 2009-06-02: replace ampersand
+          //$get_url .= rawurlencode(stripslashes($key)) . '=' . rawurlencode(stripslashes($value)) . '&';
+          $get_url .= rawurlencode(stripslashes($key)) . '=' . rawurlencode(stripslashes($value)) . '&amp;';
+          //EOF - DokuMan - 2009-06-02: replace ampersand
+
         }
       }
     }
