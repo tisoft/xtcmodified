@@ -31,11 +31,26 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
 
 	$cop='<div align="center" style="font-size:11px;">eCommerce Engine &copy; 2006 <a rel="nofollow" href="http://www.xt-commerce.com/" target="_blank">xt:Commerce Shopsoftware</a> | eCommerce Engine modifiziert 2009 von <a href="http://www.jung-gestalten.com/" rel="nofollow" target="_blank">JUNG/GESTALTEN.com</a></div>';
 
-	for ($i=0; $i<count($str_arr);$i++) $cop.=chr($str_arr[$i]);
+//BOF - Dokuman - 2009-05-03 - Produce Valid Links
+	//for ($i=0; $i<count($str_arr);$i++) $cop.=chr($str_arr[$i]);
+
+    function NoEntities($Input) {
+      $TransTable1 = get_html_translation_table (HTML_ENTITIES);
+      foreach($TransTable1 as $ASCII => $Entity) {
+        $TransTable2[$ASCII] = '&#'.ord($ASCII).';';
+      }
+      $TransTable1 = array_flip ($TransTable1);
+      $TransTable2 = array_flip ($TransTable2);
+      return strtr (strtr ($Input, $TransTable1), $TransTable2);
+    }
+    function AmpReplace($Treffer) {
+      return $Treffer[1].htmlentities(NoEntities($Treffer[2])).$Treffer[3];
+    }
+    $tpl_output = preg_replace_callback("/(<a[^>]*href=\"|<form[^>]*action=\")(.*)(\"[^<]*>)/Usi","AmpReplace",$tpl_output);
+    $tpl_output = preg_replace_callback("/(<a[^>]*href='|<form[^>]*action=')(.*)('[^<]*>)/Usi","AmpReplace",$tpl_output);
+//BOF - Dokuman - 2009-05-03 - Produce Valid Links
 
     return $tpl_output.$cop;
-
-
 
 }
 

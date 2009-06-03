@@ -15,10 +15,7 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
-  //BOF - DokuMan - 2009-06-02: replace ampersand
-  //function xtc_array_to_string($array, $exclude = '', $equals = '=', $separator = '&') {
-  function xtc_array_to_string($array, $exclude = '', $equals = '=', $separator = '&amp;') {
-  //BOF - DokuMan - 2009-06-02: replace ampersand
+  function xtc_array_to_string($array, $exclude = '', $equals = '=', $separator = '&') {
 
     if (!is_array($exclude)) $exclude = array();
 

@@ -46,7 +46,7 @@
 
     if (xtc_not_null($parameters)) {
       $link .= $page . '?' . $parameters;
-      $separator = '&amp;';
+      $separator = '&';
     } else {
       $link .= $page;
       $separator = '?';
@@ -82,7 +82,7 @@
             $link       = $seolink;
             $elements   = parse_url($link);
             (isset($elements['query']))
-                ? $separator = '&amp;'
+                ? $separator = '&'
                 : $separator = '?';
             }
         }
