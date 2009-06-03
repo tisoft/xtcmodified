@@ -180,7 +180,6 @@ xtc_db_query("create table personal_offers_by_customers_status_3 (price_id INT N
         <tr> 
           <td height="17" background="images/bg_left_blocktitle.gif">
 <div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="FFAF00">xtc:</font><font color="#999999">Install</font></strong></font></div></td>
-<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="FFAF00">xtc:</font><font color="#999999">Install</font></strong></font></div></td>
         </tr>
         <tr> 
           <td bgcolor="F3F3F3" ><br /> 

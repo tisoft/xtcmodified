@@ -910,6 +910,3 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 <p align="center">&nbsp;</p>
 </body>
 </html>
-
-</body>
-</html>

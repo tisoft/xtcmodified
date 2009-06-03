@@ -70,11 +70,11 @@
 
 <body>
 <?php
-//BOF - DokuMan - 2009-05-19 - removed webbug to www.xt-commerce.com //-->
+//BOF - DokuMan - 2009-05-19 - removed webbug to www.xt-commerce.com
 //<img src='http://www.xt-commerce.com/_banner/adview.php?what=zone:18&amp;n=a61c088d' border='0' alt=''>
-//EOF - DokuMan - 2009-05-19 - removed webbug to www.xt-commerce.com //-->
+//EOF - DokuMan - 2009-05-19 - removed webbug to www.xt-commerce.com
 ?>
-<table width="800" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="95" colspan="2" ><table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
@@ -114,11 +114,25 @@
                 <td><br />                  <table width="100%"  border="0" cellpadding="2" cellspacing="2" style="border: 1px solid; border-color: #4CC534;" bgcolor="#C2FFB6">
                   <tr>
                     <td width="1"><img src="images/install.gif" border="0"></td>
+<?php
+//BOF - DokuMan - 2009-06-03 - changed links to www.xt-commerce.com
+/*                   
                     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><a href="http://www.xt-commerce.com/forum/showthread.php?t=35187" target="_blank">Installationsanleitung auf www.xt-commerce.com</a></font></td>
                   </tr>
                   <tr>
                     <td width="1"><img src="images/install.gif" border="0"></td>
                     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><a href="http://www.xt-commerce.com/shop/product_info.php?products_id=1&utm_source=installer&utm_medium=link" target="_blank">xt:Commerce Support</a></font></td>
+*/
+?>
+
+                    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><a href="http://www.xtc-modified.org/" target="_blank">Installationsanleitung</a></font></td>
+                  </tr>
+                  <tr>
+                    <td width="1"><img src="images/install.gif" border="0"></td>
+                    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><a href="http://www.xtc-modified.org/forum/" target="_blank">xt:Commerce Support</a></font></td>
+<?php
+//BOF - DokuMan - 2009-06-03 - changed links to www.xt-commerce.com
+?>                    
                   </tr>
                 </table></td>
               </tr>
