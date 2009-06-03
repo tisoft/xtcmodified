@@ -254,7 +254,7 @@ define('ERROR_CONDITIONS_NOT_ACCEPTED', '* Sofern Sie unsere Allgemeinen Gesch&a
 
 define('SUB_TITLE_OT_DISCOUNT','Rabatt:');
 
-define('TAX_ADD_TAX','incl. ');
+define('TAX_ADD_TAX','inkl. ');
 define('TAX_NO_TAX','zzgl. ');
 
 define('NOT_ALLOWED_TO_SEE_PRICES','Sie k&ouml;nnen als Gast (bzw mit Ihrem derzeitigen Status) keine Preise sehen');

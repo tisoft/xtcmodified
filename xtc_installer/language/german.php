@@ -212,7 +212,7 @@ define('TEXT_STATUS_GRADUATED_PRICE','Staffelpreise');
 define('TEXT_STATUS_GRADUATED_PRICE_LONG','Erlaubt es dem entsprechenden User die Staffelpreise zu sehen.');
 define('TEXT_STATUS_SHOW_PRICE','Preise');
 define('TEXT_STATUS_SHOW_PRICE_LONG','Erlaubt es dem User, normale Preise zu sehen.');
-define('TEXT_STATUS_SHOW_TAX','incl. Steuer');
+define('TEXT_STATUS_SHOW_TAX','inkl. Steuer');
 define('TEXT_STATUS_SHOW_TAX_LONG','Zeigt die angegebenen Preise mit (Ja) oder ohne (Nein) Steuer.');
 define('TEXT_STATUS_COD_PERMISSION','Per Nachnahme');
 define('TEXT_STATUS_COD_PERMISSION_LONG','Erlaubt dem Kunden per Nachnahme zu bestellen.');

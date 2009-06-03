@@ -1585,7 +1585,7 @@ INSERT INTO countries VALUES (77,'French Southern Territories','TF','ATF','1','1
 INSERT INTO countries VALUES (78,'Gabon','GA','GAB','1','1');
 INSERT INTO countries VALUES (79,'Gambia','GM','GMB','1','1');
 INSERT INTO countries VALUES (80,'Georgia','GE','GEO','1','1');
-INSERT INTO countries VALUES (81,'Germany','DE','DEU','5','1');
+INSERT INTO countries VALUES (81,'Deutschland','DE','DEU','5','1');
 INSERT INTO countries VALUES (82,'Ghana','GH','GHA','1','1');
 INSERT INTO countries VALUES (83,'Gibraltar','GI','GIB','1','1');
 INSERT INTO countries VALUES (84,'Greece','GR','GRC','1','1');
