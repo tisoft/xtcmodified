@@ -48,7 +48,7 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
     }
     $tpl_output = preg_replace_callback("/(<a[^>]*href=\"|<form[^>]*action=\")(.*)(\"[^<]*>)/Usi","AmpReplace",$tpl_output);
     $tpl_output = preg_replace_callback("/(<a[^>]*href='|<form[^>]*action=')(.*)('[^<]*>)/Usi","AmpReplace",$tpl_output);
-//BOF - Dokuman - 2009-05-03 - Produce Valid Links
+//EOF - Dokuman - 2009-05-03 - Produce Valid Links
 
     return $tpl_output.$cop;
 
