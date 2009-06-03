@@ -347,7 +347,7 @@ class product {
 	// beta
 	function getBuyNowButton($id, $name) {
 		global $PHP_SELF;
-		return '<a href="'.xtc_href_link(basename($PHP_SELF), 'action=buy_now&amp;BUYproducts_id='.$id.'&amp;'.xtc_get_all_get_params(array ('action')), 'NONSSL').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$name.TEXT_NOW).'</a>';
+		return '<a href="'.xtc_href_link(basename($PHP_SELF), 'action=buy_now&BUYproducts_id='.$id.'&'.xtc_get_all_get_params(array ('action')), 'NONSSL').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$name.TEXT_NOW).'</a>';
 
 	}
 
