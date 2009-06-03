@@ -15,6 +15,16 @@
    (c) 2003         nextcommerce (currencies.php,v 1.9 2003/08/17); www.nextcommerce.org
 
    Released under the GNU General Public License
+   ---------------------------------------------------------------------------------------
+   Modified by Gunnar Tillmann (August 2006)
+   http://www.gunnart.de
+
+   Everywhere a price is displayed you see any existing kind of discount in percent and
+   in saved money in your chosen currency
+
+   Changes in following lines:
+
+   347-352 / 365-366 / 384-389
    ---------------------------------------------------------------------------------------*/
 
 class xtcPrice {
@@ -53,19 +63,19 @@ class xtcPrice {
 		// prefetch tax rates for standard zone
 		$zones_query = xtDBquery("SELECT tax_class_id as class FROM ".TABLE_TAX_CLASS);
 		while ($zones_data = xtc_db_fetch_array($zones_query,true)) {
-			
+
 			// calculate tax based on shipping or deliverey country (for downloads)
 			if (isset($_SESSION['billto']) && isset($_SESSION['sendto'])) {
 			$tax_address_query = xtc_db_query("select ab.entry_country_id, ab.entry_zone_id from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . ($this->content_type == 'virtual' ? $_SESSION['billto'] : $_SESSION['sendto']) . "'");
       		$tax_address = xtc_db_fetch_array($tax_address_query);
-			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class'],$tax_address['entry_country_id'], $tax_address['entry_zone_id']);				
+			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class'],$tax_address['entry_country_id'], $tax_address['entry_zone_id']);
 			} else {
-			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class']);		
+			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class']);
 			}
-			
-			
+
+
 		}
-				
+
 	}
 
 	// get products Price
@@ -265,19 +275,19 @@ class xtcPrice {
 		$tax = $price - $this->xtcRemoveTax($price, $tax);
 		return $tax;
 	}
-	
+
 	function xtcRemoveDC($price,$dc) {
-	
+
 		$price = $price - ($price/100*$dc);
-		
-		return $price;	
+
+		return $price;
 	}
-	
+
 	function xtcGetDC($price,$dc) {
-		
+
 		$dc = $price/100*$dc;
-	
-		return $dc;	
+
+		return $dc;
 	}
 
 	function checkAttributes($pID) {
@@ -334,7 +344,12 @@ class xtcPrice {
 	function xtcFormatSpecialDiscount($pID, $discount, $pPrice, $format, $vpeStatus = 0) {
 		$sPrice = $pPrice - ($pPrice / 100) * $discount;
 		if ($format) {
-			$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br />'.YOU_SAVE.$discount.'%';
+			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br />'.YOU_SAVE.$discount.'%';
+			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100,1).' % /'.$this->xtcFormat($pPrice-$sPrice, $format);
+			// Ausgabe des gültigen Kundengruppen-Rabatts (sofern vorhanden)
+			if ($discount != 0)
+					{ $price .= '<br />'.BOX_LOGINBOX_DISCOUNT.': '.round($discount).' %'; }
+				$price .= '</small>';
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -347,7 +362,8 @@ class xtcPrice {
 
 	function xtcFormatSpecial($pID, $sPrice, $pPrice, $format, $vpeStatus = 0) {
 		if ($format) {
-			$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
+			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
+			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100,1).' % /'.$this->xtcFormat($pPrice-$sPrice, $format).'</small>';
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -358,30 +374,117 @@ class xtcPrice {
 		}
 	}
 
-	function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus = 0, $pID) {
-		if ($pPrice == 0)
-			return $this->xtcFormat($sPrice, $format, 0, false, $vpeStatus);
-		if ($discount = $this->xtcCheckDiscount($pID))
-			$sPrice -= $sPrice / 100 * $discount;
-		if ($format) {
-			if ($sPrice != $pPrice) {
-				$price = '<span class="productOldPrice">'.MSRP.$this->xtcFormat($pPrice, $format).'</span><br />'.YOUR_PRICE.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
-			} else {
-				$price = FROM.$this->xtcFormat($sPrice, $format);
-			}
-			if ($vpeStatus == 0) {
-				return $price;
-			} else {
-				return array ('formated' => $price, 'plain' => $sPrice);
-			}
+function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus = 0, $pID) {
+	// NEU HINZUGEFÜGT "Steuerklasse ermitteln"
+	$tQuery = "SELECT products_tax_class_id
+		FROM ".TABLE_PRODUCTS." WHERE
+		products_id='".$pID."'";
+	$tQuery = xtc_db_query($tQuery);
+   	$tQuery = xtc_db_fetch_array($tQuery);
+   	$tax_class = $tQuery[products_tax_class_id];
+	// ENDE "Steuerklasse ermitteln"
+
+	if ($pPrice == 0)
+		return $this->xtcFormat($sPrice, $format, 0, false, $vpeStatus);
+	if ($discount = $this->xtcCheckDiscount($pID))
+		$sPrice -= $sPrice / 100 * $discount;
+	if ($format) {
+		// NEU HINZUGEFÜGT
+		$sQuery = "SELECT max(quantity) as qty
+			FROM ".TABLE_PERSONAL_OFFERS_BY.$this->actualGroup."
+			WHERE products_id='".$pID."'";
+		$sQuery = xtDBquery($sQuery);
+		$sQuery = xtc_db_fetch_array($sQuery, true);
+		// NEU! Damit "UVP"-Anzeige wieder möglich ist
+		// if ( ($this->cStatus['customers_status_graduated_prices'] == '1') || ($sQuery[qty] > 1) ) {
+		if ( ($this->cStatus['customers_status_graduated_prices'] == '1') && ($sQuery[qty] > 1) ) {
+			$bestPrice = $this->xtcGetGraduatedPrice($pID, $sQuery[qty]);
+			if ($discount)
+				$bestPrice -= $bestPrice / 100 * $discount;
+			$price .= FROM.$this->xtcFormat($bestPrice, $format, $tax_class)
+				.' <br /><small>Einzelpreis: '
+				.$this->xtcFormat($sPrice, $format)
+				.'</small>';
+		} else if ($sPrice != $pPrice) { // if ($sPrice != $pPrice) {
+			$price = '<span class="productOldPrice">'.MSRP.' '.$this->xtcFormat($pPrice, $format).'</span><br />'.YOUR_PRICE.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
 		} else {
-			return round($sPrice, $this->currencies[$this->actualCurr]['decimal_places']);
+			$price = FROM.$this->xtcFormat($sPrice, $format);
 		}
+		if ($vpeStatus == 0) {
+			return $price;
+		} else {
+			return array ('formated' => $price, 'plain' => $sPrice);
+		}
+	} else {
+		return round($sPrice, $this->currencies[$this->actualCurr]['decimal_places']);
 	}
+}
 
 	function get_decimal_places($code) {
 		return $this->currencies[$this->actualCurr]['decimal_places'];
 	}
 
 }
+
+/*
+     function xtcFormatI($price,$format,$tax_class=0,$curr=false) {
+
+     	if ($curr=='true')
+	    $price = $this->xtcCalculateCurr($price);
+
+		if ($tax_class != 0)
+		{
+	    $products_tax = $this->TAX[$tax_class];
+		  if ($this->cStatus['customers_status_show_price_tax'] == '0')
+				$products_tax = '';
+	    $price = $this->xtcAddTax($price, $products_tax);
+		}
+		if ($format==true) {
+		    $Pprice = number_format($price, $this->currencies[$this->actualCurr]['decimal_places'], $this->currencies[$this->actualCurr]['decimal_point'], $this->currencies[$this->actualCurr]['thousands_point']);
+		    $Pprice = $this->currencies[$this->actualCurr]['symbol_left'].' '.$Pprice.' '.$this->currencies[$this->actualCurr]['symbol_right'];
+
+		    if($this->currencies[$this->actualCurr]['symbol_left'] != "") {
+		    	$curr_code = $this->currencies[$this->actualCurr]['symbol_left'];
+		    } else {
+		    	$curr_code = $this->currencies[$this->actualCurr]['symbol_right'];
+		    }
+		    if(USE_PRICE_IMAGES == 'true') {
+	   	    	$price =$this->xtcPriceAsImage($Pprice, $curr_code);
+		    } else {
+		    	$price = $Pprice;
+		    }
+			return $price;
+
+		} else {
+		   return $price;
+		}
+
+	}
+
+    function xtcPriceAsImage($price, $curr_code) {
+	  $imagePath = DIR_WS_TEMPLATE_FOLDER.CURRENT_TEMPLATE. '/img/digits/';
+
+	  $price = explode($this->currencies[$this->actualCurr]['decimal_point'],trim((string)$price));
+	  $prefix = $price[0];
+	  $prefix = str_replace($this->currencies[$this->actualCurr]['thousands_point'],"",$prefix);
+	  $suffix = $price[1];
+	  $leer = strpos($suffix, ' ');
+	  $suffix = substr($price[1], 0, $leer);
+	  $pre='';
+	  $pre.='<img border="0" src="'.$imagePath.strtolower($curr_code).'.gif" />';
+	  for ($i=0;$i<strlen($prefix);$i++) {
+	         $pre.='<img border="0" src="'.$imagePath.substr($prefix,$i,1).'.gif" />';
+	  }
+	  $pre.='<img border="0" src="'.$imagePath.',.gif" />';
+	  $su='';
+	  if($suffix[0] == 0 && $suffix[1] == 0) {
+	  	       $su.='<img border="0" src="'.$imagePath.'-.gif" />';
+	  } else {
+		  for ($i=0;$i<strlen($suffix);$i++) {
+		         $su.='<img border="0" src="'.$imagePath.substr($suffix,$i,1).'small.gif" />';
+		  }
+	  }
+	  return $pre.$su;
+	 }
+*/
 ?>
