@@ -29,6 +29,9 @@ define('HTML_PARAMS','dir="ltr" lang="en"');
 
 @setlocale(LC_TIME, 'en_EN@euro', 'en_US', 'en-US', 'en', 'en_US.ISO_8859-1', 'English','en_US.ISO_8859-15');
 
+
+//BOF - Dokuman - 2009-06-03 - correct english date format
+/*
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
@@ -42,6 +45,22 @@ function xtc_date_raw($date, $reverse = false) {
     return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
   }
 }
+*/
+define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
+define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
+define('DATE_FORMAT', 'm/d/Y');  // this is used for strftime()
+define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+define('DOB_FORMAT_STRING', 'mm/dd/jjjj');
+ 
+function xtc_date_raw($date, $reverse = false) {
+  if ($reverse) {
+    return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
+  } else {
+    return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+  }
+}
+
+//EOF - Dokuman - 2009-06-03 - correct english date format
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'EUR');
@@ -105,8 +124,13 @@ define('ENTRY_FIRST_NAME_ERROR', 'Your firstname must consist of at least  ' . E
 define('ENTRY_FIRST_NAME_TEXT', '*');
 define('ENTRY_LAST_NAME_ERROR', 'Your e-mail address must consist of at least ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.');
 define('ENTRY_LAST_NAME_TEXT', '*');
-define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth has to be entered in the following form DD.MM.YYYY (e.g. 21.05.1970) ');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 21.05.1970)');
+//BOF - Dokuman - 2009-06-03 - correct english date format
+//define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth has to be entered in the following form DD.MM.YYYY (e.g. 21.05.1970) ');
+//define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 21.05.1970)');
+define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth has to be entered in the following form MM/DD/YYYY (e.g. 05/21/1970) ');
+define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 05/21/1970)');
+//EOF - Dokuman - 2009-06-03 - correct english date format
+
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your e-mail address must consist of at least  ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'The e-mail address your entered is incorrect - please check it');
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'The e-mail address your entered already exists in our database - please check it');
