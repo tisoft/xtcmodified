@@ -230,7 +230,11 @@ if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
 			if (strpos($vars[$i], '[]')) {
 				$GET_array[substr($vars[$i], 0, -2)][] = $vars[$i +1];
 			} else {
-				   $_GET[$key] = $value;  
+// BOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
+//                                $_GET[$key] = $value;
+				$_GET[$vars[$i]] = htmlspecialchars($vars[$i +1]);
+				if(get_magic_quotes_gpc()) $_GET[$vars[$i]] = addslashes($_GET[$vars[$i]]); // security Patch 20.11.2008
+// EOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
 			}
 			$i ++;
 		}
@@ -238,7 +242,10 @@ if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
 		if (sizeof($GET_array) > 0) {
 			while (list ($key, $value) = each($GET_array)) {
 				$_GET[$key] = htmlspecialchars($value);
-                $_GET[$key] = $value;
+// BOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
+//                                $_GET[$key] = $value;
+				if(get_magic_quotes_gpc()) $_GET[$key] = addslashes($_GET[$key]); // security Patch 20.11.2008
+// EOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
 			}
 		}
 	}
@@ -250,8 +257,15 @@ if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
 require (DIR_WS_CLASSES.'class.inputfilter.php');
 $InputFilter = new InputFilter();
 //$_GET = $InputFilter->process($_GET);
-$_GET = $InputFilter->process($_GET, true);
-$_POST = $InputFilter->process($_POST);
+
+// BOF - Tomcraft - 2009-06-03 - fix shopstat security issue
+//$_GET = $InputFilter->process($_GET, true);
+//$_POST = $InputFilter->process($_POST);
+$_GET = $InputFilter->process(str_replace('<>','',$_GET));
+$_POST = $InputFilter->process(str_replace('<>','',$_POST));
+$_GET = $InputFilter->safeSQL($_GET);
+$_POST = $InputFilter->safeSQL($_POST);
+// EOF - Tomcraft - 2009-06-03 - fix shopstat security issue
 
 // set the top level domains
 $http_domain = xtc_get_top_level_domain(HTTP_SERVER);

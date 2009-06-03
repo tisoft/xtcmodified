@@ -212,7 +212,10 @@ function shopstat_getContentName($coid, $language = '')
     if(empty($coid)) return;
     if(empty($language)) $language = $_SESSION['languages_id'];
 
-	$content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".$language."' AND content_group = ".$coid;
+// BOF - Tomcraft - 2009-06-03 - fix shopstat security issue
+//	$content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".$language."' AND content_group = ".$coid;
+  $content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".intval($language)."' AND content_group = ".intval($coid);
+// EOF - Tomcraft - 2009-06-03 - fix shopstat security issue
 	$content_query  = xtDBquery($content_query);
     $content_data   = xtc_db_fetch_array($content_query, true);
 
@@ -228,7 +231,10 @@ function shopstat_getCategoriesName($categories_id, $language = '')
     if(empty($categories_id)) return;
     if(empty($language)) $language = $_SESSION['languages_id'];
 
-    $categories_query   = "SELECT categories_name FROM " . TABLE_CATEGORIES_DESCRIPTION . " WHERE categories_id = '" . $categories_id . "' and language_id = '" . $language . "'";
+// BOF - Tomcraft - 2009-06-03 - fix shopstat security issue
+//    $categories_query   = "SELECT categories_name FROM " . TABLE_CATEGORIES_DESCRIPTION . " WHERE categories_id = '" . $categories_id . "' and language_id = '" . $language . "'";
+    $categories_query = "SELECT categories_name FROM " . TABLE_CATEGORIES_DESCRIPTION . " WHERE categories_id = '" . intval($categories_id) . "' and language_id = '" . intval($language) . "'";
+// EOF - Tomcraft - 2009-06-03 - fix shopstat security issue
     $categories_query   = xtDBquery($categories_query);
     $categories         = xtc_db_fetch_array($categories_query,true);
 
