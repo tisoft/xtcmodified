@@ -63,7 +63,10 @@ var $PRZ; //Enthält die Prüfziffer
 ////
 // Diese function gibt die Bankinformationen aus der Datenbank zurück*/
   function db_query($blz) {
-    $blz_query = xtc_db_query("SELECT * from banktransfer WHERE blz = '" . $blz . "'");
+    //BOF - Dokuman - 2009-06-03 - Wrong selection criteria on BLZ
+    //$blz_query = xtc_db_query("SELECT * from banktransfer WHERE blz = '" . $blz . "'");   
+     $blz_query = xtc_db_query("SELECT * from banktransfer WHERE banktransfer_blz = '" . $blz . "'");
+    //BOF - Dokuman - 2009-06-03 - Wrong selection criteria on BLZ
     if (xtc_db_num_rows($blz_query)){
       $data = xtc_db_fetch_array ($blz_query);
     }else
