@@ -1,9 +1,9 @@
 {foreach name=aussen item=module_data from=$module_content} 
 <table class="paymentblock" width="100%" border="0" cellspacing="0" cellpadding="6">
   <tr>
-    <td class="header">{$module_data.selection}</td>
-    <td class="header" width="100%">{$module_data.module}</td>
-    <td class="header">{$module_data.module_cost}</td>
+    <td class="header" width="10%">{$module_data.selection}</td>
+    <td class="header" width="80%">{$module_data.module}</td>
+    <td class="header" width="10%">{$module_data.module_cost}</td>
   </tr>
   {if $module_data.description!=''}
   <tr>
