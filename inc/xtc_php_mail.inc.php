@@ -18,6 +18,17 @@
 function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, $to_name, $forwarding_to, $reply_address, $reply_address_name, $path_to_attachement, $path_to_more_attachements, $email_subject, $message_body_html, $message_body_plain) {
 	global $mail_error;
 
+//*********************************************************************************************
+// Signatur für E-Mails
+// by Dipl.-Ing. Daniel Wallas für www.tuvino.de
+//*********************************************************************************************
+$mailsmarty= new Smarty;
+$mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
+$html_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
+$txt_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
+//**********************************************************************************************
+
+
 	$mail = new PHPMailer();
 	$mail->PluginDir = DIR_FS_DOCUMENT_ROOT.'includes/classes/';
 
@@ -54,15 +65,15 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
 	if (EMAIL_USE_HTML == 'true') // set email format to HTML
 		{
 		$mail->IsHTML(true);
-		$mail->Body = $message_body_html;
+		$mail->Body = $message_body_html.$html_signatur;//DPW Signatur ergänzt.
 		// remove html tags
-		$message_body_plain = str_replace('<br />', " \n", $message_body_plain);
+		$message_body_plain = str_replace('<br />', " \n", $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
 		$message_body_plain = strip_tags($message_body_plain);
 		$mail->AltBody = $message_body_plain;
 	} else {
 		$mail->IsHTML(false);
 		//remove html tags
-		$message_body_plain = str_replace('<br />', " \n", $message_body_plain);
+		$message_body_plain = str_replace('<br />', " \n", $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
 		$message_body_plain = strip_tags($message_body_plain);
 		$mail->Body = $message_body_plain;
 	}

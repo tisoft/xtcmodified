@@ -1,0 +1,12 @@
+____________________________________________________\n
+\n
+Firma\n
+Adresse\n
+Ort\n
+Homepage\n
+E-Mail\n
+Fon:\n
+Fax:\n
+UST-ID:\n
+Handelsregister \n
+Geschäftsführer: \n
