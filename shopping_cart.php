@@ -41,7 +41,6 @@ if ($_SESSION['cart']->count_contents() > 0) {
 	$smarty->assign('FORM_END', '</form>');
 	$hidden_options = '';
 	$_SESSION['any_out_of_stock'] = 0;
-
 	$products = $_SESSION['cart']->get_products();
 	for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 		// Push all attributes information in an array
@@ -66,7 +65,6 @@ if ($_SESSION['cart']->count_contents() > 0) {
 				                            and popt.language_id = '".(int) $_SESSION['languages_id']."'
 				                            and poval.language_id = '".(int) $_SESSION['languages_id']."'");
 				$attributes_values = xtc_db_fetch_array($attributes);
-
 				$products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
 				$products[$i][$option]['options_values_id'] = $value;
 				$products[$i][$option]['products_options_values_name'] = $attributes_values['products_options_values_name'];
@@ -80,7 +78,6 @@ if ($_SESSION['cart']->count_contents() > 0) {
 			}
 		}
 	}
-
 	$smarty->assign('HIDDEN_OPTIONS', $hidden_options);
 	require (DIR_WS_MODULES.'order_details_cart.php');
 $_SESSION['allow_checkout'] = 'true';
@@ -89,13 +86,10 @@ $_SESSION['allow_checkout'] = 'true';
 			if (STOCK_ALLOW_CHECKOUT == 'true') {
 				// write permission in session
 				$_SESSION['allow_checkout'] = 'true';
-
 				$smarty->assign('info_message', OUT_OF_STOCK_CAN_CHECKOUT);
-
 			} else {
 				$_SESSION['allow_checkout'] = 'false';
 				$smarty->assign('info_message', OUT_OF_STOCK_CANT_CHECKOUT);
-
 			}
 		} else {
 			$_SESSION['allow_checkout'] = 'true';
@@ -132,23 +126,21 @@ if ($_SESSION['cart']->show_total() > 0 ) {
 	$smarty->assign('BUTTON_RELOAD', xtc_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART));
 	$smarty->assign('BUTTON_CHECKOUT', '<a href="'.xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL').'">'.xtc_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT).'</a>');		
 } else {
-
 	// empty cart
 	$cart_empty = true;
 	if ($_GET['info_message'])
 		$smarty->assign('info_message', str_replace('+', ' ', htmlspecialchars($_GET['info_message'])));
 	$smarty->assign('cart_empty', $cart_empty);
 	$smarty->assign('BUTTON_CONTINUE', '<a href="'.xtc_href_link(FILENAME_DEFAULT).'">'.xtc_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE).'</a>');
-
 }
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/shopping_cart.html');
 $smarty->assign('main_content', $main_content);
-
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM))
+        $smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

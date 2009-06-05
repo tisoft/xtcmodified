@@ -30,7 +30,7 @@
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
 <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -47,8 +47,13 @@
 
 */
 ?>
-
-<meta name="generator" content="(c) by <?php echo PROJECT_VERSION; ?> , http://www.xt-commerce.com" />
+<!--
+	This OnlineStore is brought to you by XT-Commerce, Community made shopping
+	XTC is a free open source e-Commerce System
+	created by Mario Zanier & Guido Winger and licensed under GNU/GPL.
+	Information and contribution at http://www.xt-commerce.com
+-->
+<meta name="generator" content="(c) by <?php echo PROJECT_VERSION; ?> , http://www.xt-commerce.com und http://www.xtc-modified.org" />
 <?php include(DIR_WS_MODULES.FILENAME_METATAGS); ?>
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
@@ -253,15 +258,6 @@ function resize() {
 } 
 
 ?>
-
-<!--
-	This OnlineStore is brought to you by XT-Commerce, Community made shopping
-	XTC is a free open source e-Commerce System
-	created by Mario Zanier & Guido Winger and licensed under GNU/GPL.
-	Information and contribution at http://www.xt-commerce.com
--->
-
-
 </head>
 <?php
 if (strstr($PHP_SELF, FILENAME_POPUP_IMAGE )) {

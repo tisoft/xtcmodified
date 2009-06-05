@@ -27,9 +27,8 @@ require_once (DIR_FS_INC.'xtc_date_long.inc.php');
 require_once (DIR_FS_INC.'xtc_image_button.inc.php');
 require_once (DIR_FS_INC.'xtc_get_all_get_params.inc.php');
 
-if (!isset ($_SESSION['customer_id'])) {
+if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-}
 
 $breadcrumb->add(NAVBAR_TITLE_1_ACCOUNT_HISTORY, xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 $breadcrumb->add(NAVBAR_TITLE_2_ACCOUNT_HISTORY, xtc_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
@@ -39,11 +38,11 @@ require (DIR_WS_INCLUDES.'header.php');
 $module_content = array ();
 if (($orders_total = xtc_count_customer_orders()) > 0) {
 	$history_query_raw = "select o.orders_id, 
-                               o.date_purchased,
-                               o.delivery_name,
-                               o.billing_name,
-                               ot.text as order_total,
-                               s.orders_status_name
+                                 o.date_purchased,
+                                 o.delivery_name,
+                                 o.billing_name,
+                                 ot.text as order_total,
+                                 s.orders_status_name
                         from ".TABLE_ORDERS." o,
                              ".TABLE_ORDERS_TOTAL." ot,
                              ".TABLE_ORDERS_STATUS." s 
@@ -72,7 +71,9 @@ if (($orders_total = xtc_count_customer_orders()) > 0) {
                                'ORDER_DATE' => xtc_date_long($history['date_purchased']),
                                'ORDER_PRODUCTS' => $products['count'],
                                'ORDER_TOTAL' => strip_tags($history['order_total']),
-                               'ORDER_BUTTON' => '<a href="'.xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'page='.(empty($_GET['page']) ? "1" : (int)$_GET['page']) .'&order_id='.$history['orders_id'], 'SSL').'">'.xtc_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW).'</a>');
+                               'ORDER_BUTTON' => '<a href="'.xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO,
+							   'page='.(empty($_GET['page']) ? "1" : (int)$_GET['page']) .'&order_id='.$history['orders_id'],
+							   'SSL').'">'.xtc_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW).'</a>');
 
 	}
 }
@@ -93,11 +94,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_history.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-
-if (!defined(RM)) {
+if (!defined(RM))
 	$smarty->load_filter('output', 'note');
-}
-
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

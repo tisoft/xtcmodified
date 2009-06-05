@@ -65,7 +65,11 @@ if ($order->info['payment_method'] != '' && $order->info['payment_method'] != 'n
 
 
 // Order History
-$history_block = '<table summary="order history">';
+//BOF - 2006-06-05 - Dokuman - replace table with div
+//$history_block = '<table summary="order history">';
+$history_block = '<div>';
+//EOF - 2006-06-05 - Dokuman - replace table with div
+
 $statuses_query = xtc_db_query("select os.orders_status_name,
                                        osh.date_added,
                                        osh.comments
@@ -76,9 +80,16 @@ $statuses_query = xtc_db_query("select os.orders_status_name,
                                 and os.language_id = '".(int) $_SESSION['languages_id']."' 
                                 order by osh.date_added");
 while ($statuses = xtc_db_fetch_array($statuses_query)) {
-	$history_block .= '              <tr>'."\n".'                <td style="vertical-align:top;">'.xtc_date_short($statuses['date_added']).'</td>'."\n".'                <td style="vertical-align:top;">'.$statuses['orders_status_name'].'</td>'."\n".'                <td style="vertical-align:top;">'. (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))).'</td>'."\n".'              </tr>'."\n";
+//BOF - 2006-06-05 - Dokuman - replace table with div
+//	$history_block .= '              <tr>'."\n".'                <td style="vertical-align:top;">'.xtc_date_short($statuses['date_added']).'</td>'."\n".'                <td style="vertical-align:top;">'.$statuses['orders_status_name'].'</td>'."\n".'                <td style="vertical-align:top;">'. (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))).'</td>'."\n".'              </tr>'."\n";
+	$history_block .= xtc_date_short($statuses['date_added']). '&nbsp;<strong>' .$statuses['orders_status_name']. '</strong>' . (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments'])));
+//EOF - 2006-06-05 - Dokuman - replace table with div
 }
-$history_block .= '</table>';
+//BOF - 2006-06-05 - Dokuman - replace table with div
+//$history_block .= '</table>';
+$history_block .= '</div>';
+//EOF - 2006-06-05 - Dokuman - replace table with div
+
 $smarty->assign('HISTORY_BLOCK', $history_block);
 
 // Download-Products
@@ -104,11 +115,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_history_info.ht
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-
-if (!defined(RM)) { 
-  $smarty->load_filter('output', 'note'); 
-}
-
+if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

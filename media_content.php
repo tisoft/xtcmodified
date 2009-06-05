@@ -54,7 +54,8 @@ if ($content_data['content_file'] != '') {
 		echo '<pre>';
 
 	if (eregi('.gif', $content_data['content_file']) or eregi('.jpg', $content_data['content_file']) or eregi('.png', $content_data['content_file']) or eregi('.tif', $content_data['content_file']) or eregi('.bmp', $content_data['content_file'])) {
-		echo '<table align="center" valign="middle" width="100%" height="100%" border=0><tr><td class="main" align="middle" valign="middle">';
+//BOF - Dokuman - 2009-06-05 - replace table with div
+	/*	echo '<table align="center" valign="middle" width="100%" height="100%" border=0><tr><td class="main" align="middle" valign="middle">';
 
 		echo xtc_image(DIR_WS_CATALOG.'media/products/'.$content_data['content_file']);
 		echo '</td></tr></table>';
@@ -66,6 +67,15 @@ if ($content_data['content_file'] != '') {
 		echo '</td>
 		          </tr>
 		        </table>';
+	*/
+		echo '<div>';
+		echo xtc_image(DIR_WS_CATALOG.'media/products/'.$content_data['content_file']);
+		echo '</div>';
+	} else {
+		echo '<div>';
+		include (DIR_FS_CATALOG.'media/products/'.$content_data['content_file']);
+		echo '</div>';
+//EOF - Dokuman - 2009-06-05 - replace table with div
 	}
 
 	if (strpos($content_data['content_file'], '.txt'))

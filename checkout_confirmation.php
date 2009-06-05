@@ -42,14 +42,12 @@ require_once (DIR_FS_INC . 'xtc_display_tax_value.inc.php');
 
 // if the customer is not logged on, redirect them to the login page
 
-if (!isset ($_SESSION['customer_id'])) {
+if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-}
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-if ($_SESSION['cart']->count_contents() < 1) {
+if ($_SESSION['cart']->count_contents() < 1)
 	xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
-}
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID
 if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
@@ -58,24 +56,20 @@ if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
 }
 
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
-if (!isset ($_SESSION['shipping'])) {
+if (!isset ($_SESSION['shipping']))
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-}
 
 //check if display conditions on checkout page is true
 
-if (isset ($_POST['payment'])) {
+if (isset ($_POST['payment']))
 	$_SESSION['payment'] = xtc_db_prepare_input($_POST['payment']);
-}
 
-if ($_POST['comments_added'] != '') {
+if ($_POST['comments_added'] != '')
 	$_SESSION['comments'] = xtc_db_prepare_input($_POST['comments']);
-}
 
 //-- TheMedia Begin check if display conditions on checkout page is true
-if (isset ($_POST['cot_gv'])) {
+if (isset ($_POST['cot_gv']))
 	$_SESSION['cot_gv'] = true;
-}
 // if conditions are not accepted, redirect the customer to the payment method selection page
 
 if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
@@ -109,9 +103,8 @@ if ((is_array($payment_modules->modules) && (sizeof($payment_modules->modules) >
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
 }
 
-if (is_array($payment_modules->modules)) {
+if (is_array($payment_modules->modules))
 	$payment_modules->pre_confirmation_check();
-}
 
 // load the selected shipping module
 require (DIR_WS_CLASSES . 'shipping.php');
@@ -169,26 +162,39 @@ if (sizeof($order->info['tax_groups']) > 1) {
 } else {
 
 }
-$data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
+//BOF - 2009-06-05 - replace tyble with div
+//$data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
+$data_products = '';
+//EOF - 2009-06-05 - replace tyble with div
 for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 
-	$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";
+	//BOF - 2009-06-05 - replace tyble with div
+	//$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";
+	$data_products .= '<div style="width:100%"><div style="float:left;width:70%">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</div><div style="float:left;width:29%" align="right">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</div><br style="clear:both" /></div>' . "\n";
+	//EOF - 2009-06-05 - replace tyble with div
 	if (ACTIVATE_SHIPPING_STATUS == 'true') {
-
-		$data_products .= '<tr>
+		//BOF - 2009-06-05 - replace tyble with div
+		/*$data_products .= '<tr>
 							<td class="main" align="left" valign="top">
 							<nobr><small>' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '
 							</small><nobr></td>
 							<td class="main" align="right" valign="top">&nbsp;</td></tr>';
+		*/		
+		$data_products .= '<div style="font-size:smaller">' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '</div>';
+		//EOF - 2009-06-05 - replace tyble with div
 
 	}
 	if ((isset ($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0)) {
 		for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j++) {
-			$data_products .= '<tr>
+			//BOF - 2009-06-05 - replace tyble with div
+			$data_products .= '<div>&nbsp;<em> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</em></div>';
+			/*$data_products .= '<tr>
 								<td class="main" align="left" valign="top">
 								<nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '
 								</i></small><nobr></td>
 								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
+			*/
+			//EOF - 2009-06-05 - replace tyble with div
 		}
 	}
 
@@ -196,11 +202,21 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 
 	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
 		if (sizeof($order->info['tax_groups']) > 1)
-			$data_products .= '            <td class="main" valign="top" align="right">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
+			//BOF - 2009-06-05 - replace tyble with div
+			//$data_products .= '            <td class="main" valign="top" align="right">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
+			$data_products .= '<div style="display:block">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</div>' . "\n";
+			//EOF - 2009-06-05 - replace tyble with div
 	}
-	$data_products .= '</tr>' . "\n";
+	//BOF - 2009-06-05 - replace tyble with div
+	//$data_products .= '</tr>' . "\n";
+	$data_products .= '';
+	//EOF - 2009-06-05 - replace tyble with div
 }
-$data_products .= '</table>';
+//BOF - 2009-06-05 - replace tyble with div
+//$data_products .= '</table>';
+$data_products .= '';
+//EOF - 2009-06-05 - replace tyble with div
+
 $smarty->assign('PRODUCTS_BLOCK', $data_products);
 
 if ($order->info['payment_method'] != 'no_payment' && $order->info['payment_method'] != '') {
@@ -209,12 +225,18 @@ if ($order->info['payment_method'] != 'no_payment' && $order->info['payment_meth
 }
 $smarty->assign('PAYMENT_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
-$total_block = '<table>';
+//BOF - 2009-06-05 - replace tyble with div
+//$total_block = '<table>';
+$total_block = '';
+//EOF - 2009-06-05 - replace tyble with div
 if (MODULE_ORDER_TOTAL_INSTALLED) {
 	$order_total_modules->process();
 	$total_block .= $order_total_modules->output();
 }
-$total_block .= '</table>';
+//BOF - 2009-06-05 - replace tyble with div
+//$total_block = '</table>';
+$total_block .= '';
+//EOF - 2009-06-05 - replace tyble with div
 $smarty->assign('TOTAL_BLOCK', $total_block);
 
 if (is_array($payment_modules->modules)) {
@@ -223,13 +245,17 @@ if (is_array($payment_modules->modules)) {
 		$payment_info = $confirmation['title'];
 		for ($i = 0, $n = sizeof($confirmation['fields']); $i < $n; $i++) {
 
-			$payment_info .= '<table>
+//BOF - 2009-06-05 - replace tyble with div
+			/*$payment_info .= '<table>
 								<tr>
 						                <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
 						                <td class="main">' . $confirmation['fields'][$i]['title'] . '</td>
 						                <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
 						                <td class="main">' . stripslashes($confirmation['fields'][$i]['field']) . '</td>
 						              </tr></table>';
+			*/
+			$payment_info .= '<div>'.$confirmation['fields'][$i]['title'].stripslashes($confirmation['fields'][$i]['field']).'</div>';
+//EOF - 2009-06-05 - replace tyble with div
 
 		}
 		$smarty->assign('PAYMENT_INFORMATION', $payment_info);
@@ -316,11 +342,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_confirmation
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-
-if (!defined(RM)) {
+if (!defined(RM))
 	$smarty->load_filter('output', 'note');
-}
-	
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 include ('includes/application_bottom.php');
 ?>

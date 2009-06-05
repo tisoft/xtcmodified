@@ -55,16 +55,22 @@ $reviews_split = new splitPageResults($reviews_query_raw, $_GET['page'], MAX_DIS
 
 if ($reviews_split->number_of_rows > 0) {
 
+//BOF - Dokuman - 2009-06-05 - replace table with div
 	$smarty->assign('NAVBAR', '
-	
+	/*
 	   <table border="0" width="100%" cellspacing="0" cellpadding="2">
 	          <tr>
 	            <td class="smallText">'.$reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS).'</td>
 	            <td align="right" class="smallText">'.TEXT_RESULT_PAGE.' '.$reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
 	          </tr>
 	        </table>
+	*/
+	<div style="width:100%;font-size:smaller">
+		<div style="float:left">'.$reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS).'</div>
+		<div style="float:right">'.TEXT_RESULT_PAGE.' '.$reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</div>
+	<br style="clear:both" /></div>
+//EOF - Dokuman - 2009-06-05 - replace table with div
 	  ');
-
 }
 
 $module_data = array ();
@@ -94,7 +100,8 @@ $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM))
+	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

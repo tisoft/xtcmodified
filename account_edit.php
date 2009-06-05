@@ -28,13 +28,11 @@ require_once (DIR_FS_INC.'xtc_validate_email.inc.php');
 require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_get_customers_country.inc.php');
 
-if (!isset ($_SESSION['customer_id'])) {
+if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-}
 
-if ($_SESSION['customers_status']['customers_status_id']==0) {
+if ($_SESSION['customers_status']['customers_status_id']==0)
 	xtc_redirect(xtc_href_link_admin(FILENAME_CUSTOMERS, 'cID='.$_SESSION['customer_id'].'&action=edit', 'SSL'));
-}
 
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if (ACCOUNT_GENDER == 'true')
@@ -104,8 +102,6 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if (xtc_validate_email($email_address) == false) {
 		$error = true;
 		$messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
-		
-		//BUGIX 24.04.2009
 		} else { 
         $check_email_query = xtc_db_query("select count(*) as total from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($email_address)."' and account_type = '0' and customers_id != '".$_SESSION['customer_id']."'"); 
         $check_email = xtc_db_fetch_array($check_email_query); 
@@ -113,9 +109,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
             $error = true; 
             $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS); 
         } 
-
-		
-	}
+    }
 
 	if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
 		$error = true;
@@ -126,12 +120,10 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if ($error == false) {
 		$sql_data_array = array ('customers_vat_id' => $vat, 'customers_vat_id_status' => $customers_vat_id_status, 'customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_email_address' => $email_address, 'customers_telephone' => $telephone, 'customers_fax' => $fax,'customers_last_modified' => 'now()');
 
-		if (ACCOUNT_GENDER == 'true') {
+		if (ACCOUNT_GENDER == 'true')
 			$sql_data_array['customers_gender'] = $gender;
-		}
-		if (ACCOUNT_DOB == 'true') {
+		if (ACCOUNT_DOB == 'true')
 			$sql_data_array['customers_dob'] = xtc_date_raw($dob);
-		}
 		
 		xtc_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '".(int) $_SESSION['customer_id']."'");
 
@@ -194,11 +186,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_edit.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-
-if (!defined(RM)) {
+if (!defined(RM))
 	$smarty->load_filter('output', 'note');
-}
-
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

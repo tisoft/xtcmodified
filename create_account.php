@@ -134,7 +134,10 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
 		$messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
 	} else {
-		$check_email_query = xtc_db_query("select count(*) as total from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($email_address)."' and account_type = '0'");
+		$check_email_query = xtc_db_query("select count(*) as total
+												  	from ".TABLE_CUSTOMERS."
+													where customers_email_address = '".xtc_db_input($email_address)."'
+													and account_type = '0'");
 		$check_email = xtc_db_fetch_array($check_email_query);
 		if ($check_email['total'] > 0) {
 			$error = true;
@@ -477,7 +480,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/create_account.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM))
+	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

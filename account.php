@@ -34,9 +34,8 @@ $breadcrumb->add(NAVBAR_TITLE_ACCOUNT, xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'
 
 require (DIR_WS_INCLUDES.'header.php');
 
-if ($messageStack->size('account') > 0) {
+if ($messageStack->size('account') > 0)
 	$smarty->assign('error_message', $messageStack->output('account'));
-}
 
 $i = 0;
 $max = count($_SESSION['tracking']['products_history']);
@@ -107,7 +106,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM))
+	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

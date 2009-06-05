@@ -40,13 +40,11 @@ require_once (DIR_FS_INC.'changedatain.inc.php');
 $smarty = new Smarty;
 
 // if the customer is not logged on, redirect them to the login page
-if (!isset ($_SESSION['customer_id'])) {
+if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-}
 
-if ($_SESSION['customers_status']['customers_status_show_price'] != '1') {
+if ($_SESSION['customers_status']['customers_status_show_price'] != '1')
 	xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', ''));
-}
 
 if (!isset ($_SESSION['sendto'])) {
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
@@ -84,9 +82,7 @@ $payment_modules->before_process();
 
 require (DIR_WS_CLASSES.'order_total.php');
 $order_total_modules = new order_total();
-
 $order_totals = $order_total_modules->process();
-
 
 // check if tmp order id exists
 if (isset ($_SESSION['tmp_oID']) && is_int($_SESSION['tmp_oID'])) {
@@ -186,12 +182,9 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 
 	// Update products_ordered (for bestsellers list)
 	xtc_db_query("update ".TABLE_PRODUCTS." set products_ordered = products_ordered + ".sprintf('%d', $order->products[$i]['qty'])." where products_id = '".xtc_get_prid($order->products[$i]['id'])."'");
-
 	$sql_data_array = array ('orders_id' => $insert_id, 'products_id' => xtc_get_prid($order->products[$i]['id']), 'products_model' => $order->products[$i]['model'], 'products_name' => $order->products[$i]['name'],'products_shipping_time'=>$order->products[$i]['shipping_time'], 'products_price' => $order->products[$i]['price'], 'final_price' => $order->products[$i]['final_price'], 'products_tax' => $order->products[$i]['tax'], 'products_discount_made' => $order->products[$i]['discount_allowed'], 'products_quantity' => $order->products[$i]['qty'], 'allow_tax' => $_SESSION['customers_status']['customers_status_show_price_tax']);
-
 	xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array);
 	$order_products_id = xtc_db_insert_id();
-
 	// Aenderung Specials Quantity Anfang
 	$specials_result = xtc_db_query("SELECT products_id, specials_quantity from ".TABLE_SPECIALS." WHERE products_id = '".xtc_get_prid($order->products[$i]['id'])."' ");
 	if (xtc_db_num_rows($specials_result)) {
@@ -279,7 +272,6 @@ if (isset ($_SESSION['tracking']['refID'])) {
 	xtc_db_query("update ".TABLE_ORDERS." set
 	                                 refferers_id = '".$_SESSION['tracking']['refID']."'
 	                                 where orders_id = '".$insert_id."'");
-
 	// check if late or direct sale
 	$customers_logon_query = "SELECT customers_info_number_of_logons
 				                            FROM ".TABLE_CUSTOMERS_INFO."
@@ -294,7 +286,6 @@ if (isset ($_SESSION['tracking']['refID'])) {
 		                                 where orders_id = '".$insert_id."'");
 	} else {
 		// late sale
-
 		xtc_db_query("update ".TABLE_ORDERS." set
 		                                 conversion_type = '2'
 		                                 where orders_id = '".$insert_id."'");
@@ -323,7 +314,6 @@ if (isset ($_SESSION['tracking']['refID'])) {
 			                                 where orders_id = '".$insert_id."'");
 		} else {
 			// late sale
-
 			xtc_db_query("update ".TABLE_ORDERS." set
 			                                 conversion_type = '2'
 			                                 where orders_id = '".$insert_id."'");

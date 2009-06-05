@@ -18,6 +18,7 @@ require('includes/application_top.php');
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
+
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'NONSSL'));
 }
 // XML-Specification: https://www.google.com/webmasters/sitemaps/docs/de/protocol.html
@@ -267,7 +268,7 @@ $smarty->assign('CONTENT_BODY',$main_content);
 $smarty->assign('BUTTON_CONTINUE','<a href="' . xtc_href_link(FILENAME_START) . '">' . xtc_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>');
 $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/google_sitemap.html');
 $smarty->assign('main_content',$main_content);
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM)) $smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 
 // < PHP5

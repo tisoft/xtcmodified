@@ -42,9 +42,8 @@ require_once (DIR_FS_INC.'xtc_count_shipping_modules.inc.php');
 require (DIR_WS_CLASSES.'http_client.php');
 
 // check if checkout is allowed
-if ($_SESSION['allow_checkout'] == 'false') {
+if ($_SESSION['allow_checkout'] == 'false')
 	xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
-}
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset ($_SESSION['customer_id'])) {
@@ -268,7 +267,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_shipping.html'
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM))
+	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

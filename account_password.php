@@ -26,9 +26,8 @@ require_once (DIR_FS_INC.'xtc_validate_password.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 
 
-if (!isset ($_SESSION['customer_id'])) {
+if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-}
 
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	$password_current = xtc_db_prepare_input($_POST['password_current']);
@@ -78,9 +77,8 @@ $breadcrumb->add(NAVBAR_TITLE_2_ACCOUNT_PASSWORD, xtc_href_link(FILENAME_ACCOUNT
 
 require (DIR_WS_INCLUDES.'header.php');
 
-if ($messageStack->size('account_password') > 0) {
+if ($messageStack->size('account_password') > 0)
 	$smarty->assign('error', $messageStack->output('account_password'));
-}
 
 $smarty->assign('FORM_ACTION', xtc_draw_form('account_password', xtc_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'), 'post', 'onsubmit="return check_form(account_password);"').xtc_draw_hidden_field('action', 'process'));
 
@@ -100,11 +98,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_password.html')
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-
-if (!defined(RM)) {
+if (!defined(RM))
 	$smarty->load_filter('output', 'note');
-}
-
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

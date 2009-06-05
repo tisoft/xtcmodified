@@ -32,6 +32,7 @@ require_once (DIR_FS_INC.'xtc_get_zone_code.inc.php');
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset ($_SESSION['customer_id'])) {
+
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
 
@@ -299,7 +300,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_shipping_addre
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM))
+	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

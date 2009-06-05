@@ -62,6 +62,7 @@ if (isset ($_GET['action'])) {
 			);
 		}
 	}
+
 	switch ($_GET['action']) {
 		// customer wants to update the product quantity in their shopping cart
 		case 'update_product' :
@@ -102,6 +103,7 @@ if (isset ($_GET['action'])) {
 					$old_quantity = $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id']));
 					$econda->_addProduct($_POST['products_id'], $_POST['products_qty'], $old_quantity);
 				}
+
 
 				$_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty']), $_POST['id']);
 			}

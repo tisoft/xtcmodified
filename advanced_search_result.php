@@ -209,8 +209,7 @@ if ($error == 1 && $keyerror != 1) {
 						break;
 					default :
 					// BOF - Dokuman - 2009-05-27 - search for umlaut letters
-					//see http://www.gunnart.de/tipps-und-tricks/xtcommerce-suche-nach-umlauten/
-					
+					//see http://www.gunnart.de/tipps-und-tricks/xtcommerce-suche-nach-umlauten/		
 					/*
 						$where_str .= " ( ";
 						$where_str .= "pd.products_keywords LIKE ('%".addslashes($search_keywords[$i])."%') ";
@@ -267,11 +266,8 @@ if ($error == 1 && $keyerror != 1) {
 }
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-
-if (!defined(RM)) {
-	$smarty->load_filter('output', 'note');
-}
-	
+if (!defined(RM))
+	$smarty->load_filter('output', 'note');	
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

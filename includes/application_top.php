@@ -116,10 +116,6 @@ require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
 require_once (DIR_FS_INC.'xtc_get_top_level_domain.inc.php');
 
 
-
-
-// EOF
-
 // html basics
 require_once (DIR_FS_INC.'xtc_href_link.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_separator.inc.php');
@@ -185,9 +181,8 @@ while ($configuration = xtc_db_fetch_array($configuration_query)) {
 }
 
 require_once (DIR_WS_CLASSES.'class.phpmailer.php');
-if (EMAIL_TRANSPORT == 'smtp') {
+if (EMAIL_TRANSPORT == 'smtp')
 	require_once (DIR_WS_CLASSES.'class.smtp.php');
-}
 require_once (DIR_FS_INC.'xtc_Security.inc.php');
 
 // set the application parameters

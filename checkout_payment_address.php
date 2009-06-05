@@ -27,14 +27,12 @@ require_once (DIR_FS_INC.'xtc_address_label.inc.php');
 
 
 // if the customer is not logged on, redirect them to the login page
-if (!isset ($_SESSION['customer_id'])) {
+if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-}
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-if ($_SESSION['cart']->count_contents() < 1) {
+if ($_SESSION['cart']->count_contents() < 1)
 	xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
-}
 
 $error = false;
 $process = false;
@@ -289,7 +287,8 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_payment_addres
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined(RM))
+	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>
