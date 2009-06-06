@@ -58,6 +58,13 @@ if (!isset ($_SESSION['customer_id'])) {
 if ($_SESSION['cart']->count_contents() < 1) {
 	xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
 }
+//BOF - Dokuman - 2009-06-06 - checkout only if minimum order value is reached
+if ($_SESSION['cart']->show_total() > 0 ) {
+  if ($_SESSION['cart']->show_total() < $_SESSION['customers_status']['customers_status_min_order'] ) {
+    xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
+  }
+}
+//EOF - Dokuman - 2009-06-06 - checkout only if minimum order value is reached
 
 // if no shipping destination address was selected, use the customers own address as default
 if (!isset ($_SESSION['sendto'])) {
