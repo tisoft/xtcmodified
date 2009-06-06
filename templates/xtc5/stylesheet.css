@@ -1097,7 +1097,10 @@ dt img { border:1px solid #ccc; padding:2px; background:#fff; }
 dd { float:right; width:125px }
 
 /* Vorschaubilder TD mit gleichem Abstand */
-.productPreviewImage { width:100px; display:block }
+/* BOF - dokuman - 2009-06-06 - Fix new products display in firefox - picture size is 120px by default */
+/*.productPreviewImage { width:100px; display:block } */
+.productPreviewImage { width:120px; display:block }
+/* EOF - dokuman - 2009-06-06 - Fix new products display in firefox size is 120px by default */
 td.productPreviewContent { width:400px; text-align:left } 
 
 /* FIX DER AUFZÄHLUNGEN */
