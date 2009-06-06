@@ -1,40 +1,40 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: froogle.php 1188 2005-08-28 14:24:34Z matthias $
-
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
-   based on:
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com
-   (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
-
-   Released under the GNU General Public License
-   ---------------------------------------------------------------------------------------*/
+	$Id: froogle.php 1188 2005-08-28 14:24:34Z matthias $
+	
+	XT-Commerce - community made shopping
+	http://www.xt-commerce.com
+	
+	Copyright (c) 2003 XT-Commerce
+	-----------------------------------------------------------------------------------------
+	based on:
+	(c) 2000-2001 The Exchange Project (earlier name of osCommerce)
+	(c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com
+	(c) 2003 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
+	
+	Released under the GNU General Public License
+	---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
 define('MODULE_FROOGLE_TEXT_DESCRIPTION', 'Export - Froogle.de (Tab getrennt)');
 define('MODULE_FROOGLE_TEXT_TITLE', 'Froogle.de - TXT');
 define('MODULE_FROOGLE_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_FROOGLE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
-define('MODULE_FROOGLE_STATUS_DESC','Modulstatus');
+define('MODULE_FROOGLE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
+define('MODULE_FROOGLE_STATUS_DESC','Modulstatus') ;
 define('MODULE_FROOGLE_STATUS_TITLE','Status');
-define('MODULE_FROOGLE_CURRENCY_TITLE','W&auml;hrung');
+define('MODULE_FROOGLE_CURRENCY_TITLE','W&auml;hru ng');
 define('MODULE_FROOGLE_CURRENCY_DESC','Welche W&auml;hrung soll exportiert werden?');
 define('EXPORT_YES','Nur Herunterladen');
 define('EXPORT_NO','Am Server Speichern');
-define('CURRENCY','<hr noshade><strong>W&auml;hrung:</strong>');
+define('CURRENCY','<hr noshade><b>W&auml;hrung:</b>');
 define('CURRENCY_DESC','W&auml;hrung in der Exportdatei');
 define('EXPORT','Bitte den Sicherungsprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
-define('EXPORT_TYPE','<hr noshade><strong>Speicherart:</strong>');
-define('EXPORT_STATUS_TYPE','<hr noshade><strong>Kundengruppe:</strong>');
-define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml;r den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</strong>');
-define('CAMPAIGNS','<hr noshade><strong>Kampagnen:</strong>');
+define('EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
+define('EXPORT_STATUS_TYPE','<hr noshade><b>Kundengruppe:</b>');
+define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml;r den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</b>');
+define('CAMPAIGNS','<hr noshade><b>Kampagnen:</b>');
 define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
-define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
+define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
 
 // include needed functions
 
@@ -64,7 +64,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
         require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
         $xtPrice = new xtcPrice($_POST['currencies'],$_POST['status']);
 
-        $schema = 'product_url'."\t" .'name'."\t".'description'."\t".'image_url'."\t".'category'."\t".'price'."\t".'brand'. "\n";
+		$schema = 'link'."\t".'id'."\t".'titel'."\t".'beschreibung'. "\t".'bild_url'."\t".'produktart'."\t".'preis'."\t".'zustand'."\t".'marke'."\n" ;
         $export_query =xtc_db_query("SELECT
                              p.products_id,
                              pd.products_name,
@@ -117,10 +117,27 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 
             // remove trash
             $products_description = str_replace("<br>"," ",$products_description);
-            $products_description = str_replace("<BR>"," ",$products_description);           
             $products_description = str_replace("<br />"," ",$products_description);
             $products_description = strip_tags($products['products_description']);
-            $products_description = str_replace(";",", ",$products_description);
+            // $products_description = str_replace(";","",$products_description);
+            // anfang änderung wegen Umlautproblem
+            $products_description = str_replace("&Auml;","Ä",$products_description);
+            $products_description = str_replace("&auml;","ä",$products_description);
+            $products_description = str_replace("&Ouml;","Ö",$products_description);
+            $products_description = str_replace("&ouml;","ö",$products_description);
+            $products_description = str_replace("&Uuml;","Ü",$products_description);
+            $products_description = str_replace("&uuml;","ü",$products_description);
+            $products_description = str_replace("&szlig;","ß",$products_description);
+            $products_description = str_replace ("&amp;", "&", $products_description);
+            $products_description = str_replace ("&sect;", "§", $products_description);
+            $products_description = str_replace("&deg;","°",$products_description);
+            $products_description = str_replace ("&sup2;", "²", $products_description);
+            $products_description = str_replace ("&sup3;", "³", $products_description);
+            
+            $products_description = str_replace("&reg;","®",$products_description);
+            $products_description = str_replace ("&plusmn;", "±", $products_description);
+            $products_description = str_replace ("&micro;", "µ", $products_description);
+            // ende anderung wegen Umlautproblem
             $products_description = str_replace("'",", ",$products_description);
             $products_description = str_replace("\n"," ",$products_description);
             $products_description = str_replace("\r"," ",$products_description);
@@ -129,10 +146,13 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
             $products_description = str_replace("&quot,"," \"",$products_description);
             $products_description = str_replace("&qout,"," \"",$products_description);
             $products_description = str_replace(chr(13)," ",$products_description);
-			$products_description = substr($products_description, 0, 65536);
-
-        //-- SNAKELAB ----//
-			$cat = strip_tags($this->buildCAT($categories));
+            $products_description = substr($products_description, 0, 65536);
+            $cat = $this->buildCAT($categories);
+            
+            //-- Shopstat URLS ----//
+            //zur Aktivierung von SEO-URLs Kommentierung entfernen
+            /*
+            $cat = strip_tags($this->buildCAT($categories));
             require_once(DIR_FS_INC . 'xtc_href_link_from_admin.inc.php');
             $link = xtc_href_link_from_admin('product_info.php', 'products_id=' . $products['products_id']);
             (preg_match("/\?/",$link)) ? $link .= '&' : $link .= '?';
@@ -141,24 +161,35 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
                 ? $link .= '&'.$_POST['campaign']
                 : false;
             $link .= '&language='.$this->language;
-        //-- SNAKELAB ----//
+            
+            */
+            //-- Shopstat URLS ----//
 
-
-	if ($products['products_image'] != ''){
-	    $image = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_ORIGINAL_IMAGES .$products['products_image'];
-	}else{
-	    $image = '';
-	}
+            if ($products['products_image'] != ''){
+                $image = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_ORIGINAL_IMAGES .$products['products_image'];
+            }else{
+                $image = '';
+            }
 
             //create content
             $schema .=
-                        $link."\t".
-                        $products['products_name'] ."\t".
-                        $products_description ."\t".
-                        $image ."\t" .
-                        substr($cat,0,strlen($cat)-2). "\t" .
-                        number_format($products_price,2,'.',''). "\t" .
-                        $products['manufacturers_name'] ."\n";
+
+            //-- Shopstat URLS ----//
+            //zur Aktivierung von SEO-URLs
+            // Zeile 1 $link."\t". entkommentieren
+            // Zeile 2 auskommentieren
+            //$link."\t".
+            HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'product_info.php?'.$_POST['campaign'].xtc_product_link($products['products_id'], $products['products_name']) . "\t" .
+            //-- Shopstat URLS ----//
+
+            $products['products_id'] ."\t".
+            $products['products_name'] ."\t".
+            $products_description ."\t".
+            $image ."\t" .
+            substr($cat,0,strlen($cat)-2). "\t" .
+            number_format($products_price,2,'.',''). "\t" .
+            neu . "\t" .
+            $products['manufacturers_name'] ."\n";
 
 
         }
@@ -234,7 +265,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
     $curr='';
     $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
     while ($currencies_data=xtc_db_fetch_array($currencies)) {
-     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
+     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br>';
     }
 
     $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
@@ -243,20 +274,20 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 	$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
 	}
 
-    return array('text' =>  EXPORT_STATUS_TYPE.'<br />'.
-                          	EXPORT_STATUS.'<br />'.
-                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
-                            CURRENCY.'<br />'.
-                            CURRENCY_DESC.'<br />'.
+    return array('text' =>  EXPORT_STATUS_TYPE.'<br>'.
+                          	EXPORT_STATUS.'<br>'.
+                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br>'.
+                            CURRENCY.'<br>'.
+                            CURRENCY_DESC.'<br>'.
                             $curr.
-                            CAMPAIGNS.'<br />'.
-                            CAMPAIGNS_DESC.'<br />'.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.
-                            EXPORT_TYPE.'<br />'.
-                            EXPORT.'<br />'.
-                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
-                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
-                            '<br />' . xtc_button(BUTTON_EXPORT) .
+                            CAMPAIGNS.'<br>'.
+                            CAMPAIGNS_DESC.'<br>'.
+                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br>'.
+                            EXPORT_TYPE.'<br>'.
+                            EXPORT.'<br>'.
+                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br>'.
+                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br>'.
+                            '<br>' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=froogle')));
 
 
