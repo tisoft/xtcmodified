@@ -256,15 +256,20 @@ define('TEXT_CHOOSE_INFO_TEMPLATE','Vorlage f&uuml;r Artikeldetails');
 define('TEXT_CHOOSE_OPTIONS_TEMPLATE','Vorlage f&uuml;r Artikeloptionen');
 define('TEXT_SELECT','-- Bitte w&auml;hlen Sie --');
 
+// BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 // Icons
+define('ICON_ARROW_RIGHT','markiert');
+define('ICON_BIG_WARNING','Achtung!');
 define('ICON_CROSS', 'Falsch');
 define('ICON_CURRENT_FOLDER', 'Aktueller Ordner');
 define('ICON_DELETE', 'L&ouml;schen');
+define('ICON_EDIT','Bearbeiten');
 define('ICON_ERROR', 'Fehler');
 define('ICON_FILE', 'Datei');
 define('ICON_FILE_DOWNLOAD', 'Herunterladen');
 define('ICON_FOLDER', 'Ordner');
 define('ICON_LOCKED', 'Gesperrt');
+define('ICON_POPUP','Banner Vorschau');
 define('ICON_PREVIOUS_LEVEL', 'Vorherige Ebene');
 define('ICON_PREVIEW', 'Vorschau');
 define('ICON_STATISTICS', 'Statistik');
@@ -272,6 +277,7 @@ define('ICON_SUCCESS', 'Erfolg');
 define('ICON_TICK', 'Wahr');
 define('ICON_UNLOCKED', 'Entsperrt');
 define('ICON_WARNING', 'Warnung');
+// EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite %s von %d');
@@ -333,7 +339,16 @@ define('TITLE_MEMO','Kunden MEMO');
 define('ENTRY_LANGUAGE','Sprache:');
 define('CATEGORIE_NOT_FOUND','Kategorie nicht vorhanden');
 
+// BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
+// Image Icons
 define('IMAGE_RELEASE', 'Gutschein einl&ouml;sen');
+define('IMAGE_ICON_STATUS_GREEN_STOCK','auf Lager');
+define('IMAGE_ICON_STATUS_GREEN','aktiv');
+define('IMAGE_ICON_STATUS_GREEN_LIGHT','aktivieren');
+define('IMAGE_ICON_STATUS_RED','inaktiv');
+define('IMAGE_ICON_STATUS_RED_LIGHT','deaktivieren');
+define('IMAGE_ICON_INFO','auswählen');
+// EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 
 define('_JANUARY', 'Januar');
 define('_FEBRUARY', 'Februar');

@@ -63,7 +63,12 @@ if ($file_warning != '' or $folder_warning != '') {
 <div class"main"> 
         <table width="100%" border="0">
           <tr>
+<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+<!--
             <td width="1"><?php echo xtc_image(DIR_WS_ICONS.'big_warning.gif'); ?></td>
+-->
+						<td width="1"><?php echo xtc_image(DIR_WS_ICONS.'big_warning.gif', ICON_BIG_WARNING); ?></td>
+<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
             <td class="main">
               <?php
 

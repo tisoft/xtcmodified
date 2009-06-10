@@ -274,7 +274,10 @@
              <?php
                 //if active category, show arrow, else show symbol with link (action col)
                 if ( (is_object($cInfo)) && ($categories['categories_id'] == $cInfo->categories_id) ) { 
-                    echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); 
+// BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
+//                    echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); 
+                    echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); 
+// EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
                 } else { 
                     echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; 
                 } 

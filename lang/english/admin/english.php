@@ -256,15 +256,20 @@ define('TEXT_CHOOSE_INFO_TEMPLATE','Template for product details');
 define('TEXT_CHOOSE_OPTIONS_TEMPLATE','Template for product options');
 define('TEXT_SELECT','-- Please Select --');
 
+// BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 // Icons
+define('ICON_ARROW_RIGHT','marked');
+define('ICON_BIG_WARNING','Attention!');
 define('ICON_CROSS', 'False');
 define('ICON_CURRENT_FOLDER', 'Current Folder');
 define('ICON_DELETE', 'Delete');
+define('ICON_EDIT','Edit');
 define('ICON_ERROR', 'Error');
 define('ICON_FILE', 'File');
 define('ICON_FILE_DOWNLOAD', 'Download');
 define('ICON_FOLDER', 'Folder');
 define('ICON_LOCKED', 'Locked');
+define('ICON_POPUP','Banner Preview');
 define('ICON_PREVIOUS_LEVEL', 'Previous Level');
 define('ICON_PREVIEW', 'Preview');
 define('ICON_STATISTICS', 'Statistics');
@@ -272,6 +277,7 @@ define('ICON_SUCCESS', 'Success');
 define('ICON_TICK', 'True');
 define('ICON_UNLOCKED', 'Unlocked');
 define('ICON_WARNING', 'Warning');
+// EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Page %s of %d');
@@ -333,7 +339,16 @@ define('TITLE_MEMO','Customers MEMO');
 define('ENTRY_LANGUAGE','Language:');
 define('CATEGORIE_NOT_FOUND','Categorie not found!');
 
+// BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
+// Image Icons
 define('IMAGE_RELEASE', 'Redeem Gift Voucher');
+define('IMAGE_ICON_STATUS_GREEN_STOCK','in stock');
+define('IMAGE_ICON_STATUS_GREEN','active');
+define('IMAGE_ICON_STATUS_GREEN_LIGHT','activate');
+define('IMAGE_ICON_STATUS_RED','inactive');
+define('IMAGE_ICON_STATUS_RED_LIGHT','deactivate');
+define('IMAGE_ICON_INFO','select');
+// EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 
 define('_JANUARY', 'January');
 define('_FEBRUARY', 'February');
