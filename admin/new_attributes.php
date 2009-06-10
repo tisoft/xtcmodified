@@ -86,6 +86,9 @@
 ?>
     </table></td>
   </tr>
+<!-- BOF - Tomcraft - 2009-06-10 - added missing table close tag -->
+</table>
+<!-- EOF - Tomcraft - 2009-06-10 - added missing table close tag -->
 <!-- body_eof //-->
 
 <!-- footer //-->
