@@ -58,7 +58,7 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_i
 		if (SEARCH_ENGINE_FRIENDLY_URLS == 'true')
 			$SEF_parameter = '&content='.xtc_cleanName($content_data['content_title']);
 
-		$content_string .= '<li><img src="templates/'.CURRENT_TEMPLATE.'/img/icon_arrow.gif" alt="" /> <a href="'.xtc_href_link(FILENAME_CONTENT, 'coID='.$content_data['content_group'].$SEF_parameter).'">'.$content_data['content_title'].'</a></li>';
+		$content_string .= '<li><a href="'.xtc_href_link(FILENAME_CONTENT, 'coID='.$content_data['content_group'].$SEF_parameter).'"><strong>'.$content_data['content_title'].'</strong></a></li>';
 	}
 	if ($content_string != '') {
 		$content_string.='</ul>';

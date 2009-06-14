@@ -27,24 +27,26 @@
 	padding:0
 }
 body {
-	font-family:"Trebuchet MS", Verdana, Arial, Sans-serif;
-	font-size:13px;
+	font-family:Arial, Sans-serif;
+	font-size:12px;
 	margin:20px 0;
 	padding:0;
-	background-image:url(img/bg.gif);
-	background-color:#FFFFFF;
+	background: url(img/bg.gif) repeat-x #eee;
+	color:#555;
+	line-height:18px;
 }
 /* HEADINGS */
 h1 {
 	color:#000000;
 	font-weight:bold;
-	font-size:22px;
+	font-size:18px;
 	margin:20px 0px 15px 0px;
 	padding:0px;
 	width:auto;
 	border-style:solid;
 	border-width:0px 0px 1px 0px;
-	border-color:#000000;
+	border-color:#ccc;
+	padding-bottom:8px;
 }
 h2 {
 	color:#000000;
@@ -56,54 +58,47 @@ h2 {
 /* LINKS GLOBAL */
 a, a:link, a:link, a:link, a:hover {
 	background:transparent;
-	text-decoration:underline;
+	text-decoration:none;
 	cursor:pointer
 }
 a:link {
-	color:#c64934
+	color:#893769
 }
 a:visited {
-	color:#c64934
+	color:#893769
 }
 a:hover, a:active {
-	color:#c64934
+	color:#893769
+}
+a:hover {
+	color:#555;
+	text-decoration:underline;
 }
 a img {
 	border:none
 }
 /* INPUT ELEMENTS GLOBAL (CSS 1 compatible) */
 input {
-	font-family:"Trebuchet MS", Verdana, Arial, Sans-serif;
+	font-family:Arial, Sans-serif;
 	font-size:12px;
 }
 textarea {
-	font-family:"Trebuchet MS", Verdana, Arial, Sans-serif;
+	font-family:Arial, Sans-serif;
 	font-size:12px;
-	border-width:1px;
-	border-style:solid;
-	border-top-color:#4E4E4F;
-	border-left-color:#4E4E4F;
-	border-bottom-color:#AEAEAE;
-	border-right-color:#AEAEAE
+	border:1px solid #666;
+	padding:10px;
+	background:url(img/input_bg.gif) no-repeat;
 }
 select {
-	font-family:"Trebuchet MS", Verdana, Arial, Sans-serif;
+	font-family:Arial, Sans-serif;
 	font-size:12px;
-	border-width:1px;
-	border-style:solid;
-	border-top-color:#4E4E4F;
-	border-left-color:#4E4E4F;
-	border-bottom-color:#AEAEAE;
-	border-right-color:#AEAEAE
+	border:1px solid #666;
 }
 /* INPUT ELEMENTS DETAILED (CSS 2 compatible - works only in new browsers (FF 2.0, IE 7...) */
 input[type=text], input[type=password] {
-	border-width:1px;
-	border-style:solid;
-	border-top-color:#4E4E4F;
-	border-left-color:#4E4E4F;
-	border-bottom-color:#AEAEAE;
-	border-right-color:#AEAEAE
+	border:1px solid #666;
+	padding:2px;
+	background:url(img/input_bg.gif) no-repeat;
 }
 /* PARAGRAPH GLOBAL */
 p {
@@ -144,30 +139,30 @@ table td {
 /* WHOLE SITE WRAPPER */
 #wrap {
 	margin: 0 auto;
-	width:950px;
+	width:980px;
 	background-color:#fff;
 	border-style:solid;
 	border-color:#fff;
-	border-width:0px 10px 0px 10px;
+	border-width:0px 10px 10px 10px;
+	margin-bottom:10px;
 }
 /* HEADER WITH LOGO, SEARCH BOX AND LANGUAGE SELECTION */
 #header {
 	height:115px;
-	background: #666 url("img/bg_header.gif") repeat-x;
-	border-bottom: 1px solid #fff;
+	background: #666 url("img/top_logo.jpg") no-repeat;
+	border-bottom: 1px solid #333;
 	border-top: 10px solid #fff;
+	border-bottom:1px solid #fff;
 }
 #header #logo {
-	padding-left:27px;
 	float:left
 }
 #header #search {
-	width: 260px;
+	width: 230px;
 	height:75px;
 	float:right;
-	background: url("img/bg_search_breakline.gif") no-repeat;
 	color:#fff;
-	padding:40px 0px 0px 20px
+	padding:30px 0px 0px 60px
 }
 #header #search a {
 	color:#fff;
@@ -230,7 +225,7 @@ table td {
 	padding:0;
 }
 #topmenu a:hover {
-	color:#DB9501;
+	color:#ccc;
 }
 /* LANGUAGE SELECTION IN TOPMENU LIST */
 #languages {
@@ -244,7 +239,7 @@ table td {
 /* CONTENT WRAPPER */
 #contentwrap {
 	clear:both;
-	width:950px;
+	width:980px;
 	padding:0;
 }
 /* LEFT COLUMN */
@@ -262,12 +257,12 @@ table td {
 /* MAIN CONTENT */
 #content {
 	float:left;
-	width:495px;
+	width:525px;
 	padding:0px 25px 0px 25px;
 	margin-bottom:15px;
 }
 #contentfull {
-	width:890px;
+	width:920px;
 	padding:0px 30px 0px 30px;
 	margin-bottom:15px;
 }
@@ -276,7 +271,7 @@ h2.categoryheader {
 	background-color:#F3A807;
 	background-image:url(img/bg_boxheader.gif);
 	height:28px;
-	font-size:11px;
+	font-size:12px;
 	color:#FFFFFF;
 	padding:2px 8px 0px 8px;
 	margin:0;
@@ -290,55 +285,74 @@ h2.categoryheader a {
 ul#categorymenu {
 	background-color:#EDEDED;
 	margin-bottom:15px;
-	border: solid #DB9502;
+	border: solid #ccc;
 	border-width:0px 1px 1px 1px;
 }
 /* 1st TIER */
 ul#categorymenu li.level1 {
 	list-style-type:none;
-	background-color:#DA9401;
-	padding:4px 0px 4px 6px;
 	border: solid #fff;
 	border-width:1px 0px 0px 0px;
 }
 ul#categorymenu li.level1 a {
 	text-decoration:none;
-	color:#FFFFFF;
+	color:#333;
+	background:#eee;
+	font-weight:bold;
+	padding:4px 0px 4px 6px;
+	display:block
+}
+ul#categorymenu li.level1 a:hover {
+	text-decoration:none;
+	color:#333;
+	background-color:#ccc;
 	font-weight:bold;
 }
 /* 2nd TIER */
 ul#categorymenu li.level2 {
 	list-style-type:none;
-	background-color:#EEA003;
-	padding:4px 0px 4px 24px;
 	border: solid #fff;
 	border-width:1px 0px 0px 0px;
 }
 ul#categorymenu li.level2 a {
-	font-size: 11px;
 	text-decoration:none;
-	color:#FFFFFF;
+	color:#333;
+	background: url(img/dotted1.gif) no-repeat 8px 9px #e1e1e1;
+	font-weight:bold;
+	padding:4px 0px 4px 18px;
+	display:block
+}
+ul#categorymenu li.level2 a:hover {
+	text-decoration:none;
+	color:#333;
+	background-color:#ccc;
 	font-weight:bold;
 }
 /* 3rd TIER */
 ul#categorymenu li.level3 {
 	list-style-type:none;
-	background-color:#EEA003;
-	padding:4px 0px 4px 40px;
 	border: solid #fff;
 	border-width:1px 0px 0px 0px;
 }
 ul#categorymenu li.level3 a {
-	font-size: 11px;
 	text-decoration:none;
-	color:#FFFFFF;
+	color:#333;
+	background: url(img/dotted1.gif) no-repeat 16px 9px #c7c7c7;
+	font-weight:bold;
+	padding:4px 0px 4px 26px;
+	display:block
+}
+ul#categorymenu li.level3 a:hover {
+	text-decoration:none;
+	color:#333;
+	background-color:#ccc;
 	font-weight:bold;
 }
 /* BOXES GLOBAL DEFINITION */
 h2.boxheader {
 	background-image:url(img/bg_boxheader.gif);
 	height:28px;
-	font-size:11px;
+	font-size:12px;
 	color:#FFFFFF;
 	padding:2px 8px 0px 8px;
 	margin:0;
@@ -352,7 +366,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 .boxbody {
 	background-color:#ededed;
 	border-style:solid;
-	border-color:#4E4E4F;
+	border-color:#ccc;
 	border-width:0px 1px 1px 1px;
 	padding:8px;
 	margin-bottom:15px
@@ -397,6 +411,8 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 }
 .boxbody .productboximage {
 	border: solid 1px #999999;
+	padding:5px;
+	background:#fff;
 }
 .boxbody ul.contentlist {
 	margin-left:5px;
@@ -408,11 +424,16 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 	padding:0;
 	list-style-type:none
 }
+.contentlist a {
+	border-bottom:1px solid #ccc;
+	display:block;
+	padding:5px 0;
+}
 /* CART BOX */
 h2.boxcartheader {
-	background-image:url(img/bg_boxheader.gif);
+	background-image:url(img/bg_boxheader_cart.gif);
 	height:28px;
-	font-size:11px;
+	font-size:12px;
 	color:#FFFFFF;
 	padding:2px 8px 0px 8px;
 	margin:0;
@@ -428,7 +449,7 @@ h2.boxcartheader a {
 	margin-bottom:15px;
 	background-color:#EDEDED;
 	border-style:solid;
-	border-color:#4E4E4F;
+	border-color:#ccc;
 	border-width:0px 1px 1px 1px;
 }
 .boxcartbody p {
@@ -441,7 +462,6 @@ h2.boxcartheader a {
 }
 .productPreviewContent {
 	vertical-align:top;
-
 }
 .productPreviewContent h2 {
 	padding: 0;
@@ -456,7 +476,7 @@ h2.boxcartheader a {
 	padding:3px 15px 0px 0px;
 }
 .productPreviewImage img {
-	border: solid 1px #999999;
+	border: solid 0px #999999;
 }
 .productPreviewContent .price {
 	font-size:16px;
@@ -529,7 +549,6 @@ h2.boxcartheader a {
 }
 #productinfopricewithimages {
 	float:right;
-
 }
 #productinfopricewithimages img {
 	cursor:pointer
@@ -596,11 +615,11 @@ p.productinfoproductadded {
 	font-size:11px;
 }
 .productoptions {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	padding:6px;
 	border-style:solid;
 	border-width:1px 0px 0px 0px;
-	border-color:#DA9401
+	border-color:#ccc
 }
 .addtobasket {
 	background-color:#EDEDED;
@@ -618,7 +637,7 @@ body.popupproductinfo {
 }
 /* POPUP print_order.html */
 body.popupprintorder {
-	font-family:"Trebuchet MS", Verdana, Arial, Sans-serif;
+	font-family:Arial, Sans-serif;
 	font-size:13px;
 	padding:15px;
 	background:none;
@@ -649,8 +668,8 @@ body.popupprintorder .totalprice {
 /* HIGHLIGHTBOX (BACKGROUND) */
 div.highlightbox {
 	padding: 15px;
-	background-color:#FFF2CC;
-	border: solid #E9D28F 1px
+	background-color:#f8f8f8;
+	border: solid #d9d9d9 1px
 }
 div.highlightbox ul {
 	margin-left:15px;
@@ -660,7 +679,7 @@ div.highlightbox ul {
 	line-height:20px
 }
 div.highlightbox h1 {
-	color:#BE8100;
+	color: #893769;
 	padding:0px 0px 10px 0px;
 	margin:0;
 	border:none;
@@ -672,18 +691,18 @@ div.highlightbox div.hr {
 	margin:0;
 	padding:0;
 	display:block;
-	border-bottom: solid 1px #E9D28F;
+	border-bottom: solid 1px #eee;
 }
 /* PAYMENT TYPE SELECTION */
 table.paymentblock {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	border-style: solid;
 	border-width:0px 1px 1px 1px;
-	border-color:#E9D28F;
+	border-color:#eee;
 	margin-bottom:15px;
 }
 table.paymentblock tr td.header {
-	background-color:#DA9401;
+	background-color:#ccc;
 	padding:2px;
 	padding-left:5px;
 	color:#FFFFFF;
@@ -691,14 +710,14 @@ table.paymentblock tr td.header {
 }
 /* SHIPPING TYPE SELECTION */
 table.shippingblock {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	border-style: solid;
 	border-width:0px 1px 1px 1px;
-	border-color:#E9D28F;
+	border-color:#eee;
 	margin-bottom:15px;
 }
 table.shippingblock tr td.header {
-	background-color:#DA9401;
+	background-color:#ccc;
 	padding:2px;
 	padding-left:5px;
 	color:#FFFFFF;
@@ -739,8 +758,8 @@ textarea.message_body {
 /* DOWNLOAD BOX FOR USER DOWNLOADS */
 table.downloadbox {
 	padding: 5px;
-	background-color:#FFF2CC;
-	border: solid #E9D28F 1px;
+	background-color:#f8f8f8;
+	border: solid #d9d9d9 1px;
 	margin-bottom:8px;
 }
 table.downloadbox tr td.icon {
@@ -763,17 +782,17 @@ table.graduatedprice tr td.header {
 /* ORDER DETAILS */
 table.orderdetails {
 	font-size:11px;
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	border-style: solid;
 	border-width:0px 1px 1px 1px;
-	border-color:#DA9401;
+	border-color:#ccc;
 }
 table.orderdetails tr td {
 	padding:4px
 }
 table.orderdetails tr.headerrow td {
-	background-color:#DA9401;
-	color:#FFFFFF;
+	background-color:#ccc;
+	color:#555;
 	font-weight:bold
 }
 table.orderdetails tr.headerrow td.left {
@@ -787,7 +806,7 @@ table.orderdetails tr.headerrow td.right {
 }
 /* ORDER DETAILS CONTENT ROW 1 */
 table.orderdetails tr.contentrow1 td {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	vertical-align:top
 }
 table.orderdetails tr.contentrow1 td.quantity {
@@ -796,14 +815,14 @@ table.orderdetails tr.contentrow1 td.quantity {
 table.orderdetails tr.contentrow1 td.quantity input {
 	font-size:11px;
 	padding:2px;
-	border:solid #DA9401 1px;
+	border:solid #ccc 1px;
 }
 table.orderdetails tr.contentrow1 td.productname {
 	text-align:left
 }
 /* ORDER DETAILS CONTENT ROW 2 */
 table.orderdetails tr.contentrow2 td {
-	background-color:#FFEAAB;
+	background-color:#f8f8f8;
 	vertical-align:top
 }
 table.orderdetails tr.contentrow2 td.quantity {
@@ -812,7 +831,7 @@ table.orderdetails tr.contentrow2 td.quantity {
 table.orderdetails tr.contentrow2 td.quantity input {
 	font-size:11px;
 	padding:2px;
-	border:solid #DA9401 1px;
+	border:solid #ccc 1px;
 }
 table.orderdetails tr.contentrow2 td.productname {
 	text-align:left
@@ -847,11 +866,11 @@ table.orderdetails tr td.productname table.productattributes tr td.value {
 }
 /* ORDER DETAILS SUBTOTAL */
 table.orderdetails tr td.subtotal {
-	background-color:#FFEAAB;
+	background-color:#f8f8f8;
 	text-align:right;
 	border-style: solid;
 	border-width:1px 0px 0px 0px;
-	border-color:#DA9401;
+	border-color:#ccc;
 }
 /* PRODUCT NAVIGATOR */
 div.productnavigator {
@@ -861,35 +880,35 @@ div.productnavigator {
 }
 /* REVIEW LIST */
 table.reviewlist {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	border-style: solid;
 	border-width:0px 1px 1px 1px;
-	border-color:#DA9401;
+	border-color:#ccc;
 }
 table.reviewlist tr td {
 	padding:4px;
 	white-space:nowrap
 }
 table.reviewlist tr.header td {
-	background-color:#DA9401;
+	background-color:#ccc;
 	color:#FFFFFF;
 	font-weight:bold
 }
 table.reviewlist tr.contentrow1 td {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 }
 table.reviewlist tr.contentrow2 td {
-	background-color:#FFEAAB;
+	background-color:#f8f8f8;
 }
 textarea#review {
 	width:100%
 }
 /* MEDIA LIST */
 table.medialist {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	border-style: solid;
 	border-width:1px;
-	border-color:#DA9401;
+	border-color:#ccc;
 }
 table.medialist tr td {
 	padding:6px;
@@ -897,29 +916,29 @@ table.medialist tr td {
 	vertical-align:top
 }
 table.medialist tr.contentrow1 td {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 }
 table.medialist tr.contentrow2 td {
-	background-color:#FFEAAB;
+	background-color:#f8f8f8;
 }
 /* SITEMAP */
 .sitemapwrap {
 }
 .sitemapwrap .sitemapleft {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	border-style: solid;
 	border-width:1px;
-	border-color:#DA9401;
+	border-color:#ccc;
 	display:table;
 	float:left;
 	width:235px;
 	margin-bottom:15px;
 }
 .sitemapwrap .sitemapright {
-	background-color:#FFF2CC;
+	background-color:#f8f8f8;
 	border-style: solid;
 	border-width:1px;
-	border-color:#DA9401;
+	border-color:#ccc;
 	display:table;
 	float:right;
 	width:235px;
@@ -927,7 +946,7 @@ table.medialist tr.contentrow2 td {
 }
 .sitemapheader {
 	padding:3px;
-	background-color:#DA9401;
+	background-color:#ccc;
 	color:#FFFFFF;
 	font-weight:bold
 }
@@ -991,18 +1010,21 @@ p.checkoutagb textarea {
 }
 /* CHECKOUT NAVIGATION */
 ul#checkoutnavigation {
+	margin:0;
+	padding:0;
+	margin-top:15px;
 }
 ul#checkoutnavigation li {
 	height: 70px;
 	list-style-type:none;
 	float:left;
-	width:185px;
+	width:195px;
 	margin-right:15px;
 	border: solid 1px;
 	padding:8px
 }
 ul#checkoutnavigation li.active {
-	background-color: #FFEAAB
+	background-color: #f8f8f8
 }
 ul#checkoutnavigation li.active .number {
 	font-size:20px;
@@ -1035,7 +1057,8 @@ ul#checkoutnavigation li.inactive .description {
 .errormessage {
 	border: solid #ff0000 2px;
 	padding:15px;
-	background-color:#FFD6D6
+	background-color:#FFD6D6;
+	margin-bottom:10px;
 }
 /* SUCCESS MESSAGE */
 .messageStackSuccess {
@@ -1051,6 +1074,7 @@ ul#checkoutnavigation li.inactive .description {
 	background-color:#E2E2E2;
 	padding: 8px;
 	margin-bottom:5px;
+	border-bottom:2px solid #ccc;
 }
 .footer a {
 	color:#666666;
@@ -1060,7 +1084,6 @@ ul#checkoutnavigation li.inactive .description {
 .copyright {
 	margin: 0 auto;
 	width:970px;
-	background-color:#FFFFFF;
 	text-align:center;
 	color:#666666;
 	font-size:11px;
@@ -1070,7 +1093,6 @@ ul#checkoutnavigation li.inactive .description {
 .parseTime {
 	margin: 0 auto;
 	width:970px;
-	background-color:#FFFFFF;
 	text-align:center;
 	color:#666666;
 	font-size:11px;
@@ -1085,23 +1107,48 @@ ul#checkoutnavigation li.inactive .description {
 	border-style:solid;
 	border-width:1px 0px 0px 0px;
 	border-color:#999999;
-	display:block ;
+	display:block;
 	height:auto;
-} 
-.morepics img { border:1px solid #999999; padding:4px; margin-right:8px; background:#FFFFFF; height:100px; width:auto;}
-
-
+}
+.morepics img {
+	border:1px solid #999999;
+	padding:4px;
+	margin-right:8px;
+	background:#FFFFFF;
+	height:100px;
+	width:auto;
+}
 /* BESTELLER BOX mit Bilder in DL DT Liste -- JUNG GESTALTEN.com */
-dt { float:left; width:40px; }
-dt img { border:1px solid #ccc; padding:2px; background:#fff; }
-dd { float:right; width:125px }
-
+dt {
+	float:left;
+	width:40px;
+}
+dt img {
+	border:1px solid #ccc;
+	padding:2px;
+	background:#fff;
+}
+dd {
+	float:right;
+	width:125px
+}
 /* Vorschaubilder TD mit gleichem Abstand */
 /* BOF - dokuman - 2009-06-06 - Fix new products display in firefox - picture size is 120px by default */
 /*.productPreviewImage { width:100px; display:block } */
-.productPreviewImage { width:120px; display:block }
+.productPreviewImage {
+	width:120px;
+	display:block
+}
 /* EOF - dokuman - 2009-06-06 - Fix new products display in firefox size is 120px by default */
-td.productPreviewContent { width:400px; text-align:left } 
-
+td.productPreviewContent {
+	width:400px;
+	text-align:left
+}
 /* FIX DER AUFZÄHLUNGEN */
-#content ol, #content ul { margin:10px 0 10px 40px; }  
+#content ol, #content ul {
+	margin:10px 0 10px 40px;
+}
+/* SEARCHBOX */
+.search_header {
+	line-height:normal;
+}

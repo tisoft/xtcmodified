@@ -3,15 +3,12 @@
 {foreach name=aussen item=module_data from=$module_content}
 <table class="productPreview" width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    {if $module_data.PRODUCTS_IMAGE!=''}<td class="productPreviewImage"><a href="{$module_data.PRODUCTS_LINK}"><img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME}" class="productImageBorder" /></a></td>{/if}
+    {if $module_data.PRODUCTS_IMAGE!=''}<td align="center" class="productPreviewImage"><a href="{$module_data.PRODUCTS_LINK}"><img src="{$module_data.PRODUCTS_IMAGE}" alt="{$module_data.PRODUCTS_NAME}" class="productImageBorder" /></a></td>{/if}
     <td class="productPreviewContent">
 		<h2><a href="{$module_data.PRODUCTS_LINK}">{$module_data.PRODUCTS_NAME}</a></h2>
 		<p>{$module_data.PRODUCTS_SHORT_DESCRIPTION}</p>
-		<span class="price">{$module_data.PRODUCTS_PRICE}</span>&nbsp;<span class="taxandshippinginfo">({$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK})</span>
-		{if $module_data.PRODUCTS_STOCKS_TRAFFIC_IMAGE}
-            <p class="stockimage"><img src="{$module_data.PRODUCTS_STOCKS_TRAFFIC_IMAGE}" alt="{$module_data.PRODUCTS_STOCKS_TRAFFIC_NAME}" /></p>
-			<p class="stockimagetext">{$module_data.PRODUCTS_STOCKS_TRAFFIC_NAME}</p>
-		{/if}
+		<span class="price">{$module_data.PRODUCTS_PRICE}</span><br /><span class="taxandshippinginfo">( {$module_data.PRODUCTS_TAX_INFO}{$module_data.PRODUCTS_SHIPPING_LINK} )</span>
+		
 		<p>{$module_data.PRODUCTS_BUTTON_BUY_NOW}&nbsp;<a href="{$module_data.PRODUCTS_LINK}"><img src="{$tpl_path}buttons/{$language}/button_product_more.gif" alt="Details" border="0" /></a></p>
 	</td>
   </tr>

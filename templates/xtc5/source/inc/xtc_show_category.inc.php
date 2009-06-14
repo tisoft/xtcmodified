@@ -39,10 +39,10 @@ function xtc_show_category($counter) {
 	$categories_string .= xtc_href_link(FILENAME_DEFAULT, $cPath_new);
 	$categories_string .= '">';
 
-	// Anzeigen der Kategoriebezeichnung
+	/* Anzeigen der Kategoriebezeichnung
 	if ($foo[$counter]['level']=='1') {
-		$categories_string .= '&#8226;&nbsp;';
-	}
+		$categories_string .= '';
+	}*/
 	
 	$categories_string .= $foo[$counter]['name'];
 
@@ -62,7 +62,7 @@ function xtc_show_category($counter) {
 	if (SHOW_COUNTS == 'true') {
 		$products_in_category = xtc_count_products_in_category($counter);
 		if ($products_in_category > 0) {
-			$categories_string .= '&nbsp;(' . $products_in_category . ')';
+			$categories_string .= '(' . $products_in_category . ')';
 		}
 	}
 
