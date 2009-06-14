@@ -443,7 +443,7 @@ define('FROM','Ab ');
 define('YOU_SAVE','Sie Sparen ');
 define('INSTEAD','Statt ');
 define('TXT_PER',' pro ');
-define('TAX_INFO_INCL','incl. %s MwSt.');
+define('TAX_INFO_INCL','inkl. %s MwSt.');
 define('TAX_INFO_EXCL','exkl. %s MwSt.');
 define('TAX_INFO_ADD','zzgl. %s MwSt.');
 define('SHIPPING_EXCL','zzgl.');
