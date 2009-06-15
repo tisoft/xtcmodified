@@ -23,14 +23,15 @@
 require ('includes/application_top.php');
 require_once (DIR_FS_INC.'xtc_get_products_mo_images.inc.php');
 ?>
-
+<?php
 //BOF - Dokuman - 2009-06-05 - replace table with div
 //<body bgcolor="#FFFFFF">
 //<table align="center">
 //<tr>
-<body>
-<div align="center">
+echo '<body>';
+echo '<div align="center">';
 //EOF - Dokuman - 2009-06-05 - replace table with div
+?>
 <?php
 $mo_images = xtc_get_products_mo_images((int) $_GET['pID']);
 if ((int) $_GET['imgID'] == 0)
@@ -69,10 +70,8 @@ if ($mo_images != false) {
 </tr>
 </table>
 */
+echo '  </div>';
 echo '</div>';
-?>
-</div>
 //EOF - Dokuman - 2009-06-05 - replace table with div
-
+?>
 </body>
-
