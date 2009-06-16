@@ -104,6 +104,13 @@ h1 {
 </head>
 <body style="margin:0" bgcolor="#FFFFFF">
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- BOF - Tomcraft - 2009-06-16 - Added security check //-->
+<table width="100%">
+  <tr>
+    <td><?php include(DIR_WS_MODULES.FILENAME_SECURITY_CHECK); ?></td>
+  </tr>
+</table>
+<!-- EOF - Tomcraft - 2009-06-16 - Added security check //-->
 <table class="startphp">
 <tr>
      <td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
