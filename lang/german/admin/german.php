@@ -405,10 +405,7 @@ define('ERROR_GIF_UPLOAD','Fehlender GDlib Gif Support, kein Upload von GIF Bild
 
 define('TEXT_REFERER','Referer: ');
 
-
-// Google Sitemap - JUNG GESTALTEN 07.10.2008
+// BOF - Tomcraft - 2009-06-17 Google Sitemap
 define('BOX_GOOGLE_SITEMAP', 'Google Sitemap');
-
-
-
+// EOF - Tomcraft - 2009-06-17 Google Sitemap
 ?>
