@@ -37,7 +37,7 @@
 
   
   // define the project version
-  define('PROJECT_VERSION', 'xt:Commerce v3.0.4 SP2');
+  define('PROJECT_VERSION', 'xtcModified v1.01 dated: 2009-07-01');
 
   // set the type of request (secure or not)
   $request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
