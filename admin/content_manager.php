@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: content_manager.php 1023 2005-07-14 11:41:37Z novalis $
+   $Id: content_manager.php 1304 2005-10-12 18:04:43Z mz $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -255,6 +255,9 @@ if ($select_file=='default') {
  $data=xtc_db_fetch_array($query);
  if ($_GET['action']!='new_products_content' && $_GET['action']!='') echo xtc_wysiwyg('content_manager',$data['code']);
  if ($_GET['action']=='new_products_content') echo xtc_wysiwyg('products_content',$data['code']);
+// BOF - Tomcraft - 2009-06-18 - change due to update on base version of content_manager.php 
+ if ($_GET['action']=='edit_products_content') echo xtc_wysiwyg('products_content',$data['code']); 
+// EOF - Tomcraft - 2009-06-18 - change due to update on base version of content_manager.php
  } ?>
 
 </head>
