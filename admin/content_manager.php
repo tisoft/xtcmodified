@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: content_manager.php 1304 2005-10-12 18:04:43Z mz $
+   $Id: content_manager.php 1023 2005-07-14 11:41:37Z novalis $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -24,7 +24,6 @@
   require_once(DIR_FS_INC . 'xtc_format_filesize.inc.php');
   require_once(DIR_FS_INC . 'xtc_filesize.inc.php');
   require_once(DIR_FS_INC . 'xtc_wysiwyg.inc.php');
-  
   
   $languages = xtc_get_languages();
 
@@ -70,6 +69,9 @@
         $group_id=xtc_db_prepare_input($_POST['content_group']);
         $group_ids = $group_ids;
         $sort_order=xtc_db_prepare_input($_POST['sort_order']);
+        $content_meta_title = xtc_db_prepare_input($_POST['cont_meta_title']);
+        $content_meta_description = xtc_db_prepare_input($_POST['cont_meta_description']);
+        $content_meta_keywords = xtc_db_prepare_input($_POST['cont_meta_keywords']);
         
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
                 if ($languages[$i]['code']==$content_language) $content_language=$languages[$i]['id'];
@@ -117,7 +119,10 @@
                                 'group_ids' => $group_ids,
                                 'content_group' => $group_id,
                                 'sort_order' => $sort_order,
-                                'file_flag' => $file_flag);
+                                'file_flag' => $file_flag,
+         						'content_meta_title' => $content_meta_title,
+                                'content_meta_description' => $content_meta_description,
+                                'content_meta_keywords' => $content_meta_keywords);
          if ($_GET['id']=='update') {
          xtc_db_perform(TABLE_CONTENT_MANAGER, $sql_data_array, 'update', "content_id = '" . $coID . "'");
         } else {
@@ -250,7 +255,6 @@ if ($select_file=='default') {
  $data=xtc_db_fetch_array($query);
  if ($_GET['action']!='new_products_content' && $_GET['action']!='') echo xtc_wysiwyg('content_manager',$data['code']);
  if ($_GET['action']=='new_products_content') echo xtc_wysiwyg('products_content',$data['code']);
- if ($_GET['action']=='edit_products_content') echo xtc_wysiwyg('products_content',$data['code']);
  } ?>
 
 </head>
@@ -318,7 +322,10 @@ for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
                                         content_file,
                                         content_status,
                                         content_group,
-                                        content_delete
+                                        content_delete,
+             							content_meta_title,
+                                        content_meta_description,
+                                        content_meta_keywords
                                         FROM ".TABLE_CONTENT_MANAGER."
                                         WHERE languages_id='".$languages[$i]['id']."'
                                         AND parent_id='0'
@@ -339,8 +346,11 @@ for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
                         'CONTENT_FILE' => $content_data['content_file'],
                         'CONTENT_DELETE' => $content_data['content_delete'],
                         'CONTENT_GROUP' => $content_data['content_group'],
-                        'CONTENT_STATUS' => $content_data['content_status']);
-                                
+                        'CONTENT_STATUS' => $content_data['content_status'],
+                        'CONTENT_META_TITLE' => $content_data['content_meta_title'],
+                        'CONTENT_META_DESCRIPTION' => $content_data['content_meta_description'],
+                        'CONTENT_META_KEYWORDS' => $content_data['content_meta_keywords']);
+                               
         } // while content_data
         
         
@@ -371,7 +381,7 @@ for ($ii = 0, $nn = sizeof($content); $ii < $nn; $ii++) {
  <td class="dataTableContent" align="left"><?php echo $content[$ii]['CONTENT_TITLE']; ?>
  <?php
  if ($content[$ii]['CONTENT_DELETE']=='0'){
- echo '<font color="#ff0000">*</font>';
+ echo '<font color="ff0000">*</font>';
 } ?>
  </td>
  <td class="dataTableContent" align="middle"><?php echo $content[$ii]['CONTENT_GROUP']; ?></td>
@@ -385,29 +395,12 @@ for ($ii = 0, $nn = sizeof($content); $ii < $nn; $ii++) {
  if ($content[$ii]['CONTENT_DELETE']=='1'){
 ?>
  <a href="<?php echo xtc_href_link(FILENAME_CONTENT_MANAGER,'special=delete&coID='.$content[$ii]['CONTENT_ID']); ?>" onClick="return confirm('<?php echo CONFIRM_DELETE; ?>')">
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
  <?php echo xtc_image(DIR_WS_ICONS.'delete.gif','Delete','','','style="cursor:pointer" onClick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
-//} // if content
-?>
--->
- <?php echo xtc_image(DIR_WS_ICONS.'delete.gif', ICON_DELETE,'','','style="cursor:pointer" onClick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
 } // if content
 ?>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
  <a href="<?php echo xtc_href_link(FILENAME_CONTENT_MANAGER,'action=edit&coID='.$content[$ii]['CONTENT_ID']); ?>">
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
 <?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif','Edit','','','style="cursor:pointer"').'  '.TEXT_EDIT.'</a>'; ?>
--->
-<?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif', ICON_EDIT,'','','style="cursor:pointer"').'  '.TEXT_EDIT.'</a>'; ?>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content[$ii]['CONTENT_ID']); ?>', 'popup', 'toolbar=0, width=640, height=600')"><?php echo xtc_image(DIR_WS_ICONS.'preview.gif','Preview','','','style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?>
--->
- <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content[$ii]['CONTENT_ID']); ?>', 'popup', 'toolbar=0, width=640, height=600')"><?php echo xtc_image(DIR_WS_ICONS.'preview.gif', ICON_PREVIEW,'','','style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
  </td>
  </tr>
  
@@ -425,7 +418,10 @@ for ($ii = 0, $nn = sizeof($content); $ii < $nn; $ii++) {
                                         file_flag,
                                         content_file,
                                         content_status,
-                                        content_delete
+                                        content_delete,
+            							content_meta_title,
+                                        content_meta_description,
+                                        content_meta_keywords
                                         FROM ".TABLE_CONTENT_MANAGER."
                                         WHERE languages_id='".$i."'
                                         AND parent_id='".$content[$ii]['CONTENT_ID']."'
@@ -445,7 +441,10 @@ for ($ii = 0, $nn = sizeof($content); $ii < $nn; $ii++) {
                         'FILE_FLAG' => $content_1_data['file_flag'],
                         'CONTENT_FILE' => $content_1_data['content_file'],
                         'CONTENT_DELETE' => $content_1_data['content_delete'],
-                        'CONTENT_STATUS' => $content_1_data['content_status']);
+                        'CONTENT_STATUS' => $content_1_data['content_status'],
+         				'CONTENT_META_TITLE' => $content_1_data['content_meta_title'],
+                        'CONTENT_META_DESCRIPTION' => $content_1_data['content_meta_description'],
+                        'CONTENT_META_KEYWORDS' => $content_1_data['content_meta_keywords']);
  }      
 for ($a = 0, $x = sizeof($content_1); $a < $x; $a++) {
 if ($content_1[$a]!='') {
@@ -466,32 +465,15 @@ if ($content_1[$a]!='') {
  if ($content_1[$a]['CONTENT_DELETE']=='1'){
 ?>
  <a href="<?php echo xtc_href_link(FILENAME_CONTENT_MANAGER,'special=delete&coID='.$content_1[$a]['CONTENT_ID']); ?>" onClick="return confirm('<?php echo CONFIRM_DELETE; ?>')">
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
  <?php echo xtc_image(DIR_WS_ICONS.'delete.gif','Delete','','','style="cursor:pointer" onClick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
-//} // if content
-?>
--->
- <?php echo xtc_image(DIR_WS_ICONS.'delete.gif', ICON_DELETE,'','','style="cursor:pointer" onClick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
 } // if content
 ?>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
  <a href="<?php echo xtc_href_link(FILENAME_CONTENT_MANAGER,'action=edit&coID='.$content_1[$a]['CONTENT_ID']); ?>">
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
 <?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif','Edit','','','style="cursor:pointer"').'  '.TEXT_EDIT.'</a>'; ?>
--->
-<?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif', ICON_EDIT,'','','style="cursor:pointer"').'  '.TEXT_EDIT.'</a>'; ?>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content_1[$a]['CONTENT_ID']); ?>', 'popup', 'toolbar=0, width=640, height=600')"
  
-
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+ 
  ><?php echo xtc_image(DIR_WS_ICONS.'preview.gif','Preview','','','style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?>
--->
- ><?php echo xtc_image(DIR_WS_ICONS.'preview.gif', ICON_PREVIEW,'','','style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
  </td>
  </tr> 
  
@@ -527,7 +509,10 @@ switch ($_GET['action']) {
                                         content_file,
                                         content_status,
                                         content_group,
-                                        content_delete
+                                        content_delete,
+            							content_meta_title,
+                                        content_meta_description,
+                                        content_meta_keywords
                                         FROM ".TABLE_CONTENT_MANAGER."
                                         WHERE content_id='".(int)$_GET['coID']."'");
 
@@ -607,8 +592,8 @@ while($file_flag = xtc_db_fetch_array($file_flag_sql)) {
    </tr>
 */
 ?>
-
-    <tr>
+	   
+	  <tr>
       <td width="10%"><?php echo TEXT_SORT_ORDER; ?></td>
       <td width="90%"><?php echo xtc_draw_input_field('sort_order',$content['sort_order'],'size="5"'); ?></td>
     </tr>
@@ -661,6 +646,18 @@ echo '<input type="checkbox" name="groups[]" value="'.$customers_statuses_array[
    <tr> 
       <td width="10%"><?php echo TEXT_HEADING; ?></td>
       <td width="90%"><?php echo xtc_draw_input_field('cont_heading',$content['content_heading'],'size="60"'); ?></td>
+   </tr>
+   <tr>
+   	   <td width="10%"><?php echo 'Meta Title'; ?></td>
+      <td width="90%"><?php echo xtc_draw_input_field('cont_meta_title',$content['content_meta_title'],'size="60"'); ?></td>
+   </tr>
+   <tr> 
+      <td width="10%"><?php echo 'Meta Description'; ?></td>
+      <td width="90%"><?php echo xtc_draw_input_field('cont_meta_description',$content['content_meta_description'],'size="60"'); ?></td>
+   </tr>
+   <tr> 
+      <td width="10%"><?php echo 'Meta Keywords'; ?></td>
+      <td width="90%"><?php echo xtc_draw_input_field('cont_meta_keywords',$content['content_meta_keywords'],'size="60"'); ?></td>
    </tr>
    <tr> 
       <td width="10%" valign="top"><?php echo TEXT_UPLOAD_FILE; ?></td>
@@ -1048,18 +1045,12 @@ for ($xx=0,$zz=sizeof($languages); $xx<$zz;$xx++){
  
   <a href="<?php echo xtc_href_link(FILENAME_CONTENT_MANAGER,'special=delete_product&coID='.$content_array[$ii]['id']).'&pID='.$products_ids[$i]['id']; ?>" onClick="return confirm('<?php echo CONFIRM_DELETE; ?>')">
  <?php
-// BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
-// echo xtc_image(DIR_WS_ICONS.'delete.gif','Delete','','','style="cursor:pointer" onClick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
- echo xtc_image(DIR_WS_ICONS.'delete.gif', ICON_DELETE,'','','style="cursor:pointer" onClick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
-// EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
+ 
+ echo xtc_image(DIR_WS_ICONS.'delete.gif','Delete','','','style="cursor:pointer" onClick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
+
 ?>
  <a href="<?php echo xtc_href_link(FILENAME_CONTENT_MANAGER,'action=edit_products_content&coID='.$content_array[$ii]['id']); ?>">
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
 <?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif','Edit','','','style="cursor:pointer"').'  '.TEXT_EDIT.'</a>'; ?>
--->
-<?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif', ICON_EDIT,'','','style="cursor:pointer"').'  '.TEXT_EDIT.'</a>'; ?>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 
 <?php
 // display preview button if filetype 
@@ -1082,12 +1073,7 @@ if (	eregi('.gif',$content_array[$ii]['file'])
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'pID=media&coID='.$content_array[$ii]['id']); ?>', 'popup', 'toolbar=0, width=640, height=600')"
  
  
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
  ><?php echo xtc_image(DIR_WS_ICONS.'preview.gif','Preview','','',' style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?> 
--->
- ><?php echo xtc_image(DIR_WS_ICONS.'preview.gif', ICON_PREVIEW,'','',' style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?> 
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <?php
 }
 ?> 
