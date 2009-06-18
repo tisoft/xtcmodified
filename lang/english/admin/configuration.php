@@ -528,8 +528,12 @@ define('ACTIVATE_NAVIGATOR_DESC','activate/deactivate productnavigator in produc
 define('QUICKLINK_ACTIVATED_TITLE','activate multilink/copyfunction');
 define('QUICKLINK_ACTIVATED_DESC','The multilink/copyfunction, changes the handling for the "copy product to" action, it allows to select multiple categories to copy/link a product with 1 click');
 
-define('DOWNLOAD_UNALLOWED_PAYMENT_TITLE', 'Download Paymentmodules');
-define('DOWNLOAD_UNALLOWED_PAYMENT_DESC', 'Not allowed Payment modules for downloads. List, seperated by comma, e.g. {banktransfer,cod,invoice,moneyorder}');
+// BOF - Tomcraft - 2009-06-18 - make clear this is a list of NOT allowed download payment modules
+//define('DOWNLOAD_UNALLOWED_PAYMENT_TITLE', 'Download Paymentmodules');
+//define('DOWNLOAD_UNALLOWED_PAYMENT_DESC', 'Not allowed Payment modules for downloads. List, seperated by comma, e.g. {banktransfer,cod,invoice,moneyorder}');
+define('DOWNLOAD_UNALLOWED_PAYMENT_TITLE', 'Unallowed Download Paymentmodules');
+define('DOWNLOAD_UNALLOWED_PAYMENT_DESC', '<strong>NOT</strong> allowed Payment modules for downloads. List, seperated by comma, e.g. {banktransfer,cod,invoice,moneyorder}');
+// EOF - Tomcraft - 2009-06-18 - make clear this is a list of NOT allowed download payment modules
 define('DOWNLOAD_MIN_ORDERS_STATUS_TITLE', 'Min. Orderstatus');
 define('DOWNLOAD_MIN_ORDERS_STATUS_DESC', 'Min. orderstatus to allow download of files.');
 
