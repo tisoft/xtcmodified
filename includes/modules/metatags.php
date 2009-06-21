@@ -11,7 +11,7 @@
 //	(c) 2003 xt:Commerce (metatags.php, v.1140 2005/08/10); www.xt-commerce.de
 //	(c) 2003 nextcommerce (metatags.php, v1.7 2003/08/14); www.nextcommerce.org
 // ---------------------------------------------------------------------------------------
-//	Version 0.95 / 16. Juni 2009
+//	Version 0.96 / 21. Juni 2009
 //  - 	Umwandlung von Umlauten in Keywords statt in ae und oe JETZT in &auml; &ouml;
 //	-	"Bindestrich-Wörter" (z.B. T-Shirt oder DVD-Player) werden in den Keywords nicht 
 //		mehr getrennt
@@ -29,6 +29,7 @@
 //		und Kategorienname)
 //	- 	Bei allen Seiten, die nicht "Kategorie", "Startseite", "Content", "Produkt" o.ä.
 //		sind, wird der Title aus den Einträgen im $breadcrumb-Objekt zusammengesetzt
+// 	- 	BugFix: BreadCrumb wird nicht mehr verkürzt
 // ---------------------------------------------------------------------------------------
 //	Inspired by "Dynamic Meta" - Ein WordPress-PlugIn von Michael Schwarz
 //	http://www.php-vision.de/plugins-scripte/dynamicmeta-wpplugin.php
@@ -86,7 +87,8 @@
 // ---------------------------------------------------------------------------------------
 //	Title für "sonstige" Seiten
 // ---------------------------------------------------------------------------------------
-	$breadcrumbTitle = 	array_pop($breadcrumb->_trail);
+	//$breadcrumbTitle = 	array_pop($breadcrumb->_trail);
+	$breadcrumbTitle = 	end($breadcrumb->_trail); // <-- BugFix
 	$breadcrumbTitle = 	$breadcrumbTitle['title']; 
 // ---------------------------------------------------------------------------------------
 
