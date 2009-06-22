@@ -78,7 +78,7 @@ if ($_GET['coID'] == 7) {
 
 	}
 
-	$smarty->assign('CONTACT_HEADING', $shop_content_data['content_title']);
+	$smarty->assign('CONTACT_HEADING', $shop_content_data['content_heading']);
 	if (isset ($_GET['action']) && ($_GET['action'] == 'success')) {
 		$smarty->assign('success', '1');
 		$smarty->assign('BUTTON_CONTINUE', '<a href="'.xtc_href_link(FILENAME_DEFAULT).'">'.xtc_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE).'</a>');
