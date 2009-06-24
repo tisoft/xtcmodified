@@ -94,9 +94,9 @@
   }
 
     // Include Template Engine
-// BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.25
+// BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
 //  require(DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');
-  require(DIR_WS_CLASSES . 'Smarty_2.6.25/Smarty.class.php');
-// EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.25
+  require(DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
+// EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
 
 ?>
