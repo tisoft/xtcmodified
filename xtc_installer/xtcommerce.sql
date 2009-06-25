@@ -1850,7 +1850,7 @@ INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
 
 # Germany
 INSERT INTO zones VALUES (79,81,'NDS','Niedersachsen');
-INSERT INTO zones VALUES (80,81,'BAW','Baden-W&uuml;rttemberg');
+INSERT INTO zones VALUES (80,81,'BAW','Baden-Württemberg');
 INSERT INTO zones VALUES (81,81,'BAY','Bayern');
 INSERT INTO zones VALUES (82,81,'BER','Berlin');
 INSERT INTO zones VALUES (83,81,'BRG','Brandenburg');
@@ -1864,14 +1864,14 @@ INSERT INTO zones VALUES (90,81,'SAR','Saarland');
 INSERT INTO zones VALUES (91,81,'SAS','Sachsen');
 INSERT INTO zones VALUES (92,81,'SAC','Sachsen-Anhalt');
 INSERT INTO zones VALUES (93,81,'SCN','Schleswig-Holstein');
-INSERT INTO zones VALUES (94,81,'THE','Th&uuml;ringen');
+INSERT INTO zones VALUES (94,81,'THE','Thüringen');
 
 # Austria
 INSERT INTO zones VALUES (95,14,'WI','Wien');
-INSERT INTO zones VALUES (96,14,'NO','Nieder&ouml;sterreich');
-INSERT INTO zones VALUES (97,14,'OO','Ober&ouml;sterreich');
+INSERT INTO zones VALUES (96,14,'NO','Niederösterreich');
+INSERT INTO zones VALUES (97,14,'OO','Oberösterreich');
 INSERT INTO zones VALUES (98,14,'SB','Salzburg');
-INSERT INTO zones VALUES (99,14,'KN','K&auml;rnten');
+INSERT INTO zones VALUES (99,14,'KN','Kärnten');
 INSERT INTO zones VALUES (100,14,'ST','Steiermark');
 INSERT INTO zones VALUES (101,14,'TI','Tirol');
 INSERT INTO zones VALUES (102,14,'BL','Burgenland');
@@ -1887,7 +1887,7 @@ INSERT INTO zones VALUES (109,204,'BS','Basel-Stadt');
 INSERT INTO zones VALUES (110,204,'FR','Freiburg');
 INSERT INTO zones VALUES (111,204,'GE','Genf');
 INSERT INTO zones VALUES (112,204,'GL','Glarus');
-INSERT INTO zones VALUES (113,204,'JU','Graub&uuml;nden');
+INSERT INTO zones VALUES (113,204,'JU','Graubünden');
 INSERT INTO zones VALUES (114,204,'JU','Jura');
 INSERT INTO zones VALUES (115,204,'LU','Luzern');
 INSERT INTO zones VALUES (116,204,'NE','Neuenburg');
@@ -1903,7 +1903,7 @@ INSERT INTO zones VALUES (125,204,'UR','Uri');
 INSERT INTO zones VALUES (126,204,'VD','Waadt');
 INSERT INTO zones VALUES (127,204,'VS','Wallis');
 INSERT INTO zones VALUES (128,204,'ZG','Zug');
-INSERT INTO zones VALUES (129,204,'ZH','Z&uuml;rich');
+INSERT INTO zones VALUES (129,204,'ZH','Zürich');
 
 # Spain
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'A Coruña','A Coruña');
