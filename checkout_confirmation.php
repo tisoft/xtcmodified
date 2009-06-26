@@ -162,18 +162,18 @@ if (sizeof($order->info['tax_groups']) > 1) {
 } else {
 
 }
-//BOF - 2009-06-05 - replace tyble with div
+//BOF - 2009-06-05 - replace table with div
 //$data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
 $data_products = '';
-//EOF - 2009-06-05 - replace tyble with div
+//EOF - 2009-06-05 - replace table with div
 for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 
-	//BOF - 2009-06-05 - replace tyble with div
+	//BOF - 2009-06-05 - replace table with div
 	//$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";
 	$data_products .= '<div style="width:100%"><div style="float:left;width:70%">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</div><div style="float:left;width:29%" align="right">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</div><br style="clear:both" /></div>' . "\n";
-	//EOF - 2009-06-05 - replace tyble with div
+	//EOF - 2009-06-05 - replace table with div
 	if (ACTIVATE_SHIPPING_STATUS == 'true') {
-		//BOF - 2009-06-05 - replace tyble with div
+		//BOF - 2009-06-05 - replace table with div
 		/*$data_products .= '<tr>
 							<td class="main" align="left" valign="top">
 							<nobr><small>' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '
@@ -181,12 +181,12 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 							<td class="main" align="right" valign="top">&nbsp;</td></tr>';
 		*/		
 		$data_products .= '<div style="font-size:smaller">' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '</div>';
-		//EOF - 2009-06-05 - replace tyble with div
+		//EOF - 2009-06-05 - replace table with div
 
 	}
 	if ((isset ($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0)) {
 		for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j++) {
-			//BOF - 2009-06-05 - replace tyble with div
+			//BOF - 2009-06-05 - replace table with div
 			$data_products .= '<div>&nbsp;<em> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</em></div>';
 			/*$data_products .= '<tr>
 								<td class="main" align="left" valign="top">
@@ -194,7 +194,7 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 								</i></small><nobr></td>
 								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
 			*/
-			//EOF - 2009-06-05 - replace tyble with div
+			//EOF - 2009-06-05 - replace table with div
 		}
 	}
 
@@ -202,20 +202,20 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 
 	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
 		if (sizeof($order->info['tax_groups']) > 1)
-			//BOF - 2009-06-05 - replace tyble with div
+			//BOF - 2009-06-05 - replace table with div
 			//$data_products .= '            <td class="main" valign="top" align="right">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
 			$data_products .= '<div style="display:block">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</div>' . "\n";
-			//EOF - 2009-06-05 - replace tyble with div
+			//EOF - 2009-06-05 - replace table with div
 	}
-	//BOF - 2009-06-05 - replace tyble with div
+	//BOF - 2009-06-05 - replace table with div
 	//$data_products .= '</tr>' . "\n";
 	$data_products .= '';
-	//EOF - 2009-06-05 - replace tyble with div
+	//EOF - 2009-06-05 - replace table with div
 }
-//BOF - 2009-06-05 - replace tyble with div
+//BOF - 2009-06-05 - replace table with div
 //$data_products .= '</table>';
 $data_products .= '';
-//EOF - 2009-06-05 - replace tyble with div
+//EOF - 2009-06-05 - replace table with div
 
 $smarty->assign('PRODUCTS_BLOCK', $data_products);
 
@@ -225,18 +225,18 @@ if ($order->info['payment_method'] != 'no_payment' && $order->info['payment_meth
 }
 $smarty->assign('PAYMENT_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
-//BOF - 2009-06-05 - replace tyble with div
+//BOF - 2009-06-05 - replace table with div
 //$total_block = '<table>';
 $total_block = '';
-//EOF - 2009-06-05 - replace tyble with div
+//EOF - 2009-06-05 - replace table with div
 if (MODULE_ORDER_TOTAL_INSTALLED) {
 	$order_total_modules->process();
 	$total_block .= $order_total_modules->output();
 }
-//BOF - 2009-06-05 - replace tyble with div
+//BOF - 2009-06-05 - replace table with div
 //$total_block = '</table>';
 $total_block .= '';
-//EOF - 2009-06-05 - replace tyble with div
+//EOF - 2009-06-05 - replace table with div
 $smarty->assign('TOTAL_BLOCK', $total_block);
 
 if (is_array($payment_modules->modules)) {
@@ -245,7 +245,7 @@ if (is_array($payment_modules->modules)) {
 		$payment_info = $confirmation['title'];
 		for ($i = 0, $n = sizeof($confirmation['fields']); $i < $n; $i++) {
 
-//BOF - 2009-06-05 - replace tyble with div
+//BOF - 2009-06-05 - replace table with div
 			/*$payment_info .= '<table>
 								<tr>
 						                <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
@@ -255,7 +255,7 @@ if (is_array($payment_modules->modules)) {
 						              </tr></table>';
 			*/
 			$payment_info .= '<div>'.$confirmation['fields'][$i]['title'].stripslashes($confirmation['fields'][$i]['field']).'</div>';
-//EOF - 2009-06-05 - replace tyble with div
+//EOF - 2009-06-05 - replace table with div
 
 		}
 		$smarty->assign('PAYMENT_INFORMATION', $payment_info);
