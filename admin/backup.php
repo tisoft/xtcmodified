@@ -69,6 +69,10 @@
             $columns = implode($info['columns'], ', ');
             if ($kname == 'PRIMARY') {
               $schema .= '  PRIMARY KEY (' . $columns . ')';
+// BOF - Tomcraft - 2009-06-28 - Update backup.php to resolve backup issue for new index of type FULLTEXT created on update r93
+            } elseif ($kname == 'content_meta_title') {
+              $schema .= '  FULLTEXT ' . $kname . ' (' . $columns . ')';
+// EOF - Tomcraft - 2009-06-28 - Update backup.php to resolve backup issue for new index of type FULLTEXT created on update r93
             } elseif ($info['unique']) {
               $schema .= '  UNIQUE ' . $kname . ' (' . $columns . ')';
             } else {
