@@ -1,6 +1,6 @@
 User-agent: *
-Disallow: /*?XTCsid
-Disallow: /*&XTCsid
+Disallow: /*XTCsid
+Disallow: /*action=
 Disallow: /admin/
 Disallow: /cache/
 Disallow: /callback/
