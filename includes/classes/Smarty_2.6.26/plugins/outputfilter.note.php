@@ -31,7 +31,7 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
 
 // BOF - Christian - 2009-06-14 - modified copyright phrase
 //	$cop='<div align="center" style="font-size:11px;">eCommerce Engine &copy; 2006 <a rel="nofollow" href="http://www.xt-commerce.com/" target="_blank">xt:Commerce Shopsoftware</a> | eCommerce Engine modifiziert 2009 von <a href="http://www.jung-gestalten.com/" rel="nofollow" target="_blank">JUNG/GESTALTEN.com</a></div>';
-	$cop='<div align="center" style="font-size:11px;">eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" target="_blank">xt:Commerce</a><br />eCommerce Engine &copy; 2008 - 2009 <a href="http://www.xtc-modified.org" target="_blank">xtcModfied.org</a> supported under GNU/GPL</div>';
+	$cop='<div align="center" style="font-size:11px;">eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" target="_blank">xt:Commerce</a><br />eCommerce Engine &copy; 2008 - 2009 <a href="http://www.xtc-modified.org" target="_blank">xtcModified.org</a> supported under GNU/GPL</div>';
 // EOF - Christian - 2009-06-12 - modified copyright phrase
 
 //BOF - Dokuman - 2009-05-03 - Produce Valid Links
