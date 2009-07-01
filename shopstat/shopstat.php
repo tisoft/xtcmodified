@@ -58,7 +58,10 @@ if( $shopstat_debug ){$shopstat_debug_msg .= '\nRESULT:\n------------\nNOTLOGGED
         $log_action = "";
         }
 
-    $logit = true;
+//BOF - Dokuman - 2009-07-01 - disable shopstat logging
+    //$logit = true;
+    $logit = false;    
+//EOF - Dokuman - 2009-07-01 - disable shopstat logging
 
 //------------------------------------------------------------------------------
 //-- START GETTING ACTION INFORMATION
