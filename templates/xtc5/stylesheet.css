@@ -149,7 +149,7 @@ table td {
 /* HEADER WITH LOGO, SEARCH BOX AND LANGUAGE SELECTION */
 #header {
 	height:115px;
-	background: #666 url("img/top_logo.jpg") no-repeat;
+	background: #AD4C79 url("img/top_logo.jpg") no-repeat;
 	border-bottom: 1px solid #333;
 	border-top: 10px solid #fff;
 	border-bottom:1px solid #fff;
@@ -195,7 +195,7 @@ table td {
 }
 /* TOPMENU AS LIST */
 #topmenuwrap {
-	background: url(img/bg_topmenu.gif) repeat-x;
+	background: #333 url(img/bg_topmenu.gif) repeat-x;
 }
 #topmenu {
 	float:left;
@@ -268,6 +268,7 @@ table td {
 }
 /* CATEGORY MENU */
 h2.categoryheader {
+	background-color:#868686;
 	background-image:url(img/bg_boxheader.gif);
 	height:28px;
 	font-size:12px;
@@ -349,6 +350,7 @@ ul#categorymenu li.level3 a:hover {
 }
 /* BOXES GLOBAL DEFINITION */
 h2.boxheader {
+	background-color:#868686;
 	background-image:url(img/bg_boxheader.gif);
 	height:28px;
 	font-size:12px;
@@ -430,6 +432,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 }
 /* CART BOX */
 h2.boxcartheader {
+	background-color:#AD4C79;
 	background-image:url(img/bg_boxheader_cart.gif);
 	height:28px;
 	font-size:12px;
