@@ -7,10 +7,10 @@
     
     H.H.G. group
     Hasan H. Gürsoy
-	Updated for FCKEditor 2.6.3 by Hetfield
+	Updated for FCKEditor 2.6.x by Hetfield
 	 
     Copyright (c) 2005 XT-Commerce & H.H.G. group
-	Copyright (c) 2008 Hetfield
+	Copyright (c) 2008 Hetfield - http://www.MerZ-IT-SerVice.de
 		   
     Released under the GNU General Public License 
 ---------------------------------------------------------------------------------------*/
@@ -147,9 +147,7 @@ $media_path = '&Type=Media';
                         	   			}
                         	   	</script>';
                         break;
-    }
-    
+    }    
    	return $val;
-
 }
 ?>
