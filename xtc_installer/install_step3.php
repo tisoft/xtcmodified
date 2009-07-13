@@ -10,6 +10,7 @@
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(install_3.php,v 1.6 2002/08/15); www.oscommerce.com 
+   (c) 2009 xtcModified (install_step3.php,v 1.00 2009/07/13); www.www.xtc-modified.org
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -21,9 +22,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>XT-Commerce Installer - STEP 3 / DB Import</title>
+<title>xtcModified Installer - STEP 3 / DB Import</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <style type="text/css">
+
+body { background: #eee; font-family: Arial, sans-serif; font-size: 12px;}
+table,td,div { font-family: Arial, sans-serif; font-size: 12px;}
+h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
+
 <!--
 .messageStackError, .messageStackWarning { font-family: Verdana, Arial, sans-serif; font-weight: bold; font-size: 10px; background-color: #; }
 -->
@@ -31,64 +37,28 @@
 </head>
 
 <body>
-<table width="800" height="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+<table width="800" style="border:30px solid #fff;" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr> 
     <td height="95" colspan="2" ><table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
-          <td width="1"><img src="images/logo.gif"></td>
-          <td background="images/bg_top.jpg">&nbsp;</td>
+          <td><img src="images/logo.gif" alt="" /></td>
         </tr>
       </table>
   </tr>
   <tr> 
-    <td width="180" valign="top" bgcolor="F3F3F3" style="border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid; border-color: #6D6D6D;"> 
-      <table width="180" border="0" cellspacing="0" cellpadding="0">
-        <tr> 
-          <td height="17" background="images/bg_left_blocktitle.gif">
-<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><font color="FFAF00">xtc:</font><font color="#999999">Install</font></b></font></div></td>
-        </tr>
-        <tr> 
-          <td bgcolor="F3F3F3" ><br /> 
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr> 
-                <td width="10">&nbsp;</td>
-                <td width="135"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_LANGUAGE; ?></font></td>
-                <td width="35"><img src="images/icons/ok.gif"></td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_DB_CONNECTION; ?></font></td>
-                <td><img src="images/icons/ok.gif"></td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
-                  &nbsp;&nbsp;&nbsp;<img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_DB_IMPORT; ?></font></td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_WEBSERVER_SETTINGS; ?></font></td>
-                <td>&nbsp;</td>
-              </tr>
-            </table>
-            <br /></td>
-        </tr>
-      </table>
-    </td>
-    <td align="right" valign="top" style="border-top: 1px solid; border-bottom: 1px solid; border-right: 1px solid; border-color: #6D6D6D;"> 
+    <td align="center" valign="top"> 
       <br />
       <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> <img src="images/title_index.gif" width="586" height="100" border="0"><br />
+          <td><img src="images/step3.gif" width="705" height="180" border="0"><br />
             <br />
             <br />
-            <?php echo TEXT_WELCOME_STEP3; ?></font></td>
+            <div style="border:1px solid #ccc; background:#fff; padding:10px;">
+            <?php echo TEXT_WELCOME_STEP3; ?></div></td>
         </tr>
       </table>
-
-      <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/break-el.gif" width="100%" height="1"></font></p>
-      <table width="98%" border="0">
+<br />
+      <table width="95%" border="0">
         <tr>
           <td> 
             <?php
@@ -114,16 +84,16 @@
 ?>
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
               <tr> 
-                <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b> 
-                  <img src="images/icons/error.gif" width="16" height="16"><?php echo TEXT_TITLE_ERROR; ?></b></font></td>
+                <td style="border-bottom: 1px solid; border-color: #CFCFCF">
+                  <h1><?php echo TEXT_TITLE_ERROR; ?></h1></td>
                 <td style="border-bottom: 1px solid; border-color: #CFCFCF">&nbsp;</td>
               </tr>
             </table>
-            <font size="2" face="Verdana, Arial, Helvetica, sans-serif"><table border="0" cellpadding="0" cellspacing="0" bgcolor="f3f3f3">
+            <table border="0" cellpadding="0" cellspacing="0" bgcolor="f3f3f3">
             <tr>
-              <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo $db_error; ?></b></font></td>
+              <td><b><?php echo $db_error; ?></b></td>
   </tr>
-</table></font>
+</table>
 
 <form name="install" action="install_step3.php" method="post">
 
@@ -156,10 +126,8 @@
 ?>
             <table width="100%" border="0" cellpadding="0" cellspacing="0">
               <tr> 
-                <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
-                  <?php echo TEXT_TITLE_SUCCESS; ?></b></font></td>
-                <td style="border-bottom: 1px solid; border-color: #CFCFCF">&nbsp;</td>
-              </tr>
+                <td align="center"><div style="border:1px solid #ccc; background:#fff; padding:10px;"><h1><?php echo TEXT_TITLE_SUCCESS; ?></h1></div></td>
+                </tr>
             </table>
             <form name="install" action="install_step4.php" method="post">
 
@@ -177,17 +145,19 @@
         }
       }
 ?>
-
+<br />
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
 <?php
       if (xtc_in_array('configure', $_POST['install'])) {
 ?>
-    <td align="center"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+
+    <td align="right"><input type="image" src="images/button_continue.gif"></td>
 <?php
       } else {
 ?>
-    <td align="center"><a href="index.php"><img src="images/button_continue.gif" border="0" alt="Continue"></a></td>
+
+    <td align="right"><a href="index.php"><img src="images/button_continue.gif"></a></td>
 <?php
       }
 ?>
@@ -204,16 +174,14 @@
                   </td>
         </tr>
       </table>
-      <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"></font></p>
+      
       </td>
   </tr>
 </table>
 
+<br />
+<div align="center" style="font-family:Arial, sans-serif; font-size:11px;">eCommerce Engine 2006 based on xt:Commerce<br />
+eCommerce Engine © 2008 - 2009 xtcModified.org supported under GNU/GPL</div>
 
-
-<p align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_FOOTER; ?><br />
-  </font></p>
-<p align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
-  </font></p>
 </body>
 </html>

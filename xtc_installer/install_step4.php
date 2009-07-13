@@ -11,6 +11,7 @@
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(install_4.php,v 1.9 2002/08/19); www.oscommerce.com
    (c) 2003	 nextcommerce (install_step4.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2009 xtcModified (install_step4,v 1.00 2009/07/13); www.www.xtc-modified.org
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -23,9 +24,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>XT-Commerce Installer - STEP 4 / Webserver Configuration</title>
+<title>xtcModified Installer - STEP 4 / Webserver Configuration</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <style type="text/css">
+
+body { background: #eee; font-family: Arial, sans-serif; font-size: 12px;}
+table,td,div { font-family: Arial, sans-serif; font-size: 12px;}
+h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
+
 <!--
 .messageStackError, .messageStackWarning { font-family: Verdana, Arial, sans-serif; font-weight: bold; font-size: 10px; background-color: #; }
 -->
@@ -33,108 +39,69 @@
 </head>
 
 <body>
-<table width="800" height="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+<table width="800" style="border:30px solid #fff;" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr> 
     <td height="95" colspan="2" ><table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
-          <td width="1"><img src="images/logo.gif"></td>
-          <td background="images/bg_top.jpg">&nbsp;</td>
+          <td><img src="images/logo.gif" alt="" /></td>
         </tr>
       </table>
   </tr>
   <tr> 
-    <td width="180" valign="top" bgcolor="F3F3F3" style="border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid; border-color: #6D6D6D;"> 
-      <table width="180" border="0" cellspacing="0" cellpadding="0">
-        <tr> 
-          <td height="17" background="images/bg_left_blocktitle.gif">
-<div align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><font color="FFAF00">xtc:</font><font color="#999999">Install</font></b></font></div></td>
-        </tr>
-        <tr> 
-          <td bgcolor="F3F3F3" ><br /> 
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr> 
-                <td width="10">&nbsp;</td>
-                <td width="135"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_LANGUAGE; ?></font></td>
-                <td width="35"><img src="images/icons/ok.gif"></td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_DB_CONNECTION; ?></font></td>
-                <td><img src="images/icons/ok.gif"></td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
-                  &nbsp;&nbsp;&nbsp;<img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_DB_IMPORT; ?></font></td>
-                <td><img src="images/icons/ok.gif"></td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_WEBSERVER_SETTINGS; ?></font></td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;<img src="images/icons/arrow02.gif" width="13" height="6"><?php echo BOX_WRITE_CONFIG; ?></font></td>
-                <td>&nbsp;</td>
-              </tr>
-            </table>
-            <br /></td>
-        </tr>
-      </table>
-    </td>
-    <td align="right" valign="top" style="border-top: 1px solid; border-bottom: 1px solid; border-right: 1px solid; border-color: #6D6D6D;"> 
+    
+    <td align="center" valign="top"> 
       <br />
       <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> <img src="images/title_index.gif" width="586" height="100" border="0"><br />
+          <td><img src="images/step4.gif" width="705" height="180" border="0"><br />
             <br />
             <br />
-            <?php echo TEXT_WELCOME_STEP4; ?></font></td>
+            <div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo TEXT_WELCOME_STEP4; ?></div></td>
         </tr>
       </table>
 
-      <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/break-el.gif" width="100%" height="1"></font></p>
+     <br />
 
-      <table width="98%" border="0" cellpadding="0" cellspacing="0">
+      <table width="95%" border="0" cellpadding="0" cellspacing="0">
         <tr>
           <td> <table width="100%" border="0" cellpadding="0" cellspacing="0">
               <tr> 
-                <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
-                  <?php echo TITLE_WEBSERVER_CONFIGURATION; ?></b></font></td>
-                <td style="border-bottom: 1px solid; border-color: #CFCFCF">&nbsp;</td>
+                <td>
+                 <h1> <?php echo TITLE_WEBSERVER_CONFIGURATION; ?></h1></td>
+               
               </tr>
             </table>
+            <div style="border:1px solid #ccc; background:#fff; padding:10px;">
             <?php
   if ( ( (file_exists(DIR_FS_CATALOG . 'includes/configure.php')) && (!is_writeable(DIR_FS_CATALOG . 'includes/configure.php')) ) || ( (file_exists(DIR_FS_CATALOG . 'admin/includes/configure.php')) && (!is_writeable(DIR_FS_CATALOG . 'admin/includes/configure.php')) ) || ( (file_exists(DIR_FS_CATALOG . 'admin/includes/local/configure.php')) && (!is_writeable(DIR_FS_CATALOG . 'admin/includes/local/configure.php')) ) || ( (file_exists(DIR_FS_CATALOG . 'includes/local/configure.php')) && (!is_writeable(DIR_FS_CATALOG . 'includes/local/configure.php')) )) {
 ?>
-            <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><img src="images/icons/error.gif" width="16" height="16"> 
-              <strong><font color="#FF0000" size="2"><?php echo TITLE_STEP4_ERROR; ?></font></strong></font></p>
+            <p><img src="images/icons/error.gif" width="16" height="16"> 
+              <strong><font color="#FF0000" size="2"><?php echo TITLE_STEP4_ERROR; ?></strong></p>
             <p>
-            <div class="boxMe"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_STEP4_ERROR; ?></font>
+            <div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo TEXT_STEP4_ERROR; ?>
               <ul class="boxMe">
-                <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">cd <?php echo DIR_FS_CATALOG; ?>admin/includes/</font></li>
-                <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">touch configure.php</font></li>
-                <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">chmod 706 configure.php</font></li>
-                <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">chmod 706 configure.org.php</font></li>
+                <li>cd <?php echo DIR_FS_CATALOG; ?>admin/includes/</li>
+                <li>touch configure.php</li>
+                <li>chmod 706 configure.php</li>
+                <li>chmod 706 configure.org.php</li>
               </ul>
               <ul class="boxMe">
-                <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">cd 
-                  <?php echo DIR_FS_CATALOG; ?>includes/</font></li>
-                <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">touch 
-                  configure.php</font></li>
+                <li>cd 
+                  <?php echo DIR_FS_CATALOG; ?>includes/</li>
+                <li>touch 
+                  configure.php</li>
 
-                <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">chmod
-                  706 configure.php</font> </li>
-                  <li><font size="1" face="Verdana, Arial, Helvetica, sans-serif">chmod 706 configure.org.php</font></li>
+                <li>chmod
+                  707 configure.php </li>
+                  <li>chmod 707 configure.org.php</li>
               </ul>
             </div>
-            <font size="1" face="Verdana, Arial, Helvetica, sans-serif">&nbsp; </font><font size="1">
-<p class="noteBox"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_STEP4_ERROR_1; ?></font></p>
-            <p class="noteBox"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_STEP4_ERROR_2; ?></font></p>
-            </font>
+           
+<p class="noteBox"><?php echo TEXT_STEP4_ERROR_1; ?></p>
+            <p class="noteBox"><font face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_STEP4_ERROR_2; ?></p>
+            
             <form name="install" action="install_step4.php" method="post">
-              <font size="1" face="Verdana, Arial, Helvetica, sans-serif">
+              
               <?php
     reset($_POST);
     while (list($key, $value) = each($_POST)) {
@@ -149,23 +116,23 @@
       }
     }
 ?>
-              </font>
+              
               <table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr> 
-                  <td align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></font></td>
-                  <td align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">
+                  <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
+                  <td align="center">
                     <input type="image" src="images/button_retry.gif" border="0" alt="Retry">
-                    </font></td>
+                    </td>
                 </tr>
               </table>
             </form>
-            <font size="1" face="Verdana, Arial, Helvetica, sans-serif">
+            
             <?php
   } else {
 ?>
-            </font>
+            
             <form name="install" action="install_step5.php" method="post">
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_VALUES; ?><br />
+              <p><?php echo TEXT_VALUES; ?><br />
                 <br />
                 includes/configure.php<br />
                 includes/configure.org.php<br />
@@ -174,70 +141,71 @@
               </p>
               <table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr> 
-                  <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
-                    <?php echo TITLE_CHECK_CONFIGURATION; ?></b></font></td>
+                  <td style="border-bottom: 1px solid; border-color: #CFCFCF"><b>
+                    <?php echo TITLE_CHECK_CONFIGURATION; ?></b></td>
                   <td style="border-bottom: 1px solid; border-color: #CFCFCF">&nbsp;</td>
                 </tr>
               </table>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_HTTP; ?></b><br />
+              <p><b><?php echo TEXT_HTTP; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('HTTP_SERVER', 'http://' . getenv('HTTP_HOST')); ?><br />
-                <?php echo TEXT_HTTP_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_HTTPS; ?></b><br />
+                <?php echo TEXT_HTTP_LONG; ?></p>
+              <p><b><?php echo TEXT_HTTPS; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('HTTPS_SERVER', 'https://' . getenv('HTTP_HOST')); ?><br />
-                <?php echo TEXT_HTTPS_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo xtc_draw_checkbox_field_installer('ENABLE_SSL', 'true'); ?> 
+                <?php echo TEXT_HTTPS_LONG; ?></p>
+              <p><?php echo xtc_draw_checkbox_field_installer('ENABLE_SSL', 'true'); ?> 
                 <b><?php echo TEXT_SSL; ?>s</b><br />
-               <?php echo TEXT_SSL_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_WS_ROOT; ?></b><br />
+               <?php echo TEXT_SSL_LONG; ?></p>
+              <p><b><?php echo TEXT_WS_ROOT; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DIR_FS_DOCUMENT_ROOT'); ?><br />
-                <?php echo TEXT_WS_ROOT_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_WS_XTC; ?></b><br />
+                <?php echo TEXT_WS_ROOT_LONG; ?></p>
+              <p><b><?php echo TEXT_WS_XTC; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DIR_FS_CATALOG'); ?><br />
-                <?php echo TEXT_WS_XTC_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_WS_ADMIN; ?></b><br />
+                <?php echo TEXT_WS_XTC_LONG; ?></p>
+              <p><b><?php echo TEXT_WS_ADMIN; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DIR_FS_ADMIN'); ?><br />
-                <?php echo TEXT_WS_ADMIN_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_WS_CATALOG; ?></b><br />
+                <?php echo TEXT_WS_ADMIN_LONG; ?></p>
+              <p><b><?php echo TEXT_WS_CATALOG; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DIR_WS_CATALOG'); ?><br />
-                <?php echo TEXT_WS_CATALOG_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_WS_ADMINTOOL; ?></b><br />
+                <?php echo TEXT_WS_CATALOG_LONG; ?></p>
+              <p><b><?php echo TEXT_WS_ADMINTOOL; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DIR_WS_ADMIN'); ?><br />
-                <?php echo TEXT_WS_ADMINTOOL_LONG; ?></font></p>
+                <?php echo TEXT_WS_ADMINTOOL_LONG; ?></p>
               <table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr> 
-                  <td style="border-bottom: 1px solid; border-color: #CFCFCF"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><img src="images/icons/arrow-setup.jpg" width="16" height="16"> 
-                    <?php echo TITLE_CHECK_DATABASE; ?></b></font></td>
+                  <td style="border-bottom: 1px solid; border-color: #CFCFCF"><b>
+                    <?php echo TITLE_CHECK_DATABASE; ?></b></td>
                   <td style="border-bottom: 1px solid; border-color: #CFCFCF">&nbsp;</td>
                 </tr>
               </table>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_DATABASE_SERVER; ?></b><br />
+              <p><b><?php echo TEXT_DATABASE_SERVER; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DB_SERVER'); ?><br />
-                <?php echo TEXT_DATABASE_SERVER_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_USERNAME; ?></b><br />
+                <?php echo TEXT_DATABASE_SERVER_LONG; ?></p>
+              <p><b><?php echo TEXT_USERNAME; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DB_SERVER_USERNAME'); ?><br />
-                <?php echo TEXT_USERNAME_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_PASSWORD; ?></b><br />
+                <?php echo TEXT_USERNAME_LONG; ?></p>
+              <p><b><?php echo TEXT_PASSWORD; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DB_SERVER_PASSWORD'); ?><br />
-                <?php echo TEXT_PASSWORD_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo TEXT_DATABASE; ?></b><br />
+                <?php echo TEXT_PASSWORD_LONG; ?></p>
+              <p><b><?php echo TEXT_DATABASE; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DB_DATABASE'); ?><br />
-                <?php echo TEXT_DATABASE_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo xtc_draw_checkbox_field_installer('USE_PCONNECT', 'true'); ?> 
+                <?php echo TEXT_DATABASE_LONG; ?></p>
+              <p><?php echo xtc_draw_checkbox_field_installer('USE_PCONNECT', 'true'); ?> 
                 <b><?php echo TEXT_PERSIST; ?></b><br />
-                <?php echo TEXT_PERSIST_LONG; ?></font></p>
-              <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo xtc_draw_radio_field_installer('STORE_SESSIONS', 'files'); ?> 
+                <?php echo TEXT_PERSIST_LONG; ?></p>
+              <p><?php echo xtc_draw_radio_field_installer('STORE_SESSIONS', 'files'); ?> 
                 <b><?php echo TEXT_SESS_FILE; ?></b><br />
                 <?php echo xtc_draw_radio_field_installer('STORE_SESSIONS', 'mysql', true); ?>  
                 <b><?php echo TEXT_SESS_DB; ?></b> ( EMPFOHLEN )<br />
-                <?php echo TEXT_SESS_LONG; ?></font></p>
+                <?php echo TEXT_SESS_LONG; ?></p>
+</div>
 
+<br />
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="hidden" name="install[]" value="configure"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+    <td align="right"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel" /></a> <input type="hidden" name="install[]" value="configure"> <input type="image" src="images/button_continue.gif"></td>
   </tr>
 </table>
-
+<br />
 </form>
 
 <?php
@@ -248,15 +216,13 @@
         </tr>
       </table>
       
-    <p>&nbsp;</p></td>
+  </td>
   </tr>
 </table>
 
+<br />
+<div align="center" style="font-family:Arial, sans-serif; font-size:11px;">eCommerce Engine 2006 based on xt:Commerce<br />
+eCommerce Engine © 2008 - 2009 xtcModified.org supported under GNU/GPL</div>
 
-
-<p align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><?php echo TEXT_FOOTER; ?><br />
-  </font></p>
-<p align="center"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> 
-  </font></p>
 </body>
 </html>

@@ -8,12 +8,13 @@
    Copyright (c) 2003 XT-Commerce
    --------------------------------------------------------------
    based on:
-   (c) 2003	 nextcommerce (german.php,v 1.8 2003/08/13); www.nextcommerce.org
+   (c) 2003	 nextcommerce (german.php,v 1.8 2003/08/13); www.nextcommerce.com
+   (c) 2009 xtcModified (german.php,v 1.00 2009/07/13); www.www.xtc-modified.org 
    
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 // Global
-define('TEXT_FOOTER','Copyright  &copy; 2002 - 2006 <a href="http://www.xt-commerce.com">xt:Commerce</a><br />Powered by xt:Commerce'); 
+define('TEXT_FOOTER','Copyright  &copy; 2002 - 2006 <a href="http://www.xtcModified.com">xtcModified</a><br />Powered by xtcModified'); 
    
 // Box names
 define('BOX_LANGUAGE','Sprache');
@@ -75,14 +76,14 @@ define('PULL_DOWN_DEFAULT','Bitte Wählen Sie ein Land');
 // index.php
 define('TITLE_SELECT_LANGUAGE','Wählen Sie eine Sprache!');
 
-define('TEXT_WELCOME_INDEX','<b>Willkommen zu XT-Commerce</b><br /><br />XT-Commerce ist eine Open-Source e-commerce Lösung, die ständig vom XT-Commerce Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />XT-Commerce ist auf jedem System lauffähig, welches eine PHP Umgebung (ab PHP 4.1) und mySQL zur Verfügung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.');
+define('TEXT_WELCOME_INDEX','<b>Willkommen zu xtcModified</b><br /><br />xtcModified ist eine Open-Source e-commerce Lösung, die ständig vom xtcModified Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />xtcModified ist auf jedem System lauffähig, welches eine PHP Umgebung (ab PHP 4.1) und mySQL zur Verfügung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.');
 define('TEXT_WELCOME_STEP1','<b>Datenbank- und Webservereinstellungen</b><br /><br />Der Installer benötigt hier einige Informationen bezüglich Ihrer Datenbank und Ihrer Verzeichnisstruktur.');
-define('TEXT_WELCOME_STEP2','<b>Datenbank Installation</b><br /><br />Der XT-Commerce Installer installiert automatisch die XT-Commerce-Datenbank.');
-define('TEXT_WELCOME_STEP3','<b>Datenbank Import.</b><br /><br />Die Daten der XT-Commerce Datenbank werden automatisch in die Datenbank importiert.');
-define('TEXT_WELCOME_STEP4','<b>Konfiguration der XT-Commerce Konfig-Dateien</b><br /><br /><b>Wenn bereits configure Dateien aus einer früheren Installation vorhanden sind, wird XT-Commerce diese Löschen.</b><br /><br />Der Installer schreibt die automatisch die Konfigurationsdateien für die Dateistruktur und die Datenbankanbindung.<br /><br />Sie können zwischen verschiedenen Session-Handling_systemen wählen.');
+define('TEXT_WELCOME_STEP2','<b>Datenbank Installation</b><br /><br />Der xtcModified Installer installiert automatisch die xtcModified-Datenbank.');
+define('TEXT_WELCOME_STEP3','<b>Datenbank Import.</b><br /><br />Die Daten der xtcModified Datenbank werden automatisch in die Datenbank importiert.');
+define('TEXT_WELCOME_STEP4','<b>Konfiguration der xtcModified Konfig-Dateien</b><br /><br /><b>Wenn bereits configure Dateien aus einer früheren Installation vorhanden sind, wird xtcModified diese Löschen.</b><br /><br />Der Installer schreibt die automatisch die Konfigurationsdateien für die Dateistruktur und die Datenbankanbindung.<br /><br />Sie können zwischen verschiedenen Session-Handling_systemen wählen.');
 define('TEXT_WELCOME_STEP5','<b>Webserver Konfiguration</b><br /><br />');
-define('TEXT_WELCOME_STEP6','<b>Grundsätzliche Shopkonfiguration</b><br /><br />Der Installer richtet den Admin-Account ein und schreibt noch diverse Daten in die Datenbank.<br />Die angegebenen Daten für <b>Country</b> und <b>Post Code</b> werden für die Versand und Steuerberechnungen genutzt.<br /><br />Wenn Sie wünschen, kann xtcommerce automatisch die Zonen, Steuersätze und Steuerklassen für Versand und Verkauf innerhalb der EU einrichten.<br />Markieren Sie nur <b>automatisches Einstellen der Steuerzonen</b> - <b>YES</b>.');
-define('TEXT_WELCOME_STEP7','<b>Setup für Gäste und Standardkunden</b><br /><br />Das XT-Commerce Gruppen und Preissystem bietet Ihnen unbegrenzte Möglichkeiten der Preisgebung.<br /><br />
+define('TEXT_WELCOME_STEP6','<b>Grundsätzliche Shopkonfiguration</b><br /><br />Der Installer richtet den Admin-Account ein und schreibt noch diverse Daten in die Datenbank.<br />Die angegebenen Daten für <b>Country</b> und <b>Post Code</b> werden für die Versand und Steuerberechnungen genutzt.<br /><br />Wenn Sie wünschen, kann xtcModified automatisch die Zonen, Steuersätze und Steuerklassen für Versand und Verkauf innerhalb der EU einrichten.<br />Markieren Sie nur <b>automatisches Einstellen der Steuerzonen</b> - <b>YES</b>.');
+define('TEXT_WELCOME_STEP7','<b>Setup für Gäste und Standardkunden</b><br /><br />Das xtcModified Gruppen und Preissystem bietet Ihnen unbegrenzte Möglichkeiten der Preisgebung.<br /><br />
 <b>% Rabatt auf ein einzelnes Produkt</b><br />
 %max kann für jedes einzelne Produkt und für jede einzelne Kundengruppe gesetzt werden.<br />
 wenn %max für Produkt = 10.00% jedoch %max für Gruppe = 5% -> 5% Rabatt auf das Produkt<br />
@@ -97,20 +98,20 @@ Kundengruppe 2 -> 10% Rabatt auf Produkt Y<br />
 Kundengruppe 3 -> ein spezielle Gruppenpreis für Produkt Y<br />
 Kundengruppe 4 -> Nettopreis für Produkt Y<br />
 ');
-define('TEXT_WELCOME_FINISHED','<b>XT-Commerce Installation erfolgreich!</b><br /><br />Der Installer hat nun die Grundfunktionen Ihres Shops eingerichtet. Melden Sie sich im Catalog mit Ihrem Admin-Account an und wechseln in den Admin_bereich, um die komplette Konfiguration Ihres Shops vorzunehmen.');
+define('TEXT_WELCOME_FINISHED','<b>xtcModified Installation erfolgreich!</b><br /><br />Der Installer hat nun die Grundfunktionen Ihres Shops eingerichtet. Melden Sie sich im Catalog mit Ihrem Admin-Account an und wechseln in den Admin_bereich, um die komplette Konfiguration Ihres Shops vorzunehmen.');
 
 // install_step1.php
 
 define('TITLE_CUSTOM_SETTINGS','Installations Optionen');
-define('TEXT_IMPORT_DB','Importiere die XT-Commerce Datenbank');
-define('TEXT_IMPORT_DB_LONG','Importiere die XT-Commerce Datenbankstruktur, welche die Tabellen und Beispieldaten enthält.');
+define('TEXT_IMPORT_DB','Importiere die xtcModified Datenbank');
+define('TEXT_IMPORT_DB_LONG','Importiere die xtcModified Datenbankstruktur, welche die Tabellen und Beispieldaten enthält.');
 define('TEXT_AUTOMATIC','Automatische Konfiguration');
 define('TEXT_AUTOMATIC_LONG','Ihre Informationen bezüglich Webserver und Datenbank werden automatisch in die benötigten Catalog und Admin Konfigurations-Dateien geschrieben..');
 define('TITLE_DATABASE_SETTINGS','Datenbank Informationen');
 define('TEXT_DATABASE_SERVER','Datenbankserver');
 define('TEXT_DATABASE_SERVER_LONG','Der Datenbankserver kann entweder in Form eines Hostnamens, wie zum Beispiel <i>db1.myserver.com</i> oder <i>localhost</i>, oder als IP-Adresse, wie <i>192.168.0.1</i> angegeben werden.');
 define('TEXT_USERNAME','Benutzername');
-define('TEXT_USERNAME_LONG','Der Benutzername, der zum konnektieren der Datenbank benötigt wird, wie zum Beispiel <i>mysql_10</i>.<br /><br />Bemerkung: Wenn die XT-Commerce Datenbank Importiert werden soll (wenn oben ausgewählt), muss der Benutzer CREATE und DROP Rechte für die Datenbank haben. Sollten hier Probleme auftreten, kann Ihnen Ihr Provider weiterhelfen.');
+define('TEXT_USERNAME_LONG','Der Benutzername, der zum konnektieren der Datenbank benötigt wird, wie zum Beispiel <i>mysql_10</i>.<br /><br />Bemerkung: Wenn die xtcModified Datenbank Importiert werden soll (wenn oben ausgewählt), muss der Benutzer CREATE und DROP Rechte für die Datenbank haben. Sollten hier Probleme auftreten, kann Ihnen Ihr Provider weiterhelfen.');
 define('TEXT_PASSWORD','Passwort');
 define('TEXT_PASSWORD_LONG','Das Passwort wird zusammen mit dem Benutzernamen zum Verbindungsaufbau zur Datenbank benutzt.');
 define('TEXT_DATABASE','Datenbank');
@@ -118,14 +119,14 @@ define('TEXT_DATABASE_LONG','Der Name der Datenbank, in die die Tabellen eingefü
 define('TITLE_WEBSERVER_SETTINGS','Webserver Informationen');
 define('TEXT_WS_ROOT','Webserver Root Verzeichnis');
 define('TEXT_WS_ROOT_LONG','Das Verzeichnis, in das die Webseiten gespeichert werden, zum Beispiel <i>/home/myname/public_html</i>.');
-define('TEXT_WS_XTC','Webserver "XT-Commerce" Verzeichnis');
-define('TEXT_WS_XTC_LONG','Das Verzeichnis, in welches die Shopdateien des Catalogs geladen wurden (vom Webserver root Verzeichnis), beispielsweise <i>/home/myname/public_html<b>/xtcommerce/</b></i>.');
+define('TEXT_WS_XTC','Webserver "xtcModified" Verzeichnis');
+define('TEXT_WS_XTC_LONG','Das Verzeichnis, in welches die Shopdateien des Catalogs geladen wurden (vom Webserver root Verzeichnis), beispielsweise <i>/home/myname/public_html<b>/xtcModified/</b></i>.');
 define('TEXT_WS_ADMIN','Webserver Admin Verzeichnis');
-define('TEXT_WS_ADMIN_LONG','Das Verzeichnis, in welchem sich die Admin-Werkzeuge Ihres Shops befinden (vom Webserver root Verzeichnis), beispielsweise <i>/home/myname/public_html<b>/xtcommerce/admin/</b></i>.');
+define('TEXT_WS_ADMIN_LONG','Das Verzeichnis, in welchem sich die Admin-Werkzeuge Ihres Shops befinden (vom Webserver root Verzeichnis), beispielsweise <i>/home/myname/public_html<b>/xtcModified/admin/</b></i>.');
 define('TEXT_WS_CATALOG','WWW Catalog Verzeichnis');
-define('TEXT_WS_CATALOG_LONG','Das virtuelle Verzeichnis, in dem sich die XT-Commerce Catalog-Module befinden, beispielsweise <i>http://www.Ihre-Domain.de<b>/xtcommerce/</b></i>.');
+define('TEXT_WS_CATALOG_LONG','Das virtuelle Verzeichnis, in dem sich die xtcModified Catalog-Module befinden, beispielsweise <i>http://www.Ihre-Domain.de<b>/xtcModified/</b></i>.');
 define('TEXT_WS_ADMINTOOL','WWW Admin Verzeichnis');
-define('TEXT_WS_ADMINTOOL_LONG','Das virtuelle Verzeichnis, in dem sich die XT-Commerce Admin-Module befinden, beispielsweise <i>http://www.Ihre-Domain.de<b>/xtcommerce/admin/</b></i>');
+define('TEXT_WS_ADMINTOOL_LONG','Das virtuelle Verzeichnis, in dem sich die xtcModified Admin-Module befinden, beispielsweise <i>http://www.Ihre-Domain.de<b>/xtcModified/admin/</b></i>');
 
 // install_step2.php
 
@@ -162,7 +163,7 @@ define('TEXT_SESS_LONG','Das Verzeichnis, in welches PHP die Session-Dateien spe
 
 // install_step5.php
 
-define('TEXT_WS_CONFIGURATION_SUCCESS','<strong>XT-Commerce</strong> Webserver Konfiguration war erfolgreich');
+define('TEXT_WS_CONFIGURATION_SUCCESS','<strong>xtcModified</strong> Webserver Konfiguration war erfolgreich');
 
 // install_step6.php
 
@@ -188,7 +189,7 @@ define('TEXT_EMAIL_FROM','E-Mail From');
 define('TEXT_EMAIL_FROM_LONG','Die E-Mail Adresse, die in den Bestellungen als From benutzt wird.');
 define('TITLE_ZONE_CONFIG','Zonen Konfiguration');
 define('TEXT_ZONE','automatisches Einstellen der Steuerzonen?');
-define('TITLE_ZONE_CONFIG_NOTE','*Note; xtcommerce kann die Zonen automatisch aufsetzten, sofern Sich Ihr Shop in der EU befindet.');
+define('TITLE_ZONE_CONFIG_NOTE','*Note; xtcModified kann die Zonen automatisch aufsetzten, sofern Sich Ihr Shop in der EU befindet.');
 define('TITLE_SHOP_CONFIG_NOTE','*Note; Information for grundlegende Shopeinstellungen');
 define('TITLE_ADMIN_CONFIG_NOTE','*Note; Informationen für Admin/Superuser');
 define('TEXT_ZONE_NO','Nein');
@@ -222,7 +223,7 @@ define('TEXT_STATUS_BT_PERMISSION','Bankeinzug');
 define('TEXT_STATUS_BT_PERMISSION_LONG','Erlaubt dem Kunden per Bankeinzug zu bestellen.');
 // install_fnished.php
 
-define('TEXT_SHOP_CONFIG_SUCCESS','<strong>XT-Commerce</strong> Shop Konfiguration war erfolgreich');
-define('TEXT_TEAM','Vielen Dank, dass Sie sich für XT-Commerce entschieden haben. Besuchen Sie uns auf der XT-Commerce Supportseite <a href="http://www.xt-commerce.com">http://www.xt-commerce.com</a><br />Alles Gute und viel Erfolg wünscht Ihnen das gesamte XT-Commerce Team.');
+define('TEXT_SHOP_CONFIG_SUCCESS','<strong>xtcModified</strong> Shop Konfiguration war erfolgreich');
+define('TEXT_TEAM','Vielen Dank, dass Sie sich für xtcModified entschieden haben. Besuchen Sie uns auf der xtcModified Supportseite <a href="http://www.xtc-Modified.org">http://www.xtcModified.com</a><br />Alles Gute und viel Erfolg wünscht Ihnen das gesamte xtcModified Team.');
    
  ?>
