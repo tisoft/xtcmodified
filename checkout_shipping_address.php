@@ -52,6 +52,7 @@ if ($order->content_type == 'virtual') {
 $error = false;
 $process = false;
 if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
+	SEQ_CHECK_TOKEN('checkout_shipping_address'); 
 	// process a new shipping address
 	if (xtc_not_null($_POST['firstname']) && xtc_not_null($_POST['lastname']) && xtc_not_null($_POST['street_address'])) {
 		$process = true;
@@ -167,7 +168,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 
 			$_SESSION['sendto'] = xtc_db_insert_id();
 
-			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, SEQ_LTOKEN('checkout_shipping'), 'SSL'));
 		}
 		// process the selected shipping destination
 	}
@@ -189,14 +190,14 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 		if ($check_address['total'] == '1') {
 			if ($reset_shipping == true)
 				unset ($_SESSION['shipping']);
-			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, SEQ_LTOKEN('checkout_shipping'), 'SSL'));
 		} else {
 			unset ($_SESSION['sendto']);
 		}
 	} else {
 		$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
 
-		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, SEQ_LTOKEN('checkout_shipping'), 'SSL'));
 	}
 }
 
@@ -211,7 +212,7 @@ $breadcrumb->add(NAVBAR_TITLE_2_CHECKOUT_SHIPPING_ADDRESS, xtc_href_link(FILENAM
 $addresses_count = xtc_count_customer_address_book_entries();
 
 require (DIR_WS_INCLUDES.'header.php');
-$smarty->assign('FORM_ACTION', xtc_draw_form('checkout_address', xtc_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'), 'post', 'onsubmit="return check_form_optional(checkout_address);"'));
+$smarty->assign('FORM_ACTION', xtc_draw_form('checkout_address', xtc_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'), 'post', 'onsubmit="return check_form_optional(checkout_address);"') . SEQ_FTOKEN('checkout_shipping_address'));
 
 if ($messageStack->size('checkout_address') > 0) {
 	$smarty->assign('error', $messageStack->output('checkout_address'));

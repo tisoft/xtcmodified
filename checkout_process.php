@@ -31,6 +31,8 @@
 
 include ('includes/application_top.php');
 
+SEQ_CHECK_TOKEN('checkout_process');
+
 // include needed functions
 require_once (DIR_FS_INC.'xtc_calculate_tax.inc.php');
 require_once (DIR_FS_INC.'xtc_address_label.inc.php');
@@ -47,11 +49,11 @@ if ($_SESSION['customers_status']['customers_status_show_price'] != '1')
 	xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', ''));
 
 if (!isset ($_SESSION['sendto'])) {
-	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 }
 
 if ((xtc_not_null(MODULE_PAYMENT_INSTALLED)) && (!isset ($_SESSION['payment']))) {
-	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 }
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID

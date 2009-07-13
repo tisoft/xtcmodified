@@ -37,6 +37,7 @@ if ($_SESSION['cart']->count_contents() < 1)
 $error = false;
 $process = false;
 if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
+	SEQ_CHECK_TOKEN('checkout_payment_address');
 	// process a new billing address
 	if (xtc_not_null($_POST['firstname']) && xtc_not_null($_POST['lastname']) && xtc_not_null($_POST['street_address'])) {
 		$process = true;
@@ -155,7 +156,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 			if (isset ($_SESSION['payment']))
 				unset ($_SESSION['payment']);
 
-			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 		}
 		// process the selected billing destination
 	}
@@ -177,7 +178,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 		if ($check_address['total'] == '1') {
 			if ($reset_payment == true)
 				unset ($_SESSION['payment']);
-			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 		} else {
 			unset ($_SESSION['billto']);
 		}
@@ -185,7 +186,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 	} else {
 		$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
 
-		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 	}
 }
 
@@ -194,13 +195,13 @@ if (!isset ($_SESSION['billto'])) {
 	$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
 }
 
-$breadcrumb->add(NAVBAR_TITLE_1_PAYMENT_ADDRESS, xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
-$breadcrumb->add(NAVBAR_TITLE_2_PAYMENT_ADDRESS, xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'));
+$breadcrumb->add(NAVBAR_TITLE_1_PAYMENT_ADDRESS, xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
+$breadcrumb->add(NAVBAR_TITLE_2_PAYMENT_ADDRESS, xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, SEQ_LTOKEN('checkout_payment_address'), 'SSL'));
 
 $addresses_count = xtc_count_customer_address_book_entries();
 require (DIR_WS_INCLUDES.'header.php');
 
-$smarty->assign('FORM_ACTION', xtc_draw_form('checkout_address', xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'), 'post', 'onsubmit="return check_form_optional(checkout_address);"'));
+$smarty->assign('FORM_ACTION', xtc_draw_form('checkout_address', xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, SEQ_LTOKEN('checkout_payment_address'), 'SSL'), 'post', 'onsubmit="return check_form_optional(checkout_address);"') . SEQ_FTOKEN('checkout_payment_address'));
 
 if ($messageStack->size('checkout_address') > 0) {
 	$smarty->assign('error', $messageStack->output('checkout_address'));

@@ -48,6 +48,7 @@ require_once (DIR_FS_INC.'xtc_write_user_info.inc.php');
 
 $process = false;
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
+	SEQ_CHECK_TOKEN('create_account');
 	$process = true;
 
 	if (ACCOUNT_GENDER == 'true')
@@ -379,7 +380,7 @@ if ($messageStack->size('create_account') > 0) {
 	$smarty->assign('error', $messageStack->output('create_account'));
 
 }
-$smarty->assign('FORM_ACTION', xtc_draw_form('create_account', xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form(create_account);"').xtc_draw_hidden_field('action', 'process'));
+$smarty->assign('FORM_ACTION', xtc_draw_form('create_account', xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form(create_account);"').xtc_draw_hidden_field('action', 'process').SEQ_FTOKEN('create_account'));
 
 if (ACCOUNT_GENDER == 'true') {
 	$smarty->assign('gender', '1');

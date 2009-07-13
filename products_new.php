@@ -102,9 +102,9 @@ if ($products_new_split->number_of_rows > 0) {
 		$buy_now = '';
 		if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
 			if ($products_new['products_fsk18'] == '0')
-				$buy_now = '<a href="'.xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array ('action')).'action=buy_now&BUYproducts_id='.$products_new['products_id'], 'NONSSL').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$products_new['products_name'].TEXT_NOW).'</a>';
+				$buy_now = '<a href="'.xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array ('action')).'action=buy_now&BUYproducts_id='.$products_new['products_id'], 'NONSSL').'&'.SEQ_LTOKEN('buy_now').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$products_new['products_name'].TEXT_NOW).'</a>';
 		} else {
-			$buy_now = '<a href="'.xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array ('action')).'action=buy_now&BUYproducts_id='.$products_new['products_id'], 'NONSSL').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$products_new['products_name'].TEXT_NOW).'</a>';
+			$buy_now = '<a href="'.xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array ('action')).'action=buy_now&BUYproducts_id='.$products_new['products_id'], 'NONSSL').'&'.SEQ_LTOKEN('buy_now').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$products_new['products_name'].TEXT_NOW).'</a>';
 		}
 		if ($products_new['products_image'] != '') {
 			$products_image = DIR_WS_THUMBNAIL_IMAGES.$products_new['products_image'];

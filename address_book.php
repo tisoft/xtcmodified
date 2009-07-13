@@ -62,8 +62,8 @@ while ($addresses = xtc_db_fetch_array($addresses_query)) {
 		$primary = 0;
 	}
 	$addresses_data[] = array ('NAME' => $addresses['firstname'].' '.$addresses['lastname'], 
-                             'BUTTON_EDIT' => '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$addresses['address_book_id'], 'SSL').'">'.xtc_image_button('small_edit.gif', SMALL_IMAGE_BUTTON_EDIT).'</a>', 
-                             'BUTTON_DELETE' => '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'delete='.$addresses['address_book_id'], 'SSL').'">'.xtc_image_button('small_delete.gif', SMALL_IMAGE_BUTTON_DELETE).'</a>',
+                             'BUTTON_EDIT' => '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$addresses['address_book_id'] . '&' . SEQ_LTOKEN('address_book_process'), 'SSL').'">'.xtc_image_button('small_edit.gif', SMALL_IMAGE_BUTTON_EDIT).'</a>', 
+                             'BUTTON_DELETE' => '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'delete='.$addresses['address_book_id'] . '&' . SEQ_LTOKEN('address_book_process'), 'SSL').'">'.xtc_image_button('small_delete.gif', SMALL_IMAGE_BUTTON_DELETE).'</a>',
                              'ADDRESS' => xtc_address_format($format_id, $addresses, true, ' ', '<br />'),
                              'PRIMARY' => $primary);
 
@@ -74,7 +74,7 @@ $smarty->assign('BUTTON_BACK', '<a href="'.xtc_href_link(FILENAME_ACCOUNT, '', '
 
 if (xtc_count_customer_address_book_entries() < MAX_ADDRESS_BOOK_ENTRIES) {
 
-	$smarty->assign('BUTTON_NEW', '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL').'">'.xtc_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS).'</a>');
+	$smarty->assign('BUTTON_NEW', '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, SEQ_LTOKEN('address_book_process'), 'SSL').'">'.xtc_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS).'</a>');
 }
 
 $smarty->assign('ADDRESS_COUNT', sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES));

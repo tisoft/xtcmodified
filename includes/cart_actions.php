@@ -66,7 +66,7 @@ if (isset ($_GET['action'])) {
 	switch ($_GET['action']) {
 		// customer wants to update the product quantity in their shopping cart
 		case 'update_product' :
-
+			SEQ_CHECK_TOKEN('update_product');
 			if (is_object($econda))
 				$econda->_emptyCart();
 
@@ -94,6 +94,7 @@ if (isset ($_GET['action'])) {
 			break;
 			// customer adds a product from the products page
 		case 'add_product' :
+			SEQ_CHECK_TOKEN('add_product');
 			if (isset ($_POST['products_id']) && is_numeric($_POST['products_id'])) {
 				if ($_POST['products_qty'] > MAX_PRODUCTS_QTY)
 					$_POST['products_qty'] = MAX_PRODUCTS_QTY;
@@ -117,6 +118,7 @@ if (isset ($_GET['action'])) {
 
 			// customer wants to add a quickie to the cart (called from a box)
 		case 'add_a_quickie' :
+			SEQ_CHECK_TOKEN('add_a_quickie');
 			$quicky = addslashes($_POST['quickie']);
 			if (GROUP_CHECK == 'true') {
 				$group_check = "and group_permission_" . $_SESSION['customers_status']['customers_status_id'] . "=1 ";
@@ -166,6 +168,7 @@ if (isset ($_GET['action'])) {
 			// performed by the 'buy now' button in product listings and review page
 		case 'buy_now' :
 			if (isset ($_GET['BUYproducts_id'])) {
+				SEQ_CHECK_TOKEN('buy_now'); 
 				// check permission to view product
 
 				$permission_query = xtc_db_query("SELECT group_permission_" . $_SESSION['customers_status']['customers_status_id'] . " as customer_group, products_fsk18 from " . TABLE_PRODUCTS . " where products_id='" . (int) $_GET['BUYproducts_id'] . "'");

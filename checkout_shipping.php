@@ -93,7 +93,7 @@ $_SESSION['cartID'] = $_SESSION['cart']->cartID;
 if ($order->content_type == 'virtual' || ($order->content_type == 'virtual_weight') || ($_SESSION['cart']->count_contents_virtual() == 0)) { // GV Code added
 	$_SESSION['shipping'] = false;
 	$_SESSION['sendto'] = false;
-	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 }
 
 $total_weight = $_SESSION['cart']->show_weight();
@@ -155,7 +155,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 					if ((isset ($quote[0]['methods'][0]['title'])) && (isset ($quote[0]['methods'][0]['cost']))) {
 						$_SESSION['shipping'] = array ('id' => $_SESSION['shipping'], 'title' => (($free_shipping == true) ? $quote[0]['methods'][0]['title'] : $quote[0]['module'].' ('.$quote[0]['methods'][0]['title'].')'), 'cost' => $quote[0]['methods'][0]['cost']);
 
-						xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+						xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 					}
 				}
 			} else {
@@ -165,7 +165,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	} else {
 		$_SESSION['shipping'] = false;
 
-		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
 	}
 }
 

@@ -1,0 +1,47 @@
+// varname             # interface # type # minvalue # maxvalue # xss # sqlinjection &
+// standard osc variables
+cPath                  #  GP  #  STR  #   1   #        100 #      # true &
+sort                   #  GP  #  STR  #   2   #          4 #      # true &
+search_in_description  #  GP  #  INT  #   0   #          1 #      #      &
+selective_search       #  GP  #  STR  #   4   #         20 #      #      &
+page                   #  GP  #  INT  #   0   #  999999999 # true # true &
+action                 #  GP  #  STR  #   1   #        100 #      #      &
+lastaction             #  GP  #  STR  #   1   #        100 #      #      &
+_email_address         #   P  #  STR  #   6   #         50 # true # true &
+_password              #   P  #  STR  #   1   #         20 # true # true &
+shipping               #   P  #  STR  #   1   #         20 #      # true &
+comments               #   P  #  STR  #   0   #       9999 # true # true &
+payment                #   P  #  STR  #   1   #         20 #      # true &
+reviews_id             #  GP  #  INT  #   0   #  999999999 #      # true &
+review                 #   P  #  STR  #   0   #  999999999 #      # true &
+cart_delete[]          #  GP  #  INT  #   0   #  999999999 #      # true &
+cart_quantity[]        #  GP  #  INT  #   0   #  999999999 #      # true &
+products_id[]          #  GP  #  INT  #   0   #  999999999 #      # true &
+pid                    #  GP  #  INT  #   0   #  999999999 #      # true &
+
+// banktransfer addon
+banktransfer_owner     #   P  #  STR  #NULL,5 #         30 # true # true &
+banktransfer_blz       #   P  #  INT  #NULL,3 #         10 # true # true &
+banktransfer_number    #   P  #  INT  #NULL,1 #         10 #      # true &
+banktransfer_bankname  #   P  #  STR  #NULL,1 #         10 #      # true &
+
+cID                    #  GP  #  INT  #   0   #  999999999 # true # true &
+error_message          #  GP  #  STR  #   0   #        999 # true #      &
+info_message           #  GP  #  STR  #   0   #        999 # true #      &
+credit_id              #  GP  #  INT  #   0   #  999999999 # true # true &
+order_id               #  GP  #  INT  #   0   #  999999999 # true # true &
+manufacturers_id       #  GP  #  INT  #  NULL #  999999999 # true # true &
+filter_id              #  GP  #  INT  #   0   #  999999999 # true # true &
+language               #  GP  #  STR  #   0   #  999999999 # true # true &
+dfrom                  #  GP  #  STR  #  NULL #         10 # true # true &
+dto                    #  GP  #  STR  #  NULL #         10 # true # true &
+pfrom                  #  GP  #  STR  #   0   #         10 # true # true &
+pto                    #  GP  #  STR  #   0   #         10 # true # true &
+categories_id          #  GP  #  INT  #  NULL #  999999999 # true # true &
+inc_subcat             #  GP  #  INT  #   0   #          1 # true #      &
+inc_subcat_quick       #  GP  #  INT  #   0   #          1 # true #      &
+customer_id            #  GP  #  INT  #   0   #  999999999 # true # true &
+currency               #  GP  #  STR  #   2   #          5 # true # true &
+_cart_delete           #  GP  #  STR  #   0   #  999999999 # true # true &
+_cart_quantity         #  GP  #  INT  #   0   #  999999999 # true # true &
+_prodanz               #  GP  #  INT  #   0   #  999999999 # true # true &
