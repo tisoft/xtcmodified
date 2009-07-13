@@ -208,9 +208,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
  }
 
- if (!is_writeable(DIR_FS_CATALOG . 'sitemap.xml')) {
+ if (!is_writeable(DIR_FS_CATALOG . 'sitemap1.xml')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'sitemap.xml<br />';
+    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'sitemap1.xml<br />';
  }
  
   if (!is_writeable(DIR_FS_CATALOG . 'import/')) {
