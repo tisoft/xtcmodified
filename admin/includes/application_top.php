@@ -52,7 +52,7 @@
   define('SQL_CACHEDIR',DIR_FS_CATALOG.'cache/');
 
   // Define the project version
-  define('PROJECT_VERSION', 'xtcModified v1.01 dated: 2009-07-01');
+  define('PROJECT_VERSION', 'xtcModified v1.02 dated: 2009-07-13');
 
   // Set the length of the redeem code, the longer the more secure
   define('SECURITY_CODE_LENGTH', '6');
