@@ -442,7 +442,11 @@ class vat_validation {
 	function checkVatID_fr($vat_id) {
 		if (strlen($vat_id) != 13)
 			return 0;
-		if (!is_numeric(substr($vat_id), 4))
+//BOF - Dokuman - 15.07.2009 - minor fix for VAT check
+//		if (!is_numeric(substr($vat_id), 4))
+		if (!is_numeric(substr($vat_id, 4)))
+//EOF - Dokuman - 15.07.2009 - minor fix for VAT check
+
 			return 0;
 
 		if ($this->live_check = true) {
