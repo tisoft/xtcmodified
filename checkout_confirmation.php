@@ -75,7 +75,7 @@ if (isset ($_POST['cot_gv']))
 if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 	if ($_POST['conditions'] == false) {
 		$error = str_replace('\n', '<br />', ERROR_CONDITIONS_NOT_ACCEPTED);
-		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode($error) . '&' . SEQ_LTOKEN('checkout_payment'), 'SSL', true, false));
+		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode($error), 'SSL', true, false));
 	}
 }
 
@@ -100,7 +100,7 @@ $order_total_modules->pre_confirmation_check();
 
 // GV Code line changed
 if ((is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && (!is_object($$_SESSION['payment'])) && (!isset ($_SESSION['credit_covers']))) || (is_object($$_SESSION['payment']) && ($$_SESSION['payment']->enabled == false))) {
-	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED) . '&' . SEQ_LTOKEN('checkout_payment'), 'SSL'));
+	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
 }
 
 if (is_array($payment_modules->modules))
@@ -141,7 +141,7 @@ if ($_SESSION['credit_covers'] != '1') {
 }
 $smarty->assign('PRODUCTS_EDIT', xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
 $smarty->assign('SHIPPING_ADDRESS_EDIT', xtc_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'));
-$smarty->assign('BILLING_ADDRESS_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, SEQ_LTOKEN('checkout_payment_address'), 'SSL'));
+$smarty->assign('BILLING_ADDRESS_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'));
 
 if ($_SESSION['sendto'] != false) {
 
@@ -223,7 +223,7 @@ if ($order->info['payment_method'] != 'no_payment' && $order->info['payment_meth
 	include (DIR_WS_LANGUAGES . '/' . $_SESSION['language'] . '/modules/payment/' . $order->info['payment_method'] . '.php');
 	$smarty->assign('PAYMENT_METHOD', constant(MODULE_PAYMENT_ . strtoupper($order->info['payment_method']) . _TEXT_TITLE));
 }
-$smarty->assign('PAYMENT_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT, SEQ_LTOKEN('checkout_payment'), 'SSL'));
+$smarty->assign('PAYMENT_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
 //BOF - 2009-06-05 - replace table with div
 //$total_block = '<table>';
@@ -273,9 +273,9 @@ if (isset ($$_SESSION['payment']->form_action_url) && !$$_SESSION['payment']->tm
 	$form_action_url = $$_SESSION['payment']->form_action_url;
 
 } else {
-	$form_action_url = xtc_href_link(FILENAME_CHECKOUT_PROCESS, SEQ_LTOKEN('checkout_process'), 'SSL');
+	$form_action_url = xtc_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');
 }
-$smarty->assign('CHECKOUT_FORM', xtc_draw_form('checkout_confirmation', $form_action_url, 'post') . SEQ_FTOKEN('checkout_confirmation'));
+$smarty->assign('CHECKOUT_FORM', xtc_draw_form('checkout_confirmation', $form_action_url, 'post'));
 $payment_button = '';
 if (is_array($payment_modules->modules)) {
 	$payment_button .= $payment_modules->process_button();

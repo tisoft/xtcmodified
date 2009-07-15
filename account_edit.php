@@ -35,7 +35,6 @@ if ($_SESSION['customers_status']['customers_status_id']==0)
 	xtc_redirect(xtc_href_link_admin(FILENAME_CUSTOMERS, 'cID='.$_SESSION['customer_id'].'&action=edit', 'SSL'));
 
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
-	SEQ_CHECK_TOKEN('account_edit'); 
 	if (ACCOUNT_GENDER == 'true')
 		$gender = xtc_db_prepare_input($_POST['gender']);
 	$firstname = xtc_db_prepare_input($_POST['firstname']);
@@ -144,7 +143,7 @@ $breadcrumb->add(NAVBAR_TITLE_1_ACCOUNT_EDIT, xtc_href_link(FILENAME_ACCOUNT, ''
 $breadcrumb->add(NAVBAR_TITLE_2_ACCOUNT_EDIT, xtc_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
 
 require (DIR_WS_INCLUDES.'header.php');
-$smarty->assign('FORM_ACTION', xtc_draw_form('account_edit', xtc_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'), 'post', 'onsubmit="return check_form(account_edit);"').xtc_draw_hidden_field('action', 'process') . SEQ_FTOKEN('account_edit', true));
+$smarty->assign('FORM_ACTION', xtc_draw_form('account_edit', xtc_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'), 'post', 'onsubmit="return check_form(account_edit);"').xtc_draw_hidden_field('action', 'process'));
 
 if ($messageStack->size('account_edit') > 0)
 	$smarty->assign('error', $messageStack->output('account_edit'));
