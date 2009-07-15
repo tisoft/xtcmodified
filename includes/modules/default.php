@@ -177,6 +177,9 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
     if (GROUP_CHECK == 'true') {
     $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
     }
+
+//BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+/*    
     $listing_sql = "select DISTINCT p.products_fsk18,
                                   p.products_shippingtime,
                                   p.products_model,
@@ -208,11 +211,48 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
                                   ".$fsk_lock."
                                   and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                   and p2c.categories_id = '".(int) $_GET['filter_id']."'".$sorting;
+*/
+    $listing_sql = "select DISTINCT p.products_fsk18,
+                                  p.products_shippingtime,
+                                  p.products_model,
+                                  pd.products_name,
+                                  p.products_ean,
+                                  p.products_price,
+                                  p.products_tax_class_id,
+                                  m.manufacturers_name,
+                                  p.products_quantity,
+                                  p.products_image,
+                                  p.products_weight,
+                                  pd.products_short_description,
+                                  pd.products_description,
+                                  p.products_id,
+                                  p.manufacturers_id,
+                                  p.products_price,
+                                  p.products_vpe,
+                                  p.products_vpe_status,
+                                  p.products_vpe_value,
+                                  p.products_discount_allowed,
+                                  p.products_tax_class_id
+                                  from ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_MANUFACTURERS." m, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_PRODUCTS." p 
+                                  where p.products_status = '1'
+                                  and p.manufacturers_id = m.manufacturers_id
+                                  and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'
+                                  and p.products_id = p2c.products_id
+                                  and pd.products_id = p2c.products_id
+                                  ".$group_check."
+                                  ".$fsk_lock."
+                                  and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                  and p2c.categories_id = '".(int) $_GET['filter_id']."'".$sorting;
+//EOF - DokuMan - remove unneeded "left join ".TABLE_SPECIALS." from SELECT
+
   } else {
     // We show them all
     if (GROUP_CHECK == 'true') {
     $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
     }
+    
+//BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT   
+/*
     $listing_sql = "select p.products_fsk18,
                             p.products_shippingtime,
                             p.products_model,
@@ -240,6 +280,37 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
                             and pd.language_id = '".(int) $_SESSION['languages_id']."'
                             and p.manufacturers_id = m.manufacturers_id
                             and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
+*/
+    $listing_sql = "select p.products_fsk18,
+                            p.products_shippingtime,
+                            p.products_model,
+                            p.products_ean,
+                            pd.products_name,
+                            p.products_id,
+                            p.products_price,
+                            m.manufacturers_name,
+                            p.products_quantity,
+                            p.products_image,
+                            p.products_weight,
+                            pd.products_short_description,
+                            pd.products_description,
+                            p.manufacturers_id,
+                            p.products_vpe,
+                            p.products_vpe_status,
+                            p.products_vpe_value,     
+                            p.products_discount_allowed,
+                            p.products_tax_class_id
+                            from ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_MANUFACTURERS." m, ".TABLE_PRODUCTS." p 
+                            where p.products_status = '1'
+                            and pd.products_id = p.products_id
+                            ".$group_check."
+                            ".$fsk_lock."
+                            and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                            and p.manufacturers_id = m.manufacturers_id
+                            and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
+
+//EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+                          
   }
   } else {
   // show the products in a given categorie
@@ -257,6 +328,9 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
     if (GROUP_CHECK == 'true') {
     $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
     }
+    
+//BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+/*    
     $listing_sql = "select p.products_fsk18,
                                   p.products_shippingtime,
                                   p.products_model,
@@ -286,6 +360,39 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
                                   ".$fsk_lock."
                                   and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                   and p2c.categories_id = '".$current_category_id."'".$sorting;
+*/                                  
+    $listing_sql = "select p.products_fsk18,
+                                  p.products_shippingtime,
+                                  p.products_model,
+                                  p.products_ean,
+                                  pd.products_name,
+                                  p.products_id,
+                                  m.manufacturers_name,
+                                  p.products_quantity,
+                                  p.products_image,
+                                  p.products_weight,
+                                  pd.products_short_description,
+                                  pd.products_description,
+                                  p.manufacturers_id,
+                                  p.products_price,
+                                  p.products_vpe,
+                                  p.products_vpe_status,
+                                  p.products_vpe_value,                           
+                                  p.products_discount_allowed,
+                                  p.products_tax_class_id
+                                  from  ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_MANUFACTURERS." m, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_PRODUCTS." p 
+                                  where p.products_status = '1'
+                                  and p.manufacturers_id = m.manufacturers_id
+                                  and m.manufacturers_id = '".(int) $_GET['filter_id']."'
+                                  and p.products_id = p2c.products_id
+                                  and pd.products_id = p2c.products_id
+                                  ".$group_check."
+                                  ".$fsk_lock."
+                                  and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                  and p2c.categories_id = '".$current_category_id."'".$sorting;
+                                  
+//EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+                                  
   } else {
 
     // sorting query
@@ -300,6 +407,9 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
     if (GROUP_CHECK == 'true') {
     $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
     }
+    
+//BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT   
+/*
     $listing_sql = "select p.products_fsk18,
                                   p.products_shippingtime,
                                   p.products_model,
@@ -328,6 +438,37 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
                                   ".$fsk_lock."                             
                                   and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                   and p2c.categories_id = '".$current_category_id."'".$sorting;
+*/
+    $listing_sql = "select p.products_fsk18,
+                                  p.products_shippingtime,
+                                  p.products_model,
+                                  p.products_ean,
+                                  pd.products_name,
+                                  m.manufacturers_name,
+                                  p.products_quantity,
+                                  p.products_image,
+                                  p.products_weight,
+                                  pd.products_short_description,
+                                  pd.products_description,
+                                  p.products_id,
+                                  p.manufacturers_id,
+                                  p.products_price,
+                                  p.products_vpe,
+                                  p.products_vpe_status,
+                                  p.products_vpe_value,                             
+                                  p.products_discount_allowed,
+                                  p.products_tax_class_id
+                                  from  ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_PRODUCTS." p left join ".TABLE_MANUFACTURERS." m on p.manufacturers_id = m.manufacturers_id
+                                  where p.products_status = '1'
+                                  and p.products_id = p2c.products_id
+                                  and pd.products_id = p2c.products_id
+                                  ".$group_check."
+                                  ".$fsk_lock."                             
+                                  and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                  and p2c.categories_id = '".$current_category_id."'".$sorting;
+                                  
+//EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+                                  
   }
   }
   // optional Product List Filter
