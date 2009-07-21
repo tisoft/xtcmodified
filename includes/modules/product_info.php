@@ -134,7 +134,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			$info_smarty->assign('PRODUCTS_URL', sprintf(TEXT_MORE_INFORMATION, xtc_href_link(FILENAME_REDIRECT, 'action=product&id='.$product->data['products_id'], 'NONSSL', true, false)));
 
 		if ($product->data['products_date_available'] > date('Y-m-d H:i:s')) {
-			$info_smarty->assign('PRODUCTS_DATE_AVIABLE', sprintf(TEXT_DATE_AVAILABLE, xtc_date_long($product->data['products_date_available'])));
+			$info_smarty->assign('PRODUCTS_DATE_AVAILABLE', sprintf(TEXT_DATE_AVAILABLE, xtc_date_long($product->data['products_date_available'])));
 
 		} else {
 			if ($product->data['products_date_added'] != '0000-00-00 00:00:00')
