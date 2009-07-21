@@ -38,7 +38,9 @@ define('VERSANDKOSTENFREI_AB',999999999);
 
 // include needed functions
 
-require_once(DIR_FS_INC . 'xtc_image_submit.inc.php');
+//BOF - Tomcraft - 2009-07-21 - Exclude xtc_image_submit.inc.php as it is allready declared in /admin/includes/functions/general.php
+//require_once(DIR_FS_INC . 'xtc_image_submit.inc.php');
+//EOF - Tomcraft - 2009-07-21 - Exclude xtc_image_submit.inc.php as it is allready declared in /admin/includes/functions/general.php
 require_once(DIR_FS_INC . 'xtc_parse_input_field_data.inc.php');
 require_once(DIR_FS_INC . 'xtc_image_button.inc.php');
 
@@ -181,11 +183,17 @@ EXPORT_TYPE.'<br />'.
 EXPORT.'<br />'.
 xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
 xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
+//BOF - Tomcraft - 2009-07-21 - Exclude xtc_image_submit.inc.php as it is allready declared in /admin/includes/functions/general.php
+/*
 '<br />' . xtc_image_submit('button_export.gif', IMAGE_UPDATE) .
 
 '<a href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preisroboter') . '">' .
 xtc_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+*/
+'<br>' . xtc_button(BUTTON_EXPORT) .
 
+xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preisroboter')));
+//EOF - Tomcraft - 2009-07-21 - Exclude xtc_image_submit.inc.php as it is allready declared in /admin/includes/functions/general.php
 
 }
 
