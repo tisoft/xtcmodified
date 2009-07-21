@@ -162,6 +162,8 @@ if (sizeof($order->info['tax_groups']) > 1) {
 } else {
 
 }
+/*
+
 //BOF - 2009-06-05 - replace table with div
 //$data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
 $data_products = '';
@@ -180,6 +182,8 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 							</small><nobr></td>
 							<td class="main" align="right" valign="top">&nbsp;</td></tr>';
 		*/		
+		
+		/*
 		$data_products .= '<div style="font-size:smaller">' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '</div>';
 		//EOF - 2009-06-05 - replace table with div
 
@@ -195,6 +199,33 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
 			*/
 			//EOF - 2009-06-05 - replace table with div
+		//}
+	//}
+	
+	
+	
+	//BOF - 2009-07-21 - remove Changes div to table //  Christian
+
+$data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
+for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
+
+	$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";
+	if (ACTIVATE_SHIPPING_STATUS == 'true') {
+
+		$data_products .= '<tr>
+							<td class="main" align="left" valign="top">
+							<nobr><small>' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '
+							</small><nobr></td>
+							<td class="main" align="right" valign="top">&nbsp;</td></tr>';
+
+	}
+	if ((isset ($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0)) {
+		for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j++) {
+			$data_products .= '<tr>
+								<td class="main" align="left" valign="top">
+								<nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '
+								</i></small><nobr></td>
+								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
 		}
 	}
 
@@ -202,21 +233,11 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 
 	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
 		if (sizeof($order->info['tax_groups']) > 1)
-			//BOF - 2009-06-05 - replace table with div
-			//$data_products .= '            <td class="main" valign="top" align="right">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
-			$data_products .= '<div style="display:block">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</div>' . "\n";
-			//EOF - 2009-06-05 - replace table with div
+			$data_products .= '            <td class="main" valign="top" align="right">' . xtc_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
 	}
-	//BOF - 2009-06-05 - replace table with div
-	//$data_products .= '</tr>' . "\n";
-	$data_products .= '';
-	//EOF - 2009-06-05 - replace table with div
+	$data_products .= '</tr>' . "\n";
 }
-//BOF - 2009-06-05 - replace table with div
-//$data_products .= '</table>';
-$data_products .= '';
-//EOF - 2009-06-05 - replace table with div
-
+$data_products .= '</table>';
 $smarty->assign('PRODUCTS_BLOCK', $data_products);
 
 if ($order->info['payment_method'] != 'no_payment' && $order->info['payment_method'] != '') {
@@ -225,18 +246,12 @@ if ($order->info['payment_method'] != 'no_payment' && $order->info['payment_meth
 }
 $smarty->assign('PAYMENT_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
-//BOF - 2009-06-05 - replace table with div
-//$total_block = '<table>';
-$total_block = '';
-//EOF - 2009-06-05 - replace table with div
+$total_block = '<table align="right">';
 if (MODULE_ORDER_TOTAL_INSTALLED) {
 	$order_total_modules->process();
 	$total_block .= $order_total_modules->output();
 }
-//BOF - 2009-06-05 - replace table with div
-//$total_block = '</table>';
-$total_block .= '';
-//EOF - 2009-06-05 - replace table with div
+$total_block .= '</table><div style="clear:both"></div>';
 $smarty->assign('TOTAL_BLOCK', $total_block);
 
 if (is_array($payment_modules->modules)) {
@@ -245,17 +260,13 @@ if (is_array($payment_modules->modules)) {
 		$payment_info = $confirmation['title'];
 		for ($i = 0, $n = sizeof($confirmation['fields']); $i < $n; $i++) {
 
-//BOF - 2009-06-05 - replace table with div
-			/*$payment_info .= '<table>
+			$payment_info .= '<table>
 								<tr>
 						                <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
 						                <td class="main">' . $confirmation['fields'][$i]['title'] . '</td>
 						                <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
 						                <td class="main">' . stripslashes($confirmation['fields'][$i]['field']) . '</td>
 						              </tr></table>';
-			*/
-			$payment_info .= '<div>'.$confirmation['fields'][$i]['title'].stripslashes($confirmation['fields'][$i]['field']).'</div>';
-//EOF - 2009-06-05 - replace table with div
 
 		}
 		$smarty->assign('PAYMENT_INFORMATION', $payment_info);
@@ -290,13 +301,14 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 		$group_check = "and group_ids LIKE '%c_" . $_SESSION['customers_status']['customers_status_id'] . "_group%'";
 	}
 
-	$shop_content_query = "SELECT content_title,
-		                            content_heading,
-		                            content_text,
-		                            content_file
-		                     FROM " . TABLE_CONTENT_MANAGER . "
-		                     WHERE content_group='" . REVOCATION_ID . "' " . $group_check . "
-		                     AND languages_id='" . $_SESSION['languages_id'] . "'";
+	$shop_content_query = "SELECT
+		                                                content_title,
+		                                                content_heading,
+		                                                content_text,
+		                                                content_file
+		                                                FROM " . TABLE_CONTENT_MANAGER . "
+		                                                WHERE content_group='" . REVOCATION_ID . "' " . $group_check . "
+		                                                AND languages_id='" . $_SESSION['languages_id'] . "'";
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
@@ -318,13 +330,14 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 	$smarty->assign('REVOCATION_TITLE', $shop_content_data['content_heading']);
 	$smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO));
 	
-	$shop_content_query = "SELECT content_title,
-		                            content_heading,
-		                            content_text,
-		                            content_file
-		                     FROM " . TABLE_CONTENT_MANAGER . "
-		                     WHERE content_group='3' " . $group_check . "
-		                     AND languages_id='" . $_SESSION['languages_id'] . "'";
+	$shop_content_query = "SELECT
+		                                                content_title,
+		                                                content_heading,
+		                                                content_text,
+		                                                content_file
+		                                                FROM " . TABLE_CONTENT_MANAGER . "
+		                                                WHERE content_group='3' " . $group_check . "
+		                                                AND languages_id='" . $_SESSION['languages_id'] . "'";
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
