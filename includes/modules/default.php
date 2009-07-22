@@ -44,17 +44,15 @@ if ($category_depth == 'nested') {
   if (GROUP_CHECK == 'true') {
   $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
   }
-  $category_query = "select
-                                      cd.categories_description,
-                                      cd.categories_name,
-          cd.categories_heading_title,       
-                                      c.categories_template,
-                                      c.categories_image from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
-                                      where c.categories_id = '".$current_category_id."'
-                                      and cd.categories_id = '".$current_category_id."'
-                                      ".$group_check."
-                                      and cd.language_id = '".(int) $_SESSION['languages_id']."'";
-
+  $category_query = "select cd.categories_description,
+                            cd.categories_name,
+                            cd.categories_heading_title,       
+                            c.categories_template,
+                            c.categories_image from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+                            where c.categories_id = '".$current_category_id."'
+                            and cd.categories_id = '".$current_category_id."'
+                            ".$group_check."
+                            and cd.language_id = '".(int) $_SESSION['languages_id']."'";
   $category_query = xtDBquery($category_query);
 
   $category = xtc_db_fetch_array($category_query, true);
@@ -66,42 +64,50 @@ if ($category_depth == 'nested') {
     if (GROUP_CHECK == 'true') {
     $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
     }
-    $categories_query = "select      cd.categories_description,
-                                              c.categories_id,
-                                              cd.categories_name,
-          cd.categories_heading_title,
-                                              c.categories_image,
-                                              c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
-                                              where c.categories_status = '1'
-                                              and c.parent_id = '".$category_links[$i]."'
-                                              and c.categories_id = cd.categories_id
-                                              ".$group_check."
-                                              and cd.language_id = '".(int) $_SESSION['languages_id']."'
-                                              order by sort_order, cd.categories_name";
+    $categories_query = "select cd.categories_description,
+                                c.categories_id,
+                                cd.categories_name,
+                                cd.categories_heading_title,
+                                c.categories_image,
+                                c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+                                where c.categories_status = '1'
+                                and c.parent_id = '".$category_links[$i]."'
+                                and c.categories_id = cd.categories_id
+                                ".$group_check."
+                                and cd.language_id = '".(int) $_SESSION['languages_id']."'
+                                order by sort_order, cd.categories_name";
     $categories_query = xtDBquery($categories_query);
 
+// BOF - Dokuman - 22.07.2009 - avoid else-condition
+/*
     if (xtc_db_num_rows($categories_query, true) < 1) {
     // do nothing, go through the loop
     } else {
     break; // we've found the deepest category the customer is in
     }
+*/    
+    if ( xtc_db_num_rows($categories_query, true) >= 1 ) {
+      break; // we've found the deepest category the customer is in
+    }
+// EOF - Dokuman - 22.07.2009 - avoid else-condition
+    
   }
   } else {
   if (GROUP_CHECK == 'true') {
     $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
   }
-  $categories_query = "select      cd.categories_description,
-                                          c.categories_id,
-                                          cd.categories_name,
-        cd.categories_heading_title,
-                                          c.categories_image,
-                                          c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
-                                          where c.categories_status = '1'
-                                          and c.parent_id = '".$current_category_id."'
-                                          and c.categories_id = cd.categories_id
-                                          ".$group_check."
-                                          and cd.language_id = '".(int) $_SESSION['languages_id']."'
-                                          order by sort_order, cd.categories_name";
+  $categories_query = "select cd.categories_description,
+                              c.categories_id,
+                              cd.categories_name,
+                              cd.categories_heading_title,
+                              c.categories_image,
+                              c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+                              where c.categories_status = '1'
+                              and c.parent_id = '".$current_category_id."'
+                              and c.categories_id = cd.categories_id
+                              ".$group_check."
+                              and cd.language_id = '".(int) $_SESSION['languages_id']."'
+                              order by sort_order, cd.categories_name";
   $categories_query = xtDBquery($categories_query);
   }
 
@@ -117,8 +123,11 @@ if ($category_depth == 'nested') {
     $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
   }
 
-  $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'], 'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'], 'CATEGORIES_IMAGE' => $image, 'CATEGORIES_LINK' => xtc_href_link(FILENAME_DEFAULT, $cPath_new), 'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
-
+  $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'], 
+                                 'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],
+                                 'CATEGORIES_IMAGE' => $image,
+                                 'CATEGORIES_LINK' => xtc_href_link(FILENAME_DEFAULT, $cPath_new), 
+                                 'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
   }
   $new_products_category_id = $current_category_id;
   include (DIR_WS_MODULES.FILENAME_NEW_PRODUCTS);
@@ -137,7 +146,7 @@ if ($category_depth == 'nested') {
   $default_smarty->assign('module_content', $categories_content);
 
   // get default template
-  if ($category['categories_template'] == '' or $category['categories_template'] == 'default') {
+  if ($category['categories_template'] == '' || $category['categories_template'] == 'default') {
   $files = array ();
   if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/')) {
     while (($file = readdir($dir)) !== false) {
@@ -167,8 +176,9 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
 
     // sorting query
     $sorting_query = xtDBquery("SELECT products_sorting,
-                                                products_sorting2 FROM ".TABLE_CATEGORIES."
-                                                where categories_id='".(int) $_GET['filter_id']."'");
+                                       products_sorting2
+                                       FROM ".TABLE_CATEGORIES."
+                                       where categories_id='".(int) $_GET['filter_id']."'");
     $sorting_data = xtc_db_fetch_array($sorting_query,true);
     if (!$sorting_data['products_sorting'])
     $sorting_data['products_sorting'] = 'pd.products_name';
@@ -308,7 +318,6 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
                             and pd.language_id = '".(int) $_SESSION['languages_id']."'
                             and p.manufacturers_id = m.manufacturers_id
                             and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
-
 //EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
                           
   }
@@ -318,8 +327,8 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
 
     // sorting query
     $sorting_query = xtDBquery("SELECT products_sorting,
-                                                products_sorting2 FROM ".TABLE_CATEGORIES."
-                                                where categories_id='".$current_category_id."'");
+                                       products_sorting2 FROM ".TABLE_CATEGORIES."
+                                       where categories_id='".$current_category_id."'");
     $sorting_data = xtc_db_fetch_array($sorting_query,true);
     if (!$sorting_data['products_sorting'])
     $sorting_data['products_sorting'] = 'pd.products_name';
@@ -397,8 +406,8 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
 
     // sorting query
     $sorting_query = xtDBquery("SELECT products_sorting,
-                                                products_sorting2 FROM ".TABLE_CATEGORIES."
-                                                where categories_id='".$current_category_id."'");
+                                       products_sorting2 FROM ".TABLE_CATEGORIES."
+                                       where categories_id='".$current_category_id."'");
     $sorting_data = xtc_db_fetch_array($sorting_query,true);
     if (!$sorting_data['products_sorting'])
     $sorting_data['products_sorting'] = 'pd.products_name';
@@ -474,9 +483,28 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
   // optional Product List Filter
   if (PRODUCT_LIST_FILTER > 0) {
   if (isset ($_GET['manufacturers_id'])) {
-    $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '".(int) $_SESSION['languages_id']."' and p.manufacturers_id = '".(int) $_GET['manufacturers_id']."' order by cd.categories_name";
+    $filterlist_sql = "select distinct c.categories_id as id,
+                                       cd.categories_name as name from ".TABLE_PRODUCTS." p,
+                                       ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c,
+                                       ".TABLE_CATEGORIES_DESCRIPTION." cd
+                                       where p.products_status = '1'
+                                       and p.products_id = p2c.products_id
+                                       and p2c.categories_id = c.categories_id
+                                       and p2c.categories_id = cd.categories_id
+                                       and cd.language_id = '".(int) $_SESSION['languages_id']."'
+                                       and p.manufacturers_id = '".(int) $_GET['manufacturers_id']."'
+                                       order by cd.categories_name";
   } else {
-    $filterlist_sql = "select distinct m.manufacturers_id as id, m.manufacturers_name as name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_MANUFACTURERS." m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '".$current_category_id."' order by m.manufacturers_name";
+    $filterlist_sql = "select distinct m.manufacturers_id as id,
+                                       m.manufacturers_name as name
+                                       from ".TABLE_PRODUCTS." p,
+                                       ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
+                                       ".TABLE_MANUFACTURERS." m
+                                       where p.products_status = '1'
+                                       and p.manufacturers_id = m.manufacturers_id
+                                       and p.products_id = p2c.products_id
+                                       and p2c.categories_id = '".$current_category_id."'
+                                       order by m.manufacturers_name";
   }
   $filterlist_query = xtDBquery($filterlist_sql);
   if (xtc_db_num_rows($filterlist_query, true) > 1) {
@@ -517,27 +545,32 @@ elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
   if (GROUP_CHECK == 'true') {
   $group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
   }
-  $shop_content_query = xtDBquery("SELECT
-                      content_title,
-                      content_heading,
-                      content_text,
-                      content_file
-                      FROM ".TABLE_CONTENT_MANAGER."
-                      WHERE content_group='5'
-                      ".$group_check."
-                      AND languages_id='".$_SESSION['languages_id']."'");
+  $shop_content_query = xtDBquery("SELECT content_title,
+                                          content_heading,
+                                          content_text,
+                                          content_file
+                                          FROM ".TABLE_CONTENT_MANAGER."
+                                          WHERE content_group='5'
+                                          ".$group_check."
+                                          AND languages_id='".$_SESSION['languages_id']."'");
   $shop_content_data = xtc_db_fetch_array($shop_content_query,true);
 
-  $default_smarty->assign('title', $shop_content_data['content_heading']);
+// BOF - Dokuman - 22.07.2009 - added htmlspecialchars
+//  $default_smarty->assign('title', $shop_content_data['content_heading']);
+  $default_smarty -> assign('title', htmlspecialchars($shop_content_data['content_heading']));
+// EOF - Dokuman - 22.07.2009 - added htmlspecialchars
+  
   include (DIR_WS_INCLUDES.FILENAME_CENTER_MODULES);
 
   if ($shop_content_data['content_file'] != '') {
   ob_start();
-  if (strpos($shop_content_data['content_file'], '.txt'))
+  if (strpos($shop_content_data['content_file'], '.txt')) {
     echo '<pre>';
+  }
   include (DIR_FS_CATALOG.'media/content/'.$shop_content_data['content_file']);
-  if (strpos($shop_content_data['content_file'], '.txt'))
+  if (strpos($shop_content_data['content_file'], '.txt')){
     echo '</pre>';
+  }    
   $shop_content_data['content_text'] = ob_get_contents();
   ob_end_clean();
   }
