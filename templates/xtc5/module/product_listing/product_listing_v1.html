@@ -1,5 +1,9 @@
 {config_load file="$language/lang_$language.conf" section="index"}
-<h1>{$CATEGORIES_HEADING_TITLE}</h1>
+{if $CATEGORIES_HEADING_TITLE}
+	<h1>{$CATEGORIES_HEADING_TITLE}</h1>
+{else}
+	<h1>{$CATEGORIES_NAME}</h1>
+{/if}
 {if $CATEGORIES_DESCRIPTION}
 <p>{$CATEGORIES_DESCRIPTION}</p>
 <div class="hrproductpreview"></div>
