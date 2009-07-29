@@ -35,8 +35,6 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
 // EOF - Christian - 2009-06-12 - modified copyright phrase
 
 //BOF - Dokuman - 2009-05-03 - Produce Valid Links
-	//for ($i=0; $i<count($str_arr);$i++) $cop.=chr($str_arr[$i]);
-
     function NoEntities($Input) {
       $TransTable1 = get_html_translation_table (HTML_ENTITIES);
       foreach($TransTable1 as $ASCII => $Entity) {
@@ -49,8 +47,7 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
     function AmpReplace($Treffer) {
       return $Treffer[1].htmlentities(NoEntities($Treffer[2])).$Treffer[3];
     }
-    $tpl_output = preg_replace_callback("/(<a[^>]*href=\"|<form[^>]*action=\")(.*)(\"[^<]*>)/Usi","AmpReplace",$tpl_output);
-    $tpl_output = preg_replace_callback("/(<a[^>]*href='|<form[^>]*action=')(.*)('[^<]*>)/Usi","AmpReplace",$tpl_output);
+    $tpl_output = preg_replace_callback("/(<[^>]*['\"])(http[s]?\:\/\/[^'\"]*)(['\"][^<]*>)/Usi","AmpReplace",$tpl_output);
 //EOF - Dokuman - 2009-05-03 - Produce Valid Links
 
     return $tpl_output.$cop;
