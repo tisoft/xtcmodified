@@ -123,7 +123,11 @@
  * 
  * + CUSTOMIZE THE SETTING IN lang/LANGUAGE/modules/shipping/zones.php
  */
-      $this->num_zones = 1;
+
+//BOF - 29.07.2009 - Dokuman - up to 9 zones possible, no changes in langfile needed
+      //$this->num_zones = 1;
+      $this->num_zones = 9;
+//EOF - 29.07.2009 - Dokuman - up to 9 zones possible, no changes in langfile needed
     }
 
 /**
