@@ -35,8 +35,14 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			$("body","html").css({height: "100%", width: "100%"});
 			$("html").css("overflow","hidden");
 			if (document.getElementById("TB_HideSelect") === null) {//iframe to hide select elements in ie6
-				$("body").append("<iframe id='TB_HideSelect'></iframe><div id='TB_overlay'></div><div id='TB_window'></div>");
-				$("#TB_overlay").click(tb_remove);
+			
+//BOF - DoKuman - 30.07.2009 - fix IE6 SSL Popup due to missing "src" on iframe
+//			$("body").append("<iframe id='TB_HideSelect'></iframe><div id='TB_overlay'></div><div id='TB_window'></div>");
+
+        $("body").append("<iframe src='javascript:false;' id='TB_HideSelect'></iframe><div id='TB_overlay'></div><div id='TB_window'></div>");
+//EOF - DoKuman - 30.07.2009 - fix IE6 SSL Popup due to missing "src" on iframe
+
+  			$("#TB_overlay").click(tb_remove);
 			}
 		}else{//all others
 			if(document.getElementById("TB_overlay") === null){
