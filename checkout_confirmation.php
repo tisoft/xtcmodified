@@ -328,7 +328,10 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 
 	$smarty->assign('REVOCATION', $revocation);
 	$smarty->assign('REVOCATION_TITLE', $shop_content_data['content_heading']);
-	$smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO));
+	//BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink 
+	//$smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO));
+	$smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO,'SSL'));
+	//EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
 	
 	$shop_content_query = "SELECT
 		                                                content_title,
@@ -343,8 +346,10 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
 	
 	$smarty->assign('AGB_TITLE', $shop_content_data['content_heading']);
-	$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
-
+  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink 
+	//$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
+	$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO,'SSL'));
+  //EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
 }
 
 $smarty->assign('language', $_SESSION['language']);
