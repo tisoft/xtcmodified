@@ -47,7 +47,7 @@ class main {
  	function getShippingLink() {
  	  //BOF - DokuMan - 2009-05-31 - fixed wrong quotationmark position
  	  //return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
-	return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&;TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+	return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
 	  //EOF - DokuMan - 2009-05-31 - fixed wrong quotationmark position
 	}
 
@@ -96,12 +96,12 @@ class main {
 		return;
 	}
 	
-	function getContentLink($coID,$text) {
- 	  //BOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
-		//return '<a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
-		return '<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&amp;TB_iframe=true&amp;height=400&amp;width=600"').' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
- 	  //EOF - DokuMan - 2009-05-31 - replace ampersand to be more xhtml compliant
-	}
+   function getContentLink($coID,$text,$ssl='') {
+ 	  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
+		if ($ssl != 'SSL' ) { $ssl = 'NONSSL'; }
+		return '<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'?KeepThis=true&TB_iframe=true&height=400&width=600"', $ssl).' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
+		//EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
+	 }
 
 }
 ?>

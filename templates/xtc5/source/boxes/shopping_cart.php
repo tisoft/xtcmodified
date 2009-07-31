@@ -71,7 +71,7 @@ if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
 	if (SHOW_SHIPPING=='true') { 
     //BOF - DokuMan - 2009-05-31 - added blank outside anchor, removed needless quotation mark
 		//$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.'<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"">'.SHIPPING_COSTS.'</a>');	
-		$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&aTB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>');	
+		$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600', 'SSL').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>');	
     //EOF - DokuMan - 2009-05-31 - added blank outside anchor, removed needless quotation mark
 	}
 }
