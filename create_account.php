@@ -114,9 +114,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	
 	$customers_status = $vatID->vat_info['status'];
 	$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
-	$error = $vatID->vat_info['error'];
-	
-	if($error==1){
+
+	// BOF - DokuMan - 2009-08-09 - Code optimization
+	//$error = $vatID->vat_info['error'];
+	//if($error==1){
+	if($vatID->vat_info['error']==1){
+	// EOF - DokuMan - 2009-08-09 - Code optimization
+
 	$messageStack->add('create_account', ENTRY_VAT_ERROR);
 	$error = true;
   }

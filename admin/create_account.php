@@ -173,9 +173,13 @@ if ($_GET['action'] == 'edit') {
 	$vatID = new vat_validation($customers_vat_id, '', '', $entry_country_id);
 
 	$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
-	$error = $vatID->vat_info['error'];
 
-	if($error==1){
+	// BOF - DokuMan - 2009-08-09 - Code optimization
+	//$error = $vatID->vat_info['error'];
+	//if($error==1){
+	if($vatID->vat_info['error']==1){
+	// EOF - DokuMan - 2009-08-09 - Code optimization
+
 	$entry_vat_error = true;
 	$error = true;
   }
