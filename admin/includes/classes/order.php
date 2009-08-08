@@ -44,6 +44,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     function query($order_id) {
       $order_query = xtc_db_query("select customers_name,
                                    customers_cid,
+                                   customers_lastname,
+                                   customers_firstname,                                   
                                    customers_id,
                                    customers_vat_id,
                                    customers_company,
@@ -126,6 +128,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                           'last_modified' => $order['last_modified']);
 
       $this->customer = array('name' => $order['customers_name'],
+                              'lastname' => $order['customers_lastname'],
+                              'firstname' => $order['customers_firstname'],
                               'company' => $order['customers_company'],
                               'csID' => $order['customers_cid'],
                               'vat_id' => $order['customers_vat_id'],                               
