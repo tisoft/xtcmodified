@@ -1,29 +1,46 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-	$Id: froogle.php 1188 2005-08-28 14:24:34Z matthias $
-	
-	XT-Commerce - community made shopping
-	http://www.xt-commerce.com
-	
-	Copyright (c) 2003 XT-Commerce
-	-----------------------------------------------------------------------------------------
-	based on:
-	(c) 2000-2001 The Exchange Project (earlier name of osCommerce)
-	(c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com
-	(c) 2003 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
-	
-	Released under the GNU General Public License
-	---------------------------------------------------------------------------------------*/
+   $Id: froogle.php 1188 2005-08-28 14:24:34Z matthias $
+
+   XT-Commerce - community made shopping
+   http://www.xt-commerce.com
+
+   Copyright (c) 2003 XT-Commerce
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
+   (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
+   
+   -------------------------------------------------------------------------------------------------------------------------
+   Erweiterung der froogle.php (c)2009 by Hetfield - http://www.MerZ-IT-SerVice.de um folgende Funktionen:
+   - Gewichts- oder preisabhängige Vesandkosten mit Berücksichtigung der Versandkostenfrei-Grenze
+   - Zustand 'neu' fest hinterlegt
+   - Anzeige Zahlungsarten
+   - Anzeige Gewicht
+   - Anzeige EAN
+   - Auswahl der verschiedenen suchmaschinenfreundlichen URL für den Exportlink (Original/keine, Shopstat oder DirectURL)
+   - Umlautproblematik und str_replace-Wahnsinn beseitigt
+   -------------------------------------------------------------------------------------------------------------------------
+
+   Released under the GNU General Public License 
+   ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
 define('MODULE_FROOGLE_TEXT_DESCRIPTION', 'Export - Froogle.de (Tab getrennt)');
 define('MODULE_FROOGLE_TEXT_TITLE', 'Froogle.de - TXT');
 define('MODULE_FROOGLE_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_FROOGLE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
-define('MODULE_FROOGLE_STATUS_DESC','Modulstatus') ;
+define('MODULE_FROOGLE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
+define('MODULE_FROOGLE_STATUS_DESC','Modulstatus');
 define('MODULE_FROOGLE_STATUS_TITLE','Status');
-define('MODULE_FROOGLE_CURRENCY_TITLE','W&auml;hru ng');
+define('MODULE_FROOGLE_CURRENCY_TITLE','W&auml;hrung');
 define('MODULE_FROOGLE_CURRENCY_DESC','Welche W&auml;hrung soll exportiert werden?');
+define('MODULE_FROOGLE_SHIPPING_COST_TITLE','<hr noshade><b>Versandkosten</b>');
+define('MODULE_FROOGLE_SHIPPING_COST_DESC','Die Versandkosten basieren auf dem Artikelpreis oder dem Artikelgewicht. Beispiel: 25:4.90,50:9.90,etc.. Bis 25 werden 4.90 verrechnet, dar&uuml;ber bis 50 werden 9.90 verrechnet, etc.');
+define('MODULE_FROOGLE_SHIPPING_ART_TITLE','<hr noshade><b>Versandkosten-Methode</b>');
+define('MODULE_FROOGLE_SHIPPING_ART_DESC','Die Versandkosten basieren auf dem Artikelpreis oder dem Artikelgewicht.');
+define('MODULE_FROOGLE_SUMAURL_TITLE','<hr noshade><b>Suchmaschinenfreundliche URL</b>');
+define('MODULE_FROOGLE_SUMAURL_DESC','W&auml;hlen Sie aus, ob und welche Erweiterung Sie f&uuml;r suchmaschinenfreundliche URL in Ihrem Shop nutzen');
 define('EXPORT_YES','Nur Herunterladen');
 define('EXPORT_NO','Am Server Speichern');
 define('CURRENCY','<hr noshade><b>W&auml;hrung:</b>');
@@ -34,20 +51,17 @@ define('EXPORT_STATUS_TYPE','<hr noshade><b>Kundengruppe:</b>');
 define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml;r den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</b>');
 define('CAMPAIGNS','<hr noshade><b>Kampagnen:</b>');
 define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
-define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
-
+define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 // include needed functions
 
 
   class froogle {
     var $code, $title, $description, $enabled;
 
-
     function froogle() {
       global $order;
 
-      $this->code       = 'froogle';
-      $this->language   = 'de';
+      $this->code = 'froogle';
       $this->title = MODULE_FROOGLE_TEXT_TITLE;
       $this->description = MODULE_FROOGLE_TEXT_DESCRIPTION;
       $this->sort_order = MODULE_FROOGLE_SORT_ORDER;
@@ -56,25 +70,51 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
       $this->PARENT=array();
 
     }
-
-
+	
     function process($file) {
 
         @xtc_set_time_limit(0);
         require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
         $xtPrice = new xtcPrice($_POST['currencies'],$_POST['status']);
+		
+		if ($_POST['sumaurl'] == 'directurl') {
+			require_once(DIR_FS_CATALOG.'inc/bluegate_seo.inc.php');
+			$bluegateSeo = new BluegateSeo();
+		}
 
-		$schema = 'link'."\t".'id'."\t".'titel'."\t".'beschreibung'. "\t".'bild_url'."\t".'produktart'."\t".'preis'."\t".'zustand'."\t".'marke'."\n" ;
-        $export_query =xtc_db_query("SELECT
+        $schema = 'beschreibung'."\t".'id'."\t".'link'."\t".'preis'."\t".'währung '."\t".'titel'."\t".'zustand'."\t".'bild_url'."\t".'ean'."\t".'gewicht'."\t".'marke'."\t".'versand'."\t".'zahlungsmethode'."\n";
+        
+		if ($_POST['shippingcosts'] != MODULE_FROOGLE_SHIPPING_COST) {
+			xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($_POST['shippingcosts']) . "' where configuration_key = 'MODULE_FROOGLE_SHIPPING_COST'");
+		}
+		$zahlungsmethode = '';
+		if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {
+			$customers_status_query = xtc_db_query("SELECT customers_status_payment_unallowed FROM " . TABLE_CUSTOMERS_STATUS . " WHERE customers_status_id = '" . (int)$_POST['status'] . "' AND language_id = '" . (int)$_SESSION['languages_id'] . "'");
+			$customers_status_value = xtc_db_fetch_array($customers_status_query,true);
+			$installedpayments = explode(';', MODULE_PAYMENT_INSTALLED);
+			$unallowed_payment_modules = explode(',', $customers_status_value['customers_status_payment_unallowed']);
+			for ($i = 0, $n = sizeof($installedpayments); $i < $n; $i++) {
+				$installedpayments[$i] = str_replace('.php','',$installedpayments[$i]);
+				if (!in_array($installedpayments[$i], $unallowed_payment_modules)) {						
+					@include(DIR_FS_CATALOG.'lang/'.$_SESSION['language'].'/modules/payment/'.$installedpayments[$i].'.php');
+					$zahlungsmethode .= strip_tags(constant(strtoupper('MODULE_PAYMENT_'.$installedpayments[$i].'_TEXT_TITLE')));
+					if (($n-$i) >= 2) {	$zahlungsmethode .= ','; }
+				}
+			}
+		}	
+		
+		$export_query =xtc_db_query("SELECT
                              p.products_id,
                              pd.products_name,
                              pd.products_description,
                              p.products_model,
+							 p.products_ean,
                              p.products_image,
                              p.products_price,
                              p.products_status,
                              p.products_date_available,
                              p.products_shippingtime,
+							 p.products_weight,
                              p.products_discount_allowed,
                              pd.products_meta_keywords,
                              p.products_tax_class_id,
@@ -90,114 +130,110 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
                              " . TABLE_SPECIALS . " s
                            ON p.products_id = s.products_id
                          WHERE
-                           p.products_status = 1 AND
-                           p.products_price > 0
+                           p.products_status = 1
                          ORDER BY
                             p.products_date_added DESC,
                             pd.products_name");
 
 
         while ($products = xtc_db_fetch_array($export_query)) {
-
-            $products_price = $xtPrice->xtcGetPrice($products['products_id'],
-                                        $format=false,
-                                        1,
-                                        $products['products_tax_class_id'],
-                                        '');
-
-			 // get product categorie
-            $categorie_query=xtc_db_query("SELECT
+            $products_price = $xtPrice->xtcGetPrice($products['products_id'], $format=false, 1, $products['products_tax_class_id'], '');
+			$categorie_query=xtc_db_query("SELECT
                                             categories_id
                                             FROM ".TABLE_PRODUCTS_TO_CATEGORIES."
                                             WHERE products_id='".$products['products_id']."'");
              while ($categorie_data=xtc_db_fetch_array($categorie_query)) {
                     $categories=$categorie_data['categories_id'];
              }
-
-
+			
             // remove trash
-            $products_description = str_replace("<br>"," ",$products_description);
-            $products_description = str_replace("<br />"," ",$products_description);
-            $products_description = strip_tags($products['products_description']);
-            // $products_description = str_replace(";","",$products_description);
-            // anfang änderung wegen Umlautproblem
-            $products_description = str_replace("&Auml;","Ä",$products_description);
-            $products_description = str_replace("&auml;","ä",$products_description);
-            $products_description = str_replace("&Ouml;","Ö",$products_description);
-            $products_description = str_replace("&ouml;","ö",$products_description);
-            $products_description = str_replace("&Uuml;","Ü",$products_description);
-            $products_description = str_replace("&uuml;","ü",$products_description);
-            $products_description = str_replace("&szlig;","ß",$products_description);
-            $products_description = str_replace ("&amp;", "&", $products_description);
-            $products_description = str_replace ("&sect;", "§", $products_description);
-            $products_description = str_replace("&deg;","°",$products_description);
-            $products_description = str_replace ("&sup2;", "²", $products_description);
-            $products_description = str_replace ("&sup3;", "³", $products_description);
-            
-            $products_description = str_replace("&reg;","®",$products_description);
-            $products_description = str_replace ("&plusmn;", "±", $products_description);
-            $products_description = str_replace ("&micro;", "µ", $products_description);
-            // ende anderung wegen Umlautproblem
-            $products_description = str_replace("'",", ",$products_description);
+            $products_description = strip_tags($products['products_description']);         
+            $products_description = html_entity_decode($products_description);
+			$products_description = str_replace(";",", ",$products_description);
+			$products_description = str_replace("'",", ",$products_description);
             $products_description = str_replace("\n"," ",$products_description);
             $products_description = str_replace("\r"," ",$products_description);
             $products_description = str_replace("\t"," ",$products_description);
             $products_description = str_replace("\v"," ",$products_description);
-            $products_description = str_replace("&quot,"," \"",$products_description);
-            $products_description = str_replace("&qout,"," \"",$products_description);
-            $products_description = str_replace(chr(13)," ",$products_description);
+            $products_description = str_replace(chr(13)," ",$products_description);            
             $products_description = substr($products_description, 0, 65536);
-            $cat = $this->buildCAT($categories);
-            
-            //-- Shopstat URLS ----//
-            //zur Aktivierung von SEO-URLs Kommentierung entfernen
-            /*
-            $cat = strip_tags($this->buildCAT($categories));
-            require_once(DIR_FS_INC . 'xtc_href_link_from_admin.inc.php');
-            $link = xtc_href_link_from_admin('product_info.php', 'products_id=' . $products['products_id']);
-            (preg_match("/\?/",$link)) ? $link .= '&' : $link .= '?';
-            $link .= 'referer='.$this->code;
-            (!empty($_POST['campaign']))
-                ? $link .= '&'.$_POST['campaign']
-                : false;
-            $link .= '&language='.$this->language;
-            
-            */
-            //-- Shopstat URLS ----//
-
-            if ($products['products_image'] != ''){
-                $image = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_ORIGINAL_IMAGES .$products['products_image'];
-            }else{
-                $image = '';
-            }
-
+			$cat = $this->buildCAT($categories);			
+			
+			if ($products['products_image'] != ''){
+				$image = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_ORIGINAL_IMAGES .$products['products_image'];
+			} else {
+				$image = '';
+			}
+			if ($products['products_weight'] != '0.00'){
+				$weight = number_format($products['products_weight'],2,'.','');
+			} else {
+				$weight = '';
+			}
+            if ($products_price > MODULE_SHIPPING_FREEAMOUNT_AMOUNT && MODULE_SHIPPING_FREEAMOUNT_STATUS == 'True') {
+				$versand = '0.00';
+			} else if ($products_price > MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER && MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
+				$versand = '0.00';
+			} else {
+				$shipping = -1;
+				$shippinglist = split("[:,]" , $_POST['shippingcosts']);
+				for ($i=0; $i<sizeof($shippinglist); $i+=2) {
+					if ($_POST['shippingart'] == 'weight') {
+				  		if ($products['products_weight'] <= $shippinglist[$i]) {
+							$shipping = $shippinglist[$i+1];
+							break;
+				  		}
+					} else if ($_POST['shippingart'] == 'price') {
+						if ($products_price <= $shippinglist[$i]) {
+							$shipping = $shippinglist[$i+1];
+							break;
+				  		}
+					}
+				}	
+				if ($shipping == -1) {
+				  $shipping_cost = 0;
+				} else {
+				  $shipping_cost = $shipping;
+				}
+				$versand = number_format($shipping_cost,2,'.','');			
+			}
+			if ($_POST['sumaurl'] == 'shopstat') {
+				$cat = strip_tags($this->buildCAT($categories));
+				require_once(DIR_FS_INC . 'xtc_href_link_from_admin.inc.php');
+				$productURL = xtc_href_link_from_admin('product_info.php', xtc_product_link($products['products_id'], $products['products_name']));
+				(preg_match("/\?/",$productURL)) ? $link .= '&' : $productURL .= '?';
+				$productURL .= 'referer='.$this->code;
+				(!empty($_POST['campaign']))
+					? $productURL .= '?'.$_POST['campaign']
+					: false;
+				$productURL .= '&language='.$this->language;
+			} else if ($_POST['sumaurl'] == 'directurl') {
+				$productURL = $bluegateSeo->getProductLink(xtc_product_link($products['products_id'], $products['products_name']),$connection,$_SESSION['languages_id']);
+				if ($_POST['campaign']<>'') {
+					$productURL.='?'.$_POST['campaign'];
+				}
+			} else if ($_POST['sumaurl'] == 'original') {
+				$productURL = HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'product_info.php?'.$_POST['campaign'].xtc_product_link($products['products_id'], $products['products_name']);
+			}	
+			
             //create content
-            $schema .=
-
-            //-- Shopstat URLS ----//
-            //zur Aktivierung von SEO-URLs
-            // Zeile 1 $link."\t". entkommentieren
-            // Zeile 2 auskommentieren
-            //$link."\t".
-            HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'product_info.php?'.$_POST['campaign'].xtc_product_link($products['products_id'], $products['products_name']) . "\t" .
-            //-- Shopstat URLS ----//
-
-            $products['products_id'] ."\t".
-            $products['products_name'] ."\t".
-            $products_description ."\t".
-            $image ."\t" .
-            substr($cat,0,strlen($cat)-2). "\t" .
-            number_format($products_price,2,'.',''). "\t" .
-            neu . "\t" .
-            $products['manufacturers_name'] ."\n";
-
-
+            $schema .=  $products_description."\t".
+						$products['products_id']."\t".
+                        $productURL . "\t" .
+                        number_format($products_price,2,'.','')."\t".
+						$_POST['currencies']."\t".
+						$products['products_name']."\t".
+						"neu\t".
+                        $image."\t" .
+						$products['products_ean']."\t".
+						$weight."\t".
+                        $products['manufacturers_name']."\t".
+						":::".$versand."\t" .
+						$zahlungsmethode."\n";
         }
         // create File
           $fp = fopen(DIR_FS_DOCUMENT_ROOT.'export/' . $file, "w+");
           fputs($fp, $schema);
           fclose($fp);
-
 
       switch ($_POST['export']) {
         case 'yes':
@@ -215,7 +251,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
         }
 
     }
-
+    
     function buildCAT($catID)
     {
 
@@ -243,7 +279,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
         return $this->CAT[$tmpID];
         }
     }
-
+    
    function getParent($catID)
     {
       if (isset($this->PARENT[$catID]))
@@ -265,7 +301,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
     $curr='';
     $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
     while ($currencies_data=xtc_db_fetch_array($currencies)) {
-     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br>';
+     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
     }
 
     $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
@@ -274,20 +310,32 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
 	$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
 	}
 
-    return array('text' =>  EXPORT_STATUS_TYPE.'<br>'.
-                          	EXPORT_STATUS.'<br>'.
-                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br>'.
-                            CURRENCY.'<br>'.
-                            CURRENCY_DESC.'<br>'.
+    return array('text' =>  EXPORT_STATUS_TYPE.'<br />'.
+                          	EXPORT_STATUS.'<br />'.
+                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
+                            CURRENCY.'<br />'.
+                            CURRENCY_DESC.'<br />'.
                             $curr.
-                            CAMPAIGNS.'<br>'.
-                            CAMPAIGNS_DESC.'<br>'.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br>'.
-                            EXPORT_TYPE.'<br>'.
-                            EXPORT.'<br>'.
-                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br>'.
-                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br>'.
-                            '<br>' . xtc_button(BUTTON_EXPORT) .
+							'<b>'.MODULE_FROOGLE_SHIPPING_COST_TITLE.'</b><br />'.
+							MODULE_FROOGLE_SHIPPING_COST_DESC.'<br />'.
+							xtc_draw_input_field('shippingcosts',MODULE_FROOGLE_SHIPPING_COST).'<br />'.
+							'<b>'.MODULE_FROOGLE_SHIPPING_ART_TITLE.'</b><br />'.
+							MODULE_FROOGLE_SHIPPING_ART_DESC.'<br />'.
+                            xtc_draw_radio_field('shippingart', 'weight',true).'Versandksten nach Gewicht<br />'.
+                            xtc_draw_radio_field('shippingart', 'price',false).'Versandkosten nach Preis<br />'.
+							'<b>'.MODULE_FROOGLE_SUMAURL_TITLE.'</b><br />'.
+							MODULE_FROOGLE_SUMAURL_DESC.'<br />'.
+                            xtc_draw_radio_field('sumaurl', 'original',true).'Originale bzw. keine<br />'.
+                            xtc_draw_radio_field('sumaurl', 'shopstat',false).'Shopstat<br />'.
+							xtc_draw_radio_field('sumaurl', 'directurl',false).'DirectURL<br />'.
+							CAMPAIGNS.'<br />'.
+                            CAMPAIGNS_DESC.'<br />'.
+                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.                               
+                            EXPORT_TYPE.'<br />'.
+                            EXPORT.'<br />'.
+                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
+                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
+                            '<br />' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=froogle')));
 
 
@@ -302,12 +350,14 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
     }
 
     function install() {
-      xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_FROOGLE_FILE', 'froogle.txt',  '6', '1', '', now())");
+      xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_FROOGLE_FILE', 'froogle.txt', '6', '1', '', now())");
       xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_FROOGLE_STATUS', 'True',  '6', '1', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
-}
+	  xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_FROOGLE_SHIPPING_COST', '25:6.90,50:9.90,10000:0.00', '6', '1', '', '', now())");
+	}
 
     function remove() {
       xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
+	  xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_FROOGLE_SHIPPING_COST'");
     }
 
     function keys() {
