@@ -249,7 +249,7 @@ define('TEXT_REVIEW_WORD_COUNT', '%s words');
 define('TEXT_REVIEW_RATING', 'Review: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Date added: %s');
 define('TEXT_NO_REVIEWS', 'There are no reviews yet.');
-define('TEXT_NO_NEW_PRODUCTS', 'There are no new products at the moment.');
+define('TEXT_NO_NEW_PRODUCTS', 'There are no new products at the last '.MAX_DISPLAY_NEW_PRODUCTS_DAYS.' days. See also the last 10 products.'); // Hetfield - 2009-08-11 - changed text for new products_new function
 define('TEXT_UNKNOWN_TAX_RATE', 'Unknown tax rate');
 
 /*
