@@ -36,6 +36,11 @@ if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 if (GROUP_CHECK == 'true') {
 	$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 }
+//BOF - Hetfield - 2009-08-11 - #BUGFIX 0000374: Box Whats New 30 Tage BUG
+if (MAX_DISPLAY_NEW_PRODUCTS_DAYS != '0') {
+   $date_new_products = date("Y.m.d", mktime(1, 1, 1, date(m), date(d) - MAX_DISPLAY_NEW_PRODUCTS_DAYS, date(Y)));
+   $days = " and p.products_date_added > '".$date_new_products."' ";
+}
 if ($random_product = xtc_random_select("select distinct
                                            p.products_id,
                                            p.products_image,
@@ -51,9 +56,10 @@ if ($random_product = xtc_random_select("select distinct
                                            and c.categories_id = p2c.categories_id
                                            ".$group_check."
                                            ".$fsk_lock."
+										   ".$days."
                                            and c.categories_status=1 order by
                                            p.products_date_added desc limit ".MAX_RANDOM_SELECT_NEW)) {
-
+//EOF - Hetfield - 2009-08-11 - #BUGFIX 0000374: Box Whats New 30 Tage BUG
 	$whats_new_price = $xtPrice->xtcGetPrice($random_product['products_id'], $format = true, 1, $random_product['products_tax_class_id'], $random_product['products_price']);
 }
 
