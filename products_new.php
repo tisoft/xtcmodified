@@ -95,50 +95,9 @@ $module_content = '';
 if ($products_new_split->number_of_rows > 0) {
 	$products_new_query = xtc_db_query($products_new_split->sql_query);
 	while ($products_new = xtc_db_fetch_array($products_new_query)) {
-		$products_price = $xtPrice->xtcGetPrice($products_new['products_id'], $format = true, 1, $products_new['products_tax_class_id'], $products_new['products_price'], 1);
-		$vpePrice = '';
-		if ($products_new['products_vpe_status'] == 1 && $products_new['products_vpe_value'] != 0.0)
-			$vpePrice = $xtPrice->xtcFormat($products_price['plain'] * (1 / $products_new['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($products_new['products_vpe']);
-		$buy_now = '';
-		if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
-			if ($products_new['products_fsk18'] == '0')
-				$buy_now = '<a href="'.xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array ('action')).'action=buy_now&BUYproducts_id='.$products_new['products_id'], 'NONSSL').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$products_new['products_name'].TEXT_NOW).'</a>';
-		} else {
-			$buy_now = '<a href="'.xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array ('action')).'action=buy_now&BUYproducts_id='.$products_new['products_id'], 'NONSSL').'">'.xtc_image_button('button_buy_now.gif', TEXT_BUY.$products_new['products_name'].TEXT_NOW).'</a>';
-		}
-		if ($products_new['products_image'] != '') {
-			$products_image = DIR_WS_THUMBNAIL_IMAGES.$products_new['products_image'];
-		} else {
-			$products_image = '';
-		}
-		if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
-			$tax_rate = $xtPrice->TAX[$products_new['products_tax_class_id']];
-			// price incl tax
-			if ($tax_rate > 0 && $_SESSION['customers_status']['customers_status_show_price_tax'] != 0) {
-				$tax_info = sprintf(TAX_INFO_INCL, $tax_rate.' %');
-			} 
-			// excl tax + tax at checkout
-			if ($tax_rate > 0 && $_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
-				$tax_info = sprintf(TAX_INFO_ADD, $tax_rate.' %');
-			}
-			// excl tax
-			if ($tax_rate > 0 && $_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 0) {
-				$tax_info = sprintf(TAX_INFO_EXCL, $tax_rate.' %');
-			}
-		}
-		$ship_info="";
-		if (SHOW_SHIPPING=='true') {
-		$ship_info=' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>';
-		}
-		$module_content[] = array ('PRODUCTS_NAME' => $products_new['products_name'],
-                               'PRODUCTS_SHIPPING_LINK' => $ship_info,
-                               'PRODUCTS_TAX_INFO' => $tax_info,
-                               'PRODUCTS_DESCRIPTION' => $products_new['products_short_description'], 
-                               'PRODUCTS_PRICE' => $products_price['formated'],
-                               'PRODUCTS_VPE' => $vpePrice,
-                               'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products_new['products_id'], $products_new['products_name'])),
-                               'PRODUCTS_IMAGE' => $products_image, 'BUTTON_BUY_NOW' => $buy_now);
-
+		//BOF - Hetfield - 2009-08-11 - products_new uses now the product class
+		$module_content[] = $product->buildDataArray($products_new);
+		//EOF - Hetfield - 2009-08-11 - products_new uses now the product class
 	}
 } else {
 
