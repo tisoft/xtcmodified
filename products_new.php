@@ -79,16 +79,15 @@ $products_new_query_raw = "select distinct
 $products_new_split = new splitPageResults($products_new_query_raw, $_GET['page'], MAX_DISPLAY_PRODUCTS_NEW, 'p.products_id');
 
 if (($products_new_split->number_of_rows > 0)) {
+//BOF - Hetfield - 2009-08-11 - replace table with div
 	$smarty->assign('NAVIGATION_BAR', '
-		   <table border="0" width="100%" cellspacing="0" cellpadding="2">
-		          <tr>
-		            <td class="smallText">'.$products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW).'</td>
-		            <td align="right" class="smallText">'.TEXT_RESULT_PAGE.' '.$products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
-		          </tr>
-		        </table>
-		
+		   <div style="width:100%;font-size:smaller">
+		          <div style="float:left">'.$products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW).'</div>
+		          <div style="float:right">'.TEXT_RESULT_PAGE.' '.$products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</div>
+		          <br style="clear:both" />
+		   </div>		
 		   ');
-
+//EOF - Hetfield - 2009-08-11 - replace table with div
 }
 
 $module_content = '';
