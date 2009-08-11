@@ -19,7 +19,10 @@ function xtc_delete_file($file){
 	$delete= @unlink($file);
 	clearstatcache();
 	if (@file_exists($file)) {
-		$filesys=eregi_replace("/","\\",$file);
+		// BOF - Tomcraft - 2009-08-11 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+		//$filesys=eregi_replace("/","\\",$file);
+		$filesys=preg_replace("/","\\",$file);
+		// EOF - Tomcraft - 2009-08-11 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 		$delete = @system("del $filesys");
 		clearstatcache();
 		if (@file_exists($file)) {
