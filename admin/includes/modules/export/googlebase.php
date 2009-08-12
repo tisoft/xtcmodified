@@ -16,6 +16,7 @@
    -------------------------------------------------------------------------------------------------------------------------
    Erweiterung der googlebase.php (c)2009 by Hetfield - http://www.MerZ-IT-SerVice.de um folgende Funktionen:
    - Gewichts- oder preisabhängige Vesandkosten mit Berücksichtigung der Versandkostenfrei-Grenze
+   - Beachtung des Mindermengenzuschlags
    - Zustand 'neu' fest hinterlegt
    - Anzeige Zahlungsarten
    - Anzeige Gewicht
@@ -91,7 +92,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 		$zahlungsmethode = '';
 		if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {
 			$customers_status_query = xtc_db_query("SELECT customers_status_payment_unallowed FROM " . TABLE_CUSTOMERS_STATUS . " WHERE customers_status_id = '" . (int)$_POST['status'] . "' AND language_id = '" . (int)$_SESSION['languages_id'] . "'");
-			$customers_status_value = xtc_db_fetch_array($customers_status_query,true);
+			$customers_status_value = xtc_db_fetch_array($customers_status_query);
 			$installedpayments = explode(';', MODULE_PAYMENT_INSTALLED);
 			$unallowed_payment_modules = explode(',', $customers_status_value['customers_status_payment_unallowed']);
 			for ($i = 0, $n = sizeof($installedpayments); $i < $n; $i++) {
@@ -170,10 +171,26 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 			} else {
 				$weight = '';
 			}
+			$versand = '0.00';
+			if ($products_price < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER && MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS == 'true') {
+				$customers_tax_query = xtc_db_query("SELECT customers_status_show_price_tax, customers_status_add_tax_ot FROM " . TABLE_CUSTOMERS_STATUS . " WHERE customers_status_id = '" . (int)$_POST['status'] . "' AND language_id = '" . (int)$_SESSION['languages_id'] . "'");
+				$customers_tax_value = xtc_db_fetch_array($customers_tax_query);
+				$tax = xtc_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS);
+				if ($customers_tax_value['customers_status_show_price_tax'] == 1) {
+					$low_order_fee = xtc_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+				}
+				if ($customers_tax_value['customers_status_show_price_tax'] == 0 && $customers_tax_value['customers_status_add_tax_ot'] == 1) {
+					$low_order_fee = MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
+				}
+				if ($customers_tax_value['customers_status_show_price_tax'] == 0 && $customers_tax_value['customers_status_add_tax_ot'] != 1) {
+					$low_order_fee = MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
+				}
+				$versand = $versand + $low_order_fee;
+			}
             if ($products_price > MODULE_SHIPPING_FREEAMOUNT_AMOUNT && MODULE_SHIPPING_FREEAMOUNT_STATUS == 'True') {
-				$versand = '0.00';
+				$versand = $versand;
 			} else if ($products_price > MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER && MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
-				$versand = '0.00';
+				$versand = $versand;
 			} else {
 				$shipping = -1;
 				$shippinglist = split("[:,]" , $_POST['shippingcosts']);
@@ -195,7 +212,8 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 				} else {
 				  $shipping_cost = $shipping;
 				}
-				$versand = number_format($shipping_cost,2,'.','');			
+				$versand = $versand + $shipping_cost;
+				$versand = number_format($versand,2,'.','');			
 			}
 			if ($_POST['sumaurl'] == 'shopstat') {
 				$cat = strip_tags($this->buildCAT($categories));
@@ -243,7 +261,8 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
             $fp = fopen(DIR_FS_DOCUMENT_ROOT.'export/' . $file,"rb");
             $buffer = fread($fp, filesize(DIR_FS_DOCUMENT_ROOT.'export/' . $file));
             fclose($fp);
-            header('Content-type: application/x-octet-stream');
+            //header('Content-type: application/x-octet-stream');
+			header('Content-type: application/x-octet-stream; charset=ISO-8859-1');
             header('Content-disposition: attachment; filename=' . $file);
             echo $buffer;
             exit;
