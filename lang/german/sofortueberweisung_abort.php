@@ -2,7 +2,7 @@
 /**
  *
  *
- * @version Sofortüberweisung 1.9  05.06.2007
+ * @version Sofort&uuml;berweisung 1.9  05.06.2007
  * @author Henri Schmidhuber  info@in-solution.de
  * @copyright 2006 - 2007 Henri Schmidhuber
  * @link http://www.in-solution.de
@@ -36,14 +36,14 @@
  */
 
 
-define('NAVBAR_TITLE', 'Sofortüberweisung');
-define('HEADING_TITLE', 'Sofortüberweisung');
+define('NAVBAR_TITLE', 'Sofort&uuml;berweisung');
+define('HEADING_TITLE', 'Sofort&uuml;berweisung');
 
 define('TEXT_INFORMATION', 'Leider funktioniert Sofortueberweisung.de derzeit noch nicht mit Ihrem
-Kreditinstitut. Wir werden uns bemühen, dass auch Sie in Kürze diesen
-Paymentdienst nutzen können.<br />
+Kreditinstitut. Wir werden uns bem&uuml;hen, dass auch Sie in K&uuml;rze diesen
+Paymentdienst nutzen k&ouml;nnen.<br />
 <br />
-Bitte überweisen Sie uns den Rechnungsbetrag auf das folgende Konto:<br />
+Bitte &uuml;berweisen Sie uns den Rechnungsbetrag auf das folgende Konto:<br />
 ....<br />
 ....<br />
 ....<br />

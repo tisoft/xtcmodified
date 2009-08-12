@@ -33,7 +33,7 @@ define('TEXT_FROM', 'Absender:');
 define('TEXT_TO', 'eMail an:');
 define('TEXT_AMOUNT', 'Wert:');
 define('TEXT_MESSAGE', 'Nachricht:');
-define('TEXT_SINGLE_EMAIL', '<span class="smallText">Benutzen Sie dieses Feld nur für einzelne eMails, ansonsten bitte das Feld '.TEXT_CUSTOMER.' benutzen</span>');
+define('TEXT_SINGLE_EMAIL', '<span class="smallText">Benutzen Sie dieses Feld nur f&uuml;r einzelne eMails, ansonsten bitte das Feld '.TEXT_CUSTOMER.' benutzen</span>');
 define('TEXT_SELECT_CUSTOMER', 'Kunde ausw&auml;hlen');
 define('TEXT_ALL_CUSTOMERS', 'Alle Kunden');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'An alle Rundschreiben-Abonnenten');

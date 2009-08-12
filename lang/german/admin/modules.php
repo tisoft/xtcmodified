@@ -26,5 +26,5 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_MODULE_DIRECTORY', 'Modul Verzeichnis:');
 
-define('TABLE_HEADING_FILENAME','Modulname (für internen Gebrauch)');
+define('TABLE_HEADING_FILENAME','Modulname (f&uuml;r internen Gebrauch)');
 ?>

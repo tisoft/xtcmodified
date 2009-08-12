@@ -73,7 +73,7 @@
  define('TEXT_FILENAME','Benutze Datei:');
  define('TEXT_FILE_DESC','Beschreibung:');
  define('USED_SPACE','Verwendeter Speicherplatz:');
- define('TABLE_HEADING_CONTENT_FILESIZE','Dateigr&ouml;ße');
+ define('TABLE_HEADING_CONTENT_FILESIZE','Dateigr&ouml;&szlig;e');
    
  
  ?>

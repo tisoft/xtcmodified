@@ -279,10 +279,10 @@ define('JS_AT_LEAST_ONE_INPUT', '* Eines der folgenden Felder muss ausgef&uuml;l
 define('AT_LEAST_ONE_INPUT', 'Eines der folgenden Felder muss ausgef&uuml;llt werden:<br />Stichworte mit mindestens drei Zeichen<br />Preis ab<br />Preis bis<br />');
 define('JS_INVALID_FROM_DATE', '* ung&uuml; Datum (von)\n');
 define('JS_INVALID_TO_DATE', '* ung&uuml; Datum (bis)\n');
-define('JS_TO_DATE_LESS_THAN_FROM_DATE', '* Das Datum(von) muß größer oder gleich sein als das Datum (bis)\n');
+define('JS_TO_DATE_LESS_THAN_FROM_DATE', '* Das Datum(von) muss gr&ouml;&szlig;er oder gleich sein als das Datum (bis)\n');
 define('JS_PRICE_FROM_MUST_BE_NUM', '* \"Preis ab\" muss eine Zahl sein\n\n');
 define('JS_PRICE_TO_MUST_BE_NUM', '* \"Preis bis\" muss eine Zahl sein\n\n');
-define('JS_PRICE_TO_LESS_THAN_PRICE_FROM', '* Preis bis muss gr&ouml;sser oder gleich Preis ab sein.\n');
+define('JS_PRICE_TO_LESS_THAN_PRICE_FROM', '* Preis bis muss gr&ouml;&szlig;er oder gleich Preis ab sein.\n');
 define('JS_INVALID_KEYWORDS', '* Suchbegriff unzul&auml;ssig\n');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><strong>FEHLER:</strong></font> Keine &Uuml;bereinstimmung der eingebenen \'E-Mail-Adresse\' und/oder dem \'Passwort\'.');
 define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><strong>ACHTUNG:</strong></font> Die eingegebene E-Mail-Adresse ist nicht registriert. Bitte versuchen Sie es noch einmal.');

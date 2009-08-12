@@ -21,13 +21,13 @@
    ---------------------------------------------------------------------------------------*/
 
 define('MODULE_SHIPPING_SELFPICKUP_TEXT_TITLE', 'Selbstabholung');
-define('MODULE_SHIPPING_SELFPICKUP_TEXT_DESCRIPTION', 'Selbstabholung der Ware in unserer Geschäftsstelle');
+define('MODULE_SHIPPING_SELFPICKUP_TEXT_DESCRIPTION', 'Selbstabholung der Ware in unserer Gesch&auml;ftsstelle');
 define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER', 'Sortierung');
 
 define('MODULE_SHIPPING_SELFPICKUP_TEXT_TITLE', 'Selbstabholung.');
 define('MODULE_SHIPPING_SELFPICKUP_TEXT_WAY', 'Selbstabholung der Ware in unserer Gesch&auml;ftsstelle.');
 define('MODULE_SHIPPING_SELFPICKUP_ALLOWED_TITLE' , 'Erlaubte Zonen');
-define('MODULE_SHIPPING_SELFPICKUP_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
+define('MODULE_SHIPPING_SELFPICKUP_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 define('MODULE_SHIPPING_SELFPICKUP_STATUS_TITLE', 'Selbstabholung aktivieren');
 define('MODULE_SHIPPING_SELFPICKUP_STATUS_DESC', 'M&ouml;chten Sie Selbstabholung anbieten?');
 define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_TITLE', 'Sortierreihenfolge');

@@ -30,10 +30,10 @@
 
   define('MODULE_PAYMENT_EUTRANSFER_TEXT_INFO','&Uuml;berweisen Sie den Rechnungsbetrag auf unser Konto. Die Kontodaten erhalten Sie nach Bestellannahme per E-Mail');
   define('MODULE_PAYMENT_EUTRANSFER_STATUS_TITLE','Allow Bank Transfer Payment');
-  define('MODULE_PAYMENT_EUTRANSFER_STATUS_DESC','Möchten Sie &Uuml;berweisungen akzeptieren?');
+  define('MODULE_PAYMENT_EUTRANSFER_STATUS_DESC','M&ouml;chten Sie &Uuml;berweisungen akzeptieren?');
 
   define('MODULE_PAYMENT_EUTRANSFER_BRANCH_TITLE','Empf&auml;nger');
-  define('MODULE_PAYMENT_EUTRANSFER_BRANCH_DESC','Der Empfänger für die Überweisung.');
+  define('MODULE_PAYMENT_EUTRANSFER_BRANCH_DESC','Der Empf&auml;nger f&uuml;r die &Uuml;berweisung.');
 
   define('MODULE_PAYMENT_EUTRANSFER_BANKNAM_TITLE','Name der Bank');
   define('MODULE_PAYMENT_EUTRANSFER_BANKNAM_DESC','Der volle Name der Bank');

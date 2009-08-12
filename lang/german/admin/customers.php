@@ -55,7 +55,7 @@ define('ENTRY_PAYMENT_UNALLOWED','Nicht erlaubte Zahlungsmodule:');
 define('ENTRY_SHIPPING_UNALLOWED','Nicht erlaubte Versandmodule:');
 define('ENTRY_NEW_PASSWORD','Neues Passwort:');
 
-// NEU HINZUGEFÜGT 04.12.2008 - UMSATZANZEIGE BEI KUNDEN 03.12.2008
+// NEU HINZUGEFUEGT 04.12.2008 - UMSATZANZEIGE BEI KUNDEN 03.12.2008
 define('TABLE_HEADING_UMSATZ','Umsatz');
 
 ?>

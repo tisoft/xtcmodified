@@ -22,13 +22,13 @@
 
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_TITLE', 'Sicher bezahlen &uuml;ber Moneybookers');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_DESCRIPTION', 'Moneybookers<br /><br /><img src="images/icon_arrow_right.gif"> <b><a href="http://www.xt-commerce.com/index.php?option=com_content&task=view&id=76&lang=de" target="_blank">Hilfe zu Einstellungen</a></b>');
-define('MODULE_PAYMENT_AMONEYBOOKERS_NOCURRENCY_ERROR', 'Es ist keine von Moneybookers akzeptierte Währung installiert!');
+define('MODULE_PAYMENT_AMONEYBOOKERS_NOCURRENCY_ERROR', 'Es ist keine von Moneybookers akzeptierte W&auml;hrung installiert!');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ERRORTEXT1', 'payment_error=');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO', '');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ERRORTEXT2', '&error=Fehler w&auml;hrend Ihrer Bezahlung bei Moneybookers!');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ORDER_TEXT', 'Bestelldatum: ');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_ERROR', 'Fehler bei Zahlung!');
-define('MODULE_PAYMENT_AMONEYBOOKERS_CONFIRMATION_TEXT', 'Danke für Ihre Bestellung!');
+define('MODULE_PAYMENT_AMONEYBOOKERS_CONFIRMATION_TEXT', 'Danke f&uuml;r Ihre Bestellung!');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TRANSACTION_FAILED_TEXT', 'Ihre Zahlungstransaktion bei moneybookers.com ist fehlgeschlagen. Bitte versuchen Sie es nochmal, oder w&auml;hlen Sie eine andere Zahlungsm&ouml;glichkeit!');
 
 
@@ -63,14 +63,14 @@ define('MODULE_PAYMENT_AMONEYBOOKERS_EMAILID_TITLE', 'Moneybookers eMail Adresse
 define('MODULE_PAYMENT_AMONEYBOOKERS_EMAILID_DESC', 'eMail Adresse, die bei Moneybookers registriert ist. <br /><font color="#ff0000">* Erforderlich</font>');
 define('MODULE_PAYMENT_AMONEYBOOKERS_PWD_TITLE', 'Moneybookers Geheimwort');
 define('MODULE_PAYMENT_AMONEYBOOKERS_PWD_DESC', 'Geben Sie Ihr Moneybookers Geheimwort ein (dies ist nicht ihr Passwort!)');
-define('MODULE_PAYMENT_AMONEYBOOKERS_MERCHANTID_TITLE', 'Händler ID ');
-define('MODULE_PAYMENT_AMONEYBOOKERS_MERCHANTID_DESC', 'Ihre persönliche Händler ID bei Moneybookers <br /><font color="#ff0000">* Erforderlich</font>');
+define('MODULE_PAYMENT_AMONEYBOOKERS_MERCHANTID_TITLE', 'H&auml;ndler ID ');
+define('MODULE_PAYMENT_AMONEYBOOKERS_MERCHANTID_DESC', 'Ihre pers&ouml;nliche H&auml;ndler ID bei Moneybookers <br /><font color="#ff0000">* Erforderlich</font>');
 define('MODULE_PAYMENT_AMONEYBOOKERS_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_AMONEYBOOKERS_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
-define('MODULE_PAYMENT_AMONEYBOOKERS_CURRENCY_TITLE', 'Transaktionswährung');
-define('MODULE_PAYMENT_AMONEYBOOKERS_CURRENCY_DESC', 'Die Währung, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gewählte Währung nicht bei Moneybookers verfügbar ist, wird diese Währung ausgewählt.');
+define('MODULE_PAYMENT_AMONEYBOOKERS_CURRENCY_TITLE', 'Transaktionsw&auml;hrung');
+define('MODULE_PAYMENT_AMONEYBOOKERS_CURRENCY_DESC', 'Die W&auml;hrung, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte W&auml;hrung nicht bei Moneybookers verf&uuml;gbar ist, wird diese W&auml;hrung ausgew&auml;hlt.');
 define('MODULE_PAYMENT_AMONEYBOOKERS_LANGUAGE_TITLE', 'Transaktionssprache');
-define('MODULE_PAYMENT_AMONEYBOOKERS_LANGUAGE_DESC', 'Die Sprache, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gewählte Shopsprache nicht bei Moneybookers verfügbar ist, wird diese Sprache ausgewählt.');
+define('MODULE_PAYMENT_AMONEYBOOKERS_LANGUAGE_DESC', 'Die Sprache, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte Shopsprache nicht bei Moneybookers verf&uuml;gbar ist, wird diese Sprache ausgew&auml;hlt.');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ZONE_TITLE', 'Zahlungszone');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ZONE_DESC', 'Wenn eine Zone ausgew&auml;hlt ist, gilt die Zahlungsmethode nur f&uuml;r diese Zone.');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ALLOWED_TITLE', 'Erlaubte Zonen');

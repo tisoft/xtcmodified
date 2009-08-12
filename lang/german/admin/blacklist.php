@@ -30,7 +30,7 @@ define('TEXT_LAST_MODIFIED', 'Zuletzt ge&auml;ndert:');
 
 
 define('TEXT_NEW_INTRO', 'Bitte machen Sie die folgenden Angaben zum neuen Hersteller.');
-define('TEXT_EDIT_INTRO', 'Bitte führen Sie die notwendigen &Auml;nderungen durch.');
+define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie die notwendigen &Auml;nderungen durch.');
 
 define('TEXT_BLACKLIST_CARD_NUMBER', 'Kartennummer:');
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Karte l&ouml;schen wollen?');

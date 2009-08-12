@@ -20,15 +20,15 @@ define('TABLE_HEADING', 'Bestelldaten bearbeiten');
 define('TABLE_HEADING_ORDER', 'Bestellung Nr:&nbsp;');
 define('TEXT_SAVE_ORDER', 'Bestellungsbearbeitung beenden und Bestellung neu berechnen.');
 
-define('TEXT_EDIT_ADDRESS', 'Adressdaten und Kundendaten bearbeiten und einfügen.');
-define('TEXT_EDIT_PRODUCTS', 'Artikel und Artikeloptionen bearbeiten und einfügen.');
-define('TEXT_EDIT_OTHER', 'Versandkosten, Zahlungsweisen, Währungen, Sprachen usw bearbeiten und einfügen.');
+define('TEXT_EDIT_ADDRESS', 'Adressdaten und Kundendaten bearbeiten und einf&uuml;gen.');
+define('TEXT_EDIT_PRODUCTS', 'Artikel und Artikeloptionen bearbeiten und einf&uuml;gen.');
+define('TEXT_EDIT_OTHER', 'Versandkosten, Zahlungsweisen, W&auml;hrungen, Sprachen usw bearbeiten und einf&uuml;gen.');
 
-define('IMAGE_EDIT_ADDRESS', 'Adressen bearbeiten oder einfügen');
-define('IMAGE_EDIT_PRODUCTS', 'Artikel und Optionen bearbeiten oder einfügen');
-define('IMAGE_EDIT_OTHER', 'Versandkosten Zahlung Gutscheine usw. bearbeiten oder einfügen');
+define('IMAGE_EDIT_ADDRESS', 'Adressen bearbeiten oder einf&uuml;gen');
+define('IMAGE_EDIT_PRODUCTS', 'Artikel und Optionen bearbeiten oder einf&uuml;gen');
+define('IMAGE_EDIT_OTHER', 'Versandkosten Zahlung Gutscheine usw. bearbeiten oder einf&uuml;gen');
 
-// Adressänderung
+// Adress&auml;nderung
 define('TEXT_INVOICE_ADDRESS', 'Kundenadresse');
 define('TEXT_SHIPPING_ADDRESS', 'Versandadresse');
 define('TEXT_BILLING_ADDRESS', 'Rechnungsadresse');
@@ -36,7 +36,7 @@ define('TEXT_BILLING_ADDRESS', 'Rechnungsadresse');
 
 define('TEXT_COMPANY', 'Firma:');
 define('TEXT_NAME', 'Name:');
-define('TEXT_STREET', 'Straße');
+define('TEXT_STREET', 'Stra&szlig;e');
 define('TEXT_ZIP', 'Plz:');
 define('TEXT_CITY', 'Stadt:');
 define('TEXT_COUNTRY', 'Land:');
@@ -47,8 +47,8 @@ define('TEXT_CUSTOMER_UST', 'UstID:');
 
 // Artikelbearbeitung
 
-define('TEXT_EDIT_GIFT', 'Gutscheine und Rabatt bearbeiten oder einfügen');
-define('TEXT_EDIT_ADDRESS_SUCCESS', 'Adressänderung wurde gespeichert.');
+define('TEXT_EDIT_GIFT', 'Gutscheine und Rabatt bearbeiten oder einf&uuml;gen');
+define('TEXT_EDIT_ADDRESS_SUCCESS', 'Adress&auml;nderung wurde gespeichert.');
 define('TEXT_SMALL_NETTO', '(Netto)');
 define('TEXT_PRODUCT_ID', 'pID:');
 define('TEXT_PRODUCTS_MODEL', 'Art.Nr:');
@@ -69,7 +69,7 @@ define('TEXT_PRICE_PREFIX', 'Price Prefix:');
 define('TEXT_PAYMENT', 'Zahlungsweise:');
 define('TEXT_SHIPPING', 'Versandart:');
 define('TEXT_LANGUAGE', 'Sprache:');
-define('TEXT_CURRENCIES', 'Währungen:');
+define('TEXT_CURRENCIES', 'W&auml;hrungen:');
 define('TEXT_ORDER_TOTAL', 'Zusammenfassung:');
 define('TEXT_SAVE', 'Speichern');
 define('TEXT_ACTUAL', 'Aktuell: ');

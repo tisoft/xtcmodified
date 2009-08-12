@@ -30,12 +30,12 @@
   define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_TITLE','Versandkostenfrei erlauben');
   define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_DESC','Versandkostenfreie Lieferung erlauben ?');
   
-  define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_TITLE','Versandkostenfrei für Bestellungen ab');
+  define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_TITLE','Versandkostenfrei f&uuml;r Bestellungen ab');
   define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_DESC','Versandkostenfrei ab einem Bestellwert von.');
   
   define('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION_TITLE','Versandkostenfrei nach Zonen');
   define('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION_DESC','Versandkostenfrei nach Zonen berechnen.');
   
   define('MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS_TITLE','Steuerklasse');
-  define('MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS_DESC','Folgende Steuerklasse für die Versandkosten wählen (Nur für Bestellbearbeitung)');  
+  define('MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS_DESC','Folgende Steuerklasse f&uuml;r die Versandkosten w&auml;hlen (Nur f&uuml;r Bestellbearbeitung)');  
 ?>

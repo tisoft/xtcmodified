@@ -47,6 +47,6 @@
   define('MODULE_ORDER_TOTAL_GV_CALC_TAX_DESC', 'MwSt. neu berechnen');
   define('MODULE_ORDER_TOTAL_GV_TAX_CLASS_TITLE', 'MwSt.-Satz');
   define('MODULE_ORDER_TOTAL_GV_TAX_CLASS_DESC', 'Folgenden MwSt. Satz benutzen, wenn Sie den Gutschein als Gutschrift verwenden.');
-  define('MODULE_ORDER_TOTAL_GV_CREDIT_TAX_TITLE', 'Guthaben enthält MwSt.');
+  define('MODULE_ORDER_TOTAL_GV_CREDIT_TAX_TITLE', 'Guthaben enth&auml;lt MwSt.');
   define('MODULE_ORDER_TOTAL_GV_CREDIT_TAX_DESC', 'MwSt. dem Gutscheinwert anrechnen');
 ?>

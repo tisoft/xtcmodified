@@ -34,7 +34,7 @@ define('MODULE_SHIPPING_CHRONOPOST_STATUS_DESC' , 'Vous souhaitez activer l\'exp
 define('MODULE_SHIPPING_CHRONOPOST_HANDLING_TITLE' , 'Les tarifs');
 define('MODULE_SHIPPING_CHRONOPOST_HANDLING_DESC' , 'Les tarifs pour l\'expédition via chronopost');
 define('MODULE_SHIPPING_CHRONOPOST_ALLOWED_TITLE' , 'Einzelne Versandzonen');
-define('MODULE_SHIPPING_CHRONOPOST_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand möglich sein soll. zb AT,DE');
+define('MODULE_SHIPPING_CHRONOPOST_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, in die ein Versand m&ouml;glich sein soll. zb AT,DE');
 define('MODULE_SHIPPING_CHRONOPOST_COUNTRIES_1_TITLE' , 'Chronopost Zone 1 (pays)');
 define('MODULE_SHIPPING_CHRONOPOST_COUNTRIES_1_DESC' , 'Insérer une virgule entre 2 codes ISO de pays qui font partie de la même zone');
 define('MODULE_SHIPPING_CHRONOPOST_COST_1_TITLE' , 'Chronopost Zone 1 (poids:tarifs)');

@@ -28,7 +28,7 @@
   define('MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE_DESC','M&ouml;chten Sie Mindermengenzuschl&auml;ge erlauben?');
   
   define('MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER_TITLE','Mindermengenzuschlag f&uuml;r Bestellungen unter');
-  define('MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER_DESC','Mindermengenzuschlag wird für Bestellungen unter diesem Wert hinzugef&uuml;gt.');
+  define('MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER_DESC','Mindermengenzuschlag wird f&uuml;r Bestellungen unter diesem Wert hinzugef&uuml;gt.');
   
   define('MODULE_ORDER_TOTAL_LOWORDERFEE_FEE_TITLE','Zuschlag');
   define('MODULE_ORDER_TOTAL_LOWORDERFEE_FEE_DESC','Mindermengenzuschlag.');
@@ -37,5 +37,5 @@
   define('MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION_DESC','Mindestmengenzuschlag f&uuml;r Bestellungen, die an diesen Ort versandt werden.');
   
   define('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS_TITLE','Steuerklasse');
-  define('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS_DESC','Folgende Steuerklasse für den Mindermengenzuschlag verwenden.');
+  define('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS_DESC','Folgende Steuerklasse f&uuml;r den Mindermengenzuschlag verwenden.');
 ?>

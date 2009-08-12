@@ -53,7 +53,7 @@ define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_MERCHANTID_DESC', 'Ihre pers&ouml;nlic
 define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_CURRENCY_TITLE', 'Transaktionsw&auml;hrung');
-define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_CURRENCY_DESC', 'Die W&auml;hrung, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte W&auml;hrung nicht bei Moneybookers verfügbar ist, wird diese W&auml;hrung ausgew&auml;hlt.');
+define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_CURRENCY_DESC', 'Die W&auml;hrung, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte W&auml;hrung nicht bei Moneybookers verf&uuml;gbar ist, wird diese W&auml;hrung ausgew&auml;hlt.');
 define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_LANGUAGE_TITLE', 'Transaktionssprache');
 define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_LANGUAGE_DESC', 'Die Sprache, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte Shopsprache nicht bei Moneybookers verf&uuml;gbar ist, wird diese Sprache ausgew&auml;hlt.');
 define('MODULE_PAYMENT_MONEYBOOKERS_IDEAL_ZONE_TITLE', 'Zahlungszone');

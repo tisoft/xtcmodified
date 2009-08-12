@@ -13,7 +13,7 @@
 
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_TEXT_TITLE', 'Kreditkarte');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_TEXT_DESCRIPTION', 'Kreditkarte &uuml;ber Moneybookers<br /><img src="images/icon_arrow_right.gif"> <b><a href="http://www.xt-commerce.com/index.php?option=com_content&task=view&id=76&lang=de" target="_blank">Hilfe zu Einstellungen</a></b>');
-define('MODULE_PAYMENT_MONEYBOOKERS_CC_NOCURRENCY_ERROR', 'Es ist keine von Moneybookers akzeptierte Währung installiert!');
+define('MODULE_PAYMENT_MONEYBOOKERS_CC_NOCURRENCY_ERROR', 'Es ist keine von Moneybookers akzeptierte W&auml;hrung installiert!');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_ERRORTEXT1', 'payment_error=');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_TEXT_INFO', '');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_ERRORTEXT2', '&error=Fehler w&auml;hrend Ihrer Bezahlung bei Moneybookers!');
@@ -53,7 +53,7 @@ define('MODULE_PAYMENT_MONEYBOOKERS_CC_MERCHANTID_DESC', 'Ihre pers&ouml;nliche 
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_CURRENCY_TITLE', 'Transaktionsw&auml;hrung');
-define('MODULE_PAYMENT_MONEYBOOKERS_CC_CURRENCY_DESC', 'Die W&auml;hrung, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte W&auml;hrung nicht bei Moneybookers verfügbar ist, wird diese W&auml;hrung ausgew&auml;hlt.');
+define('MODULE_PAYMENT_MONEYBOOKERS_CC_CURRENCY_DESC', 'Die W&auml;hrung, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte W&auml;hrung nicht bei Moneybookers verf&uuml;gbar ist, wird diese W&auml;hrung ausgew&auml;hlt.');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_LANGUAGE_TITLE', 'Transaktionssprache');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_LANGUAGE_DESC', 'Die Sprache, in der der Zahlungsvorgang abgewickelt wird. Wenn Ihre gew&auml;hlte Shopsprache nicht bei Moneybookers verf&uuml;gbar ist, wird diese Sprache ausgew&auml;hlt.');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_ZONE_TITLE', 'Zahlungszone');

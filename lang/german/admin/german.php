@@ -347,7 +347,7 @@ define('IMAGE_ICON_STATUS_GREEN','aktiv');
 define('IMAGE_ICON_STATUS_GREEN_LIGHT','aktivieren');
 define('IMAGE_ICON_STATUS_RED','inaktiv');
 define('IMAGE_ICON_STATUS_RED_LIGHT','deaktivieren');
-define('IMAGE_ICON_INFO','auswählen');
+define('IMAGE_ICON_INFO','ausw&auml;hlen');
 // EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 
 define('_JANUARY', 'Januar');

@@ -55,7 +55,7 @@
   define('PERCENTAGE','Prozentanteil');
   define('HOST','Host');
 	
-// NEU HINZUGEFÜGT 04.12.2008 - Neue Startseite im Admin BOF	
+// NEU HINZUGEFUEGT 04.12.2008 - Neue Startseite im Admin BOF	
 	
 	define('HEADING_TITLE', 'Bestellungen');
 	define('HEADING_TITLE_SEARCH', 'Bestell-Nr.:');
@@ -79,10 +79,10 @@
 	define('TEXT_VALIDATING','Nicht best&auml;tigt');
 	define('TEXT_ALL_ORDERS', 'Alle Bestellungen');
 	define('TEXT_NO_ORDER_HISTORY', 'Keine Bestellhistorie verf&uuml;gbar');
-	define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte Änderung');
+	define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte &Auml;nderung');
     
-// NEU HINZUGEFÜGT 04.12.2008 - Neue Startseite im Admin EOF
+// NEU HINZUGEFUEGT 04.12.2008 - Neue Startseite im Admin EOF
 
-define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte Änderung: ');
+define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte &Auml;nderung: ');
 
 ?>

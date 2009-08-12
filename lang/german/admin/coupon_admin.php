@@ -84,15 +84,15 @@ define('TEXT_NEW_INTRO', 'Bitte geben Sie die folgende Informationen f&uuml;r de
 
 
 define('COUPON_NAME_HELP', 'Eine Kurzbezeichnung f&uuml;r den Kupon');
-define('COUPON_AMOUNT_HELP', 'Tragen Sie hier den Rabatt für diesen Kupon ein. Entweder einen festen Betrag oder einen prozentualen Rabatt wie z.B. 10%');
+define('COUPON_AMOUNT_HELP', 'Tragen Sie hier den Rabatt f&uuml;r diesen Kupon ein. Entweder einen festen Betrag oder einen prozentualen Rabatt wie z.B. 10%');
 define('COUPON_CODE_HELP', 'Hier k&ouml;nnen Sie einen eigenen Code eintragen (max. 16 Zeichen). Lassen Sie das Feld frei, dann wird dieser Code automatisch generiert.');
 define('COUPON_STARTDATE_HELP', 'Das Datum ab dem der Kupon g&uuml;ltig ist');
 define('COUPON_FINISHDATE_HELP', 'Das Datium an dem der Kupon abl&auml;uft');
-define('COUPON_FREE_SHIP_HELP', 'Kupon für eine versandkostenfreie Lieferung. <strong>Achtung:</strong> Der Kupon Wert wird dabei nicht mehr ber&uuml;cksichtigt! Der Mindestbestellwert bleibt g&uuml;ltig.');
-define('COUPON_DESC_HELP', 'Beschreibung des Kupons für den Kunden');
+define('COUPON_FREE_SHIP_HELP', 'Kupon f&uuml;r eine versandkostenfreie Lieferung. <strong>Achtung:</strong> Der Kupon Wert wird dabei nicht mehr ber&uuml;cksichtigt! Der Mindestbestellwert bleibt g&uuml;ltig.');
+define('COUPON_DESC_HELP', 'Beschreibung des Kupons f&uuml;r den Kunden');
 define('COUPON_MIN_ORDER_HELP', 'Mindestbestellwert ab dem dieser Kupon g&uuml;ltig ist');
 define('COUPON_USES_COUPON_HELP', 'Tragen Sie hier ein wie oft dieser Kupon eingel&ouml;st werden darf. Lassen Sie das Feld frei, dann ist die Benutzung unlimitiert.');
 define('COUPON_USES_USER_HELP', 'Tragen Sie hier ein wie oft ein Kunde diesen Kupon einl&ouml;sen darf. Lassen Sie das Feld frei, dann ist die Benutzung unlimitiert.');
-define('COUPON_PRODUCTS_HELP', 'Eine durch Komma getrennte Liste von product_ids für die dieser Kupon g&uuml;ltig ist. Ein leeres Feld bedeutet keine Einschr&auml;nkung.');
-define('COUPON_CATEGORIES_HELP', 'Eine durch Komma getrennte Liste von Kategorien (cpaths) für die dieser Kupon g&uuml;ltig ist. Ein leeres Feld bedeutet keine Einschr&auml;nkung.');
+define('COUPON_PRODUCTS_HELP', 'Eine durch Komma getrennte Liste von product_ids f&uuml;r die dieser Kupon g&uuml;ltig ist. Ein leeres Feld bedeutet keine Einschr&auml;nkung.');
+define('COUPON_CATEGORIES_HELP', 'Eine durch Komma getrennte Liste von Kategorien (cpaths) f&uuml;r die dieser Kupon g&uuml;ltig ist. Ein leeres Feld bedeutet keine Einschr&auml;nkung.');
 ?>
