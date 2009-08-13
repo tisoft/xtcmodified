@@ -470,7 +470,10 @@ $smarty->assign('INPUT_FAX', xtc_draw_input_fieldNote(array (
 $smarty->assign('CHECKBOX_NEWSLETTER', xtc_draw_checkbox_field('newsletter', '1').'&nbsp;'. (xtc_not_null(ENTRY_NEWSLETTER_TEXT) ? '<span class="inputRequirement">'.ENTRY_NEWSLETTER_TEXT.'</span>' : ''));
 if (DISPLAY_PRIVACY_CHECK == 'true') {
 $smarty->assign('PRIVACY_CHECKBOX', '<input type="checkbox" value="privacy" name="privacy" />');
-$smarty->assign('PRIVACY_LINK', $main->getContentLink(2, MORE_INFO));
+//BOF - Dokuman - 2009-08-13 - SSL for Content-Links per getContentLink
+//$smarty->assign('PRIVACY_LINK', $main->getContentLink(2, MORE_INFO));
+$smarty->assign('PRIVACY_LINK', $main->getContentLink(2, MORE_INFO, $request_type));
+//EOF - Dokuman - 2009-08-13 - SSL for Content-Links per getContentLink
 }
 $smarty->assign('FORM_END', '</form>');
 $smarty->assign('language', $_SESSION['language']);
