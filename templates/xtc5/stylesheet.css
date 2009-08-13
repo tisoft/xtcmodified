@@ -348,6 +348,26 @@ ul#categorymenu li.level3 a:hover {
 	background-color:#ccc;
 	font-weight:bold;
 }
+/* 4th TIER */
+ul#categorymenu li.level4 {
+    list-style-type:none;
+    border: solid #fff;
+    border-width:1px 0px 0px 0px;
+}
+ul#categorymenu li.level4 a {
+    text-decoration:none;
+    color:#333;
+    background: url(img/dotted1.gif) no-repeat 24px 9px #b3b3b3;
+    font-weight:bold;
+    padding:4px 0px 4px 34px;
+    display:block
+}
+ul#categorymenu li.level4 a:hover {
+    text-decoration:none;
+    color:#333;
+    background-color:#ccc;
+    font-weight:bold;
+}
 /* BOXES GLOBAL DEFINITION */
 h2.boxheader {
 	background-color:#868686;
