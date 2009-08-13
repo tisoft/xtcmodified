@@ -133,7 +133,10 @@ switch ($case) {
 		
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
-		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
+		//BOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
+		//$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
+		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES, '', 'SSL').'" alt="Captcha" />');
+		//EOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		$smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
@@ -154,7 +157,10 @@ switch ($case) {
 
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
-		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
+		//BOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
+		//$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
+		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES, '', 'SSL').'" alt="Captcha" />');
+		//EOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		$smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
@@ -183,7 +189,10 @@ switch ($case) {
 
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
-		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
+		//BOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
+		//$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
+		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES, '', 'SSL').'" alt="Captcha" />');
+		//EOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		//    $smarty->assign('info_message', $info_message);
 		$smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
