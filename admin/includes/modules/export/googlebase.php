@@ -15,13 +15,13 @@
    
    -------------------------------------------------------------------------------------------------------------------------
    Erweiterung der googlebase.php (c)2009 by Hetfield - http://www.MerZ-IT-SerVice.de um folgende Funktionen:
-   - Gewichts- oder preisabhängige Vesandkosten mit Berücksichtigung der Versandkostenfrei-Grenze
+   - Gewichts- oder preisabhÃ¤ngige Vesandkosten mit BerÃ¼cksichtigung der Versandkostenfrei-Grenze
    - Beachtung des Mindermengenzuschlags
    - Zustand 'neu' fest hinterlegt
    - Anzeige Zahlungsarten
    - Anzeige Gewicht
    - Anzeige EAN
-   - Auswahl der verschiedenen suchmaschinenfreundlichen URL für den Exportlink (Original/keine, Shopstat oder DirectURL)
+   - Auswahl der verschiedenen suchmaschinenfreundlichen URL fÃ¼r den Exportlink (Original/keine, Shopstat oder DirectURL)
    - Umlautproblematik und str_replace-Wahnsinn beseitigt
    -------------------------------------------------------------------------------------------------------------------------
 
@@ -53,6 +53,8 @@ define('EXPORT_STATUS_TYPE','<hr noshade><b>Kundengruppe:</b>');
 define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml;r den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</b>');
 define('CAMPAIGNS','<hr noshade><b>Kampagnen:</b>');
 define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
+define('SHIPPING_COUNTRY','<hr noshade><b>Land (optional):</b>');
+define('SHIPPING_COUNTRY_DESC','Das Land, in das der Artikel geliefert wird. Bitte geben Sie DE als Wert an. Google Base akzeptier nur Versandkosten f&uuml;r Lieferungen innerhalb Deutschlands.<br />Hinweis: Falls kein Wert angegeben wird, nimmt Google Base an, dass sich die Versandkosten auf das Zielland des Artikels beziehen.');
 define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 // include needed functions
 
@@ -84,25 +86,44 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 			$bluegateSeo = new BluegateSeo();
 		}
 
-        $schema = 'beschreibung'."\t".'id'."\t".'link'."\t".'preis'."\t".'währung '."\t".'titel'."\t".'zustand'."\t".'bild_url'."\t".'ean'."\t".'gewicht'."\t".'marke'."\t".'versand'."\t".'zahlungsmethode'."\n";
+        $schema = "beschreibung".chr(9)."id".chr(9)."link".chr(9)."preis".chr(9)."w".chr(228)."hrung".chr(9)."titel".chr(9)."zustand".chr(9)."bild_url".chr(9)."ean".chr(9)."gewicht".chr(9)."marke".chr(9)."versand".chr(9)."zahlungsmethode".chr(13);
         
 		if ($_POST['shippingcosts'] != MODULE_GOOGLEBASE_SHIPPING_COST) {
 			xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($_POST['shippingcosts']) . "' where configuration_key = 'MODULE_GOOGLEBASE_SHIPPING_COST'");
 		}
 		$zahlungsmethode = '';
 		if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {
+			$creditcard_modules = array('cc', 'moneybookers_cc', 'amoneybookers', 'uos_kreditkarte_modul', 'uos_transfer_modul', 'uos_utdirekt_kk_modul', 'worldpay', 'ipayment', 'iclear', 'paymentpartner_cc', 'wire_card_c3');
+			$americanexpress_modules = array('cc', 'moneybookers_cc', 'amoneybookers', 'ipayment');
+			$lastschrift_modules = array('banktransfer', 'uos_lastschrift_modul', 'uos_lastschrift_de_modul', 'uos_lastschrift_at_modul', 'uos_utdirekt_ls_modul', 'ipaymentelv', 'paymentpartner_dd');
+			$ueberweisung_modules = array('moneyorder', 'sofortueberweisungvorkasse', 'eustandardtransfer', 'uos_vorkasse_modul', 'uos_utdirekt_vk_modul');
+			$cash_modules = array('cash');
+			$scheck_modules = array('moneyorder');
 			$customers_status_query = xtc_db_query("SELECT customers_status_payment_unallowed FROM " . TABLE_CUSTOMERS_STATUS . " WHERE customers_status_id = '" . (int)$_POST['status'] . "' AND language_id = '" . (int)$_SESSION['languages_id'] . "'");
 			$customers_status_value = xtc_db_fetch_array($customers_status_query);
 			$installedpayments = explode(';', MODULE_PAYMENT_INSTALLED);
 			$unallowed_payment_modules = explode(',', $customers_status_value['customers_status_payment_unallowed']);
 			for ($i = 0, $n = sizeof($installedpayments); $i < $n; $i++) {
 				$installedpayments[$i] = str_replace('.php','',$installedpayments[$i]);
-				if (!in_array($installedpayments[$i], $unallowed_payment_modules)) {						
-					@include(DIR_FS_CATALOG.'lang/'.$_SESSION['language'].'/modules/payment/'.$installedpayments[$i].'.php');
-					$zahlungsmethode .= strip_tags(constant(strtoupper('MODULE_PAYMENT_'.$installedpayments[$i].'_TEXT_TITLE')));
-					if (($n-$i) >= 2) {	$zahlungsmethode .= ','; }
+				if (!in_array($installedpayments[$i], $unallowed_payment_modules)) {
+					if (constant(strtoupper('MODULE_PAYMENT_'.$installedpayments[$i].'_STATUS')) == 'True') {						
+						if (in_array($installedpayments[$i], $creditcard_modules)) { $cc = true; }
+						if (in_array($installedpayments[$i], $americanexpress_modules)) { $ae = true; }
+						if (in_array($installedpayments[$i], $lastschrift_modules)) { $la = true; }
+						if (in_array($installedpayments[$i], $ueberweisung_modules)) { $uw = true; }
+						if (in_array($installedpayments[$i], $cash_modules)) { $ca = true; }
+						if (in_array($installedpayments[$i], $scheck_modules)) { $sc = true; }						
+					}
 				}
 			}
+			if ($cc == true) { $creditcard = 'Visa,MasterCard,'; } else { $creditcard = ''; }
+			if ($ae == true) { $americanexpress = 'AmericanExpress,'; } else { $americanexpress = ''; }
+			if ($la == true) { $lastschrift = 'Lastschrift,'; } else { $lastschrift = ''; }
+			if ($uw == true) { $ueberweisung = chr(220).'berweisung,'; } else { $ueberweisung = ''; }
+			if ($ca == true) { $cash = 'Barzahlung,'; } else { $cash = ''; }
+			if ($sc == true) { $scheck = 'Scheck'; } else { $scheck = ''; }
+			$zahlungsmethode = $creditcard.$americanexpress.$lastschrift.$ueberweisung.$cash.$scheck;
+			if (substr($zahlungsmethode, -1) == ',') { $zahlungsmethode = substr($zahlungsmethode, 0, -1); }			
 		}	
 		
 		$export_query =xtc_db_query("SELECT
@@ -113,14 +134,8 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 							 p.products_ean,
                              p.products_image,
                              p.products_price,
-                             p.products_status,
-                             p.products_date_available,
-                             p.products_shippingtime,
-							 p.products_weight,
-                             p.products_discount_allowed,
-                             pd.products_meta_keywords,
+                             p.products_weight,
                              p.products_tax_class_id,
-                             p.products_date_added,
                              m.manufacturers_name
                          FROM
                              " . TABLE_PRODUCTS . " p LEFT JOIN
@@ -136,7 +151,6 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
                          ORDER BY
                             p.products_date_added DESC,
                             pd.products_name");
-
 
         while ($products = xtc_db_fetch_array($export_query)) {
             $products_price = $xtPrice->xtcGetPrice($products['products_id'], $format=false, 1, $products['products_tax_class_id'], '');
@@ -213,7 +227,6 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 				  $shipping_cost = $shipping;
 				}
 				$versand = $versand + $shipping_cost;
-				$versand = number_format($versand,2,'.','');			
 			}
 			if ($_POST['sumaurl'] == 'shopstat') {
 				$cat = strip_tags($this->buildCAT($categories));
@@ -246,12 +259,12 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 						$products['products_ean']."\t".
 						$weight."\t".
                         $products['manufacturers_name']."\t".
-						":::".$versand."\t" .
+						$_POST['shipping_country'].":::".number_format($versand,2,'.','')."\t" .
 						$zahlungsmethode."\n";
         }
         // create File
           $fp = fopen(DIR_FS_DOCUMENT_ROOT.'export/' . $file, "w+");
-          fputs($fp, $schema);
+          fputs($fp,$schema);
           fclose($fp);
 
       switch ($_POST['export']) {
@@ -261,20 +274,17 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
             $fp = fopen(DIR_FS_DOCUMENT_ROOT.'export/' . $file,"rb");
             $buffer = fread($fp, filesize(DIR_FS_DOCUMENT_ROOT.'export/' . $file));
             fclose($fp);
-            //header('Content-type: application/x-octet-stream');
-			header('Content-type: application/x-octet-stream; charset=ISO-8859-1');
-            header('Content-disposition: attachment; filename=' . $file);
+            header('Content-type: application/x-octet-stream; charset=iso-8859-15');
+			header('Content-disposition: attachment; filename=' . $file);
             echo $buffer;
             exit;
 
         break;
         }
 
-    }
+   }
     
-    function buildCAT($catID)
-    {
-
+   function buildCAT($catID) {
         if (isset($this->CAT[$catID]))
         {
          return  $this->CAT[$catID];
@@ -298,10 +308,9 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
                $this->CAT[$tmpID]=$catStr;
         return $this->CAT[$tmpID];
         }
-    }
+   }
     
-   function getParent($catID)
-    {
+   function getParent($catID) {
       if (isset($this->PARENT[$catID]))
       {
        return $this->PARENT[$catID];
@@ -314,51 +323,53 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
     }
 
     function display() {
-
-    $customers_statuses_array = xtc_get_customers_statuses();
-
-    // build Currency Select
-    $curr='';
-    $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
-    while ($currencies_data=xtc_db_fetch_array($currencies)) {
-     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
-    }
-
-    $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
-	$campaign_query = xtc_db_query("select campaigns_name, campaigns_refID from ".TABLE_CAMPAIGNS." order by campaigns_id");
-	while ($campaign = xtc_db_fetch_array($campaign_query)) {
-	$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
-	}
-
-    return array('text' =>  EXPORT_STATUS_TYPE.'<br />'.
-                          	EXPORT_STATUS.'<br />'.
-                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
-                            CURRENCY.'<br />'.
-                            CURRENCY_DESC.'<br />'.
-                            $curr.
-							'<b>'.MODULE_GOOGLEBASE_SHIPPING_COST_TITLE.'</b><br />'.
-							MODULE_GOOGLEBASE_SHIPPING_COST_DESC.'<br />'.
-							xtc_draw_input_field('shippingcosts',MODULE_GOOGLEBASE_SHIPPING_COST).'<br />'.
-							'<b>'.MODULE_GOOGLEBASE_SHIPPING_ART_TITLE.'</b><br />'.
-							MODULE_GOOGLEBASE_SHIPPING_ART_DESC.'<br />'.
-                            xtc_draw_radio_field('shippingart', 'weight',true).'Versandksten nach Gewicht<br />'.
-                            xtc_draw_radio_field('shippingart', 'price',false).'Versandkosten nach Preis<br />'.
-							'<b>'.MODULE_GOOGLEBASE_SUMAURL_TITLE.'</b><br />'.
-							MODULE_GOOGLEBASE_SUMAURL_DESC.'<br />'.
-                            xtc_draw_radio_field('sumaurl', 'original',true).'Originale bzw. keine<br />'.
-                            xtc_draw_radio_field('sumaurl', 'shopstat',false).'Shopstat<br />'.
-							xtc_draw_radio_field('sumaurl', 'directurl',false).'DirectURL<br />'.
-							CAMPAIGNS.'<br />'.
-                            CAMPAIGNS_DESC.'<br />'.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.                               
-                            EXPORT_TYPE.'<br />'.
-                            EXPORT.'<br />'.
-                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
-                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
-                            '<br />' . xtc_button(BUTTON_EXPORT) .
-                            xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=googlebase')));
-
-
+		$customers_statuses_array = xtc_get_customers_statuses();
+		// build Currency Select
+		$curr='';
+		$currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
+		while ($currencies_data=xtc_db_fetch_array($currencies)) {
+			$curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
+		}
+		$campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
+		$campaign_query = xtc_db_query("select campaigns_name, campaigns_refID from ".TABLE_CAMPAIGNS." order by campaigns_id");
+		while ($campaign = xtc_db_fetch_array($campaign_query)) {
+			$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
+		}
+		$shipping_country_array = array(array('id' => '', 'text' => TEXT_NONE));
+		$shipping_country_query = xtc_db_query("SELECT countries_iso_code_2 FROM ".TABLE_COUNTRIES." ORDER BY countries_iso_code_2");
+		while ($shipping_country = xtc_db_fetch_array($shipping_country_query)) {
+			$shipping_country_array[] = array('id' => strtoupper($shipping_country['countries_iso_code_2']), 'text' => strtoupper($shipping_country['countries_iso_code_2']),);
+		}
+		return array('text' =>  EXPORT_STATUS_TYPE.'<br />'.
+								EXPORT_STATUS.'<br />'.
+								xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
+								CURRENCY.'<br />'.
+								CURRENCY_DESC.'<br />'.
+								$curr.
+								'<b>'.MODULE_GOOGLEBASE_SHIPPING_COST_TITLE.'</b><br />'.
+								MODULE_GOOGLEBASE_SHIPPING_COST_DESC.'<br />'.
+								xtc_draw_input_field('shippingcosts',MODULE_GOOGLEBASE_SHIPPING_COST).'<br />'.
+								'<b>'.MODULE_GOOGLEBASE_SHIPPING_ART_TITLE.'</b><br />'.
+								MODULE_GOOGLEBASE_SHIPPING_ART_DESC.'<br />'.
+								xtc_draw_radio_field('shippingart', 'weight',true).'Versandksten nach Gewicht<br />'.
+								xtc_draw_radio_field('shippingart', 'price',false).'Versandkosten nach Preis<br />'.
+								SHIPPING_COUNTRY.'<br />'.
+								SHIPPING_COUNTRY_DESC.'<br />'.
+								xtc_draw_pull_down_menu('shipping_country',$shipping_country_array,'DE').'<br />'.
+								'<b>'.MODULE_GOOGLEBASE_SUMAURL_TITLE.'</b><br />'.
+								MODULE_GOOGLEBASE_SUMAURL_DESC.'<br />'.
+								xtc_draw_radio_field('sumaurl', 'original',true).'Originale bzw. keine<br />'.
+								xtc_draw_radio_field('sumaurl', 'shopstat',false).'Shopstat<br />'.
+								xtc_draw_radio_field('sumaurl', 'directurl',false).'DirectURL<br />'.
+								CAMPAIGNS.'<br />'.
+								CAMPAIGNS_DESC.'<br />'.
+								xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.                               
+								EXPORT_TYPE.'<br />'.
+								EXPORT.'<br />'.
+								xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
+								xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
+								'<br />' . xtc_button(BUTTON_EXPORT) .
+								xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=googlebase')));
     }
 
     function check() {
