@@ -105,15 +105,13 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 			$unallowed_payment_modules = explode(',', $customers_status_value['customers_status_payment_unallowed']);
 			for ($i = 0, $n = sizeof($installedpayments); $i < $n; $i++) {
 				$installedpayments[$i] = str_replace('.php','',$installedpayments[$i]);
-				if (!in_array($installedpayments[$i], $unallowed_payment_modules)) {
-					if (constant(strtoupper('MODULE_PAYMENT_'.$installedpayments[$i].'_STATUS')) == 'True') {						
-						if (in_array($installedpayments[$i], $creditcard_modules)) { $cc = true; }
-						if (in_array($installedpayments[$i], $americanexpress_modules)) { $ae = true; }
-						if (in_array($installedpayments[$i], $lastschrift_modules)) { $la = true; }
-						if (in_array($installedpayments[$i], $ueberweisung_modules)) { $uw = true; }
-						if (in_array($installedpayments[$i], $cash_modules)) { $ca = true; }
-						if (in_array($installedpayments[$i], $scheck_modules)) { $sc = true; }						
-					}
+				if (!in_array($installedpayments[$i], $unallowed_payment_modules)) {					
+					if (in_array($installedpayments[$i], $creditcard_modules)) { $cc = true; }
+					if (in_array($installedpayments[$i], $americanexpress_modules)) { $ae = true; }
+					if (in_array($installedpayments[$i], $lastschrift_modules)) { $la = true; }
+					if (in_array($installedpayments[$i], $ueberweisung_modules)) { $uw = true; }
+					if (in_array($installedpayments[$i], $cash_modules)) { $ca = true; }
+					if (in_array($installedpayments[$i], $scheck_modules)) { $sc = true; }
 				}
 			}
 			if ($cc == true) { $creditcard = 'Visa,MasterCard,'; } else { $creditcard = ''; }
@@ -126,7 +124,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 			if (substr($zahlungsmethode, -1) == ',') { $zahlungsmethode = substr($zahlungsmethode, 0, -1); }			
 		}	
 		
-		$export_query =xtc_db_query("SELECT
+		$export_query = xtc_db_query("SELECT
                              p.products_id,
                              pd.products_name,
                              pd.products_description,
@@ -136,6 +134,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
                              p.products_price,
                              p.products_weight,
                              p.products_tax_class_id,
+							 p.products_sperrgut,
                              m.manufacturers_name
                          FROM
                              " . TABLE_PRODUCTS . " p LEFT JOIN
@@ -173,6 +172,16 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
             $products_description = str_replace("\v"," ",$products_description);
             $products_description = str_replace(chr(13)," ",$products_description);            
             $products_description = substr($products_description, 0, 65536);
+			
+			$products_name = strip_tags($products['products_name']);         
+            $products_name = html_entity_decode($products_name);
+			$products_name = str_replace(";",", ",$products_name);
+			$products_name = str_replace("'",", ",$products_name);
+            $products_name = str_replace("\n"," ",$products_name);
+            $products_name = str_replace("\r"," ",$products_name);
+            $products_name = str_replace("\t"," ",$products_name);
+            $products_name = str_replace("\v"," ",$products_name);
+            $products_name = str_replace(chr(13)," ",$products_name);
 			$cat = $this->buildCAT($categories);			
 			
 			if ($products['products_image'] != ''){
@@ -231,7 +240,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 			if ($_POST['sumaurl'] == 'shopstat') {
 				$cat = strip_tags($this->buildCAT($categories));
 				require_once(DIR_FS_INC . 'xtc_href_link_from_admin.inc.php');
-				$productURL = xtc_href_link_from_admin('product_info.php', xtc_product_link($products['products_id'], $products['products_name']));
+				$productURL = xtc_href_link_from_admin('product_info.php', xtc_product_link($products['products_id'], $products['products_name']), 'NONSSL', false);
 				(preg_match("/\?/",$productURL)) ? $link .= '&' : $productURL .= '?';
 				$productURL .= 'referer='.$this->code;
 				(!empty($_POST['campaign']))
@@ -253,7 +262,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
                         $productURL . "\t" .
                         number_format($products_price,2,'.','')."\t".
 						$_POST['currencies']."\t".
-						$products['products_name']."\t".
+						$products_name."\t".
 						"neu\t".
                         $image."\t" .
 						$products['products_ean']."\t".
