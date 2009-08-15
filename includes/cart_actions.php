@@ -64,6 +64,15 @@ if (isset ($_GET['action'])) {
 	}
 
 	switch ($_GET['action']) {
+
+    //BOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
+		case 'remove_product':
+			$prd_id = preg_replace('/[^0-9\{\}]/', '', $_GET['prd_id']);
+			$_SESSION['cart'] -> remove($prd_id);
+			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters)));
+			break;
+    //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
+	
 		// customer wants to update the product quantity in their shopping cart
 		case 'update_product' :
 
