@@ -22,7 +22,22 @@ var form = "";
 var submitted = false;
 var error = false;
 var error_message = "";
+// BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
+function check_email(field_name_1, field_name_2, field_size, message_1, message_2) {
+  if (form.elements[field_name_1] && (form.elements[field_name_1].type != "hidden")) {
+	var email_address = form.elements[field_name_1].value;
+	var confirm_email_address = form.elements[field_name_2].value;
 
+	if (email_address == '' || email_address.length < field_size) {
+	  error_message = error_message + "* " + message_1 + "\n";
+	  error = true;
+	} else if (email_address != confirm_email_address) {
+	  error_message = error_message + "* " + message_2 + "\n";
+	  error = true;
+	}
+  }
+} 
+// EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
 function check_input(field_name, field_size, message) {
   if (form.elements[field_name] && (form.elements[field_name].type != "hidden")) {
     var field_value = form.elements[field_name].value;
@@ -118,7 +133,9 @@ function check_form(form_name) {
 
 <?php if (ACCOUNT_DOB == 'true') echo '  check_input("dob", ' . ENTRY_DOB_MIN_LENGTH . ', "' . xtc_js_lang(ENTRY_DATE_OF_BIRTH_ERROR) . '");' . "\n"; ?>
 
-  check_input("email_address", <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>, "<?php echo xtc_js_lang(ENTRY_EMAIL_ADDRESS_ERROR); ?>");
+  // BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
+  check_email("email_address", "confirm_email_address", <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>, "<?php echo xtc_js_lang(ENTRY_EMAIL_ADDRESS_ERROR); ?>", "<?php echo xtc_js_lang(ENTRY_EMAIL_ERROR_NOT_MATCHING); ?>");
+  // EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
   check_input("street_address", <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>, "<?php echo xtc_js_lang(ENTRY_STREET_ADDRESS_ERROR); ?>");
   check_input("postcode", <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>, "<?php echo xtc_js_lang(ENTRY_POST_CODE_ERROR); ?>");
   check_input("city", <?php echo ENTRY_CITY_MIN_LENGTH; ?>, "<?php echo xtc_js_lang(ENTRY_CITY_ERROR); ?>");

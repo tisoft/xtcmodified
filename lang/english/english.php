@@ -133,6 +133,7 @@ define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 05/21/1970)');
 
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your e-mail address must consist of at least  ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'The e-mail address your entered is incorrect - please check it');
+define('ENTRY_EMAIL_ERROR_NOT_MATCHING', 'Your e-mail address do not match.'); // Hetfield - 2009-08-15 - confirm e-mail at registration 
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'The e-mail address your entered already exists in our database - please check it');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
 define('ENTRY_STREET_ADDRESS_ERROR', 'Street/Nr must consist of at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.');

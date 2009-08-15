@@ -57,6 +57,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if (ACCOUNT_DOB == 'true')
 		$dob = xtc_db_prepare_input($_POST['dob']);
 	$email_address = xtc_db_prepare_input($_POST['email_address']);
+	$confirm_email_address = xtc_db_prepare_input($_POST['confirm_email_address']); // Hetfield - 2009-08-15 - confirm e-mail at registration
 	if (ACCOUNT_COMPANY == 'true')
 		$company = xtc_db_prepare_input($_POST['company']);
 	if (ACCOUNT_COMPANY_VAT_CHECK == 'true')
@@ -126,17 +127,19 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	}
 	// New VAT CHECK END
 
+	//BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
 	if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
 		$error = true;
-
 		$messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_ERROR);
-	}
-	if (xtc_validate_email($email_address) == false) {
+	} elseif ($email_address != $confirm_email_address) {
 		$error = true;
-
+		$messageStack->add('create_account', ENTRY_EMAIL_ERROR_NOT_MATCHING);
+	} elseif (xtc_validate_email($email_address) == false) {
+		$error = true;
 		$messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
 	}
-
+	//EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
+	
 	if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
 		$error = true;
 
@@ -324,50 +327,25 @@ if ($messageStack->size('create_account') > 0) {
 
 }
 $smarty->assign('FORM_ACTION', xtc_draw_form('create_account', xtc_href_link(FILENAME_CREATE_GUEST_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form(create_account);"') . xtc_draw_hidden_field('action', 'process'));
-
 if (ACCOUNT_GENDER == 'true') {
 	$smarty->assign('gender', '1');
-
-	$smarty->assign('INPUT_MALE', xtc_draw_radio_field(array (
-		'name' => 'gender',
-		'suffix' => MALE
-	), 'm'));
-	$smarty->assign('INPUT_FEMALE', xtc_draw_radio_field(array (
-		'name' => 'gender',
-		'suffix' => FEMALE,
-		'text' => (xtc_not_null(ENTRY_GENDER_TEXT
-	) ? '<span class="inputRequirement">' . ENTRY_GENDER_TEXT . '</span>' : '')), 'f'));
-
+	$smarty->assign('INPUT_MALE', xtc_draw_radio_field(array('name' => 'gender','suffix' => MALE), 'm'));
+	$smarty->assign('INPUT_FEMALE', xtc_draw_radio_field(array('name' => 'gender','suffix' => FEMALE, 'text' => (xtc_not_null(ENTRY_GENDER_TEXT) ? '<span class="inputRequirement">' . ENTRY_GENDER_TEXT . '</span>' : '')), 'f'));
 } else {
 	$smarty->assign('gender', '0');
 }
-
-$smarty->assign('INPUT_FIRSTNAME', xtc_draw_input_fieldNote(array (
-	'name' => 'firstname',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_FIRST_NAME_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>' : ''))));
-$smarty->assign('INPUT_LASTNAME', xtc_draw_input_fieldNote(array (
-	'name' => 'lastname',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_LAST_NAME_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_LAST_NAME_TEXT . '</span>' : ''))));
-
+$smarty->assign('INPUT_FIRSTNAME', xtc_draw_input_fieldNote(array ('name' => 'firstname','text' => '&nbsp;' . (xtc_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>' : ''))));
+$smarty->assign('INPUT_LASTNAME', xtc_draw_input_fieldNote(array ('name' => 'lastname','text' => '&nbsp;' . (xtc_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_LAST_NAME_TEXT . '</span>' : ''))));
 if (ACCOUNT_DOB == 'true') {
 	$smarty->assign('birthdate', '1');
-
-	$smarty->assign('INPUT_DOB', xtc_draw_input_fieldNote(array (
-		'name' => 'dob',
-		'text' => '&nbsp;' . (xtc_not_null(ENTRY_DATE_OF_BIRTH_TEXT
-	) ? '<span class="inputRequirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>' : ''))));
-
+	$smarty->assign('INPUT_DOB', xtc_draw_input_fieldNote(array ('name' => 'dob','text' => '&nbsp;' . (xtc_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="inputRequirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>' : ''))));
 } else {
 	$smarty->assign('birthdate', '0');
 }
-
-$smarty->assign('INPUT_EMAIL', xtc_draw_input_fieldNote(array (
-	'name' => 'email_address',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>' : ''))));
-
+$smarty->assign('INPUT_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'email_address','text' => '&nbsp;' . (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>' : ''))));
+//BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
+$smarty->assign('INPUT_CONFIRM_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'confirm_email_address', 'text' => ' '. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : ''))));
+//EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
 if (ACCOUNT_COMPANY == 'true') {
 	$smarty->assign('company', '1');
 	$smarty->assign('INPUT_COMPANY', xtc_draw_input_fieldNote(array (
@@ -377,45 +355,24 @@ if (ACCOUNT_COMPANY == 'true') {
 } else {
 	$smarty->assign('company', '0');
 }
-
 if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {
 	$smarty->assign('vat', '1');
-	$smarty->assign('INPUT_VAT', xtc_draw_input_fieldNote(array (
-		'name' => 'vat',
-		'text' => '&nbsp;' . (xtc_not_null(ENTRY_VAT_TEXT
-	) ? '<span class="inputRequirement">' . ENTRY_VAT_TEXT . '</span>' : ''))));
+	$smarty->assign('INPUT_VAT', xtc_draw_input_fieldNote(array ('name' => 'vat','text' => '&nbsp;' . (xtc_not_null(ENTRY_VAT_TEXT) ? '<span class="inputRequirement">' . ENTRY_VAT_TEXT . '</span>' : ''))));
 } else {
 	$smarty->assign('vat', '0');
 }
-
-$smarty->assign('INPUT_STREET', xtc_draw_input_fieldNote(array (
-	'name' => 'street_address',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_STREET_ADDRESS_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>' : ''))));
+$smarty->assign('INPUT_STREET', xtc_draw_input_fieldNote(array ('name' => 'street_address','text' => '&nbsp;' . (xtc_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="inputRequirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>' : ''))));
 
 if (ACCOUNT_SUBURB == 'true') {
 	$smarty->assign('suburb', '1');
-	$smarty->assign('INPUT_SUBURB', xtc_draw_input_fieldNote(array (
-		'name' => 'suburb',
-		'text' => '&nbsp;' . (xtc_not_null(ENTRY_SUBURB_TEXT
-	) ? '<span class="inputRequirement">' . ENTRY_SUBURB_TEXT . '</span>' : ''))));
-
+	$smarty->assign('INPUT_SUBURB', xtc_draw_input_fieldNote(array ('name' => 'suburb','text' => '&nbsp;' . (xtc_not_null(ENTRY_SUBURB_TEXT) ? '<span class="inputRequirement">' . ENTRY_SUBURB_TEXT . '</span>' : ''))));
 } else {
 	$smarty->assign('suburb', '0');
 }
-
-$smarty->assign('INPUT_CODE', xtc_draw_input_fieldNote(array (
-	'name' => 'postcode',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_POST_CODE_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_POST_CODE_TEXT . '</span>' : ''))));
-$smarty->assign('INPUT_CITY', xtc_draw_input_fieldNote(array (
-	'name' => 'city',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_CITY_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_CITY_TEXT . '</span>' : ''))));
-
+$smarty->assign('INPUT_CODE', xtc_draw_input_fieldNote(array ('name' => 'postcode','text' => '&nbsp;' . (xtc_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="inputRequirement">' . ENTRY_POST_CODE_TEXT . '</span>' : ''))));
+$smarty->assign('INPUT_CITY', xtc_draw_input_fieldNote(array ('name' => 'city','text' => '&nbsp;' . (xtc_not_null(ENTRY_CITY_TEXT) ? '<span class="inputRequirement">' . ENTRY_CITY_TEXT . '</span>' : ''))));
 if (ACCOUNT_STATE == 'true') {
 	$smarty->assign('state', '1');
-
 	if ($process == true) {
 		if ($entry_state_has_zones == true) {
 			$zones_array = array ();
@@ -426,47 +383,25 @@ if (ACCOUNT_STATE == 'true') {
 					'text' => $zones_values['zone_name']
 				);
 			}
-			$state_input = xtc_draw_pull_down_menuNote(array (
-				'name' => 'state',
-				'text' => '&nbsp;' . (xtc_not_null(ENTRY_STATE_TEXT
-			) ? '<span class="inputRequirement">' . ENTRY_STATE_TEXT . '</span>' : '')), $zones_array);
+			$state_input = xtc_draw_pull_down_menuNote(array ('name' => 'state','text' => '&nbsp;' . (xtc_not_null(ENTRY_STATE_TEXT) ? '<span class="inputRequirement">' . ENTRY_STATE_TEXT . '</span>' : '')), $zones_array);
 		} else {
-			$state_input = xtc_draw_input_fieldNote(array (
-				'name' => 'state',
-				'text' => '&nbsp;' . (xtc_not_null(ENTRY_STATE_TEXT
-			) ? '<span class="inputRequirement">' . ENTRY_STATE_TEXT . '</span>' : '')));
+			$state_input = xtc_draw_input_fieldNote(array ('name' => 'state','text' => '&nbsp;' . (xtc_not_null(ENTRY_STATE_TEXT) ? '<span class="inputRequirement">' . ENTRY_STATE_TEXT . '</span>' : '')));
 		}
 	} else {
-		$state_input = xtc_draw_input_fieldNote(array (
-			'name' => 'state',
-			'text' => '&nbsp;' . (xtc_not_null(ENTRY_STATE_TEXT
-		) ? '<span class="inputRequirement">' . ENTRY_STATE_TEXT . '</span>' : '')));
+		$state_input = xtc_draw_input_fieldNote(array ('name' => 'state','text' => '&nbsp;' . (xtc_not_null(ENTRY_STATE_TEXT) ? '<span class="inputRequirement">' . ENTRY_STATE_TEXT . '</span>' : '')));
 	}
-
 	$smarty->assign('INPUT_STATE', $state_input);
 } else {
 	$smarty->assign('state', '0');
 }
-
 if ($_POST['country']) {
 	$selected = $_POST['country'];
 } else {
 	$selected = STORE_COUNTRY;
 }
-
-$smarty->assign('SELECT_COUNTRY', xtc_get_country_list(array (
-	'name' => 'country',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_COUNTRY_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_COUNTRY_TEXT . '</span>' : '')), $selected));
-$smarty->assign('INPUT_TEL', xtc_draw_input_fieldNote(array (
-	'name' => 'telephone',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_TELEPHONE_NUMBER_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>' : ''))));
-$smarty->assign('INPUT_FAX', xtc_draw_input_fieldNote(array (
-	'name' => 'fax',
-	'text' => '&nbsp;' . (xtc_not_null(ENTRY_FAX_NUMBER_TEXT
-) ? '<span class="inputRequirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>' : ''))));
- 
+$smarty->assign('SELECT_COUNTRY', xtc_get_country_list(array ('name' => 'country','text' => '&nbsp;' . (xtc_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">' . ENTRY_COUNTRY_TEXT . '</span>' : '')), $selected));
+$smarty->assign('INPUT_TEL', xtc_draw_input_fieldNote(array ('name' => 'telephone','text' => '&nbsp;' . (xtc_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="inputRequirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>' : ''))));
+$smarty->assign('INPUT_FAX', xtc_draw_input_fieldNote(array ('name' => 'fax','text' => '&nbsp;' . (xtc_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="inputRequirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>' : ''))));
 $smarty->assign('CHECKBOX_NEWSLETTER', xtc_draw_checkbox_field('newsletter', '1').'&nbsp;'. (xtc_not_null(ENTRY_NEWSLETTER_TEXT) ? '<span class="inputRequirement">'.ENTRY_NEWSLETTER_TEXT.'</span>' : ''));
 if (DISPLAY_PRIVACY_CHECK == 'true') {
 $smarty->assign('PRIVACY_CHECKBOX', '<input type="checkbox" value="privacy" name="privacy" />');
@@ -480,7 +415,6 @@ $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 $smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE));
 $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/create_account_guest.html');
-
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;

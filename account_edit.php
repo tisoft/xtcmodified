@@ -44,6 +44,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if (ACCOUNT_COMPANY_VAT_CHECK == 'true')
 		$vat = xtc_db_prepare_input($_POST['vat']);
 	$email_address = xtc_db_prepare_input($_POST['email_address']);
+	$confirm_email_address = xtc_db_prepare_input($_POST['confirm_email_address']); // Hetfield - 2009-08-15 - confirm e-mail at registration
 	$telephone = xtc_db_prepare_input($_POST['telephone']);
 	$fax = xtc_db_prepare_input($_POST['fax']);
 
@@ -102,7 +103,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if (xtc_validate_email($email_address) == false) {
 		$error = true;
 		$messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
-		} else { 
+	} else { 
         $check_email_query = xtc_db_query("select count(*) as total from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($email_address)."' and account_type = '0' and customers_id != '".$_SESSION['customer_id']."'"); 
         $check_email = xtc_db_fetch_array($check_email_query); 
         if ($check_email['total'] > 0) { 
@@ -110,7 +111,12 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
             $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS); 
         } 
     }
-
+	//BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
+	if ($email_address != $confirm_email_address) {
+   		$error = true;    
+   		$messageStack->add('create_account', ENTRY_EMAIL_ERROR_NOT_MATCHING);
+	}
+	//EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
 	if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
 		$error = true;
 		$messageStack->add('account_edit', ENTRY_TELEPHONE_NUMBER_ERROR);
@@ -173,6 +179,9 @@ if (ACCOUNT_DOB == 'true') {
 }
 
 $smarty->assign('INPUT_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), $account['customers_email_address']));
+//BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
+$smarty->assign('INPUT_CONFIRM_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'confirm_email_address', 'text' => ' '. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), $account['customers_email_address']));
+//EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
 $smarty->assign('INPUT_TEL', xtc_draw_input_fieldNote(array ('name' => 'telephone', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="inputRequirement">'.ENTRY_TELEPHONE_NUMBER_TEXT.'</span>' : '')), $account['customers_telephone']));
 $smarty->assign('INPUT_FAX', xtc_draw_input_fieldNote(array ('name' => 'fax', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="inputRequirement">'.ENTRY_FAX_NUMBER_TEXT.'</span>' : '')), $account['customers_fax']));
 $smarty->assign('BUTTON_BACK', '<a href="'.xtc_href_link(FILENAME_ACCOUNT, '', 'SSL').'">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
