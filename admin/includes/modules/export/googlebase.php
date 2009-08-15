@@ -134,8 +134,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
                              p.products_price,
                              p.products_weight,
                              p.products_tax_class_id,
-							 p.products_sperrgut,
-                             m.manufacturers_name
+							 m.manufacturers_name
                          FROM
                              " . TABLE_PRODUCTS . " p LEFT JOIN
                              " . TABLE_MANUFACTURERS . " m
