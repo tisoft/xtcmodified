@@ -325,7 +325,10 @@
   if (SESSION_FORCE_COOKIE_USE == 'True') {
     xtc_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, '/', $current_domain);
 
-    if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
+    //BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
+	//if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
+	if (isset($_COOKIE['cookie_test'])) {
+	//BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
       session_start();
       $session_started = true;
     }
