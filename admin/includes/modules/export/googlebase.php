@@ -241,16 +241,18 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 				require_once(DIR_FS_INC . 'xtc_href_link_from_admin.inc.php');
 				$productURL = xtc_href_link_from_admin('product_info.php', xtc_product_link($products['products_id'], $products['products_name']), 'NONSSL', false);
 				if (!empty($_POST['campaign'])) {
-					(preg_match("/\?/",$productURL)) ? $productURL .= '&' : $productURL .= '?';
-					$productURL .= $_POST['campaign'];
+					$productURL .= '?'.$_POST['campaign'];
 				}
 			} else if ($_POST['sumaurl'] == 'directurl') {
 				$productURL = $bluegateSeo->getProductLink(xtc_product_link($products['products_id'], $products['products_name']),$connection,$_SESSION['languages_id']);
 				if ($_POST['campaign']<>'') {
-					$productURL.='?'.$_POST['campaign'];
+					$productURL .= '?'.$_POST['campaign'];
 				}
 			} else if ($_POST['sumaurl'] == 'original') {
-				$productURL = HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'product_info.php?'.$_POST['campaign'].xtc_product_link($products['products_id'], $products['products_name'])
+				$productURL = HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'product_info.php?'.xtc_product_link($products['products_id'], $products['products_name']);
+				if (!empty($_POST['campaign'])) {
+					$productURL .= '&'.$_POST['campaign'];
+				}
 			}
 			
             //create content
@@ -291,24 +293,19 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
    }
     
    function buildCAT($catID) {
-        if (isset($this->CAT[$catID]))
-        {
-         return  $this->CAT[$catID];
+        if (isset($this->CAT[$catID])) {
+           return  $this->CAT[$catID];
         } else {
            $cat=array();
            $tmpID=$catID;
-
-               while ($this->getParent($catID)!=0 || $catID!=0)
-               {
+               while ($this->getParent($catID)!=0 || $catID!=0) {
                     $cat_select=xtc_db_query("SELECT categories_name FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id='".$catID."' and language_id='".$_SESSION['languages_id']."'");
                     $cat_data=xtc_db_fetch_array($cat_select);
                     $catID=$this->getParent($catID);
                     $cat[]=$cat_data['categories_name'];
-
                }
                $catStr='';
-               for ($i=count($cat);$i>0;$i--)
-               {
+               for ($i=count($cat);$i>0;$i--) {
                   $catStr.=$cat[$i-1].' > ';
                }
                $this->CAT[$tmpID]=$catStr;
@@ -317,14 +314,13 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
    }
     
    function getParent($catID) {
-      if (isset($this->PARENT[$catID]))
-      {
-       return $this->PARENT[$catID];
+      if (isset($this->PARENT[$catID])) {
+       	return $this->PARENT[$catID];
       } else {
-       $parent_query=xtc_db_query("SELECT parent_id FROM ".TABLE_CATEGORIES." WHERE categories_id='".$catID."'");
-       $parent_data=xtc_db_fetch_array($parent_query);
-       $this->PARENT[$catID]=$parent_data['parent_id'];
-       return  $parent_data['parent_id'];
+       	$parent_query=xtc_db_query("SELECT parent_id FROM ".TABLE_CATEGORIES." WHERE categories_id='".$catID."'");
+       	$parent_data=xtc_db_fetch_array($parent_query);
+       	$this->PARENT[$catID]=$parent_data['parent_id'];
+       	return  $parent_data['parent_id'];
       }
     }
 
@@ -339,7 +335,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 		$campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
 		$campaign_query = xtc_db_query("select campaigns_name, campaigns_refID from ".TABLE_CAMPAIGNS." order by campaigns_id");
 		while ($campaign = xtc_db_fetch_array($campaign_query)) {
-			$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
+			$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'], 'text' => $campaign['campaigns_name'],);
 		}
 		$shipping_country_array = array(array('id' => '', 'text' => TEXT_NONE));
 		$shipping_country_query = xtc_db_query("SELECT countries_iso_code_2 FROM ".TABLE_COUNTRIES." ORDER BY countries_iso_code_2");
