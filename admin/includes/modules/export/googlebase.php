@@ -240,20 +240,18 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 				$cat = strip_tags($this->buildCAT($categories));
 				require_once(DIR_FS_INC . 'xtc_href_link_from_admin.inc.php');
 				$productURL = xtc_href_link_from_admin('product_info.php', xtc_product_link($products['products_id'], $products['products_name']), 'NONSSL', false);
-				(preg_match("/\?/",$productURL)) ? $link .= '&' : $productURL .= '?';
-				$productURL .= 'referer='.$this->code;
-				(!empty($_POST['campaign']))
-					? $productURL .= '?'.$_POST['campaign']
-					: false;
-				$productURL .= '&language='.$this->language;
+				if (!empty($_POST['campaign'])) {
+					(preg_match("/\?/",$productURL)) ? $productURL .= '&' : $productURL .= '?';
+					$productURL .= $_POST['campaign'];
+				}
 			} else if ($_POST['sumaurl'] == 'directurl') {
 				$productURL = $bluegateSeo->getProductLink(xtc_product_link($products['products_id'], $products['products_name']),$connection,$_SESSION['languages_id']);
 				if ($_POST['campaign']<>'') {
 					$productURL.='?'.$_POST['campaign'];
 				}
 			} else if ($_POST['sumaurl'] == 'original') {
-				$productURL = HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'product_info.php?'.$_POST['campaign'].xtc_product_link($products['products_id'], $products['products_name']);
-			}	
+				$productURL = HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'product_info.php?'.$_POST['campaign'].xtc_product_link($products['products_id'], $products['products_name'])
+			}
 			
             //create content
             $schema .=  $products_description."\t".
