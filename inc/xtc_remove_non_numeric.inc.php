@@ -14,10 +14,10 @@
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
-   
-function xtc_remove_non_numeric($var) 
-	{	  
-	  $var=ereg_replace('[^0-9]','',$var);
+//BOF - Hetfield - 2009.08.18 - Update function for PHP 5.3
+function xtc_remove_non_numeric($var) {	  
+	  $var=preg_replace('![^0-9]!', '', $var);
 	  return $var;
-     }
- ?>
+}
+//EOF - Hetfield - 2009.08.18 - Update function for PHP 5.3
+?>
