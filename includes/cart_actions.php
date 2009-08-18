@@ -78,8 +78,11 @@ if (isset ($_GET['action'])) {
 
 			if (is_object($econda))
 				$econda->_emptyCart();
-
+		//BOF - Hetfield - 2009.08.18 - Bugfix for numeric quantitys
 			for ($i = 0, $n = sizeof($_POST['products_id']); $i < $n; $i++) {
+			
+					$cart_quantity = xtc_remove_non_numeric($_POST['cart_quantity'][$i]);
+					
 					if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array ()))) {
 					$_SESSION['cart']->remove($_POST['products_id'][$i]);
 
@@ -87,16 +90,17 @@ if (isset ($_GET['action'])) {
 						$econda->_delArticle($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $_POST['old_qty'][$i]);
 
 				} else {
-					if ($_POST['cart_quantity'][$i] > MAX_PRODUCTS_QTY)
-						$_POST['cart_quantity'][$i] = MAX_PRODUCTS_QTY;
+					if ($cart_quantity > MAX_PRODUCTS_QTY)
+						$cart_quantity = MAX_PRODUCTS_QTY;
 					$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
 
 					if (is_object($econda)) {
 						$old_quantity = $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'][$i], $_POST['id'][$i]));
-						$econda->_updateProduct($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $old_quantity);
+						$econda->_updateProduct($_POST['products_id'][$i], $cart_quantity, $old_quantity);
 					}
 
-					$_SESSION['cart']->add_cart($_POST['products_id'][$i], xtc_remove_non_numeric($_POST['cart_quantity'][$i]), $attributes, false);
+					$_SESSION['cart']->add_cart($_POST['products_id'][$i], $cart_quantity, $attributes, false);
+					unset($cart_quantity);
 				}
 			}
 			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters)));
@@ -104,21 +108,23 @@ if (isset ($_GET['action'])) {
 			// customer adds a product from the products page
 		case 'add_product' :
 			if (isset ($_POST['products_id']) && is_numeric($_POST['products_id'])) {
-				if ($_POST['products_qty'] > MAX_PRODUCTS_QTY)
-					$_POST['products_qty'] = MAX_PRODUCTS_QTY;
+			
+				$cart_quantity = xtc_remove_non_numeric($_POST['products_qty']);
+				
+				if ($cart_quantity > MAX_PRODUCTS_QTY)
+					$cart_quantity = MAX_PRODUCTS_QTY;
 
 				if (is_object($econda)) {
 					$econda->_emptyCart();
 					$old_quantity = $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id']));
-					$econda->_addProduct($_POST['products_id'], $_POST['products_qty'], $old_quantity);
+					$econda->_addProduct($_POST['products_id'], $cart_quantity, $old_quantity);
 				}
 
-
-				$_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty']), $_POST['id']);
+				$_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + $cart_quantity, $_POST['id']);
 			}
 			xtc_redirect(xtc_href_link($goto, 'products_id=' . (int) $_POST['products_id'] . '&' . xtc_get_all_get_params($parameters)));
 			break;
-
+		//EOF - Hetfield - 2009.08.18 - Bugfix for numeric quantitys
 		case 'check_gift' :
 			require_once (DIR_FS_INC . 'xtc_collect_posts.inc.php');
 			xtc_collect_posts();
