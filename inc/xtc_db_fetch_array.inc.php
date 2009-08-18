@@ -24,7 +24,10 @@
   function xtc_db_fetch_array(&$db_query,$cq=false) {
 
       if (DB_CACHE=='true' && $cq) {
-        if (!count($db_query)) return false;
+      	// BOF - Tomcraft - 2009-08-18 - fixed bug in relation with multi-language metatags.php
+        //if (!count($db_query)) return false;
+        if (!is_array($db_query) || !count($db_query)) return false;
+        // BOF - Tomcraft - 2009-08-18 - fixed bug in relation with multi-language metatags.php
         $curr = current($db_query);
         next($db_query);
         return $curr;
