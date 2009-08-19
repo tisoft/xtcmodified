@@ -738,6 +738,28 @@ class categories {
 		$product = xtc_db_fetch_array($product_query);
 		if ($dest_categories_id == 0) { $startpage = 1; $products_status = 1; } else { $startpage= 0; $products_status = $product['products_status'];}
 		
+		//BOF - Dokuman - 2009-08-19 BUGFIX: Verpackungseinheit (VPE) wird bei Kategorien/Artikeln nicht mitkopiert
+		/*
+		$sql_data_array=array('products_quantity'=>$product['products_quantity'],
+						'products_model'=>$product['products_model'],
+						'products_ean'=>$product['products_ean'],
+						'products_shippingtime'=>$product['products_shippingtime'],
+						'products_sort'=>$product['products_sort'],
+						'products_startpage'=>$startpage,
+						'products_sort'=>$product['products_sort'],
+						'products_price'=>$product['products_price'],
+						'products_discount_allowed'=>$product['products_discount_allowed'],
+						'products_date_added'=>'now()',
+						'products_date_available'=>$product['products_date_available'],
+						'products_weight'=>$product['products_weight'],
+						'products_status'=>$products_status,
+						'products_tax_class_id'=>$product['products_tax_class_id'],
+						'manufacturers_id'=>$product['manufacturers_id'],
+						'product_template'=>$product['product_template'],
+						'options_template'=>$product['options_template'],
+						'products_fsk18'=>$product['products_fsk18'], 
+						);
+		*/
 		$sql_data_array=array('products_quantity'=>$product['products_quantity'],
 						'products_model'=>$product['products_model'],
 						'products_ean'=>$product['products_ean'],
@@ -758,9 +780,9 @@ class categories {
 						'products_fsk18'=>$product['products_fsk18'], 
 						'products_vpe'=>$product['products_vpe'], 
 						'products_vpe_value'=>$product['products_vpe_value'], 
-						'products_vpe_status'=>$product['products_vpe_status'] 
-						
-						);		
+						'products_vpe_status'=>$product['products_vpe_status']
+						);								
+		//EOF - Dokuman - 2009-08-19 BUGFIX: Verpackungseinheit (VPE) wird bei Kategorien/Artikeln nicht mitkopiert
 						
 		$customers_statuses_array = xtc_get_customers_statuses();
 

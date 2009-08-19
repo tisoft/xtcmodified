@@ -240,10 +240,10 @@
 
 
 		$order_total[] = array ('TITLE' => $oder_total_values['title'], 'CLASS' => $oder_total_values['class'], 'VALUE' => $oder_total_values['value'], 'TEXT' => $oder_total_values['text']);
-		// BUGFIX 24.04.2009 JUNG/GESTALTEN.com
+		// BOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class
 		//if ($oder_total_values['class'] = 'ot_total')
 		if ($oder_total_values['class'] == 'ot_total') 
-		//END	
+		//EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class	
 			$total = $oder_total_values['value'];
 
 	}

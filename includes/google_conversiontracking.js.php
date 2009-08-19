@@ -25,13 +25,17 @@ var google_conversion_label = "Purchase";
 //-->
 </script>
 <?php
-if ($request_type=='NONSSL') { ?>
+//BOF - Dokuman - 2009-08-19 - BUGFIX: #0000223 SSL/NONSSL check for google conversiontracking
+if ($request_type=='NONSSL') { 
+//EOF - Dokuman - 2009-08-19 - BUGFIX: #0000223 SSL/NONSSL check for google conversiontracking
+?>
 <script language="JavaScript" src="http://www.googleadservices.com/pagead/conversion.js">
 </script>
 <noscript>
 <img height=1 width=1 border=0 src="http://www.googleadservices.com/pagead/conversion/<?php echo GOOGLE_CONVERSION_ID; ?>/?value=1&label=Purchase&script=0">
 </noscript>
 <?php
+//BOF - Dokuman - 2009-08-19 - BUGFIX: #0000223 SSL/NONSSL check for google conversiontracking
 }else{
 ?>
 <script language="JavaScript" src="https://www.googleadservices.com/pagead/conversion.js">
@@ -41,5 +45,6 @@ if ($request_type=='NONSSL') { ?>
 </noscript>
 <?php
 }
+//EOF - Dokuman - 2009-08-19 - BUGFIX: #0000223 SSL/NONSSL check for google conversiontracking
 ?>
 

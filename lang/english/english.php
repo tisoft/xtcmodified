@@ -24,9 +24,10 @@
 define('TITLE', STORE_NAME);
 define('HEADER_TITLE_TOP', 'Main page');     
 define('HEADER_TITLE_CATALOG', 'Catalogue');
-
+//BOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
+//define('HTML_PARAMS','dir="ltr" lang="de"');
 define('HTML_PARAMS','dir="ltr" lang="en"');
-
+//EOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
 @setlocale(LC_TIME, 'en_EN@euro', 'en_US', 'en-US', 'en', 'en_US.ISO_8859-1', 'English','en_US.ISO_8859-15');
 
 
@@ -483,8 +484,9 @@ define('MORE_INFO','[More]');
 
 define('ENTRY_PRIVACY_ERROR','Please accept our privacy policy!');
 
-
+//BOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
 define('TEXT_PAYMENT_FEE','Paymentfee');
 define('_MODULE_INVALID_SHIPPING_ZONE', 'Unfortunately it is not possible to dispatch into this country.');
 define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Shipping costs cannot be calculated for this zone.');
+//EOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
 ?>

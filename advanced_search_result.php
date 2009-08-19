@@ -162,7 +162,7 @@ if ($error == 1 && $keyerror != 1) {
 	}
 
 	//build query
-	//BOF - Hetfield - 2009-08-11 - BUGFIX: vpe in advanced_search_result
+	//BOF - Hetfield - 2009-08-11 - BUGFIX: vpe in advanced_search_result (Grundpreis in der Artikelsuche)
 	$select_str = "SELECT distinct
 	                  p.products_id,
 	                  p.products_price,
@@ -173,13 +173,13 @@ if ($error == 1 && $keyerror != 1) {
 	                  p.products_image,
 	                  p.products_weight,
 	                  p.products_tax_class_id,
-					  p.products_vpe,
-					  p.products_vpe_status,
-					  p.products_vpe_value,
+                    p.products_vpe,
+                    p.products_vpe_status,
+                    p.products_vpe_value,
 	                  pd.products_name,
 	                  pd.products_short_description,
 	                  pd.products_description ";
-	//EOF - Hetfield - 2009-08-11 - BUGFIX: vpe in advanced_search_result
+	//EOF - Hetfield - 2009-08-11 - BUGFIX: vpe in advanced_search_result (Grundpreis in der Artikelsuche)
 	$from_str  = "FROM ".TABLE_PRODUCTS." AS p LEFT JOIN ".TABLE_PRODUCTS_DESCRIPTION." AS pd ON (p.products_id = pd.products_id) ";
 	$from_str .= $subcat_join;
 	if (SEARCH_IN_ATTR == 'true') { $from_str .= " LEFT OUTER JOIN ".TABLE_PRODUCTS_ATTRIBUTES." AS pa ON (p.products_id = pa.products_id) LEFT OUTER JOIN ".TABLE_PRODUCTS_OPTIONS_VALUES." AS pov ON (pa.options_values_id = pov.products_options_values_id) "; }

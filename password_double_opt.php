@@ -131,7 +131,7 @@ switch ($case) {
 		break;
 	case code_error :
 		
-		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
+		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com - BUGFIX: #0000241 password recovery bug in IE
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
 		//BOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
 		//$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');

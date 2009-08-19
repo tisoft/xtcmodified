@@ -126,7 +126,12 @@ function check_form(form_name) {
   form = form_name;
   error_message = unescape("<?php echo xtc_js_lang(JS_ERROR); ?>");
 
-<?php if (ACCOUNT_GENDER == 'true') echo '  check_radio("gender", "' . xtc_js_lang(ENTRY_GENDER_ERROR) . '");' . "\n"; ?>
+<?php 
+//BOF - Dokuman - 2009-08-19 - BUGFIX: falsche Umlaute in JS-Popup 
+//if (ACCOUNT_GENDER == 'true') echo '  check_radio("gender", "' .ENTRY_GENDER_ERROR . '");' . "\n";
+if (ACCOUNT_GENDER == 'true') echo '  check_radio("gender", "' . xtc_js_lang(ENTRY_GENDER_ERROR) . '");' . "\n";
+//EOF - Dokuman - 2009-08-19 - BUGFIX: falsche Umlaute in JS-Popup 
+?>
 
   check_input("firstname", <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>, "<?php echo xtc_js_lang(ENTRY_FIRST_NAME_ERROR); ?>");
   check_input("lastname", <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>, "<?php echo xtc_js_lang(ENTRY_LAST_NAME_ERROR); ?>");

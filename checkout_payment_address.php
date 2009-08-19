@@ -229,7 +229,10 @@ if ($process == false) {
                                      from ".TABLE_ADDRESS_BOOK."
                                      where customers_id = '".$_SESSION['customer_id']."'");
 		while ($addresses = xtc_db_fetch_array($addresses_query)) {
-			$format_id = xtc_get_address_format_id($addresses['country_id']);
+//BOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses		
+		//$format_id = xtc_get_address_format_id($address['country_id']);
+			$format_id = xtc_get_address_format_id($addresses['country_id']);			
+//EOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses			
 			$address_content .= ' <tr>
 			                <td>'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>
 			                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
