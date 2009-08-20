@@ -402,6 +402,9 @@ xtc_db_query("INSERT INTO geo_zones (geo_zone_id, geo_zone_name, geo_zone_descri
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (14, 14, 0, 5, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (21, 21, 0, 5, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (55, 55, 0, 5, NULL,  now())");
+//BOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
+xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (33, 33, 0, 5, NULL,  now())");
+//EOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (56, 56, 0, 5, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (57, 57, 0, 5, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (67, 67, 0, 5, NULL,  now())");
@@ -419,6 +422,9 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (150, 150, 0, 5, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (170, 170, 0, 5, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (171, 171, 0, 5, NULL, now())");
+//BOF - Dokuman 2009-08-20 - Added Romania to EU Zones (since 01.01.2007)
+xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (175, 175, 0, 5, NULL, now())");
+//EOF - Dokuman 2009-08-20 - Added Romania to EU Zones (since 01.01.2007)
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (189, 189, 0, 5, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (190, 190, 0, 5, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (195, 195, 0, 5, NULL, now())");
@@ -457,7 +463,9 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (30, 30, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (31, 31, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (32, 32, 0, 6, NULL, now())");
-xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (33, 33, 0, 6, NULL, now())");
+//BOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
+//xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (33, 33, 0, 6, NULL, now())");
+//EOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (34, 34, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (35, 35, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (36, 36, 0, 6, NULL, now())");
@@ -581,7 +589,9 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (172, 172, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (173, 173, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (174, 174, 0, 6, NULL,  now())");
-xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (175, 175, 0, 6, NULL,  now())");
+//BOF - Dokuman 2009-08-20 - Added Romania to EU Zones (since 01.01.2007)
+//xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (175, 175, 0, 6, NULL,  now())");
+//EOF - Dokuman 2009-08-20 - Added Romania to EU Zones (since 01.01.2007)
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (176, 176, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (177, 177, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (178, 178, 0, 6, NULL,  now())");
