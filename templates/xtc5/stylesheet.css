@@ -55,6 +55,11 @@ h2 {
 	margin:15px 0px 8px 0px;
 	padding:0px;
 }
+h3 {
+	color:#555555;
+	font-weight:bold;
+	font-size:12px;
+}
 /* LINKS GLOBAL */
 a, a:link, a:link, a:link, a:hover {
 	background:transparent;
