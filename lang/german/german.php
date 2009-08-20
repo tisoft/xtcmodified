@@ -389,7 +389,7 @@ define('TEXT_PASSWORD_MAIL_SENDED','Eine E-Mail mit einem neuen Anmelde-Passwort
 define('TEXT_CODE_ERROR','Bitte geben Sie Ihre E-Mail-Adresse und den Sicherheitscode erneut ein. <br />Achten Sie dabei auf Tippfehler!');
 define('TEXT_EMAIL_ERROR','Bitte geben Sie Ihre E-Mail-Adresse und den Sicherheitscode erneut ein. <br />Achten Sie dabei auf Tippfehler!');
 define('TEXT_NO_ACCOUNT','Leider m&uuml;ssen wir Ihnen mitteilen, dass Ihre Anfrage f&uuml;r ein neues Anmelde-Passwort entweder ung&uuml;ltig war oder abgelaufen ist.<br />Bitte versuchen Sie es erneut.');
-define('HEADING_PASSWORD_FORGOTTEN','Passwort erneuern?');
+define('HEADING_PASSWORD_FORGOTTEN','Passwort vergessen?');
 define('TEXT_PASSWORD_FORGOTTEN','&Auml;ndern Sie Ihr Passwort in drei leichten Schritten.');
 define('TEXT_EMAIL_PASSWORD_FORGOTTEN','Bestätigungs-E-Mail für Passwortänderung'); // ä und ü für korrekte E-Mail Betreffszeile lassen!
 define('TEXT_EMAIL_PASSWORD_NEW_PASSWORD','Ihr neues Passwort');
