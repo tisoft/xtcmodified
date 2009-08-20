@@ -51,7 +51,7 @@ if ($_GET['pID']=='media') {
 if (strpos($content_data['content_file'],'.txt')) echo '<pre>';
 if ($_GET['pID']=='media') {
 	// display image
-	if (eregi('.gif',$content_data['content_file']) or eregi('.jpg',$content_data['content_file']) or  eregi('.png',$content_data['content_file']) or  eregi('.tif',$content_data['content_file']) or  eregi('.bmp',$content_data['content_file'])) {	
+	if (preg_match('/.gif/i',$content_data['content_file']) or preg_match('/.jpg/i',$content_data['content_file']) or  preg_match('/.png/i',$content_data['content_file']) or  preg_match('/.tif/i',$content_data['content_file']) or  preg_match('/.bmp/i',$content_data['content_file'])) { // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3	
 	echo xtc_image(DIR_WS_CATALOG.'media/products/'.$content_data['content_file']);
 	} else {
 	include(DIR_FS_CATALOG.'media/products/'.$content_data['content_file']);	

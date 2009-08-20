@@ -83,7 +83,7 @@
 
       for ($j=1; $j<=$this->num_dhl; $j++) {
         $countries_table = constant('MODULE_SHIPPING_DHL_COUNTRIES_' . $j);
-        $country_zones = split("[,]", $countries_table);
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $j;
           break;
@@ -104,7 +104,7 @@
         $n == 0;
 
         if ($dhl_cost_ecx != '') {
-          $dhl_table_ecx = split("[:,]" , $dhl_cost_ecx);
+          $dhl_table_ecx = preg_split("/[:,]/" , $dhl_cost_ecx); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_ecx = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_ECX_20_' .$j) + $dhl_table_ecx[count ($dhl_table_ecx)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {
@@ -170,7 +170,7 @@
         }  
 
         if ($dhl_cost_wpx != '') {
-          $dhl_table_wpx = split("[:,]" , $dhl_cost_wpx);
+          $dhl_table_wpx = preg_split("/[:,]/" , $dhl_cost_wpx); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_wpx = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_WPX_20_' .$j) + $dhl_table_wpx[count ($dhl_table_wpx)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {
@@ -236,7 +236,7 @@
         }
 
         if ($dhl_cost_sdx != '') {
-          $dhl_table_sdx = split("[:,]" , $dhl_cost_sdx);
+          $dhl_table_sdx = preg_split("/[:,]/" , $dhl_cost_sdx); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_sdx = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_SDX_20_' .$j) + $dhl_table_sdx[count ($dhl_table_sdx)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {

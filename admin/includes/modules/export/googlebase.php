@@ -215,7 +215,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 				$versand = $versand;
 			} else {
 				$shipping = -1;
-				$shippinglist = split("[:,]" , $_POST['shippingcosts']);
+				$shippinglist = preg_split("/[:,]/" , $_POST['shippingcosts']); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
 				for ($i=0; $i<sizeof($shippinglist); $i+=2) {
 					if ($_POST['shippingart'] == 'weight') {
 				  		if ($products['products_weight'] <= $shippinglist[$i]) {

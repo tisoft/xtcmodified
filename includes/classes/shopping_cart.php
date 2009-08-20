@@ -164,7 +164,7 @@ class shoppingCart {
 			if ($this->contents[$key]['qty'] < 1) {
 				unset ($this->contents[$key]);
 				// remove from database
-				if (xtc_session_is_registered('customer_id')) {
+				if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
 					xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$key."'");
 					xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$key."'");
 				}
@@ -204,7 +204,7 @@ class shoppingCart {
 		
 		$this->contents[$products_id]= NULL;
 		// remove from database
-		if (xtc_session_is_registered('customer_id')) {
+		if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
 			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
 			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
 		}
@@ -461,7 +461,7 @@ class shoppingCart {
 				$no_count = false;
 				$gv_query = xtc_db_query("select products_model from ".TABLE_PRODUCTS." where products_id = '".$products_id."'");
 				$gv_result = xtc_db_fetch_array($gv_query);
-				if (ereg('^GIFT', $gv_result['products_model'])) {
+				if (preg_match('/^GIFT/', $gv_result['products_model'])) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
 					$no_count = true;
 				}
 				if (NO_COUNT_ZERO_WEIGHT == 1) {

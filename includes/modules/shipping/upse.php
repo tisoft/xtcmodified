@@ -75,7 +75,7 @@
 
       for ($i=1; $i<=$this->num_upse; $i++) {
         $countries_table = constant('MODULE_SHIPPING_UPSE_COUNTRIES_' . $i);
-        $country_zones = split("[,]", $countries_table);
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $i;
           break;
@@ -88,7 +88,7 @@
         $shipping = -1;
         $upse_cost = constant('MODULE_SHIPPING_UPSE_COST_' . $i);
 
-        $upse_table = split("[:,]" , $upse_cost);
+        $upse_table = preg_split("/[:,]/" , $upse_cost); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
         for ($i=0; $i<sizeof($upse_table); $i+=2) {
           if ($shipping_weight <= $upse_table[$i]) {
             $shipping = $upse_table[$i+1];

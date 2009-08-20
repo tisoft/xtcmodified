@@ -113,7 +113,7 @@
         }
         if ($gv_result['coupon_type']=='P') $coupon_amount = $gv_result['coupon_amount'] . '% ';
         if ($gv_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' . $gv_result['coupon_minimum_order'];
-        if (!xtc_session_is_registered('cc_id')) xtc_session_register('cc_id'); //Fred - this was commented out before
+        //if (!xtc_session_is_registered('cc_id')) xtc_session_register('cc_id'); //Fred - this was commented out before  // Hetfield - 2009-08-19 - removed depricated function session_is_registered and session_register to be ready for PHP >= 5.3
         $_SESSION['cc_id'] = $gv_result['coupon_id']; //Fred ADDED, set the global and session variable
         xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, 'info_message=' . urlencode(REDEEMED_COUPON), 'SSL'));
     }

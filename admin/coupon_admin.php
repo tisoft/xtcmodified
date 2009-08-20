@@ -737,15 +737,15 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
 <?php
     if (!$_POST['coupon_startdate']) {
-      $coupon_startdate = split("[-]", date('Y-m-d'));
+      $coupon_startdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
     } else {
-      $coupon_startdate = split("[-]", $_POST['coupon_startdate']);
+      $coupon_startdate = explode("-", $_POST['coupon_startdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
     }
     if (!$_POST['coupon_finishdate']) {
-      $coupon_finishdate = split("[-]", date('Y-m-d'));
+      $coupon_finishdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
       $coupon_finishdate[0] = $coupon_finishdate[0] + 1;
     } else {
-      $coupon_finishdate = split("[-]", $_POST['coupon_finishdate']);
+      $coupon_finishdate = explode("-", $_POST['coupon_finishdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
     }
 ?>
         <td align="left" class="main"><?php echo COUPON_STARTDATE; ?></td>

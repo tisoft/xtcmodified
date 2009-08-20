@@ -54,7 +54,7 @@ $text_coupon_help .= '<br /><br />'.TEXT_COUPON_HELP_CATEGORIES;
 $coupon_get = xtc_db_query("select restrict_to_categories from ".TABLE_COUPONS." where coupon_id='".(int)$_GET['cID']."'");
 $get_result = xtc_db_fetch_array($coupon_get);
 
-$cat_ids = split("[,]", $get_result['restrict_to_categories']);
+$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 for ($i = 0; $i < count($cat_ids); $i ++) {
 	$result = xtc_db_query("SELECT * FROM ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd WHERE c.categories_id = cd.categories_id and cd.language_id = '".$_SESSION['languages_id']."' and c.categories_id='".$cat_ids[$i]."'");
 	if ($row = xtc_db_fetch_array($result)) {
@@ -68,7 +68,7 @@ $text_coupon_help .= '<br /><br />'.TEXT_COUPON_HELP_PRODUCTS;
 $coupon_get = xtc_db_query("select restrict_to_products from ".TABLE_COUPONS."  where coupon_id='".(int)$_GET['cID']."'");
 $get_result = xtc_db_fetch_array($coupon_get);
 
-$pr_ids = split("[,]", $get_result['restrict_to_products']);
+$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 for ($i = 0; $i < count($pr_ids); $i ++) {
 	$result = xtc_db_query("SELECT * FROM ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd WHERE p.products_id = pd.products_id and pd.language_id = '".$_SESSION['languages_id']."'and p.products_id = '".$pr_ids[$i]."'");
 	if ($row = xtc_db_fetch_array($result)) {

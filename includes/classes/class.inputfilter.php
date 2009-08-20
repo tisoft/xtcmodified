@@ -247,7 +247,7 @@ class InputFilter {
 			$attrSubSet = explode('=', trim($attrSet[$i]));
 			list ($attrSubSet[0]) = explode(' ', $attrSubSet[0]);
 			// removes all "non-regular" attr names AND also attr blacklisted
-			if ((!eregi("^[a-z]*$", $attrSubSet[0])) || (($this->xssAuto) && ((in_array(strtolower($attrSubSet[0]), $this->attrBlacklist)) || (substr($attrSubSet[0], 0, 2) == 'on'))))
+			if ((!preg_match("/^[a-z]*$/i", $attrSubSet[0])) || (($this->xssAuto) && ((in_array(strtolower($attrSubSet[0]), $this->attrBlacklist)) || (substr($attrSubSet[0], 0, 2) == 'on')))) // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
 				continue;
 			// xss attr value filtering
 			if ($attrSubSet[1]) {
@@ -359,11 +359,13 @@ class InputFilter {
 	  */
 	function escapeString($string, & $connection) {
 		// depreciated function
-		if (version_compare(phpversion(), "4.3.0", "<"))
-			mysql_escape_string($string);
-		// current function
-		else
+		// BOF - Hetfield - 2009-08-18 - depricated function mysql_escape_string added mysql_real_escape_string to be ready for PHP >= 5.3
+		if (function_exists('mysql_real_escape_string')) {
 			mysql_real_escape_string($string);
+		} elseif (function_exists('mysql_escape_string')) {
+			mysql_escape_string($string);
+		}
+		// EOF - Hetfield - 2009-08-18 - depricated function mysql_escape_string added mysql_real_escape_string to be ready for PHP >= 5.3
 		return $string;
 	}
 }

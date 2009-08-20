@@ -179,8 +179,8 @@ function CarpDirName() { return str_replace("\\","/",dirname(__file__)); }
 function CarpOutput($t) {
 	global $carpconf,$carpoutput;
 
-	if (is_array($t)) { for ($i=0,$j=count($t);$i<$j;$i++) $t[$i]=ereg_replace("&apos;","'",$t[$i]); }
-	else $t=ereg_replace("&apos;","'",$t);
+	if (is_array($t)) { for ($i=0,$j=count($t);$i<$j;$i++) $t[$i]=preg_replace("/&apos;/","'",$t[$i]); } // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+	else $t=preg_replace("/&apos;/","'",$t); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 	switch ($carpconf['outputformat']) {
 	case 1:
 		if (!is_array($t)) $t=explode("\n",$t);

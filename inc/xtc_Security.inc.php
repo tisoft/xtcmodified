@@ -53,19 +53,21 @@ function xtc_Security()
  //echo '</pre>';
         foreach ($_GET as $secvalue) {
             if (!is_array($secvalue)) {
-                if ((eregi("<[^>]*script.*\"?[^>]*>", $secvalue)) ||
-                        (eregi(".*[[:space:]](or|and)[[:space:]].*(=|like).*", $secvalue)) ||
-                        (eregi("<[^>]*object.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*iframe.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*applet.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*meta.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*style.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*form.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*window.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*alert.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*img.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*document.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*cookie.*\"?[^>]*>", $secvalue))) {
+				// BOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+                if ((preg_match("/<[^>]*script.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue)) ||
+                        (preg_match("/<[^>]*object.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*iframe.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*applet.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*meta.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*style.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*form.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*alert.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*img.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*cookie.*\"?[^>]*>/i", $secvalue))) {
+				// EOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
                         xtcMailHackAttempt(__FILE__,__LINE__,'xt:C Security Alert','Intrusion detection.');
                        xtc_redirect(FILENAME_DEFAULT);
                 }
@@ -77,17 +79,18 @@ function xtc_Security()
     if ( count($_POST) > 0) {
         foreach ($_POST as $secvalue) {
             if (!is_array($secvalue)) {
-                if ((eregi("<[^>]*script.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*object.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*iframe.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*applet.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*window.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*alert.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*document.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*cookie.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*meta.*\"?[^>]*>", $secvalue))
+			// BOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+                if ((preg_match("<[^>]*script.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*object.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*iframe.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*applet.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*alert.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*cookie.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*meta.*\"?[^>]*>/i", $secvalue))
                         ) {
-
+			// EOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
                         xtcMailHackAttempt(__FILE__,__LINE__,'xt:C Security Alert','Intrusion detection.');
                         xtc_redirect(FILENAME_DEFAULT);
                 }
@@ -99,21 +102,22 @@ function xtc_Security()
     if ( count($_COOKIE) > 0) {
         foreach ($_COOKIE as $secvalue) {
             if (!is_array($secvalue)) {
-                if ((eregi("<[^>]*script.*\"?[^>]*>", $secvalue)) ||
-                        (eregi(".*[[:space:]](or|and)[[:space:]].*(=|like).*", $secvalue)) ||
-                        (eregi("<[^>]*object.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*iframe.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*applet.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*meta.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*style.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*form.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*window.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*alert.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*document.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*cookie.*\"?[^>]*>", $secvalue)) ||
-                        (eregi("<[^>]*img.*\"?[^>]*>", $secvalue))
+				// BOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+                if ((preg_match("/<[^>]*script.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue)) ||
+                        (preg_match("/<[^>]*object.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*iframe.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*applet.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*meta.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*style.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*form.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*alert.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*cookie.*\"?[^>]*>/i", $secvalue)) ||
+                        (preg_match("/<[^>]*img.*\"?[^>]*>/i", $secvalue))
                         ) {
-
+				// EOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
                         xtcMailHackAttempt(__FILE__,__LINE__,'xt:C Security Alert','Intrusion detection.');
                         xtc_redirect(FILENAME_DEFAULT);
                 }

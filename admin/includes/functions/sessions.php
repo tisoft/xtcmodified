@@ -71,23 +71,31 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   function xtc_session_start() {
     return session_start();
   }
-
-  function xtc_session_register($variable) {
+// BOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+/*  
+function xtc_session_register($variable) {
     global $session_started;
 
     if ($session_started == true) {
       return session_register($variable);
     }
   }
-
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+// BOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+/*
   function xtc_session_is_registered($variable) {
     return session_is_registered($variable);
   }
-
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+// BOF - Hetfield - 2009-08-19 - removed depricated function xtc_session_unregister to be ready for PHP >= 5.3
+/*
   function xtc_session_unregister($variable) {
     return session_unregister($variable);
   }
-
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function xtc_session_unregister to be ready for PHP >= 5.3
   function xtc_session_id($sessid = '') {
     if (!empty($sessid)) {
       return session_id($sessid);

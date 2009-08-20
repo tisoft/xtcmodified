@@ -285,7 +285,8 @@
 
     $session->id = $id;
   }
-
+// BOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+/*
   function session_register($var) {
     global $session;
 
@@ -295,7 +296,10 @@
 
     $session->vars[] = trim($var);
   }
-
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+// BOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+/*
   function session_unregister($var) {
     global $session;
 
@@ -306,7 +310,10 @@
       }
     }
   }
-
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+// BOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+/*
   function session_is_registered($var) {
     global $session;
 
@@ -318,6 +325,8 @@
 
     return false;
   }
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
 
   function session_encode() {
     global $session;
@@ -386,7 +395,7 @@
     // '<session-name>=<session-id>' to allow URLs of the form
     // http://yoursite/<session-name>=<session-id>/script.php 
     if (empty($session->id)) {
-      eregi($session->name . '=([^/]+)', $GLOBALS['REQUEST_URI'], $regs);
+      preg_match('/'.$session->name . '=([^/]+)/i', $GLOBALS['REQUEST_URI'], $regs); // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
       $regs[1] = trim($regs[1]);
       if (!empty($regs[1])) {
         $session->id = $regs[1];

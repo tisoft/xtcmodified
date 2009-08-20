@@ -172,12 +172,14 @@
 
       if($reset) {
         $_SESSION['cart']->reset(true);
-        xtc_session_unregister('iclearWsdlResult');
-        xtc_session_unregister('sendto');
-        xtc_session_unregister('billto');
-        xtc_session_unregister('shipping');
-        xtc_session_unregister('payment');
-        xtc_session_unregister('comments');
+        // BOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+		unset($_SESSION['iclearWsdlResult']);
+        unset($_SESSION['sendto']);
+        unset($_SESSION['billto']);
+        unset($_SESSION['shipping']);
+        unset($_SESSION['payment']);
+        unset($_SESSION['comments']);
+		// EOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
         xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', 'SSL'));
       }
       return false;
@@ -188,7 +190,7 @@
       $sql = 'UPDATE orders_iclear SET orders_id = "' . $insert_id . '" WHERE wsdl_id = "' . $this->wsdlOrder['wsdl_id'] . '" LIMIT 1';
       xtc_db_query($sql);
 // remove wsdl session var
-      xtc_session_unregister('iclearWsdlResult');
+      unset($_SESSION['iclearWsdlResult']);// Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
 	    return false;
     }
 

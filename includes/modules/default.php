@@ -57,7 +57,7 @@ if ($category_depth == 'nested') {
 
   $category = xtc_db_fetch_array($category_query, true);
 
-  if (isset ($cPath) && ereg('_', $cPath)) {
+  if (isset ($cPath) && preg_match('/_/', $cPath)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
   // check to see if there are deeper categories within the current category
   $category_links = array_reverse($cPath_array);
   for ($i = 0, $n = sizeof($category_links); $i < $n; $i ++) {

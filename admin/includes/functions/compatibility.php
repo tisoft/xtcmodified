@@ -46,7 +46,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
   if (!function_exists('is_numeric')) {
     function is_numeric($param) {
-      return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
+      return preg_match("/^[0-9]{1,50}.?[0-9]{0,50}$/", $param); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
     }
   }
 
@@ -77,7 +77,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       if(xtc_not_null($host) && xtc_not_null($type)) {
         @exec("nslookup -type=$type $host", $output);
         while(list($k, $line) = each($output)) {
-          if(eregi("^$host", $line)) {
+          if(preg_match("/^$host/i", $line)) { // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
             return true;
           }
         }

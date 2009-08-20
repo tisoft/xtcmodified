@@ -2088,8 +2088,8 @@ function MarkC0($AccountNo,$BLZ) {
 
 /* -------- Dies ist die wichtigste function ---------- */
   function CheckAccount($banktransfer_number, $banktransfer_blz) {
-    $KontoNR = ereg_replace('[^0-9]', '', $banktransfer_number);
-    $BLZ = ereg_replace('[^0-9]', '', $banktransfer_blz);
+    $KontoNR = preg_replace('/[^0-9]/', '', $banktransfer_number); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+    $BLZ = preg_replace('/[^0-9]/', '', $banktransfer_blz); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 
     $Result = 0;
     if ($BLZ == '' || strlen($BLZ) < 8) {

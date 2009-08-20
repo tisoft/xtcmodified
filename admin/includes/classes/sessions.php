@@ -286,7 +286,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
     $session->id = $id;
   }
-
+// BOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+/*
   function session_register($var) {
     global $session;
 
@@ -296,7 +297,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
     $session->vars[] = trim($var);
   }
-
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+// BOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+/*
   function session_unregister($var) {
     global $session;
 
@@ -308,6 +312,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
   }
 
+*/
+// EOF -Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+// BOF -Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+/*
   function session_is_registered($var) {
     global $session;
 
@@ -319,6 +327,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
     return false;
   }
+*/
+// EOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
 
   function session_encode() {
     global $session;
@@ -339,7 +349,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   }
 
   function session_start() {
-    global $session, $SID, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_POST_VARS;
+    global $session, $SID, $_COOKIE, $_GET, $_POST; // Hetfield - 2009-08-19 - replaced superglobals
 
     // Define the global variable $SID?
     $define_sid = true;
@@ -348,7 +358,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     $send_cookie = true;
 
     // Is track_vars enabled?
-    $track_vars = ( (isset($HTTP_COOKIE_VARS)) || (isset($HTTP_GET_VARS)) || (isset($HTTP_POST_VARS)) ) ? true : false;
+    $track_vars = ( (isset($_COOKIE)) || (isset($_GET)) || (isset($_POST)) ) ? true : false;  // Hetfield - 2009-08-19 - replaced superglobals
 
     // Check if session_start() has been called once already
     if ($session->nr_open_sessions != 0) {
@@ -367,18 +377,18 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     // Now check the track_vars. Cookies are preferred, because initially
     // cookie and get variables will be available. 
     if ( (empty($session->id)) && ($track_vars) ) {
-      if (isset($HTTP_COOKIE_VARS[$session->name])) {
-        $session->id = $HTTP_COOKIE_VARS[$session->name];
+      if (isset($_COOKIE[$session->name])) { // Hetfield - 2009-08-19 - replaced superglobals
+        $session->id = $_COOKIE[$session->name];  // Hetfield - 2009-08-19 - replaced superglobals
         $define_sid = false;
         $send_cookie = false;
       }
 
-      if (isset($HTTP_GET_VARS[$session->name])) {
-        $session->id = $HTTP_GET_VARS[$session->name];
+      if (isset($_GET[$session->name])) {  // Hetfield - 2009-08-19 - replaced superglobals
+        $session->id = $_GET[$session->name];  // Hetfield - 2009-08-19 - replaced superglobals
       }
 
-      if (isset($HTTP_POST_VARS[$session->name])) {
-        $session->id = $HTTP_POST_VARS[$session->name];
+      if (isset($_POST[$session->name])) {  // Hetfield - 2009-08-19 - replaced superglobals
+        $session->id = $_POST[$session->name];  // Hetfield - 2009-08-19 - replaced superglobals
       }
     }
 
@@ -387,7 +397,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     // '<session-name>=<session-id>' to allow URLs of the form
     // http://yoursite/<session-name>=<session-id>/script.php 
     if (empty($session->id)) {
-      eregi($session->name . '=([^/]+)', $GLOBALS['REQUEST_URI'], $regs);
+      preg_match('/'.$session->name.'=([^/]+)/i', $GLOBALS['REQUEST_URI'], $regs);  // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
       $regs[1] = trim($regs[1]);
       if (!empty($regs[1])) {
         $session->id = $regs[1];

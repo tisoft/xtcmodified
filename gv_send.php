@@ -58,7 +58,7 @@ if ($_GET['action'] == 'send') {
 	$gv_result = xtc_db_fetch_array($gv_query);
 	$customer_amount = $gv_result['amount'];
 	$gv_amount = trim(str_replace(",", ".", $_POST['amount']));
-	if (ereg('[^0-9/.]', $gv_amount)) {
+	if (preg_match('/[^0-9/.]/', $gv_amount)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
 		$error = true;
 		$error_amount = ERROR_ENTRY_AMOUNT_CHECK;
 	}

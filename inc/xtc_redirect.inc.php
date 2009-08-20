@@ -27,8 +27,7 @@
     }
     
     // BOF - Hetfield - 2009-08-11 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
-    //header('Location: ' . eregi_replace("[\r\n]+(.*)$", "", html_entity_decode($url)));
-    header('Location: ' . preg_replace("/[\r\n]+(.*)$/", "", html_entity_decode($url)));
+    header('Location: ' . preg_replace("/[\r\n]+(.*)$/i", "", html_entity_decode($url)));
     // EOF - Hetfield - 2009-08-11 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 
     xtc_exit();

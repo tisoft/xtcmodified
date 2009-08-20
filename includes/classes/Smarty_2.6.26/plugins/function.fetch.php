@@ -181,12 +181,12 @@ function smarty_function_fetch($params, &$smarty)
                         $content .= fgets($fp,4096);
                     }
                     fclose($fp);
-                    $csplit = split("\r\n\r\n",$content,2);
+                    $csplit = explode("\r\n\r\n",$content,2); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 
                     $content = $csplit[1];
 
                     if(!empty($params['assign_headers'])) {
-                        $smarty->assign($params['assign_headers'],split("\r\n",$csplit[0]));
+                        $smarty->assign($params['assign_headers'],explode("\r\n",$csplit[0])); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
                     }
                 }
             } else {

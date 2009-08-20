@@ -165,7 +165,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $horizontal_graph_string .= '>';
 
       // decide if the value in bar is a color code or image.
-      if (ereg('^#', $bars[$i])) { 
+      if (preg_match('/^#/', $bars[$i])) {  // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
         $horizontal_graph_string .= '<table cellpadding="0" cellspacing="0" bgcolor="' . $bars[$i] . '" width="' . ($values[$i] * $vals['scale']) . '">' . "\n" .
                                     '  <tr>' . "\n" .
                                     '    <td>&nbsp;</td>' . "\n" .
@@ -256,7 +256,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                          '        <td';
 
       // set background to a color if it starts with # or an image otherwise.
-      if (ereg('^#', $dbars[$i])) {
+      if (preg_match('/^#/', $dbars[$i])) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
         $double_horizontal_graph_string .= ' bgcolor="' . $dbars[$i] . '">';
       } else {
         $double_horizontal_graph_string .= ' background="' . $dbars[$i] . '">';
@@ -265,7 +265,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $double_horizontal_graph_string .= '<nowrap>';
 
       // decide if the value in bar is a color code or image.
-      if (ereg('^#', $bars[$i])) { 
+      if (preg_match('/^#/', $bars[$i])) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
         $double_horizontal_graph_string .= '<table align="left" cellpadding="0" cellspacing="0" bgcolor="' . $bars[$i] . '" width="' . ($values[$i] * $vals['scale']) . '">' . "\n" .
                                            '  <tr>' . "\n" .
                                            '    <td>&nbsp;</td>' . "\n" .

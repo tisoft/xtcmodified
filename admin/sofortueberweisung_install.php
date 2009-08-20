@@ -48,11 +48,11 @@
         $char = chr(xtc_rand(0,255));
       }
       if ($type == 'mixed') {
-        if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
+        if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
       } elseif ($type == 'chars') {
-        if (eregi('^[a-z]$', $char)) $rand_value .= $char;
+        if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
       } elseif ($type == 'digits') {
-        if (ereg('^[0-9]$', $char)) $rand_value .= $char;
+        if (preg_match('/^[0-9]$/', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
       }
     }
 
@@ -275,7 +275,7 @@ input {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; backgrou
 select {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; background-color:#FFFFFF; border:1px solid #808080;}
 </style>
 </head>
-<body background="https://www.sofortueberweisung.de/cms/design/kachel.gif" leftmargin="0" topmargin="5" marginwidth="0" marginheight="0" onload="javascript:init()">
+<body background="https://www.sofortueberweisung.de/cms/design/kachel.gif" leftmargin="0" topmargin="5" marginwidth="0" marginheight="0" onLoad="javascript:init()">
 
 <table align="center" width="970" height="205" border="0" cellpadding="0" cellspacing="0">
   <tr>
@@ -305,14 +305,14 @@ select {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; backgro
 	  <tr>
 	    <td width="50%">
             <table border="0" cellpadding="2" cellspacing="0" style="padding-left: 20px;">
-	          <tr><td>Projektname*</td><td><input id="sammel_input_project_name" size="40" type="text" onkeyup="javascript:giveValue(this.value,'project[projekt_name]', '', '', '', '')"></td></tr>
-	          <tr><td>Projektbeschreibung</td><td><input size="40" type="text" onkeyup="javascript:giveValue(this.value,'project[projekt_beschreibung]', '', '', '', '' )"></td></tr>
+	          <tr><td>Projektname*</td><td><input id="sammel_input_project_name" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'project[projekt_name]', '', '', '', '')"></td></tr>
+	          <tr><td>Projektbeschreibung</td><td><input size="40" type="text" onKeyUp="javascript:giveValue(this.value,'project[projekt_beschreibung]', '', '', '', '' )"></td></tr>
               <tr><td colspan="2"><hr /></td></tr>
-	          <tr><td>Anrede</td><td><input size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[r_anrede]','user[anspr_anrede]','project[anrede]', '', '')"></td></tr>
-	          <tr><td>Name*</td><td><input id="sammel_input_name" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[r_name]','user[anspr_name]','project[name]', '', '')">
-	          <tr><td>Firma*</td><td><input id="sammel_input_firma" size="40" type="text" value="<?php echo STORE_NAME ?>" onkeyup="javascript:giveValue(this.value,'user[firma]','user[r_firma]','project[firma]', '', '')"></td></tr>
+	          <tr><td>Anrede</td><td><input size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[r_anrede]','user[anspr_anrede]','project[anrede]', '', '')"></td></tr>
+	          <tr><td>Name*</td><td><input id="sammel_input_name" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[r_name]','user[anspr_name]','project[name]', '', '')">
+	          <tr><td>Firma*</td><td><input id="sammel_input_firma" size="40" type="text" value="<?php echo STORE_NAME ?>" onKeyUp="javascript:giveValue(this.value,'user[firma]','user[r_firma]','project[firma]', '', '')"></td></tr>
 	          <tr><td>Rechtsform</td><td>
-				<select onchange="javascript:giveValue(this.value,'user[rechtsform]', '', '', '', '')">
+				<select onChange="javascript:giveValue(this.value,'user[rechtsform]', '', '', '', '')">
 					<option value="">Bitte auswählen...</option>
 					<option value="AG" >AG</option>
 					<option value="AG & Co. OHG" >AG & Co. OHG</option>
@@ -331,31 +331,31 @@ select {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; backgro
 					<option value="VvAG" >VvAG</option>
 					<option value="Sonstige" >Sonstige</option>
 				</select>
-	          <tr><td>Strasse*</td><td><input id="sammel_input_strasse" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[strasse]','user[r_strasse]','project[strasse]', '', '')"></td></tr>
-	          <tr><td>PLZ*</td><td><input maxlength="5" id="sammel_input_plz" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[plz]','user[r_plz]','project[plz]', '', '')"></td></tr>
-	          <tr><td>Ort*</td><td><input id="sammel_input_ort" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[ort]','user[r_ort]','project[ort]', '', '')"></td></tr>
-	          <tr><td>Land*</td><td><input id="sammel_input_land" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[land]','user[r_land]','project[land]', '', '')"></td></tr>
-	          <tr><td>Telefon+</td><td><input id="sammel_input_telefon" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[telefon]','user[anspr_fon]','project[telefon]', '', '')"></td></tr>
-	          <tr><td>Mobil+</td><td><input id="sammel_input_mobil" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[anspr_mobil]', '', '', '', '')"></td></tr>
-	          <tr><td>Telefax</td><td><input size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[anspr_fax]','project[telefax]','user[telefax]', '', '')"></td></tr>
+	          <tr><td>Strasse*</td><td><input id="sammel_input_strasse" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[strasse]','user[r_strasse]','project[strasse]', '', '')"></td></tr>
+	          <tr><td>PLZ*</td><td><input maxlength="5" id="sammel_input_plz" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[plz]','user[r_plz]','project[plz]', '', '')"></td></tr>
+	          <tr><td>Ort*</td><td><input id="sammel_input_ort" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[ort]','user[r_ort]','project[ort]', '', '')"></td></tr>
+	          <tr><td>Land*</td><td><input id="sammel_input_land" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[land]','user[r_land]','project[land]', '', '')"></td></tr>
+	          <tr><td>Telefon+</td><td><input id="sammel_input_telefon" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[telefon]','user[anspr_fon]','project[telefon]', '', '')"></td></tr>
+	          <tr><td>Mobil+</td><td><input id="sammel_input_mobil" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[anspr_mobil]', '', '', '', '')"></td></tr>
+	          <tr><td>Telefax</td><td><input size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[anspr_fax]','project[telefax]','user[telefax]', '', '')"></td></tr>
             <tr><td colspan="2"><hr /></td></tr>
 			      <tr><td colspan="2"><strong>Konto auf welches die Zahlungseingänge gutgeschrieben werden:</strong></td></tr>
-	          <tr><td>Konto Inhaber*</td><td><input id="sammel_input_konto_inhaber" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_inhaber]', 'project[an_konto_inhaber]', '', '', '')"></td></tr>
-	          <tr><td>Kontonummer*</td><td><input maxlength="15"  id="sammel_input_kontonummer" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_nr]', 'project[an_konto_nr]', '', '', '')"></td></tr>
-	          <tr><td>Bankleitzahl*</td><td><input maxlength="8" id="sammel_input_blz" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_blz]', 'project[an_konto_blz]', '', '', '')"></td></tr>
-	          <tr><td>Name der Bank*</td><td><input id="sammel_input_bank" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[elv_konto_bank]', 'project[an_konto_bank]', '', '', '')"></td></tr>
+	          <tr><td>Konto Inhaber*</td><td><input id="sammel_input_konto_inhaber" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[elv_konto_inhaber]', 'project[an_konto_inhaber]', '', '', '')"></td></tr>
+	          <tr><td>Kontonummer*</td><td><input maxlength="15"  id="sammel_input_kontonummer" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[elv_konto_nr]', 'project[an_konto_nr]', '', '', '')"></td></tr>
+	          <tr><td>Bankleitzahl*</td><td><input maxlength="8" id="sammel_input_blz" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[elv_konto_blz]', 'project[an_konto_blz]', '', '', '')"></td></tr>
+	          <tr><td>Name der Bank*</td><td><input id="sammel_input_bank" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[elv_konto_bank]', 'project[an_konto_bank]', '', '', '')"></td></tr>
             <tr><td colspan="2"><strong>Hiermit beauftrage ich Sie, die fälligen <a href="https://www.sofortueberweisung.de/cms/index.php?plink=tarife&l=1&fs=" target="_blank">Beträge</a> per Lastschrift von meinem Konto einzuziehen.</strong></td></tr>
-	          <tr><td>Ustid</td><td><input id="sammel_input_ustid" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[ustid]', '', '', '', '')"></td></tr>
-	          <tr><td>Steuernr</td><td><input id="sammel_input_steuernummer" size="40" type="text" onkeyup="javascript:giveValue(this.value,'user[steuernr]', '', '', '', '')"></td></tr>
+	          <tr><td>Ustid</td><td><input id="sammel_input_ustid" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[ustid]', '', '', '', '')"></td></tr>
+	          <tr><td>Steuernr</td><td><input id="sammel_input_steuernummer" size="40" type="text" onKeyUp="javascript:giveValue(this.value,'user[steuernr]', '', '', '', '')"></td></tr>
             <tr><td colspan="2"><hr /></td></tr>
-	          <tr><td>Homepage*</td><td><input id="sammel_input_homepage" size="40" type="text" value="<?php echo xtc_href_link(FILENAME_DEFAULT) ;?>" onkeyup="javascript:giveValue(this.value,'project[homepage]','user[homepage]', '', '', '')"></td></tr>
-	          <tr><td>Email*</td><td><input id="sammel_input_email" size="40" type="text" value="<?php echo STORE_OWNER_EMAIL_ADDRESS; ?>" onkeyup="javascript:giveValue(this.value,'user[r_email]','user[anspr_email]','project[email]','user[email]','alert[alert_email_adresse]')"></td></tr>
+	          <tr><td>Homepage*</td><td><input id="sammel_input_homepage" size="40" type="text" value="<?php echo xtc_href_link(FILENAME_DEFAULT) ;?>" onKeyUp="javascript:giveValue(this.value,'project[homepage]','user[homepage]', '', '', '')"></td></tr>
+	          <tr><td>Email*</td><td><input id="sammel_input_email" size="40" type="text" value="<?php echo STORE_OWNER_EMAIL_ADDRESS; ?>" onKeyUp="javascript:giveValue(this.value,'user[r_email]','user[anspr_email]','project[email]','user[email]','alert[alert_email_adresse]')"></td></tr>
 			      <tr><td>Email-Benachrichtigungen bei Zahlungseingängen aktivieren:</td>
-			        <td><input type="radio" name="sammel_input_email_flag" value="1" CHECKED onfocus="javascript:giveValue(this.value,'alert[alert_email_status]', '', '', '', '')"> Ja  <input type="radio" name="sammel_input_email_flag" value="0" onfocus="javascript:giveValue(this.value,'alert[alert_email_status]', '', '', '', '')"> Nein</td>
+			        <td><input type="radio" name="sammel_input_email_flag" value="1" CHECKED onFocus="javascript:giveValue(this.value,'alert[alert_email_status]', '', '', '', '')"> Ja  <input type="radio" name="sammel_input_email_flag" value="0" onFocus="javascript:giveValue(this.value,'alert[alert_email_status]', '', '', '', '')"> Nein</td>
 			      </tr>
         	  <tr>
 	            <td colspan="2">
-	              <input type="button" name="Absenden" value="Absenden" onclick="javascript:submitForm()"><br /><strong>Nach der Registrierung des Projekts bei Sofortüberweisung, unbedingt dem Link zurück zum Shop folgen!</strong>
+	              <input type="button" name="Absenden" value="Absenden" onClick="javascript:submitForm()"><br /><strong>Nach der Registrierung des Projekts bei Sofortüberweisung, unbedingt dem Link zurück zum Shop folgen!</strong>
 		        </td>
 	          </tr>
 	        </table>
@@ -363,7 +363,7 @@ select {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; backgro
 	    <td valign="top" align="left">
           <form method="post" action="https://www.sofort-ueberweisung.de/createnew.php" id="form">
           <table border="0" cellspacing="0">
-		    <tr><td><a href="#" onclick="javascript:toggleTableById('table2')"><u>Alternative Rechnungsanschrift</u></a></td></tr>
+		    <tr><td><a href="#" onClick="javascript:toggleTableById('table2')"><u>Alternative Rechnungsanschrift</u></a></td></tr>
 			<tr><td>
 		    <table border="0" cellspacing="0" id="table2" style="display:none">
               <tr><td>Anrede</td><td><input size="40" type="text" name="user[r_anrede]" value=""></td></tr>
@@ -378,7 +378,7 @@ select {Font-family:tahoma,arial,verdana; font-size:11px; color:#666666; backgro
 			</td></tr>
           </table>
 		  <table border="0" cellspacing="0">
-		    <tr><td><a href="#" onclick="javascript:toggleTableById('table4')"><u>Alternativer Ansprechpartner</u></a></td></tr>
+		    <tr><td><a href="#" onClick="javascript:toggleTableById('table4')"><u>Alternativer Ansprechpartner</u></a></td></tr>
 		    <tr><td>
               <table border="0" cellspacing="0" id="table4" style="display:none">
                 <tr><td>Anrede</td><td><input size="40" type="text" name="user[anspr_anrede]" value=""></td><td>&nbsp;</td></tr>

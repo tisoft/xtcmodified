@@ -123,7 +123,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 </tr>
 
 <?php
-  $payments = split(';', MODULE_PAYMENT_INSTALLED);
+  $payments = explode(';', MODULE_PAYMENT_INSTALLED); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
   for ($i=0; $i<count($payments); $i++){
   
   require(DIR_FS_LANGUAGES . $order->info['language'] . '/modules/payment/' . $payments[$i]);	
@@ -176,7 +176,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 </tr>
 
 <?php
-  $shippings = split(';', MODULE_SHIPPING_INSTALLED);
+  $shippings = explode(';', MODULE_SHIPPING_INSTALLED); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
   for ($i=0; $i<count($shippings); $i++){
   
   if (isset($shippings[$i]) && is_file(DIR_FS_LANGUAGES . $order->info['language'] . '/modules/shipping/' . $shippings[$i])) {
@@ -190,7 +190,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
   }
   }
   
-  $order_shipping = split('_', $order->info['shipping_class']);
+  $order_shipping = explode('_', $order->info['shipping_class']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
   $order_shipping = $order_shipping[0];
   if (is_file(DIR_FS_LANGUAGES . $order->info['language'] . '/modules/shipping/' . $order_shipping .'.php')) {
   require(DIR_FS_LANGUAGES . $order->info['language'] . '/modules/shipping/' . $order_shipping .'.php');	
@@ -241,7 +241,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 
 
 <?php
-  $totals = split(';', MODULE_ORDER_TOTAL_INSTALLED);
+  $totals = explode(';', MODULE_ORDER_TOTAL_INSTALLED); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
   for ($i=0; $i<count($totals); $i++){
   
   require(DIR_FS_LANGUAGES . $order->info['language'] . '/modules/order_total/' . $totals[$i]);	

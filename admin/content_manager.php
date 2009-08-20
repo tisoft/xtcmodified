@@ -1098,20 +1098,22 @@ for ($xx=0,$zz=sizeof($languages); $xx<$zz;$xx++){
 <?php
 // display preview button if filetype 
 // .gif,.jpg,.png,.html,.htm,.txt,.tif,.bmp
-if (	eregi('.gif',$content_array[$ii]['file'])
+// BOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+if (	preg_match('.gif',$content_array[$ii]['file'])
 	or
-	eregi('.jpg',$content_array[$ii]['file'])
+	preg_match('/.jpg/i',$content_array[$ii]['file'])
 	or
-	eregi('.png',$content_array[$ii]['file'])
+	preg_match('/.png/i',$content_array[$ii]['file'])
 	or
-	eregi('.html',$content_array[$ii]['file'])
+	preg_match('/.html/i',$content_array[$ii]['file'])
 	or
-	eregi('.htm',$content_array[$ii]['file'])
+	preg_match('/.htm/i',$content_array[$ii]['file'])
 	or
-	eregi('.txt',$content_array[$ii]['file'])
+	preg_match('/.txt/i',$content_array[$ii]['file'])
 	or
-	eregi('.bmp',$content_array[$ii]['file'])
+	preg_match('/.bmp/i',$content_array[$ii]['file'])
 	) {
+// EOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
 ?>
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'pID=media&coID='.$content_array[$ii]['id']); ?>', 'popup', 'toolbar=0, width=640, height=600')"
  

@@ -46,14 +46,14 @@ function resize() {
 //--></script>
 
 </head>
-<body onload="resize();">
+<body onLoad="resize();">
  <?php
 
 if ($content_data['content_file'] != '') {
 	if (strpos($content_data['content_file'], '.txt'))
 		echo '<pre>';
 
-	if (eregi('.gif', $content_data['content_file']) or eregi('.jpg', $content_data['content_file']) or eregi('.png', $content_data['content_file']) or eregi('.tif', $content_data['content_file']) or eregi('.bmp', $content_data['content_file'])) {
+	if (preg_match('/.gif/i', $content_data['content_file']) or preg_match('/.jpg/i', $content_data['content_file']) or preg_match('/.png/i', $content_data['content_file']) or preg_match('/.tif/i', $content_data['content_file']) or preg_match('/.bmp/i', $content_data['content_file'])) { // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
 //BOF - Dokuman - 2009-06-05 - replace table with div
 	/*	echo '<table align="center" valign="middle" width="100%" height="100%" border=0><tr><td class="main" align="middle" valign="middle">';
 

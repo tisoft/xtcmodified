@@ -103,9 +103,9 @@
     ob_end_clean();
 
     $phpinfo = str_replace('border: 1px', '', $phpinfo);
-    ereg("(<style type=\"text/css\">{1})(.*)(</style>{1})", $phpinfo, $regs);
+    preg_match("/(<style type=\"text/css\">{1})(.*)(</style>{1})/", $phpinfo, $regs); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
     echo '<style type="text/css">' . $regs[2] . '</style>';
-    ereg("(<body>{1})(.*)(</body>{1})", $phpinfo, $regs);
+    preg_match("/(<body>{1})(.*)(</body>{1})/", $phpinfo, $regs); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
     echo $regs[2];
   } else {
     phpinfo();

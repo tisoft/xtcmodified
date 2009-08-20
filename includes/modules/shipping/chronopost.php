@@ -79,7 +79,7 @@
       $dest_zone = 0;
       for ($i = 1; $i <= $this->num_chronopost; $i ++) {
 	$countries_table = constant('MODULE_SHIPPING_CHRONOPOST_COUNTRIES_' . $i);
-	$country = split("[,]", $countries_table);
+	$country = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 	if ( in_array($dest_country, $country ) ) {
 	  $dest_zone = $i;
 	  break;
@@ -90,7 +90,7 @@
 	return $this->quotes;
       }
 
-      $table = split("[:,]" , constant('MODULE_SHIPPING_CHRONOPOST_COST_' . $dest_zone));
+      $table = preg_split("/[:,]/" , constant('MODULE_SHIPPING_CHRONOPOST_COST_' . $dest_zone)); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
       $cost = -1;
       for ($i = 0, $n = sizeof($table); $i < $n; $i+=2) {
 	if ($shipping_weight <= $table[$i]) {

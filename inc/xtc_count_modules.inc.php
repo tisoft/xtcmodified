@@ -20,7 +20,7 @@ function xtc_count_modules($modules = '') {
 
     if (empty($modules)) return $count;
 
-    $modules_array = split(';', $modules);
+    $modules_array = explode(';', $modules); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 
     for ($i=0, $n=sizeof($modules_array); $i<$n; $i++) {
       $class = substr($modules_array[$i], 0, strrpos($modules_array[$i], '.'));
