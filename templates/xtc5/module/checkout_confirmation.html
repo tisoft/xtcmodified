@@ -37,13 +37,45 @@
 <p>{$ORDER_COMMENTS}&nbsp;<a href="{$PAYMENT_EDIT}">{#text_edit#}</a></p>
 {/if} {if $PAYMENT_INFORMATION!=''}
 <h2>{#text_payment_info#}</h2>
-<p>{$PAYMENT_INFORMATION}</p>
+{if $PAYMENT_TITLE != ''}<h3>{$PAYMENT_TITLE}</h3>{/if}
+<dl class="payment_info">
+{foreach name=outer item=payment_info_data from=$PAYMENT_INFORMATION}
+<dt style="background-color:{cycle name='dt' values='#fff,#f8f8f8'};">{$payment_info_data.PAYMENT_INFO_TITLE}</dt>
+<dd style="background-color:{cycle name='dd' values='#fff,#f8f8f8'};">{$payment_info_data.PAYMENT_INFO_FIELD}</dd>
+{/foreach}
+</dl><div style="clear:both; border-top:1px solid #d9d9d9;"></div>
 {/if}
 <h2>{#text_products#}</h2>
 <p>{#text_products#}&nbsp;<a href="{$PRODUCTS_EDIT}">{#text_edit#}</a></p>
-<div class="highlightbox"> {$PRODUCTS_BLOCK}
-    <div class="hr"></div>
-    {$TOTAL_BLOCK} </div>
+<table summary="{#text_products#}" class="checkout_confirmation_products" cellpadding="0" cellspacing="1">
+<thead><tr><th>{#text_qty#}</th><th>{#text_name#}</th><th class="price">{#text_singleprice#}</th><th class="price">{#text_finalprice#}</th></tr></thead>
+<tbody>
+{foreach name=outer item=products_data from=$products}
+<tr style="background-color:{cycle values='#fff,#f8f8f8'};">
+	<td>{$products_data.QTY} x </td>
+    <td><strong>{$products_data.NAME}</strong>
+        {if $products_data.ATTRIBUTES != ''}
+        <ul>
+        {foreach key=key_data item=attributes_data from=$products_data.ATTRIBUTES}
+            <li>{$attributes_data.OPTION_NAME}: {$attributes_data.OPTION_VALUE}</li>
+        {/foreach}
+        </ul>
+        {/if}
+        {if $products_data.SHIPPINGTIME != ''}<small>{$products_data.SHIPPINGTIME}</small>{/if}        
+    </td><td class="price">{$products_data.SINGLEPRICE}</td><td class="price">{$products_data.FINALPRICE}</td>
+</tr>
+{/foreach}
+</tbody>
+<tfoot>
+{foreach name=outer item=ot_data from=$ot_total}
+<tr>
+	<td class="price" colspan="3">{$ot_data.title}</td>
+    <td class="price">{$ot_data.text}</td>
+</tr>
+{/foreach}
+</tfoot>
+</table>
+<div style="clear:both"></div>
 <br />
 {if $REVOCATION} <strong>{$REVOCATION_TITLE} </strong> {$REVOCATION} <strong>{$REVOCATION_TITLE}</strong> {$REVOCATION_LINK}<br />
 <strong>{$AGB_TITLE}</strong> {$AGB_LINK} {/if}
