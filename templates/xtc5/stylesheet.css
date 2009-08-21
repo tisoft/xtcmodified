@@ -1211,3 +1211,9 @@ dl.payment_info dt{
 dl.payment_info dd{ width:770px; float:left; text-indent:0.5em; border-top: 1px solid #d9d9d9;
 }
 /* EOF - Hetfield - 2009-08-19 - added styles for products-table in checkout_confirmation */
+
+/* BOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses */
+ol#address_block { 
+  margin-left:30px;
+}
+/* EOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses */
