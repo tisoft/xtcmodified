@@ -1849,22 +1849,23 @@ INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
 
 # Germany
-INSERT INTO zones VALUES (79,81,'NDS','Niedersachsen');
-INSERT INTO zones VALUES (80,81,'BAW','Baden-Württemberg');
-INSERT INTO zones VALUES (81,81,'BAY','Bayern');
-INSERT INTO zones VALUES (82,81,'BER','Berlin');
-INSERT INTO zones VALUES (83,81,'BRG','Brandenburg');
-INSERT INTO zones VALUES (84,81,'BRE','Bremen');
-INSERT INTO zones VALUES (85,81,'HAM','Hamburg');
-INSERT INTO zones VALUES (86,81,'HES','Hessen');
-INSERT INTO zones VALUES (87,81,'MEC','Mecklenburg-Vorpommern');
-INSERT INTO zones VALUES (88,81,'NRW','Nordrhein-Westfalen');
-INSERT INTO zones VALUES (89,81,'RHE','Rheinland-Pfalz');
-INSERT INTO zones VALUES (90,81,'SAR','Saarland');
-INSERT INTO zones VALUES (91,81,'SAS','Sachsen');
-INSERT INTO zones VALUES (92,81,'SAC','Sachsen-Anhalt');
-INSERT INTO zones VALUES (93,81,'SCN','Schleswig-Holstein');
-INSERT INTO zones VALUES (94,81,'THE','Thüringen');
+#Dokuman - 2009-08-21 - Bundesländer->ISO-3166-2
+INSERT INTO zones VALUES (79,81,'NI','Niedersachsen');
+INSERT INTO zones VALUES (80,81,'BW','Baden-Württemberg');
+INSERT INTO zones VALUES (81,81,'BY','Bayern');
+INSERT INTO zones VALUES (82,81,'BE','Berlin');
+INSERT INTO zones VALUES (83,81,'BR','Brandenburg');
+INSERT INTO zones VALUES (84,81,'HB','Bremen');
+INSERT INTO zones VALUES (85,81,'HH','Hamburg');
+INSERT INTO zones VALUES (86,81,'HE','Hessen');
+INSERT INTO zones VALUES (87,81,'MV','Mecklenburg-Vorpommern');
+INSERT INTO zones VALUES (88,81,'NW','Nordrhein-Westfalen');
+INSERT INTO zones VALUES (89,81,'RP','Rheinland-Pfalz');
+INSERT INTO zones VALUES (90,81,'SL','Saarland');
+INSERT INTO zones VALUES (91,81,'SN','Sachsen');
+INSERT INTO zones VALUES (92,81,'ST','Sachsen-Anhalt');
+INSERT INTO zones VALUES (93,81,'SH','Schleswig-Holstein');
+INSERT INTO zones VALUES (94,81,'TH','Thüringen');
 
 # Austria
 INSERT INTO zones VALUES (95,14,'WI','Wien');
