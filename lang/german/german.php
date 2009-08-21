@@ -450,7 +450,6 @@ define('TAX_INFO_ADD','zzgl. %s MwSt.');
 define('SHIPPING_EXCL','zzgl.');
 define('SHIPPING_COSTS','Versandkosten');
 
-
 // changes 3.0.4 SP2
 define('SHIPPING_TIME','Lieferzeit: ');
 define('MORE_INFO','[Mehr]');
@@ -462,8 +461,7 @@ define('TEXT_PAYMENT_FEE','Zahlungsgeb&uuml;hr');
 define('_MODULE_INVALID_SHIPPING_ZONE', 'Es ist leider kein Versand in dieses Land m&ouml;glich');
 define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Die Versandkosten k&ouml;nnen im Moment nicht errechnet werden');
 
-
-
-// BUGFIX JUNG GESTALTEN - Buttontext bei Mouseover
-define('BOX_HEADING_SEARCH','Suche starten!');
+//Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
+define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Ihr Konto');
+define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Konto l&ouml;schen');	
 ?>

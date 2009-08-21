@@ -90,6 +90,12 @@ if (xtc_count_customer_orders() > 0) {
 $smarty->assign('LINK_EDIT', xtc_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
 $smarty->assign('LINK_ADDRESS', xtc_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
 $smarty->assign('LINK_PASSWORD', xtc_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'));
+//BOF - Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
+//Link_Delete button will not work for Admin (ID1) or not logged in users
+if(isset($_SESSION['customer_id']) && ($_SESSION['customer_id']!= '1')) {
+  $smarty->assign('LINK_DELETE', xtc_href_link(FILENAME_ACCOUNT_DELETE, '', 'SSL'));
+}
+//EOF - Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
 if (!isset ($_SESSION['customer_id']))
 	$smarty->assign('LINK_LOGIN', xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 $smarty->assign('LINK_ORDERS', xtc_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));

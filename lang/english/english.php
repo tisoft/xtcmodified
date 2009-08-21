@@ -482,11 +482,14 @@ define('SHIPPING_COSTS','Shipping costs');
 define('SHIPPING_TIME','Shipping time: ');
 define('MORE_INFO','[More]');
 
+// changes 3.0.4 SP2.2
 define('ENTRY_PRIVACY_ERROR','Please accept our privacy policy!');
-
-//BOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
 define('TEXT_PAYMENT_FEE','Paymentfee');
+
 define('_MODULE_INVALID_SHIPPING_ZONE', 'Unfortunately it is not possible to dispatch into this country.');
 define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Shipping costs cannot be calculated for this zone.');
-//EOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
+
+//Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
+define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Your account');
+define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Delete account');	
 ?>

@@ -24,6 +24,9 @@ define('FILENAME_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
 define('FILENAME_ACCOUNT_NEWSLETTERS', 'account_newsletters.php');
 define('FILENAME_ACCOUNT_NOTIFICATIONS', 'account_notifications.php');
 define('FILENAME_ACCOUNT_PASSWORD', 'account_password.php');
+//BOF - Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
+define('FILENAME_ACCOUNT_DELETE', 'account_delete.php');
+//EOF - Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
 define('FILENAME_ADDRESS_BOOK', 'address_book.php');
 define('FILENAME_ADDRESS_BOOK_PROCESS', 'address_book_process.php');
 define('FILENAME_ADVANCED_SEARCH', 'advanced_search.php');
