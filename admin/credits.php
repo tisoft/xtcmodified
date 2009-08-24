@@ -87,10 +87,11 @@ This program is distributed in the hope that it will be useful, but <strong>WITH
   <dt>Entwickler der xtc-modified Shop-Software:</dt>
   <dd>
    <dl id="person">
-    <dt>Christian</dt><dd>&lt;hallo@xtc-modified.org&gt;</dd>
     <dt>Tomcraft</dt><dd>&lt;tomcraft1980@users.sourceforge.net&gt;</dd>
+    <dt>Hetfield</dt><dd>&lt;jhetfield@users.sourceforge.net&gt;</dd>   
     <dt>DokuMan</dt><dd>&lt;dokuman@users.sourceforge.net&gt;</dd>   
     <dt>Pufaxx</dt><dd>&lt;info@gunnart.de&gt;</dd>
+    <dt>Christian</dt><dd>&lt;hallo@xtc-modified.org&gt;</dd>   
    </dl>
   </dd>
  </dl>
