@@ -1,8 +1,8 @@
-<?
+<?php
 /*******************************************************************************************
 *                                                                                          *
-*  CAO-Faktura für Windows Version 1.2 (http://www.cao-wawi.de)                            *
-*  Copyright (C) 2003 Jan Pokrandt / Jan@JP-SOFT.de                                        *
+*  CAO-Faktura für Windows Version 1.4 (http://www.cao-faktura.de)                         *
+*  Copyright (C) 2009 Jan Pokrandt / Jan@JP-SOFT.de                                        *
 *                                                                                          *
 *  This program is free software; you can redistribute it and/or                           *
 *  modify it under the terms of the GNU General Public License                             *
@@ -18,7 +18,7 @@
 *  along with this program; if not, write to the Free Software                             *
 *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 *                                                                                          *
-*  ******* CAO-Faktura comes with ABSOLUTELY NO WARRANTY ***************                   *
+*  ******* This Scripts comes with ABSOLUTELY NO WARRANTY ***************                  *
 *                                                                                          *
 ********************************************************************************************
 *                                                                                          *
@@ -30,8 +30,8 @@
 *                                                                                          *
 *  Programm     : CAO-Faktura                                                              *
 *  Modul        : cao_xtc.php                                                              *
-*  Stand        : 10.01.2007                                                               *
-*  Version      : 1.52                                                                     *
+*  Stand        : 26.08.2009                                                               *
+*  Version      : 1.56                                                                     *
 *  Beschreibung : Script zum Datenaustausch CAO-Faktura <--> xtCommerce-Shop               *
 *                                                                                          *
 *  based on:                                                                               *
@@ -95,20 +95,25 @@
 *  - 21.10.2005 JP Bugfix bei Passwortuebergabe wenn das Passwort als erstes ein           *
 *               numerisches Zeichen enthielt                                               *
 *  - 02.11.2005 JP Fehler bei doppelter Funktion xtDBquery gefixt                          *
-*  - 10.01.2007 JP Steuer auf 19% angepasst                                                *
+*  - 15.09.2006 xsell_update / erase durch Wolfgang eingebaut                              *
+*               siehe : http://www.cao-faktura.de/index.php?option=com_forum&              *
+*              Itemid=44&page=viewtopic&p=52192#52192                                      *    
 *******************************************************************************************/
 
 
 define('SET_TIME_LIMIT',1);   // use set_time_limit(0);
 define('CHARSET','iso-8859-1');
 
-$version_nr    = '1.52';
-$version_datum = '2007.01.10';
+$version_nr    = '1.56';
+$version_datum = '2009.08.26';
 
 // falls die MWST vom shop vertauscht wird, hier true setzen.
 define('SWITCH_MWST',false);
 
 define ('LOGGER',false); // Um das Loggen einzuschalten false durch true ersetzen.
+
+define('USE_3IMAGES',false);
+define('USE_VPE',false);
 
 // Emails beim Kundenanlegen versenden ?
 define('SEND_ACCOUNT_MAIL',false);
@@ -167,12 +172,14 @@ if ($user=='' or $password=='')
 {
 ?>
 <html><head><title></title></head><body>
-<h3>CAO-Faktura - xt:Commerce Shopanbindung</h3>
+<h3><a href="http://www.cao-faktura.de">CAO-Faktura - xt:Commerce Shopanbindung</a></h3>
+<h4>Mehr dazu im <a href="http://www.cao-faktura.de/index.php?option=com_forum&Itemid=44">Forum</a></h4>
+<h4>Version <?php echo $version_nr; ?> Stand : <?php echo $version_datum; ?></h4>
 <br><br>
-Aufruf des Scriptes mit <br><b><? echo $PHP_SELF; ?>?user=<font color="red">ADMIN-EMAIL</font>&password=<font color="red">ADMIN-PASSWORD-IM-KLARTEXT</font>
+Aufruf des Scriptes mit <br><b><?php echo $PHP_SELF; ?>?user=<font color="red">ADMIN-EMAIL</font>&password=<font color="red">ADMIN-PASSWORD-IM-KLARTEXT</font>
 </b>
 </body></html>
-<?
+<?php
   exit;
 }
   else
@@ -293,7 +300,12 @@ if ($_SERVER['REQUEST_METHOD']=='GET')
        UpdateTables ();
        exit;
        
-     default :
+     case 'send_log':
+     
+       SendLog ();
+       exit;
+       
+     default :     
        
        ShowHTMLMenu ();
        exit;
@@ -413,6 +425,18 @@ if ($_SERVER['REQUEST_METHOD']=='GET')
         SendXMLHeader ();  
         CustomersErase ();
         exit;
+        
+      case 'xsell_update':
+     
+        SendXMLHeader ();
+        XsellUpdate ();
+        exit;
+       
+      case 'xsell_erase':
+     
+        SendXMLHeader ();
+        XsellErase ();
+        exit;  
           
     } // End Case
   }  // End Method POST

@@ -1,8 +1,8 @@
-<?
+<?php
 /*******************************************************************************************
 *                                                                                          *
-*  CAO-Faktura für Windows Version 1.2 (http://www.cao-wawi.de)                            *
-*  Copyright (C) 2003 Jan Pokrandt / Jan@JP-SOFT.de                                        *
+*  CAO-Faktura für Windows Version 1.4 (http://www.cao-faktura.de)                         *
+*  Copyright (C) 2009 Jan Pokrandt / Jan@JP-SOFT.de                                        *
 *                                                                                          *
 *  This program is free software; you can redistribute it and/or                           *
 *  modify it under the terms of the GNU General Public License                             *
@@ -18,7 +18,7 @@
 *  along with this program; if not, write to the Free Software                             *
 *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 *                                                                                          *
-*  ******* CAO-Faktura comes with ABSOLUTELY NO WARRANTY ***************                   *
+*  ******* This Scripts comes with ABSOLUTELY NO WARRANTY ***************                  *
 *                                                                                          *
 ********************************************************************************************
 *                                                                                          *
@@ -30,8 +30,8 @@
 *                                                                                          *
 *  Programm     : CAO-Faktura                                                              *
 *  Modul        : cao_xtc.php                                                              *
-*  Stand        : 07.11.2005                                                               *
-*  Version      : 1.51                                                                     *
+*  Stand        : 26.08.2009                                                               *
+*  Version      : 1.56                                                                     *
 *  Beschreibung : Script zum Datenaustausch CAO-Faktura <--> xtCommerce-Shop               *
 *                                                                                          *
 *  based on:                                                                               *
@@ -46,16 +46,23 @@
 *                                                                                          *
 * Released under the GNU General Public License                                            *
 *                                                                                          *
-*  History :                                                                               *
+* History :                                                                                *
 *                                                                                          *
-*  - 26.09.2005 JP Funktionen aus xml_export.php und cao_import.php erstellt               *
-*  - 04.10.2005 JP/KL Version 1.44 released, Scripte komplett ueberarbeitet                *
-*  - 06.10.2005 KL/JP Bugfix bei xtc_set_time_limit                                        *
-*  - 17.10.2005 JP Bugfixes fuer XTC 304                                                   *
-*  - 21.10.2005 KL/JP Bugfix fuer XTC 2.x Spalte products_Ean angelegt                     *
-*  - 23.10.2005 hartleib Fehlende $LangID in OrderUpdate hinzugefuegt                      *
-*  - 02.11.2005 JP Fehler bei doppelter Funktion xtDBquery gefixt                          *
-*  - 07.11.2005 JP Export Orders/VAT_ID implementiert                                      *
+* - 26.09.2005 JP Funktionen aus xml_export.php und cao_import.php erstellt                *
+* - 04.10.2005 JP/KL Version 1.44 released, Scripte komplett ueberarbeitet                 *
+* - 06.10.2005 KL/JP Bugfix bei xtc_set_time_limit                                         *
+* - 17.10.2005 JP Bugfixes fuer XTC 304                                                    *
+* - 21.10.2005 KL/JP Bugfix fuer XTC 2.x Spalte products_Ean angelegt                      *
+* - 23.10.2005 hartleib Fehlende $LangID in OrderUpdate hinzugefuegt                       *
+* - 02.11.2005 JP Fehler bei doppelter Funktion xtDBquery gefixt                           *
+* - 07.11.2005 JP Export Orders/VAT_ID implementiert                                       *
+* - 15.09.2006 xsell_update / erase durch Wolfgang eingebaut                               *
+*              siehe : http://www.cao-faktura.de/index.php?option=com_forum&               *
+*              Itemid=44&page=viewtopic&p=52192#52192                                      *    
+* - 18.09.2006 JP Export Shop->CAO Artikel/PRODUCTS_EAN hinzugefuegt                       *
+*              Ansicht des Transfer-Logs eingebaut                                         *
+* - 16.04.2006 JP Export Products um Image1,Image2 und VPE erweitert                       *
+* - 15.12.2008 JP Bugfix SendOrders/order_comments                                         *
 *******************************************************************************************/
 
 if (!function_exists('xtDBquery')) : 
@@ -124,7 +131,7 @@ function print_xml_status ($code, $action, $msg, $mode, $item, $value)
 
 function table_exists($table_name) 
 {
-  $Table = mysql_query("show tables like '" . $table_name . "'");
+  $Table = xtc_db_query("show tables like '" . $table_name . "'");
   if(mysql_fetch_row($Table) === false) 
   { 
     return(false); 
@@ -137,7 +144,7 @@ function table_exists($table_name)
 	
 function column_exists($table, $column) 
 {
-  $Table = mysql_query("show columns from $table LIKE '" . $column . "'");
+  $Table = xtc_db_query("show columns from $table LIKE '" . $column . "'");
   if(mysql_fetch_row($Table) === false) 
   {
     return(false);
@@ -304,12 +311,15 @@ function SendOrders ()
     }
     if ($orders['billing_company']=='') $orders['billing_company']=$orders['delivery_company'];
     if ($orders['billing_name']=='')  $orders['billing_name']=$orders['delivery_name'];
+    if ($orders['billing_lastname']=='') $orders['billing_lastname']=$orders['delivery_lastname'];
+    if ($orders['billing_firstname']=='') $orders['billing_firstname']=$orders['delivery_firstname'];
     if ($orders['billing_street_address']=='') $orders['billing_street_address']=$orders['delivery_street_address'];
     if ($orders['billing_postcode']=='')  $orders['billing_postcode']=$orders['delivery_postcode'];
     if ($orders['billing_city']=='')  $orders['billing_city']=$orders['delivery_city'];
     if ($orders['billing_suburb']=='') $orders['billing_suburb']=$orders['delivery_suburb'];
     if ($orders['billing_state']=='')  $orders['billing_state']=$orders['delivery_state'];
     if ($orders['billing_country']=='')  $orders['billing_country']=$orders['delivery_country'];
+    if ($orders['billing_country_iso_code_2']=='') $orders['billing_country_iso_code_2']=$orders['delivery_country_iso_code_2'];
 
     $schema  = '<ORDER_INFO>' . "\n" .
                '<ORDER_HEADER>' . "\n" .
@@ -417,7 +427,7 @@ function SendOrders ()
                  '<PRODUCTS_TAX>' . $products['products_tax'] . '</PRODUCTS_TAX>' . "\n".
                  '<PRODUCTS_TAX_FLAG>' . $products['allow_tax'] . '</PRODUCTS_TAX_FLAG>' . "\n";
             
-      $attributes_query = xtc_db_query("select products_options, products_options_values, options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" .$orders['orders_id'] . "' and orders_products_id = '" . $products['orders_products_id'] . "'");
+      $attributes_query = xtc_db_query("select products_options, products_options_values, options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" .$orders['orders_id'] . "' and orders_products_id = '" . $products['orders_products_id'] . "'");
       if (xtc_db_num_rows($attributes_query))
       {
         while ($attributes = xtc_db_fetch_array($attributes_query))
@@ -455,6 +465,7 @@ function SendOrders ()
     }
     $schema .= '</ORDER_TOTAL>' . "\n";
           
+    /*
     $sql = "select 
              comments 
             from " . 
@@ -468,6 +479,23 @@ function SendOrders ()
     {
       $schema .=  '<ORDER_COMMENTS>' . htmlspecialchars($comments['comments']) . '</ORDER_COMMENTS>' . "\n";
     }
+    */
+    
+    //Es werden jetzt alle Kommentare mit übertragen, nicht nur der letzte
+    //JP 2008-12-15
+    $comments_query = "SELECT comments FROM " . TABLE_ORDERS_STATUS_HISTORY .
+                      " WHERE orders_id = '" . $orders['orders_id'] ."'";
+    $comments_result = xtc_db_query ($comments_query);
+    $schema .=  '<ORDER_COMMENTS>';
+    $oc='';
+    while ($comments = xtc_db_fetch_array($comments_result)) 
+    {
+      if (strlen($oc)>0)
+      {$oc .="\r\n"; }
+     $oc .= htmlspecialchars($comments['comments']);
+    }
+    $schema .=  $oc . '</ORDER_COMMENTS>' . "\n";
+    
     $schema .= '</ORDER_INFO>' . "\n\n";
     echo $schema;
   }
@@ -487,10 +515,34 @@ function SendProducts ()
             '<PRODUCTS>' . "\n";
   echo $schema;
                   
-  $sql = "select products_id,products_fsk18, products_quantity, products_model, products_image, products_price, " .
-         "products_date_added, products_last_modified, products_date_available, products_weight, " .
-         "products_status, products_tax_class_id, manufacturers_id, products_ordered from " . TABLE_PRODUCTS;
-               
+  $sql = "select p.products_id,products_fsk18, products_quantity, products_model, products_image, products_price, " .
+         "products_ean, products_date_added, products_last_modified, products_date_available, products_weight, " .
+         "products_status, products_tax_class_id, manufacturers_id, products_ordered";
+         
+  if ((defined('TABLE_PRODUCTS_IMAGES')) and (USE_3IMAGES==true))
+  {
+    $sql .= ",pi1.image_name as image_1, pi2.image_name as image_2";
+  }
+  
+  if ((defined('TABLE_PRODUCTS_VPE')) and (USE_VPE==true))
+  {
+    $sql .=",products_vpe_name";
+  }
+         
+  $sql .=" from " . TABLE_PRODUCTS . " as p ";
+         
+  if ((defined('TABLE_PRODUCTS_IMAGES')) and (USE_3IMAGES==true))
+  {
+    $sql .= "left outer join ".TABLE_PRODUCTS_IMAGES." pi1 on pi1.products_id = p.products_id and pi1.image_nr=1 " .
+            "left outer join ".TABLE_PRODUCTS_IMAGES." pi2 on pi2.products_id = p.products_id and pi2.image_nr=2 ";  
+  }
+  
+  if ((defined('TABLE_PRODUCTS_VPE')) and (USE_VPE==true))
+  {
+    $sql .="left outer join ".TABLE_PRODUCTS_VPE." on p.products_vpe = ".TABLE_PRODUCTS_VPE.".products_vpe_id and ".TABLE_PRODUCTS_VPE.".language_id=".$LangID;
+  }
+         
+              
   $from = xtc_db_prepare_input($_GET['products_from']);
   $anz  = xtc_db_prepare_input($_GET['products_count']);
   if (isset($from))
@@ -505,11 +557,27 @@ function SendProducts ()
     $schema  = '<PRODUCT_INFO>' . "\n" .
                '<PRODUCT_DATA>' . "\n" .
                '<PRODUCT_ID>'.$products['products_id'].'</PRODUCT_ID>' . "\n" .
-               '<PRODUCT_DEEPLINK>'. HTTP_SERVER.DIR_WS_CATALOG.$xtc_filename['product_info'].'?products_id='.$products['products_id'].'</PRODUCT_DEEPLINK>' . "\n" .
+/*               '<PRODUCT_DEEPLINK>'. HTTP_SERVER.DIR_WS_CATALOG.$xtc_filename['product_info'].'?products_id='.$products['products_id'].'</PRODUCT_DEEPLINK>' . "\n" .*/
                '<PRODUCT_QUANTITY>' . $products['products_quantity'] . '</PRODUCT_QUANTITY>' . "\n" .
                '<PRODUCT_MODEL>' . htmlspecialchars($products['products_model']) . '</PRODUCT_MODEL>' . "\n" .
                '<PRODUCT_FSK18>' . htmlspecialchars($products['products_fsk18']) . '</PRODUCT_FSK18>' . "\n" .
-               '<PRODUCT_IMAGE>' . htmlspecialchars($products['products_image']) . '</PRODUCT_IMAGE>' . "\n";
+               '<PRODUCT_IMAGE>' . htmlspecialchars($products['products_image']) . '</PRODUCT_IMAGE>' . "\n" .
+               '<PRODUCT_EAN>'   . htmlspecialchars($products['products_ean']) . '</PRODUCT_EAN>' . "\n";
+    
+    if ((defined('TABLE_PRODUCTS_IMAGES')) and (USE_3IMAGES==true))
+    {
+      $schema .= '<PRODUCT_IMAGE_MED>'  . htmlspecialchars($products['image_1']) . '</PRODUCT_IMAGE_MED>' . "\n" .
+                 '<PRODUCT_IMAGE_LARGE>'. htmlspecialchars($products['image_2']) . '</PRODUCT_IMAGE_LARGE>' . "\n";
+    }
+    
+    if ((defined('TABLE_PRODUCTS_VPE')) and (USE_VPE==true))
+    {
+      $schema .= '<PRODUCT_VPE>'.htmlspecialchars($products['products_vpe_name']) . '</PRODUCT_VPE>' . "\n";
+    }
+    
+    if (file_exists('cao_sendprod_1.php')) { include('cao_sendprod_1.php'); }
+
+ /* Wird von CAO derzeit nicht verwendet !!!
 
     if ($products['products_image']!='') 
     {
@@ -518,6 +586,8 @@ function SendProducts ()
                  '<PRODUCT_IMAGE_THUMBNAIL>'.HTTP_SERVER.DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$products['products_image'].'</PRODUCT_IMAGE_THUMBNAIL>'. "\n" .
                  '<PRODUCT_IMAGE_ORIGINAL>'.HTTP_SERVER.DIR_WS_CATALOG.DIR_WS_ORIGINAL_IMAGES.$products['products_image'].'</PRODUCT_IMAGE_ORIGINAL>'. "\n";
     }
+    
+*/    
 
     $schema .= '<PRODUCT_PRICE>' . $products['products_price'] . '</PRODUCT_PRICE>' . "\n";
 
@@ -778,7 +848,13 @@ function SendCustomers ()
                     c.customers_email_address, 
                     c.customers_telephone, 
                     c.customers_fax,
-                    ci.customers_info_date_account_created,
+                    c.customers_status,";
+                    
+  //JAN Pruefen, ob mind. Version 3.x vom XTC und dann wenn das Feld existiert, dieses mit Abfragen
+  $res=xtc_db_query('show fields from ' . TABLE_CUSTOMERS . ' like "customers_vat_id"');
+  if (xtc_db_fetch_array($res)) {  $address_query .= "c.customers_vat_id as vat_id,"; }
+                    
+  $address_query .= "ci.customers_info_date_account_created,
                     a.entry_firstname, 
                     a.entry_lastname, 
                     a.entry_company, 
@@ -825,8 +901,12 @@ function SendCustomers ()
               '<FAX>' . htmlspecialchars($address['customers_fax']) . '</FAX>' . "\n" . // JAN
               '<EMAIL>' . htmlspecialchars($address['customers_email_address']) . '</EMAIL>' . "\n" . // JAN
               '<BIRTHDAY>' . htmlspecialchars($address['customers_dob']) . '</BIRTHDAY>' . "\n" .
-              '<DATE_ACCOUNT_CREATED>' . htmlspecialchars($address['customers_info_date_account_created']) . '</DATE_ACCOUNT_CREATED>' . "\n" .
-              '</CUSTOMERS_DATA>' . "\n";
+              '<VAT_ID>' . htmlspecialchars($address['vat_id']) . '</VAT_ID>' . "\n" .
+              '<DATE_ACCOUNT_CREATED>' . htmlspecialchars($address['customers_info_date_account_created']) . '</DATE_ACCOUNT_CREATED>' . "\n";
+
+    if (file_exists('cao_sendcust_1.php')) { include('cao_sendcust_1.php'); }
+
+    $schema .=  '</CUSTOMERS_DATA>' . "\n";
     echo $schema;
   }
   $schema = '</CUSTOMERS>' . "\n\n";
@@ -929,7 +1009,7 @@ function SendShopConfig ()
 	
   while ($tax_rates = xtc_db_fetch_array($tax_rates_res)) 
   {
-    $schema = '<RATES ID=">' . $tax_rates['tax_rates_id'] . '">' . "\n" .
+    $schema = '<RATES ID="' . $tax_rates['tax_rates_id'] . '">' . "\n" .
               '<ZONE_ID>' .       htmlspecialchars($tax_rates['tax_zone_id']) .     '</ZONE_ID>' . "\n" .
               '<CLASS_ID>' .      htmlspecialchars($tax_rates['tax_class_id']) .    '</CLASS_ID>' . "\n" .
               '<PRIORITY>' .      htmlspecialchars($tax_rates['tax_priority']) .    '</PRIORITY>' . "\n" .
@@ -942,6 +1022,59 @@ function SendShopConfig ()
   }
   $schema = '</TAX_RATES>' . "\n";
   echo $schema;
+  
+  //Ausgabe ProductListingTemplates
+  $schema = '<PRODUCT_LISTING_TEMPLATES>' . "\n";
+  if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_listing/'))
+  {
+      while (($file = readdir($dir)) != false)
+      {
+          if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_listing/'.$file) and
+             ($file != "index.html"))
+         {
+             $schema .= "<TEMPLATE>" . $file . "</TEMPLATE>\n";
+         } //if
+     } // while
+     closedir($dir);
+  }
+  $schema .= '</PRODUCT_LISTING_TEMPLATES>' . "\n";
+  echo $schema;
+  
+  //Ausgabe ProductInfoTemplates
+  $schema = '<PRODUCT_DETAILS_TEMPLATES>' . "\n";
+  if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'))
+  {
+      while (($file = readdir($dir)) != false)
+      {
+          if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and
+             ($file != "index.html"))
+         {
+             $schema .= "<TEMPLATE>" . $file . "</TEMPLATE>\n";
+         } //if
+     } // while
+     closedir($dir);
+  }
+  $schema .= '</PRODUCT_DETAILS_TEMPLATES>' . "\n";
+  echo $schema;
+  
+  //Ausgabe ProductOptionsTemplates
+  $schema = '<PRODUCT_OPTIONS_TEMPLATES>' . "\n";
+  if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'))
+  {
+      while (($file = readdir($dir)) != false)
+      {
+          if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and
+             ($file != "index.html"))
+         {
+             $schema .= "<TEMPLATE>" . $file . "</TEMPLATE>\n";
+         } //if
+     } // while
+     closedir($dir);
+  }
+  $schema .= '</PRODUCT_OPTIONS_TEMPLATES>' . "\n";
+  echo $schema;
+
+  
   $schema = '</CONFIG>' . "\n";		  
   echo $schema;
 }
@@ -979,26 +1112,29 @@ function ShowHTMLMenu ()
 
 ?>
 <html><head></head><body>
-<h3>CAO-Faktura - xt:Commerce Shopanbindung</h3>
-<h4>Version <? echo $version_nr; ?> Stand : <? echo $version_datum; ?></h4>
+<h3><a href="http://www.cao-faktura.de">CAO-Faktura - xt:Commerce Shopanbindung</a></h3>
+<h4>Mehr dazu im <a href="http://www.cao-faktura.de/index.php?option=com_forum&Itemid=44">Forum</a></h4>
+<h4>Version <?php echo $version_nr; ?> Stand : <?php echo $version_datum; ?></h4>
 <br>
 <br><b>m&ouml;gliche Funktionen :</b><br><br>
-<a href="<? echo $Url; ?>&action=version">Ausgabe XML Scriptversion</a><br>
+<a href="<?php echo $Url; ?>&action=version">Ausgabe XML Scriptversion</a><br>
 <br>
-<a href="<? echo $Url; ?>&action=manufacturers_export">Ausgabe XML Manufacturers</a><br>
-<a href="<? echo $Url; ?>&action=categories_export">Ausgabe XML Categories</a><br>
-<a href="<? echo $Url; ?>&action=products_export">Ausgabe XML Products</a><br>
-<a href="<? echo $Url; ?>&action=customers_export">Ausgabe XML Customers</a><br>
-<a href="<? echo $Url; ?>&action=customers_newsletter_export">Ausgabe XML Customers-Newsletter</a><br>
+<a href="<?php echo $Url; ?>&action=manufacturers_export">Ausgabe XML Manufacturers</a><br>
+<a href="<?php echo $Url; ?>&action=categories_export">Ausgabe XML Categories</a><br>
+<a href="<?php echo $Url; ?>&action=products_export">Ausgabe XML Products</a><br>
+<a href="<?php echo $Url; ?>&action=customers_export">Ausgabe XML Customers</a><br>
+<a href="<?php echo $Url; ?>&action=customers_newsletter_export">Ausgabe XML Customers-Newsletter</a><br>
 <br>
-<a href="<? echo $Url; ?>&action=orders_export">Ausgabe XML Orders</a><br>
+<a href="<?php echo $Url; ?>&action=orders_export">Ausgabe XML Orders</a><br>
 <br>
-<a href="<? echo $Url; ?>&action=config_export">Ausgabe XML Shop-Config</a><br>
+<a href="<?php echo $Url; ?>&action=config_export">Ausgabe XML Shop-Config</a><br>
 <br>
-<a href="<? echo $Url; ?>&action=update_tables">MySQL-Tabellen aktualisieren</a><br>
+<a href="<?php echo $Url; ?>&action=update_tables">MySQL-Tabellen f&uuml;r die verwendung mit CAO-Faktura aktualisieren</a><br>
+<br>
+<a href="<?php echo $Url; ?>&action=send_log">aktuelles Transfer-Log ansehen (die le. 100 Eintr&auml;ge)</a><br>
 </body>
 </html>
-<?
+<?php
 }   
 
 //--------------------------------------------------------------   
@@ -1037,7 +1173,7 @@ function UpdateTables ()
   {
     echo '<b>SQL:</b> ' . $sql[$i] . '<br>';;
 	   
-    if (mysql_query($sql[$i], $$link))
+    if (@mysql_query($sql[$i], $$link))
     {
       echo '<b>Ergebnis : OK</b>';
     }
@@ -1046,10 +1182,10 @@ function UpdateTables ()
       $error = mysql_error();
       $pos=strpos($error,'Duplicate column name');
 	       
-      if ($pos===False)
+      if ($pos===false)
       {
         $pos=strpos($error,'already exists');
-        if ($pos===False)
+        if ($pos===false)
         {
           echo '<b>Ergebnis : </b><font color="red"><b>' . $error . '</b></font>';
 		  }
@@ -1146,6 +1282,11 @@ function xtc_remove_product($product_id)
 		    xtc_db_query("delete from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . xtc_db_input($product_id) . "'");
 		    xtc_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where products_id = '" . xtc_db_input($product_id) . "'");
 		    xtc_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where products_id = '" . xtc_db_input($product_id) . "'");
+		    
+		    if (defined('TABLE_PRODUCTS_IMAGES'))
+          {
+            xtc_db_query("delete from " . TABLE_PRODUCTS_IMAGES . " where products_id = '" . xtc_db_input($product_id) . "'");
+          }
 		
 		
 		    // get statuses
@@ -1234,6 +1375,54 @@ function ProductsImageUpload ()
 
 //--------------------------------------------------------------
 
+function ProductsImageUploadMed ()
+{
+  ProductsImageUpload ();
+}
+
+//--------------------------------------------------------------
+
+function ProductsImageUploadLarge ()
+{
+  ProductsImageUpload ();
+}
+
+//--------------------------------------------------------------
+
+function CheckImages ($FileName)
+{
+  $products_image_name = $FileName;
+  
+  // rewrite values to use resample classes
+  define('DIR_FS_CATALOG_ORIGINAL_IMAGES',DIR_FS_CATALOG.DIR_WS_ORIGINAL_IMAGES);
+  define('DIR_FS_CATALOG_INFO_IMAGES',DIR_FS_CATALOG.DIR_WS_INFO_IMAGES);
+  define('DIR_FS_CATALOG_POPUP_IMAGES',DIR_FS_CATALOG.DIR_WS_POPUP_IMAGES);
+  define('DIR_FS_CATALOG_THUMBNAIL_IMAGES',DIR_FS_CATALOG.DIR_WS_THUMBNAIL_IMAGES);
+  define('DIR_FS_CATALOG_IMAGES',DIR_FS_CATALOG.DIR_WS_IMAGES);
+
+  // generate resampled images
+  if  (file_exists (DIR_FS_CATALOG_ORIGINAL_IMAGES . $FileName))
+  {
+  
+    if (!file_exists (DIR_FS_CATALOG_INFO_IMAGES . $FileName))
+    {
+      require(DIR_FS_DOCUMENT_ROOT.'admin/includes/product_info_images.php');
+    }
+  
+    if (!file_exists (DIR_FS_CATALOG_THUMBNAIL_IMAGES . $FileName))
+    {
+      require(DIR_FS_DOCUMENT_ROOT.'admin/includes/product_thumbnail_images.php');
+    }
+  
+    if (!file_exists (DIR_FS_CATALOG_POPUP_IMAGES . $FileName))
+    {
+      require(DIR_FS_DOCUMENT_ROOT.'admin/includes/product_popup_images.php');
+    }
+  }
+}
+
+//--------------------------------------------------------------
+
 function ManufacturersUpdate ()
 {
   global $_POST;
@@ -1277,7 +1466,7 @@ function ManufacturersUpdate ()
       $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
       xtc_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
-      $products_id = mysql_insert_id();
+      $products_id = xtc_db_insert_id();
     } 
     elseif ($exists==1) //Update
     {
@@ -1378,21 +1567,71 @@ function ProductsUpdate ()
                                'directory' => $languages['directory']);
   }
   $products_id = xtc_db_prepare_input($_POST['pID']);
+  
+  
+  //VPE JP20060130
+  if ((defined('TABLE_PRODUCTS_VPE')) and (USE_VPE==true))
+  {
+    if (isset($_POST['products_me']))
+    {
+      $vpe_name = xtc_db_prepare_input($_POST['products_me']);
+      
+      $vpe_query = xtc_db_query("select products_vpe_id from " . TABLE_PRODUCTS_VPE .
+                                " where products_vpe_name='" . $vpe_name . "' and " .
+                                "language_id='" . $LangID ."'");
+      if ($vpe_res = xtc_db_fetch_array($vpe_query))
+      {
+        //VPE existiert bereits
+        $products_vpe_id = $vpe_res['products_vpe_id'];
+      }
+       else
+      {
+        //VPE neu anlegen
+        $next_id_query = xtc_db_query("select max(products_vpe_id) as products_vpe_id from " . TABLE_PRODUCTS_VPE . "");
+        $next_id = xtc_db_fetch_array($next_id_query);
+        $products_vpe_id = $next_id['products_vpe_id'] + 1;
+        
+        
+        $languages = $languages_array;
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i++)
+        {
+          $language_id = $languages[$i]['id']; 
+          
+          $insert_sql_data = array('products_vpe_id' => $products_vpe_id,
+                                   'language_id' => $language_id,
+                                   'products_vpe_name' => $vpe_name);
+                                   
+          xtc_db_perform(TABLE_PRODUCTS_VPE, $insert_sql_data);
+        }
+      }
+    }
+  }
+  
+  
 
   // product laden
-  $count_query = xtc_db_query("select products_quantity,
-	                            products_model,
-	                            products_image,
-	                            products_price,
-	                            products_date_available,
-	                            products_weight,
-	                            products_status,
-	                            products_ean,
-	                            products_fsk18,
-	                            products_shippingtime,
-	                            products_tax_class_id,
-	                            manufacturers_id from " . TABLE_PRODUCTS . "
-	                            where products_id='" . $products_id . "'");
+  $sql = "select products_quantity,
+	              products_model,
+	              products_image,
+	              products_price,
+	              products_date_available,
+	              products_weight,
+	              products_status,
+	              products_ean,
+	              products_fsk18,
+	              products_shippingtime,
+	              products_tax_class_id,
+	              manufacturers_id";
+  
+  if ((defined('TABLE_PRODUCTS_VPE')) and (USE_VPE==true))
+  {
+    $sql .= ",products_vpe";
+  }	             
+	          
+  $sql .= " from " . TABLE_PRODUCTS . " where products_id='" . $products_id . "'";
+  
+  
+  $count_query = xtc_db_query($sql);
 	
   if ($product = xtc_db_fetch_array($count_query))
   {
@@ -1416,7 +1655,11 @@ function ProductsUpdate ()
   // Variablen nur ueberschreiben wenn als Parameter vorhanden !!!
   if (isset($_POST['products_quantity'])) $products_quantity = xtc_db_prepare_input($_POST['products_quantity']);
   if (isset($_POST['products_model'])) $products_model = xtc_db_prepare_input($_POST['products_model']);
-  if (isset($_POST['products_image'])) $products_image = xtc_db_prepare_input($_POST['products_image']);
+  if (isset($_POST['products_image'])) 
+  {
+    $products_image = xtc_db_prepare_input($_POST['products_image']);
+    CheckImages ($products_image); 
+  }
   if (isset($_POST['products_price'])) $products_price = xtc_db_prepare_input($_POST['products_price']);
   if (isset($_POST['products_date_available'])) $products_date_available = xtc_db_prepare_input($_POST['products_date_available']);
   if (isset($_POST['products_weight'])) $products_weight = xtc_db_prepare_input($_POST['products_weight']);
@@ -1463,6 +1706,11 @@ function ProductsUpdate ()
 	                       'products_shippingtime' => $products_shippingtime,
 	                       'products_tax_class_id' => $products_tax_class_id,
 	                       'manufacturers_id' => $manufacturers_id);
+	                       
+  if ((defined('TABLE_PRODUCTS_VPE')) and (USE_VPE==true))
+  { 
+    $sql_data_array = array_merge($sql_data_array, array ('products_vpe' => $products_vpe_id));
+  }
 										
   if ($exists==0) // Neuanlage (ID wird an CAO zurueckgegeben !!!)
   {
@@ -1520,7 +1768,7 @@ function ProductsUpdate ()
     // insert data
     xtc_db_perform(TABLE_PRODUCTS, $sql_data_array);
 	
-    $products_id = mysql_insert_id();
+    $products_id = xtc_db_insert_id(); 
 	
   }
   elseif ($exists==1) //Update
@@ -1601,7 +1849,47 @@ function ProductsUpdate ()
       xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \'' . xtc_db_input($products_id) . '\' and language_id = \'' . $language_id . '\'');
     }
   }
+  
+  if (defined('TABLE_PRODUCTS_IMAGES'))
+  {
+    if (isset($_POST['products_image_med']))
+    {
+      $SQL = "delete from " .TABLE_PRODUCTS_IMAGES. " where products_id= '" . xtc_db_input($products_id) . "' and image_nr=1";
+      
+      xtc_db_query($SQL);
+      
+      if (strlen($_POST['products_image_med'])>0)
+      {
+        $sql_data_array = array('products_id' => $products_id,
+                                'image_nr' => '1',
+                                'image_name' => xtc_db_prepare_input($_POST['products_image_med']));
+
+        xtc_db_perform(TABLE_PRODUCTS_IMAGES, $sql_data_array); 
+      }
+    }
+
+    if (isset($_POST['products_image_large']))
+    {
+      $SQL = "delete from " .TABLE_PRODUCTS_IMAGES. " where products_id= '" . xtc_db_input($products_id) . "' and image_nr=2";
+      xtc_db_query($SQL);
+      
+      if (strlen($_POST['products_image_large'])>0)
+      {
+        $sql_data_array = array('products_id' => $products_id,
+                                'image_nr' => '2',
+                                'image_name' => xtc_db_prepare_input($_POST['products_image_large']));
+	                                     
+        xtc_db_perform(TABLE_PRODUCTS_IMAGES, $sql_data_array);
+      }
+    }
+  }
+  
+  
   if (file_exists('cao_produpd_2.php')) { include('cao_produpd_2.php'); }
+  
+  
+  
+  
 
   print_xml_status (0, $_POST['action'], 'OK', $mode, 'PRODUCTS_ID', $products_id);
 }
@@ -2123,6 +2411,9 @@ function CustomersUpdate ()
   if (isset($_POST['customers_tele'])) $sql_customers_data_array['customers_telephone'] = $_POST['customers_tele'];
   if (isset($_POST['customers_fax'])) $sql_customers_data_array['customers_fax'] = $_POST['customers_fax'];
   if (isset($_POST['customers_gender'])) $sql_customers_data_array['customers_gender'] = $_POST['customers_gender'];
+  
+  if (file_exists('cao_custupd_1.php')) { include('cao_custupd_1.php'); }
+  
   if (isset($_POST['customers_password'])) 
   {
     $sql_customers_data_array['customers_password'] = xtc_encrypt_password($_POST['customers_password']);
@@ -2162,6 +2453,9 @@ function CustomersUpdate ()
       // generate PW if empty
       $pw=xtc_RandomString(8);
       $sql_customers_data_array['customers_password']=xtc_create_password($pw);
+    } else
+    {
+    	$pw=$_POST['customers_password'];
     }				
     xtc_db_perform(TABLE_CUSTOMERS, $sql_customers_data_array);
     $customers_id = xtc_db_insert_id();
@@ -2169,7 +2463,11 @@ function CustomersUpdate ()
     xtc_db_perform(TABLE_ADDRESS_BOOK, $sql_address_data_array);
     $address_id = xtc_db_insert_id();
     xtc_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = '" . (int)$address_id . "' where customers_id = '" . (int)$customers_id . "'");
-    xtc_db_query("update " . TABLE_CUSTOMERS . " set customers_status = '" . STANDARD_GROUP . "' where customers_id = '" . (int)$customers_id . "'");
+    //JP20080401
+    if (!isset($_POST['customers_price_level'])) 
+    {
+    	xtc_db_query("update " . TABLE_CUSTOMERS . " set customers_status = '" . STANDARD_GROUP . "' where customers_id = '" . (int)$customers_id . "'");
+    }
     xtc_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . (int)$customers_id . "', '0', now())");
   }
 
@@ -2184,6 +2482,9 @@ function CustomersUpdate ()
     require_once(DIR_FS_INC . 'xtc_href_link.inc.php');
     require_once(DIR_FS_INC . 'xtc_date_long.inc.php');
     require_once(DIR_FS_INC . 'xtc_check_agent.inc.php');
+    
+    require_once(DIR_FS_LANGUAGES . $Lang_folder . '/admin/' . $Lang_folder . '.php');  //JP 20080102
+
 
     $smarty = new Smarty;
 	
@@ -2257,6 +2558,106 @@ function CustomersErase ()
   }
 }
 
+
+//--------------------------------------------------------------
+
+function XsellUpdate ()
+{
+  global $_POST;
+ 
+  $ProdID = xtc_db_prepare_input($_POST['prodid']);
+  $XsellID  = xtc_db_prepare_input($_POST['xsellid']);
+       
+  if (isset($ProdID) && isset($XsellID))
+  {
+ 
+      // ueberpruefen ob Daten schon vorhanden sind
+    $SQL = "select products_id, xsell_id from " . TABLE_PRODUCTS_XSELL . " where products_id='"
+            . $ProdID . "' and xsell_id='" . $XsellID . "'";
+
+
+    $count_query = xtc_db_query($SQL);
+    $exists = xtc_db_fetch_array($count_query);
+    if ($exists > 0)
+    {
+      $exists = 1;
+      // Eintrag bereits vorhanden, tue nichts
+    }
+    else
+    {
+      $exists = 0;
+      $res = xtc_db_query("replace into " . TABLE_PRODUCTS_XSELL . " (products_id, xsell_id) Values ('" . $ProdID ."', '" . $XsellID . "')");
+    }
+   
+    print_xml_status (0, $_POST['action'], 'OK', '', 'SQL_RES', $res);
+  }
+    else
+  {
+    print_xml_status (99, $_POST['action'], 'PARAMETER ERROR', '', '', '');
+  }
+}
+
+//--------------------------------------------------------------
+
+function XsellErase ()
+{
+  global $_POST;
+ 
+  $ProdID = xtc_db_prepare_input($_POST['prodid']);
+  $XsellID  = xtc_db_prepare_input($_POST['xsellid']);
+
+  if (isset($ProdID) && isset($XsellID))
+  {
+    $res = xtc_db_query("delete from " . TABLE_PRODUCTS_XSELL . " where products_id='" . $ProdID ."' and xsell_id='" . $XsellID . "'");
+
+    print_xml_status (0, $_POST['action'], 'OK', '', 'SQL_RES', $res);
+  }
+    else
+  {
+    print_xml_status (99, $_POST['action'], 'PARAMETER ERROR', '', '', '');
+  }
+}   
+
+
+//--------------------------------------------------------------
+
+function SendLog ()
+{
+  global $version_nr, $version_datum, $logger;
+  
+  SendHTMLHeader;
+
+  echo '<html><head></head><body>';
+  echo '<h3>Shoptransfer XTC<->CAO-Faktura</h3>';
+  echo '<h4>Version ' . $version_nr . ' Stand : ' . $version_datum .'</h4>'.
+       '<h4>Transfer-Log:</h4>';
+       
+  if (LOGGER==true) 
+  {
+	  $sql = 'select * from cao_log order by date desc limit 0,100';
+	
+	  $res = xtc_db_query($sql);
+	  while ($log = xtc_db_fetch_array($res)) 
+	  {
+	    echo 'Date:' . $log['date'] . '<br>' . "\n";
+	    echo 'Method:' . $log['method'] . '<br>' . "\n";
+	    echo 'Action:' . $log['action'] . '<br>' . "\n";
+	    echo 'Post-Data:<br>' . nl2br($log['post_data']) . '<br>' . "\n";
+	    echo 'Get-Data:<br>' . nl2br($log['get_data']) . '<br>' . "\n";
+	    
+	    echo "<hr>" . "\n";
+	  }
+  }
+   else
+  {
+    echo '<br><br><br><hr><h5>Der Logger wurde im Script deaktiviert !</h5><hr>';
+  
+  }
+	  
+  echo '<br><br></body></html>'; 
+
+}
+
 //--------------------------------------------------------------
 //                     Ende Funktionen 
 //-------------------------------------------------------------- 
@@ -2264,7 +2665,7 @@ function CustomersErase ()
 
 
 
-  $table_has_products_image_medium = true;
+  $table_has_products_image_medium = false;
   $table_has_products_image_large = false;
   
   $images_query = xtc_db_query(' SHOW COLUMNS FROM '.TABLE_PRODUCTS);
@@ -2308,10 +2709,14 @@ function CustomersErase ()
 		{
 	   	$gdata .= addslashes($key)." => ".addslashes($value)."\\r\\n";
 		} 
-	
-		xtc_db_query("INSERT INTO cao_log
-	              (date,user,pw,method,action,post_data,get_data) VALUES
-	              (NOW(),'".$user."','".$password."','".$REQUEST_METHOD."','".$_POST['action']."','".$pdata."','".$gdata."')");
+	   
+	   
+	   if ($_GET['action']!='send_log') 
+	   {
+  		  xtc_db_query("INSERT INTO cao_log
+	                (date,user,pw,method,action,post_data,get_data) VALUES
+	                (NOW(),'".$user."','".$password."','".$REQUEST_METHOD."','".$_POST['action']."','".$pdata."','".$gdata."')");
+	   }
 	}
 	
 	
@@ -2475,5 +2880,5 @@ function CustomersErase ()
         return true;
       }
     }
-  }
+  }  
 ?>
