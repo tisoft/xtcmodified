@@ -25,6 +25,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<style type="text/css">
+ table, td, tr {font-family: sans-serif; font-size: 11px;}
+.p {text-align: center;}
+.e {background-color: #ccccff; font-weight: bold; font-size: 11px;}
+.h {background-color: #9999cc; font-weight: bold; font-size: 11px;}
+.v {background-color: #cccccc; font-size: 12px;}
+i {color: #666666; font-size: 11px;}
+hr {display: none; font-size: 11px;}
+</style>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -52,7 +61,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center"><table border="0" cellspacing="0" cellpadding="3">
+            <td align="left"><table border="0" cellspacing="0" cellpadding="3">
               <tr>
                 <td class="smallText"><strong><?php echo TITLE_SERVER_HOST; ?></strong></td>
                 <td class="smallText"><?php echo $system['host'] . ' (' . $system['ip'] . ')'; ?></td>
@@ -103,8 +112,10 @@
     ob_end_clean();
 
     $phpinfo = str_replace('border: 1px', '', $phpinfo);
-    preg_match('/(<style type=\"text\/css\">{1})(.*)(<\/style>{1})/s', $phpinfo, $regs); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
-    echo '<style type="text/css">' . $regs[2] . '</style>';
+    //BOF - Dokuman - 2009-08-27 - preg_match not needed anymore due to style definition in header
+    //preg_match('/(<style type=\"text\/css\">{1})(.*)(<\/style>{1})/s', $phpinfo, $regs); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+    //echo '<style type="text/css">' . $regs[2] . '</style>';
+    //EOF - Dokuman - 2009-08-27 - preg_match not needed anymore due to style definition in header   
     preg_match('/(<body>{1})(.*)(<\/body>{1})/s', $phpinfo, $regs); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
     echo $regs[2];
   } else {
