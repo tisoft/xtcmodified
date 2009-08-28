@@ -408,11 +408,12 @@ if (ACCOUNT_DOB == 'true') {
 } else {
 	$smarty->assign('birthdate', '0');
 }
-
-$smarty->assign('INPUT_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : ''))));
+//BOF - Dokuman - 2009-08-28 - added ondragstart onselectstart to void duplication of the emailaddress by the user
+$smarty->assign('INPUT_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), '','ondragstart="return false" onselectstart="return false"'));
 //BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
-$smarty->assign('INPUT_CONFIRM_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'confirm_email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : ''))));
+$smarty->assign('INPUT_CONFIRM_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'confirm_email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), '','ondragstart="return false" onselectstart="return false"'));
 //EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
+//EOF - Dokuman - 2009-08-28 - added ondragstart onselectstart to void duplication of the emailaddress by the user
 if (ACCOUNT_COMPANY == 'true') {
 	$smarty->assign('company', '1');
 	$smarty->assign('INPUT_COMPANY', xtc_draw_input_fieldNote(array ('name' => 'company', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_COMPANY_TEXT) ? '<span class="inputRequirement">'.ENTRY_COMPANY_TEXT.'</span>' : ''))));
