@@ -24,6 +24,11 @@
         $$link = mysql_connect($server, $username, $password);
     }
 
+// BOF - Dokuman - 2009-09-02 - Disable "STRICT" mode for MySQL 5!
+    $vers = @mysql_get_server_info();
+    if(substr($vers,0,1) > 4) @mysql_query("SET SESSION sql_mode='MYSQL40'");
+// EOF - Dokuman - 2009-09-02 - Disable "STRICT" mode for MySQL 5!
+
 // BOF - Dokuman - 2009-05-27 - revised database connection
 //    if ($$link) mysql_select_db($database);
   	if ($$link) {
