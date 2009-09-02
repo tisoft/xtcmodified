@@ -74,7 +74,10 @@
     
     $del_options = xtc_db_query("select products_options_values_id from " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "'");
     while($del_options_values = xtc_db_fetch_array($del_options)){  
-    	  xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $_GET['option_id'] . "'");
+    	//BOF - Dokuman - 2009-09-02: Beim Löschen eines Artikelmerkmals werden die zugehörigen Optionswerte nicht mitgelöscht
+    	//xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $_GET['option_id'] . "'");
+        xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $del_options_values['products_options_values_id'] . "'"); 
+     	//EOF - Dokuman - 2009-09-02: Beim Löschen eines Artikelmerkmals werden die zugehörigen Optionswerte nicht mitgelöscht
        	 }
         xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "'");
         xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "'");
