@@ -110,23 +110,23 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
  // config files
  if (!is_writeable(DIR_FS_CATALOG . 'includes/configure.php')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'includes/configure.php<br />';
+    $message .= 'FALSCHE DATEIRECHTE '.DIR_FS_CATALOG . 'includes/configure.php<br />';
  }
   if (!is_writeable(DIR_FS_CATALOG . 'includes/configure.org.php')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'includes/configure.org.php<br />';
+    $message .= 'FALSCHE DATEIRECHTE '.DIR_FS_CATALOG . 'includes/configure.org.php<br />';
  }
   if (!is_writeable(DIR_FS_CATALOG . 'admin/includes/configure.php')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/includes/configure.php<br />';
+    $message .= 'FALSCHE DATEIRECHTE '.DIR_FS_CATALOG . 'admin/includes/configure.php<br />';
  }
   if (!is_writeable(DIR_FS_CATALOG . 'admin/includes/configure.org.php')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/includes/configure.org.php<br />';
+    $message .= 'FALSCHE DATEIRECHTE '.DIR_FS_CATALOG . 'admin/includes/configure.org.php<br />';
  }
  $status='OK';
- if ($error_flag==true) $status='<strong><font color="#ff0000">ERROR</font></strong>';
- $ok_message.='FILE Permissions .............................. '.$status.'<br /><hr noshade>';
+ if ($error_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
+ $ok_message.='DATEIRECHTE .............................. '.$status.'<br /><hr noshade>';
 
  // smarty folders
  $folder_flag==false;
@@ -134,97 +134,99 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/xt-news.cache')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
  }
  
    if (!is_writeable(DIR_FS_CATALOG . 'templates_c/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'templates_c/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'templates_c/<br />';
  }
     if (!is_writeable(DIR_FS_CATALOG . 'cache/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'cache/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'cache/<br />';
  }
 
      if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/rss/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/<br />';
  }
 
       if (!is_writeable(DIR_FS_CATALOG . 'admin/images/graphs')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/images/graphs<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/images/graphs<br />';
  }
 
     if (!is_writeable(DIR_FS_CATALOG . 'admin/backups/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/backups/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/backups/<br />';
  }
 
  // image folders
       if (!is_writeable(DIR_FS_CATALOG . 'images/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'images/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/<br />';
  }
      if (!is_writeable(DIR_FS_CATALOG . 'images/categories/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'images/categories/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/categories/<br />';
  }
      if (!is_writeable(DIR_FS_CATALOG . 'images/banner/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'images/banner/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/banner/<br />';
  }
      if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/info_images/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'images/product_images/info_images/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/info_images/<br />';
  }
      if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/original_images/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'images/product_images/original_images/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/original_images/<br />';
  }
      if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/popup_images/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'images/product_images/popup_images/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/popup_images/<br />';
  }
       if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/thumbnail_images/')) {
     $error_flag=true;
     $folder_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'images/product_images/thumbnail_images/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/thumbnail_images/<br />';
  }
  
    if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/xt-news.cache')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
  }
 
  if (!is_writeable(DIR_FS_CATALOG . 'sitemap1.xml')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'sitemap1.xml<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'sitemap1.xml<br />';
  }
  
   if (!is_writeable(DIR_FS_CATALOG . 'import/')) {
     $error_flag=true;
-    $message .= 'WRONG PERMISSION on '.DIR_FS_CATALOG . 'import/<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'import/<br />';
  }
 
  $status='OK';
- if ($folder_flag==true) $status='<strong><font color="#ff0000">ERROR</font></strong>';
- $ok_message.='FOLDER Permissions .............................. '.$status.'<br /><hr noshade>';
+ if ($folder_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
+ $ok_message.='ORDNERRECHTE .............................. '.$status.'<br /><hr noshade>';
 
  // check PHP-Version
 
  $php_flag==false;
+ //BOF - Dokuman - 2009-09-02: update PHP-Version check
+ /*
  if (xtc_check_version()!=1) {
      $error_flag=true;
      $php_flag=true;
@@ -232,17 +234,33 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                  Your php Version: <strong><?php echo phpversion(); ?></strong><br /><br />
                  xtc:Modified wont work on this server, update PHP or change Server.';
  }
+ */
+ if (function_exists('version_compare')) {
+   if(version_compare(phpversion(), "4.3.3", "<")){
+	   $error_flag = true;
+     $php_flag = true;
+     $message .= '<strong>ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 4.3.3 voraus.</b><br /><br />
+                 Ihre PHP-Version: <b>' . phpversion() . '</strong>.';
+	 }
+ }
+ else{
+ 		$error_flag = true;
+    $php_flag = true;
+    $message .= '<strong>ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 4.3.3 voraus.</b><br /><br />
+                 Ihre PHP-Version: <b>' . phpversion() . '</strong>.';
+ }
+ //EOF - Dokuman - 2009-09-02: update PHP-Version check
 
  $status='OK';
- if ($php_flag==true) $status='<strong><font color="#ff0000">ERROR</strong>';
+ if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</strong>';
  $ok_message.='PHP VERSION .............................. '.$status.'<br /><hr noshade>';
 
 
  $gd=gd_info();
 
- if ($gd['GD Version']=='') $gd['GD Version']='<strong><font color="#ff0000">ERROR NO GDLIB FOUND!</strong>';
+ if ($gd['GD Version']=='') $gd['GD Version']='<strong><font color="#ff0000">FEHLER: KEINE GDLIB GEFUNDEN!</strong>';
 
- $status=$gd['GD Version'].' <br />  if GDlib Version < 2+ , klick here for further instructions';
+ $status=$gd['GD Version'].' <br /> falls GDlib Version < 2+ , klicken Sie hier f&uuml;r weitere Informationen';
 
  // display GDlibversion
  $ok_message.='GDlib VERSION .............................. '.$status.'<br /><hr noshade>';
@@ -250,9 +268,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
  if ($gd['GIF Read Support']==1 or $gd['GIF Support']==1) {
  $status='OK';
  } else {
- $status='<strong><font color="#ff0000">ERROR</strong><br />You don\'t have GIF support within your GDlib, you won\'t be able to use GIF images, and GIF overlayfunctions in XT-Commerce!';
+ $status='<strong><font color="#ff0000">FEHLER</strong><br />Sie haben keine GIF-Unterst&uuml;tzung innerhalb der GDlib, so dass Sie im Shop keine GIF-Bilder und GIF-Wasserzeichen-Funktionen nutzen k&ouml;nnen!';
  }
- $ok_message.='GDlib GIF-Support .............................. '.$status.'<br /><hr noshade>';
+ $ok_message.='GDlib GIF-Unterst&uuml;tzung .............................. '.$status.'<br /><hr noshade>';
 
 if ($error_flag==true) {
 ?><tr>
@@ -331,6 +349,6 @@ if ($ok_message!='') {
   </tr>
 </table><br />
 <div align="center" style="font-family:Arial, sans-serif; font-size:11px;">eCommerce Engine 2006 based on xt:Commerce<br />
-eCommerce Engine © 2008 - 2009 xtcModified.org supported under GNU/GPL</div>
+eCommerce Engine &copy; 2008 - 2009 xtcModified.org supported under GNU/GPL</div>
 </body>
 </html>
