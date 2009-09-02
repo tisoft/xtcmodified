@@ -261,7 +261,7 @@ $_REQUEST = $InputFilter->process($_REQUEST);
 $_GET = $InputFilter->safeSQL($_GET);
 $_POST = $InputFilter->safeSQL($_POST); 
 $_REQUEST = $InputFilter->safeSQL($_REQUEST);
-// EOF - Tomcraft - 2009-08-16 - fix shopstat security issue
+// EOF - Hetfield - 2009-08-16 - correct inputfilter security-patch and remove double replacing
 
 // set the top level domains
 $http_domain = xtc_get_top_level_domain(HTTP_SERVER);
