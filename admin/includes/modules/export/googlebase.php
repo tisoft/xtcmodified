@@ -195,19 +195,21 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 			}
 			$versand = '0.00';
 			if ($products_price < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER && MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS == 'true') {
-				$customers_tax_query = xtc_db_query("SELECT customers_status_show_price_tax, customers_status_add_tax_ot FROM " . TABLE_CUSTOMERS_STATUS . " WHERE customers_status_id = '" . (int)$_POST['status'] . "' AND language_id = '" . (int)$_SESSION['languages_id'] . "'");
-				$customers_tax_value = xtc_db_fetch_array($customers_tax_query);
-				$tax = xtc_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS);
-				if ($customers_tax_value['customers_status_show_price_tax'] == 1) {
-					$low_order_fee = xtc_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+				if (MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION == 'national' or MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION == 'both') {
+					$customers_tax_query = xtc_db_query("SELECT customers_status_show_price_tax, customers_status_add_tax_ot FROM " . TABLE_CUSTOMERS_STATUS . " WHERE customers_status_id = '" . (int)$_POST['status'] . "' AND language_id = '" . (int)$_SESSION['languages_id'] . "'");
+					$customers_tax_value = xtc_db_fetch_array($customers_tax_query);
+					$tax = xtc_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS);
+					if ($customers_tax_value['customers_status_show_price_tax'] == 1) {
+						$low_order_fee = xtc_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+					}
+					if ($customers_tax_value['customers_status_show_price_tax'] == 0 && $customers_tax_value['customers_status_add_tax_ot'] == 1) {
+						$low_order_fee = MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
+					}
+					if ($customers_tax_value['customers_status_show_price_tax'] == 0 && $customers_tax_value['customers_status_add_tax_ot'] != 1) {
+						$low_order_fee = MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
+					}
+					$versand = $versand + $low_order_fee;
 				}
-				if ($customers_tax_value['customers_status_show_price_tax'] == 0 && $customers_tax_value['customers_status_add_tax_ot'] == 1) {
-					$low_order_fee = MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
-				}
-				if ($customers_tax_value['customers_status_show_price_tax'] == 0 && $customers_tax_value['customers_status_add_tax_ot'] != 1) {
-					$low_order_fee = MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
-				}
-				$versand = $versand + $low_order_fee;
 			}
             if ($products_price > MODULE_SHIPPING_FREEAMOUNT_AMOUNT && MODULE_SHIPPING_FREEAMOUNT_STATUS == 'True') {
 				$versand = $versand;
