@@ -51,7 +51,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 
 	// Check if email exists 
 
-	if (($_POST['check'] == 'inp') && ($_POST['vvcode'] == $_SESSION['vvcode'])) {
+	if (($_POST['check'] == 'inp') && (strtolower($_POST['vvcode']) == $_SESSION['vvcode'])) {
 
 		$check_mail_query = xtc_db_query("select customers_email_address, mail_status from ".TABLE_NEWSLETTER_RECIPIENTS." where customers_email_address = '".xtc_db_input($_POST['email'])."'");
 		if (!xtc_db_num_rows($check_mail_query)) {
@@ -109,7 +109,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 		$info_message = TEXT_WRONG_CODE;
 	}
 
-	if (($_POST['check'] == 'del') && ($_POST['vvcode'] == $_SESSION['vvcode'])) {
+	if (($_POST['check'] == 'del') && (strtolower($_POST['vvcode']) == $_SESSION['vvcode'])) {
 
 		$check_mail_query = xtc_db_query("select customers_email_address from ".TABLE_NEWSLETTER_RECIPIENTS." where customers_email_address = '".xtc_db_input($_POST['email'])."'");
 		if (!xtc_db_num_rows($check_mail_query)) {
