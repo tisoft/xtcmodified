@@ -14,12 +14,12 @@
    
   // build to generate a random charcode
   function xtc_random_charcode($length) {
-    //BOF - Dokuman - 2009-09-02: Captchas only lowercase and do not use chars like "O,0,1,I,J"
+    //BOF - Dokuman - 2009-09-04: Captchas only uppercase and do not use chars like "O,0,1,7,I,J"
     //$arraysize = 34; 
     //$chars = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9');
     $arraysize = 28; 
-    $chars = array('a','b','c','d','e','f','g','h','k','m','n','p','q','r','s','t','u','v','w','x','y','z','2','3','4','5','6','8','9');
-    //EOF - Dokuman - 2009-09-02: Captchas only lowercase and do not use chars like "O,0,1,I,J"
+    $chars = array('A','B','C','D','E','F','G','H','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','8','9');
+    //EOF - Dokuman - 2009-09-04: Captchas only uppercase and do not use chars like "O,0,1,I,J"
 
     $code = '';
     for ($i = 1; $i <= $length; $i++) {

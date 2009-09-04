@@ -55,7 +55,10 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
 	$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/password_verification_mail.html');
 	$txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/password_verification_mail.txt');
 
-	if (strtolower($_POST['vvcode']) == $_SESSION['vvcode']) {
+  //BOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
+	//if ($_POST['vvcode'] == $_SESSION['vvcode']) {
+	if (strtoupper($_POST['vvcode']) == $_SESSION['vvcode']) {
+  //BOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
 		if (!xtc_db_num_rows($check_customer_query)) {
 			$case = wrong_mail;
 			$info_message = TEXT_EMAIL_ERROR;
