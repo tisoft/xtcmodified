@@ -99,7 +99,12 @@ if ($_GET['coID'] == 7) {
 		require (DIR_WS_INCLUDES.'header.php');
 		if (isset ($_SESSION['customer_id'])) {
 			$customers_name = $_SESSION['customer_first_name'].' '.$_SESSION['customer_last_name'];
-			$email_address = $_SESSION['customer_email_address'];
+      //BOF - Dokuman - 2009-09-04: preallocate email address on contact form
+			//$email_address = $_SESSION['customer_email_address'];
+			$c_query = xtc_db_query("SELECT * FROM ".TABLE_CUSTOMERS." WHERE customers_id='".$_SESSION['customer_id']."'"); 
+			$c_data = xtc_db_fetch_array($c_query); 
+      $email_address = $c_data['customers_email_address']; 
+      //EOF - Dokuman - 2009-09-04: preallocate email address on contact form
 		}
 
 		$smarty->assign('CONTACT_CONTENT', $contact_content);
