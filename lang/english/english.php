@@ -472,9 +472,9 @@ define('FROM','from ');
 define('YOU_SAVE','you save ');
 define('INSTEAD','instead ');
 define('TXT_PER',' per ');
-define('TAX_INFO_INCL','incl. %s VAT');
-define('TAX_INFO_EXCL','excl. %s VAT');
-define('TAX_INFO_ADD','plus. %s VAT');
+define('TAX_INFO_INCL','%s VAT incl.');
+define('TAX_INFO_EXCL','%s VAT excl.');
+define('TAX_INFO_ADD','%s VAT plus.');
 define('SHIPPING_EXCL','excl.');
 define('SHIPPING_COSTS','Shipping costs');
 
