@@ -86,9 +86,9 @@ define('TEXT_VALIDATING','Not validated');
 
 // manufacturer box text
 define('BOX_MANUFACTURER_INFO_HOMEPAGE', '%s Homepage');
-define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'More Products');
+define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'More products'); //changed by electronica 2009-09-06
 
-define('BOX_HEADING_ADD_PRODUCT_ID','Add To Cart');
+define('BOX_HEADING_ADD_PRODUCT_ID','Add to cart'); //changed by electronica 2009-09-06
   
 define('BOX_LOGINBOX_STATUS','Customer group:');     
 define('BOX_LOGINBOX_DISCOUNT','Product discount');
@@ -105,10 +105,10 @@ define('PULL_DOWN_DEFAULT', 'Please choose');
 // javascript messages
 define('JS_ERROR', 'Missing necessary information!\nPlease fill in correctly.\n\n');
 
-define('JS_REVIEW_TEXT', '* The text must consist at least of ' . REVIEW_TEXT_MIN_LENGTH . ' alphabetic characters..\n');
+define('JS_REVIEW_TEXT', '* The text must consist of at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters..\n'); //changed by electronica 2009-09-06
 define('JS_REVIEW_RATING', '* Enter your review.\n');
 define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Please choose a method of payment for your order.\n');
-define('JS_ERROR_SUBMITTED', 'This page has already been confirmed. Please click okay and wait until the process has finished.');
+define('JS_ERROR_SUBMITTED', 'This page has already been confirmed. Please click OK and wait until the process has finished.'); //changed by electronica 2009-09-06
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Please choose a method of payment for your order.');
 
 /*
@@ -133,11 +133,10 @@ define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 05/21/1970)');
 //EOF - Dokuman - 2009-06-03 - correct english date format
 
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your e-mail address must consist of at least  ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
-define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'The e-mail address your entered is incorrect - please check it');
-define('ENTRY_EMAIL_ERROR_NOT_MATCHING', 'Your e-mail address do not match.'); // Hetfield - 2009-08-15 - confirm e-mail at registration 
-define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'The e-mail address your entered already exists in our database - please check it');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'The e-mail address you entered is incorrect - please correct it'); //changed by electronica 2009-09-06
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'The e-mail address you entered already exists in our database - please correct it'); //changed by electronica 2009-09-06
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
-define('ENTRY_STREET_ADDRESS_ERROR', 'Street/Nr must consist of at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.');
+define('ENTRY_STREET_ADDRESS_ERROR', 'Street/Nr. must consist of at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.'); //changed by electronica 2009-09-06
 define('ENTRY_STREET_ADDRESS_TEXT', '*');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE_ERROR', 'Your zip code must consist of at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.');
@@ -145,7 +144,7 @@ define('ENTRY_POST_CODE_TEXT', '*');
 define('ENTRY_CITY_ERROR', 'City must consist of at least ' . ENTRY_CITY_MIN_LENGTH . ' characters.');
 define('ENTRY_CITY_TEXT', '*');
 define('ENTRY_STATE_ERROR', 'Your state must consist of at least ' . ENTRY_STATE_MIN_LENGTH . ' characters.');
-define('ENTRY_STATE_ERROR_SELECT', 'Please choose your state out of the list..');
+define('ENTRY_STATE_ERROR_SELECT', 'Please choose your state from the list...'); //changed by electronica 2009-09-06
 define('ENTRY_STATE_TEXT', '*');
 define('ENTRY_COUNTRY_ERROR', 'Please choose your country.');
 define('ENTRY_COUNTRY_TEXT', '*');
@@ -211,11 +210,11 @@ define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirm order');
 define('IMAGE_BUTTON_CONTINUE', 'Next');
 define('IMAGE_BUTTON_DELETE', 'Delete');
 define('IMAGE_BUTTON_LOGIN', 'Login');
-define('IMAGE_BUTTON_IN_CART', 'Into the cart');
+define('IMAGE_BUTTON_IN_CART', 'Add to cart'); //changed by electronica 2009-09-06
 define('IMAGE_BUTTON_SEARCH', 'Search');
 define('IMAGE_BUTTON_UPDATE', 'Update');
 define('IMAGE_BUTTON_UPDATE_CART', 'Update shopping cart');
-define('IMAGE_BUTTON_WRITE_REVIEW', 'Write Evaluation');
+define('IMAGE_BUTTON_WRITE_REVIEW', 'Write evaluation'); //changed by electronica 2009-09-06
 define('IMAGE_BUTTON_ADMIN', 'Admin');
 define('IMAGE_BUTTON_PRODUCT_EDIT', 'Edit product');
 define('IMAGE_BUTTON_LOGIN', 'Login');
@@ -225,7 +224,7 @@ define('SMALL_IMAGE_BUTTON_EDIT', 'Edit');
 define('SMALL_IMAGE_BUTTON_VIEW', 'View');
 
 define('ICON_ARROW_RIGHT', 'Show more');
-define('ICON_CART', 'Into the cart');
+define('ICON_CART', 'Add to cart'); //changed by electronica 2009-09-06
 define('ICON_SUCCESS', 'Success');
 define('ICON_WARNING', 'Warning');
 
@@ -273,13 +272,13 @@ define('ERROR_CURRENT_PASSWORD_NOT_MATCHING', 'The entered password does not mat
 define('TEXT_MAXIMUM_ENTRIES', '<font color="#ff0000"><strong>Reference:</strong></font> You are able to choose out of %s entries in you address book!');
 define('SUCCESS_ADDRESS_BOOK_ENTRY_DELETED', 'The selected entry has been deleted successfully.');
 define('SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED', 'Your address book has been updated sucessfully!');
-define('WARNING_PRIMARY_ADDRESS_DELETION', 'The standard postal address can not be deleted. Please create another address and define it as standard postal address first. Than this entry can be deleted.');
+define('WARNING_PRIMARY_ADDRESS_DELETION', 'The standard postal address can not be deleted. Please create another address and define it as standard postal address first. Then this entry can be deleted.'); //changed by electronica 2009-09-06
 define('ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY', 'This address book entry is not available.');
-define('ERROR_ADDRESS_BOOK_FULL', 'Your adressbook is full and you have to delete one adress first, before you can save another.');
+define('ERROR_ADDRESS_BOOK_FULL', 'Your adressbook is full. In order to add new addresses, please erase previous ones first.'); //changed by electronica 2009-09-06
 
 //  conditions check
 
-define('ERROR_CONDITIONS_NOT_ACCEPTED', 'If you do not accept our General Business Conditions, we are not able to accept your order!');
+define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Please accept our terms and conditions to proceed with your order.');
 
 define('SUB_TITLE_OT_DISCOUNT','Discount:');
 
@@ -304,8 +303,8 @@ define('TEXT_GUEST','Visitor');
 
 define('TEXT_ALL_CATEGORIES', 'All categories');
 define('TEXT_ALL_MANUFACTURERS', 'All manufacturers');
-define('JS_AT_LEAST_ONE_INPUT', '* One of the following fields must be filled:\n    Keywords\n    Date added from\n    Date added to\n    Price over\n    Price up to\n');
-define('AT_LEAST_ONE_INPUT', 'One of the following fields must be filled:<br />keywords consisting at least 3 characters<br />Price over<br />Price up to<br />');
+define('JS_AT_LEAST_ONE_INPUT', '* One of the following fields must be filled out:\n    Keywords\n    Date added from\n    Date added to\n    Price over\n    Price up to\n'); //changed by electronica 2009-09-06
+define('AT_LEAST_ONE_INPUT', 'One of the following fields must be filled out:<br />keywords consisting at least 3 characters<br />Price over<br />Price up to<br />'); //changed by electronica 2009-09-06
 define('JS_INVALID_FROM_DATE', '* Invalid from date\n');
 define('JS_INVALID_TO_DATE', '* Invalid up to Date\n');
 define('JS_TO_DATE_LESS_THAN_FROM_DATE', '* The from date must be larger or same size as up to now\n');
@@ -313,8 +312,8 @@ define('JS_PRICE_FROM_MUST_BE_NUM', '* Price over, must be a number\n');
 define('JS_PRICE_TO_MUST_BE_NUM', '* Price up to, must be a number\n');
 define('JS_PRICE_TO_LESS_THAN_PRICE_FROM', '* Price up to must be larger or same size as Price over.\n');
 define('JS_INVALID_KEYWORDS', '* Invalid search key\n');
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><strong>ERROR:</strong></font> The entered \'eMail-address\' and/or the \'password\' do not match.');
-define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><strong>WARNING:</strong></font> The entered e-mail address is not registered. Please try again.');
+define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><strong>ERROR:</strong></font> The entered \'e-mail address\' and/or the \'password\' do not match.'); //changed by electronica 2009-09-06
+define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><strong>WARNING:</strong></font> The e-mail address entered is not registered. Please try again.'); //changed by electronica 2009-09-06
 define('TEXT_PASSWORD_SENT', 'A new password was sent by e-mail.');
 define('TEXT_PRODUCT_NOT_FOUND', 'Product not found!');
 define('TEXT_MORE_INFORMATION', 'For further information, please visit the <a style="text-decoration:underline;" href="%s" onclick="window.open(this.href); return false;">homepage</a> of this product.');
@@ -322,13 +321,13 @@ define('TEXT_DATE_ADDED', 'This Product was added to our catalogue on %s.');
 define('TEXT_DATE_AVAILABLE', '<font color="#ff0000">This Product is expected to be on stock again on %s </font>');
 define('SUB_TITLE_SUB_TOTAL', 'Sub-total:');
 
-define('OUT_OF_STOCK_CANT_CHECKOUT', 'The products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' , are not on stock in the quantity you requested.<br />Please reduce your purchase order quantity for the marked products. Thank you');
-define('OUT_OF_STOCK_CAN_CHECKOUT', 'The products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' , are not on stock in the quantity you requested.<br />The entered quantity will be supplied in a short period of time by us. On request, we can do part delivery.');
+define('OUT_OF_STOCK_CANT_CHECKOUT', 'The products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' , are not available in the requested quantity.<br />Please decrease quantity for marked products. Thank you');//changed by electronica 2009-09-06
+define('OUT_OF_STOCK_CAN_CHECKOUT', 'The products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' , are not available in the requested quantity.<br />We will restock the products currently out of stock as soon as possible. Partial delivery upon request.');//changed by electronica 2009-09-06
 
-define('MINIMUM_ORDER_VALUE_NOT_REACHED_1', 'You need to reach the minimum order value of: ');
-define('MINIMUM_ORDER_VALUE_NOT_REACHED_2', ' <br />Please increase your order for more: ');
+define('MINIMUM_ORDER_VALUE_NOT_REACHED_1', 'You need to reach the minimum order value of: '); //changed by electronica 2009-09-06
+define('MINIMUM_ORDER_VALUE_NOT_REACHED_2', ' <br />Please increase order value by at least: '); //changed by electronica 2009-09-06
 define('MAXIMUM_ORDER_VALUE_REACHED_1', 'You ordered more than the allowed amount of: ');
-define('MAXIMUM_ORDER_VALUE_REACHED_2', '<br /> Please decrease your order for less than: ');
+define('MAXIMUM_ORDER_VALUE_REACHED_2', '<br /> Please decrease your order by at least: '); //changed by electronica 2009-09-06
 
 define('ERROR_INVALID_PRODUCT', 'The product chosen was not found!');
 
@@ -380,7 +379,7 @@ define('NAVBAR_TITLE_LOGOFF','Good bye');
 define('NAVBAR_TITLE_PRODUCTS_NEW', 'New products');
 define('NAVBAR_TITLE_SHOPPING_CART', 'Shopping cart');
 define('NAVBAR_TITLE_SPECIALS', 'Special offers');
-define('NAVBAR_TITLE_COOKIE_USAGE', 'Cookie Usage');
+define('NAVBAR_TITLE_COOKIE_USAGE', 'Cookie usage');
 define('NAVBAR_TITLE_PRODUCT_REVIEWS', 'Reviews');
 define('NAVBAR_TITLE_REVIEWS_WRITE', 'Opinions');
 define('NAVBAR_TITLE_REVIEWS','Reviews');
@@ -397,52 +396,52 @@ define('NAVBAR_GV_SEND', 'Send Voucher');
  *
  */
 
-define('TEXT_NEWSLETTER','You want to stay up to date?<br />No problem, receiveour Newsletter and we can inform you always up to date.');
-define('TEXT_EMAIL_INPUT','Your e-Mail adress has been registered by our system.<br />Therefore you will receive an E-Mail with your personally confirmation-code-link.  Please click after the receipt of the Mail on the Hyperlink inside. Otherwise no Newsletter will be send to you!');
+define('TEXT_NEWSLETTER','You want to stay up to date?<br />No problem, receive our newsletter for the latest updates.'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_INPUT','Your e-mail adress has been registered in our system.<br />An e-mail with a confirmation link has been send out. Click the link in order to complete registration!'); //changed by electronica 2009-09-06
 
-define('TEXT_WRONG_CODE','<font color="#ff0000">Please fill out the e-Mail field and the Security-Code again. <br />Be aware of Typos!</font>');
-define('TEXT_EMAIL_EXIST_NO_NEWSLETTER','<font color="#ff0000">This e-Mail address is registered but not yet activated!</font>');
-define('TEXT_EMAIL_EXIST_NEWSLETTER','<font color="#ff0000">This e-Mail address is registered is also activated for the newsletter!</font>');
-define('TEXT_EMAIL_NOT_EXIST','<font color="#ff0000">This e-Mail address is not registered for Newsletters!</font>');
-define('TEXT_EMAIL_DEL','Your e-Mail adress was deleted successfully in our newsletter-database.');
-define('TEXT_EMAIL_DEL_ERROR','<font color="#ff0000">An Error occured, your e-Mailaddress has not been deletet!</font>');
-define('TEXT_EMAIL_ACTIVE','<font color="#ff0000">Your e-Mail address was successfully integrated in our Newsletter Service!</font>');
-define('TEXT_EMAIL_ACTIVE_ERROR','<font color="#ff0000">An error occured, your e-Mail address has not been activated for Newsletter!</font>');
-define('TEXT_EMAIL_SUBJECT','Your Newsletter Account');
+define('TEXT_WRONG_CODE','<font color="#ff0000">The security code you entered was not correct. Please try again. <br />The form is not case sensitive.</font>'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_EXIST_NO_NEWSLETTER','<font color="#ff0000">This e-mail address is registered but not yet activated!</font>'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_EXIST_NEWSLETTER','<font color="#ff0000">This e-mail address is already registered for the newsletter!</font>'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_NOT_EXIST','<font color="#ff0000">This e-mail address is not registered for newsletters!</font>'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_DEL','Your e-mail address was deleted successfully from our newsletter-database.'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_DEL_ERROR','<font color="#ff0000">An Error occured, your e-mail address has not been removed from our database!</font>'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_ACTIVE','<font color="#ff0000">Your e-mail address has successfully been registered for the newsletter!</font>'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_ACTIVE_ERROR','<font color="#ff0000">An error occured, your e-mail address has not been registered for the newsletter!</font>'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_SUBJECT','Your newsletter account'); //changed by electronica 2009-09-06
 
 define('TEXT_CUSTOMER_GUEST','Guest');
 
-define('TEXT_LINK_MAIL_SENDED','Your inquiry for a new password must be confirmed by you peronally.<br />Therefore you will receive an E-Mail with your personally confirmation-code-link.  Please click after the receipt of the Mail on the Hyperlink inside. A further Mail with your new Login password will receive you afterwards.  Otherwise no new password will be set or sended to you!');
-define('TEXT_PASSWORD_MAIL_SENDED','You will receive an e-Mail with your new password in between minutes.<br />Please change your password after your first login like you want.');
-define('TEXT_CODE_ERROR','Please fill out the e-Mail field and the Security-Code again. <br />Be aware of Typos!');
-define('TEXT_EMAIL_ERROR','Please fill out the e-Mail field and the Security-Code again. <br />Be aware of Typos!');
-define('TEXT_NO_ACCOUNT','Unfortunately we must communicate to you that your inquiry for a new Login password was either invalid or run out off time.<br />Please try it again.');
+define('TEXT_LINK_MAIL_SENDED','Your new password request must be confirmed.<br />An e-mail with a confirmation link has been send out. Click the link in order to complete recieve a new password!');//changed by electronica 2009-09-06
+define('TEXT_PASSWORD_MAIL_SENDED','You will receive an e-mail with your new password within minutes.<br />Please change your password after your first login.'); //changed by electronica 2009-09-06
+define('TEXT_CODE_ERROR','The security code you entered was not correct. Please try again. <br />The form is not case sensitive.'); //changed by electronica 2009-09-06
+define('TEXT_EMAIL_ERROR','The security code you entered was not correct. Please try again. <br />The form is not case sensitive.'); //changed by electronica 2009-09-06
+define('TEXT_NO_ACCOUNT','Your request for a new password is either invalid or timed out.<br />Please try again.'); //changed by electronica 2009-09-06
 define('HEADING_PASSWORD_FORGOTTEN','Password renewal?');
 define('TEXT_PASSWORD_FORGOTTEN','Change your password in three easy steps.');
-define('TEXT_EMAIL_PASSWORD_FORGOTTEN','Confirmation Mail for password renewal');
+define('TEXT_EMAIL_PASSWORD_FORGOTTEN','Confirmation mail for password renewal');
 define('TEXT_EMAIL_PASSWORD_NEW_PASSWORD','Your new password');
 define('ERROR_MAIL','Please check the data entered in the form');
 
-define('CATEGORIE_NOT_FOUND','Category was not found');
+define('CATEGORIE_NOT_FOUND','Category not found'); //changed by electronica 2009-09-06
 
-define('GV_FAQ', 'Gift Voucher FAQ');
+define('GV_FAQ', 'Gift voucher FAQ'); //changed by electronica 2009-09-06
 define('ERROR_NO_REDEEM_CODE', 'You did not enter a redeem code.');
-define('ERROR_NO_INVALID_REDEEM_GV', 'Invalid Gift Voucher Code');
-define('TABLE_HEADING_CREDIT', 'Credits Available');
+define('ERROR_NO_INVALID_REDEEM_GV', 'Invalid gift voucher code'); //changed by electronica 2009-09-06
+define('TABLE_HEADING_CREDIT', 'Credits available'); //changed by electronica 2009-09-06
 define('EMAIL_GV_TEXT_SUBJECT', 'A gift from %s');
-define('MAIN_MESSAGE', 'You have decided to send a gift voucher worth %s to %s who\'s eMail address is %s<br /><br />The text accompanying the eMail will read<br /><br />Dear %s<br /><br />You have been sent a Gift Voucher worth %s by %s');
-define('REDEEMED_AMOUNT','Your gift voucher was successfully added to your account. Gift voucher ammount:');
-define('REDEEMED_COUPON','Your coupon was successfully booked and will be redeemed automatically with your next order.');
+define('MAIN_MESSAGE', 'You have decided to send a gift voucher worth %s to %s who\'s e-mail address is %s<br /><br />Following text will be included in the e-mail:<br /><br />Dear %s<br /><br />You have received a Gift voucher worth %s by %s'); //changed by electronica 2009-09-06
+define('REDEEMED_AMOUNT','Your gift voucher was successfully added to your account. Gift voucher amount:'); //changed by electronica 2009-09-06
+define('REDEEMED_COUPON','Your voucher has been successfully credited to your account and will be cashed automatically on your next purchase.'); //changed by electronica 2009-09-06
 
-define('ERROR_INVALID_USES_USER_COUPON','Customers can redeem this coupon only ');
-define('ERROR_INVALID_USES_COUPON','Customers can redeem this coupon only ');
+define('ERROR_INVALID_USES_USER_COUPON','This voucher can only be redeemed '); //changed by electronica 2009-09-06
+define('ERROR_INVALID_USES_COUPON','This coucher can only be redeemed '); //changed by electronica 2009-09-06
 define('TIMES',' times.');
-define('ERROR_INVALID_STARTDATE_COUPON','Your coupon is not aviable yet.');
-define('ERROR_INVALID_FINISDATE_COUPON','Your coupon is out of date.');
-define('PERSONAL_MESSAGE', '%s says:');
+define('ERROR_INVALID_STARTDATE_COUPON','Your coupon is not aviable yet.'); //changed by electronica 2009-09-06
+define('ERROR_INVALID_FINISDATE_COUPON','Your voucher is already expired.'); //changed by electronica 2009-09-06
+define('PERSONAL_MESSAGE', '%s writes:'); //changed by electronica 2009-09-06
 
 //Popup Window
-define('TEXT_CLOSE_WINDOW', 'Close Window.');
+define('TEXT_CLOSE_WINDOW', 'Close window.'); //changed by electronica 2009-09-06
 
 /*
  *
@@ -450,21 +449,21 @@ define('TEXT_CLOSE_WINDOW', 'Close Window.');
  *
  */
 
-define('TEXT_CLOSE_WINDOW', 'Close Window [x]');
-define('TEXT_COUPON_HELP_HEADER', 'Congratulations, you have redeemed a Discount Coupon.');
-define('TEXT_COUPON_HELP_NAME', '<br /><br />Coupon Name : %s');
-define('TEXT_COUPON_HELP_FIXED', '<br /><br />The coupon is worth %s discount against your order');
-define('TEXT_COUPON_HELP_MINORDER', '<br /><br />You need to spend %s to use this coupon');
-define('TEXT_COUPON_HELP_FREESHIP', '<br /><br />This coupon gives you free shipping on your order');
-define('TEXT_COUPON_HELP_DESC', '<br /><br />Coupon Description : %s');
-define('TEXT_COUPON_HELP_DATE', '<br /><br />The coupon is valid between %s and %s');
-define('TEXT_COUPON_HELP_RESTRICT', '<br /><br />Product / Category Restrictions');
-define('TEXT_COUPON_HELP_CATEGORIES', 'Category');
-define('TEXT_COUPON_HELP_PRODUCTS', 'Product');
+define('TEXT_CLOSE_WINDOW', 'Close window [x]'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_HEADER', 'Your voucher has been successfully redeemed.'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_NAME', '<br /><br />Voucher name : %s'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_FIXED', '<br /><br />This voucher is worth %s off your next order'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_MINORDER', '<br /><br />You need to spend at least %s to be able to use the voucher.'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_FREESHIP', '<br /><br />This voucher gives you free shipping on your order'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_DESC', '<br /><br />Voucher description : %s'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_DATE', '<br /><br />This voucher is valid from: %s to %s'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_RESTRICT', '<br /><br />Product / Category Restrictions'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_CATEGORIES', 'Category'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_PRODUCTS', 'Product'); //changed by electronica 2009-09-06
 
 // VAT ID
-define('ENTRY_VAT_TEXT','* for Germany and EU-Countries only');
-define('ENTRY_VAT_ERROR', 'The chosen VatID is not valid or not proofable at this moment! Please fill in a valid ID or leave the field empty.');
+define('ENTRY_VAT_TEXT','* for EU-Countries only'); //changed by electronica 2009-09-06 anmerkung: besser wenn laden im EU ausland ist
+define('ENTRY_VAT_ERROR', 'The chosen VAT-ID is not valid or cannot be verified at the moment! Please enter a valid VAT-ID or leave this field empty.'); //changed by electronica 2009-09-06
 define('MSRP','MSRP');
 define('YOUR_PRICE','your price ');
 define('ONLY',' only ');
@@ -476,7 +475,7 @@ define('TAX_INFO_INCL','%s VAT incl.');
 define('TAX_INFO_EXCL','%s VAT excl.');
 define('TAX_INFO_ADD','%s VAT plus.');
 define('SHIPPING_EXCL','excl.');
-define('SHIPPING_COSTS','Shipping costs');
+define('SHIPPING_COSTS','Shipping costs'); 
 
 // changes 3.0.4 SP2
 define('SHIPPING_TIME','Shipping time: ');
@@ -486,8 +485,8 @@ define('MORE_INFO','[More]');
 define('ENTRY_PRIVACY_ERROR','Please accept our privacy policy!');
 define('TEXT_PAYMENT_FEE','Paymentfee');
 
-define('_MODULE_INVALID_SHIPPING_ZONE', 'Unfortunately it is not possible to dispatch into this country.');
-define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Shipping costs cannot be calculated for this zone.');
+define('_MODULE_INVALID_SHIPPING_ZONE', 'Unfortunately we do not deliver to the chosen country.'); //changed by electronica 2009-09-06
+define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Shipping costs cannot be calculated at the moment, please contact us.'); //changed by electronica 2009-09-06
 
 //Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
 define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Your account');

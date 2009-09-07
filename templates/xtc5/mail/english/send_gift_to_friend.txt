@@ -1,13 +1,13 @@
 
 ---------------------------------------------------------------------------------------- 
-Gratulation, you received a gift voucher over : {$AMMOUNT} ! 
+YOU'VE RECEIVED A {$AMMOUNT} GIFT VOUCHER!
 ----------------------------------------------------------------------------------------
 
-This gift voucher is from: {$FROM_NAME},
-Message: 
+This gift voucher was sent to you by: {$FROM_NAME}
 
+Message:
 {$MESSAGE}
 
-Your personal gift voucher code is: {$GIFT_CODE}. 
-You can redeem this gift voucher during your order in our store,
-or with a click on the following link {$GIFT_LINK}
+Your voucher code is: {$GIFT_CODE}
+
+Redeem your voucher when placing an order or simply by clicking the following link - {$GIFT_LINK}.

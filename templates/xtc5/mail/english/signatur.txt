@@ -1,12 +1,12 @@
-____________________________________________________\n
+
+____________________________________________________
 \n
-Firma\n
-Adresse\n
-Ort\n
+Company\n
+Address\n
+Location\n
 Homepage\n
-E-Mail\n
-Fon:\n
+Email\n
+Phone:\n
 Fax:\n
-UST-ID:\n
-Handelsregister \n
-Geschäftsführer: \n
+CEO:\n
+VAT-ID:

@@ -1,11 +1,4 @@
 
-Thank you for your subscription
+Thank you for subscribing!
 
-You receive this Mail because you want to receive our newsletter. 
-Please you click on the activation link to activate this service. If you should 
-not have registered yourselves in newsletter and/or the receipt of the Newsletters 
-is not wanted, we wish you to do nothing. Your address is then deleted automatically 
-with the next actualization of the data base.
-      
-Your activation-link:
-{$LINK}
+Please click the activation link - {$LINK} - to receive newsletters. If you haven't subscribed to this service, please ignore this mail!

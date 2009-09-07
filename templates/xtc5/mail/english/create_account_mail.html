@@ -3,33 +3,30 @@
     <td style="border-bottom: 1px solid; border-color: #cccccc;"><div align="right"><img src="{$logo_path}logo.gif"></div></td>
   </tr>
   <tr> 
-    <td><p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>Dear Customer ,</strong></font> <br>
+    <td><p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>Your account has been successfully created!</strong></font> <br>
         <br>
-        <font size="2" face="Verdana, Arial, Helvetica, sans-serif">You successfully created your customer account, that gives you the following featues in our shop.</font><br> 
+        <font size="2" face="Verdana, Arial, Helvetica, sans-serif">You now have access to the following features:</font><br> 
         <br>
-        <font size="2"><b><font face="Verdana, Arial, Helvetica, sans-serif">-Customer shopping cart</font></b><font face="Verdana, Arial, Helvetica, sans-serif"> - Every item remains registered until you go to the cash box, or the products are deleted from the shopping cart.<br>
-        <b>-Addressbook</b> - Now we can send the products to the postal address selected by you. The perfect way to get a birthday present.<br>
-        <b>-Previous orders </b> - you can check your previous orders at any time.<br>
-        <b>-Opinions about products</b> - tell your oppinion about our products to other customers.</font></font></p>
-      <p><br>
-        <font size="2" face="Verdana, Arial, Helvetica, sans-serif">If you have questions to our customer-service, contact us directly: 
-        {$content.MAIL_REPLY_ADDRESS}
+        <font size="2"><b><font face="Verdana, Arial, Helvetica, sans-serif">-Shopping cart</font></b><font face="Verdana, Arial, Helvetica, sans-serif"> - Products placed in the shopping cart will remain there until they've been deleted or purchased.<br>
+        <b>-Address book</b> - The address book allows you to save several different shipping destinations.<br>
+        <b>-Order history</b> - Your order history is always available for you.<br>
+        <b>-Product evaluation</b> - Rate and comment our products!</font></font></p>
+      <p>
+        <font size="2" face="Verdana, Arial, Helvetica, sans-serif">If this account wasn't created by you, please contact us at 
+        <A HREF="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</A>
         . <br>
-      Caution: This e-mail address was announced to us by a customer. If you did not announce yourself, please send an e-mail to
-      {$content.MAIL_REPLY_ADDRESS}
-    . <br>
     <br>
     {if $SEND_GIFT==true}
       <br>
-As part of our welcome to new customers, we have sent you an e-Gift voucher worth: <b>{$GIFT_AMMOUNT}</b><br>
+As a thank you for creating your account, you've received a <b>{$GIFT_AMMOUNT}</b> gift voucher!<br>
 <br>
-The redeem code for the e-Gift Voucher is <b>{$GIFT_CODE}</b>, you can enter the redeem code when checking out while making a purchase.<br>
-<br>
- To use your e-Gift voucher, click on the following link <a href="{$GIFT_LINK}">[redeem Voucher]</a>. {/if} {if $SEND_COUPON==true} Congratulations, to make your first visit to our online shop a more rewarding experience we are sending you an e-discount coupon.<br>
-Below are details of the discount coupon created just for you<br>
-<br>
-Description: <b>{$COUPON_DESC}</b> <br>
-<br>
-To use the coupon enter the redeem code which is {$COUPON_CODE} during checkout while making a purchase {/if} </font></p></td>
+Redeem your voucher with the following code <b>{$GIFT_CODE}</b> when placing an order or simply by clicking the following link <a href="{$GIFT_LINK}">[redeem Voucher]</a>.{/if} {if $SEND_COUPON==true} As a thank you for creating your account, you've recieved a discount voucher!<br>
+The voucher details are:<br>
+<b>{$COUPON_DESC}</b> <br>
+Redeem your voucher by entering the code <b>{$COUPON_CODE}</b> during checkout process, when asked for it.{/if} 
+<br>If you have any questions, please contact us at <A HREF="mailto:{$content.MAIL_REPLY_ADDRESS}">{$content.MAIL_REPLY_ADDRESS}</A> !
+</font></p></td>
   </tr>
 </table>
+
+ 	  	 
