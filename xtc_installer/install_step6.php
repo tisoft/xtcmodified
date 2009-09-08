@@ -262,7 +262,7 @@ xtc_db_query("UPDATE " .TABLE_CONFIGURATION . " SET configuration_value='". ($em
 
 if ($zone_setup == 'yes') {
 
-// Steuersätze des jewiligen landes einstellen!
+// Steuersätze des jewileigen Landes einstellen!
 $tax_normal='';
 $tax_normal_text='';
 $tax_special='';
