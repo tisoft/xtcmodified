@@ -37,14 +37,6 @@
 #-- XTC Session only on first visit
 #php_flag session.use_trans_sid 0
 
-##-- BOF - Tomcraft - 2009-09-09 - Use canocical URLs
-# (don't use if your shop runs on a subdomain!)
-#
-#RewriteCond %{HTTP_HOST} !^www\. [NC]
-#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [L,R=301]
-#
-##-- EOF - Tomcraft - 2009-09-09 - Use canocical URLs
-
 #-----------------------------------------
 #- SEO Hartmut König
 #-----------------------------------------
@@ -82,3 +74,11 @@ ErrorDocument 402 /sitemap.html?error=402
 ErrorDocument 403 /sitemap.html?error=403
 ErrorDocument 404 /sitemap.html?error=404
 ErrorDocument 500 /sitemap.html?error=500
+
+##-- BOF - Tomcraft - 2009-09-09 - Use canonical URLs
+# (don't use if your shop runs on a subdomain!)
+#
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [L,R=301]
+#
+##-- EOF - Tomcraft - 2009-09-09 - Use canonical URLs

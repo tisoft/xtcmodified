@@ -41,14 +41,6 @@
 #-- Call time pass reference error ?!
 #php_flag  allow_call_time_pass_reference On
 
-##-- BOF - Tomcraft - 2009-09-09 - Use canocical URLs
-# (don't use if your shop runs on a subdomain!)
-#
-#RewriteCond %{HTTP_HOST} !^www\. [NC]
-#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/xtc_mod/$1 [L,R=301]
-#
-##-- EOF - Tomcraft - 2009-09-09 - Use canocical URLs
-
 #-----------------------------------------
 #- SEO Hartmut König
 #-----------------------------------------
@@ -86,3 +78,11 @@ ErrorDocument 402 /xtc_mod/sitemap.html?error=402
 ErrorDocument 403 /xtc_mod/sitemap.html?error=403
 ErrorDocument 404 /xtc_mod/sitemap.html?error=404
 ErrorDocument 500 /xtc_mod/sitemap.html?error=500
+
+##-- BOF - Tomcraft - 2009-09-09 - Use canonical URLs
+# (don't use if your shop runs on a subdomain!)
+#
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/xtc_mod/$1 [L,R=301]
+#
+##-- EOF - Tomcraft - 2009-09-09 - Use canonical URLs
