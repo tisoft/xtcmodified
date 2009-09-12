@@ -111,11 +111,22 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$info_smarty->assign('PRODUCTS_POPUP_LINK', 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID=0').'\')');
 		$mo_images = xtc_get_products_mo_images($product->data['products_id']);
 		if ($mo_images != false) {
+// BOF - Tomcraft - 2009-09-12 - MORE IMAGES ARRAY
+/*
 			foreach ($mo_images as $img) {
 				$mo_img = DIR_WS_INFO_IMAGES.$img['image_name'];
 				$info_smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);
 				$info_smarty->assign('PRODUCTS_POPUP_LINK_'.$img['image_nr'], 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')');
 			}
+*/   
+			$more_images_data = array();
+			foreach ($mo_images as $img) {				
+				$more_images_data[] = array ('PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'], 
+											 'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')'
+											 );
+			}
+			$info_smarty->assign('more_images', $more_images_data);
+// EOF - Tomcraft - 2009-09-12 - MORE IMAGES ARRAY
 		}
 		//mo_images EOF
 		$discount = 0.00;
