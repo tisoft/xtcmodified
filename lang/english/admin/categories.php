@@ -165,6 +165,9 @@ define('TXT_ORDERED','Products ordered');
 define('TXT_SORT','Sorting');
 define('TXT_WEIGHT','Weight');
 define('TXT_QTY','On Stock');
+// BOF - Tomcraft - 2009-09-12 - add option to sort by date
+define('TXT_DATE','Release date');
+// EOF - Tomcraft - 2009-09-12 - add option to sort by date
 
 define('TEXT_MULTICOPY','Multiple');
 define('TEXT_MULTICOPY_DESC','Copy elements into following categories (If one box selected, Single settings will be ignored.)');

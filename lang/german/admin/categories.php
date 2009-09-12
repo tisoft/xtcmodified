@@ -160,6 +160,9 @@ define('TXT_ORDERED','Bestellte Artikel');
 define('TXT_SORT','Reihung');
 define('TXT_WEIGHT','Gewicht');
 define('TXT_QTY','Auf Lager');
+// BOF - Tomcraft - 2009-09-12 - add option to sort by date
+define('TXT_DATE','Einstelldatum');
+// EOF - Tomcraft - 2009-09-12 - add option to sort by date
 
 define('TEXT_MULTICOPY','Mehrfach');
 define('TEXT_MULTICOPY_DESC','Elemente in folgende Kategorien kopieren:<br />(Falls ausgew&auml;hlt werden Einstellungen von "Einfach" ignoriert.)');

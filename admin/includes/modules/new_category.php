@@ -145,6 +145,8 @@ echo '<td><span class="main">'.xtc_draw_pull_down_menu('categories_template',$fi
           </tr>
       <tr>
 <?php
+// BOF - Tomcraft - 2009-09-12 - add option to sort by date
+/*
 $order_array='';
 $order_array=array(array('id' => 'p.products_price','text'=>TXT_PRICES),
                    array('id' => 'pd.products_name','text'=>TXT_NAME),
@@ -153,6 +155,17 @@ $order_array=array(array('id' => 'p.products_price','text'=>TXT_PRICES),
                    array('id' => 'p.products_weight','text'=>TXT_WEIGHT),
                    array('id' => 'p.products_quantity','text'=>TXT_QTY));
 $default_value='pd.products_name';
+*/
+$order_array='';
+$order_array=array(array('id' => 'p.products_price','text'=>TXT_PRICES),
+                   array('id' => 'pd.products_name','text'=>TXT_NAME),
+                   array('id' => 'p.products_date_added','text'=>TXT_DATE),
+                   array('id' => 'p.products_ordered','text'=>TXT_ORDERED),
+                   array('id' => 'p.products_sort','text'=>TXT_SORT),
+                   array('id' => 'p.products_weight','text'=>TXT_WEIGHT),
+                   array('id' => 'p.products_quantity','text'=>TXT_QTY));
+$default_value='pd.products_name';
+// EOF - Tomcraft - 2009-09-12 - add option to sort by date
 ?>
             <td class="main"><?php echo TEXT_EDIT_PRODUCT_SORT_ORDER; ?>:</td>
             <td class="main"><?php echo xtc_draw_pull_down_menu('products_sorting',$order_array,$cInfo->products_sorting); ?></td>
