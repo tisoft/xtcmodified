@@ -29,16 +29,18 @@ function xtc_show_category($counter) {
 			$categories_string .= '';
 			$categories_string .='';
 		}
-		$categories_string .= '<li class="level1"><a href="';
+		if (trim($foo[$counter]['name']) != '' ) $categories_string .= '<li class="level1"><a href="';
 	} else {
-		$categories_string .= '<li class="level'.($foo[$counter]['level']+1).'"><a  href="';
+		if (trim($foo[$counter]['name']) != '' ) $categories_string .= '<li class="level'.($foo[$counter]['level']+1).'"><a  href="';
 	}
 
 	$cPath_new=xtc_category_link($counter,$foo[$counter]['name']);
-  
-	$categories_string .= xtc_href_link(FILENAME_DEFAULT, $cPath_new);
-	$categories_string .= '">';
-
+    
+	if (trim($foo[$counter]['name']) != '' ) {
+		$categories_string .= xtc_href_link(FILENAME_DEFAULT, $cPath_new);
+		$categories_string .= '">';
+    }
+	
 	/* Anzeigen der Kategoriebezeichnung
 	if ($foo[$counter]['level']=='1') {
 		$categories_string .= '';
@@ -51,9 +53,9 @@ function xtc_show_category($counter) {
 	}
 
 	if ($foo[$counter]['level']=='') {
-		$categories_string .= '</a></li>';
+		if (trim($foo[$counter]['name']) != '' ) $categories_string .= '</a></li>';
 	} else {
-		$categories_string .= '</a></li>';
+		if (trim($foo[$counter]['name']) != '' ) $categories_string .= '</a></li>';
 		if ($foo[$counter]['level']=='1') {
 			$categories_string .='';
 		}
@@ -62,7 +64,7 @@ function xtc_show_category($counter) {
 	if (SHOW_COUNTS == 'true') {
 		$products_in_category = xtc_count_products_in_category($counter);
 		if ($products_in_category > 0) {
-			$categories_string .= '(' . $products_in_category . ')';
+			if (trim($foo[$counter]['name']) != '' ) $categories_string .= '(' . $products_in_category . ')';
 		}
 	}
 
