@@ -86,13 +86,16 @@
   }
 */
 // EOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+
 // BOF -Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
-/*
+  //BOF NEEDED FOR NON MODIFIED TEMPLATES 
   function xtc_session_is_registered($variable) {
-    return session_is_registered($variable);
+    //return session_is_registered($variable);
+    return isset($_SESSION[$variable]); 
   }
-*/
+  //EOF NEEDED FOR NON MODIFIED TEMPLATES 
 // EOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+
 // BOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
 /*
   function xtc_session_unregister($variable) {
