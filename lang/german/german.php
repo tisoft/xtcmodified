@@ -463,5 +463,10 @@ define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Die Versandkosten k&ouml;nnen im Mome
 
 //Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
 define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Ihr Konto');
-define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Konto l&ouml;schen');	
+define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Konto l&ouml;schen');
+	
+//contact-form error messages
+define('ERROR_EMAIL','<br><br><b>Ihre E-Mail-Adresse:</b> Keine oder ung&uuml;ltige Eingabe!');
+define('ERROR_VVCODE','<br><br><b>Sicherheitscode:</b> Keine &Uuml;bereinstimmung, bitte geben Sie den Sicherheitscode erneut ein!');
+define('ERROR_MSG_BODY','<br><br><b>Ihre Nachricht:</b> Keine Eingabe!');	
 ?>

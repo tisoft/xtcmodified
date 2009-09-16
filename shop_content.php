@@ -61,7 +61,10 @@ if ($_GET['coID'] == 7) {
 	$error = false;
 	if (isset ($_GET['action']) && ($_GET['action'] == 'send')) {
   //BOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
-		if (xtc_validate_email(trim($_POST['email'])) && (strtoupper($_POST['vvcode']) == $_SESSION['vvcode']) && $_SESSION['vvcode']!='') {
+  //BOF - Tomcraft - 2009-09-16 - test empty message_body
+		//if (xtc_validate_email(trim($_POST['email'])) && (strtoupper($_POST['vvcode']) == $_SESSION['vvcode']) && $_SESSION['vvcode']!='') {
+		if (xtc_validate_email(trim($_POST['email'])) && (strtoupper($_POST['vvcode']) == $_SESSION['vvcode']) && $_SESSION['vvcode']!='' && trim($_POST['message_body'])!='') {
+  //EOF - Tomcraft - 2009-09-16 - test empty message_body
   //EOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
 
 			xtc_php_mail($_POST['email'], $_POST['name'], CONTACT_US_EMAIL_ADDRESS, CONTACT_US_NAME, CONTACT_US_FORWARDING_STRING, $_POST['email'], $_POST['name'], '', '', CONTACT_US_EMAIL_SUBJECT, nl2br($_POST['message_body']), $_POST['message_body']);
@@ -74,7 +77,15 @@ if ($_GET['coID'] == 7) {
 			}
 		} else {
 			// error report hier einbauen
-			$smarty->assign('error_message', ERROR_MAIL);
+			//BOF - Tomcraft - 2009-09-16 - new error message
+			//$smarty->assign('error_message', ERROR_MAIL);
+			$err_msg = '';
+			if (!xtc_validate_email(trim($_POST['email']))) $err_msg .= ERROR_EMAIL;
+			if (strtoupper($_POST['vvcode']) != $_SESSION['vvcode']) $err_msg .= ERROR_VVCODE;
+			if (trim($_POST['message_body']) == '') $err_msg .= ERROR_MSG_BODY;
+			
+			$smarty->assign('error_message', ERROR_MAIL . $err_msg);
+			//EOF - Tomcraft - 2009-09-16 - new error message
 			$error = true;
 		}
 

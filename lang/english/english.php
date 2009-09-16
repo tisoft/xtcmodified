@@ -491,4 +491,9 @@ define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Shipping costs cannot be calculated a
 //Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
 define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Your account');
 define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Delete account');	
+
+//contact-form error messages
+define('ERROR_EMAIL','<br><br><b>Your e-mail address:</b> None or invalid input!');
+define('ERROR_VVCODE','<br><br><b>Security code:</b> No match, please enter your security code again!');
+define('ERROR_MSG_BODY','<br><br><b>Your message:</b> No input!');	
 ?>
