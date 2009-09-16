@@ -25,12 +25,17 @@ function xtc_get_top_level_domain($url) {
 		if (is_numeric($domain_array[$domain_size -2]) && is_numeric($domain_array[$domain_size -1])) {
 			return false;
 		} else {
+    //BOF - Dokuman - 2009-09-16 - Fix forced session-ID due to not correctly determined TLD
+      /*
 			for ($domain_part = 1; $domain_part < $domain_size; $domain_part++) {
 				$domain_path .= $domain_array[$domain_part];
 				if ($domain_part != ($domain_size -1))
 					$domain_path .= '.';
 			}
 			return $domain_path;
+      */
+			return $domain_array[$domain_size - 2] . '.' . $domain_array[$domain_size - 1];
+    //EOF - Dokuman - 2009-09-16 - Fix forced session-ID due to not correctly determined TLD
 		}
 	} else {
 		return false;
