@@ -295,19 +295,12 @@ elseif (function_exists('ini_set')) {
 }
 
 // set the session ID if it exists
-//BOF - Dokuman - 2009-09-10 - correct GET/POST method on sessions (fixes lost sessions)
-/*
 if (isset ($_POST[session_name()])) {
 	session_id($_POST[session_name()]);
 }
 elseif (($request_type == 'SSL') && isset ($_GET[session_name()])) {
 	session_id($_GET[session_name()]);
 }
-*/
-if (isset ($_REQUEST[session_name()])) {
-    session_id($_REQUEST[session_name()]);
-}
-//EOF - Dokuman - 2009-09-10 - correct GET/POST method on sessions (fixes lost sessions)
 
 // start the session
 $session_started = false;
