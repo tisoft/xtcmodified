@@ -17,12 +17,12 @@
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
-//defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
 define('MODULE_GSITEMAPS_TEXT_DESCRIPTION', 'Export - Google Sitemaps im xml Format');
 define('MODULE_GSITEMAPS_TEXT_TITLE', 'Google Sitemaps - xml (v1.3.4, Shopstat kompatibel)');
 define('MODULE_GSITEMAPS_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_GSITEMAPS_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
+define('MODULE_GSITEMAPS_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
 define('MODULE_GSITEMAPS_STATUS_DESC','Modulstatus');
 define('MODULE_GSITEMAPS_STATUS_TITLE','Status');
 define('EXPORT_YES','Nur Herunterladen');
@@ -67,7 +67,7 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
 // -------------------- XML Generator ----------------------
     function xls_sitemap_top( ) {
       $ret ='<?xml version="1.0" encoding="UTF-8"?>'."\n";
-      $ret.='  <urlset xmlns="http://www.google.com/schemas/sitemap/0.84/siteindex.xsd">'."\n";
+      $ret.='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
       return $ret;
     }
     
@@ -76,12 +76,12 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
       return $ret;
     }
     
-    function gmt_diff() {
+    private function gmt_diff() {
       preg_match_all("/([\+|\-][0-9][0-9])([0-9][0-9])/", date("O"), $ausgabe, PREG_PATTERN_ORDER);
       return $ausgabe[1][0] . ":" . $ausgabe[2][0];
     }
 
-    function xls_sitemap_entry( $url, $lastmod='', $priority=SITEMAP_PAR_PRIORITY_LIST, $changefreq=SITEMAP_PAR_CHANGEFREQ ) {
+    private function xls_sitemap_entry( $url, $lastmod='', $priority=SITEMAP_PAR_PRIORITY_LIST, $changefreq=SITEMAP_PAR_CHANGEFREQ ) {
       if( $lastmod!='' ) {
         $lastmod = str_replace(' ', 'T', $lastmod);
         $lastmod.= $this->gmt_diff();
@@ -89,14 +89,14 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
       
       $url=str_replace('&', '&amp;', $url);
       
-      $ret ="    <url>\n";
-      $ret.="      <loc>$url</loc>\n";
+      $ret ="\t<url>\n";
+      $ret.="\t\t<loc>" . $url . "</loc>\n";
       if( $lastmod != '' ) {
-        $ret.="      <lastmod>$lastmod</lastmod>\n";
+        $ret.="\t\t<lastmod>" . $lastmod . "</lastmod>\n";
       }
-      $ret.="      <changefreq>$changefreq</changefreq>\n";
-      $ret.="      <priority>$priority</priority>\n";
-      $ret.="    </url>\n";
+      $ret.="\t\t<changefreq>" . $changefreq . "</changefreq>\n";
+      $ret.="\t\t<priority>" . $priority . "</priority>\n";
+      $ret.="\t</url>\n";
       
       return $ret;
     }
@@ -114,7 +114,7 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
  					               ".$group_check." and content_status=1 order by sort_order";
       $content_query = xtDBquery($content_query);
 
-      while ($content_data=xtc_db_fetch_array(&$content_query,true)) {
+      while ($content_data=xtc_db_fetch_array($content_query,true)) {
         reset($this->language_codes);
         foreach( $this->language_codes as $lcode ) {
           $link = $this->xtc_href_link('shop_content.php','coID='.$content_data['content_group'].'&language='.$lcode); //.'/'.xtc_cleanName($content_data['content_title']));
@@ -156,7 +156,7 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
 //        $category_tree=$this->get_category_tree($categories['categories_id']);
         $category_tree=$this->get_category_tree($categories['categories_id'], '', '','',false, '',$language_code );
         foreach( $category_tree as $category_entry ) {
-//echo "#".$category_entry['categories_id']."<br>\n";
+//echo "#".$category_entry['categories_id']."<br />\n";
 //          $link = $this->xtc_href_link('index.php','cPath='.$category_entry['link']);
 //            $link = $this->xtc_href_link('index.php','cPath='.$category_entry['categories_id'].'&language='.$language_code);
           $link = $category_entry['link'];
@@ -260,15 +260,15 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
     function display() {
 
       return array('text' => 
-                            MODULE_GSITEMAPS_INSTALL_TITLE.'<br>'.
-                            MODULE_GSITEMAPS_INSTALL_DESC.'<br>'.
-                            xtc_draw_radio_field('gsitemaps_rootinstall', 'no',true).'nein'.'<br>'.
-                            xtc_draw_radio_field('gsitemaps_rootinstall', 'yes',false).'ja'.'<br>'.
-                            EXPORT_TYPE.'<br>'.
-                            EXPORT.'<br>'.
-                            xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br>'.
-                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br>'.
-                            '<br>' . xtc_button(BUTTON_EXPORT) .
+                            MODULE_GSITEMAPS_INSTALL_TITLE.'<br />'.
+                            MODULE_GSITEMAPS_INSTALL_DESC.'<br />'.
+                            xtc_draw_radio_field('gsitemaps_rootinstall', 'no',true).'nein'.'<br />'.
+                            xtc_draw_radio_field('gsitemaps_rootinstall', 'yes',false).'ja'.'<br />'.
+                            EXPORT_TYPE.'<br />'.
+                            EXPORT.'<br />'.
+                            xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
+                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
+                            '<br />' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=gsitemaps')));
     }
 
@@ -437,7 +437,7 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
     require_once(DIR_FS_INC . 'xtc_check_agent.inc.php');
 
     if (!xtc_not_null($page)) {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link ('.$page.')!<br><br>');
+      die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine the page link ('.$page.')!<br /><br />');
     }
 
     if ($connection == 'NONSSL')
@@ -455,7 +455,7 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
             }
         }
     else{
-        die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
+        die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL</b><br /><br />');
         }
 
     if (xtc_not_null($parameters)) {
@@ -484,14 +484,14 @@ require_once( DIR_FS_CATALOG.'/includes/classes/language.php');
         ((SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true)) )
         {
         require_once(DIR_FS_INC . 'shopstat_functions.inc.php');
-//echo "mk1 parameters=$parameters<br>\n"; flush();
+//echo "mk1 parameters=$parameters<br />\n"; flush();
         $seolink = shopstat_getSEO( $page,
                                     $parameters,
                                     $connection,
                                     $add_session_id,
                                     $search_engine_safe,
                                     'admin');
-//echo "mk2 seolink=$seolink<br><br>\n"; flush();
+//echo "mk2 seolink=$seolink<br /><br />\n"; flush();
 	if($seolink)
             {
             $link       = $seolink;
