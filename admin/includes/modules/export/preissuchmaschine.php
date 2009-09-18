@@ -14,29 +14,31 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
-define('MODULE_PREISSUCHMASCHINE_TEXT_DESCRIPTION', '<hr noshade="noshade"><br /><center><a href="http://www.preissuchmaschine.de/"><img src="http://bilder.preissuchmaschine.de/other/PSMLogoMid1.jpg" width="100" height="46" border="0" alt="Preissuchmaschine - Ihr Preisvergleich"></a></center><br /><br />
-<strong>Export</strong><br />PreisSuchmaschine.de<br /><br />
-<strong>Trennzeichen</strong><br />getrennt durch | (PIPE)<br /><br />
-<strong>Format</strong><br />- ProduktID<br />- Gewicht<br />- EAN<br />- Hersteller<br />- ProduktBezeichnung<br />- ArtikelNr. (ggf. auch Hersteller-ArtikelNr.)<br />- Preis<br />- Produktbeschreibung (kurz)<br />- Produktbeschreibung (lang)<br />- Lieferzeit<br />- Produktlink<br />- FotoLink<br />- Kategoriename<br /><br />
-<strong>Modulversion</strong><br />PreisSuchmaschine.de - <i>August 2008 - 1.2 - 29.08.2008</i><br /><br />
-<strong>Fragen</strong><br />Metashopper Europe GmbH<br />Rambachstrasse 1<br />20459 Hamburg<br /><br />Tel: 040 319 796-30<br />Fax: 040 319 796-39<br />E-Mail:<a href="mailto:post@metashopper.de?SUBJECT=Fragen zum XT:Commerce-Modul 1.1"><u>post@metashopper.de</u></a>');
+define('MODULE_PREISSUCHMASCHINE_TEXT_DESCRIPTION', '<hr noshade="noshade"><br><center><a href="http://www.preissuchmaschine.de/"><img src="http://bilder.preissuchmaschine.de/other/PSMLogoMid1.jpg" width="100" height="46" border="0" alt="Preissuchmaschine - Ihr Preisvergleich"></a></center><br><br>
+<b>Export</b><br>PreisSuchmaschine.de<br><br>
+<b>Trennzeichen</b><br>getrennt durch | (PIPE)<br><br>
+<b>Format</b><br>- ProduktID<br>- Gewicht<br>- EAN<br>- Lagerbestand<br>- Hersteller<br>- ProduktBezeichnung<br>- ArtikelNr. (ggf. auch Hersteller-ArtikelNr.)<br>- Preis<br>- Produktbeschreibung (kurz)<br>- Produktbeschreibung (lang)<br>- Lieferzeit<br>- Produktlink<br>- FotoLink<br>- Kategoriename<br><br>
+<b>Modulversion</b><br>PreisSuchmaschine.de - <i>Juni 2009 - 1.5</i><br><br>
+<b>Fragen</b><br>guenstiger.de GmbH<br>Vorsetzen 53<br>20459 Hamburg<br><br>Tel: 040 319 796-30<br>Fax: 040 319 796-39<br>E-Mail:<a href="mailto:post@guenstiger.de?SUBJECT=Fragen zum XT:Commerce-Modul Juni 2009 - 1.5"><u>post@guenstiger.de</u></a>');
 define('MODULE_PREISSUCHMASCHINE_TEXT_TITLE', 'Preissuchmaschine.de - CSV');
-define('MODULE_PREISSUCHMASCHINE_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_PREISSUCHMASCHINE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
+define('MODULE_PREISSUCHMASCHINE_FILE_TITLE' , '<hr noshade>Dateiname:');
+define('MODULE_PREISSUCHMASCHINE_FILE_DESC' , 'Das Modul legt diese generierte Preisliste/Produktdatenliste/Exportdatei bei der Speicherart \'Am Server Speichern\' automatisch im Unterverzeichnis Ihres Shops mit dem Namen \'export/\' (Das Verzeichnis ben&ouml;tigt folgende Rechte 0777) ab. Die Datei hat dort folgende Bezeichnung:');
 define('MODULE_PREISSUCHMASCHINE_STATUS_DESC','Modulstatus');
 define('MODULE_PREISSUCHMASCHINE_STATUS_TITLE','Status');
 define('MODULE_PREISSUCHMASCHINE_CURRENCY_TITLE','W&auml;hrung');
 define('MODULE_PREISSUCHMASCHINE_CURRENCY_DESC','Welche W&auml;hrung soll exportiert werden?');
-define('EXPORT_YES','Nur Herunterladen');
-define('EXPORT_NO','Am Server Speichern');
-define('CURRENCY','<hr noshade><strong>W&auml;hrung:</strong>');
-define('CURRENCY_DESC','W&auml;hrung in der Exportdatei');
-define('EXPORT','Bitte diesen Prozess AUF <strong>KEINEN</strong> FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
-define('EXPORT_TYPE','<hr noshade><strong>Speicherart:</strong>');
-define('EXPORT_STATUS_TYPE','<hr noshade><strong>Kundengruppe:</strong>');
-define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml;r den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</strong>');
-define('CAMPAIGNS','<hr noshade><strong>Kampagnen:</strong>');
-define('CAMPAIGNS_DESC','Mit Kampagne verbinden.<br />(Nachverfolgung/Tracken/Klickz&auml;hlen) .');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_YES','Nur Herunterladen');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_NO','Am Server Speichern');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_LINK','export/');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_LINK_SEND','Den vorangegangenen Link sollten Sie nun unter dem Punkt Preisliste/Produktdatenliste auf den Anmeldeunterlagen der PreisSuchmaschine.de eintragen. Das Anmeldedokument kann man hier anfordern: <a href=\'mailto:mitmachen@metashopper.de?SUBJECT=Anfrage - Interesse an einer eventuellen Onlinekooperation\'><i>Anfrage</i></a> (sofern noch nicht erfolgt)');
+define('MODULE_PREISSUCHMASCHINE_CURRENCY','<hr noshade><b>W&auml;hrung:</b>');
+define('MODULE_PREISSUCHMASCHINE_CURRENCY_DESC','W&auml;hrung in der Exportdatei');
+define('MODULE_PREISSUCHMASCHINE_EXPORT','Bitte diesen Export-Prozess AUF <b>KEINEN</b> FALL unterbrechen. Dieser kann vor allem bei Shops mit gr&ouml;&szlig;eren Datenbest&auml;nden einige Minuten in Anspruch nehmen.');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_STATUS_TYPE','<hr noshade><b>Kundengruppe:</b>');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die die Basis f&uuml;r den zu exportierenden Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</b>');
+define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS','<hr noshade><b>Kampagnen:</b> (optional)');
+define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_DESC','Bevor Sie diesen Punkt aktivieren k&ouml;nnen, m&uuml;ssen Sie zun&auml;chst in den Men&uuml;punkt <a href=\'campaigns.php\'><i>Kampagnen</i></a> und dort eine anlegen. Danach k&ouml;nnen Sie das Modul mit der passenden Kampagne verbinden und somit sp&auml;ter den Mehrwert (Weiterleitungen und Umsatz) durch diese laufende Kampagne im Men&uuml;punkt <a href=\'stats_campaigns.php\'><i>Kampagnen-Report</i></a> anzeigen lassen<br>');
 // include needed functions
 
 
@@ -64,7 +66,7 @@ define('CAMPAIGNS_DESC','Mit Kampagne verbinden.<br />(Nachverfolgung/Tracken/Kl
         require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
         $xtPrice = new xtcPrice($_POST['currencies'],$_POST['status']);
 
-        $schema = 'ProduktID|Gewicht|EAN|Hersteller|ProduktBezeichnung|ArtikelNroderHerstellerArtikelNr|Preis|ProduktLangBeschreibung|ProduktKurzBeschreibung|Lieferzeit|Produktlink|FotoLink|Kategoriename' . "\n";
+        $schema = 'ProduktID|Gewicht|EAN|Lagerbestand|Hersteller|ProduktBezeichnung|ArtikelNroderHerstellerArtikelNr|Preis|ProduktLangBeschreibung|ProduktKurzBeschreibung|Lieferzeit|Produktlink|FotoLink|Kategoriename' . "\n";
         $export_query =xtc_db_query("SELECT
                              p.products_id,
                              pd.products_name,
@@ -72,6 +74,7 @@ define('CAMPAIGNS_DESC','Mit Kampagne verbinden.<br />(Nachverfolgung/Tracken/Kl
                              pd.products_short_description,
                              p.products_weight,
                              p.products_ean,
+                             p.products_quantity,
                              p.products_model,
                              p.products_shippingtime,
                              p.products_image,
@@ -158,6 +161,7 @@ define('CAMPAIGNS_DESC','Mit Kampagne verbinden.<br />(Nachverfolgung/Tracken/Kl
             $schema .= $products['products_id'] .'|'. 
                        $products['products_weight'] .'|' . 
                        $products['products_ean'] .'|' . 
+                       $products['products_quantity'] .'|' . 
                        $products['manufacturers_name'] .'|'. 
                        $products['products_name'] .'|' .
                        $products['products_model'] . '|' .
@@ -246,7 +250,7 @@ define('CAMPAIGNS_DESC','Mit Kampagne verbinden.<br />(Nachverfolgung/Tracken/Kl
     $curr='';
     $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
     while ($currencies_data=xtc_db_fetch_array($currencies)) {
-     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
+     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br>';
     }
 
     $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
@@ -255,19 +259,19 @@ define('CAMPAIGNS_DESC','Mit Kampagne verbinden.<br />(Nachverfolgung/Tracken/Kl
 	$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
 	}
 
-    return array('text' =>  EXPORT_STATUS_TYPE.'<br />'.
-                          	EXPORT_STATUS.'<br />'.
-                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
-                            CURRENCY.'<br />'.
-                            CURRENCY_DESC.'<br />'.
+    return array('text' =>  '<br>' . HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_PREISSUCHMASCHINE_EXPORT_LINK . MODULE_PREISSUCHMASCHINE_FILE . '<br><br>' . MODULE_PREISSUCHMASCHINE_EXPORT_LINK_SEND . MODULE_PREISSUCHMASCHINE_EXPORT_STATUS_TYPE.'<br>'.
+                          	MODULE_PREISSUCHMASCHINE_EXPORT_STATUS.'<br>'.
+                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br>'.
+                            MODULE_PREISSUCHMASCHINE_CURRENCY.'<br>'.
+                            MODULE_PREISSUCHMASCHINE_CURRENCY_DESC.'<br>'.
                             $curr.
-                            CAMPAIGNS.'<br />'.
-                            CAMPAIGNS_DESC.'<br />'.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.                             
-                            EXPORT_TYPE.'<br />'.
-                            EXPORT.'<br />'.
-                          	 xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
-                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br /><br />' . xtc_button(BUTTON_EXPORT) .
+                            MODULE_PREISSUCHMASCHINE_CAMPAIGNS.'<br>'.
+                            MODULE_PREISSUCHMASCHINE_CAMPAIGNS_DESC.
+                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br>'.                             
+                            MODULE_PREISSUCHMASCHINE_EXPORT_TYPE.'<br>'.
+                            MODULE_PREISSUCHMASCHINE_EXPORT.'<br>'.
+                          	 xtc_draw_radio_field('export', 'no',false).MODULE_PREISSUCHMASCHINE_EXPORT_NO.'<br>'.
+                            xtc_draw_radio_field('export', 'yes',true).MODULE_PREISSUCHMASCHINE_EXPORT_YES.'<br><br>' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preissuchmaschine')));
 
 
@@ -291,7 +295,7 @@ define('CAMPAIGNS_DESC','Mit Kampagne verbinden.<br />(Nachverfolgung/Tracken/Kl
     }
 
     function keys() {
-      return array('MODULE_PREISSUCHMASCHINE_STATUS','MODULE_PREISSUCHMASCHINE_FILE');
+      return array('MODULE_PREISSUCHMASCHINE_STATUS', 'MODULE_PREISSUCHMASCHINE_FILE');
     }
 
   }
