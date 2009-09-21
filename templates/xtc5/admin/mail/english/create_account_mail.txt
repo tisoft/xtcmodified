@@ -1,12 +1,13 @@
 
 
-Dear Customer ,
+Dear customer,
 
-We created an account for you.
+We've created your customer account.
 
-{if $COMMENTS}Comments:{$COMMENTS}{/if}
+{if $COMMENTS} Note: {$COMMENTS}{/if}
 
-Login with following account/password:
+You can login our store with your e-mail address and password:
 
-mail:{$EMAIL}
-password: {$PASSWORD}
+e-mail address:{$EMAIL}
+
+Password: {$PASSWORD}

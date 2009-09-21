@@ -3,24 +3,19 @@
     <td style="border-bottom: 1px solid; border-color: #cccccc;"><div align="right"><img src="{$logo_path}logo.gif"></div></td>
   </tr>
   <tr> 
-    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>Dear Customer , </strong></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
-  <font size="2"><br>
-        We created an account for you. <br>
-    <br>
-      </font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><font size="2">
-        {if $COMMENTS}
-Comments:
-{$COMMENTS}
-<br>
-{/if}
-        </font></font><font size="2"><br>
+    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>Dear customer, </strong></font><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><br>
+        <font size="2"><br>
+        We've created your customer account. <br>
         <br>
-        Login with following account/password:<br>
+        {if $COMMENTS} Note: {$COMMENTS} <br>{/if}
         <br>
-mail: 
+        <br>
+        You can login our store with your e-mail address and password:<br>
+        <br>
+e-mail address: 
 {$EMAIL}
 <br>
-password: 
+Password: 
 {$PASSWORD} 
         </font></font></td>
   </tr>
