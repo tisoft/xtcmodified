@@ -15,10 +15,9 @@
 <div id="productinfowrap">
 	{if $PRODUCTS_IMAGE!=''}
 	<div id="productinfoimages"><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE}" alt="{$module_data.NAME}" border="0" />
-	{if $PRODUCTS_IMAGE_1 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_1}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
-	{if $PRODUCTS_IMAGE_2 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_2}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
-	{if $PRODUCTS_IMAGE_3 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_3}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
-	{if $PRODUCTS_IMAGE_4 != ''}<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$PRODUCTS_IMAGE_4}" alt="{$module_data.NAME}" border="0" class="productimage"/>{/if}
+	{foreach item=more_images_data from=$more_images} 
+	<div class="hrlightgrey"></div><img src="{php}echo HTTP_SERVER;{/php}{$more_images_data.PRODUCTS_IMAGE}" alt="{$module_data.NAME}" border="0" class="productimage"/>
+	{/foreach}
 	</div>
 	{/if}
 	<div id="productinfodescription">

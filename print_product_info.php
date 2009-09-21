@@ -122,10 +122,15 @@ $smarty->assign('module_content', $module_content);
 //more images - by Novalis
 $mo_images = xtc_get_products_mo_images($product_info['products_id']);
 if (is_array($mo_images)) {
+  //BOF MORE IMAGES ARRAY
+	$more_images_data = array();
 	foreach ($mo_images as $img) {
 		$mo_img = DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$img['image_name'];
 		$smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);
+		$more_images_data[] = array ('PRODUCTS_IMAGE' => DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$img['image_name']);
 	}
+	$smarty->assign('more_images', $more_images_data);
+	//EOF MORE IMAGES ARRAY
 }
 
 // set cache ID
