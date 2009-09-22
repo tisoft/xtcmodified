@@ -16,7 +16,7 @@
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
-define('MODULE_IMAGE_PROCESS_TEXT_DESCRIPTION', 'XT-Commerce Imageprocessing - Stapelverarbeitung f&uuml;r Bildbearbeitung. Für meistens zu Timeout Problemen bei vielen Bildern. Empfohlen ise Variante B');
+define('MODULE_IMAGE_PROCESS_TEXT_DESCRIPTION', 'XT-Commerce Imageprocessing - Stapelverarbeitung f&uuml;r Bildbearbeitung. Für meistens zu Timeout Problemen bei vielen Bildern. Empfohlen ist Variante B');
 define('MODULE_IMAGE_PROCESS_TEXT_TITLE', 'XT-Imageprocessing - Standard Version - Meistens Timeout Probleme - <strong>Empfehlung Variante B</strong>');
 define('MODULE_IMAGE_PROCESS_STATUS_DESC','Modulstatus');
 define('MODULE_IMAGE_PROCESS_STATUS_TITLE','Status');
