@@ -1099,7 +1099,7 @@ for ($xx=0,$zz=sizeof($languages); $xx<$zz;$xx++){
 // display preview button if filetype 
 // .gif,.jpg,.png,.html,.htm,.txt,.tif,.bmp
 // BOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
-if (	preg_match('.gif',$content_array[$ii]['file'])
+if ( preg_match('/.gif/i',$content_array[$ii]['file'])
 	or
 	preg_match('/.jpg/i',$content_array[$ii]['file'])
 	or
