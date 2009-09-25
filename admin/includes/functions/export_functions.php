@@ -70,7 +70,7 @@ function xtc_get_products_price_export($products_id,$price_special,$quantity,$gr
         if ($add_tax =='0') {
             $products_tax='';
         } // end $_SESSION['customers_status']['customers_status_show_price_tax'] =='0'
-        // check if special price is aviable for product (no product discount on special prices!)
+        // check if special price is available for product (no product discount on special prices!)
         if ($special_price=xtc_get_products_special_price($products_id)) {
             $special_price= (xtc_add_tax($special_price,$products_tax));
              $price_data['PRODUCTS_PRICE']= (xtc_add_tax($price_data['PRODUCTS_PRICE'],$products_tax));

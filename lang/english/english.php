@@ -436,7 +436,7 @@ define('REDEEMED_COUPON','Your voucher has been successfully credited to your ac
 define('ERROR_INVALID_USES_USER_COUPON','This voucher can only be redeemed '); //changed by electronica 2009-09-06
 define('ERROR_INVALID_USES_COUPON','This coucher can only be redeemed '); //changed by electronica 2009-09-06
 define('TIMES',' times.');
-define('ERROR_INVALID_STARTDATE_COUPON','Your coupon is not aviable yet.'); //changed by electronica 2009-09-06
+define('ERROR_INVALID_STARTDATE_COUPON','Your coupon is not available yet.'); //changed by electronica 2009-09-06
 define('ERROR_INVALID_FINISDATE_COUPON','Your voucher is already expired.'); //changed by electronica 2009-09-06
 define('PERSONAL_MESSAGE', '%s writes:'); //changed by electronica 2009-09-06
 
