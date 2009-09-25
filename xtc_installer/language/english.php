@@ -103,7 +103,7 @@ define('TEXT_WELCOME_FINISHED','<b>xtcModified installation successful!</b>');
 
 define('TITLE_CUSTOM_SETTINGS','Custom Settings');
 define('TEXT_IMPORT_DB','Import xtcModified Database');
-define('TEXT_IMPORT_DB_LONG','Import the xtcModified database structure which includes tables and sample data.');
+define('TEXT_IMPORT_DB_LONG','Import the xtcModified database structure which includes tables and sample data. <b>(Mandatory on initial setup!</b>');
 define('TEXT_AUTOMATIC','Automatic Configuration');
 define('TEXT_AUTOMATIC_LONG','The information you submit regarding the web server and database server will be automatically saved into both xtcModified Shop and Administration Tool configuration files.');
 define('TITLE_DATABASE_SETTINGS','Database Settings');

@@ -104,7 +104,7 @@ define('TEXT_WELCOME_FINISHED','<b>xtcModified Installation erfolgreich!</b><br 
 
 define('TITLE_CUSTOM_SETTINGS','Installations Optionen');
 define('TEXT_IMPORT_DB','Importiere die xtcModified Datenbank');
-define('TEXT_IMPORT_DB_LONG','Importiere die xtcModified Datenbankstruktur, welche die Tabellen und Beispieldaten enthält.');
+define('TEXT_IMPORT_DB_LONG','Importiere die xtcModified Datenbankstruktur, welche die Einstellungstabellen enthält. <b>(Zwingend bei Erstinstallation!)</b>');
 define('TEXT_AUTOMATIC','Automatische Konfiguration');
 define('TEXT_AUTOMATIC_LONG','Ihre Informationen bezüglich Webserver und Datenbank werden automatisch in die benötigten Catalog und Admin Konfigurations-Dateien geschrieben..');
 define('TITLE_DATABASE_SETTINGS','Datenbank Informationen');
