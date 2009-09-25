@@ -14,7 +14,7 @@ based on:
 
 Released under the GNU General Public License
 ---------------------------------------------------------------------------------------*/
-
+defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
 define('MODULE_PREISROBOTER_TEXT_DESCRIPTION', 'Export - preisroboter.de (| getrennt)<br /><strong>Format:</strong><br />Artikelnummer|Artikelname|Kurzbeschreibung|Preis|Bild-URL|Deeplink|Lieferzeit|Versandkostenfrei');
 define('MODULE_PREISROBOTER_TEXT_TITLE', 'PreisRoboter.de - CSV');
@@ -22,16 +22,16 @@ define('MODULE_PREISROBOTER_FILE_TITLE' , '<hr noshade>Dateiname');
 define('MODULE_PREISROBOTER_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
 define('MODULE_PREISROBOTER_STATUS_DESC','Modulstatus');
 define('MODULE_PREISROBOTER_STATUS_TITLE','Status');
-define('MODULE_PREISROBOTER_CURRENCY_TITLE','Währung');
-define('MODULE_PREISROBOTER_CURRENCY_DESC','Welche Währung soll exportiert werden?');
+define('MODULE_PREISROBOTER_CURRENCY_TITLE','W&auml;hrung');
+define('MODULE_PREISROBOTER_CURRENCY_DESC','Welche W&auml;hrung soll exportiert werden?');
 define('EXPORT_YES','Nur Herunterladen');
 define('EXPORT_NO','Am Server Speichern');
-define('CURRENCY','<hr noshade><strong>Währung:</strong>');
-define('CURRENCY_DESC','Währung in der Exportdatei');
+define('CURRENCY','<hr noshade><strong>W&auml;hrung:</strong>');
+define('CURRENCY_DESC','W&auml;hrung in der Exportdatei');
 define('EXPORT','Bitte den Sicherungsprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
 define('EXPORT_TYPE','<hr noshade><strong>Speicherart:</strong>');
 define('EXPORT_STATUS_TYPE','<hr noshade><strong>Kundengruppe:</strong>');
-define('EXPORT_STATUS','Bitte wählen Sie die Kundengruppe, die Basis für den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, wählen Sie <i>Gast</i>):</strong>');
+define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis für den Exportierten Preis bildet. (Falls Sie keine Kundengruppenpreise haben, w&auml;hlen Sie <i>Gast</i>):</strong>');
 define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
 define('VERSANDKOSTENFREI_AB',999999999);
 

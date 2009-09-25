@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: googlebase.php 1000 2009-08-11 18:10:30Z Hetfield $
+   $Id: googlebase.php 1000 2009-09-25 17:06:30Z Hetfield $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -30,9 +30,9 @@
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
 define('MODULE_GOOGLEBASE_TEXT_DESCRIPTION', 'Export - Google Base (Tab getrennt)');
-define('MODULE_GOOGLEBASE_TEXT_TITLE', 'Google Base - TXT');
+define('MODULE_GOOGLEBASE_TEXT_TITLE', 'Google Base - TXT<br/>Exportmodul f&uuml;r Google Base / inkl. Felder "Zustand" und "Versandkosten"');
 define('MODULE_GOOGLEBASE_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_GOOGLEBASE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
+define('MODULE_GOOGLEBASE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportdatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
 define('MODULE_GOOGLEBASE_STATUS_DESC','Modulstatus');
 define('MODULE_GOOGLEBASE_STATUS_TITLE','Status');
 define('MODULE_GOOGLEBASE_CURRENCY_TITLE','W&auml;hrung');
@@ -54,7 +54,7 @@ define('EXPORT_STATUS','Bitte w&auml;hlen Sie die Kundengruppe, die Basis f&uuml
 define('CAMPAIGNS','<hr noshade><b>Kampagnen:</b>');
 define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
 define('SHIPPING_COUNTRY','<hr noshade><b>Land (optional):</b>');
-define('SHIPPING_COUNTRY_DESC','Das Land, in das der Artikel geliefert wird. Bitte geben Sie DE als Wert an. Google Base akzeptier nur Versandkosten f&uuml;r Lieferungen innerhalb Deutschlands.<br />Hinweis: Falls kein Wert angegeben wird, nimmt Google Base an, dass sich die Versandkosten auf das Zielland des Artikels beziehen.');
+define('SHIPPING_COUNTRY_DESC','Das Land, in das der Artikel geliefert wird. Bitte geben Sie DE als Wert an. Google Base akzeptiert nur Versandkosten f&uuml;r Lieferungen innerhalb Deutschlands.<br />Hinweis: Falls kein Wert angegeben wird, nimmt Google Base an, dass sich die Versandkosten auf das Zielland des Artikels beziehen.');
 define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 // include needed functions
 
