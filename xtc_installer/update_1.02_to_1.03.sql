@@ -1,3 +1,40 @@
+#Tomcraft - 2009-09-25 - Added missing Tables
+DROP TABLE if EXISTS personal_offers_by_customers_status_0;
+CREATE TABLE personal_offers_by_customers_status_0 (
+  price_id int(11) NOT NULL auto_increment,
+  products_id int(11) NOT NULL,
+  quantity int(11) default NULL,
+  personal_offer decimal(15,4) default NULL,
+  PRIMARY KEY  (price_id)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
+DROP TABLE if EXISTS personal_offers_by_customers_status_1;
+CREATE TABLE personal_offers_by_customers_status_1 (
+  price_id int(11) NOT NULL auto_increment,
+  products_id int(11) NOT NULL,
+  quantity int(11) default NULL,
+  personal_offer decimal(15,4) default NULL,
+  PRIMARY KEY  (price_id)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
+DROP TABLE if EXISTS personal_offers_by_customers_status_2;
+CREATE TABLE personal_offers_by_customers_status_2 (
+  price_id int(11) NOT NULL auto_increment,
+  products_id int(11) NOT NULL,
+  quantity int(11) default NULL,
+  personal_offer decimal(15,4) default NULL,
+  PRIMARY KEY  (price_id)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
+DROP TABLE if EXISTS personal_offers_by_customers_status_3;
+CREATE TABLE personal_offers_by_customers_status_3 (
+  price_id int(11) NOT NULL auto_increment,
+  products_id int(11) NOT NULL,
+  quantity int(11) default NULL,
+  personal_offer decimal(15,4) default NULL,
+  PRIMARY KEY  (price_id)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
 #Dokuman - 2009-08-20 - Added Bulgaria and Romania to EU Zones (since 01.01.2007)
 UPDATE zones_to_geo_zones SET geo_zone_id= 5 WHERE zone_country_id IN (33,175);
 
