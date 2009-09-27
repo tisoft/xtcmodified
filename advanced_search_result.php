@@ -250,6 +250,11 @@ if ($error == 1 && $keyerror != 1) {
           $where_str .= "OR p.products_model LIKE ('%".$keyword."%') ";
           $where_str .= ($ent_keyword) ? "OR p.products_model LIKE ('%".$ent_keyword."%') " : '';
           if (SEARCH_IN_ATTR == 'true') {
+          	if (SEARCH_IN_ATTR == 'true') {
+		     // BOF - Tomcraft - 2009-09-27 - search for attribute-modelnumber
+		     $where_str .= "OR pa.attributes_model LIKE ('%".$keyword."%') ";
+             $where_str .= ($ent_keyword) ? "OR pa.attributes_model LIKE ('%".$ent_keyword."%') " : '';
+			 // EOF - Tomcraft - 2009-09-27 - search for attribute-modelnumber
              $where_str .= "OR (pov.products_options_values_name LIKE ('%".$keyword."%') ";
              $where_str .= ($ent_keyword) ? "OR pov.products_options_values_name LIKE ('%".$ent_keyword."%') " : '';
              $where_str .= "AND pov.language_id = '".(int) $_SESSION['languages_id']."')";
