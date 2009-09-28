@@ -281,14 +281,14 @@ $datethismonth=	date("m");
                     
                     <table border="0" width="100%" cellspacing="0">
                          <tr>
-                              <td width="48%" bgcolor="#FFCF9C" style="border-style: solid; border-width: 1px"><strong>User Online</strong></font> </td>
+                              <td width="48%" bgcolor="#FFCF9C" style="border-style: solid; border-width: 1px"><strong>User Online</strong></td>
                               <td width="4%"><p style="margin-left: 3px"></td>
                               <td width="48%" bgcolor="#FFCF9C" style="border-style: solid; border-width: 1px"><font face="Verdana"><strong>Neue
                                         Kunden </strong>(letzten 15 neuen Kunden)</font></td>
                          </tr>
                          <tr>
                               <td width="48%" bgcolor="#FFFBEF" style="border-style: solid; border-width: 1px" height="200" valign="top">&nbsp;<em><font face="Verdana" color="#7691A2">***für 
-                                        Infos zu dem User - auf Name des Users klicken***</font></em></font>
+                                        Infos zu dem User - auf Name des Users klicken***</font></em>
                                    <table border="0" width="98%" cellspacing="0" cellpadding="0">
                                         <tr class="dataTableHeadingRow">
                                              <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="22%"><strong> <font face="Verdana">Online seit (min.)</font></strong></td>
@@ -451,7 +451,7 @@ CarpConf('maxitems',3);
                     <br />
                     <table cellpadding="5" cellspacing="0" width="100%" id="table1" style="border-bottom:1px solid #CCCCCC; border-top:1px solid #CCCCCC; font-family: Verdana; font-size: 11px">
                          <tr>
-                              <td bgcolor="#FFCC99"><p style="margin-left: 3px"><font face="Verdana"><strong>Geburtstagsliste</span></strong></font><span> </span> </td>
+                              <td bgcolor="#FFCC99"><p style="margin-left: 3px"><font face="Verdana"><strong>Geburtstagsliste</strong></font></td>
                          </tr>
                     </table>
                     <table cellpadding="5" cellspacing="0" style="font-family:Verdana; font-size:11px" width="100%" id="AutoNumber1">
