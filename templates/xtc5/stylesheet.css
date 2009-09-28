@@ -1189,39 +1189,6 @@ td.productPreviewContent {
 .search_header {
 	line-height:normal;
 }
-/* BOF - Hetfield - 2009-08-19 - added styles for products-table in checkout_confirmation */
-table.checkout_confirmation_products { 
-	width:100%; border:1px solid #d9d9d9; 
-}
-table.checkout_confirmation_products thead tr { 
-	background:#666; color:#fff;
-}
-table.checkout_confirmation_products tfoot tr { 
-	background-color:#eee;
-}
-table.checkout_confirmation_products tfoot td { 
-	border-top:1px solid #d9d9d9; 
-}
-table.checkout_confirmation_products td, table.checkout_confirmation_products th { 
-	vertical-align:top; text-align:left; padding:2px; 
-}
-table.checkout_confirmation_products td.price, table.checkout_confirmation_products th.price { 
-	vertical-align:top; text-align:right; padding:2px; 
-}
-table.checkout_confirmation_products td ul {
-	margin-left:20px;
-}
-dl.payment_info {
-	width:920px;  border-bottom: 1px solid #999;
-}
-dl.payment_info dt {
-	width:150px; float:left; text-indent:0.5em; border-top: 1px solid #d9d9d9;
-}
-dl.payment_info dd {
-	width:770px; float:left; text-indent:0.5em; border-top: 1px solid #d9d9d9;
-}
-/* EOF - Hetfield - 2009-08-19 - added styles for products-table in checkout_confirmation */
-
 /* BOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses */
 ol#address_block { 
 	margin-left:30px;
