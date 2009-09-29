@@ -7,7 +7,7 @@
 	{if $PRODUCTS_IMAGE!=''}
 	
 		<a title="{$PRODUCTS_NAME}" href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}"><img align="left" src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" class="productimage" /></a>
-		{if $PRODUCTS_POPUP_LINK!=''}<div class="hrlightgrey"></div><a href="{$PRODUCTS_POPUP_LINK}" onclick="window.open(this.href); return false;">{#text_zoom#}</a>{/if}			
+		{if $PRODUCTS_POPUP_LINK!=''}<div class="hrlightgrey"></div><a href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}">{#text_zoom#}</a>{/if}			
 
 	{/if}</td><td>
   	<div id="productinfopricewithimages">
