@@ -126,7 +126,10 @@ if ($_GET['coID'] == 7) {
 		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', false));
 		$smarty->assign('INPUT_NAME', xtc_draw_input_field('name', ($error ? xtc_db_input($_POST['name']) : $customers_name), 'size="30"'));
 		$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', ($error ? xtc_db_input($_POST['email']) : $email_address), 'size="30"'));
-		$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? xtc_db_input($_POST['message_body']) : $first_name)));
+		// BOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
+		//$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? xtc_db_input($_POST['message_body']) : $first_name)));
+		$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? stripslashes($_POST['message_body']) : stripslashes($message_body))));
+		// EOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
 		$smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE));
 		$smarty->assign('FORM_END', '</form>');
 	}
