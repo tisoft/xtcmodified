@@ -355,23 +355,23 @@ ul#categorymenu li.level3 a:hover {
 }
 /* 4th TIER */
 ul#categorymenu li.level4 {
-    list-style-type:none;
-    border: solid #fff;
-    border-width:1px 0px 0px 0px;
+	list-style-type:none;
+	border: solid #fff;
+	border-width:1px 0px 0px 0px;
 }
 ul#categorymenu li.level4 a {
-    text-decoration:none;
-    color:#333;
-    background: url(img/dotted1.gif) no-repeat 24px 9px #b3b3b3;
-    font-weight:bold;
-    padding:4px 0px 4px 34px;
-    display:block
+	text-decoration:none;
+	color:#333;
+	background: url(img/dotted1.gif) no-repeat 24px 9px #b3b3b3;
+	font-weight:bold;
+	padding:4px 0px 4px 34px;
+	display:block
 }
 ul#categorymenu li.level4 a:hover {
-    text-decoration:none;
-    color:#333;
-    background-color:#ccc;
-    font-weight:bold;
+	text-decoration:none;
+	color:#333;
+	background-color:#ccc;
+	font-weight:bold;
 }
 /* BOXES GLOBAL DEFINITION */
 h2.boxheader {
@@ -1137,8 +1137,8 @@ ul#checkoutnavigation li.inactive .description {
 	border-color:#999999;
 	display:block;
 	height:auto;
-  float: left;
-  margin-bottom: 10px;	
+	float: left;
+	margin-bottom: 10px;
 }
 .morepics img {
 	border:1px solid #999999;
@@ -1147,7 +1147,7 @@ ul#checkoutnavigation li.inactive .description {
 	background:#FFFFFF;
 	height:100px;
 	width:auto;
-  float: left;	
+	float: left;
 }
 /* BESTELLER BOX mit Bilder in DL DT Liste -- JUNG GESTALTEN.com */
 dt {
@@ -1190,7 +1190,7 @@ td.productPreviewContent {
 	line-height:normal;
 }
 /* BOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses */
-ol#address_block { 
+ol#address_block {
 	margin-left:30px;
 }
 /* EOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses */
