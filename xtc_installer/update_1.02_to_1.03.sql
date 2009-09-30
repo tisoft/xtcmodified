@@ -19,5 +19,8 @@ UPDATE zones SET zone_code = 'ST' WHERE zone_id = 92;
 UPDATE zones SET zone_code = 'SH' WHERE zone_id = 93;
 UPDATE zones SET zone_code = 'TH' WHERE zone_id = 94;
 
+#Tomcraft - 2009-10-01 - changed configuration_group_id
+UPDATE configuration SET configuration_group_id = 1 WHERE configuration_id = 17;
+
 #Tomcraft - 2009-09-08 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.3.0'
