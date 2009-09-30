@@ -100,7 +100,7 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 							}
 						} else {
 							TB_FoundURL = true;
-							TB_imageCount = 'Bilder/Images: ' + (TB_Counter + 1) +' <font style="font-size:14px">&harr;</font> '+ (TB_TempArray.length);																
+							TB_imageCount = "Bild/Image " + (TB_Counter + 1) +" / "+ (TB_TempArray.length);																
 						}
 				}
 			}
