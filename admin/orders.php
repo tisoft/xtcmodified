@@ -416,8 +416,6 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
 	}
 	// end modification for banktransfer
 
-if ($order->info['payment_method'] == 'luupws') include( DIR_FS_CATALOG.DIR_WS_INCLUDES.'nusoap/luup_orders.php' );
-
 if ($order->info['payment_method'] == 'amoneybookers') {
 if (file_exists(DIR_FS_CATALOG.DIR_WS_MODULES.'payment/'.$order->info['payment_method'].'.php')) {
 include(DIR_FS_CATALOG.DIR_WS_MODULES.'payment/'.$order->info['payment_method'].'.php');

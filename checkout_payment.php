@@ -207,15 +207,6 @@ if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 	//$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
 	$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO,'SSL'));
   //EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
-	
-	// LUUPAY ZAHLUNGSMODUL
-	if (isset ($_GET['step']) && $_GET['step'] == 'step2') {
-		$smarty->assign('AGB_checkbox', '<input type="checkbox" value="conditions" name="conditions" checked />');
-	} else {
-		$smarty->assign('AGB_checkbox', '<input type="checkbox" value="conditions" name="conditions" />');
-	}
-	// LUUPAY END
-
 }
 
 $smarty->assign('language', $_SESSION['language']);
