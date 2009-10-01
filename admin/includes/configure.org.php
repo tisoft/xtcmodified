@@ -1,5 +1,6 @@
 <?php
 /* --------------------------------------------------------------
+  ### Be careful, this is the backup of your original configuration data ###
 
   XT-Commerce - community made shopping
   http://www.xt-commerce.com
@@ -8,9 +9,6 @@
   --------------------------------------------------------------
   based on:
   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   
-  
-
   (c) 2002-2003 osCommerce (configure.php,v 1.14 2003/02/21); www.oscommerce.com
 
   Released under the GNU General Public License

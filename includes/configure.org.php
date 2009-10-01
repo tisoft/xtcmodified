@@ -1,5 +1,6 @@
 <?php
 /* --------------------------------------------------------------
+  ### Be careful, this is the backup of your original configuration data ###
 
   XT-Commerce - community made shopping
   http://www.xt-commerce.com
@@ -46,3 +47,4 @@
   define('DB_DATABASE', 'xtc_sp2');
   define('USE_PCONNECT', 'false'); // use persistent connections?
   define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
+?>
