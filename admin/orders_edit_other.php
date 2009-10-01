@@ -119,7 +119,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <tr class="dataTableHeadingRow">
-<td class="dataTableHeadingContent" width="100%" colspan="4"><b><?php echo TEXT_PAYMENT; ?></td>
+<td class="dataTableHeadingContent" width="100%" colspan="4"><b><?php echo TEXT_PAYMENT; ?></b></td>
 </tr>
 
 <?php
@@ -172,7 +172,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <tr class="dataTableHeadingRow">
-<td class="dataTableHeadingContent" width="100%" colspan="4"><b><?php echo TEXT_SHIPPING; ?></td>
+<td class="dataTableHeadingContent" width="100%" colspan="4"><b><?php echo TEXT_SHIPPING; ?></b></td>
 </tr>
 
 <?php
