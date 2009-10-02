@@ -31,5 +31,31 @@ INSERT INTO configuration (configuration_id,  configuration_key, configuration_v
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 
+#Dokuman - 2009-10-02 - added entries for GLS shipping module version 1.1
+DROP TABLE IF EXISTS gls_country_to_postal;
+CREATE TABLE gls_country_to_postal (
+  gls_country char(2) NOT NULL default '',
+  gls_postal_reference int(11) NOT NULL default '0',
+  PRIMARY KEY  (gls_country)
+) TYPE=MyISAM;
+
+DROP TABLE IF EXISTS gls_postal_to_weight;
+CREATE TABLE gls_postal_to_weight (
+  gls_postal_reference int(11) NOT NULL default '0',
+  gls_from_postal varchar(10) NOT NULL default '',
+  gls_to_postal varchar(10) NOT NULL default '',
+  gls_weight_ref char(3) NOT NULL default '',
+  PRIMARY KEY  (gls_postal_reference,gls_from_postal)
+) TYPE=MyISAM;
+
+DROP TABLE IF EXISTS gls_weight;
+CREATE TABLE gls_weight (
+  gls_weight_ref char(3) NOT NULL default '',
+  gls_weight_price_string text NOT NULL,
+  gls_free_shipping_over decimal(15,4) NOT NULL default '-1.0000',
+  gls_shipping_subsidized decimal(15,4) NOT NULL default '-1.0000',
+  PRIMARY KEY  (gls_weight_ref)
+) TYPE=MyISAM;
+
 #Tomcraft - 2009-09-08 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.3.0'
