@@ -184,7 +184,7 @@ define('IMAGE_BUTTON_CONTINUE', 'Weiter');
 define('IMAGE_BUTTON_DELETE', 'L&ouml;schen');
 define('IMAGE_BUTTON_LOGIN', 'Anmelden');
 define('IMAGE_BUTTON_IN_CART', 'In den Warenkorb');
-define('IMAGE_BUTTON_SEARCH', 'Suchbegriff eingeben');
+define('IMAGE_BUTTON_SEARCH', 'Suchen');
 define('IMAGE_BUTTON_UPDATE', 'Aktualisieren');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
