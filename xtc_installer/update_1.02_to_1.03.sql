@@ -22,5 +22,14 @@ UPDATE zones SET zone_code = 'TH' WHERE zone_id = 94;
 #Tomcraft - 2009-10-01 - changed configuration_group_id
 UPDATE configuration SET configuration_group_id = 1 WHERE configuration_id = 17;
 
+#Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '',  31, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PWD','',  31, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','',  31, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0',  31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+
 #Tomcraft - 2009-09-08 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.3.0'

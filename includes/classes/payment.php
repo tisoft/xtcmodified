@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: payment.php 1136 2005-08-07 13:19:54Z mz $   
+   $Id: payment.php 41 2009-01-22 16:10:55Z mzanier $   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -257,5 +257,16 @@
         }
       }
     }
+    
+//BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
+  function iframeAction() {
+      if (is_array($this->modules)) {
+        if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
+          return $GLOBALS[$this->selected_module]->iframeAction();
+        }
+      }
+    }
+//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
+
   }
 ?>

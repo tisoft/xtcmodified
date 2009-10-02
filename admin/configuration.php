@@ -21,6 +21,35 @@
     switch ($_GET['action']) {
       case 'save':
 
+      //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
+			if ($_GET['gID']=='31') {
+
+				// email check
+				if (isset($_POST['_PAYMENT_MONEYBOOKERS_EMAILID'])) {
+					 
+					$url = 'https://www.moneybookers.com/app/email_check.pl?email='.$_POST['_PAYMENT_MONEYBOOKERS_EMAILID'].'&cust_id=8644877&password=1a28e429ac2fcd036aa7d789ebbfb3b0';
+					 
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_HEADER, 0);
+					curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+					$result = curl_exec($ch);
+					if ($result=='NOK') {
+						$messageStack->add_session(MB_ERROR_NO_MERCHANT, 'error');
+					}
+						
+					if (strstr($result,'OK,')) {
+						$data = explode(',',$result);
+						$_POST['_PAYMENT_MONEYBOOKERS_MERCHANTID'] = $data[1];
+						$messageStack->add_session(sprintf(MB_MERCHANT_OK,$data[1]), 'success');
+					}
+				}
+			}
+      //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
+
           $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
 
           while ($configuration = xtc_db_fetch_array($configuration_query))
@@ -38,46 +67,65 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type"
+	content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0"
+	leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<!-- left_navigation //-->
-<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
-<!-- left_navigation_eof //-->
-    </table></td>
-<!-- body_text //-->
-    <td class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_configuration.gif'); ?></td>
-    <td class="pageHeading"><?php echo $cfg_group['configuration_group_title']; ?></td>
-  </tr>
-  <tr>
-    <td class="main" valign="top">XT Configuration</td>
-  </tr>
-</table> </td>
-      </tr>
-      <tr>
-        <td style="border-top: 3px solid; border-color: #cccccc;" class="main"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top">
+		<table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1"
+			cellpadding="1" class="columnLeft">
+			<!-- left_navigation //-->
+			<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
+			<!-- left_navigation_eof //-->
+		</table>
+		</td>
+		<!-- body_text //-->
+		<td class="boxCenter" width="100%" valign="top">
+		<table border="0" width="100%" cellspacing="0" cellpadding="2">
+			<tr>
+				<td>
+				<table border="0" width="100%" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_configuration.gif'); ?></td>
+						<td class="pageHeading"><?php echo $cfg_group['configuration_group_title']; ?></td>
+					</tr>
+					<tr>
+						<td class="main" valign="top">XT Configuration</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td style="border-top: 3px solid; border-color: #cccccc;"
+					class="main">
+				<table border="0" width="100%" cellspacing="0" cellpadding="0">
          <?php
          	switch ($_GET['gID']) {
          		case 21:
          			echo AFTERBUY_URL;
+            //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
+         		case 31:
+            //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
          		case 19:
+            //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4        		
          			echo '<table class="infoBoxHeading" width="100%">
             				<tr>
+                			<td width="150" align="center">
+                			<a href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=31', 'NONSSL').'">Moneybookers.com</a>
+                			</td>
+                			<td width="1">|
+                			</td>
                 			<td width="150" align="center">
                 			<a href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=21', 'NONSSL').'">Afterbuy</a>
                 			</td>
@@ -92,16 +140,15 @@
                 			</td>
             				</tr>
         					</table>';
-         		
+						if ($_GET['gID']=='31') echo MB_INFO;
+//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4        		
          			break;
          	}
          	?> 
          
           
           <tr>
-            <td valign="top" align="right">
-            
-<?php echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=save'); ?>
+            <td valign="top" align="right"><?php echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=save'); ?>
             <table width="100%"  border="0" cellspacing="0" cellpadding="4">
 <?php
   $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
@@ -185,13 +232,16 @@
   }
 ?>
             </table>
-<?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?></form>
+			<?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?>
+			</form>
             </td>
 
           </tr>
-        </table></td>
+        </table>
+		</td>
       </tr>
-    </table></td>
+    </table>
+	</td>
 <!-- body_text_eof //-->
   </tr>
 </table>

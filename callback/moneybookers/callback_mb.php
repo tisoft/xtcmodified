@@ -1,12 +1,11 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: callback_mb.php 57 2007-01-04 00:57:53Z mzanier $   
+   $Id: callback_mb.php 22 2009-01-17 14:33:18Z mzanier $   
 
    xt:Commerce - community made shopping
    http://www.xt-commerce.com
 
-   Copyright (c) 2006 xt:Commerce
+   Copyright (c) 2009 xt:Commerce GmbH
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/

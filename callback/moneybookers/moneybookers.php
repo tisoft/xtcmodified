@@ -1,11 +1,11 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: moneybookers.php 57 2007-01-04 00:57:53Z mzanier $   
+   $Id: moneybookers.php 22 2009-01-17 14:33:18Z mzanier $   
 
    xt:Commerce - community made shopping
    http://www.xt-commerce.com
 
-   Copyright (c) 2007 xt:Commerce
+   Copyright (c) 2009 xt:Commerce GmbH
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -19,7 +19,7 @@
  		$this->repost = false;
 		$this->Error = '';
 		$this->oID = 0;
-		$this->debug = false;
+		$this->debug = true;
 	
  		}
  	
@@ -56,27 +56,13 @@
 	}
 	
 		
-	function _getType($orders_id) {
-		
-		// get payment type from database
-		$order_query = "SELECT payment_class FROM ".TABLE_ORDERS." WHERE orders_id = '" . $orders_id . "'";
-		$order_query = xtc_db_query($order_query);
-		$order_data = xtc_db_fetch_array($order_query);
-		if ($order_data['payment_class']=='') $order_data['payment_class']='moneybookers';
-		$this->statusPending=constant(MODULE_PAYMENT_.strtoupper($order_data['payment_class'])._PENDING_STATUS_ID);
-		$this->statusCanceled=constant(MODULE_PAYMENT_.strtoupper($order_data['payment_class'])._CANCELED_STATUS_ID);
-		$this->statusProcessed=constant(MODULE_PAYMENT_.strtoupper($order_data['payment_class'])._PROCESSED_STATUS_ID);
-		$this->PWD=constant(MODULE_PAYMENT_.strtoupper($order_data['payment_class'])._PWD);
-		$this->merchantID=constant(MODULE_PAYMENT_.strtoupper($order_data['payment_class'])._MERCHANTID);
-		$this->emailID=constant(MODULE_PAYMENT_.strtoupper($order_data['payment_class'])._EMAILID);
-
-//		echo $this->statusPending.'<br />';
-//		echo $this->statusCanceled.'<br />';
-//		echo $this->statusProcessed.'<br />';
-//		echo $this->PWP.'<br />';
-//		echo $this->merchantID.'<br />';
-//		echo $this->emailID.'<br />';
-
+	function _getType($orders_id) {	
+		$this->statusPending=_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID;
+		$this->statusCanceled=_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID;
+		$this->statusProcessed=_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID;
+		$this->PWD=_PAYMENT_MONEYBOOKERS_PWD;
+		$this->merchantID=_PAYMENT_MONEYBOOKERS_MERCHANTID;
+		$this->emailID=_PAYMENT_MONEYBOOKERS_EMAILID;
 	}
 	
 	function _CheckStatus() {
