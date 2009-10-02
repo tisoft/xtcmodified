@@ -327,6 +327,118 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
 
 	}
 
+
+// Start sofortüberweisung.de
+    if (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS == 'True' && $order->info['payment_method']=='pn_sofortueberweisung') {
+      $sql = "SELECT * FROM payment_sofortueberweisung WHERE orders_id='$oID'";
+      $sofort_query = xtc_db_query($sql);
+      if ($sofort = xtc_db_fetch_array($sofort_query)) {
+?>
+      <tr>
+        <td class="main" valign="top"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main" valign="top">Transcaction-ID:</td>
+                <td class="main" valign="top"><?php echo $sofort['transaction']; ?></td>
+              </tr>
+              <tr>
+                <td class="main" valign="top">Betrag:</td>
+                <td class="main" valign="top"><?php echo number_format($sofort['amount'], 2) . ' ' . $sofort['currency_id']; ?></td>
+              </tr>
+              <tr>
+                <td class="main" valign="top">Verwendungszweck 1:</td>
+                <td class="main" valign="top"><?php echo $sofort['reason_1'] ; ?></td>
+              </tr>
+              <tr>
+                <td class="main" valign="top">Verwendungszweck 2:</td>
+                <td class="main" valign="top"><?php echo $sofort['reason_2'] ; ?></td>
+              </tr>
+              <tr>
+                <td class="main" valign="top">Sicherheits-Kriterien erf&uuml;llt:</td>
+                <td class="main" valign="top"><?php echo  ($sofort['security_criteria'] == 1 ? 'Ja' : 'Nein') ; ?></td>
+              </tr>
+            </table></td>
+          </tr>
+              <tr>
+                <td><table border="0" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td colspan="2" class="main" valign="top"><b>Absender der &Uuml;berweisung:</b></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">Inhaber:</td>
+                    <td class="main"><?php echo $sofort['sender_holder'] ; ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">Konto:</td>
+                    <td class="main"><?php echo $sofort['sender_account_number'] ; ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">BLZ:</td>
+                    <td class="main"><?php echo $sofort['sender_bank_code'] ; ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">Bank:</td>
+                    <td class="main"><?php echo $sofort['sender_bank_name'] ; ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">BIC:</td>
+                    <td class="main"><?php echo $sofort['sender_bank_bic'] ; ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">IBAN:</td>
+                    <td class="main"><?php echo $sofort['sender_iban'] ; ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main" valign="top">Land:</td>
+                    <td class="main"><?php echo $sofort['sender_country_id'] ; ?></td>
+                  </tr>
+                </table></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><table border="0" cellspacing="0" cellpadding="2">
+                    <tr>
+                      <td colspan="2" class="main" valign="top"><b>Empf&auml;nger der &Uuml;berweisung:</b></td>
+                    </tr>
+                    <tr>
+                      <td class="main" valign="top">Inhaber:</td>
+                      <td class="main"><?php echo $sofort['recipient_holder'] ; ?></td>
+                    </tr>
+                    <tr>
+                      <td class="main" valign="top">Konto:</td>
+                      <td class="main"><?php echo $sofort['recipient_account_number'] ; ?></td>
+                    </tr>
+                    <tr>
+                      <td class="main" valign="top">BLZ:</td>
+                      <td class="main"><?php echo $sofort['recipient_bank_code'] ; ?></td>
+                    </tr>
+                    <tr>
+                      <td class="main" valign="top">Bank:</td>
+                      <td class="main"><?php echo $sofort['recipient_bank_name'] ; ?></td>
+                    </tr>
+                    <tr>
+                      <td class="main" valign="top">BIC:</td>
+                      <td class="main"><?php echo $sofort['recipient_bank_bic'] ; ?></td>
+                    </tr>
+                    <tr>
+                      <td class="main" valign="top">IBAN:</td>
+                      <td class="main"><?php echo $sofort['recipient_iban'] ; ?></td>
+                    </tr>
+                    <tr>
+                      <td class="main" valign="top">Land:</td>
+                      <td class="main"><?php echo $sofort['recipient_country_id'] ; ?></td>
+                    </tr>
+                </table></td>
+              </tr>
+
+            </table></td>
+          </tr>
+
+<?php
+    }
+  }
+// End sofortüberweisung.de
+
+
 	// begin modification for banktransfer
 	$banktransfer_query = xtc_db_query("select banktransfer_prz, banktransfer_status, banktransfer_owner, banktransfer_number, banktransfer_bankname, banktransfer_blz, banktransfer_fax from banktransfer where orders_id = '".xtc_db_input($_GET['oID'])."'");
 	$banktransfer = xtc_db_fetch_array($banktransfer_query);
@@ -653,8 +765,7 @@ elseif ($_GET['action'] == 'custom_action') {
 
 	if ($_GET['cID']) { 
    $cID = xtc_db_prepare_input($_GET['cID']); 
- 
-$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased,o.last_modified, o.currency, o.currency_value, o.orders_status, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.customers_id = '".xtc_db_input($cID)."' and ((o.orders_status = s.orders_status_id) or (o.orders_status = '0' and  s.orders_status_id = '1')) and ot.class = 'ot_total' and s.language_id = '".$_SESSION['languages_id']."' order by orders_id DESC";
+   $orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.customers_id = '".xtc_db_input($cID)."' and ((o.orders_status = s.orders_status_id) or (o.orders_status = '0' and  s.orders_status_id = '1')) and ot.class = 'ot_total' and s.language_id = '".$_SESSION['languages_id']."' order by orders_id DESC";
 	}
 	elseif ($_GET['status']=='0') {
 			$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id) where o.orders_status = '0' and ot.class = 'ot_total' order by o.orders_id DESC";
