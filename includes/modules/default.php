@@ -31,7 +31,9 @@ require_once (DIR_FS_INC.'xtc_customer_greeting.inc.php');
 require_once (DIR_FS_INC.'xtc_get_path.inc.php');
 require_once (DIR_FS_INC.'xtc_check_categories_status.inc.php');
 
-$_SESSION['lastpath'] = $_GET['cPath'];
+//BOF - Dokuman - 2009-10-02 - removed feature, due to wrong links in category on "last viewed"  
+//$_SESSION['lastpath'] = $_GET['cPath'];
+//EOF - Dokuman - 2009-10-02 - removed feature, due to wrong links in category on "last viewed"  
 
 if (xtc_check_categories_status($current_category_id) >= 1) {
 

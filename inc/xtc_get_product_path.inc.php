@@ -35,9 +35,13 @@
       if (xtc_not_null($cPath)) $cPath .= '_';
       $cPath .= $category['categories_id'];
   }
+//BOF - Dokuman - 2009-10-02 - removed feature, due to wrong links in category on "last viewed"  
+/*
   if($_SESSION['lastpath']!=''){
     $cPath = $_SESSION['lastpath'];
   }
+*/
+//EOF - Dokuman - 2009-10-02 - removed feature, due to wrong links in category on "last viewed"  
   return $cPath;
 }
 ?>
