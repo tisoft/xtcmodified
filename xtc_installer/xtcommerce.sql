@@ -1131,6 +1131,32 @@ CREATE TABLE payment_qenta (
   PRIMARY KEY  (q_TRID)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
+#Dokuman - 2009-10-02 - added entries for GLS shipping module version 1.1
+DROP TABLE IF EXISTS gls_country_to_postal;
+CREATE TABLE gls_country_to_postal (
+  gls_country char(2) NOT NULL default '',
+  gls_postal_reference int(11) NOT NULL default '0',
+  PRIMARY KEY  (gls_country)
+) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
+DROP TABLE IF EXISTS gls_postal_to_weight;
+CREATE TABLE gls_postal_to_weight (
+  gls_postal_reference int(11) NOT NULL default '0',
+  gls_from_postal varchar(10) NOT NULL default '',
+  gls_to_postal varchar(10) NOT NULL default '',
+  gls_weight_ref char(3) NOT NULL default '',
+  PRIMARY KEY  (gls_postal_reference,gls_from_postal)
+) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
+DROP TABLE IF EXISTS gls_weight;
+CREATE TABLE gls_weight (
+  gls_weight_ref char(3) NOT NULL default '',
+  gls_weight_price_string text NOT NULL,
+  gls_free_shipping_over decimal(15,4) NOT NULL default '-1.0000',
+  gls_shipping_subsidized decimal(15,4) NOT NULL default '-1.0000',
+  PRIMARY KEY  (gls_weight_ref)
+) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
 DROP TABLE if EXISTS personal_offers_by_customers_status_0;
 DROP TABLE if EXISTS personal_offers_by_customers_status_1;
 DROP TABLE if EXISTS personal_offers_by_customers_status_2;
@@ -2897,3 +2923,11 @@ INSERT INTO payment_moneybookers_currencies VALUES ('TWD', 'New Taiwan Dollar');
 INSERT INTO payment_moneybookers_currencies VALUES ('USD', 'US Dollar');
 INSERT INTO payment_moneybookers_currencies VALUES ('ZAR', 'South-African Rand');
 
+#Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '',  31, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PWD','',  31, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','',  31, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0',  31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
