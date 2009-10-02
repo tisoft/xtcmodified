@@ -40,6 +40,9 @@ require_once (DIR_FS_INC . 'xtc_calculate_tax.inc.php');
 require_once (DIR_FS_INC . 'xtc_check_stock.inc.php');
 require_once (DIR_FS_INC . 'xtc_display_tax_value.inc.php');
 
+// BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+require (DIR_WS_LANGUAGES.$_SESSION['language'].'/checkout_confirmation.php');
+// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
 // if the customer is not logged on, redirect them to the login page
 
 if (!isset ($_SESSION['customer_id']))
@@ -207,25 +210,64 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 	//BOF - 2009-07-21 - remove Changes div to table //  Christian
 
 $data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
-for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
-
-	$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";
+// BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+if (file_exists(DIR_WS_LANGUAGES.$_SESSION['language'].'/checkout_confirmation.php')) {
+	$data_products.= '<tr>' . "\n" . '  <td class="main_header" align="left" valign="top"><b>' . HEADER_QTY . '</b></td>'
+							. "\n" . '  <td class="main_header" align="left" valign="top"><b>' . HEADER_ARTICLE . '</b></td>'
+							. "\n" . '  <td class="main_header" align="right" valign="top"><b>' . HEADER_SINGLE . '</b></td>'
+							. "\n" . '  <td class="main_header" align="right" valign="top"><b>' . HEADER_TOTAL . '</b></td>
+					 </tr>' . "\n";
+}
+// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {   
+	
+// BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+//	$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";		 
+	$data_products .= '<tr>' . "\n" . '  <td class="main_row" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . '</td>'
+							 . "\n" . '  <td class="main_row" align="left" valign="top">' . $order->products[$i]['name'] . '</td>'
+							 . "\n"	. '  <td class="main_row" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['price'], true) . '</td>'
+							 . "\n"	. '  <td class="main_row" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td>
+					   </tr>' . "\n";
+// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation				   
 	if (ACTIVATE_SHIPPING_STATUS == 'true') {
 
+// BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+/*
 		$data_products .= '<tr>
 							<td class="main" align="left" valign="top">
 							<nobr><small>' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '
 							</small><nobr></td>
 							<td class="main" align="right" valign="top">&nbsp;</td></tr>';
+*/
+		$data_products .= '<tr>
+							<td class="main" align="left" valign="top">&nbsp;</td>
+							<td class="main" align="left" valign="top">
+							<nobr><small>' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '
+							</small><nobr></td>
+							<td class="main" align="right" valign="top">&nbsp;</td>
+							<td class="main" align="right" valign="top">&nbsp;</td>
+							</tr>';
+// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
 
 	}
 	if ((isset ($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0)) {
 		for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j++) {
+// BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+/*
 			$data_products .= '<tr>
 								<td class="main" align="left" valign="top">
 								<nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '
 								</i></small><nobr></td>
 								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
+*/
+			$data_products .= '<tr>
+			                    <td class="main" align="left" valign="top">&nbsp;</td>
+								<td class="main" align="left" valign="top">
+								<nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '
+								</i></small><nobr></td>
+								<td class="main" align="right" valign="top">&nbsp;</td>
+								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
+// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
 		}
 	}
 

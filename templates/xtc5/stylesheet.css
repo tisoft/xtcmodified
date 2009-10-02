@@ -1195,3 +1195,8 @@ ol#address_block {
 	margin-left:30px;
 }
 /* EOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses */
+/* BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation */
+td.main_row {
+	border-top: 1px solid #ccc;
+}
+/* EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation */
