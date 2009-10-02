@@ -211,7 +211,7 @@ define('IMAGE_BUTTON_CONTINUE', 'Next');
 define('IMAGE_BUTTON_DELETE', 'Delete');
 define('IMAGE_BUTTON_LOGIN', 'Login');
 define('IMAGE_BUTTON_IN_CART', 'Add to cart'); //changed by electronica 2009-09-06
-define('IMAGE_BUTTON_SEARCH', 'Search');
+define('IMAGE_BUTTON_SEARCH', 'Enter search term');
 define('IMAGE_BUTTON_UPDATE', 'Update');
 define('IMAGE_BUTTON_UPDATE_CART', 'Update shopping cart');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Write evaluation'); //changed by electronica 2009-09-06

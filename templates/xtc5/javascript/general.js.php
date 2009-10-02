@@ -18,3 +18,5 @@
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery.js" type="text/javascript"></script>
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/thickbox.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery.suggest.css" type="text/css" media="screen" />
+<script type="text/javascript" src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery.suggest.js"></script>
