@@ -435,7 +435,7 @@ function progdat02($wasn,$lang=''){
 	switch($wasn){
 		case 1: // im /admin
 			return array(
-			'configuration.php'=>array('conf.png','xt:Commerce','>PayPal</a>'),
+			'configuration.php'=>array('heading_configuration.gif','XT Configuration','>PayPal</a>'),
 			'modules.php'=>array('\'removepaypal\''),
 			'orders.php'=>array('$_POST[\'paypaldelete\']','require(\'../includes/classes/paypal_checkout.php\');','if(defined(\'TABLE_PAYPAL\'))')
 			);
@@ -461,7 +461,7 @@ function progdat02($wasn,$lang=''){
 			return array(
 			'application_top.php'=>array('1','get_magic_quotes_gpc()','get_magic_quotes_gpc()','paypal_checkout.php','DIR_WS_INCLUDES.FILENAME_CART_ACTIONS'),
 			'application_top_callback.php'=>array('DIR_WS_FUNCTIONS.\'sessions.php\''),
-			'cart_actions.php'=>array('if(!is_numeric($_POST[\'products_qty\']))','paypal_express_checkout'),
+			'cart_actions.php'=>array('$cart_quantity = xtc_remove_non_numeric($_POST[\'products_qty\']);','paypal_express_checkout'),
 			'database_tables.php'=>array('TABLE_PAYPAL','paypal','TABLE_PAYPAL_STATUS_HISTORY','paypal_status_history'),
 			'filenames.php'=>array('FILENAME_PAYPAL_CHECKOUT','paypal_checkout.php','FILENAME_PAYPAL','paypal.php')
 			);
