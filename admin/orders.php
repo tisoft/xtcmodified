@@ -2,7 +2,7 @@
 
 /* --------------------------------------------------------------
    $Id: orders.php 1189 2005-08-28 15:27:00Z hhgag $
-
+   $Id: orders.php 467 2007-07-25 15:17:27Z mzanier $
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
@@ -103,6 +103,9 @@ switch ($_GET['action']) {
 
 				$smarty->assign('NAME', $check_status['customers_name']);
 				$smarty->assign('ORDER_NR', $oID);
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+				$smarty->assign('ORDER_ID', $oID);
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 				$smarty->assign('ORDER_LINK', xtc_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id='.$oID, 'SSL'));
 				$smarty->assign('ORDER_DATE', xtc_date_long($check_status['date_purchased']));
 				$smarty->assign('NOTIFY_COMMENTS', $notify_comments);
@@ -128,10 +131,25 @@ switch ($_GET['action']) {
 
 		xtc_redirect(xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('action')).'action=edit'));
 		break;
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+	case 'resendordermail':
+
+		break;
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 	case 'deleteconfirm' :
 		$oID = xtc_db_prepare_input($_GET['oID']);
 
 		xtc_remove_order($oID, $_POST['restock']);
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+		if($_POST['paypaldelete']):
+			$query = xtc_db_query("SELECT * FROM " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oID . "'");
+			while ($values = xtc_db_fetch_array($query)) {
+				xtc_db_query("delete from " . TABLE_PAYPAL_STATUS_HISTORY . " WHERE paypal_ipn_id = '" . $values['paypal_ipn_id'] . "'");
+			}
+			xtc_db_query("delete from " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oID . "'");
+		endif;
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 		xtc_redirect(xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action'))));
 		break;
@@ -437,6 +455,15 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
     }
   }
 // End sofortüberweisung.de
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+	if ($order->info['payment_method']=='paypal_ipn' or $order->info['payment_method']=='paypal_directpayment' or $order->info['payment_method']=='paypal' or $order->info['payment_method']=='paypalexpress') {
+		require('../includes/classes/paypal_checkout.php');
+		require('includes/classes/class.paypal.php');
+		$paypal = new paypal_admin();
+		$paypal->admin_notification((int)$_GET['oID']);
+	}
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 
 	// begin modification for banktransfer

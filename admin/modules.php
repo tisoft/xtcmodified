@@ -19,7 +19,7 @@
 
   // include needed functions (for modules)
 
-	//Eingefï¿½gt um Fehler in CC Modul zu unterdrï¿½cken. 
+	//Eingefügt um Fehler in CC Modul zu unterdrücken. 
    require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
    $xtPrice = new xtcPrice($_SESSION['currency'],''); 
  
@@ -145,9 +145,22 @@
       $module = new $class();
       if ($module->check() > 0) {
         if ($module->sort_order > 0) {
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+/*
           $installed_modules[$module->sort_order] = $file;
         } else {
           $installed_modules[] = $file;
+*/
+if(!$installed_modules[$module->sort_order]):
+
+          $installed_modules[$module->sort_order] = $file;
+else:
+          $installed_modules[] = $file;
+
+endif;
+        } else {
+          $installed_modules[] = $file;
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
         }
       }
 
@@ -225,6 +238,15 @@
   $heading = array();
   $contents = array();
   switch ($_GET['action']) {
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+		case 'removepaypal':
+			$heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
+			$contents = array ('form' => xtc_draw_form('modules', FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=remove'));
+			$contents[] = array ('text' => '<br />'.TEXT_INFO_DELETE_PAYPAL.'<br /><br />'.$mInfo->description);
+			$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.BUTTON_MODULE_REMOVE);
+			$contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" onClick="this.blur();" value="'. BUTTON_START .'"><a class="button" onClick="this.blur();" href="'.xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module']).'">' . BUTTON_CANCEL . '</a>');
+			break;
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
     case 'edit':
       $keys = '';
       reset($mInfo->keys);

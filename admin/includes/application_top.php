@@ -137,6 +137,11 @@
   define('FILENAME_CAMPAIGNS_REPORT','stats_campaigns.php');
   define('FILENAME_XSELL_GROUPS','cross_sell_groups.php');
 
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+  define('FILENAME_PAYPAL','paypal.php');
+  define('FILENAME_PAYPAL_CHECKOUT', 'paypal_checkout.php');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
   // GOOGLE SITEMAP - JUNG GESTALTEN - 07.10.2008
   define('FILENAME_GOOGLE_SITEMAP', '../google_sitemap.php'); 
 
@@ -220,6 +225,22 @@
   define('TABLE_CAMPAIGNS_IP','campaigns_ip');
   
  
+// wegen direktaufruf
+  define('TABLE_BANKTRANSFER','banktransfer');
+  define('TABLE_PAYMENT_MONEYBOOKERS','payment_moneybookers');
+  define('TABLE_PAYMENT_AMONEYBOOKERS_CURRENCIES','payment_AMONEYBOOKERS_currencies');
+  define('TABLE_PAYMENT_AMONEYBOOKERS_COUNTRIES','payment_AMONEYBOOKERS_countries');
+  define('TABLE_PAYMENT_IPAYMENT', 'payment_ipayment');
+  define('TABLE_PAYMENT_IPAYMENT_LOG', 'payment_ipayment_log');
+  define('TABLE_LUUP', 'LUUP');
+
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+  define('TABLE_PAYPAL', 'paypal');
+  define('TABLE_PAYPAL_STATUS_HISTORY', 'paypal_status_history');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
+
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_db_connect.inc.php');
   require_once(DIR_FS_INC . 'xtc_db_close.inc.php');
@@ -266,10 +287,20 @@
 
   // set application wide parameters
   $configuration_query = xtc_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
+/*
   while ($configuration = xtc_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
-
+*/
+  while ($configuration = xtc_db_fetch_array($configuration_query)) {
+    if($configuration['cfgKey']=='DB_CACHE'):
+      define("DB_CACHE", "false");
+    else:
+      define($configuration['cfgKey'], $configuration['cfgValue']);
+    endif;
+  }
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
   define('FILENAME_IMAGEMANIPULATOR',IMAGE_MANIPULATOR);
     function xtDBquery($query) {
        if (DB_CACHE=='true') {
@@ -325,10 +356,10 @@
   if (SESSION_FORCE_COOKIE_USE == 'True') {
     xtc_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, '/', $current_domain);
 
-    //BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
+	//BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
 	//if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
 	if (isset($_COOKIE['cookie_test'])) {
-	//BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
+	//EOF - Hetfield - 2009-08-16 - fix for some admin-login problems
       session_start();
       $session_started = true;
     }

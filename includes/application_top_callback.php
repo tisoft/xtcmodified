@@ -148,6 +148,10 @@ require_once (DIR_FS_INC.'xtc_input_validation.inc.php');
     }
   }
 
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+  require (DIR_WS_FUNCTIONS.'sessions.php');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
     // Include Template Engine
 // BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
 ////  require(DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');

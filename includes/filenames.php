@@ -99,4 +99,9 @@ define('FILENAME_PRINT_ORDER', 'print_order.php');
 define('FILENAME_ERROR_HANDLER', 'error_handler.php');
 define('FILENAME_CONTENT', 'shop_content.php');
 define('FILENAME_BANNER', 'banners.php');
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+define('FILENAME_PAYPAL_CHECKOUT', 'paypal_checkout.php');
+define('FILENAME_PAYPAL','paypal.php');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 ?>

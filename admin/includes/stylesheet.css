@@ -225,3 +225,85 @@ FORM { display: inline; }
 .smallText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
 .main { font-family: Verdana, Arial, sans-serif; font-size: 12px; }
 .errorText { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
+
+/* PayPal NEU */
+/* HEADINGS */
+h1 {color:#000000;font-weight:bold;font-size:22px;margin:20px 0px 15px 0px;padding:0px;width:auto;border-style:solid;border-width:0px 0px 1px 0px;border-color:#000000;}
+h2 {color:#000000; font-weight:bold;font-size:16px;margin:15px 0px 8px 0px;padding:0px;}
+
+/* PARAGRAPH GLOBAL */
+p {margin:8px 0px 8px 0px}
+
+/* ORDER DETAILS */
+table.orderdetails {font-size:11px; background-color:#FFF2CC; border-style: solid; border-width:0px 1px 1px 1px; border-color:#DA9401;}
+table.orderdetails tr td {padding:4px}
+table.orderdetails tr.headerrow td {background-color:#DA9401; color:#FFFFFF; font-weight:bold}
+table.orderdetails tr.headerrow td.left {text-align:left}
+table.orderdetails tr.headerrow td.center {text-align:center}
+table.orderdetails tr.headerrow td.right {text-align:right}
+
+/* ORDER DETAILS CONTENT ROW 1 */
+table.orderdetails tr.contentrow1 td {background-color:#FFF2CC;vertical-align:top}
+table.orderdetails tr.contentrow1 td.quantity {text-align:center}
+table.orderdetails tr.contentrow1 td.quantity input {font-size:11px; padding:2px; border:solid #DA9401 1px;}
+table.orderdetails tr.contentrow1 td.productname {text-align:left}
+
+/* ORDER DETAILS CONTENT ROW 2 */
+table.orderdetails tr.contentrow2 td {background-color:#FFEAAB;vertical-align:top}
+table.orderdetails tr.contentrow2 td.quantity {text-align:center}
+table.orderdetails tr.contentrow2 td.quantity input {font-size:11px; padding:2px; border:solid #DA9401 1px;}
+table.orderdetails tr.contentrow2 td.productname {text-align:left}
+
+/* ORDER DETAILS SINGLE PRICE */
+table.orderdetails tr td.singleprice {text-align:right; white-space:nowrap}
+
+/* ORDER DETAILS TOTAL PRICE PER ITEM */
+table.orderdetails tr td.totalprice {text-align:right; white-space:nowrap}
+
+/* ORDER DETAILS DELETE CHECKBOX */
+table.orderdetails tr td.delete {text-align:center; white-space:nowrap}
+
+/* ORDER DETAILS PRODUCT ATTRIBUTES */
+table.orderdetails tr td.productname table.productattributes {margin-top:3px;}
+table.orderdetails tr td.productname table.productattributes tr td {padding:0px;}
+table.orderdetails tr td.productname table.productattributes tr td.attribute {padding-right:4px;}
+table.orderdetails tr td.productname table.productattributes tr td.value {width:100%;}
+
+/* ORDER DETAILS SUBTOTAL */
+table.orderdetails tr td.subtotal {background-color:#FFEAAB; text-align:right;border-style: solid; border-width:1px 0px 0px 0px; border-color:#DA9401;}
+
+/* COMMENTS ON CHECKOUT CONFIRMATION SITE */
+p.checkoutcomment textarea {width:100%}
+
+/* AGB ON CHECKOUT SITE */
+p.checkoutagb textarea {width:100%}
+
+/* CHECKOUT NAVIGATION */
+ul#checkoutnavigation {}
+ul#checkoutnavigation li {height: 70px; list-style-type:none; float:left; width:185px; margin-right:15px; border: solid 1px; padding:8px}
+ul#checkoutnavigation li.active {background-color: #FFEAAB}
+ul#checkoutnavigation li.active .number {font-size:20px; font-weight:bold}
+ul#checkoutnavigation li.active .title {font-size:14px; font-weight:bold}
+ul#checkoutnavigation li.active .description {font-size:11px}
+
+ul#checkoutnavigation li.inactive {color:#999999; background-color: #EDEDED; border-color:#999999}
+ul#checkoutnavigation li.inactive .number {font-size:20px; font-weight:bold}
+ul#checkoutnavigation li.inactive .title {font-size:14px; font-weight:bold}
+ul#checkoutnavigation li.inactive .description {font-size:11px}
+
+/* ERROR MESSAGES */
+/* p.errormessage {border: solid #ff0000 2px; padding:15px; background-color:#FFD6D6} */
+
+ul.messageStack {border:solid 2px #B22020; background-color:#FFD6D6; padding:8px}
+ul.messageStack li {}
+ul.messageStack li.messageStackError {list-style:none; padding:5px 0px 2px 20px; background-image:url(../../images/icons/exclamation.png); background-repeat:no-repeat; background-position:0px 4px}
+ul.messageStack li.messageStackWarning {list-style:none; padding:5px 0px 2px 20px; background-image:url(../../images/icons/icon_alert.gif); background-repeat:no-repeat; background-position:0px 4px; background-color:#FFF2CD}
+ul.messageStack li.messageStackSuccess {list-style:none; padding:5px 0px 2px 20px; background-image:url(../../images/icons/icon_accept.gif); background-repeat:no-repeat; background-position:0px 4px; background-color:#66FF66}
+
+
+/* SUCCESS MESSAGE */
+/* .messageStackSuccess {padding:4px; background-color:#66FF66} */
+
+/* FOOTER */
+.footer {clear:both; text-align:center; font-size:11px; color:#666666; background-color:#E2E2E2; padding: 8px; margin-bottom:5px;}
+.footer a {color:#666666; text-decoration:underline}

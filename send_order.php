@@ -27,6 +27,17 @@ if ($_SESSION['customer_id'] == $order_check['customers_id']) {
 
 	$order = new order($insert_id);
 
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+	if ($_SESSION['paypal_express_new_customer'] == 'true' && $_SESSION['ACCOUNT_PASSWORD']== 'true') {
+		require_once (DIR_FS_INC.'xtc_create_password.inc.php');
+		require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
+		$password_encrypted =  xtc_RandomString(10);
+		$password = xtc_encrypt_password($password_encrypted);
+		xtc_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . $password . "' where customers_id = '" . (int) $_SESSION['customer_id'] . "'");
+		$smarty->assign('NEW_PASSWORD', $password_encrypted);
+	}
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
 	$smarty->assign('address_label_customer', xtc_address_format($order->customer['format_id'], $order->customer, 1, '', '<br />'));
 	$smarty->assign('address_label_shipping', xtc_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br />'));
 	if ($_SESSION['credit_covers'] != '1') {

@@ -408,4 +408,8 @@ define('TEXT_REFERER','Referer: ');
 // BOF - Tomcraft - 2009-06-17 Google Sitemap
 define('BOX_GOOGLE_SITEMAP', 'Google Sitemap');
 // EOF - Tomcraft - 2009-06-17 Google Sitemap
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+define('BOX_PAYPAL','PayPal');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 ?>

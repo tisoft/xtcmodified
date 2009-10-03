@@ -83,4 +83,9 @@
   define('TABLE_COUPONS_DESCRIPTION', 'coupons_description');
   define('TABLE_BLACKLIST', 'card_blacklist');
   define('TABLE_CAMPAIGNS_IP','campaigns_ip');
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+  define('TABLE_PAYPAL', 'paypal');
+  define('TABLE_PAYPAL_STATUS_HISTORY', 'paypal_status_history');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 ?>

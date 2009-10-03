@@ -584,4 +584,45 @@ define('REVOCATION_ID_TITLE','Revocation ID');
 define('REVOCATION_ID_DESC','Content ID of Revocation content');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_TITLE','Display right of revocation?');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_DESC','Display right of revocation on checkout_confirmation?');
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+define('PAYPAL_MODE_TITLE','PayPal-Modus:');
+define('PAYPAL_MODE_DESC','Live (normal) or Test (Sandbox)');
+define('PAYPAL_API_USER_TITLE','PayPal-API-User (Live)');
+define('PAYPAL_API_USER_DESC','register here the user name.');
+define('PAYPAL_API_PWD_TITLE','PayPal-API-Password (Live)');
+define('PAYPAL_API_PWD_DESC','register here the password.');
+define('PAYPAL_API_SIGNATURE_TITLE','PayPal-API-Signatur (Live)');
+define('PAYPAL_API_SIGNATURE_DESC','register here the API Signatur.');
+define('PAYPAL_API_SANDBOX_USER_TITLE','PayPal-API-User (Sandbox)');
+define('PAYPAL_API_SANDBOX_USER_DESC','register here the user name.');
+define('PAYPAL_API_SANDBOX_PWD_TITLE','PayPal-API-Password (Sandbox)');
+define('PAYPAL_API_SANDBOX_PWD_DESC','register here the password.');
+define('PAYPAL_API_SANDBOX_SIGNATURE_TITLE','PayPal-API-Signatur (Sandbox)');
+define('PAYPAL_API_SANDBOX_SIGNATURE_DESC','register here the API Signatur.');
+define('PAYPAL_API_VERSION_TITLE','PayPal-API-Version');
+define('PAYPAL_API_VERSION_DESC','register here the PayPal API Version ein - z.B.: 57.0');
+define('PAYPAL_API_IMAGE_TITLE','PayPal Shop-Logo');
+define('PAYPAL_API_IMAGE_DESC','register here the Logo file, which is to be indicated with PayPal.<br />Note: Becomes only if the shop with SSL works.<br />The picture may be high max. 750px broad and 90px.<br />The file is called out: '.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
+define('PAYPAL_API_CO_BACK_TITLE','PayPal background color');
+define('PAYPAL_API_CO_BACK_DESC','register here the background colour, which is to be indicated with PayPal. e.g. FEE8B9');
+define('PAYPAL_API_CO_BORD_TITLE','PayPal border color');
+define('PAYPAL_API_CO_BORD_DESC','register here the border color, which is to be indicated with PayPal. e.g. E4C558');
+define('PAYPAL_ERROR_DEBUG_TITLE','PayPal error announcement');
+define('PAYPAL_ERROR_DEBUG_DESC','Is the original PayPal error to be indicated? Normal=false');
+define('PAYPAL_ORDER_STATUS_TMP_ID_TITLE','Order status "cancel"');
+define('PAYPAL_ORDER_STATUS_TMP_ID_DESC','select the order status for broken off action (e.g. PayPal abort)');
+define('PAYPAL_ORDER_STATUS_SUCCESS_ID_TITLE','order status OK');
+define('PAYPAL_ORDER_STATUS_SUCCESS_ID_DESC','select the order status for a successful transaction (e.g. open PP paid)');
+define('PAYPAL_ORDER_STATUS_PENDING_ID_TITLE','order status "pending"');
+define('PAYPAL_ORDER_STATUS_PENDING_ID_DESC','select the order status for a transaction, those not yet of PayPal one worked on (e.g. open PP waiting)');
+define('PAYPAL_ORDER_STATUS_REJECTED_ID_TITLE',' order status "rejected"');
+define('PAYPAL_ORDER_STATUS_REJECTED_ID_DESC','select the order status for a rejected transaction (e.g. PayPal rejected)');
+define('PAYPAL_COUNTRY_MODE_TITLE','PayPal-country mode');
+define('PAYPAL_COUNTRY_MODE_DESC','select here the attitude for the country mode. Different functions of PayPal are possible only in UK (e.g. DirectPayment)');
+define('PAYPAL_EXPRESS_ADDRESS_CHANGE_TITLE','PayPal-Express-Address data');
+define('PAYPAL_EXPRESS_ADDRESS_CHANGE_DESC','Permits changing address data conveyed by PayPal.');
+define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_TITLE','Ship-to-address overwrite');
+define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Permits changing address data conveyed by PayPal (existing account)');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 ?>

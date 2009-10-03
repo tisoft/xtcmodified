@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: configuration.php 1125 2005-07-28 09:59:44Z novalis $   
+   $Id: configuration.php 229 2007-03-06 19:46:21Z mzanier $   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -67,14 +67,12 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type"
-	content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0"
-	leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -83,8 +81,7 @@
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
 	<tr>
 		<td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top">
-		<table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1"
-			cellpadding="1" class="columnLeft">
+		<table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 			<!-- left_navigation //-->
 			<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 			<!-- left_navigation_eof //-->
@@ -107,32 +104,42 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="border-top: 3px solid; border-color: #cccccc;"
-					class="main">
+				<td style="border-top: 3px solid; border-color: #cccccc;" class="main">
 				<table border="0" width="100%" cellspacing="0" cellpadding="0">
          <?php
          	switch ($_GET['gID']) {
          		case 21:
          			echo AFTERBUY_URL;
+         		case 19:
+            // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+         		case 25:
+            // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
             //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
          		case 31:
             //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
-         		case 19:
+  
+
+
             //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4        		
          			echo '<table class="infoBoxHeading" width="100%">
             				<tr>
                 			<td width="150" align="center">
-                			<a href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=31', 'NONSSL').'">Moneybookers.com</a>
+                			<a class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=21', 'NONSSL').'">Afterbuy</a>
                 			</td>
                 			<td width="1">|
                 			</td>
                 			<td width="150" align="center">
-                			<a href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=21', 'NONSSL').'">Afterbuy</a>
+                			<a class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=19', 'NONSSL').'">Google Conversion</a>
                 			</td>
                 			<td width="1">|
                 			</td>
                 			<td width="150" align="center">
-                			<a href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=19', 'NONSSL').'">Google Conversion</a>
+                			<a class="button" class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=25', 'NONSSL').'">PayPal</a>
+                			</td>
+                			<td width="1">|
+                			</td>
+                			<td width="150" align="center">
+                			<a class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=31', 'NONSSL').'">Moneybookers.com</a>
                 			</td>
                 			<td width="1">|
                 			</td>
@@ -141,7 +148,7 @@
             				</tr>
         					</table>';
 						if ($_GET['gID']=='31') echo MB_INFO;
-//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4        		
+//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers & paypal payment module version 2.4        		
          			break;
          	}
          	?> 

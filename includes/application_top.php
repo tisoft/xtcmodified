@@ -79,7 +79,7 @@ define('SQL_CACHEDIR', DIR_FS_CATALOG.'cache/');
 // Be careful when editing them.
 //
 // Set the length of the redeem code, the longer the more secure
-define('SECURITY_CODE_LENGTH', '10');
+//define('SECURITY_CODE_LENGTH', '10');
 //
 // The settings below determine whether a new customer receives an incentive when they first signup
 //
@@ -179,6 +179,10 @@ $configuration_query = xtc_db_query('select configuration_key as cfgKey, configu
 while ($configuration = xtc_db_fetch_array($configuration_query)) {
 	define($configuration['cfgKey'], $configuration['cfgValue']);
 }
+// Set the length of the redeem code, the longer the more secure
+// Kommt eigentlich schon aus der Table configuration
+if(SECURITY_CODE_LENGTH=='')
+  define('SECURITY_CODE_LENGTH', '10');
 
 require_once (DIR_WS_CLASSES.'class.phpmailer.php');
 if (EMAIL_TRANSPORT == 'smtp')
@@ -433,6 +437,11 @@ if (TRACKING_ECONDA_ACTIVE=='true') {
 	require(DIR_WS_INCLUDES . 'econda/class.econda304SP2.php');
 	$econda = new econda();
 }
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+require_once (DIR_WS_CLASSES.'paypal_checkout.php');
+$o_paypal = new paypal_checkout();
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 require (DIR_WS_INCLUDES.FILENAME_CART_ACTIONS);
 // create the shopping cart & fix the cart if necesary

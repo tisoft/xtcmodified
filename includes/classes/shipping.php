@@ -96,7 +96,12 @@
         $size = sizeof($include_quotes);
         for ($i=0; $i<$size; $i++) {
           $quotes = $GLOBALS[$include_quotes[$i]]->quote($method);
-          if (is_array($quotes)) $quotes_array[] = $quotes;
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+//          if (is_array($quotes)) $quotes_array[] = $quotes;
+          if (!isset ($quotes['error'])):
+            if (is_array($quotes)) $quotes_array[] = $quotes;
+          endif;
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
         }
       }
 
@@ -115,7 +120,10 @@
             $quotes = $GLOBALS[$class]->quotes;
             $size = sizeof($quotes['methods']);
             for ($i=0; $i<$size; $i++) {
-            if(array_key_exists("cost",$quotes['methods'][$i])) {
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+//            if(array_key_exists("cost",$quotes['methods'][$i])) {
+              if(array_key_exists("cost",$quotes['methods'][$i]) AND !isset ($quotes['error'][$i])) {
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
                 $rates[] = array('id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],
                                  'title' => $quotes['module'] . ' (' . $quotes['methods'][$i]['title'] . ')',
                                  'cost' => $quotes['methods'][$i]['cost']);

@@ -491,4 +491,16 @@ define('MB_TEXT_MBERRTXT', 'Status:');
 define('MB_ERROR_NO_MERCHANT','Es Existiert kein Moneybookers.com Account mit dieser E-Mail Adresse!');
 define('MB_MERCHANT_OK','Moneybookers.com Account korrekt, H&auml;ndler ID %s von Moneybookers.com empfangen und gespeichert.');
 define('MB_INFO','<img src="../images/icons/moneybookers/MBbanner.jpg" /><br /><br />xt:Commerce-Kunden k&ouml;nnen jetzt Kreditkarten, Lastschrift, Sofort&uuml;berweisung, Giropay sowie alle weiteren wichtigen lokalen Bezahloptionen direkt akzeptieren mit einer simplen Aktivierung im Shop. Mit Moneybookers als All-in-One-L&ouml;sung brauchen Sie dabei keine Einzelvertr&auml;ge pro Zahlart abzuschliesen. Sie brauchen lediglich einen <a href="https://www.moneybookers.com/app/register.pl" target="_blank"><b>kostenlosen Moneybookers Account</b></a> um alle wichtigen Bezahloptionen in Ihrem Shop zu akzeptieren. Zus&auml;tzliche Bezahlarten sind ohne Mehrkosten und das Modul beinhaltet <b>keine monatliche Fixkosten oder Installationskosten</b>.<br /><br /><b>Ihre Vorteile:</b><br />-Die Akzeptanz der wichtigsten Bezahloptionensteigern Ihren Umsatz<br />-Ein Anbieter reduziert Ihre Aufw&auml;nde und Ihre Kosten<br />-Ihr Kunde bezahlt direkt und ohne Registrierungsprozedur<br />-Ein-Klick-Aktivierung und Integration<br />-Sehr attraktive <a href="http://www.moneybookers.com/app/help.pl?s=m_fees" target="_blank"><b>Konditionen</b></a> <br />-sofortige Zahlungsbest&auml;tigung und Pr&uuml;fung der Kundendaten<br />-Bezahlabwicklung auch im Ausland und ohne Mehrkosten<br />-6 Millionen Kunden weltweit vertrauen Moneybookers');
+
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+define('NAVBAR_TITLE_PAYPAL_CHECKOUT','PayPal-Checkout');
+define('PAYPAL_ERROR','PayPal Abbruch');
+define('PAYPAL_NOT_AVIABLE','PayPal Express steht zur Zeit leider nicht zur Verfügung.<br />Bitte wählen Sie eine andere Zahlungsart<br />oder versuchen Sie es später noch einmal.<br />Danke für Ihr Verständnis.<br />');
+define('PAYPAL_FEHLER','PayPal hat einen Fehler bei der Abwicklung gemeldet.<br />Ihre Bestellung ist gespeichert, wird aber nicht ausgeführt.<br />Bitte geben Sie eine neue Bestellung ein.<br />Danke für Ihr Verständnis.<br />');
+define('PAYPAL_WARTEN','PayPal hat einen Fehler bei der Abwicklung gemeldet.<br />Sie müssen noch einmal zu PayPal um die Bestellung zu bezahlen.<br />Unten sehen Sie die gespeicherte Bestellung.<br />Danke für Ihr Verständnis.<br />Bitte drücken Sie erneut den Button PayPal Express.<br />');
+define('PAYPAL_NEUBUTTON','Bitte erneut drücken um die Bestellung zu bezahlen.<br />Jede andere Taste führt zum Abbruch der Bestellung.');
+define('ERROR_ADDRESS_NOT_ACCEPTED', '* Solange Sie Ihre Rechnungs- und Versandadresse nicht akzeptieren,\n k&ouml;nnen wir Ihre Bestellung bedauerlicherweise nicht entgegennehmen!\n\n');
+define('PAYPAL_GS','Gutschein/Coupon');
+define('PAYPAL_TAX','MwSt.');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 ?>
