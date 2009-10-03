@@ -862,6 +862,22 @@ elseif ($_GET['action'] == 'custom_action') {
 			$contents = array ('form' => xtc_draw_form('orders', FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=deleteconfirm'));
 			$contents[] = array ('text' => TEXT_INFO_DELETE_INTRO.'<br /><br /><b>'.$cInfo->customers_firstname.' '.$cInfo->customers_lastname.'</b>');
 			$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('restock').' '.TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+			if(defined('TABLE_PAYPAL')):
+				$db_installed = false;
+				$tables = mysql_list_tables(DB_DATABASE);
+				while ($row = mysql_fetch_row($tables)) {
+					if ($row[0] == TABLE_PAYPAL) $db_installed=true;
+				}
+				if ($db_installed==true):
+					$query = "SELECT * FROM " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oInfo->orders_id . "'";
+					$query = xtc_db_query($query);
+					if(xtc_db_num_rows($query)>0):
+						$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.TEXT_INFO_PAYPAL_DELETE);
+					endif;
+				endif;
+			endif;
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 			$contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" value="'. BUTTON_DELETE .'"><a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id).'">' . BUTTON_CANCEL . '</a>');
 			break;
 		default :
