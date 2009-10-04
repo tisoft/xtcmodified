@@ -11,7 +11,7 @@ Your email address: {$EMAIL}
 
 Dear {$NAME},
 
-This is just a standard text
+thank you for your order.
 
 {$PAYMENT_INFO_TXT}
 
