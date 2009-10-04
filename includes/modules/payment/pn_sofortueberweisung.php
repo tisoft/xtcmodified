@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.0 - 01.10.2009
+ * @version sofortüberweisung.de 3.0.1 - 02.10.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -230,7 +230,7 @@ class pn_sofortueberweisung {
 		} else {
 			$url = str_replace('http://', '', $url);
 		}
-		$parameter['user_variable_4'] = $url . '?' . session_name() . '=' . session_id();
+		$parameter['user_variable_4'] = $url;
 		$parameter['user_variable_5'] = $_SESSION['cart']->cartID;
 
 		if (strlen(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD) > 0) {

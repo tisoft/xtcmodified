@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.0 - 01.10.2009
+ * @version sofortüberweisung.de 3.0.1 - 02.10.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -155,15 +155,6 @@ if (xtc_db_num_rows($order_query) < 1) {
 		xtc_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
 		xtc_db_query("update " . TABLE_ORDERS . " set orders_status = '" . $order_status . "', last_modified = now() where orders_id = '" . (int) $order_id . "'");
 
-		/* Clear our session data in case redirect to checkout_process fails
-		 * Session ID as an argument of the notification URL is nesseccary
-		 * Prevents removal of earlier temp order when user performs a new order
-		 * Happens when order_status = order_temp_status
-		 */
-		if (isset($_SESSION)) {
-			if (isset($_SESSION['cart_pn_sofortueberweisung_ID'])) unset($_SESSION['cart_pn_sofortueberweisung_ID']);
-			if (isset($_SESSION['sofortueberweisung_total'])) unset($_SESSION['sofortueberweisung_total']);
-		}
 	} else {
 		print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_UNEXPECTED_STATUS);
 	}
