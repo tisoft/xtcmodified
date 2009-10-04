@@ -56,7 +56,7 @@ if ((($_GET['action'] == 'edit') || ($_GET['action'] == 'update_order')) && ($or
 }
 
   $lang_query = xtc_db_query("select languages_id from " . TABLE_LANGUAGES . " where directory = '" . $order->info['language'] . "'");
-  $lang = xtc_db_fetch_array($lang_query);  
+  $lang = xtc_db_fetch_array($lang_query);
   $lang=$lang['languages_id'];
 
 if (!isset($lang)) $lang=$_SESSION['languages_id'];
@@ -182,7 +182,7 @@ switch ($_GET['action']) {
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
@@ -212,11 +212,11 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
       <tr>
       <td width="100%">
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr> 
+  <tr>
     <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_customers.gif'); ?></td>
     <td class="pageHeading"><?php echo HEADING_TITLE . ' Nr : ' . $oID . ' - ' . $order->info['date_purchased'] ; ?></td>
   </tr>
-  <tr> 
+  <tr>
     <td class="main" valign="top">XT Customers</td>
   </tr>
 </table>
@@ -579,7 +579,7 @@ $payment->admin_order($_GET['oID']);
 <?php
 
 	if ($order->products[0]['allow_tax'] == 1) {
-?>  
+?>
             <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
             <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
 <?php
@@ -748,10 +748,10 @@ elseif ($_GET['action'] == 'custom_action') {
 ?>
       <tr>
         <td width="100%">
-        
+
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr> 
+  <tr>
     <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_customers.gif'); ?></td>
     <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
     <td class="pageHeading" align="right">
@@ -760,17 +760,17 @@ elseif ($_GET['action'] == 'custom_action') {
               </form>
 </td>
   </tr>
-  <tr> 
+  <tr>
     <td class="main" valign="top">XT Customers</td>
     <td class="main" valign="top" align="right"><?php echo xtc_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
                 <?php echo HEADING_TITLE_STATUS . ' ' . xtc_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)),array(array('id' => '0', 'text' => TEXT_VALIDATING)), $orders_statuses), '', 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); ?>
               </form></td>
   </tr>
-</table> 
-        
+</table>
 
-        
-        
+
+
+
         </td>
       </tr>
       <tr>
@@ -790,9 +790,9 @@ elseif ($_GET['action'] == 'custom_action') {
               </tr>
 <?php
 
-	if ($_GET['cID']) { 
-   $cID = xtc_db_prepare_input($_GET['cID']); 
-   $orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.customers_id = '".xtc_db_input($cID)."' and ((o.orders_status = s.orders_status_id) or (o.orders_status = '0' and  s.orders_status_id = '1')) and ot.class = 'ot_total' and s.language_id = '".$_SESSION['languages_id']."' order by orders_id DESC";
+	if ($_GET['cID']) {
+		$cID = xtc_db_prepare_input($_GET['cID']);
+		$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.customers_id = '".xtc_db_input($cID)."' and ((o.orders_status = s.orders_status_id) or (o.orders_status = '0' and  s.orders_status_id = '1')) and ot.class = 'ot_total' and s.language_id = '".$_SESSION['languages_id']."' order by orders_id DESC";
 	}
 	elseif ($_GET['status']=='0') {
 			$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id) where o.orders_status = '0' and ot.class = 'ot_total' order by o.orders_id DESC";
