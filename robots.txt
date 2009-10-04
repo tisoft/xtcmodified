@@ -56,9 +56,6 @@ Disallow: /product_reviews_write.php
 Disallow: /reviews.php
 Disallow: /send_order.php
 Disallow: /shopping_cart.php
-Disallow: /sofortueberweisung_abort.php
-Disallow: /sofortueberweisung_checkout_success.php
-Disallow: /sofortueberweisung_tracking.php
 Disallow: /ssl_check.php
 Disallow: /wpcallback.php
 Disallow: /wsdl_iclear_order.php
