@@ -69,7 +69,7 @@ if (isset ($_GET['action'])) {
 		case 'remove_product':
 			$prd_id = preg_replace('/[^0-9\{\}]/', '', $_GET['prd_id']);
 			$_SESSION['cart'] -> remove($prd_id);
-			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters)));
+			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'SSL'));
 			break;
     //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
 	
@@ -103,7 +103,7 @@ if (isset ($_GET['action'])) {
 					unset($cart_quantity);
 				}
 			}
-			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters)));
+			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'SSL'));
 			break;
 			// customer adds a product from the products page
 		case 'add_product' :
@@ -231,7 +231,7 @@ if (isset ($_GET['action'])) {
 					$_SESSION['cart']->add_cart((int) $_GET['pid'], $_SESSION['cart']->get_quantity((int) $_GET['pid']) + 1);
 				}
 			}
-			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters)));
+			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'SSL'));
 			break;
 // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 		case 'paypal_express_checkout' :
