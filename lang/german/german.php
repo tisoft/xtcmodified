@@ -441,7 +441,7 @@ define('MSRP','UVP');
 define('YOUR_PRICE','Ihr Preis ');
 define('ONLY',' Nur ');
 define('FROM','Ab ');
-define('YOU_SAVE','Sie Sparen ');
+define('YOU_SAVE','Sie sparen ');
 define('INSTEAD','Statt ');
 define('TXT_PER',' pro ');
 define('TAX_INFO_INCL','inkl. %s MwSt.');
