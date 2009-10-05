@@ -62,7 +62,7 @@ if (isset ($_SESSION['customer_id'])) {
 	$gift_smarty->assign('C_FLAG', 'true');
 }
 $gift_smarty->assign('LINK_ACCOUNT', xtc_href_link(FILENAME_CREATE_ACCOUNT));
-$gift_smarty->assign('FORM_ACTION', xtc_draw_form('gift_coupon', xtc_href_link(FILENAME_SHOPPING_CART, 'action=check_gift', 'NONSSL')));
+$gift_smarty->assign('FORM_ACTION', xtc_draw_form('gift_coupon', xtc_href_link(FILENAME_SHOPPING_CART, 'action=check_gift', 'SSL')));
 $gift_smarty->assign('INPUT_CODE', xtc_draw_input_field('gv_redeem_code'));
 $gift_smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_redeem.gif', IMAGE_REDEEM_GIFT));
 $gift_smarty->assign('language', $_SESSION['language']);
