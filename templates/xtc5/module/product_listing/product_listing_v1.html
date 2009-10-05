@@ -5,10 +5,9 @@
   <h1>{$CATEGORIES_NAME}</h1>
 {/if}
 {if $CATEGORIES_DESCRIPTION || $CATEGORIES_IMAGE || $MANUFACTURER_DROPDOWN}
-		{if $CATEGORIES_IMAGE}<img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME}" class="imgLeft" />{/if}
-<br />
-		{if $CATEGORIES_DESCRIPTION}{$CATEGORIES_DESCRIPTION}{/if}<br />
-		{if $MANUFACTURER_DROPDOWN}{$MANUFACTURER_DROPDOWN}{/if}<br />
+		{if $CATEGORIES_IMAGE}<img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME}" class="imgLeft" /><br />{/if}
+		{if $CATEGORIES_DESCRIPTION}{$CATEGORIES_DESCRIPTION}<br />{/if}
+		{if $MANUFACTURER_DROPDOWN}{$MANUFACTURER_DROPDOWN}<br />{/if}
 {/if}
 <div class="hrproductpreview"></div>
 {foreach name=aussen item=module_data from=$module_content}
