@@ -1,14 +1,16 @@
 {config_load file="$language/lang_$language.conf" section="index"}
 {if $CATEGORIES_HEADING_TITLE}
-	<h1>{$CATEGORIES_HEADING_TITLE}</h1>
-{else}
-	<h1>{$CATEGORIES_NAME}</h1>
+  <h1>{$CATEGORIES_HEADING_TITLE}</h1>
+  {else}
+  <h1>{$CATEGORIES_NAME}</h1>
 {/if}
-{if $CATEGORIES_DESCRIPTION}
-<p>{$CATEGORIES_DESCRIPTION}</p>
+{if $CATEGORIES_DESCRIPTION || $CATEGORIES_IMAGE || $MANUFACTURER_DROPDOWN}
+		{if $CATEGORIES_IMAGE}<img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME}" class="imgLeft" />{/if}
+<br />
+		{if $CATEGORIES_DESCRIPTION}{$CATEGORIES_DESCRIPTION}{/if}<br />
+		{if $MANUFACTURER_DROPDOWN}{$MANUFACTURER_DROPDOWN}{/if}<br />
+{/if}
 <div class="hrproductpreview"></div>
-{/if}
-{if $MANUFACTURER_DROPDOWN}{$MANUFACTURER_DROPDOWN}{/if}
 {foreach name=aussen item=module_data from=$module_content}
 <table class="productPreview" width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
