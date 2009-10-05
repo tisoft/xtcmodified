@@ -29,8 +29,12 @@
     }
 
     $wo_session_id = xtc_session_id();
-    $wo_ip_address = getenv('REMOTE_ADDR');
-    $wo_last_page_url = addslashes(getenv('REQUEST_URI'));
+    //BOF - Dokuman - 2009-10-05 - Who is online doesn't show any IP addresses and URLs
+    //$wo_ip_address = getenv('REMOTE_ADDR');
+    //$wo_last_page_url = addslashes(getenv('REQUEST_URI'));
+    $wo_ip_address = $_SERVER['REMOTE_ADDR'];
+    $wo_last_page_url = addslashes($_SERVER['REQUEST_URI']);
+    //EOF - Dokuman - 2009-10-05 - Who is online doesn't show any IP addresses and URLs
 
     $current_time = time();
     $xx_mins_ago = ($current_time - 900);
