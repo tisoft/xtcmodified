@@ -68,7 +68,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 <br /><br />
 
 
-<!-- W�hrungen Anfang //-->
+<!-- Währungen Anfang //-->
 
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <tr class="dataTableHeadingRow">
@@ -109,7 +109,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 </form>
 </table>
 
-<!-- W�hrungen Ende //-->
+<!-- Währungen Ende //-->
 
 
 <br /><br />

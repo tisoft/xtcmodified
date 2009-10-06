@@ -36,7 +36,7 @@ require_once (DIR_FS_INC.'xtc_get_tax_rate.inc.php');
 require_once (DIR_FS_INC.'xtc_oe_get_options_name.inc.php');
 require_once (DIR_FS_INC.'xtc_oe_get_options_values_name.inc.php');
 require_once (DIR_FS_INC.'xtc_oe_customer_infos.inc.php');
-// Ben�tigte Funktionen und Klassen Ende
+// Benötigte Funktionen und Klassen Ende
 
 // Adressbearbeitung Anfang
 if ($_GET['action'] == "address_edit") {
@@ -283,7 +283,7 @@ if ($_GET['action'] == "lang_edit") {
 	// Daten für Sprache wählen
 	$lang_query = xtc_db_query("select languages_id, name, directory from ".TABLE_LANGUAGES." where languages_id = '".$_POST['lang']."'");
 	$lang = xtc_db_fetch_array($lang_query);
-	// Daten für Sprache w�hlen Ende	
+	// Daten für Sprache wählen Ende	
 
 	// Produkte
 	$order_products_query = xtc_db_query("select orders_products_id , products_id from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".$_POST['oID']."'");
@@ -487,7 +487,7 @@ if ($_GET['action'] == "save_order") {
 	$subtotal_final = $subtotal['value'];
 	$subtotal_text = $xtPrice->xtcFormat($subtotal_final, true);
 	xtc_db_query("update ".TABLE_ORDERS_TOTAL." set text = '".$subtotal_text."', value = '".$subtotal_final."' where orders_id = '".$_POST['oID']."' and class = 'ot_total'");
-	// Errechne neue Zwischensumme f�r Artikel Ende
+	// Errechne neue Zwischensumme für Artikel Ende
 
 	// Errechne neue MwSt. für die Bestellung Anfang
 	// Produkte
