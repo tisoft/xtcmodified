@@ -130,7 +130,7 @@ switch($_GET['view']) {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
 	<tr>
-		<td width="<?php echo BOX_WIDTH; ?>" valign="top">
+		<td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top">
 			<table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
