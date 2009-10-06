@@ -5,9 +5,8 @@
 <div id="productinfowrap">
 <table><tr><td style="padding-right:20px;">
 	{if $PRODUCTS_IMAGE!=''}
-	
-		<a title="{$PRODUCTS_NAME}" href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}"><img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" class="productimage" /></a>
-		{if $PRODUCTS_POPUP_LINK!=''}<div class="hrlightgrey"></div><a href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}">{#text_zoom#}</a>{/if}			
+
+		<a title="{$PRODUCTS_NAME}" href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}"><img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" class="productimage" />{if $PRODUCTS_POPUP_LINK!=''}<div class="hrlightgrey"></div>{#text_zoom#}{/if}</a>
 
 	{/if}</td><td>
   	<div id="productinfopricewithimages">
