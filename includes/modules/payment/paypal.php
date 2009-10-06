@@ -285,8 +285,12 @@ class paypal {
 		else:
 			xtc_db_query("alter table ".TABLE_PAYPAL_STATUS_HISTORY." MODIFY ".str_replace(', ',', MODIFY ',$m_fields));
 		endif;
+//BOF - Dokuman - 2009-10-04 - Disable CRC-Check on paypal edited files
+		/*
 		if(file_exists('module_paypal_install.php'))
 			xtc_redirect(xtc_href_link('module_paypal_install.php', 'set=' . $_GET['set'] . '&module=' . $this->code.'&ppauto=1'));
+		*/
+//EOF - Dokuman - 2009-10-04 - Disable CRC-Check on paypal edited files		
 	}
 /**************************************************************/
 	function remove($pre_inst=0) {
