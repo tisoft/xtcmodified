@@ -149,7 +149,7 @@ define('BOX_GV_ADMIN_MAIL', 'Gutschein eMail');
 define('BOX_GV_ADMIN_SENT', 'Gutscheine versandt');
 define('BOX_HEADING_COUPON_ADMIN','Rabattkupons');
 define('BOX_COUPON_ADMIN','Kupon Admin');
-define('BOX_TOOLS_BLACKLIST','-CC-Blacklist');
+define('BOX_TOOLS_BLACKLIST','Kreditkarten-Blacklist');
 define('BOX_IMPORT','Import/Export');
 define('BOX_PRODUCTS_VPE','Verpackungseinheit');
 define('BOX_CAMPAIGNS_REPORT','Kampagnen Report');
