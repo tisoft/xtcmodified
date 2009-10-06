@@ -1,4 +1,9 @@
 <?php
+/*
+ * export module for php version 4.x
+ */
+
+
 /* -----------------------------------------------------------------------------------------
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -21,13 +26,17 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
 // module display config
 define('MODULE_IDEALO_TEXT_DESCRIPTION', 'Export - Idealo (Semikolon getrennt)');
-define('MODULE_IDEALO_TEXT_TITLE', 'Idealo - CSV (ab PHP 5.x!)');
+define('MODULE_IDEALO_TEXT_TITLE', 'Idealo - CSV');
 define('MODULE_IDEALO_FILE_TITLE' , '<hr noshade>Dateiname');
 define('MODULE_IDEALO_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
 define('FIELDSEPARATOR', '<b>Spaltentrenner</b>');
 define('FIELDSEPARATOR_HINT', 'Beispiel:<br>;&nbsp;&nbsp;&nbsp;(Semikolon)<br>,&nbsp;&nbsp;&nbsp;(Komma)<br>\t&nbsp;&nbsp;(Tab)<br>...<br>Wird das Feld leer gelassen, wird Tab als Trenner genutzt.');
 define('QUOTING','<b>Quoting</b>');
 define('QUOTING_HINT','Beispiel:<br>"&nbsp;&nbsp;&nbsp;(Anf&uuml;hrungszeichen)<br>\'&nbsp;&nbsp;&nbsp;(Hochkomma)<br>#&nbsp;&nbsp;(Raute)<br>... <br>Wird das Feld leer gelassen, wird nicht gequotet.');
+define('SHIPPINGCOMMENT', '<b>Versandkommentar</b>');
+define('SHIPPINGCOMMENT_HINT', 'Max. 100 Zeichen');
+define('FREESHIPPINGCOMMENT', '<b>Kommentar zur Versankosten-Grenze</b>');
+define('FREESHIPPINGCOMMENT_HINT', 'Wird bei allen Angeboten angezeigt, die unter der Versandkostenfreiheits-Grenze liegen.<br>Max. 100 Zeichen');
 define('LANGUAGE', '<b>Export f&uuml;r</b>');
 define('LANGUAGE_HINT', 'Beispiel:<br>DE (Deutschland)<br>AT (&Ouml;sterreich)<br>...<br>Es sollten(!) die Sprachen genutzt werden, die auch bei den Versandkosten etc. korrekt hinterlegt sind.<br>Wird das Feld leer gelassen, wird \'DE\' benutzt.');
 define('MODULE_IDEALO_STATUS_DESC','Modulstatus');
@@ -46,6 +55,7 @@ define('CAMPAIGNS','<hr noshade><b>Kampagnen:</b>');
 define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
 define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 define('DISPLAY_PRICE_WITH_TAX','true');
+define('COMMENTLENGTH', 100);
 
 // check admin file config
 // is a specific separator set?
@@ -71,31 +81,87 @@ if( isset($_POST['language_input']) && $_POST['language_input'] != '' ) {
 	// if nothing is entered by the admin: $quoting is disabled
 	$country_sc = "DE";
 }
+
+// check if freeshippinglimit_input is already in db
+$shipping_input_query = xtc_db_query("select configuration_value from  " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_IDEALO_SHIPPINGCOMMENT' LIMIT 1");
+$shipping_comment_db = xtc_db_fetch_array($shipping_input_query); // false if 'MODULE_IDEALO_SHIPPINGCOMMENT' doesn't exist
+
+// is shipping comment set?
+// do not exceed COMMENTLENGTH
+if( isset( $_POST['shippingcomment_input']) && ( strlen($_POST['shippingcomment_input']) <= COMMENTLENGTH ) ) {
+
+	// does a dataset exist?
+	if( $shipping_comment_db !== false ) {
+
+		// update value if $_POST['freeshippinglimit_input'] != $freeshipping_comment_db
+		if( $_POST['shippingcomment_input'] != $shipping_comment_db['configuration_value'] ) {
+			xtc_db_query("update " . TABLE_CONFIGURATION . "
+					      set configuration_value = '" . $_POST['shippingcomment_input'] . "'
+					      where configuration_key = 'MODULE_IDEALO_SHIPPINGCOMMENT'");
+		}
+	} else {
+		// insert data
+		xtc_db_query("insert into " . TABLE_CONFIGURATION . "
+					  (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added)
+					  values ('MODULE_IDEALO_SHIPPINGCOMMENT', '" . $_POST['shippingcomment_input'] . "', 6, 1, '', now()) ");
+	}
+
+	$shipping_comment_input = stripslashes($_POST['shippingcomment_input']);
+
+} else {
+	$shipping_comment_input = "";
+}
+
+// check if freeshippinglimit_input is already in db
+$freeshipping_input_query = xtc_db_query("select configuration_value from  " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_IDEALO_FREESHIPPINGCOMMENT' LIMIT 1");
+$freeshipping_comment_db = xtc_db_fetch_array($freeshipping_input_query); // false if 'MODULE_IDEALO_FREESHIPPINGCOMMENT' doesn't exist
+
+// is free shipping comment set?
+// do not exceed COMMENTLENGTH
+if( isset( $_POST['freeshippingcomment_input']) && ( strlen($_POST['freeshippingcomment_input']) <= COMMENTLENGTH ) ) {
+
+	// does a dataset exist?
+	if( $freeshipping_comment_db !== false ) {
+
+		// update value if $_POST['freeshippingcomment_input'] != $freeshipping_comment_db
+		if( $_POST['freeshippingcomment_input'] != $freeshipping_comment_db['configuration_value'] ) {
+			xtc_db_query("update " . TABLE_CONFIGURATION . "
+					      set configuration_value = '" . $_POST['freeshippingcomment_input'] . "'
+					      where configuration_key = 'MODULE_IDEALO_FREESHIPPINGCOMMENT'");
+		}
+	} else {
+		// insert data
+		xtc_db_query("insert into " . TABLE_CONFIGURATION . "
+					  (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added)
+					  values ('MODULE_IDEALO_FREESHIPPINGCOMMENT', '" . $_POST['freeshippingcomment_input'] . "', 6, 1, '', now()) ");
+	}
+
+	$freeshipping_comment_input = stripslashes($_POST['freeshippingcomment_input']);
+} else {
+	$freeshipping_comment_input = "";
+}
+
+
 // file config
 define('SEPARATOR',  $separator);  		// character that separates the data
 define('QUOTECHAR',  $quoting);    		// character to quote the data
-define('COUNTRY_SC', $country_sc);   		// country the shipping costs are for
+define('COUNTRY_SC', $country_sc);   	// country the shipping costs are for
 define('DISPLAYINACTIVEMODULES', true); // display modules that are not active but in the payment array
-										// advantage: structure of the file hardly changes  
+										// advantage: structure of the file hardly changes
+
+define('SHIPPINGCOMMENT_INPUT', $shipping_comment_input);
+define('FREESHIPPINGCOMMENT_INPUT', $freeshipping_comment_input);
+define('SHOWFREESHIPPINGLIMITCOMMENT', true); // set 'true' to show comment for free shipping limit
 
 require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 
-//	if( $_GET['module'] == 'idealo' ) {
-//		 print phpversion();
-//	}
-
   class idealo {
-
-    // these attributes have to be public, as module_export.php uses them directly ...
-    public $code;
-    public $title;
-    public $description;
-    public $enabled;
+    var $code , $title, $description, $enabled;
 
 	// all payment (and its status) that should be displayed in the csv
 	// if a payment is 'false', the column in the csv stays empty
 	// the key needs to be the same as it is used in the db for the entry in `configuration_key` in the table `configuration`
-	private $payment = array('MONEYORDER'   => array('active' => false,
+	var $payment = array('MONEYORDER'   => array('active' => false,
 													 'title' => 'Vorkasse'),
 							 'COD' 			=> array('active' => false,
 													 'title' => 'Nachnahme'),
@@ -115,23 +181,22 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 
 	// types of shipping cost and 2-3 properties
 	// this is neccessary to get the correct values for "cash on delivery"
-	private $paymentTable = false;        // table sc
-	private $paymentTableMode = 'weight'; // default mode for table sc
+	var $paymentTable = false;        // table sc
+	var $paymentTableMode = 'weight'; // default mode for table sc
 
-	private $paymentItem  = false;        // sc per item
-	private $paymentFlat  = false;        // flat rate sc
+	var $paymentItem  = false;        // sc per item
+	var $paymentFlat  = false;        // flat rate sc
 
-	private $freeShipping = false;        // no sc
-	private $freeShippingValue;           // calculates when shipping is free
+	var $freeShipping = false;        // no sc
+	var $freeShippingValue;           // calculates when shipping is free
 
 	// table shipping
-	private $paymentTableValues = array();
+	var $paymentTableValues = array();
 
 	// default shipping cost (does NOT count when modul "table shipping cost" is active)
-	private $standardShippingCost = 0.00;
+	var $standardShippingCost = 0.00;
 
-    public function __construct() {
-      // $this->code = 'idealo';
+    function idealo() {
       $this->code = 'idealo';
       $this->title = MODULE_IDEALO_TEXT_TITLE;
       $this->description = MODULE_IDEALO_TEXT_DESCRIPTION;
@@ -155,7 +220,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	 * A pm is only active when the entry 'MODULE_PAYMENT_{paymentmethod}_STATUS' in the table `configuration` exists
 	 * and the `configuration_value` is 'true'
 	 */
-	private function checkActivePayment() {
+	function checkActivePayment() {
 		// run through every payment method
 		foreach($this->payment as $singlePayment => $status) {
 			// is the pm active?
@@ -181,7 +246,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	 *
 	 * @return double|'' shipping costs else an empty string
 	 */
-	private function getShippingCosts($payment, $price = null, $offerWeight = null) {
+	function getShippingCosts($payment, $price = null, $offerWeight = null) {
 		$shippingCost = '';
 
 		// is the is payment active?
@@ -238,7 +303,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 			// cod needs additional calculation
 			// the additional cod_fee (if active) depends on the shipping option that is active as the fee can differ
 			if($payment == 'COD') {
-				 // check if extra fee for "Cash on Delivery" is active
+				 // check if extra fee for Cash on Delivery is active
 
 				 // 1. get the db data
 				$getCodExtraFeeStatus = xtc_db_query("SELECT `configuration_value` AS `cod_fee_status`
@@ -317,7 +382,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	 * This is important for cash on delivery as there are different fee options possible.
 	 */
 
-	private function checkStandardShippingCostsOption() {
+	function checkStandardShippingCostsOption() {
 		// free shipping?
 		if($this->checkShippingCostOption('FREEAMOUNT') > 0  ) {
 			$this->freeShipping = true;
@@ -365,7 +430,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	 * as the offer listing in the csv refers to ONE offer
 	 */
 
-	private function setStandardShippingCosts() {
+	function setStandardShippingCosts() {
 		$shippingModul = '';
 
 		if($this->paymentItem === true) {
@@ -395,24 +460,37 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	 *
 	 * @return integer 0 when nothing is found, otherwise a number bigger than 0
 	 */
-	private function checkShippingCostOption($option) {
-		// transform to uppercase
-		$option = strtoupper($option);
-		$checkOption = xtc_db_query("SELECT COUNT(*) AS `found`
-										 FROM `configuration`
-										 WHERE `configuration_key` LIKE 'MODULE_SHIPPING_{$option}_STATUS'
-										 AND `configuration_value` LIKE 'True';");
+	function checkShippingCostOption($option) {
+	   // transform to uppercase
+	   $option = strtoupper($option);
+	   $checkOption = xtc_db_query("
+	    SELECT COUNT(*) AS found
+	    FROM configuration
+	    WHERE configuration_key LIKE 'MODULE_SHIPPING_{$option}_STATUS'
+	    AND configuration_value LIKE 'True';
+	   ");
+	   $result = xtc_db_fetch_array($checkOption);
 
-		$result = xtc_db_fetch_array($checkOption);
+	   if (isset($result['found']) && $result['found'] > 0) { // module is active,  check allowed countries
+	     $countryOption = xtc_db_query("
+	     SELECT COUNT(*) AS found
+	     FROM configuration
+	     WHERE configuration_key LIKE 'MODULE_SHIPPING_{$option}_ALLOWED' AND
+	     (configuration_value LIKE '%".COUNTRY_SC."%' OR configuration_value='');
+	    ");
+	    $countryOk = xtc_db_fetch_array($countryOption);
 
-		// if $result['found'] is not set, 0 (option is not activated) will be returned
-		return ( isset($result['found']) ) ? $result['found'] : 0;
+	    // if $countryOk['found'] is not set, 0 (country is not activated) will be returned
+	    return (isset($countryOk['found'])) ? $countryOk['found'] : 0;
+	   } else {
+	    return 0;
+	   }
 	}
 
 	/**
 	 * Method sets the "table shipping costs" values
 	 */
-	private function setPaymentTableValues() {
+	function setPaymentTableValues() {
 		$explodedValues = array();
 
 		// take the data from the db
@@ -459,7 +537,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	 *
 	 * @param string $file
 	 */
-    public function process($file) {
+    function process($file) {
 		$schema = '';
         @xtc_set_time_limit(0);
         $xtPrice = new xtcPrice($_POST['currencies'],$_POST['status']);
@@ -482,6 +560,14 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 			if($options['active'] === true || DISPLAYINACTIVEMODULES === true) {
 				$schema .= QUOTECHAR . $options['title'] . QUOTECHAR . SEPARATOR;
 			}
+		}
+
+		// shipping comment
+		$schema .= QUOTECHAR . 'Versandkommentar' . QUOTECHAR . SEPARATOR;
+
+		// free shipping comment (if active)
+		if( ($this->freeShipping === true) && (SHOWFREESHIPPINGLIMITCOMMENT === true) ) {
+			$schema .= QUOTECHAR . 'Kommentar Versandkosten-Grenze' . QUOTECHAR . SEPARATOR;
 		}
 
         $schema .= "\n";
@@ -580,13 +666,35 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
                        QUOTECHAR . $products['products_ean'] . QUOTECHAR . SEPARATOR .
                        QUOTECHAR . xtc_get_shipping_status_name($products['products_shippingtime']) . QUOTECHAR . SEPARATOR;
 
+					   // free shipping costs AND free sc comment available?
+					   $showScFreeComment = false;
+
 					   // run through the payment methods to display the fee
 				       foreach($this->payment as $singlePayment => $options) {
 					   		// display only the payment fee that is active (if this is desired)
 				        	if($options['active'] === true || DISPLAYINACTIVEMODULES === true) {
-								$schema .= QUOTECHAR . $this->getShippingCosts($singlePayment, $products_price, $products['products_weight']) . QUOTECHAR . SEPARATOR;
+								$sc = $this->getShippingCosts($singlePayment, $products_price, $products['products_weight']);
+								$schema .= QUOTECHAR . $sc . QUOTECHAR . SEPARATOR;
+
+				        		// if there's one payment with sc > 0.00, display the sc free comment
+				        		// exception: cash on delivery
+				        		if( $singlePayment != 'COD' && $sc > 0.00 ) {
+				        			$showScFreeComment = true;
+				        		}
 				        	}
 				        }
+
+			$schema .= QUOTECHAR . SHIPPINGCOMMENT_INPUT . QUOTECHAR . SEPARATOR;
+
+			// Only if free shipping costs are available AND SHOWFREESHIPPINGLIMITCOMMENT is set to true
+			if( ($this->freeShipping === true) && SHOWFREESHIPPINGLIMITCOMMENT === true  ) {
+				// is shipping of the offer for free?
+				if( $showScFreeComment === true ) {
+					$schema .= QUOTECHAR . FREESHIPPINGCOMMENT_INPUT . QUOTECHAR . SEPARATOR;
+				} else {
+					$schema .= QUOTECHAR . '' . QUOTECHAR . SEPARATOR;
+				}
+			}
 
 			$schema .= "\n";
          }
@@ -596,8 +704,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
           fclose($fp);
 
 
-      switch ($_POST['export']) {
-        case 'yes':
+	  if( isset($_POST['export']) && $_POST['export'] == 'yes' ) {
             // send File to Browser
             $extension = substr($file, -3);
             $fp = fopen(DIR_FS_DOCUMENT_ROOT.'export/' . $file,"rb");
@@ -607,9 +714,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
             header('Content-disposition: attachment; filename=' . $file);
             echo $buffer;
             exit;
-
-        break;
-        }
+	  }
 
     }
 
@@ -619,7 +724,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
     * @param int $catID
     * @return string Category
     */
-   private function buildCAT($catID) {
+   function buildCAT($catID) {
 		if (isset($this->CAT[$catID])) {
 		 return  $this->CAT[$catID];
 		} else {
@@ -649,7 +754,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	 * @param int $catID
 	 * @return int parent id of the category
 	 */
-   private function getParent($catID) {
+   function getParent($catID) {
       if (isset($this->PARENT[$catID])) {
        return $this->PARENT[$catID];
       } else {
@@ -663,7 +768,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	/**
 	 * Method prepares the text that is displayed at the detailed options on module_export.php
 	 */
-    public function display() {
+    function display() {
 
 	    $customers_statuses_array = xtc_get_customers_statuses();
 
@@ -680,6 +785,22 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 		$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
 		}
 
+		// get free shipping comment from db
+		if( $this->freeShipping === true && SHOWFREESHIPPINGLIMITCOMMENT === true ) {
+			$freeshipping_input_query = xtc_db_query("select configuration_value from  " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_IDEALO_FREESHIPPINGCOMMENT' LIMIT 1");
+			$freeshipping_comment_db = xtc_db_fetch_array($freeshipping_input_query);
+
+			$freeValue_Input_Text = ( $this->freeShippingValue != '' ) ? $freeshipping_comment_db['configuration_value'] : '';
+			$freeshippingHTML = FREESHIPPINGCOMMENT . '<br>' . FREESHIPPINGCOMMENT_HINT . '<br>' . xtc_draw_input_field('freeshippingcomment_input', "{$freeValue_Input_Text}") . '<br><br>';
+		} else {
+			$freeshippingHTML = '';
+		}
+
+		// get shipping comment from db
+		$shipping_input_query = xtc_db_query("select configuration_value from  " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_IDEALO_SHIPPINGCOMMENT' LIMIT 1");
+		$shipping_comment_db = xtc_db_fetch_array($shipping_input_query);
+		$shipping_comment_text = ( $shipping_comment_db !== false ) ? $shipping_comment_db['configuration_value'] : '';
+
 	    return array('text' =>
 	    						'<br>' . FIELDSEPARATOR . '<br>' .
 	    						FIELDSEPARATOR_HINT . '<br>' .
@@ -687,6 +808,10 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	    						QUOTING . '<br>' .
 	    						QUOTING_HINT . '<br>' .
 	    						xtc_draw_small_input_field('quoting_input', '"') . '<br><br>' .
+								SHIPPINGCOMMENT . '<br>' .
+								SHIPPINGCOMMENT_HINT . '<br>' .
+								xtc_draw_input_field('shippingcomment_input', $shipping_comment_text) . '<br><br>'.
+								$freeshippingHTML .
 	    						LANGUAGE . '<br>' .
 	    						LANGUAGE_HINT . '<br>' .
 	    						xtc_draw_small_input_field('language_input', 'DE') . '<br>' .
@@ -709,7 +834,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 
     }
 
-    public function check() {
+    function check() {
       if (!isset($this->_check)) {
         $check_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_IDEALO_STATUS'");
         $this->_check = xtc_db_num_rows($check_query);
@@ -720,7 +845,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	/**
 	 * Method installs a module in module_export.php
 	 */
-    public function install() {
+    function install() {
       xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_IDEALO_FILE', 'idealo.csv',  '6', '1', '', now())");
       xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_IDEALO_STATUS', 'True',  '6', '1', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
     }
@@ -728,11 +853,11 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	/**
 	 * Method removes a module
 	 */
-    public function remove() {
+    function remove() {
       xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
-    public function keys() {
+    function keys() {
       return array('MODULE_IDEALO_STATUS','MODULE_IDEALO_FILE');
     }
   }
