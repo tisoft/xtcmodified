@@ -203,7 +203,7 @@ class ot_coupon {
 								$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 								for ($i = 0; $i < sizeof($order->products); $i ++) {
 									$my_path = xtc_get_product_path(xtc_get_prid($order->products[$i]['id']));
-									$sub_cat_ids = explode("_", $my_path);
+									$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 									for ($iii = 0; $iii < count($sub_cat_ids); $iii ++) {
 										for ($ii = 0; $ii < count($cat_ids); $ii ++) {
 											if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
