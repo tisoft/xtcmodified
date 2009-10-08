@@ -16,7 +16,7 @@
    Third Party contribution:
 
 ************************************************************************
-  Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Pl&auml;nkers
+  Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers
        http://www.themedia.at & http://www.oscommerce.at
 
                     All rights reserved.
