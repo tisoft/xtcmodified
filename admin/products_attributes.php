@@ -441,7 +441,7 @@ function go_option() {
 		</td>
 	</tr>
 </table>
-								</td</tr>
+								</td></tr>
               <tr>
                 <td colspan="4" class="smallText">
 <?php
