@@ -72,8 +72,10 @@ class shoppingCart {
 
 		// reset per-session cart contents, but not the database contents
 		$this->reset(false);
-
-		$products_query = xtc_db_query("select products_id, customers_basket_quantity from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."'");
+// BOF - Tomcraft - 2009-10-08 - Fixed sort order was lost in cart after logout/login
+//		$products_query = xtc_db_query("select products_id, customers_basket_quantity from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."'");
+		$products_query = xtc_db_query("select products_id, customers_basket_quantity from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' order by customers_basket_id");
+// EOF - Tomcraft - 2009-10-08 - Fixed sort order was lost in cart after logout/login
 		while ($products = xtc_db_fetch_array($products_query)) {
 			$this->contents[$products['products_id']] = array ('qty' => $products['customers_basket_quantity']);
 			// attributes
