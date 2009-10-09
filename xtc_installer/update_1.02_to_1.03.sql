@@ -61,4 +61,6 @@ CREATE TABLE gls_weight (
 UPDATE database_version SET version = 'xtcM_1.0.3.0';
 
 #Dokuman - 2009-10-09 - added "erwartete Produkte" in "Artikelkatalog"
-ALTER TABLE admin_access ADD products_expected INT( 1 ) NOT NULL DEFAULT '1';
+ALTER TABLE admin_access ADD products_expected INT( 1 ) NOT NULL DEFAULT '0' AFTER specials;
+UPDATE admin_access SET products_expected = '1' WHERE customers_id = '1';
+UPDATE admin_access SET products_expected = '5' WHERE customers_id = 'groups';
