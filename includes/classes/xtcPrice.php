@@ -294,7 +294,14 @@ class xtcPrice {
 		if (!$this->showFrom_Attributes) return;
 		if ($pID == 0)
 			return;
-		$products_attributes_query = "select count(*) as total from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$pID."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."'";
+		// BOF - Tomcraft - 2009-10-09 - Bugfix: Don't show "from" in front of price, when all priceoptions are "0".
+		//$products_attributes_query = "select count(*) as total from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$pID."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."'";
+		$products_attributes_query = "select count(*) as total from ".TABLE_PRODUCTS_OPTIONS." popt,
+																	".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$pID."'
+																	and patrib.options_id = popt.products_options_id
+																	and popt.language_id = '".(int) $_SESSION['languages_id']."'
+																    and patrib.options_values_price > 0";
+		// EOF - Tomcraft - 2009-10-09 - Bugfix: Don't show "from" in front of price, when all priceoptions are "0".
 		$products_attributes = xtDBquery($products_attributes_query);
 		$products_attributes = xtc_db_fetch_array($products_attributes, true);
 		if ($products_attributes['total'] > 0)
