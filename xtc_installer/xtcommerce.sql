@@ -162,6 +162,7 @@ CREATE TABLE admin_access (
   manufacturers int(1) NOT NULL default '0',
   reviews int(1) NOT NULL default '0',
   specials int(1) NOT NULL default '0',
+  products_expected int(1) NOT NULL default '0',
 
   stats_products_expected int(1) NOT NULL default '0',
   stats_products_viewed int(1) NOT NULL default '0',
@@ -2931,6 +2932,3 @@ INSERT INTO configuration (configuration_id,  configuration_key, configuration_v
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-
-#Dokuman - 2009-10-09 - added "erwartete Produkte" in "Artikelkatalog"
-ALTER TABLE admin_access ADD products_expected INT( 1 ) NOT NULL DEFAULT '1';
