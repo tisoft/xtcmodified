@@ -414,7 +414,7 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
 			if ($discount)
 				$bestPrice -= $bestPrice / 100 * $discount;
 			$price .= FROM.$this->xtcFormat($bestPrice, $format, $tax_class)
-				.' <br /><small>Einzelpreis: '
+				.' <br /><small>' . UNIT_PRICE
 				.$this->xtcFormat($sPrice, $format)
 				.'</small>';
 		} else if ($sPrice != $pPrice) { // if ($sPrice != $pPrice) {

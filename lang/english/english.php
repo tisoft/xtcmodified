@@ -466,6 +466,9 @@ define('ENTRY_VAT_TEXT','* for EU-Countries only'); //changed by electronica 200
 define('ENTRY_VAT_ERROR', 'The chosen VAT-ID is not valid or cannot be verified at the moment! Please enter a valid VAT-ID or leave this field empty.'); //changed by electronica 2009-09-06
 define('MSRP','MSRP');
 define('YOUR_PRICE','your price ');
+// BOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
+define('UNIT_PRICE','unit price ');
+// EOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
 define('ONLY',' only ');
 define('FROM','from ');
 define('YOU_SAVE','you save ');

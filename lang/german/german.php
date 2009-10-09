@@ -439,6 +439,9 @@ define('ENTRY_VAT_TEXT', 'Nur f&uuml;r Deutschland und EU!');
 define('ENTRY_VAT_ERROR', 'Die Eingegebene UstID ist ung&uuml;ltig oder kann derzeit nicht &uuml;berpr&uuml;ft werden! Bitte geben Sie eine g&uuml;ltige ID ein oder lassen Sie das Feld leer.');
 define('MSRP','UVP');
 define('YOUR_PRICE','Ihr Preis ');
+// BOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
+define('UNIT_PRICE','Stückpreis ');
+// EOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
 define('ONLY',' Nur ');
 define('FROM','Ab ');
 define('YOU_SAVE','Sie sparen ');
