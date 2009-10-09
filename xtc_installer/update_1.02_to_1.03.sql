@@ -59,3 +59,6 @@ CREATE TABLE gls_weight (
 
 #Tomcraft - 2009-09-08 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.3.0'
+
+#Dokuman - 2009-10-09 - added "erwartete Produkte" in "Artikelkatalog"
+ALTER TABLE admin_access ADD products_expected INT( 1 ) NOT NULL DEFAULT '1';
