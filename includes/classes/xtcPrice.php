@@ -351,12 +351,14 @@ class xtcPrice {
 	function xtcFormatSpecialDiscount($pID, $discount, $pPrice, $format, $vpeStatus = 0) {
 		$sPrice = $pPrice - ($pPrice / 100) * $discount;
 		if ($format) {
+//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br />'.YOU_SAVE.$discount.'%';
 			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100,1).' % /'.$this->xtcFormat($pPrice-$sPrice, $format);
 			// Ausgabe des gültigen Kundengruppen-Rabatts (sofern vorhanden)
 			if ($discount != 0)
 					{ $price .= '<br />'.BOX_LOGINBOX_DISCOUNT.': '.round($discount).' %'; }
 				$price .= '</small>';
+//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -369,8 +371,10 @@ class xtcPrice {
 
 	function xtcFormatSpecial($pID, $sPrice, $pPrice, $format, $vpeStatus = 0) {
 		if ($format) {
+//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
 			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100,1).' % /'.$this->xtcFormat($pPrice-$sPrice, $format).'</small>';
+//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -382,6 +386,7 @@ class xtcPrice {
 	}
 
 function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus = 0, $pID) {
+//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 	// NEU HINZUGEFÜGT "Steuerklasse ermitteln"
 	$tQuery = "SELECT products_tax_class_id
 		FROM ".TABLE_PRODUCTS." WHERE
@@ -390,13 +395,13 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
    	$tQuery = xtc_db_fetch_array($tQuery);
    	$tax_class = $tQuery[products_tax_class_id];
 	// ENDE "Steuerklasse ermitteln"
-
+//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 	if ($pPrice == 0)
 		return $this->xtcFormat($sPrice, $format, 0, false, $vpeStatus);
 	if ($discount = $this->xtcCheckDiscount($pID))
 		$sPrice -= $sPrice / 100 * $discount;
 	if ($format) {
-		// NEU HINZUGEFÜGT
+//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 		$sQuery = "SELECT max(quantity) as qty
 			FROM ".TABLE_PERSONAL_OFFERS_BY.$this->actualGroup."
 			WHERE products_id='".$pID."'";
@@ -414,7 +419,8 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
 				.'</small>';
 		} else if ($sPrice != $pPrice) { // if ($sPrice != $pPrice) {
 			$price = '<span class="productOldPrice">'.MSRP.' '.$this->xtcFormat($pPrice, $format).'</span><br />'.YOUR_PRICE.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
-		} else {
+//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+			} else {
 			$price = FROM.$this->xtcFormat($sPrice, $format);
 		}
 		if ($vpeStatus == 0) {
@@ -433,65 +439,4 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
 
 }
 
-/*
-     function xtcFormatI($price,$format,$tax_class=0,$curr=false) {
-
-     	if ($curr=='true')
-	    $price = $this->xtcCalculateCurr($price);
-
-		if ($tax_class != 0)
-		{
-	    $products_tax = $this->TAX[$tax_class];
-		  if ($this->cStatus['customers_status_show_price_tax'] == '0')
-				$products_tax = '';
-	    $price = $this->xtcAddTax($price, $products_tax);
-		}
-		if ($format==true) {
-		    $Pprice = number_format($price, $this->currencies[$this->actualCurr]['decimal_places'], $this->currencies[$this->actualCurr]['decimal_point'], $this->currencies[$this->actualCurr]['thousands_point']);
-		    $Pprice = $this->currencies[$this->actualCurr]['symbol_left'].' '.$Pprice.' '.$this->currencies[$this->actualCurr]['symbol_right'];
-
-		    if($this->currencies[$this->actualCurr]['symbol_left'] != "") {
-		    	$curr_code = $this->currencies[$this->actualCurr]['symbol_left'];
-		    } else {
-		    	$curr_code = $this->currencies[$this->actualCurr]['symbol_right'];
-		    }
-		    if(USE_PRICE_IMAGES == 'true') {
-	   	    	$price =$this->xtcPriceAsImage($Pprice, $curr_code);
-		    } else {
-		    	$price = $Pprice;
-		    }
-			return $price;
-
-		} else {
-		   return $price;
-		}
-
-	}
-
-    function xtcPriceAsImage($price, $curr_code) {
-	  $imagePath = DIR_WS_TEMPLATE_FOLDER.CURRENT_TEMPLATE. '/img/digits/';
-
-	  $price = explode($this->currencies[$this->actualCurr]['decimal_point'],trim((string)$price));
-	  $prefix = $price[0];
-	  $prefix = str_replace($this->currencies[$this->actualCurr]['thousands_point'],"",$prefix);
-	  $suffix = $price[1];
-	  $leer = strpos($suffix, ' ');
-	  $suffix = substr($price[1], 0, $leer);
-	  $pre='';
-	  $pre.='<img border="0" src="'.$imagePath.strtolower($curr_code).'.gif" />';
-	  for ($i=0;$i<strlen($prefix);$i++) {
-	         $pre.='<img border="0" src="'.$imagePath.substr($prefix,$i,1).'.gif" />';
-	  }
-	  $pre.='<img border="0" src="'.$imagePath.',.gif" />';
-	  $su='';
-	  if($suffix[0] == 0 && $suffix[1] == 0) {
-	  	       $su.='<img border="0" src="'.$imagePath.'-.gif" />';
-	  } else {
-		  for ($i=0;$i<strlen($suffix);$i++) {
-		         $su.='<img border="0" src="'.$imagePath.substr($suffix,$i,1).'small.gif" />';
-		  }
-	  }
-	  return $pre.$su;
-	 }
-*/
 ?>
