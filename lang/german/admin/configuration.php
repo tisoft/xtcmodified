@@ -316,8 +316,12 @@ define('SHIPPING_BOX_WEIGHT_TITLE' , 'Paketleergewicht.');
 define('SHIPPING_BOX_WEIGHT_DESC' , 'Wie hoch ist das Gewicht eines durchschnittlichen kleinen bis mittleren Leerpaketes?');
 define('SHIPPING_BOX_PADDING_TITLE' , 'Bei gr&ouml;sseren Leerpaketen - Gewichtszuwachs in %.');
 define('SHIPPING_BOX_PADDING_DESC' , 'F&uuml;r etwa 10% geben Sie 10 ein');
-define('SHOW_SHIPPING_DESC' , 'Verlinkte Anzeige von "zzgl. Versandkosten" in den Produktinformationen.');
-define('SHOW_SHIPPING_TITLE' , 'Versandkosten in Produktinfos');
+// BOF - Tomcraft - 2009-10-10 - modified SHOW_SHIPPING_XXXX Text
+//define('SHOW_SHIPPING_DESC' , 'Verlinkte Anzeige von "zzgl. Versandkosten" in den Produktinformationen.');
+//define('SHOW_SHIPPING_TITLE' , 'Versandkosten in Produktinfos');
+define('SHOW_SHIPPING_DESC' , 'Verlinkte Anzeige von "zzgl. Versandkosten" im Warenkorb.');
+define('SHOW_SHIPPING_TITLE' , 'Versandkosten im Warenkorb');
+// EOF - Tomcraft - 2009-10-10 - modified SHOW_SHIPPING_XXXX Text
 define('SHIPPING_INFOS_DESC' , 'Sprachgruppen ID der Versandkosten (Default 1) f&uuml;r die Verlinkung.');
 define('SHIPPING_INFOS_TITLE' , 'Versandkosten ID');
 

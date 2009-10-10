@@ -295,8 +295,12 @@ define('SHIPPING_BOX_WEIGHT_TITLE' , 'Package Tare weight.');
 define('SHIPPING_BOX_WEIGHT_DESC' , 'What is the weight of typical packaging of small to medium packages?');
 define('SHIPPING_BOX_PADDING_TITLE' , 'Larger packages - percentage increase.');
 define('SHIPPING_BOX_PADDING_DESC' , 'For 10% enter 10');
-define('SHOW_SHIPPING_DESC' , 'Show shippingcosts link in product infos');
-define('SHOW_SHIPPING_TITLE' , 'Shippingcosts in product infos');
+// BOF - Tomcraft - 2009-10-10 - modified SHOW_SHIPPING_XXXX Text
+//define('SHOW_SHIPPING_DESC' , 'Show shippingcosts link in product infos');
+//define('SHOW_SHIPPING_TITLE' , 'Shippingcosts in product infos');
+define('SHOW_SHIPPING_DESC' , 'Show shippingcosts link in shopping cart.');
+define('SHOW_SHIPPING_TITLE' , 'Shippingcosts in shopping cart');
+// EOF - Tomcraft - 2009-10-10 - modified SHOW_SHIPPING_XXXX Text
 define('SHIPPING_INFOS_DESC' , 'Group ID of shippingcosts content.');
 define('SHIPPING_INFOS_TITLE' , 'Group ID');
 
