@@ -301,11 +301,20 @@ class pn_sofortueberweisung {
 		$char = chr(xtc_rand(0,255));
 	      }
 	      if ($type == 'mixed') {
-		if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
+// DokuMan - 2009-10-10 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3 
+/*		
+    if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
 	      } elseif ($type == 'chars') {
 		if (eregi('^[a-z]$', $char)) $rand_value .= $char;
 	      } elseif ($type == 'digits') {
 		if (ereg('^[0-9]$', $char)) $rand_value .= $char;
+*/
+		if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char;
+	      } elseif ($type == 'chars') {
+		if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char;
+	      } elseif ($type == 'digits') {
+		if (preg_match('/^[0-9]$/i', $char)) $rand_value .= $char;
+// DokuMan - 2009-10-10 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3	
 	      }
 	    }
 	
