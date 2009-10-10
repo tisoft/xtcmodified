@@ -108,7 +108,7 @@ switch ($_GET['action']) {
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 				$smarty->assign('ORDER_LINK', xtc_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id='.$oID, 'SSL'));
 				$smarty->assign('ORDER_DATE', xtc_date_long($check_status['date_purchased']));
-				$smarty->assign('NOTIFY_COMMENTS', $notify_comments);
+				$smarty->assign('NOTIFY_COMMENTS', nl2br($notify_comments)); // Tomcraft - 2009-10-10 - Fixed wordwrap in notify_comments
 				$smarty->assign('ORDER_STATUS', $orders_status_array[$status]);
 
 				$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/admin/mail/'.$order->info['language'].'/change_order_mail.html');
