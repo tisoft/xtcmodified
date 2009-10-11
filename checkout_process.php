@@ -133,7 +133,10 @@ $order_total_modules = new order_total();
 $order_totals = $order_total_modules->process();
 
 // check if tmp order id exists
-if (isset ($_SESSION['tmp_oID']) && is_int($_SESSION['tmp_oID'])) {
+//BOF - Dokuman - 2009-10-11 - Paypal fix for infinite loop see, http://www.xtc-modified.org/forum/topic.php?id=2235
+//if (isset ($_SESSION['tmp_oID']) && is_int($_SESSION['tmp_oID'])) {
+if (isset ($_SESSION['tmp_oID']) && is_numeric($_SESSION['tmp_oID'])) {
+//EOF - Dokuman - 2009-10-11 - Paypal fix for infinite loop see, http://www.xtc-modified.org/forum/topic.php?id=2235	
 	$tmp = false;
 	$insert_id = $_SESSION['tmp_oID'];
 }
