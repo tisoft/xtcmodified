@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.0.1 - 02.10.2009
+ * @version sofortüberweisung.de 3.1 - 09.10.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -135,20 +135,6 @@ if (xtc_db_num_rows($order_query) < 1) {
 			$comment = sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TRANSACTION, $_POST['transaction']);
 			print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROBLEM_CALLBACK);
 		}
-		
-		// Prepare data
-		$data['orders_id'] = $order_id;
-		unset($data['user_variable_0']);
-		unset($data['user_variable_1']);
-		unset($data['user_variable_2']);
-		unset($data['user_variable_3']);
-		unset($data['user_variable_4']);
-		unset($data['user_variable_5']);
-		unset($data['project_password']);
-
-		
-		// Store transaction details
-		xtc_db_perform('payment_sofortueberweisung', $data);
 		
 		// Update status
 		$sql_data_array = array('orders_id' => (int) $order_id , 'orders_status_id' => $order_status , 'date_added' => 'now()' , 'customer_notified' => '0' , 'comments' => $comment);

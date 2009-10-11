@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.0.1 - 02.10.2009
+ * @version sofortüberweisung.de 3.1 - 09.10.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -41,7 +41,7 @@ class pn_sofortueberweisung {
 	function pn_sofortueberweisung () {
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
-		$this->version = '3.0';
+		$this->version = '3.1';
 		$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER;
@@ -92,12 +92,7 @@ class pn_sofortueberweisung {
 			$check_query = xtc_db_query('SELECT orders_status FROM ' . TABLE_ORDERS . ' WHERE orders_id = "' . (int) $order_id . '" LIMIT 1');
 			if ($result = xtc_db_fetch_array($check_query)) {
 				if ($result['orders_status'] == MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID) {
-					xtc_db_query('DELETE FROM ' . TABLE_ORDERS . ' WHERE orders_id = "' . (int) $order_id . '"');
-					xtc_db_query('DELETE FROM ' . TABLE_ORDERS_TOTAL . ' WHERE orders_id = "' . (int) $order_id . '"');
-					xtc_db_query('DELETE FROM ' . TABLE_ORDERS_STATUS_HISTORY . ' WHERE orders_id = "' . (int) $order_id . '"');
-					xtc_db_query('DELETE FROM ' . TABLE_ORDERS_PRODUCTS . ' WHERE orders_id = "' . (int) $order_id . '"');
-					xtc_db_query('DELETE FROM ' . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . ' WHERE orders_id = "' . (int) $order_id . '"');
-					xtc_db_query('DELETE FROM ' . TABLE_ORDERS_PRODUCTS_DOWNLOAD . ' WHERE orders_id = "' . (int) $order_id . '"');
+					$this->_remove_order( (int) $order_id, 'on');
 					unset($_SESSION['cart_pn_sofortueberweisung_ID']);
 					unset($_SESSION['tmp_oID']);
 				}
@@ -140,12 +135,7 @@ class pn_sofortueberweisung {
 			$check_query = xtc_db_query("SELECT currency, orders_status FROM " . TABLE_ORDERS . " WHERE orders_id = '" . (int) $order_id . "'");
 			$result = xtc_db_fetch_array($check_query);
 			if (($result['orders_status'] == MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID) || ($result['currency'] != $order->info['currency']) || ($_SESSION['cart']->cartID != $cartID)) {
-				xtc_db_query('DELETE FROM ' . TABLE_ORDERS . ' WHERE orders_id = "' . (int) $order_id . '"');
-				xtc_db_query('DELETE FROM ' . TABLE_ORDERS_TOTAL . ' WHERE orders_id = "' . (int) $order_id . '"');
-				xtc_db_query('DELETE FROM ' . TABLE_ORDERS_STATUS_HISTORY . ' WHERE orders_id = "' . (int) $order_id . '"');
-				xtc_db_query('DELETE FROM ' . TABLE_ORDERS_PRODUCTS . ' WHERE orders_id = "' . (int) $order_id . '"');
-				xtc_db_query('DELETE FROM ' . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . ' WHERE orders_id = "' . (int) $order_id . '"');
-				xtc_db_query('DELETE FROM ' . TABLE_ORDERS_PRODUCTS_DOWNLOAD . ' WHERE orders_id = "' . (int) $order_id . '"');
+				$this->_remove_order( (int) $order_id, 'on');
 				unset($_SESSION['cart_pn_sofortueberweisung_ID']);
 				unset($_SESSION['tmp_oID']);
 			}
@@ -289,41 +279,11 @@ class pn_sofortueberweisung {
 		}
 		return $error;
 	}
-	// xtc_create_random_value
-	function create_random_value($length, $type = 'mixed') {
-	    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
-	
-	    $rand_value = '';
-	    while (strlen($rand_value) < $length) {
-	      if ($type == 'digits') {
-		$char = xtc_rand(0,9);
-	      } else {
-		$char = chr(xtc_rand(0,255));
-	      }
-	      if ($type == 'mixed') {
-// DokuMan - 2009-10-10 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3 
-/*		
-    if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
-	      } elseif ($type == 'chars') {
-		if (eregi('^[a-z]$', $char)) $rand_value .= $char;
-	      } elseif ($type == 'digits') {
-		if (ereg('^[0-9]$', $char)) $rand_value .= $char;
-*/
-		if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char;
-	      } elseif ($type == 'chars') {
-		if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char;
-	      } elseif ($type == 'digits') {
-		if (preg_match('/^[0-9]$/i', $char)) $rand_value .= $char;
-// DokuMan - 2009-10-10 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3	
-	      }
-	    }
-	
-	    return $rand_value;
-	  }
+
     function autoinstall() {
 
 	if (!isset($_SESSION['pn_sofortueberweisung_pw'])) {
-	$_SESSION['pn_sofortueberweisung_pw'] = $this->create_random_value(12);
+	$_SESSION['pn_sofortueberweisung_pw'] = $this->_create_random_value(12);
 	}
 	
 	$backlink = xtc_href_link(FILENAME_MODULES, 'set=payment&module=pn_sofortueberweisung&action=install', 'SSL');
@@ -401,43 +361,12 @@ $html = sprintf($html, STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_AD
 		      unset($_SESSION['pn_sofortueberweisung_pw']);
 	      } else $project_password = '';
 
-		// add table to store transaction details
-		xtc_db_query("CREATE TABLE IF NOT EXISTS `payment_sofortueberweisung` (
-		      `orders_id` int(10) unsigned NOT NULL,
-		      `transaction` varchar(64) NOT NULL,
-		      `user_id` int(10) unsigned NOT NULL,
-		      `project_id` int(10) unsigned NOT NULL,
-		      `sender_holder` varchar(64) NOT NULL,
-		      `sender_account_number` int(10) unsigned NOT NULL,
-		      `sender_bank_code` int(10) unsigned NOT NULL,
-		      `sender_bank_name` varchar(64) NOT NULL,
-		      `sender_bank_bic` varchar(64) NOT NULL,
-		      `sender_iban` varchar(64) NOT NULL,
-		      `sender_country_id` char(3) NOT NULL,
-		      `recipient_holder` varchar(64) NOT NULL,
-		      `recipient_account_number` int(10) unsigned NOT NULL,
-		      `recipient_bank_code` int(10) unsigned NOT NULL,
-		      `recipient_bank_name` varchar(64) NOT NULL,
-		      `recipient_bank_bic` varchar(64) NOT NULL,
-		      `recipient_iban` varchar(64) NOT NULL,
-		      `recipient_country_id` char(3) NOT NULL,
-		      `international_transaction` int(10) unsigned NOT NULL,
-		      `amount` decimal(15,4) NOT NULL,
-		      `currency_id` varchar(8) NOT NULL,
-		      `reason_1` varchar(64) NOT NULL,
-		      `reason_2` varchar(64) NOT NULL,
-		      `security_criteria` int(10) unsigned NOT NULL,
-		      `created` datetime NOT NULL,
-		      PRIMARY KEY  (`orders_id`)
-		    ) ENGINE=MyISAM;
-		    ");
-
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS', 'True', '6', '3', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED', '', '6', '0', now())");
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID', '" . (int) $user_id . "',  '6', '4', now())");
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID', '" . (int) $project_id . "',  '6', '4', now())");
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD', '". $project_password ."',  '6', '4', now())");
-		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER', '0.9', '6', '0', now())");
+		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER', '1', '6', '0', now())");
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE', '0', '6', '2', 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(', now())");
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID', '0',  '6', '0', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
 		xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID', '0',  '6', '8', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
@@ -452,6 +381,44 @@ $html = sprintf($html, STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_AD
 	}
 	function keys () {
 		return array('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1', 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER');
+	}
+	// xtc_create_random_value() in inc/xtc_create_random_value.php
+	function _create_random_value($length, $type = 'mixed') {
+	    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
+	
+	    $rand_value = '';
+	    while (strlen($rand_value) < $length) {
+	      if ($type == 'digits') {
+		$char = xtc_rand(0,9);
+	      } else {
+		$char = chr(xtc_rand(0,255));
+	      }
+	      if ($type == 'mixed') {
+		if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
+	      } elseif ($type == 'chars') {
+		if (eregi('^[a-z]$', $char)) $rand_value .= $char;
+	      } elseif ($type == 'digits') {
+		if (ereg('^[0-9]$', $char)) $rand_value .= $char;
+	      }
+	    }
+	
+	    return $rand_value;
+	 }
+
+	// xtc_remove_order() in admin/includes/functions/general.php
+	function _remove_order($order_id, $restock = false) {
+		if ($restock == 'on') {
+			$order_query = xtc_db_query("select products_id, products_quantity from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($order_id)."'");
+			while ($order = xtc_db_fetch_array($order_query)) {
+				xtc_db_query("update ".TABLE_PRODUCTS." set products_quantity = products_quantity + ".$order['products_quantity'].", products_ordered = products_ordered - ".$order['products_quantity']." where products_id = '".$order['products_id']."'");
+			}
+		}
+	
+		xtc_db_query("delete from ".TABLE_ORDERS." where orders_id = '".xtc_db_input($order_id)."'");
+		xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($order_id)."'");
+		xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_id = '".xtc_db_input($order_id)."'");
+		xtc_db_query("delete from ".TABLE_ORDERS_STATUS_HISTORY." where orders_id = '".xtc_db_input($order_id)."'");
+		xtc_db_query("delete from ".TABLE_ORDERS_TOTAL." where orders_id = '".xtc_db_input($order_id)."'");
 	}
 }
 ?>
