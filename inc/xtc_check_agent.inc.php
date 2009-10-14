@@ -203,6 +203,7 @@ if (CHECK_CLIENT_AGENT=='true') {
    "portalb",
    "puu",
    "python",
+	 "qualidator",   
    "raven",
    "rbse",
    "resumerobot",
@@ -318,7 +319,8 @@ if (CHECK_CLIENT_AGENT=='true') {
    "yahoo",
    "bot",
    "psbot",
-   "crawl"
+   "crawl",
+   "validator"
    );
 
 
