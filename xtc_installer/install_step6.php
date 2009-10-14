@@ -122,6 +122,8 @@
       $messageStack->add('install_step6', ENTRY_COUNTRY_ERROR);
     }
 
+// BOF - Tomcraft - 2009-10-14 - removed option to select state as is is not needed in germany
+/*
     if (ACCOUNT_STATE == 'true') {
       $zone_id = 0;
       $check_query = xtc_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "'");
@@ -145,7 +147,8 @@
         }
       }
     }
-
+*/
+// EOF - Tomcraft - 2009-10-14 - removed option to select state as is is not needed in germany
     if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
       $error = true;
 
@@ -781,10 +784,13 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                   <td><?php echo xtc_draw_input_field_installer('CITY'); ?> 
                     *</td>
                 </tr>
-                <tr> 
-                  <td><strong><?php echo TEXT_STATE; ?></strong></td>
+<?php // BOF - Tomcraft - 2009-10-14 - removed option to select state as is is not needed in germany ?>
+<!--
+                <tr>
+                  <td><strong><?php //echo TEXT_STATE; ?></strong></td>
                   <td> 
                     <?php
+/*
     if ($process == true) {
       if ($entry_state_has_zones == true) {
         $zones_array = array();
@@ -799,14 +805,18 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     } else {
       echo xtc_draw_input_field('STATE');
     }
-
+*/
 
 ?>
                     *</td>
+//-->
                 </tr>
+<?php // EOF - Tomcraft - 2009-10-14 - removed option to select state as is is not needed in germany ?>
                 <tr> 
                   <td><strong><?php echo TEXT_COUNTRY; ?></strong></td>
-                  <td><?php echo xtc_get_country_list('COUNTRY'); ?>&nbsp; 
+<?php // BOF - Tomcraft - 2009-10-14 - changed default country to germany ?>
+                  <td><?php echo xtc_get_country_list('COUNTRY',81); ?>&nbsp;
+<?php // EOF - Tomcraft - 2009-10-14 - changed default country to germany ?>		  
                     *<strong> 
                     <?php echo TEXT_COUNTRY_LONG; ?></strong></td>
                 </tr>
