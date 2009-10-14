@@ -27,9 +27,13 @@
 // the image filename as default
     $image = '<img src="' . xtc_parse_input_field_data($src, array('"' => '&quot;')) . '" alt="' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . '"';
 
+//BOF - Dokuman - 2009-10-14 - Remove title-attribute from images to avoid "keyword stuffing" (SEO), as it is identical to the alt-attribute
+    /*
     if (xtc_not_null($alt)) {
       $image .= ' title=" ' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . ' "';
     }
+    */
+//EOF - Dokuman - 2009-10-14 - Remove title-attribute from images to avoid "keyword stuffing" (SEO), as it is identical to the alt-attribute
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && (empty($width) || empty($height)) ) {
       if ($image_size = @getimagesize($src)) {
