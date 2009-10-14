@@ -15,7 +15,7 @@
 			{if $csID}<br /><strong>{#csID#}</strong> {$csID}{/if}
         	{if $PAYMENT_METHOD}<br /><strong>{#payment#}</strong> {$PAYMENT_METHOD}<br />{/if} 
 			<strong>{#order#}</strong> {$oID}<br />
-        	<strong>{#date#}</strong> {$DATE} </span></td>
+        	<strong>{#date#}</strong> {$DATE} </td>
     	<td style="vertical-align:top; text-align:right;"><img src="{php}echo DIR_WS_CATALOG;{/php}templates/{php}echo CURRENT_TEMPLATE;{/php}/img/logo.gif" alt="{$store_name}" /></td>
 	</tr>
     <tr>
@@ -55,6 +55,5 @@
   </tr>
   {/foreach}
 </table>
-</div>
 </body>
 </html>
