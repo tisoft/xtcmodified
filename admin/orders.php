@@ -915,6 +915,12 @@ elseif ($_GET['action'] == 'custom_action') {
 			break;
 	}
 
+// BOF - Tomcraft - 2009-10-22 - Added customer comments to default view on right column
+	if ($order->info[comments]<>'') {
+		$contents[] = array ('text' => '<br><strong>'.TABLE_HEADING_COMMENTS.':</strong><br>'.$order->info[comments]);
+	}
+// EOF - Tomcraft - 2009-10-22 - Added customer comments to default view on right column
+
 	if ((xtc_not_null($heading)) && (xtc_not_null($contents))) {
 		echo '            <td width="25%" valign="top">'."\n";
 
