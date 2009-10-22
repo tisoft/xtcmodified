@@ -36,9 +36,9 @@ function vvcode_render_code($code) {
     $background = imagecolorallocate($imgh, 196, 196, 196);
     */
     $fonts = imagecolorallocate($imgh, 137, 55, 105);
-		$lines = imagecolorallocate($imgh, 222, 222, 222);
-		$background = imagecolorallocate($imgh, 180, 180, 180);
-		//EOF - Dokuman - 2009-10-14 - Set VVCODE Colors to default template color    
+    $lines = imagecolorallocate($imgh, 222, 222, 222);
+    $background = imagecolorallocate($imgh, 180, 180, 180);
+    //EOF - Dokuman - 2009-10-14 - Set VVCODE Colors to default template color    
 
     imagefill($imgh, 0, 0, $background);
 
