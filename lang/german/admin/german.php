@@ -44,7 +44,7 @@ function xtc_date_raw($date, $reverse = false) {
 }
 
 // Global entries for the <html> tag
-define('HTML_PARAMS','dir="ltr" lang="de"');
+define('HTML_PARAMS','dir="ltr" xml:lang="de"');
 
 
 // page title

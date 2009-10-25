@@ -26,7 +26,7 @@ define('HEADER_TITLE_TOP', 'Main page');
 define('HEADER_TITLE_CATALOG', 'Catalogue');
 //BOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
 //define('HTML_PARAMS','dir="ltr" lang="de"');
-define('HTML_PARAMS','dir="ltr" lang="en"');
+define('HTML_PARAMS','dir="ltr" xml:lang="en"');
 //EOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
 @setlocale(LC_TIME, 'en_EN@euro', 'en_US', 'en-US', 'en', 'en_US.ISO_8859-1', 'English','en_US.ISO_8859-15');
 
