@@ -11,7 +11,7 @@ Ihre E-Mail Adresse: {$EMAIL}
 
 Hallo {$NAME},
 
-vielen Dank f&uuml;r Ihre Bestellung.
+vielen Dank für Ihre Bestellung.
 
 {$PAYMENT_INFO_TXT}
 
