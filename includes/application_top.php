@@ -557,7 +557,10 @@ elseif (xtc_not_null($_GET['manufacturers_id'])) {
 
 // add the products model/name to the breadcrumb trail
 if ($product->isProduct()) {
-		$breadcrumb->add($product->data['products_name'], xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
+// BOF - Tomcraft - 2009-10-25 - replaced model-number with products_name in breadcrumb navigation
+//	$breadcrumb->add($product->getBreadcrumbModel(), xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
+	$breadcrumb->add($product->data['products_name'], xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
+// EOF - Tomcraft - 2009-10-25 - replaced model-number with products_name in breadcrumb navigation
 }
 
 
