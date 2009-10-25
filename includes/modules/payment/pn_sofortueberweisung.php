@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.1 - 09.10.2009
+ * @version sofortüberweisung.de 3.1.1 - 19.10.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -41,7 +41,7 @@ class pn_sofortueberweisung {
 	function pn_sofortueberweisung () {
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
-		$this->version = '3.1';
+		$this->version = '3.1.1';
 		$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER;
@@ -150,6 +150,7 @@ class pn_sofortueberweisung {
 	}
 	function payment_action () {
 		global $order, $xtPrice, $insert_id;
+
 		$customer_id = $_SESSION['customer_id'];
 		$order_id = $insert_id;
 		$_SESSION['cart_pn_sofortueberweisung_ID'] = $_SESSION['cart']->cartID . '-' . $insert_id;
@@ -197,30 +198,18 @@ class pn_sofortueberweisung {
 		$parameter['user_variable_0'] = $order_id;
 		$parameter['user_variable_1'] = $customer_id;
 		
-		// success return  url:
-		$url = xtc_href_link(FILENAME_CHECKOUT_PROCESS, 'transaction=-TRANSACTION-', 'SSL');
-		if (strpos($url, 'tps://') === 2) {
-			$url = str_replace('https://', '', $url);
-		} else {
-			$url = str_replace('http://', '', $url);
-		}
-		$parameter['user_variable_2'] = $url;
-		// cancel return  url:
-		$url = xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=pn_sofortueberweisung', 'SSL');
-		if (strpos($url, 'tps://') === 2) {
-			$url = str_replace('https://', '', $url);
-		} else {
-			$url = str_replace('http://', '', $url);
-		}
-		$parameter['user_variable_3'] = $url;
+		$session = '&' . session_name() . '=' . session_id();
+		$server = str_replace('http://', '', HTTP_SERVER);
+		
+		// success return url:
+		$parameter['user_variable_2'] = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?transaction=-TRANSACTION-' . $session;
+
+		// cancel return url:
+		$parameter['user_variable_3'] = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PAYMENT . '?payment_error=pn_sofortueberweisung' . $session;
+	
 		// notification url:
-		$url = xtc_href_link('callback/pn_sofortueberweisung/callback.php', '', 'SSL', false, false);
-		if (strpos($url, 'tps://') === 2) {
-			$url = str_replace('https://', '', $url);
-		} else {
-			$url = str_replace('http://', '', $url);
-		}
-		$parameter['user_variable_4'] = $url;
+		$parameter['user_variable_4'] = $server . DIR_WS_CATALOG . 'callback/pn_sofortueberweisung/callback.php';
+
 		$parameter['user_variable_5'] = $_SESSION['cart']->cartID;
 
 		if (strlen(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD) > 0) {
@@ -394,20 +383,11 @@ $html = sprintf($html, STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_AD
 		$char = chr(xtc_rand(0,255));
 	      }
 	      if ($type == 'mixed') {
-//BOF - DokuMan - 2009-10-11 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3 
-/*
 		if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
 	      } elseif ($type == 'chars') {
 		if (eregi('^[a-z]$', $char)) $rand_value .= $char;
 	      } elseif ($type == 'digits') {
 		if (ereg('^[0-9]$', $char)) $rand_value .= $char;
-*/
-		if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char;
-	      } elseif ($type == 'chars') {
-		if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char;
-	      } elseif ($type == 'digits') {
-		if (preg_match('/^[0-9]$/i', $char)) $rand_value .= $char;
-//EOF - DokuMan - 2009-10-11 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3 	
 	      }
 	    }
 	
