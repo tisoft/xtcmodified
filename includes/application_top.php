@@ -221,6 +221,17 @@ if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')
 /*
 // set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
 if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
+// BOF - Tomcraft - 2009-10-25 - made capable for 1und1
+	$pathinfo=((getenv('PATH_INFO')=='')?$_SERVER['ORIG_PATH_INFO']:getenv('PATH_INFO'));
+// BOF - Tomcraft - 2009-10-25 - replaced depricated function ereg with preg_match
+//	if(ereg('.php',$pathinfo)):
+	if(preg_match('/.php/',$pathinfo)):
+// EOF - Tomcraft - 2009-10-25 - replaced depricated function ereg with preg_match
+		$PATH_INFO = substr(stristr('.php', $pathinfo),1);
+	else:
+		$PATH_INFO=$pathinfo;
+	endif;
+// EOF - Tomcraft - 2009-10-25 - made capable for 1und1
 	if (strlen(getenv('PATH_INFO')) > 1) {
 		$GET_array = array ();
 		$PHP_SELF = str_replace(getenv('PATH_INFO'), '', $PHP_SELF);
