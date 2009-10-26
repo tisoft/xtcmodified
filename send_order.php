@@ -100,11 +100,11 @@ if ($_SESSION['customer_id'] == $order_check['customers_id']) {
 	// send mail to customer
   //BOF - Dokuman - 2009-10-17 - Send emails to customer only, when set to "true" in admin panel
 	if (SEND_EMAILS == 'true') {
-  //EOF - Dokuman - 2009-10-17 - Send emails customer only, when set to "true" in admin panel
+  //EOF - Dokuman - 2009-10-17 - Send emails to customer only, when set to "true" in admin panel
 	xtc_php_mail(EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, $order->customer['email_address'], $order->customer['firstname'].' '.$order->customer['lastname'], '', EMAIL_BILLING_REPLY_ADDRESS, EMAIL_BILLING_REPLY_ADDRESS_NAME, '', '', $order_subject, $html_mail, $txt_mail);
-  //BOF - Dokuman - 2009-10-17 - Send emails customer only, when set to "true" in admin panel
+  //BOF - Dokuman - 2009-10-17 - Send emails to customer only, when set to "true" in admin panel
   }
-  //EOF - Dokuman - 2009-10-17 - Send emails customer only, when set to "true" in admin panel
+  //EOF - Dokuman - 2009-10-17 - Send emails to customer only, when set to "true" in admin panel
   
 	if (AFTERBUY_ACTIVATED == 'true') {
 		require_once (DIR_WS_CLASSES.'afterbuy.php');
