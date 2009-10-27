@@ -757,17 +757,17 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                 <tr> 
                   <td width="26%"><strong><?php echo TEXT_FIRSTNAME; ?></strong></td>
                   <td width="74%"><?php echo xtc_draw_input_field_installer('FIRST_NAME'); ?> 
-                    * </td>
+                    *</td>
                 </tr>
                 <tr> 
                   <td><strong><?php echo TEXT_LASTNAME; ?></strong></td>
                   <td><?php echo xtc_draw_input_field_installer('LAST_NAME'); ?> 
-                    * </td>
+                    *</td>
                 </tr>
                 <tr> 
                   <td><strong><?php echo TEXT_EMAIL; ?></strong></td>
                   <td><?php echo xtc_draw_input_field_installer('EMAIL_ADRESS'); ?> 
-                    *<br <strong><?php echo TEXT_EMAIL_LONG; ?></strong></td>
+                    *<strong><?php echo TEXT_EMAIL_LONG; ?></strong></td>
                 </tr>
                 <tr> 
                   <td><strong><?php echo TEXT_STREET; ?></strong></td>
@@ -817,8 +817,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 <?php // BOF - Tomcraft - 2009-10-14 - changed default country to germany ?>
                   <td><?php echo xtc_get_country_list('COUNTRY',81); ?>&nbsp;
 <?php // EOF - Tomcraft - 2009-10-14 - changed default country to germany ?>		  
-                    *<strong> 
-                    <?php echo TEXT_COUNTRY_LONG; ?></strong></td>
+                    *<strong><?php echo TEXT_COUNTRY_LONG; ?></strong></td>
                 </tr>
                 <tr> 
                   <td><strong><?php echo TEXT_TEL; ?></strong></td>
