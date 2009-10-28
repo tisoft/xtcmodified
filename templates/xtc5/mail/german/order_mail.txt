@@ -24,7 +24,7 @@ Ihre Anmerkungen:
 {$COMMENTS}
 {/if}
 
-Ihre Bestellten Produkte zur Kontrollle
+Ihre bestellten Produkte zur Kontrolle
 ----------------------------------------------------------------------
 {foreach name=aussen item=order_values from=$order_data} 
 {$order_values.PRODUCTS_QTY} x {$order_values.PRODUCTS_NAME} {$order_values.PRODUCTS_PRICE}
