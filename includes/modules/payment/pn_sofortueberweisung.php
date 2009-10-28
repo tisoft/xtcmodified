@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.1.1 - 19.10.2009
+ * @version sofortüberweisung.de 3.1.2 - 26.10.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -41,7 +41,7 @@ class pn_sofortueberweisung {
 	function pn_sofortueberweisung () {
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
-		$this->version = '3.1.1';
+		$this->version = '3.1.2';
 		$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER;
@@ -199,7 +199,11 @@ class pn_sofortueberweisung {
 		$parameter['user_variable_1'] = $customer_id;
 		
 		$session = '&' . session_name() . '=' . session_id();
-		$server = str_replace('http://', '', HTTP_SERVER);
+
+	        if (ENABLE_SSL == true)
+		      $server = str_replace('https://', '', HTTPS_SERVER);
+	        else
+		      $server = str_replace('http://', '', HTTP_SERVER);
 		
 		// success return url:
 		$parameter['user_variable_2'] = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?transaction=-TRANSACTION-' . $session;
@@ -383,20 +387,11 @@ $html = sprintf($html, STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_AD
 		$char = chr(xtc_rand(0,255));
 	      }
 	      if ($type == 'mixed') {
-// BOF - DokuMan - 2009-10-11 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
-/*
 		if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
 	      } elseif ($type == 'chars') {
 		if (eregi('^[a-z]$', $char)) $rand_value .= $char;
 	      } elseif ($type == 'digits') {
 		if (ereg('^[0-9]$', $char)) $rand_value .= $char;
-*/
-		if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char; 
-	      } elseif ($type == 'chars') { 
-		if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char; 
-	      } elseif ($type == 'digits') { 
-		if (preg_match('/^[0-9]$/i', $char)) $rand_value .= $char; 
-// EOF - DokuMan - 2009-10-11 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
 	      }
 	    }
 	
