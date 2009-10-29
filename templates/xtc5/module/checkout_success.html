@@ -1,1 +1,31 @@
-{config_load file="$language/lang_$language.conf" section="checkout_success"}{config_load file="$language/lang_$language.conf" section="checkout_navigation"}<ul id="checkoutnavigation">	<li class="inactive"><span class="number">1.</span> <span class="title">{#title_shipping#}</span><br /><span class="description">{#desc_shipping#}</span></li>	<li class="inactive"><span class="number">2.</span> <span class="title">{#title_payment#}</span><br /><span class="description">{#desc_payment#}</span></li>	<li class="inactive"><span class="number">3.</span> <span class="title">{#title_confirmation#}</span><br /><span class="description">{#desc_confirmation#}</span></li>	<li class="active"><span class="number">4.</span> <span class="title">{#title_success#}</span><br /><span class="description">{#desc_success#}</span></li></ul><div style="clear:both"></div>{$FORM_ACTION}<h1>{#heading_success#}</h1><p>{#text_success#}</p><h2>{#title_printorder#}</h2><p>{#text_printorder#}<br /><strong>{#text_thankyou#}</strong></p>{if $GV_SEND_LINK}<p>{#gv_has_vouchera#} {$GV_SEND_LINK} {#gv_has_voucherb#}</p>{/if}<p>{$BUTTON_PRINT}&nbsp;{$BUTTON_CONTINUE}</p>{if $downloads_content neq ''}{if $title_downloadfiles!=''}<h1>{#title_downloadfiles#}</h1>{/if}{$downloads_content}{/if}<!-- Google Conversion-tracking start !-->{if $google_tracking eq 'true'}<p>{$tracking_code}</p>{/if}<!-- Google Conversion-tracking end !-->{$FORM_END}
+{config_load file="$language/lang_$language.conf" section="checkout_success"}
+{config_load file="$language/lang_$language.conf" section="checkout_navigation"}
+<ul id="checkoutnavigation">
+	<li class="inactive"><span class="number">1.</span> <span class="title">{#title_shipping#}</span><br /><span class="description">{#desc_shipping#}</span></li>
+	<li class="inactive"><span class="number">2.</span> <span class="title">{#title_payment#}</span><br /><span class="description">{#desc_payment#}</span></li>
+	<li class="inactive"><span class="number">3.</span> <span class="title">{#title_confirmation#}</span><br /><span class="description">{#desc_confirmation#}</span></li>
+	<li class="active"><span class="number">4.</span> <span class="title">{#title_success#}</span><br /><span class="description">{#desc_success#}</span></li>
+</ul>
+<div style="clear:both"></div>
+{$FORM_ACTION}
+<h1>{#heading_success#}</h1>
+<p>{#text_success#}</p>
+<h2>{#title_printorder#}</h2>
+<p>{#text_printorder#}<br />
+<strong>{#text_thankyou#}</strong></p>
+{if $GV_SEND_LINK}
+<p>{#gv_has_vouchera#} {$GV_SEND_LINK} {#gv_has_voucherb#}</p>
+{/if}
+<p>{$BUTTON_PRINT}&nbsp;{$BUTTON_CONTINUE}</p>
+{if $downloads_content neq ''}
+{if $title_downloadfiles!=''}
+<h1>{#title_downloadfiles#}</h1>
+{/if}
+{$downloads_content}
+{/if}
+<!-- Google Conversion-tracking start !-->
+{if $google_tracking eq 'true'}
+<p>{$tracking_code}</p>
+{/if}
+<!-- Google Conversion-tracking end !-->
+{$FORM_END}
