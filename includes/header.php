@@ -1,4 +1,39 @@
 <?php
+/* -----------------------------------------------------------------------------------------
+   $Id: header.php 1140 2005-08-10 10:16:00Z mz $   
+
+   XT-Commerce - community made shopping
+   http://www.xt-commerce.com
+
+   Copyright (c) 2003 XT-Commerce 
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce(header.php,v 1.40 2003/03/14); www.oscommerce.com 
+   (c) 2003	 nextcommerce (header.php,v 1.13 2003/08/17); www.nextcommerce.org 
+
+   Released under the GNU General Public License
+   -----------------------------------------------------------------------------------------
+   Third Party contribution:
+
+   Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
+   http://www.oscommerce.com/community/contributions,282
+   Copyright (c) Strider | Strider@oscworks.com
+   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Andre ambidex@gmx.net
+   Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
+
+
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------------------------*/
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" <?php echo HTML_PARAMS; ?>>
+<head>
+<?php include(DIR_WS_MODULES.FILENAME_METATAGS); ?>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="shortcut icon" href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER).DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/favicon.ico';?>" type="image/x-icon" />
 
 <?php
 /*
