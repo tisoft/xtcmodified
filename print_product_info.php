@@ -68,10 +68,15 @@ if ($products_attributes['total'] > 0) {
 // assign language to template for caching
 $smarty->assign('language', $_SESSION['language']);
 
+// BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+/*
 $image = '';
 if ($product_info['products_image'] != '') {
 	$image = DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$product_info['products_image'];
 }
+*/
+$image = DIR_WS_CATALOG.$product->productImage($product_info['products_image'], 'thumbnail');
+// EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
 if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
 	$tax_rate = $xtPrice->TAX[$product_info['products_tax_class_id']];
 	// price incl tax

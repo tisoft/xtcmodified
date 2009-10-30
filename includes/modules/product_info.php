@@ -91,8 +91,13 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:hand" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')" alt="" />');
 		$info_smarty->assign('PRODUCTS_DESCRIPTION', stripslashes($product->data['products_description']));
 		$image = '';
+// BOF - Tomcraft - 2009-10-30 - use allready defined function from product.php
+/*
 		if ($product->data['products_image'] != '')
-			$image = DIR_WS_INFO_IMAGES.$product->data['products_image'];
+			$image = DIR_WS_INFO_IMAGES.$product->data['products_image'];		
+*/
+		$image = $product->productImage($product->data['products_image'], 'info');
+// EOF - Tomcraft - 2009-10-30 - use allready defined function from product.php		
 
 		$info_smarty->assign('PRODUCTS_IMAGE', $image);
 

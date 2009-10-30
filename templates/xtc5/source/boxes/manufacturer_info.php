@@ -41,7 +41,12 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_manufacturers_info.html
       $manufacturer = xtc_db_fetch_array($manufacturer_query,true);
 
       $image='';
-      if (xtc_not_null($manufacturer['manufacturers_image'])) $image=DIR_WS_IMAGES . $manufacturer['manufacturers_image'];
+      if (xtc_not_null($manufacturer['manufacturers_image'])) {
+        $image=DIR_WS_IMAGES . $manufacturer['manufacturers_image'];
+// BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+        if (!file_exists($image)) $image=DIR_WS_IMAGES . 'manufacturers/noimage.gif';
+// EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+      }
       $box_smarty->assign('IMAGE',$image);
       $box_smarty->assign('NAME',$manufacturer['manufacturers_name']);
       
