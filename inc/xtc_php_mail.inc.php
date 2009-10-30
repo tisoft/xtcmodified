@@ -24,10 +24,22 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
 //*********************************************************************************************
 $mailsmarty= new Smarty;
 $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
-$html_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
-$txt_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
-//**********************************************************************************************
 
+//BOF - Dokuman - 20091030 - Check for existing signature files
+//$html_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
+//$txt_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
+
+// load the signatures only, if the appropriate file(s) exists
+	$html_signatur = '';
+	$txt_signatur = '';
+  if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html')) {
+        $html_signatur = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
+  }
+  if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt')) {
+        $txt_signatur = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
+  }
+//EOF - Dokuman - 20091030 - Check for existing signature files
+//**********************************************************************************************
 
 	$mail = new PHPMailer();
 	$mail->PluginDir = DIR_FS_DOCUMENT_ROOT.'includes/classes/';
