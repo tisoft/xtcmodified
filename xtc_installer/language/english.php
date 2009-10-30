@@ -82,7 +82,7 @@ define('TEXT_WELCOME_STEP2','<b>Install database</b><br /><br />The xtcModified 
 define('TEXT_WELCOME_STEP3','<b>Database import.</b><br /><br />');
 define('TEXT_WELCOME_STEP4','<b>Configure xtcModified main files</b><br /><br /><b>If there are old configure files from a further installation, xtcModified wiill delete them</b><br /><br />The installer will set up the configuration files with the main parameters for database and file structur.<br /><br />You can choose between different session handling systems.');
 define('TEXT_WELCOME_STEP5','<b>Webserver Configuration</b><br /><br />');
-define('TEXT_WELCOME_STEP6','<b>Basic shop configuration</b><br /><br />The installer will create the admin account and will perform some db actions.<br /> The given informations for <b>Country</b> and <b>Post Code</b> are used for shipping and tax callculations.<br /><br />If you wish, xtcModified can automatically setup the zones,tax-rates and tax-classes for delivering/selling within the European Union.<br />Just set <b>setup zones for EU</b> to <b>YES</b>.');
+define('TEXT_WELCOME_STEP6','<b>Basic shop configuration</b><br /><br />The installer will create the admin account and will perform some db actions.<br /> The given information for <b>Country</b> and <b>Post Code</b> are used for shipping and tax callculations.<br /><br />If you wish, xtcModified can automatically setup the zones,tax-rates and tax-classes for delivering/selling within the European Union.<br />Just set <b>setup zones for EU</b> to <b>YES</b>.');
 define('TEXT_WELCOME_STEP7','<b>Guest and default customers setup</b><br /><br />The xtcModified group- and pricesystem got nearly infinite possibilities of different prices.<br /><br />
 <b>% discount on single product</b><br />
 %max can be set for every single product, and single customers group<br />
@@ -146,14 +146,14 @@ define('TEXT_STEP4_ERROR','<b>The configuration files do not exist, or permissio
 define('TEXT_STEP4_ERROR_1','If <i>chmod 706</i> does not work, please try <i>chmod 777</i>.');
 define('TEXT_STEP4_ERROR_2','If you are running this installation procedure under a Microsoft Windows environment, try renaming the existing configuration file so a new file can be created.');
 define('TEXT_VALUES','The following configuration values will be written to:');
-define('TITLE_CHECK_CONFIGURATION','Please check your web-server informations');
+define('TITLE_CHECK_CONFIGURATION','Please check your web-server information');
 define('TEXT_HTTP','HTTP Server');
 define('TEXT_HTTP_LONG','The web server can be in the form of a hostname, such as <i>http://www.myserver.com</i>, or as an IP address, such as <i>http://192.168.0.1</i>.');
 define('TEXT_HTTPS','HTTPS Server');
 define('TEXT_HTTPS_LONG','The secure web server can be in the form of a hostname, such as  <i>https://www.myserver.com</i>, or as an IP address, such as <i>https://192.168.0.1</i>.');
 define('TEXT_SSL','Enable SSL Connections');
 define('TEXT_SSL_LONG','Enable Secure Connections With SSL (HTTPS)');
-define('TITLE_CHECK_DATABASE','Please check your database-server informations');
+define('TITLE_CHECK_DATABASE','Please check your database-server information');
 define('TEXT_PERSIST','Enable Persistent Connections');
 define('TEXT_PERSIST_LONG','Enable persistent database connections. Please disable this if you are on a shared server.');
 define('TEXT_SESS_FILE','Store Sessions as Files');
