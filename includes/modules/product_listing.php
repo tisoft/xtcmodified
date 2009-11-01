@@ -47,9 +47,13 @@ if ($listing_split->number_of_rows > 0) {
 		                                    and cd.language_id = '".$_SESSION['languages_id']."'");
 
 	$category = xtc_db_fetch_array($category_query,true);
-	$image = '';
-	if ($category['categories_image'] != '')
-		$image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
+	$image = '';	
+	if ($category['categories_image'] != '') {
+		$image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];		
+// BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+		if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
+// EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+	}
 	$module_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
 	$module_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
 
