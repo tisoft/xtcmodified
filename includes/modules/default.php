@@ -123,9 +123,6 @@ if ($category_depth == 'nested') {
   $image = '';
   if ($categories['categories_image'] != '') {
     $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
-// BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
-    if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
-// EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
   }
 
   $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'], 

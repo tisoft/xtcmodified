@@ -24,10 +24,7 @@ class product {
 	 */
 	function product($pID = 0) {
 		$this->pID = $pID;
-// BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
-		//$this->useStandardImage=false;
-		$this->useStandardImage=true;
-// EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+		$this->useStandardImage=false;
 		$this->standardImage='noimage.gif';
 		if ($pID = 0) {
 			$this->isProduct = false;
@@ -435,8 +432,8 @@ class product {
 	
 
 	function productImage($name, $type) {
-	
-	    switch ($type) {
+
+		switch ($type) {
 			case 'info' :
 				$path = DIR_WS_INFO_IMAGES;
 				break;
