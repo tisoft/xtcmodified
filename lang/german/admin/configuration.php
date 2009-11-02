@@ -657,6 +657,6 @@ define('USE_ADMIN_TOP_MENU_DESC' , 'Admin Top Navigation aktivieren?');
 
 // BOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('USE_ADMIN_LANG_TABS_TITLE' , 'Sprachtabs bei Kategorien/Artikel');
-define('USE_ADMIN_LANG_TABS_DESC' , 'Sprachtabs bei den Eingabefeldern für Kategorien/Artikel aktivieren?');
+define('USE_ADMIN_LANG_TABS_DESC' , 'Sprachtabs bei den Eingabefeldern f&uml;r Kategorien/Artikel aktivieren?');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
 ?>
