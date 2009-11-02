@@ -281,13 +281,13 @@ $datethismonth=	date("m");
                     
                     <table border="0" width="100%" cellspacing="0">
                          <tr>
-                              <td width="48%" bgcolor="#FFCF9C" style="border-style: solid; border-width: 1px"><strong>User Online</strong></td>
+                              <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 2px solid #b40076;"><strong>User Online</strong></td>
                               <td width="4%"><p style="margin-left: 3px"></td>
-                              <td width="48%" bgcolor="#FFCF9C" style="border-style: solid; border-width: 1px"><font face="Verdana"><strong>Neue
+                              <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 2px solid #b40076;"><font face="Verdana"><strong>Neue
                                         Kunden </strong>(letzten 15 neuen Kunden)</font></td>
                          </tr>
                          <tr>
-                              <td width="48%" bgcolor="#FFFBEF" style="border-style: solid; border-width: 1px" height="200" valign="top">&nbsp;<em><font face="Verdana" color="#7691A2">***für 
+                              <td width="48%" style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top">&nbsp;<em><font face="Verdana" color="#7691A2">***für 
                                         Infos zu dem User - auf Name des Users klicken***</font></em>
                                    <table border="0" width="98%" cellspacing="0" cellpadding="0">
                                         <tr class="dataTableHeadingRow">
@@ -328,7 +328,8 @@ $datethismonth=	date("m");
                                         </tr>
                                    </table></td>
                               <td width="4%" height="200" valign="top"></td>
-                              <td width="48%" bgcolor="#FFFBEF" style="border-style: solid; border-width: 1px" height="200" valign="top"><table border="0" width="98%" cellspacing="0" cellpadding="0">
+                              <td width="48%" style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top">
+							          <table border="0" width="98%" cellspacing="0" cellpadding="0">
                                         <tr class="dataTableHeadingRow">
                                              <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana">Name</font></strong></td>
                                              <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana">Vorname</font></strong></td>
@@ -373,12 +374,13 @@ $datethismonth=	date("m");
                               <td width="48%"><font face="Verdana">&nbsp;</font></td>
                          </tr>
                          <tr>
-                              <td width="48%" bgcolor="#FFCF9C" style="border-style: solid; border-width: 1px"><p style="margin-left: 3px"><strong><font face="Verdana"> letzten </font></strong><font face="Verdana"><strong>Bestellungen </strong> (letzten 20 Bestellungen)</font></td>
+                              <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 2px solid #b40076;"><span style="margin-left: 3px"><strong><font face="Verdana"> letzten </font></strong><font face="Verdana"><strong>Bestellungen </strong> (letzten 20 Bestellungen)</font></span></td>
                               <td width="4%"><p style="margin-left: 3px"></td>
-                              <td width="48%" bgcolor="#FFCF9C" style="border-style:solid; border-width: 1px"><p style="margin-left: 3px"><font face="Verdana"><strong> Zur Homepage von:</strong> <a href="http://www.xtc-modified.org" target="_blank">xtcModified.org</a></font></td>
+                              <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 2px solid #b40076;"><span style="margin-left: 3px"><font face="Verdana"><strong> Zur Homepage von:</strong> <a href="http://www.xtc-modified.org" target="_blank">xtcModified.org</a></font></span></td>
                          </tr>
                          <tr>
-                              <td width="48%" bgcolor="#FFFBEF" style="border-style: solid; border-width: 1px" height="200" valign="top"><table border="0" width="98%" cellspacing="0" cellpadding="0">
+                              <td width="48%" style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top">
+							        <table border="0" width="98%" cellspacing="0" cellpadding="0">
                                         <tr class="dataTableHeadingRow">
                                              <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana">Bestellnummer</font></strong></td>
                                              <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><p align="center"> <strong><font face="Verdana">Bestelldatum</font></strong></td>
@@ -422,14 +424,14 @@ $datethismonth=	date("m");
                                         </tr>
                                    </table></td>
                               <td width="4%" height="200" valign="top"><p style="margin-left: 3px"></td>
-                              <td width="48%" bgcolor="#FFFBEF" style="border-style: solid; border-width: 1px" height="200" valign="top"><table border="0" width="98%" cellspacing="0" cellpadding="0">
+                              <td width="48%" style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top"><table border="0" width="98%" cellspacing="0" cellpadding="0">
                                         <?php
 
 CarpConf('iorder','link,date,desc');
 
         CarpConf('cborder','link,desc');
         CarpConf('caorder','image');
-        CarpConf('bcb','<div style="background:#fed;font-size:11px; border:1px solid #999; padding:5px; font-weight: 700" align="left">');
+        CarpConf('bcb','<div style="background:#F0F1F1;font-size:11px; border:1px solid #999; padding:5px; font-weight: 700" align="left">');
         CarpConf('acb','</div>');
         CarpConf('bca','<span>');
         CarpConf('aca','</span>');
@@ -449,9 +451,9 @@ CarpConf('maxitems',3);
                          </tr>
                     </table>
                     <br />
-                    <table cellpadding="5" cellspacing="0" width="100%" id="table1" style="border-bottom:1px solid #CCCCCC; border-top:1px solid #CCCCCC; font-family: Verdana; font-size: 11px">
+                    <table cellpadding="5" cellspacing="0" width="100%" id="table1" class="contentTable">
                          <tr>
-                              <td bgcolor="#FFCC99"><p style="margin-left: 3px"><font face="Verdana"><strong>Geburtstagsliste</strong></font></td>
+                              <td class="infoBoxHeading"><span style="margin-left: 3px"><font face="Verdana"><strong>Geburtstagsliste</strong></font></span></td>
                          </tr>
                     </table>
                     <table cellpadding="5" cellspacing="0" style="font-family:Verdana; font-size:11px" width="100%" id="AutoNumber1">
