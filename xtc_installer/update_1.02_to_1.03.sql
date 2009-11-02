@@ -66,5 +66,6 @@ UPDATE admin_access SET products_expected = '1' WHERE customers_id = '1';
 UPDATE admin_access SET products_expected = '5' WHERE customers_id = 'groups';
 
 #Tomcraft - 2009-11-02 - set global customers-group-permissions
-ALTER TABLE `admin_access` ADD `customers_group` INT( 1 ) NOT NULL DEFAULT '0';
-UPDATE `admin_access` SET `customers_group`=1 WHERE customers_id=1;
+ALTER TABLE admin_access ADD customers_group INT( 1 ) NOT NULL DEFAULT '0' AFTER customers_status;
+UPDATE admin_access SET customers_group = '1' WHERE customers_id = '1';
+UPDATE admin_access SET customers_group = '2' WHERE customers_id = 'groups';
