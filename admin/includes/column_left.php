@@ -68,7 +68,9 @@
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['whos_online'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_WHOS_ONLINE) . '" class="menuBoxContentLink"> -' . BOX_WHOS_ONLINE . '</a><br />';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['csv_backend'] == '1')) echo '<a href="' . xtc_href_link('csv_backend.php') . '" class="menuBoxContentLink"> -' . BOX_IMPORT . '</a><br />';
 // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+if (GROUP_CHECK=='true') {
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['paypal'] == '1')) echo '<a href="' . xtc_href_link('paypal.php') . '" class="menuBoxContentLink"> -' . BOX_PAYPAL . '</a><br>';
+  }
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 
