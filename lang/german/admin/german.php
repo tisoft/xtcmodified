@@ -123,7 +123,10 @@ define('BOX_HEADING_REPORTS', 'Berichte');
 define('BOX_PRODUCTS_VIEWED', 'Besuchte Artikel');
 define('BOX_STOCK_WARNING','Lager Bericht');
 define('BOX_PRODUCTS_PURCHASED', 'Verkaufte Artikel');
-define('BOX_STATS_CUSTOMERS', 'Kunden-<br />&nbsp;Bestellstatistik');
+// BOF - Tomcraft - 2009-11-02 - New admin top menu
+//define('BOX_STATS_CUSTOMERS', 'Kunden-<br />&nbsp;Bestellstatistik');
+define('BOX_STATS_CUSTOMERS', 'Kunden-Bestellstatistik');
+// EOF - Tomcraft - 2009-11-02 - New admin top menu
 define('BOX_BACKUP', 'Datenbank Manager');
 define('BOX_BANNER_MANAGER', 'Banner Manager');
 define('BOX_CACHE', 'Cache Steuerung');
@@ -413,7 +416,7 @@ define('BOX_GOOGLE_SITEMAP', 'Google Sitemap');
 define('BOX_PAYPAL','PayPal');
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
-//Dokuman - 2009-10-02 - added moneybookers payment module version 2.4
+// BOF - Dokuman - 2009-10-02 - added moneybookers payment module version 2.4
 define('_PAYMENT_MONEYBOOKERS_EMAILID_TITLE','Moneybookers E-Mail Adresse');
 define('_PAYMENT_MONEYBOOKERS_EMAILID_DESC','E-Mail Adresse mit welcher Sie bei Moneybookers.com registriert sind.<br />Wenn Sie noch &uuml;ber kein Konto verf&uuml;gen, <b>melden Sie sich</b> jetzt bei <a href="https://www.moneybookers.com/app/register.pl" target="_blank"><b>Moneybookers</b></a> <b>gratis</b> an.');
 define('_PAYMENT_MONEYBOOKERS_MERCHANTID_TITLE','Moneybookers H&auml;ndler ID');
@@ -434,8 +437,13 @@ define('MB_TEXT_MBERRTXT', 'Status:');
 define('MB_ERROR_NO_MERCHANT','Es Existiert kein Moneybookers.com Account mit dieser E-Mail Adresse!');
 define('MB_MERCHANT_OK','Moneybookers.com Account korrekt, H&auml;ndler ID %s von Moneybookers.com empfangen und gespeichert.');
 define('MB_INFO','<img src="../images/icons/moneybookers/MBbanner.jpg" /><br /><br />xt:Commerce-Kunden k&ouml;nnen jetzt Kreditkarten, Lastschrift, Sofort&uuml;berweisung, Giropay sowie alle weiteren wichtigen lokalen Bezahloptionen direkt akzeptieren mit einer simplen Aktivierung im Shop. Mit Moneybookers als All-in-One-L&ouml;sung brauchen Sie dabei keine Einzelvertr&auml;ge pro Zahlart abzuschliesen. Sie brauchen lediglich einen <a href="https://www.moneybookers.com/app/register.pl" target="_blank"><b>kostenlosen Moneybookers Account</b></a> um alle wichtigen Bezahloptionen in Ihrem Shop zu akzeptieren. Zus&auml;tzliche Bezahlarten sind ohne Mehrkosten und das Modul beinhaltet <b>keine monatliche Fixkosten oder Installationskosten</b>.<br /><br /><b>Ihre Vorteile:</b><br />-Die Akzeptanz der wichtigsten Bezahloptionensteigern Ihren Umsatz<br />-Ein Anbieter reduziert Ihre Aufw&auml;nde und Ihre Kosten<br />-Ihr Kunde bezahlt direkt und ohne Registrierungsprozedur<br />-Ein-Klick-Aktivierung und Integration<br />-Sehr attraktive <a href="http://www.moneybookers.com/app/help.pl?s=m_fees" target="_blank"><b>Konditionen</b></a> <br />-sofortige Zahlungsbest&auml;tigung und Pr&uuml;fung der Kundendaten<br />-Bezahlabwicklung auch im Ausland und ohne Mehrkosten<br />-6 Millionen Kunden weltweit vertrauen Moneybookers');
+// EOF - Dokuman - 2009-10-02 - added moneybookers payment module version 2.4
 
 // BOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
 define('BOX_CUSTOMERS_GROUP','KG-Berechtigungen');
 // EOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
+
+// BOF - Tomcraft - 2009-11-02 - New admin top menu
+define('BOX_HEADING_CONFIGURATION2','Erweiterte Konfiguration');
+// EOF - Tomcraft - 2009-11-02 - New admin top menu
 ?>

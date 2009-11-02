@@ -69,3 +69,6 @@ UPDATE admin_access SET products_expected = '5' WHERE customers_id = 'groups';
 ALTER TABLE admin_access ADD customers_group INT( 1 ) NOT NULL DEFAULT '0' AFTER customers_status;
 UPDATE admin_access SET customers_group = '1' WHERE customers_id = '1';
 UPDATE admin_access SET customers_group = '2' WHERE customers_id = 'groups';
+
+#Tomcraft - 2009-11-02 - New admin top menu
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_TOP_MENU', 'true', 1, 30, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');

@@ -1,0 +1,48 @@
+
+/*Credits: Dynamic Drive CSS Library */
+/*URL: http://www.dynamicdrive.com/style/ */
+
+.suckertreemenu ul{
+	list-style-type: none;
+   margin: 0;
+   padding: 0;
+   width: 150px;
+}
+
+.suckertreemenu li a{
+	display: block;
+	width: 100%;
+	padding: 1px 0px 1px 0px;
+	text-decoration: none;
+	letter-spacing: normal;		
+}
+
+/*Top level menu link items style*/
+.suckertreemenu li a:hover, .buttonmenu li a:active{
+	color: black;
+	background-color: #eeeeee;
+}
+
+/* FASTMENÜ */
+td.fastmenu{
+	width: 105px;
+	font-size: 9px;
+	text-align: center;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	letter-spacing: normal;		
+}
+td.fastmenu img{
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+
+#top1,#top2{
+   margin-top: 0px;
+	margin-bottom: 5px;	
+	border-top: 5px solid #b40076;
+}
+/*FIX FÜR ECONDA & CLEVERREACH*/
+li{
+	list-style-type: none;
+	margin-left:0px;
+}
