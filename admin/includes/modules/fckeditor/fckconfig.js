@@ -120,8 +120,14 @@ FCKConfig.ToolbarSets["Basic"] = [
 	['Bold','Italic','-','OrderedList','UnorderedList','-','Link','Unlink','-','About']
 ] ;
 
+// BOF - Tomcraft - 2009-11-02 - switched FCKConfig.EnterMode and FCKConfig.ShiftEnterMode in fckconfig.js to create more xhtml valid code
+/*
 FCKConfig.EnterMode = 'p' ;			// p | div | br
 FCKConfig.ShiftEnterMode = 'br' ;	// p | div | br
+*/
+FCKConfig.EnterMode = 'br' ;			// p | div | br
+FCKConfig.ShiftEnterMode = 'p' ;	// p | div | br
+// EOF - Tomcraft - 2009-11-02 - switched FCKConfig.EnterMode and FCKConfig.ShiftEnterMode in fckconfig.js to create more xhtml valid code
 
 FCKConfig.Keystrokes = [
 	[ CTRL + 65 /*A*/, true ],
