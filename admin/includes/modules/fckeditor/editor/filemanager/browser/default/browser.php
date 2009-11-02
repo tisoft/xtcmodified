@@ -198,5 +198,5 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 				<frame name="frmUploadWorker" src="<?php echo DIR_WS_FILEMANAGER; ?>javascript:void(0)" scrolling="no" frameborder="0">
 			</frameset>
 		</frameset>
-	</frameset><noframes></noframes>
+	</frameset>
 </html>

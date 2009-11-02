@@ -79,8 +79,8 @@ window.onload = function()
 								border-left: #000000 1px solid; border-bottom: #000000 1px solid">
 								<span fcklang="DlgAboutVersion">version</span>
 								<br />
-								<b>2.6.4.1</b><br />
-								Build 23187</td>
+								<b>2.6.5</b><br />
+								Build 23959</td>
 						</tr>
 					</table>
 				</td>
@@ -106,7 +106,7 @@ window.onload = function()
 					<span fcklang="DlgAboutInfo">For further information go to</span> <a href="http://www.fckeditor.net/?About"
 						target="_blank">http://www.fckeditor.net/</a>.
 					<br />
-					Copyright &copy; 2003-2009 <a href="#" onClick="SendEMail();">Frederico Caldeira Knabben</a>
+					Copyright &copy; 2003-2009 <a href="#" onclick="SendEMail();">Frederico Caldeira Knabben</a>
                     <br />Modified FCKeditor for xt:Commerce v3.0.4 SP2.1 &copy; 2009 by <a href="http://www.merz-it-service.de">Hetfield</a>
 				</td>
 				<td align="center">
@@ -148,11 +148,11 @@ document.write( '<b>Platform<\/b><br />' + window.navigator.platform + '<br /><b
 var sUserLang = '?' ;
 
 if ( window.navigator.language )
-	sUserLang = window.navigator.language.toLowerCase() ;
+	sUserLang = window.navigator.language ;
 else if ( window.navigator.userLanguage )
-	sUserLang = window.navigator.userLanguage.toLowerCase() ;
+	sUserLang = window.navigator.userLanguage ;
 
-document.write( '<b>User Language<\/b><br />' + sUserLang ) ;
+document.write( '<b>Language<\/b><br />' + sUserLang ) ;
 //-->
 					</script>
 				</td>
