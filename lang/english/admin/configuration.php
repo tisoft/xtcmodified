@@ -634,4 +634,9 @@ define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Permits changing address data con
 define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Navigation');
 define('USE_ADMIN_TOP_MENU_DESC' , 'Activate Admin Top Navigation?');
 // EOF - Tomcraft - 2009-11-02 - New admin top menu
+
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+define('USE_ADMIN_LANG_TABS_TITLE' , 'Language Tabs at categories/article');
+define('USE_ADMIN_LANG_TABS_DESC' , 'Use language tabs at categories/article?');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 ?>

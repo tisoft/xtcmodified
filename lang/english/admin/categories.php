@@ -15,7 +15,10 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
  
-define('TEXT_EDIT_STATUS', 'Status');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+//define('TEXT_EDIT_STATUS', 'Status');
+define('TEXT_EDIT_STATUS', 'Status active');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('HEADING_TITLE', 'Categories / Products');
 define('HEADING_TITLE_SEARCH', 'Search: ');
 define('HEADING_TITLE_GOTO', 'Go To:');
@@ -190,4 +193,8 @@ define('HEADING_CATEGORY','category');
 define('HEADING_ADD','Add?');
 define('HEADING_GROUP','Group');
 
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+define('TEXT_SORT_ASC','ascending');
+define('TEXT_SORT_DESC','descending');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 ?>

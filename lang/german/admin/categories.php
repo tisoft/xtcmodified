@@ -15,7 +15,10 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
    
-define('TEXT_EDIT_STATUS', 'Status');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+//define('TEXT_EDIT_STATUS', 'Status');
+define('TEXT_EDIT_STATUS', 'Status aktiv');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('HEADING_TITLE', 'Kategorien / Artikel');
 define('HEADING_TITLE_SEARCH', 'Suche: ');
 define('HEADING_TITLE_GOTO', 'Gehe zu:');
@@ -105,7 +108,10 @@ define('TEXT_PRODUCTS_STATUS', 'Artikelstatus:');
 define('TEXT_PRODUCTS_STARTPAGE', 'Auf Startseite zeigen:');
 define('TEXT_PRODUCTS_STARTPAGE_YES', 'Ja');
 define('TEXT_PRODUCTS_STARTPAGE_NO', 'Nein');
-define('TEXT_PRODUCTS_STARTPAGE_SORT', 'Reihung (Startseite):');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+//define('TEXT_PRODUCTS_STARTPAGE_SORT', 'Reihung (Startseite):');
+define('TEXT_PRODUCTS_STARTPAGE_SORT', 'Sortierreihenfolge (Startseite):');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_PRODUCT_AVAILABLE', 'Auf Lager');
 define('TEXT_PRODUCT_NOT_AVAILABLE', 'Nicht Vorr&auml;tig');
@@ -152,12 +158,18 @@ define('SAVE_ENTRY','Speichern ?');
 define('TEXT_FSK18','FSK 18:');
 define('TEXT_CHOOSE_INFO_TEMPLATE_CATEGORIE','Vorlage f&uuml;r Kategorie&uuml;bersicht');
 define('TEXT_CHOOSE_INFO_TEMPLATE_LISTING','Vorlage f&uuml;r Artikel&uuml;bersicht');
-define('TEXT_PRODUCTS_SORT','Reihung:');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+//define('TEXT_PRODUCTS_SORT','Reihung:');
+define('TEXT_PRODUCTS_SORT','Sortierreihenfolge:');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TEXT_EDIT_PRODUCT_SORT_ORDER','Artikel-Sortierung');
 define('TXT_PRICES','Preis');
 define('TXT_NAME','Artikelname');
 define('TXT_ORDERED','Bestellte Artikel');
-define('TXT_SORT','Reihung');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+//define('TXT_SORT','Reihung');
+define('TXT_SORT','Sortierreihenfolge');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TXT_WEIGHT','Gewicht');
 define('TXT_QTY','Auf Lager');
 // BOF - Tomcraft - 2009-09-12 - add option to sort by date
@@ -187,4 +199,9 @@ define('HEADING_SORTING','Reihung');
 define('HEADING_MODEL','Artikelnummer');
 define('HEADING_NAME','Artikel');
 define('HEADING_CATEGORY','Kategorie');
+
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+define('TEXT_SORT_ASC','aufsteigend');
+define('TEXT_SORT_DESC','absteigend');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 ?>

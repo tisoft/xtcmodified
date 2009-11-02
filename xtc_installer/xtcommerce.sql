@@ -1235,6 +1235,9 @@ INSERT INTO configuration (configuration_id,  configuration_key, configuration_v
 # BOF - Tomcraft - 2009-11-02 - New admin top menu
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_TOP_MENU', 'true', 1, 30, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # EOF - Tomcraft - 2009-11-02 - New admin top menu
+# BOF - Tomcraft - 2009-11-02 - Admin language tabs
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_LANG_TABS', 'true', 1, 31, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+# EOF - Tomcraft - 2009-11-02 - Admin language tabs
 
 # configuration_group_id 2
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_FIRST_NAME_MIN_LENGTH', '2',  2, 1, NULL, '', NULL, NULL);

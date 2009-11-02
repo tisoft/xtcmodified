@@ -654,4 +654,9 @@ define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Erlaubt das &Auml;ndern der von P
 define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Navigation');
 define('USE_ADMIN_TOP_MENU_DESC' , 'Admin Top Navigation aktivieren?');
 // EOF - Tomcraft - 2009-11-02 - New admin top menu
+
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+define('USE_ADMIN_LANG_TABS_TITLE' , 'Sprachtabs bei Kategorien/Artikel');
+define('USE_ADMIN_LANG_TABS_DESC' , 'Sprachtabs bei den Eingabefeldern für Kategorien/Artikel aktivieren?');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 ?>
