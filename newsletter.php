@@ -167,8 +167,10 @@ $breadcrumb->add(NAVBAR_TITLE_NEWSLETTER, xtc_href_link(FILENAME_NEWSLETTER, '',
 
 require (DIR_WS_INCLUDES.'header.php');
 
-//$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
-$smarty->assign('VVIMG', '<img src="'.DIR_WS_CATALOG.FILENAME_DISPLAY_VVCODES.'" alt="Captcha" />');
+//BOF - Dokuman - 2009-11-02 - Fix lost session on newsletter subscription
+//$smarty->assign('VVIMG', '<img src="'.DIR_WS_CATALOG.FILENAME_DISPLAY_VVCODES.'" alt="Captcha" />');
+$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES, 't='. time(), 'NONSSL') .'" alt="Captcha" />');
+//EOF - Dokuman - 2009-11-02 - Fix lost session on newsletter subscription
 
 $smarty->assign('text_newsletter', TEXT_NEWSLETTER);
 $smarty->assign('info_message', $info_message);
