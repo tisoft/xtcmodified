@@ -21,9 +21,11 @@
   echo ('<div class="dataTableHeadingContent"><strong>'.BOX_HEADING_CUSTOMERS.'</strong></div>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['customers'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_CUSTOMERS . '</a><br />';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['customers_status'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_CUSTOMERS_STATUS . '</a><br />';
-  // BOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
+// BOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
+if (GROUP_CHECK=='true') {
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['customers_group'] == '1')) echo '<a href="' . xtc_href_link('customers_group.php', '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_CUSTOMERS_GROUP . '</a><br>';
-  // EOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
+  }
+// EOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['orders'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_ORDERS, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_ORDERS . '</a><br />';
   
 
@@ -68,9 +70,7 @@
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['whos_online'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_WHOS_ONLINE) . '" class="menuBoxContentLink"> -' . BOX_WHOS_ONLINE . '</a><br />';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['csv_backend'] == '1')) echo '<a href="' . xtc_href_link('csv_backend.php') . '" class="menuBoxContentLink"> -' . BOX_IMPORT . '</a><br />';
 // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-if (GROUP_CHECK=='true') {
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['paypal'] == '1')) echo '<a href="' . xtc_href_link('paypal.php') . '" class="menuBoxContentLink"> -' . BOX_PAYPAL . '</a><br>';
-  }
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 
