@@ -368,7 +368,7 @@ if (count($campaign->result)) {
   </tr>
   
   
-  <?
+  <?php
 
 
 	}

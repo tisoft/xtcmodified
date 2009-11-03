@@ -1,4 +1,4 @@
-<?
+<?php
 /*-----------------------------------------------------------------------
     Description : xtC-ShopStat-Module by www.ShopStat.com (Hartmut König)
     Url         : http://www.shopstat.com
