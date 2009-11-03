@@ -89,6 +89,9 @@ echo ('</ul>');
 echo ('</li>');
 
 //---------------------------PARTNER
+
+//BOF - Dokuman - 2009-11-03 - Remove "partner" links
+/*
 echo ('<li>');  
   echo ('<div class="dataTableHeadingContent"><strong>Partner</strong></div>');
 echo ('<ul>');
@@ -96,6 +99,8 @@ echo ('<ul>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['cleverreach'] == '1')) echo '<li><a href="' . xtc_href_link('cleverreach.php') . '" class="menuBoxContentLink"> -CleverReach Newsletter' . '</a></li>';
 echo ('</ul>');
 echo ('</li>');
+*/
+//EOF - Dokuman - 2009-11-03 - Remove "partner" links
 
 //---------------------------HILFSPROGRAMME
 echo ('<li>');   
