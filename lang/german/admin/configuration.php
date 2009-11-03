@@ -83,7 +83,7 @@ define('ALLOW_ADD_TO_CART_DESC' , 'Erlaubt das Einf&uuml;gen von Artikeln in den
 define('ALLOW_DISCOUNT_ON_PRODUCTS_ATTRIBUTES_TITLE' , 'Rabatte auch auf die Artikelattribute verwenden?');
 define('ALLOW_DISCOUNT_ON_PRODUCTS_ATTRIBUTES_DESC' , 'Erlaubt, den eingestellten Rabatt der Kundengruppe auch auf die Artikelattribute anzuwenden (Nur wenn der Artikel nicht als "Sonderangebot" ausgewiesen ist)');
 define('CURRENT_TEMPLATE_TITLE' , 'Templateset (Theme)');
-define('CURRENT_TEMPLATE_DESC' , 'W&auml;hlen Sie ein Templateset (Theme) aus. Das Theme muss sich im Ordner www.Ihre-Domain.com/templates/ befinden.<br /><br />Weiter Themes finden sie unter <a href="http://shop.xtcommerce.com">http://shop.xtcommerce.com</a>');
+define('CURRENT_TEMPLATE_DESC' , 'W&auml;hlen Sie ein Templateset (Theme) aus. Das Theme muss sich im Ordner www.Ihre-Domain.com/templates/ befinden.');
 define('CC_KEYCHAIN_TITLE','CC String');
 define('CC_KEYCHAIN_DESC','String zur verschl&uuml;sselung der CC Informationen (Bitte umbedingt &auml;ndern!)');
 
