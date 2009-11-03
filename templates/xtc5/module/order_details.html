@@ -24,7 +24,11 @@
        {/if}</td>
     <td class="singleprice">{$module_data.PRODUCTS_SINGLE_PRICE}</td>
     <td class="totalprice">{$module_data.PRODUCTS_PRICE}</td>
+    {php}/*
+    //DokuMan - 2009-11-03 - use delete button instead of checkbox in template (commented out)
     <td class="delete">{$module_data.BOX_DELETE}{$module_data.BUTTON_DELETE}</td>
+    */{/php}
+    <td class="delete">{$module_data.BUTTON_DELETE}</td>
   </tr>
   {/foreach}
   <tr>
