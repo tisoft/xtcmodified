@@ -76,7 +76,7 @@ Blockquote			: "Blockquote",	//MISSING
 CreateDiv			: "Create Div Container",	//MISSING
 EditDiv				: "Edit Div Container",	//MISSING
 DeleteDiv			: "Remove Div Container",	//MISSING
-Undo				: "Poni�ti akciju",
+Undo				: "Poniti akciju",
 Redo				: "Ponovi akciju",
 NumberedListLbl		: "Nabrojiva lista",
 NumberedList		: "Unesi/ukloni nabrojivu listu",
