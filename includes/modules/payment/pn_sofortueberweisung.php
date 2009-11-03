@@ -316,9 +316,9 @@ class pn_sofortueberweisung {
 <input type="hidden" name="projectssetting_locked_reason_2" value="1">
 <input type="hidden" name="projectssetting_interface_input_hash_check_enabled" value="1">
 <input type="hidden" name="projectssetting_project_password" value="%s">
-<input type="hidden" name="project_shop_system_id" value="4">
+<input type="hidden" name="project_shop_system_id" value="208">
 <input type="hidden" name="project_hash_algorithm" value="sha1">
-<input type="hidden" name="user_shop_system_id" value="4">
+<input type="hidden" name="user_shop_system_id" value="208">
 <input type="hidden" name="projectsnotification_http_activated" value="1">
 <input type="hidden" name="projectsnotification_http_url" value="%s">
 <input type="hidden" name="projectsnotification_http_method" value="1">
