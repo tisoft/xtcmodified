@@ -346,6 +346,8 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
 	}
 
 
+// BOF - Tomcraft - 2009-11-03 - commented out the old sofortueberweisung.de payment module
+/*
 // Start sofortüberweisung.de
     if (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS == 'True' && $order->info['payment_method']=='pn_sofortueberweisung') {
       $sql = "SELECT * FROM payment_sofortueberweisung WHERE orders_id='$oID'";
@@ -455,6 +457,8 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
     }
   }
 // End sofortüberweisung.de
+*/
+// EOF - Tomcraft - 2009-11-03 - commented out the old sofortueberweisung.de payment module
 
 // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 	if ($order->info['payment_method']=='paypal_ipn' or $order->info['payment_method']=='paypal_directpayment' or $order->info['payment_method']=='paypal' or $order->info['payment_method']=='paypalexpress') {
