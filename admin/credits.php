@@ -89,9 +89,10 @@ This program is distributed in the hope that it will be useful, but <strong>WITH
    <dl id="person">
     <dt>Tomcraft</dt><dd>&lt;tomcraft1980@users.sourceforge.net&gt;</dd>
     <dt>Hetfield</dt><dd>&lt;jhetfield@users.sourceforge.net&gt;</dd>   
-    <dt>DokuMan</dt><dd>&lt;dokuman@users.sourceforge.net&gt;</dd>   
+    <dt>DokuMan</dt><dd>&lt;dokuman@users.sourceforge.net&gt;</dd>  
+    <dt>web28</dt><dd>&lt;web28@users.sourceforge.net&gt;</dd>
     <dt>Pufaxx</dt><dd>&lt;info@gunnart.de&gt;</dd>
-    <dt>Christian</dt><dd>&lt;hallo@xtc-modified.org&gt;</dd>   
+    <dt>Christian</dt><dd>&lt;hallo@jungcreative.de&gt;</dd>   
    </dl>
   </dd>
  </dl>
