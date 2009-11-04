@@ -631,7 +631,7 @@ define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Permits changing address data con
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 // BOF - Tomcraft - 2009-11-02 - New admin top menu
-define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Navigation');
+define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Top Navigation');
 define('USE_ADMIN_TOP_MENU_DESC' , 'Activate Admin Top Navigation?');
 // EOF - Tomcraft - 2009-11-02 - New admin top menu
 
