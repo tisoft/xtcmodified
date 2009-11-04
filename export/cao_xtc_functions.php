@@ -1303,8 +1303,8 @@ function xtc_remove_product($product_id)
 
           } 
 //BOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array 
-          for ($i=0,$n=sizeof($customers_status_array);$i<$n;$i++) {
-          //for ($i=0,$n=sizeof($customers_statuses_array);$i<$n;$i++) {
+          //for ($i=0,$n=sizeof($customers_status_array);$i<$n;$i++) {
+          for ($i=0,$n=sizeof($customers_statuses_array);$i<$n;$i++) {
 //EOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array           
               xtc_db_query("delete from personal_offers_by_customers_status_" . $i . " where products_id = '" . xtc_db_input($product_id) . "'");
           }
