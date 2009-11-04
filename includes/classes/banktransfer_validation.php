@@ -1,30 +1,28 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: banktransfer_validation.php 899 2006-04-29 02:40:57Z mz $   
+   $Id: banktransfer_validation.php 977 2009-11-01 18:45:02Z joerg $   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2006 xt:Commerce
-   -----------------------------------------------------------------------------------------
-   based on: 
+   ---------------------------------------------------------------------------
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(banktransfer_validation.php,v 1.17 2003/02/18 18:33:15); www.oscommerce.com
-   (c) 2003	 nextcommerce (banktransfer_validation.php,v 1.4 2003/08/1); www.nextcommerce.org
-   (c) 2004 - 2006 fmce.de
+   (c) 2002-2003 osCommerce; www.oscommerce.com
+   (c) 2003 nextcommerce; www.nextcommerce.org
+   (c) 2003 XT-Commerce
    (c) 2004 - 2006 discus24.de
-   (c) 2004 - 2006 Frank Maroke 
+   (c) 2004 - 2009 FMCE Software Ltd. & Co. KG, Frank Maroke - frank@maroke.de
+   (c) 2009 - 2009 ECB Shop-Software, Jörg Wedekind <yogi@ecb-shop.de>
 
-   Released under the GNU General Public License 
-   -----------------------------------------------------------------------------------------
-   Third Party contributions:
-   OSC German Banktransfer v0.85a       	Autor:	Dominik Guder <osc@guder.org>
-   Extensioncode: 							Marcel Bossert-Schwab <info@opensourcecommerce.de> (mbs)
-   New methods 2005 - 2006: 				Frank Maroke (FrankM) <info@fmce.de>
-   
-   Released under the GNU General Public License 
-   ---------------------------------------------------------------------------------------*/
+   Check the german bank account numbers.
+   There ia a list to verify the german bank account numbers.
 
+   http://www.bundesbank.de/zahlungsverkehr/zahlungsverkehr_bankleitzahlen_download.php
+
+   Released under the GNU General Public License
+  ------------------------------------------------------------------------- */
 
 class AccountCheck {
 
@@ -47,14 +45,14 @@ var $PRZ; //Enthält die Prüfziffer
 
 ////
 // Diese function gibt die Bankinformationen aus der csv-Datei zurück*/
-  function csv_query($blz) {
+  protected function csv_query($blz) {
     $cdata = -1;
     $fp = fopen(DIR_WS_INCLUDES . 'data/blz.csv', 'r');
     while ($data = fgetcsv($fp, 1024, ";")) {
       if ($data[0] == $blz){
-        $cdata = array ('blz' => $data[0],
-                        'bankname' => $data[1],
-                        'prz' => $data[2]);
+        $cdata = array('blz' => $data[0], 
+                       'bankname' => $data[1],
+                       'prz' => $data[2]);
       }
     }
     return $cdata;
@@ -62,13 +60,10 @@ var $PRZ; //Enthält die Prüfziffer
 
 ////
 // Diese function gibt die Bankinformationen aus der Datenbank zurück*/
-  function db_query($blz) {
-    //BOF - Dokuman - 2009-06-03 - Wrong selection criteria on BLZ
-    //$blz_query = xtc_db_query("SELECT * from banktransfer WHERE blz = '" . $blz . "'");   
-     $blz_query = xtc_db_query("SELECT * from banktransfer WHERE banktransfer_blz = '" . $blz . "'");
-    //BOF - Dokuman - 2009-06-03 - Wrong selection criteria on BLZ
+  protected function db_query($blz) {
+    $blz_query = xtc_db_query("SELECT * from banktransfer_blz WHERE blz = '" . $blz . "'");
     if (xtc_db_num_rows($blz_query)){
-      $data = xtc_db_fetch_array ($blz_query);
+      $data = xtc_db_fetch_array($blz_query);
     }else
       $data = -1;
     return $data;
@@ -76,8 +71,8 @@ var $PRZ; //Enthält die Prüfziffer
 
 ////
 // Diese function gibt die Bankinformationen aus der Datenbank zurück*/
-  function query($blz) {
-    if (MODULE_PAYMENT_BANKTRANSFER_DATABASE_BLZ == 'true' && defined(MODULE_PAYMENT_BANKTRANSFER_DATABASE_BLZ))
+  protected function query($blz) {
+    if (defined('MODULE_PAYMENT_BANKTRANSFER_DATABASE_BLZ') and MODULE_PAYMENT_BANKTRANSFER_DATABASE_BLZ == 'true')
       $data = $this->db_query($blz);
     else
       $data = $this->csv_query($blz);
@@ -86,13 +81,13 @@ var $PRZ; //Enthält die Prüfziffer
 
 ////
 // Diese function gibt die Einer einer Zahl zwischen 0 und 99 zurueck
-  function OnlyOne($Digit) {
+  private function OnlyOne($Digit) {
     return $Digit = $Digit % 10;
   }  /* End of OnlyOne */
 
 //
 // Diese function berechnet die Quersumme einer Zahl zwischen 0 und 99
-  function CrossSum($Digit) {
+  private function CrossSum($Digit) {
     $CrossSum = $Digit;
     if ($Digit > 9) {
       $Help1 = substr($Digit,0,1);
@@ -104,37 +99,53 @@ var $PRZ; //Enthält die Prüfziffer
 
 ///
 // Auffüllen der Konto-Nr. mit '0' auf 10 Stellen
-  function ExpandAccount($AccountNo) {
-    $AccountNo = str_pad($AccountNo, 10, "0", STR_PAD_LEFT);
-
-    while (strlen($AccountNo) > 10) {
-      $AccountNo = substr($AccountNo,1);
-    }
-    return $AccountNo;
+  private function ExpandAccount($AccountNo) {
+    return str_pad($AccountNo, 10, '0', STR_PAD_LEFT);
   }  /* End of EpxandKonto */
 
 
-  function Method00($AccountNo,$Significance,$Checkpoint,$Modulator=10) {
-     $Help = 0;
-     $Method00 = 1;
-     $AccountNo = $this->ExpandAccount($AccountNo);
-     for ($Run = 0; $Run < strlen($Significance); $Run++) {
-       $Help += $this->CrossSum(substr($AccountNo,$Run,1) * substr($Significance,$Run,1));
-     }
-     $Help = $Help % $Modulator;
-     $Checksum = $Modulator - $Help;
+  private function AccountInfo($AccountNo) {
+    $long = $this->ExpandAccount($AccountNo);
+    $short = ltrim($long, '0');
+    $len = strlen($short);
+    return array('long' => $long, 'short' => $short, 'len' => $len);
+  }
 
-     if ($Checksum == $Modulator) {
-       $Checksum = 0;
-     }
-     if ($Checksum == substr($AccountNo,$Checkpoint-1,1)) {
-       $Method00 = 0;
-     }
-     return $Method00;
+  private function Method00($AccountNo, $Significance, $Checkpoint, $Modulator=10, $expandAccount=true) {
+    $Help = 0;
+    $Method00 = 1;
+    // Special for method C6 and D1.
+    if ($expandAccount) {
+      $AccountNo = $this->ExpandAccount($AccountNo);
+    }
+    $checkDigit = substr($AccountNo,$Checkpoint-1, 1);
+
+    // check if the Checkpoint is inside the Significance and if the
+    // significance for this digit is not equal 0 - we move the checkDigit
+    // to the end of the string, needed for Method 57
+    if (strlen($Significance) >= $Checkpoint and
+        substr($Significance, $Checkpoint-1, 1) != '0') {
+      $first = substr($AccountNo, 0, $Checkpoint-1);
+      $end = substr($AccountNo, $Checkpoint, strlen($Significance)-$Checkpoint+1);
+      $AccountNo = $first.$end.$checkDigit;
+    }
+    for ($Run = 0; $Run < strlen($Significance); $Run++) {
+      $Help += $this->CrossSum(substr($AccountNo,$Run,1) * substr($Significance,$Run,1));
+    }
+    $Help = $Help % $Modulator;
+    $Checksum = $Modulator - $Help;
+
+    if ($Checksum == $Modulator) {
+      $Checksum = 0;
+    }
+    if ($Checksum == $checkDigit) {
+      $Method00 = 0;
+    }
+    return $Method00;
    }  /* End of Method00 */
 
 
-  function Method01($AccountNo, $Significance) {
+  function Method01($AccountNo, $Significance, $Modulator=10) {
     $Help = 0;
      $Method01 = 1;
      $AccountNo = $this->ExpandAccount($AccountNo);
@@ -154,7 +165,7 @@ var $PRZ; //Enthält die Prüfziffer
   }  /* End of Method01 */
 
 
-  function Method02($AccountNo , $Significance, $Modified) {
+  private function Method02($AccountNo , $Significance, $Modified) {
     $Help = 0;
      $Method02 = 1;
      $AccountNo = $this->ExpandAccount($AccountNo);
@@ -183,12 +194,12 @@ var $PRZ; //Enthält die Prüfziffer
      return $Method02;
   }  /* End of Method02 */
 
-  function Method06($AccountNo, $Significance, $Modified, $Checkpoint, $Modulator) {
+  private function Method06($AccountNo, $Significance, $Modified, $Checkpoint, $Modulator) {
     $Help = 0;
     $Method06 = 1;
-     $AccountNo = $this->ExpandAccount($AccountNo);
-     switch ($Modified) {
-       case FALSE :
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    switch ($Modified) {
+      case FALSE :
         for ($Run = 0; $Run < strlen($Significance);$Run++) {
           $Help += (substr($AccountNo,$Run,1) * substr($Significance,$Run,1));
         }
@@ -210,7 +221,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Method06;
   }  /* End of Method06 */
 
-  function Method16($AccountNo , $Significance, $Checkpoint) {
+  private function Method16($AccountNo , $Significance, $Checkpoint) {
     $Help = 0;
     $Method16 = 1;
     $AccountNo = $this->ExpandAccount($AccountNo);
@@ -233,7 +244,7 @@ var $PRZ; //Enthält die Prüfziffer
      return $Method16;
    }  /* End of Method16 */
 
-  function Method90($AccountNo , $Significance ,$Checkpoint, $Modulator) {
+  private function Method90($AccountNo , $Significance ,$Checkpoint, $Modulator) {
     $Help = 0;
     $Method90 = 1;
     $AccountNo = $this->ExpandAccount($AccountNo);
@@ -253,47 +264,47 @@ var $PRZ; //Enthält die Prüfziffer
 
 /* ----- Die Funktionen der einzelnen Berechnungsmethoden ---- */
 
-  function Mark00($AccountNo) {
+  private function Mark00($AccountNo) {
     $Mark00 = $this->Method00($AccountNo, '212121212', 10);
     return $Mark00;
   }  /* End of Mark00 */
 
-  function Mark01($AccountNo) {
+  private function Mark01($AccountNo) {
     $Mark01 = $this->Method01($AccountNo, '173173173');
     return $Mark01;
   }  /* End of Mark01 */
 
-  function Mark02($AccountNo) {
+  private function Mark02($AccountNo) {
     $Mark02 = $this->Method02($AccountNo, '298765432', FALSE);
     return $Mark02;
   }  /* End of Mark02 */
 
-  function Mark03($AccountNo) {
+  private function Mark03($AccountNo) {
     $Mark03 = $this->Method01($AccountNo, '212121212');
     return $Mark03;
   }  /* End of Mark03 */
 
-  function Mark04($AccountNo) {
+  private function Mark04($AccountNo) {
     $Mark04 = $this->Method02($AccountNo, '432765432', FALSE);
     return $Mark04;
   }  /* End of Mark04 */
 
-  function Mark05($AccountNo) {
+  private function Mark05($AccountNo) {
     $Mark05 = $this->Method01($AccountNo, '137137137');
     return $Mark05;
   }  /* End of Mark05 */
 
-  function Mark06($AccountNo) {
+  private function Mark06($AccountNo) {
     $Mark06 = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
     return $Mark06;
   }  /* End of Mark06 */
 
-  function Mark07($AccountNo) {
+  private function Mark07($AccountNo) {
     $Mark07 = $this->Method02($AccountNo, 'A98765432', TRUE);
     return $Mark07;
   }  /* End of Mark07 */
 
-  function Mark08($AccountNo) {
+  private function Mark08($AccountNo) {
     $Mark08 = 1;
     if ($AccountNo > 60000) {
       $Mark08 = $this->Method00($AccountNo, '212121212', 10);
@@ -301,17 +312,17 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark08;
   }  /* End of Mark08 */
 
-  function Mark09($AccountNo) {
+  private function Mark09($AccountNo) {
     $Mark09 = 2;
     return $Mark09;
   }  /* End of Mark09 */
 
-  function Mark10($AccountNo) {
+  private function Mark10($AccountNo) {
     $Mark10 = $this->Method06($AccountNo, 'A98765432', TRUE, 10, 11);
     return $Mark10;
   }  /* End of Mark10 */
 
-  function Mark11($AccountNo) {
+  private function Mark11($AccountNo) {
     $Significance = 'A98765432';
     $Help = 0;
     $Mark11 = 1;
@@ -333,15 +344,15 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark11;
   }  /* End of Mark11 */
 
-  function Mark12($AccountNo) {
+  private function Mark12($AccountNo) {
     $Mark12 = $this->Method01($AccountNo, '731731731');
     return $Mark12;
   }  /* End of Mark12 */
 
-  function Mark13($AccountNo) {
+  private function Mark13($AccountNo) {
     $Help = $this->Method00($AccountNo, '0121212', 8);
     if ($Help == 1) {
-      if (Substr($AccountNo,-2) <> '00') {
+      if (substr($AccountNo,-2) <> '00') {
         $Help = $this->Method00(substr($this->ExpandAccount($AccountNo), 2) . '00', '0121212', 8);
       }
     }
@@ -349,25 +360,25 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark13;
   }  /* End of Mark13 */
 
-  function Mark14($AccountNo) {
+  private function Mark14($AccountNo) {
     $Mark14 = $this->Method02($AccountNo, '000765432', FALSE);
     return $Mark14;
   }  /* End of Mark14 */
 
-  function Mark15($AccountNo) {
+  private function Mark15($AccountNo) {
     $Mark15 = $this->Method06($AccountNo, '000005432', FALSE, 10, 11);
     return $Mark15;
   }  /* End of Mark15 */
 
-  function Mark16($AccountNo) {
+  private function Mark16($AccountNo) {
     $Mark16 = $this->Method16($AccountNo, '432765432', 10);
     return $Mark16;
   }  /* End of Mark16 */
 
-  function Mark17($AccountNo) {
+  private function Mark17($AccountNo) {
     $Significance = '0121212';
     $Help = 0;
-    $Help2 = 1;
+    $Mark17 = 1;
     $AccountNo = $this->ExpandAccount($AccountNo);
     for ($Run = 0;$Run < strlen($Significance);$Run++) {
       $Help += ($this->CrossSum(substr($AccountNo,$Run,1) * substr($Significance,$Run,1)));
@@ -379,28 +390,27 @@ var $PRZ; //Enthält die Prüfziffer
       $Checksum = 0;
     }
     if ($Checksum == substr($AccountNo,7,1)) {
-      $Help2 = 0;
+      $Mark17 = 0;
     }
-    $Mark17 = $Help2;
     return $Mark17;
   }  /* End of Mark17 */
 
-  function Mark18($AccountNo) {
+  private function Mark18($AccountNo) {
     $Mark18 = $this->Method01($AccountNo, '317931793');
     return $Mark18;
   }  /* End of Mark18 */
 
-  function Mark19($AccountNo) {
+  private function Mark19($AccountNo) {
     $Mark19 = $this->Method06($AccountNo, '198765432', FALSE, 10, 11);
     return $Mark19;
   }  /* End of Mark19 */
 
-  function Mark20($AccountNo) {
+  private function Mark20($AccountNo) {
     $Mark20 = $this->Method06($AccountNo, '398765432', FALSE, 10, 11);
     return $Mark20;
   }  /* End of Mark20 */
 
-  function Mark21($AccountNo) {
+  private function Mark21($AccountNo) {
     $Significance = '212121212';
     $Help = 0;
     $Mark21 = 1;
@@ -408,18 +418,17 @@ var $PRZ; //Enthält die Prüfziffer
     for ($Run = 0;$Run < strlen($Significance);$Run++) {
       $Help += $this->CrossSum(substr($AccountNo,$Run,1) * substr($Significance,$Run,1));
     }
-    $Help = $this->CrossSum($Help);
-     $Checksum = 10 - $Help;
-     if ($Checksum == 10) {
-       $Checksum = 0;
-     }
-     if ($Checksum == substr($AccountNo,-1)) {
-       $Mark21 = 0;
-     }
-     return $Mark21;
+    while (strlen($Help) > 1){
+      $Help = $this->CrossSum($Help);
+    }
+    $Checksum = 10 - $Help;
+    if ($Checksum == substr($AccountNo,-1)) {
+      $Mark21 = 0;
+    }
+    return $Mark21;
    }  /* End of Mark21 */
 
-  function Mark22($AccountNo) {
+  private function Mark22($AccountNo) {
     $Significance = '313131313';
     $Help = 0;
     $Mark22 = 1;
@@ -435,12 +444,12 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark22;
   }  /* End of Mark22 */
 
-  function Mark23($AccountNo) {
+  private function Mark23($AccountNo) {
     $Mark23 = $this->Method16($AccountNo, '765432', 7);
     return $Mark23;
   }  /* End of Mark23 */
 
-  function Mark24($AccountNo) {
+  private function Mark24($AccountNo) {
     $Significance = '123123123';
     $Help = 0;
     $Mark24 = 1;
@@ -450,10 +459,10 @@ var $PRZ; //Enthält die Prüfziffer
       case 5 :
       case 6 :
         // deaktivert, da die Postbank diese Definition nicht einhält
-        //$AccountNo = Substr($AccountNo,1);
+        //$AccountNo = substr($AccountNo,1);
         break;
       case 9 :
-      //  $AccountNo = SubStr($AccountNo,3);
+      //  $AccountNo = substr($AccountNo,3);
         break;
     }
     while (substr($AccountNo,0,1)==0){
@@ -473,7 +482,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark24;
   }  /* End of Mark24 */
 
-  function Mark25($AccountNo) {
+  private function Mark25($AccountNo) {
     $Significance = '098765432';
     $Falsch = FALSE;
     $Help = 0;
@@ -503,16 +512,16 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark25;
   }  /* End of Mark25 */
 
-  function Mark26($AccountNo) {
+  private function Mark26($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
-    if (Substr($AccountNo,-2) == '00') {
-      $AccountNo = Substr($AccountNo,2) . '00';
+    if (substr($AccountNo, 0, 2) == '00') {
+      $AccountNo = substr($AccountNo,2) . '00';
     }
     $Mark26 = $this->Method06($AccountNo,'2345672',FALSE,8,11);
     return $Mark26;
   }  /* End of Mark26 */
 
-  function Mark27($AccountNo) {
+  private function Mark27($AccountNo) {
     if ((int)$AccountNo < 1000000000) {
       $Mark27 = $this->Method00($AccountNo, '212121212', 10);
     } else {
@@ -521,167 +530,34 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark27;
   }  /* End of Mark27 */
 
-  function Mark28($AccountNo) {
+  private function Mark28($AccountNo) {
     $Mark28 = $this->Method06($AccountNo, '8765432', FALSE, 8, 11);
     return $Mark28;
   }  /* End of Mark28 */
 
-  function Mark29($AccountNo) {
+  private function Mark29($AccountNo) {
     $Transform = '143214321';
+    $Transforms=array(
+      1 => '0159374826',
+      2 => '0176983254',
+      3 => '0184629573',
+      4 => '0123456789',
+    );
     $AccountNo = $this->ExpandAccount($AccountNo);
     $Mark29 = 1;
     $Help = 0;
     for ($Run = 0;$Run < strlen($Transform);$Run++) {
-      $ToAdd = 0;
-      switch (substr($Transform,$Run,1)) {
-        case '1' :
-          switch (substr($AccountNo,$Run,1)) {
-            Case '0' :
-              $ToAdd = 0;
-              break;
-            Case '1' :
-              $ToAdd = 1;
-              break;
-            Case '2' :
-              $ToAdd = 5;
-              break;
-            Case '3' :
-              $ToAdd = 9;
-              break;
-            Case '4' :
-              $ToAdd = 3;
-              break;
-            Case '5' :
-              $ToAdd = 7;
-              break;
-            Case '6' :
-              $ToAdd = 4;
-              break;
-            Case '7' :
-              $ToAdd = 8;
-              break;
-            Case '8' :
-              $ToAdd = 2;
-              break;
-            Case '9' :
-              $ToAdd = 6;
-              break;
-          }
-          break;
-        case '2' :
-          switch (substr($AccountNo,$Run,1)) {
-            Case '0' :
-              $ToAdd = 0;
-              break;
-            Case '1' :
-              $ToAdd = 1;
-              break;
-            Case '2' :
-              $ToAdd = 7;
-              break;
-            Case '3' :
-              $ToAdd = 6;
-              break;
-            Case '4' :
-              $ToAdd = 9;
-              break;
-            Case '5' :
-              $ToAdd = 8;
-              break;
-            Case '6' :
-              $ToAdd = 3;
-              break;
-            Case '7' :
-              $ToAdd = 2;
-              break;
-            Case '8' :
-              $ToAdd = 5;
-              break;
-            Case '9' :
-              $ToAdd = 4;
-              break;
-          }
-          break;
-        case '3' :
-          switch (substr($AccountNo,$Run,1)) {
-            Case '0' :
-              $ToAdd = 0;
-              break;
-            Case '1' :
-              $ToAdd = 1;
-              break;
-            Case '2' :
-              $ToAdd = 8;
-              break;
-            Case '3' :
-              $ToAdd = 4;
-              break;
-            Case '4' :
-              $ToAdd = 6;
-              break;
-            Case '5' :
-              $ToAdd = 2;
-              break;
-            Case '6' :
-              $ToAdd = 9;
-              break;
-            Case '7' :
-              $ToAdd = 5;
-              break;
-            Case '8' :
-              $ToAdd = 7;
-              break;
-            Case '9' :
-              $ToAdd = 3;
-              break;
-          }
-          break;
-        case '4' :
-          switch (substr($AccountNo,$Run,1)) {
-            Case '0' :
-              $ToAdd = 0;
-              break;
-            Case '1' :
-              $ToAdd = 1;
-              break;
-            Case '2' :
-              $ToAdd = 2;
-              break;
-            Case '3' :
-              $ToAdd = 3;
-              break;
-            Case '4' :
-              $ToAdd = 4;
-              break;
-            Case '5' :
-              $ToAdd = 5;
-              break;
-            Case '6' :
-              $ToAdd = 6;
-              break;
-            Case '7' :
-              $ToAdd = 7;
-              break;
-            Case '8' :
-              $ToAdd = 8;
-              break;
-            Case '9' :
-              $ToAdd = 9;
-              break;
-          }
-          break;
-      }
-      $Help += $ToAdd;
+      $Help += substr($Transforms[substr($Transform,$Run,1)],substr($AccountNo,$Run,1),1);
     }
     $Help = $this->OnlyOne($Help);
     $Checksum = 10 - $Help;
-    if ($Checksum = substr($AccountNo,-1)) {
+    if ($Checksum == substr($AccountNo,-1)) {
       $Mark29 = 0;
     }
     return $Mark29;
   }
 
-  function Mark30($AccountNo) {
+  private function Mark30($AccountNo) {
     $Significance = '200001212';
     $Help = 0;
     $Mark30 = 1;
@@ -700,7 +576,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark30;
   }  /* End of Mark30 */
 
-  function Mark31($AccountNo) {
+  private function Mark31($AccountNo) {
     $Significance = '123456789';
     $Help = 0;
     $Mark31 = 1;
@@ -715,52 +591,67 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark31;
   }  /* End of Mark31 */
 
-  function Mark32($AccountNo) {
+  private function Mark32($AccountNo) {
     $Mark32 = $this->Method06($AccountNo, '000765432', FALSE, 10, 11);
     return $Mark32;
   }  /* End of Mark32 */
 
-  function Mark33($AccountNo) {
+  private function Mark33($AccountNo) {
     $Mark33 = $this->Method06($AccountNo, '000065432', FALSE, 10, 11);
     return $Mark33;
   }  /* End of Mark33 */
 
-  function Mark34($AccountNo) {
+  private function Mark34($AccountNo) {
     $Mark34 = $this->Method06($AccountNo, '79A5842', TRUE, 8, 11);
     return $Mark34;
   }  /* End of Mark34 */
 
-  function Mark35($AccountNo) {
-    $Mark35 = 3;
+  private function Mark35($AccountNo) {
+    $Mark35 = 1;
+
+    $Significance = 'A98765432';
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $Help = 0;
+    for ($Run = 0;$Run < strlen($Significance);$Run++) {
+      $Help += substr($AccountNo,$Run,1) * hexdec(substr($Significance, $Run, 1));
+    }
+    $Help %= 11;
+    if ($Help == 10) {
+      if (substr($AccountNo,8,1) == substr($AccountNo,9,1)) {
+        $Mark35 = 0;
+      }
+    } elseif ($Help == substr($AccountNo,9,1)) {
+      $Mark35 = 0;
+    }
     return $Mark35;
   }  /* End of Mark35 */
 
-  function Mark36($AccountNo) {
+  private function Mark36($AccountNo) {
     $Mark36 = $this->Method06($AccountNo, '000005842', FALSE, 10, 11);
     return $Mark36;
   }  /* End of Mark36 */
 
-  function Mark37($AccountNo) {
+  private function Mark37($AccountNo) {
     $Mark37 = $this->Method06($AccountNo, '0000A5842', TRUE, 10, 11);
     return $Mark37;
   }  /* End of Mark37 */
 
-  function Mark38($AccountNo) {
+  private function Mark38($AccountNo) {
     $Mark38 = $this->Method06($AccountNo, '0009A5842', TRUE, 10, 11);
     return $Mark38;
   }  /* End of Mark38 */
 
-  function Mark39($AccountNo) {
+  private function Mark39($AccountNo) {
     $Mark39 = $this->Method06($AccountNo, '0079A5842', TRUE, 10, 11);
     return $Mark39;
   }  /* End of Mark39 */
 
-  function Mark40($AccountNo) {
+  private function Mark40($AccountNo) {
     $Mark40 = $this->Method06($AccountNo, '6379A5842', TRUE, 10, 11);
     return $Mark40;
   }  /* End of Mark40 */
 
-  function Mark41($AccountNo) {
+  private function Mark41($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo,3,1) == '9') {
       $AccountNo = '000'. substr($AccountNo,3);
@@ -769,12 +660,12 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark41;
   }  /* End of Mark41 */
 
-  function Mark42($AccountNo) {
+  private function Mark42($AccountNo) {
     $Mark42 = $this->Method06($AccountNo, '098765432', FALSE, 10, 11);
-    return $Mark43;
+    return $Mark42;
   }  /* End of Mark42 */
 
-  function Mark43($AccountNo) {
+  private function Mark43($AccountNo) {
     $Significance = '987654321';
     $Help = 0;
     $Mark43 = 1;
@@ -793,12 +684,13 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark43;
   }  /* End of Mark43 */
 
-  function Mark44($AccountNo) {
+  private function Mark44($AccountNo) {
     $Mark44 = $this->Method06($AccountNo, '0000A5842', TRUE, 10, 11);
     return $Mark44;
   }  /* End of Mark44 */
 
-  function Mark45($AccountNo) {
+  private function Mark45($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo,0,1)=='0' or substr($AccountNo,4,1)=='1'){
       $Mark45 = 2;
     } else {
@@ -807,22 +699,22 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark45;
   }  /* End of Mark45 */
 
-  function Mark46($AccountNo) {
+  private function Mark46($AccountNo) {
     $Mark46 = $this->Method06($AccountNo, '0065432', FALSE, 8, 11);
     return $Mark46;
   }  /* End of Mark46 */
 
-  function Mark47($AccountNo) {
+  private function Mark47($AccountNo) {
     $Mark47 = $this->Method06($AccountNo, '00065432', FALSE, 9, 11);
     return $Mark47;
   }  /* End of Mark47 */
 
-  function Mark48($AccountNo) {
+  private function Mark48($AccountNo) {
     $Mark48 = $this->Method06($AccountNo, '00765432', FALSE, 9, 11);
     return $Mark48;
   }  /* End of Mark48 */
 
-  function Mark49($AccountNo) {
+  private function Mark49($AccountNo) {
     $Mark49=$this->Mark00($AccountNo);
     if ($Mark49 == 0)
       return $Mark49;
@@ -830,7 +722,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark49;
   }  /* End of Mark49 */
 
-  function Mark50($AccountNo) {
+  private function Mark50($AccountNo) {
     $Help = $this->Method06($AccountNo, '765432', FALSE, 7, 11);
     if ($Help == 1) {
       if (strlen($AccountNo) < 7) {
@@ -841,25 +733,25 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark50;
   }  /* End of Mark50 */
 
-  function Mark51($AccountNo) {
+  private function Mark51($AccountNo) {
       $AccountNo = $this->ExpandAccount($AccountNo);
 
-      if (substr($AccountNo,2,1) != '9') {
+      if (substr($AccountNo, 2, 1) != '9') {
         $Help = $this->Method06($AccountNo, '000765432', FALSE, 10, 11); // Methode A
-          if ($Help != 0) {
+        if ($Help != 0) {
             $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 11); // Methode B
-            if ($Help != 0) {
-              switch (substr($AccountNo,-1)) {
-                case '7' :
-                case '8' :
-                case '9' :
-                  $Help = 4;
-                  break;
-                default :
+          if ($Help != 0) {
+            switch (substr($AccountNo,-1)) {
+              case '7' :
+              case '8' :
+              case '9' :
+                $Help = 1;
+                break;
+              default :
                   $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 7); //Methode C
-                  break;
-              }
-           }
+                break;
+            }
+          }
         }
       } else {
         $Help = $this->Method06($AccountNo, '008765432', FALSE, 10, 11);
@@ -870,204 +762,207 @@ var $PRZ; //Enthält die Prüfziffer
       return $Help;
     }  /* End of Mark51 */
 
-  function Mark52($AccountNo,$BLZ ) {
-    $Significance = '4216379A5842';
-    if ((strlen($AccountNo) == 10) && (substr($AccountNo,0,1) == '9')){
-        $Correct = $this->Mark20($AccountNo);
+  private function Mark52($AccountNo, $BLZ) {
+    $Mark52 = 1;
 
-    } else {
-      $Help = 0;
-      $Rest = 0;
-      $AltKonto = substr($BLZ,-4).substr($AccountNo,0,2);
+    $account = $this->AccountInfo($AccountNo);
+  
+    if ($account['len'] == 10 and substr($AccountNo,0,1) == '9') {
+      $Mark52 = $this->Mark20($AccountNo);
+    } elseif($account['len'] == 8) {
 
-//      echo "$AltKonto <br />";
-
-      $AccountNo = Substr($AccountNo,2);
-      while (substr($AccountNo,0,1) == '0') {
-        $AccountNo = Substr($AccountNo,1);
-      }
-      $AltKonto = $AltKonto . $AccountNo;
-
-//      echo "$AltKonto <br />";
-
-      $Checksum = substr($AltKonto,5,1);
-
-      $AltKonto = substr($AltKonto,0,5).'0'.substr($AltKonto,6);
-//      echo "$AltKonto <br />";
+      $AltKonto = substr($BLZ, -4).substr($account['short'],0,2).ltrim(substr($AccountNo,-6), '0');
       $Laenge = strlen($AltKonto);
 
-      $Significance=substr($Significance,(12 - $Laenge));
+      $Significance=substr('4216379A5842', (12 - $Laenge));
+
+      $Help = 0;
       for ($Run = 0; $Run < $Laenge;$Run++) {
         $Help += substr($AltKonto,$Run,1) * HexDec(substr($Significance,$Run,1));
       }
-      $Rest = $Help % 11;
-      $Gewicht = HexDec(substr($Significance,5,1));
+      $Help %= 11;
 
-      $PZ = -1;
-      do {
-        $PZ++;
-        $Help2 = $Rest + ($PZ * $Gewicht);
-        if ($PZ == 9) {
-            break;
-        }
-      } while ($Help2 % 11 <>10);
-      if ($Help2 % 11 == 10) {
-         if ($PZ == $Checksum) {
-           $Correct = 0;
-         } else {
-           $Correct = 1;
-         }
-       } else {
-         $Correct = 1;
-       }
-     }
-    return $Correct;
-  }  /* End of Mark52 */
-
-  function Mark53($AccountNo,$BLZ ) {
-    $Significance = '4216379A5842';
-    if (strlen($AccountNo) == 10) {
-      if (substr($AccountNo,0,1) == '9') {
-        $Correct = $this->Mark20($AccountNo);
-      }
-    } else {
-      $Help = 0;
-      $Rest = 0;
-
-      $AltKonto = substr($BLZ,-4,2) . substr($AccountNo,1,1) . substr($BLZ,-1). substr($AccountNo,0,1) . substr($AccountNo,2,1);
-
-      $AccountNo = Substr($AccountNo,3);
-
-      while (substr($AccountNo,0,1) == '0') {
-        $AccountNo = Substr($AccountNo,1);
-      }
-
-      $AltKonto = $AltKonto . $AccountNo;
-
-      while (strlen($AltKonto)<12){
-        $AltKonto = "0" . $AltKonto;
-      }
-
-      $Checksum = substr($AltKonto,5,1);
-      $AltKonto = substr($AltKonto,0,5) . '0' . substr($AltKonto,6);
-      $Laenge = strlen($AltKonto);
-
-      for ($Run = 0; $Run < $Laenge;$Run++) {
-        $Help += substr($AltKonto,$Run,1) * HexDec(substr($Significance,$Run,1));
-      }
-
-      $Rest = $Help % 11;
-
-      $Gewicht = HexDec(substr($Significance,5,1));
-      $PZ = -1;
-      do {
-        $PZ++;
-        $Help2 = $Rest + ($PZ * $Gewicht);
-       } while ($Help2 % 11 <> 10 or $PZ > 9);
-
-      if ($Help2 % 11 == 10) {
-        if ($PZ == $Checksum) {
-          $Correct = 0;
-        } else {
-          $Correct = 1;
-        }
-      } else {
-        $Correct = 1;
+      if ($Help == 10) {
+        $Mark52 = 0;
       }
     }
-    return $Correct;
+
+    return $Mark52;
+  }  /* End of Mark52 */
+
+  private function Mark53($AccountNo, $BLZ) {
+    $Mark53 = 1;
+
+    $account = $this->AccountInfo($AccountNo);
+
+    if ($account['len'] == 10 and substr($AccountNo,0,1) == '9') {
+      $Mark53 = $this->Mark20($AccountNo);
+    } elseif($account['len'] == 9) {
+
+      $AltKonto = substr($BLZ,-4,2).substr($account['short'],1,1).substr($BLZ,-1).
+        substr($account['short'],0,1).substr($account['short'],2,1).ltrim(substr($account['short'],-6), '0');
+      $Laenge = strlen($AltKonto);
+
+      $Significance=substr('4216379A5842', (12 - $Laenge));
+
+      $Help = 0;
+      for ($Run = 0; $Run < $Laenge;$Run++) {
+        $Help += substr($AltKonto,$Run,1) * HexDec(substr($Significance,$Run,1));
+      }
+
+      $Help %= 11;
+
+      if ($Help == 10) {
+        $Mark53 = 0;
+      }
+    }
+    return $Mark53;
   }  /* End of Mark53 */
 
-  function Mark54($AccountNo) {
-    $Mark54 = 3;
+  private function Mark54($AccountNo) {
+    $Mark54 = 1;
+
+    $AccountNo = $this->ExpandAccount($AccountNo);
+
+    if (substr($AccountNo,0,2) == '49') {
+      $Significance = '002765432';
+      $Help = 0;
+      for ($Run = 0;$Run < strlen($Significance);$Run++) {
+        $Help += substr($AccountNo,$Run,1) * hexdec(substr($Significance, $Run, 1));
+      }
+      $Help = 11 - $Help%11;
+
+      if ($Help < 10 and $Help == substr($AccountNo, 9, 1)) {
+        $Mark54 = 0;
+      }        
+    }
+    
     return $Mark54;
   }  /* End of Mark54 */
 
-  function Mark55($AccountNo) {
+  private function Mark55($AccountNo) {
     $Mark55 = $this->Method06($AccountNo, '878765432', FALSE, 10, 11);
     return $Mark55;
   }  /* End of Mark55 */
 
-  function Mark56($AccountNo) {
+  private function Mark56($AccountNo) {
     $Significance = '432765432';
     $Mark56 = 1;
     $Help = 0;
-    $Correct = 0;
     $AccountNo = $this->ExpandAccount($AccountNo);
     for ($Run = 0;$Run < strlen($Significance);$Run++) {
       $Help += (substr($AccountNo,$Run,1) * substr($Significance,$Run,1));
     }
-    $Help = $Help % 11;
-    $Help = 11 - $Help;
-    $Checksum = $Help;
-    switch (substr($AccountNo,1,1)) {
-      case '9' :
-        if ($Help == 11) {
-          $Checksum = 8;
-        }
-        if ($Help == 10) {
-          $Checksum = 7;
-        }
-      default :
-        if ($Help == 11) {
-          $Correct = 1;
-        }
-        if ($Help == 10) {
-          $Correct = 1;
-        }
-    }
-    if ($Correct == 0) {
-      if ($Checksum == substr($AccountNo,-1)) {
-        $Mark56 = 0;
+    $Help = 11 - $Help % 11;
+    if (substr($AccountNo,0,1) == '9') {
+      if ($Help >= 10) {
+        $Help -= 3;
       }
+    }
+
+    if ($Help == substr($AccountNo,-1)) {
+      $Mark56 = 0;
     }
     return $Mark56;
   }  /* End of Mark56 */
 
-  function Mark57($AccountNo) {
-    $Correct = 1;
-
+  private function Mark57($AccountNo) {
+    // Auffuellen mit Nullen auf 10 Stellen.
     $AccountNo = $this->ExpandAccount($AccountNo);
-
-    $help = substr($AccountNo,0,2);
-
+    // Pruefstellen zum ermitteln der Varianten.
+    $help01 = substr($AccountNo,0,2);
+    // Genutzte Berechnungsvariante ermitteln.
     switch (true){
-      case ($help <= 50):
-      case ($help == 91):
-      case ($help >= 96 && $help <= 99):
-        return 0;
+      case ($help01 == 51):
+      case ($help01 == 55):
+      case ($help01 == 61):
+      case ($help01 >= 64 && $help01 <= 66):
+      case ($help01 == 70):
+      case ($help01 == 73):
+      case ($help01 >= 75 && $help01 <= 82):
+      case ($help01 == 88):
+      case ($help01 >= 94 && $help01 <= 95):
+        // Variante 1: Modulus 10, Gewichtung 1,2,1,2,1,2,1,2,1, Pruefziffer Stelle 10.
+        $PResult = $this->Method00($AccountNo, '121212121', 10);
+        // Ausnahme: Wenn die ersten 6 Stellen 777777 oder 888888 dann richtig.
+        $help02 = substr($AccountNo,0,6);
+        if ($help02 == 777777) {
+            $PResult = 0;
+          }
+        if ($help02 == 888888) {
+            $PResult = 0;
+          }
+        break;
+      case ($help01 >= 32 && $help01 <= 39):
+      case ($help01 >= 41 && $help01 <= 49):
+      case ($help01 >= 52 && $help01 <= 54):
+      case ($help01 >= 56 && $help01 <= 60):
+      case ($help01 >= 62 && $help01 <= 63):
+      case ($help01 >= 67 && $help01 <= 69):
+      case ($help01 >= 71 && $help01 <= 72):
+      case ($help01 == 74):
+      case ($help01 >= 83 && $help01 <= 87):
+      case ($help01 >= 89 && $help01 <= 90):
+      case ($help01 >= 92 && $help01 <= 93):
+      case ($help01 >= 96 && $help01 <= 98):
+        // Variante 2: Modulus 10, Gewichtung 1,2,1,2,1,2,1,2,1, Pruefziffer Stelle 3,
+        // Pruefziffer bei der Berechnung auslassen.
+        $PResult = $this->Method00($AccountNo, '121212121', 3);
+        break;
+      case ($help01 == 40):
+      case ($help01 == 50):
+      case ($help01 == 91):
+      case ($help01 == 99):
+        // Variante 3: Methode 09 (Keine Berechnung).
+        $PResult = $this->Mark09($AccountNo);;
+        break;
+      case ($help01 >= 01 && $help01 <= 31):
+        // Variante 4: Dritte und vierte Stelle zwischen 01 und 12
+        // -UND- siebte bis neunte Stelle kleiner 500.
+        $help03 = substr($AccountNo,2,2);
+        $help04 = substr($AccountNo,6,3);
+        $PResult = 1;
+        if ($help03 >= 01 && $help03 <= 12) {
+          if ($help04 < 500) {
+            $PResult = 0;
+          }
+        }
+        // Ausnahme: Diese Kontonummer ist als richtig zu bewerten.
+        if ($AccountNo == '0185125434') {
+          $PResult = 0;
+        }
         break;
       default:
+        // Kontonummern die mit 00 beginnen sind falsch.
+        $PResult = 1;
+        break;
     }
 
-    if (preg_match("/[87]{6}/", $AccountNo)) {
-      return 0;
-    }
-
-    $Mark57 = $this->Method00($AccountNo, '121212121', 10);
+    // Der Ordnung halber...
+    $Mark57 = $PResult;
     return $Mark57;
 
   }  /* End of Mark57 */
 
-  function Mark58($AccountNo) {
+  private function Mark58($AccountNo) {
     $Mark58 = $this->Method02($AccountNo, '000065432', FALSE);
     return $Mark58;
   }  /* End of Mark58 */
 
-  function Mark59($AccountNo) {
-    $Mark59 = 1;
-      if (strlen($AccountNo) > 8) {
-        $Mark59 = $this->Method00($AccountNo, '212121212', 10);
-      }
-      return $Mark59;
-    }  /* End of Mark59 */
+  private function Mark59($AccountNo) {
+    $Mark59 = 0;
+    if (strlen($AccountNo) > 8) {
+      $Mark59 = $this->Method00($AccountNo, '212121212', 10);
+    }
+    return $Mark59;
+  }  /* End of Mark59 */
 
-  function Mark60($AccountNo) {
+  private function Mark60($AccountNo) {
     $Mark60 = $this->Method00($AccountNo, '002121212', 10);
     return $Mark60;
   }  /* End of Mark60 */
 
-  function Mark61($AccountNo) {
+  private function Mark61($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo,8,1) == '8') {
       $Mark61 = $this->Method00($AccountNo, '2121212012', 8);
@@ -1077,26 +972,29 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark61;
   }  /* End of Mark61 */
 
-  function Mark62($AccountNo) {
+  private function Mark62($AccountNo) {
     $Mark62 = $this->Method00($AccountNo,'0021212',8);
     return $Mark62;
   }  /* End of Mark62 */
 
-  function Mark63($AccountNo) {
-    $Help = $this->Method00($AccountNo,'0121212',8);
-    if ($Help == 1) {
-      $Help = $this->Method00($AccountNo,'000121212',10);
+  private function Mark63($AccountNo) {
+    $Mark63 = 1;
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo,0,1) == '0') {
+      $Mark63 = $this->Method00($AccountNo,'0121212',8);
+      if ($Mark63 == 1 and substr($AccountNo, 1, 2)== '00') {
+        $Mark63 = $this->Method00($AccountNo,'000121212',10);
+      }
     }
-    $Mark63 = $Help;
     return $Mark63;
   }  /* End of Mark63 */
 
-  function Mark64($AccountNo) {
+  private function Mark64($AccountNo) {
     $Mark64 = $this->Method06($AccountNo, '9A5842', TRUE, 7, 11);
     return $Mark64;
   }  /* End of Mark64 */
 
-  function Mark65($AccountNo) {
+  private function Mark65($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo,8,1) == '9') {
       $Mark65 = $this->Method00($AccountNo, '2121212012', 8);
@@ -1106,8 +1004,8 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark65;
   }  /* End of Mark65 */
 
-  function Mark66($AccountNo) {
-    $Significance = '000065432';
+  private function Mark66($AccountNo) {
+    $Significance = '070065432'; //@author Jörg Wedekind <yogi@ecb-shop.de>
     $Help = 0;
     $Mark66 = 1;
     $AccountNo = $this->ExpandAccount($AccountNo);
@@ -1128,55 +1026,50 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark66;
   }  /* End of Mark66 */
 
-  function Mark67($AccountNo) {
+  private function Mark67($AccountNo) {
     $Mark67 = $this->Method00($AccountNo, '2121212', 8);
     return $Mark67;
   }  /* End of Mark67 */
 
-  function Mark68($AccountNo) {
-    $Correct = 0;
-    $Significance = '212121212';
-    if (strlen($AccountNo) == 9) {
-      if (substr($AccountNo,1,1) == '4') {
-        $Correct = 4;
+  private function Mark68($AccountNo) {
+    $Mark68 = 1;
+
+    $account = $this->AccountInfo($AccountNo);
+
+    if ($account['len'] == '10') {
+      if (substr($AccountNo, 3, 1) == '9') {
+        $Mark68 = $this->Method00($AccountNo, '000121212', 10);
       }
+    } elseif ($account['len'] == 9 and substr($account['long'],1,1) == '4') {
+      $Mark68 = 2;
+    } elseif ($account['len'] >= 6) {
+      $Mark68 = $this->Method00($AccountNo, '012121212', 10);
+      if ($Mark68 == 1) {
+        $Mark68 = $this->Method00($AccountNo, '010021212', 10);
+      }      
     }
-    if (strlen($AccountNo) == 10) {
-      $Significance = '000121212';
-    }
-    if ($Correct == 0) {
-      $Correct = $this->Method00($AccountNo,$Significance,10);
-      if ($Correct == 1) {
-        $Correct = $this->Method00($AccountNo,'210021212',10);
-      }
-    }
-    $Mark68 = $Correct;
     return $Mark68;
   }  /* End of Mark68 */
 
-  function Mark69($AccountNo) {
+  private function Mark69($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
-    $Correct = 0;
-    if (Substr($AccountNo,0,2) == '93') {
-      $Correct = 2;
-    }
-    if ($Correct == 0) {
-      $Correct = $this->Mark28($AccountNo);
-      if ($Correct == 1) {
-        $Correct = $this->Mark29($AccountNo);
-      } elseif (Substr($AccountNo,0,2) == '97'){
-         $Correct = $this->Mark29($AccountNo);
+    $Mark69 = 1;
+    if (substr($AccountNo,0,2) == '93') {
+      $Mark69 = 2;
+    } else {
+      if (substr($AccountNo, 0, 2) != '97') {
+        $Mark69 = $this->Mark28($AccountNo);
+      }
+      if ($Mark69 == 1) {
+        $Mark69 = $this->Mark29($AccountNo);
       }
     }
-    $Mark69 = $Correct;
     return $Mark69;
   }  /* End of Mark69 */
 
-  function Mark70($AccountNo) {
+  private function Mark70($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
-    if (substr($AccountNo,3,1) == '5'){
-      $Mark70 = $this->Method06($AccountNo, '000765432', FALSE, 10, 11);
-    } elseif (Substr($AccountNo,3,2) == '69') {
+    if (substr($AccountNo,3,1) == '5' or substr($AccountNo,3,2) == '69'){
       $Mark70 = $this->Method06($AccountNo, '000765432', FALSE, 10, 11);
     } else {
       $Mark70 = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
@@ -1184,7 +1077,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark70;
   }  /* End of Mark70 */
 
-  function Mark71($AccountNo) {
+  private function Mark71($AccountNo) {
     $Significance='0654321';
     $Help = 0;
     $Mark71 = 1;
@@ -1206,25 +1099,13 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark71;
   }  /* End of Mark71 */
 
-  function Mark72($AccountNo) {
+  private function Mark72($AccountNo) {
     $Mark72 = $this->Method00($AccountNo, '000121212', 10);
     return $Mark72;
   }   /* End of Mark72 */
 
-/*
-  function Mark73($AccountNo) {
-    $AccountNo = $this->ExpandAccount($AccountNo);
-    if (substr($AccountNo,2,1) == '9') {
-      $Mark73 = $this->Method06($AccountNo, 'A98765432', TRUE, 10, 11);
-    } else {
-      $Mark73 = $this->Method00($AccountNo, '000121212', 10);
-    }
-    return $Mark73;
-  }
- */
 
-
-  function Mark73($AccountNo) {
+  private function Mark73($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo,2,1) != '9') {
       $Mark73 = $this->Method00($AccountNo, '000121212', 10); //Variante 1
@@ -1242,7 +1123,7 @@ var $PRZ; //Enthält die Prüfziffer
   } /* End of Mark73 */
 
 
-  function Mark74($AccountNo) {
+  private function Mark74($AccountNo) {
     $Help = 0;
     $V2 = 0;
     if (strlen($AccountNo) == 6) {
@@ -1271,7 +1152,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Correct;
   }  /* End of Mark74 */
 
-  function Mark75($AccountNo) {
+  private function Mark75($AccountNo) {
     $Help = 1;
     switch (strlen($AccountNo)) {
       case 6 :
@@ -1292,7 +1173,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Help;
   }  /* End of Mark75 */
 
-  function Mark76($AccountNo) {
+  private function Mark76($AccountNo) {
     $Help = 0;
     $Correct = 1;
     $Significance = '0765432';
@@ -1327,30 +1208,30 @@ var $PRZ; //Enthält die Prüfziffer
     return $Correct;
   }  /* End of Mark76 */
 
-  function Mark77($AccountNo) {
-    $Help = 0;
+  private function Mark77($AccountNo) {
     $Mark77 = 1;
     $AccountNo = $this->ExpandAccount($AccountNo);
     $Significance = '54321';
-    for ($Run = 4;$Run == 9;$Run++) {
+    $Help = 0;
+    for ($Run = 5; $Run < 10; $Run++) {
       $Help += (substr($AccountNo,$Run,1) * substr($Significance,$Run,1));
     }
-    $Help = $Help % 11;
-    if ($Help <> 0) {
+    $Help %= 11;
+    if ($Help != 0) {
       $Help = 0;
       $Significance = '54345';
-      for ($Run = 4;$Run < 10;$Run++) {
+      for ($Run = 5; $Run < 10;$Run++) {
         $Help += (substr($AccountNo,$Run,1) * substr($Significance,$Run,1));
       }
-      $Help = $Help % 11;
-      if ($Help = 0) {
-        $Mark77 = 0;
-      }
+      $Help %= 11;
+    }
+    if ($Help == 0) {
+      $Mark77 = 0;
     }
     return $Mark77;
   }  /* End of Mark77 */
 
-  function Mark78($AccountNo) {
+  private function Mark78($AccountNo) {
     if (strlen($AccountNo) == 8) {
       $Mark78 = 4;
     } else {
@@ -1359,14 +1240,9 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark78;
   }  /* End of Mark78 */
 
-  function Mark79($AccountNo) {
+  private function Mark79($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     switch (substr($AccountNo,0,1)) {
-      case '0' :
-      case '7' :
-      case '8' :
-        $Mark79 = 1;
-        break;
       case '1' :
       case '2' :
       case '9' :
@@ -1376,14 +1252,17 @@ var $PRZ; //Enthält die Prüfziffer
       case '4' :
       case '5' :
       case '6' :
+      case '7' :
+      case '8' :
         $Mark79 = $this->Method00($AccountNo, '212121212', 10);
+        break;
       default :
         $Mark79 = 1;
     }
     return $Mark79;
   }  /* End of Mark79 */
 
-  function Mark80($AccountNo) {
+  private function Mark80($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
 
     if (substr($AccountNo,2,1) == '9') {
@@ -1412,9 +1291,9 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark80;
   }  /* End of Mark80 */
 
-  function Mark81($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-    if (substr($AccountNo,2,1) == '9') {
+  private function Mark81($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo,2,1) != '9') {
       $Mark81 = $this->Mark10($AccountNo);
     } else {
       $Mark81 = $this->Mark51($AccountNo);
@@ -1422,7 +1301,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark81;
   }  /* End of Mark81 */
 
-  function Mark82($AccountNo) {
+  private function Mark82($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
      if (substr($AccountNo,2, 2) == '99') {
        $Mark82 = $this->Mark10($AccountNo);
@@ -1432,16 +1311,50 @@ var $PRZ; //Enthält die Prüfziffer
      return $Mark82;
    }  /* End of Mark82 */
 
-  function Mark83($AccountNo) {
-    $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 11);
-    if ($Help == 1) {
-      $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 7);
+  private function Mark83($AccountNo) {
+    $Mark83 = 1;
+
+    if (strlen($AccountNo) == 10) {
+      if (substr($AccountNo, 2, 2) == '99') {
+        $Significance = '008765432';
+        $Help = 0;
+        for ($i = 0; $i < strlen($Significance); $i++) {
+          $Help += substr($AccountNo, $i, 1) * substr($Significance, $i, 1);
+        }
+        $Help = 11 - $Help % 11;
+        if ($Help > 10) {
+          $Help = 0;
+        }
+        if ($Help == substr($AccountNo, -1)) {
+          $Mark83 = 0;
+        }
+      } else {
+        // Methode A
+        $Mark83 = $this->Mark32($AccountNo);
+        if ($Mark83 == 1) {
+          // Methode B
+          $Mark83 = $this->Mark33($AccountNo);
+          if ($Mark83 == 1) {
+            // 10. Stelle 7, 8 oder 9 = ungueltig
+            switch (substr($AccountNo, -1)) {
+            case '7' :
+            case '8' :
+            case '9' :
+              $Mark83 = 1;
+              break;
+            default :
+              // Methode C: Modulus 7, Gewichtung 2, 3, 4, 5, 6
+              $Mark83 = $this->Method06($AccountNo, '000065432', FALSE, 10, 7);
+              break;
+            }
+          }
+        }
+      }
     }
-    $Mark83 = $Help;
     return $Mark83;
   }  /* End of Mark83 */
 
-  function Mark84($AccountNo) {
+  private function Mark84($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo, 2, 1) != '9') {
       $Help = $this->Mark33($AccountNo);
@@ -1454,21 +1367,29 @@ var $PRZ; //Enthält die Prüfziffer
     return $Help;
   }  /* End of Mark84 */
 
-  function Mark85($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-    $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 11);
-    if ($Help == 1) {
-      if (substr($AccountNo, 2, 2) == '99') {
-        $Help = $this->Method02($AccountNo, '008765432', FALSE);
-      } else {
-        $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 7);
+  private function Mark85($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    // try typ A first, modified methode 6.
+    $Mark85 = $this->Method06($AccountNo, '000765432', FALSE, 10, 11);
+    if ($Mark85 == 1) {
+      // if wrong use Typ B (method33, modified methode 6)
+      $Mark85 = $this->Method06($AccountNo, '000065432', FALSE, 10, 11);
+    }
+    if ($Mark85 == 1) {
+      // last position eq 7,8,9 => wrong accountnumber, else test...
+      if (!in_array(substr($AccountNo, 9, 1), array(7, 8, 9))) {
+        // still wrong - Typ C
+        if (substr($AccountNo, 2, 2) == '99') {
+          $Mark85 = $this->Method02($AccountNo, '008765432', FALSE);
+        } else {
+          $Mark85 = $this->Method06($AccountNo, '000065432', FALSE, 10, 7);
+        }
       }
     }
-    $Mark85 = $Help;
-      return $Mark85;
+    return $Mark85;
   }  /* End of Mark85 */
 
-  function Mark86($AccountNo) {
+  private function Mark86($AccountNo) {
     $Help = $this->Method00($AccountNo, '000121212', 10);
     if ($Help == 1) {
       if (substr($AccountNo,2,1) == '9') {
@@ -1481,7 +1402,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark86;
   }  /* End of Mark86 */
 
-  function Mark87($AccountNo) {
+  private function Mark87($AccountNo) {
     $Tab1[0] = 0;
     $Tab1[1] = 4;
     $Tab1[2] = 3;
@@ -1500,15 +1421,14 @@ var $PRZ; //Enthält die Prüfziffer
       $Result = $this->Mark10($AccountNo);
     } else {
       for ($Run = 0; $Run < strlen($AccountNo); $Run++) {
-//        $AccountNoTemp[$Run + 1] = (int) substr($AccountNo,$Run,1);
-        $AccountNoTemp[$Run] = (int) substr($AccountNo,$Run,1);
+        $AccountNoTemp[$Run + 1] = (int) substr($AccountNo,$Run,1);
+        //        $AccountNoTemp[$Run] = (int) substr($AccountNo,$Run,1);
       }
-// print_r($AccountNoTemp); echo "<br />";
+// print _r($AccountNoTemp); echo "<br />";
       $i = 4;
       while ($AccountNoTemp[$i] == 0) {
         $i++;
       }
-// echo"$i <br />";
       $C2 = $i % 2;
       $D2 = 0;
       $A5 = 0;
@@ -1578,9 +1498,9 @@ var $PRZ; //Enthält die Prüfziffer
         }
       }
       if ($D2 == 0) {
-        $P = $TAB1[$A5];
+        $P = $Tab1[$A5];
       } else {
-        $P = $TAB2[$A5];
+        $P = $Tab2[$A5];
       }
       if ($P == $AccountNoTemp[10]) {
         $Result = 0;
@@ -1597,10 +1517,8 @@ var $PRZ; //Enthält die Prüfziffer
         }
       }
       if ($Result <> 0 ) {
-//      echo "Fehler in Berechnung A <br />";
         $Result = $this->Mark33($AccountNo);
         if ($Result <> 0 ) {
-//          echo "Fehler in Berechnung B <br />";
           $Result = $this->Method06($AccountNo,'000065432',FALSE,10,7);
         }
       }
@@ -1608,7 +1526,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $Result;
   }  /* End of Mark87 */
 
-  function Mark88($AccountNo) {
+  private function Mark88($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo,2,1) == '9') {
       $Mark88 = $this->Method06($AccountNo, '008765432', FALSE, 10, 11);
@@ -1618,58 +1536,57 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark88;
   }  /* End of Mark88 */
 
-  function Mark89($AccountNo) {
-    $Correct = 1;
-    switch (strlen($AccountNo)) {
-      case 1 :
-      case 2 :
-      case 3 :
-      case 4 :
-      case 5 :
-      case 6 :
-      case 10 :
-        $Correct = 4;
+  private function Mark89($AccountNo) {
+    $Mark89 = 1;
+    $account = $this->AccountInfo($AccountNo);
+    switch ($account['len']) {
+      case 8 :
+      case 9 :
+        $Mark89 = $this->Mark10($AccountNo);
         break;
       case 7 :
-      case 9 :
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        $Correct = $this->Method06($AccountNo,'098765432',FALSE,10,11);
+        $Mark89 = $this->Method00($AccountNo, '000765432', 10, 11);
         break;
       default :
-        if ((((int)$AccountNo > 32000005) and ((int)$AccountNo < 38999995)) or (((int)$AccountNo >1999999999) AND ((int)$AccountNo <400000000))) {
-          $Correct = $this->Mark10($AccountNo);
-        }
+        $Mark89 = 0;
+        break;
     }
-    return $Correct;
+    return $Mark89;
   }  /* End of Mark89 */
 
-  function Mark90($AccountNo) {
-    $Help = $this->Method06($AccountNo, '000765432', FALSE, 10, 11); // Methode A
-      if ($Help != 0) {
-        $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 11); // Methode B
-        if ($Help != 0) {
+  private function Mark90($AccountNo) {
+    $Mark90 = 1;
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo, 2, 1) == '9') {
+      $Mark90 = $this->Method06($AccountNo, '008765432', FALSE, 10, 11);
+    } else {
+      $Mark90 = $this->Method06($AccountNo, '000765432', FALSE, 10, 11); // Methode A
+      if ($Mark90 != 0) {
+        $Mark90 = $this->Method06($AccountNo, '000065432', FALSE, 10, 11); // Methode B
+        if ($Mark90 != 0) {
           switch (substr($AccountNo,-1)) {
-            case '7' :
-            case '8' :
-            case '9' :
-              $Help = 4;
-              break;
-            default :
-              $Help = $this->Method06($AccountNo, '000065432', FALSE, 10, 7); //Methode C
-              break;
+          case '7' :
+          case '8' :
+          case '9' :
+            $Mark90 = 4;
+            break;
+          default :
+            $Mark90 = $this->Method06($AccountNo, '000065432', FALSE, 10, 7); //Methode C
+            break;
           }
         }
-        if ($Help != 0) {
-          $Help = $this->Method06($AccountNo, '000065432',FALSE, 10, 9);  //Methode D
+        if ($Mark90 != 0) {
+          $Mark90 = $this->Method06($AccountNo, '000065432',FALSE, 10, 9);  //Methode D
         }
-        if ($Help != 0) {
-              $Help = $this->Method06($AccountNo, '000021212',FALSE, 10, 10); //Methode E
+        if ($Mark90 != 0) {
+          $Mark90 = $this->Method06($AccountNo, '000021212',FALSE, 10, 10); //Methode E
         }
       }
-    return $Help;
+    }
+    return $Mark90;
   }  /* End of Mark90 */
 
-  function Mark91($AccountNo) {
+  private function Mark91($AccountNo) {
     $Help = $this->Method06($AccountNo, '765432', FALSE, 7, 11);
     if ($Help == 1) {
       $Help = $this->Method06($AccountNo, '234567', FALSE, 7, 11);
@@ -1683,92 +1600,77 @@ var $PRZ; //Enthält die Prüfziffer
     return $Help;;
   }  /* End of Mark91 */
 
-  function Mark92($AccountNo) {
+  private function Mark92($AccountNo) {
     $Mark92 = $this->Method01($AccountNo, '000173173');
     return $Mark92;
   }  /* End of Mark92 */
 
-  function Mark93($AccountNo) {
+  private function Mark93($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
-    $Correct = 1;
+    $Mark93 = 1;
       if (substr($AccountNo,0,4) == '0000') {
-        $Correct = $this->Method06($AccountNo,'000065432',FALSE,10,11);
+        $Mark93 = $this->Method06($AccountNo,'000065432',FALSE,10,11);
       } else {
-        $Correct = $this->Method06($AccountNo,'65432',FALSE,10,11);
+        $Mark93 = $this->Method06($AccountNo,'65432',FALSE,6,11);
     }
-      if ($Correct == 1) {
+      if ($Mark93 == 1) {
         if (substr($AccountNo,0,4) == '0000') {
-          $Correct = $this->Method06($AccountNo,'000065432',FALSE,10,7);
+          $Mark93 = $this->Method06($AccountNo,'000065432',FALSE,10,7);
         } else {
-          $Correct = $this->Method06($AccountNo,'65432',FALSE,10,7);
+          $Mark93 = $this->Method06($AccountNo,'65432',FALSE,6,7);
       }
     }
-    $Mark93 = $Correct;
     return $Mark93;
   }  /* End of Mark93 */
 
-  function Mark94($AccountNo) {
+  private function Mark94($AccountNo) {
     $Mark94 = $this->Method00($AccountNo, '121212121', 10);
     return $Mark94;
   }  /* End of Mark94 */
 
-  function Mark95($AccountNo) {
-    if (strlen($AccountNo) == 10) {
-      if ((substr($AccountNo,3,1) == '5') Or (substr($AccountNo, 3, 2) == '69')) {
-        $Mark95 = $this->Method06($AccountNo, '000765432', FALSE, 10, 11);
-      } else {
-        $Mark95 = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
-      }
+  private function Mark95($AccountNo) {
+    $Mark95 = 1;
+    $account = $this->AccountInfo($AccountNo);
+
+    if ($account['len'] <= 7 and substr($account['long'], 3, 2) <= 19) {
+      $Mark95 = 0;
+    } elseif ($account['len'] <= 8 and substr($account['long'],2,2) >= 9 and substr($account['long'],2,2)<= 25) {
+      $Mark95 = 0;
+    } elseif ($account['len'] == 9 and substr($account['long'],1,3) >= 396 and substr($account['long'],1,1) <= 4) {
+      $Mark95 = 0;
+    } elseif ($account['len'] == 9 and substr($account['long'],1,1) == 7) {
+      $Mark95 = 0;
     } else {
       $Mark95 = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
-      if ((int) $AccountNo < 2000000) {
-        $Mark95 = 4;
-      }
-      if ((int) $AccountNo > 699999999) {
-        if ((int) $AccountNo < 800000000) {
-          $Mark95 = 4;
-        }
-      }
-      if ((int) $AccountNo > 395999999) {
-        if ((int) $AccountNo < 500000000) {
-          $Mark95 = 4;
-        }
-      }
     }
     return $Mark95;
   }  /* End of Mark95 */
 
-  function Mark96($AccountNo) {
+  private function Mark96($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
-    $Help = $this->Mark19($AccountNo);
-      if ($Help == 1) {
-        $Help = $this->Method00($AccountNo, '212121212', 10);
-        if ($Help == 1) {
-          if ((int) $AccountNo >1299999) {
-            if ((int) $AccountNo < 99400000) {
-              $Help = 0;
-            }
-          }
-        }
-      }
-     return $Help;
-    }  /* End of Mark96 */
 
-  function Mark97($AccountNo) {
+    $Mark96 = $this->Mark19($AccountNo);
+
+    if ($Mark96 == 1) {
+      $Mark96 = $this->Method00($AccountNo, '212121212', 10);
+      if ($Mark96 == 1 and (int)$AccountNo >1299999 and (int)$AccountNo < 99400000) {
+        $Mark96 = 0;
+      }
+    }
+    return $Mark96;
+  }  /* End of Mark96 */
+
+  private function Mark97($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
-    $Help = (int) substr($AccountNo, 0, 9) % 11;
-      if ($Help == 10) {
-        $Help = 0;
-      }
-      if (substr($AccountNo,-1) == $Help) {
-        $Mark97 = 0;
-      } else {
-        $Mark97 = 1;
-      }
-      return $Mark97;
-    }  /* End of Mark97 */
+    $Mark97 = 1;
+    $Help = (int)substr($AccountNo, 0, 9) % 11 % 10;
+    if (substr($AccountNo,-1) == $Help) {
+      $Mark97 = 0;
+    }
+    return $Mark97;
+  }  /* End of Mark97 */
 
-  function Mark98($AccountNo) {
+  private function Mark98($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     $Correct = $this->Method01($AccountNo,'003713713');
     if ($Correct == 1) {
@@ -1778,25 +1680,35 @@ var $PRZ; //Enthält die Prüfziffer
     return $Mark98;
   }  /* End of Mark98 */
 
-  function Mark99($AccountNo) {
+  private function Mark99($AccountNo) {
     $Mark99 = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
-    if ((int) $AccountNo >= 396000000 && (int) $AccountNo <= 499999999) {
-      $Mark99 = 4;
-     }
+    if ((int)$AccountNo >= 396000000 && (int)$AccountNo <= 499999999) {
+      $Mark99 = 2;
+    }
     return $Mark99;
   }  /* End of Mark99 */
 
-  function MarkA1($AccountNo) {
-    if (strlen($AccountNo) == 8 OR strlen($AccountNo)==10){
-      $AccountNo = $this->ExpandAccount($AccountNo);
-      $MarkA1 = $this->Method00($AccountNo, '002121212', 10);
+  private function MarkA0($AccountNo) {
+    $MarkA0 = 1;
+    $account = $this->AccountInfo($AccountNo);
+        if ($account['len'] <= 3) {
+      $MarkA0 = 2;
     } else {
-      $MarkA1 = 1;
+      $MarkA0 = $this->Method06($AccountNo, '0000A5842', true, 10, 11);
+    }
+    return $MarkA0;
+  }  /* End of MarkA0 */
+
+  private function MarkA1($AccountNo) {
+    $account = $this->AccountInfo($AccountNo);
+    $MarkA1 = 1;
+    if (in_array($account['len'], array(8,10))) {
+      $MarkA1 = $this->Method00($AccountNo, '002121212', 10);
     }
     return $MarkA1;
   }  /* End of MarkA1 */
 
-  function MarkA2($AccountNo) {
+  private function MarkA2($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     $MarkA2 = $this->Method00($AccountNo, '212121212', 10);
     if ($MarkA2 != 0){
@@ -1805,7 +1717,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $MarkA2;
   }  /* End of MarkA2 */
 
-  function MarkA3($AccountNo) {
+  private function MarkA3($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     $RetVal = $this->Method00($AccountNo, '212121212', 10);
     if ($RetVal != 0){
@@ -1814,15 +1726,13 @@ var $PRZ; //Enthält die Prüfziffer
     return $RetVal;
   }  /* End of MarkA3 */
 
-  function MarkA4($AccountNo) {
+  private function MarkA4($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if ((int) substr($AccountNo, 2,2) != 99){
       /* Variante 1 */
-      //echo "Variante 1 <br />";
       $MarkA4 = $this->Method06($AccountNo,'000765432',FALSE, 10,11);
       if ($MarkA4 !=0){
         /* Variante 2 */
-        //echo "Variante 2 <br />";
         $Significance='000765432';
         $MarkA4 = 1;
         $Help = 0;
@@ -1839,25 +1749,18 @@ var $PRZ; //Enthält die Prüfziffer
          $MarkA4 = 0;
         }
       }
-      if ($MarkA4 != 0){
-        /* Variante 4 */
-        //echo "Variante 4 <br />";
-        $MarkA4 = $this->Mark93($AccountNo);
-      }
     } else {
       /* Variante 3 */
-      //echo "Variante 3 <br />";
       $MarkA4 = $this->Method06($AccountNo,'000065432',FALSE,10,11);
-      if ($MarkA4 != 0){
-        /* Variante 4 */
-        //echo "Variante 4 <br />";
-        $MarkA4 = $this->Mark93($AccountNo);
-      }
+    }
+    if ($MarkA4 != 0){
+      /* Variante 4 */
+      $MarkA4 = $this->Mark93($AccountNo);
     }
     return $MarkA4;
   }  /* End of MarkA4 */
 
-  function MarkA5($AccountNo) {
+  private function MarkA5($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     $MarkA5 = $this->Method00($AccountNo, '212121212', 10);
     if ($MarkA5 != 0){
@@ -1870,7 +1773,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $MarkA5;
   }  /* End of MarkA5 */
 
-  function MarkA6($AccountNo) {
+  private function MarkA6($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     if (substr($AccountNo,1,1) != "8"){
       $RetVal = $this->Method01($AccountNo, '173173173');
@@ -1880,7 +1783,7 @@ var $PRZ; //Enthält die Prüfziffer
     return $RetVal;
   }  /* End of MarkA6 */
 
-  function MarkA7($AccountNo) {
+  private function MarkA7($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
     $RetVal = $this->Method00($AccountNo, '212121212', 10);
     if ($RetVal != 0){
@@ -1889,201 +1792,415 @@ var $PRZ; //Enthält die Prüfziffer
     return $RetVal;
   }  /* End of MarkA7 */
 
-  function MarkA8($AccountNo) {
+  private function MarkA8($AccountNo) {
     $AccountNo = $this->ExpandAccount($AccountNo);
-    $RetVal = $this->Mark81($AccountNo);
-    if ($RetVal != 0){
-      if (substr($AccountNo,2,1) != "9"){
-        $RetVal = $this->Mark73($AccountNo);
-      } else {
-        $RetVal = 1;
+    if (substr($AccountNo, 2, 1) == '9') {
+      $MarkA8 = $this->Mark51($AccountNo);
+    } else {
+      $MarkA8 = $this->Method06($AccountNo, '000765432', false, 10, 11);
+      if ($MarkA8 != 0) {
+        $MarkA8 = $this->Method00($AccountNo, '000121212', 10);
       }
     }
-    return $RetVal;
+    return $MarkA8;
   }  /* End of MarkA8 */
 
 /* --- Fixed FrankM 20050408 --- */
-function MarkA9($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        $RetVal = $this->Method01($AccountNo, '173173173');
-        if ($RetVal != 0){
-                $RetVal = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
-        }
-        return $RetVal;
-}  /* End of MarkA9 */
+  private function MarkA9($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $RetVal = $this->Method01($AccountNo, '173173173');
+    if ($RetVal != 0){
+      $RetVal = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
+    }
+    return $RetVal;
+  }  /* End of MarkA9 */
 
 
 /* --- Added FrankM 20050408 --- */
 /* --- Wird von keiner BLZ benutzt (06/2005 - 01/2006) ---*/
-function MarkB0($AccountNo) {
-        if (strlen($AccountNo) != 10 OR substr($AccountNo,0,1) == "8"){
-                $RetVal = 1;
+  private function MarkB0($AccountNo) {
+    if (strlen($AccountNo) != 10 OR substr($AccountNo,0,1) == "8"){
+      $RetVal = 1;
 
-        } else {
-                if (substr($AccountNo,9,1) == "1" OR substr($AccountNo,9,1) == "2" OR substr($AccountNo,9,1) == "3" OR substr($AccountNo,9,1) == "6"){
-                        $RetVal = 0;
-                } else {
-                        $RetVal = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
-                }
-        }
-        return $RetVal;
-}  /* End of MarkB0 */
+    } else {
+      if (substr($AccountNo,9,1) == "1" OR substr($AccountNo,9,1) == "2" OR substr($AccountNo,9,1) == "3" OR substr($AccountNo,9,1) == "6"){
+        $RetVal = 0;
+      } else {
+        $RetVal = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
+      }
+    }
+    return $RetVal;
+  } /* End of MarkB0 */
 
 /* --- Added FrankM 20050413 --- */
-function MarkB1($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        $RetVal = $this->Method01($AccountNo, '137137137');
-        if ($RetVal != 0){
-                $RetVal = $this->Method01($AccountNo, '173173173');
-        }
-        return $RetVal;
-}  /* End of MarkB1 */
+  private function MarkB1($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $RetVal = $this->Method01($AccountNo, '137137137');
+    if ($RetVal != 0){
+      $RetVal = $this->Method01($AccountNo, '173173173');
+    }
+    return $RetVal;
+  }  /* End of MarkB1 */
 
 /* --- Added FrankM 20050415 --- */
-function MarkB2($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        if (substr($AccountNo,0,1) <= "7"){
-                $RetVal = $this->Method02($AccountNo, '298765432', FALSE);
-        } else {
-                $RetVal = $this->Method00($AccountNo, '212121212', 10);
-        }
-        return $RetVal;
-}  /* End of MarkB2 */
+  private function MarkB2($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo,0,1) <= "7"){
+      $RetVal = $this->Method02($AccountNo, '298765432', FALSE);
+    } else {
+      $RetVal = $this->Method00($AccountNo, '212121212', 10);
+    }
+    return $RetVal;
+  }  /* End of MarkB2 */
 
 /* --- Added FrankM 20050415 --- */
-function MarkB3($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        if (substr($AccountNo,0,1) <= "8"){
-                $RetVal = $this->Method06($AccountNo, '000765432', FALSE, 10, 11);
-        } else {
-                $RetVal = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
-        }
-        return $RetVal;
-}  /* End of MarkB3 */
+  private function MarkB3($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo,0,1) <= "8"){
+      $RetVal = $this->Method06($AccountNo, '000765432', FALSE, 10, 11);
+    } else {
+      $RetVal = $this->Method06($AccountNo, '432765432', FALSE, 10, 11);
+    }
+    return $RetVal;
+  }  /* End of MarkB3 */
 
 /* --- Added FrankM 20050415 --- */
-function MarkB4($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        if (substr($AccountNo,0,1) == "9"){
-                $RetVal = $this->Method00($AccountNo, '212121212', 10);
-        } else {
-                $RetVal = $this->Method02($AccountNo, '298765432', FALSE);
-        }
-        return $RetVal;
-}  /* End of MarkB4 */
+  private function MarkB4($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo,0,1) == "9"){
+      $RetVal = $this->Method00($AccountNo, '212121212', 10);
+    } else {
+      $RetVal = $this->Method02($AccountNo, '298765432', FALSE);
+    }
+    return $RetVal;
+  }  /* End of MarkB4 */
 
 /* --- Added FrankM 20050727 --- */
-function MarkB5($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        $RetVal = $this->Method01($AccountNo, '137137137');
-        if ($RetVal != 0){
-                if ((substr($AccountNo,0,1) == '8') Or (substr($AccountNo,0,1) == '9')) {
-                        return $RetVal;
-                }
-                $RetVal = $this->Method00($AccountNo, '212121212', 10);
-        }
+  private function MarkB5($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $RetVal = $this->Method01($AccountNo, '137137137');
+    if ($RetVal != 0){
+      if ((substr($AccountNo,0,1) == '8') Or (substr($AccountNo,0,1) == '9')) {
         return $RetVal;
-}  /* End of MarkB5 */
+      }
+      $RetVal = $this->Method00($AccountNo, '212121212', 10);
+    }
+    return $RetVal;
+  }  /* End of MarkB5 */
 
 /* --- Added FrankM 20060112 --- */
-function MarkB6($AccountNo,$BLZ) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        if (substr($AccountNo,0,1) <= "9"){
-                $RetVal = $this->Mark20($AccountNo);
-        } else {
-                $RetVal = $this->Mark53($AccountNo,$BLZ);
-        }
-        return $RetVal;
-}  /* End of MarkB6 */
+  private function MarkB6($AccountNo,$BLZ) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo, 0, 1) != '0') {
+      $MarkB6 = $this->Mark20($AccountNo);
+    } else {
+      $MarkB6 = $this->Mark53($AccountNo,$BLZ);
+    }
+    return $MarkB6;
+  }  /* End of MarkB6 */
 
 /* --- Added FrankM 20060112 --- */
-function MarkB7($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        $AccountFloat = doubleval($AccountNo);
-        if (($AccountFloat >= 1000000) And ($AccountFloat <= 5999999)) {
-                $RetVal = $this->Method01($AccountNo, '173173173');
-        } elseif (($AccountFloat >= 700000000) And ($AccountFloat <= 899999999)) {
-                $RetVal = $this->Method01($AccountNo, '173173173');
-        } else {
-                $RetVal = 2;
-        }
-        return $RetVal;
-}  /* End of MarkB7 */
+  private function MarkB7($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $AccountFloat = doubleval($AccountNo);
+    if (($AccountFloat >= 1000000) And ($AccountFloat <= 5999999)) {
+      $RetVal = $this->Method01($AccountNo, '173173173');
+    } elseif (($AccountFloat >= 700000000) And ($AccountFloat <= 899999999)) {
+      $RetVal = $this->Method01($AccountNo, '173173173');
+    } else {
+      $RetVal = 2;
+    }
+    return $RetVal;
+  }  /* End of MarkB7 */
 
 /* --- Added FrankM 20060112 --- */
-function MarkB8($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        $RetVal = $this->Mark20($AccountNo);
-        if ($RetVal != 0){
-                $RetVal = $this->Mark20($AccountNo);
-        }
-        return $RetVal;
-}  /* End of MarkB8 */
+  private function MarkB8($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $MarkB8 = $this->Mark20($AccountNo);
+    if ($MarkB8 != 0){
+      $MarkB8 = $this->Mark29($AccountNo);
+    }
+    return $MarkB8;
+  }  /* End of MarkB8 */
 
 /* --- Added FrankM 20060124 --- */
 /* --- Benutzt von Hanseatic Bank, Hamburg --- */
-function MarkB9($AccountNo) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        $RetVal = 1;
-        
-        // Variante 1 - Zwei führende Nullen
-        if ((substr($AccountNo,0,2) == "00")And (substr($AccountNo,2,1) != "0")){
-                $Significance = '1231231';
-                for ($Run = 0;$Run < strlen($Significance);$Run++) {
-                        $Step1 = (substr($AccountNo,$Run + 2,1) * substr($Significance,$Run,1));
-                        $Step2 = $Step1 + substr($Significance,$Run,1);
-                        $Step3 += $Step2 % 11;
-                }
-                $Checksum = $Step3 % 10;
-                if ($Checksum == substr($AccountNo,-1)) {
-                        $RetVal = 0;
-                } else {
-                        $Checksum = $Checksum + 5;
-                        if ($Checksum > 10) {
-                                $Checksum = $Checksum - 10;
-                        }
-                        if ($Checksum == substr($AccountNo,-1)) {
-                                $RetVal = 0;
-                        }
-                }
+  private function MarkB9($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $RetVal = 1;
 
-        // Variante 2 - Drei führende Nullen
-        } elseif ((substr($AccountNo,0,3) == "000")And (substr($AccountNo,3,1) != "0")){
-                $Significance = '654321';
-                for ($Run = 0;$Run < strlen($Significance);$Run++) {
-                        $Step1 += (substr($AccountNo,$Run + 3,1) * substr($Significance,$Run,1));
-                }
-                $Checksum = $Step1 % 11;
-                if ($Checksum == substr($AccountNo,-1)) {
-                        $RetVal = 0;
-                } else {
-                        $Checksum = $Checksum + 5;
-                        if ($Checksum > 10) {
-                                $Checksum = $Checksum - 10;
-                        }
-                        if ($Checksum == substr($AccountNo,-1)) {
-                                $RetVal = 0;
-                        }
-                }
+    // Variante 1 - Zwei führende Nullen
+    if ((substr($AccountNo,0,2) == "00")And (substr($AccountNo,2,1) != "0")){
+      $Significance = '1231231';
+      $Step3 = 0;
+      for ($Run = 0;$Run < strlen($Significance);$Run++) {
+        $Step1 = (substr($AccountNo,$Run + 2,1) * substr($Significance,$Run,1));
+        $Step2 = $Step1 + substr($Significance,$Run,1);
+        $Step3 += $Step2 % 11;
+      }
+      $Checksum = $Step3 % 10;
+      if ($Checksum == substr($AccountNo,-1)) {
+        $RetVal = 0;
+      } else {
+        $Checksum = $Checksum + 5;
+        if ($Checksum > 10) {
+          $Checksum = $Checksum - 10;
         }
-        return $RetVal;
-}  /* End of MarkB9 */
+        if ($Checksum == substr($AccountNo,-1)) {
+          $RetVal = 0;
+        }
+      }
+
+    // Variante 2 - Drei führende Nullen
+    } elseif ((substr($AccountNo,0,3) == "000") and (substr($AccountNo,3,1) != "0")){
+      $Significance = '654321';
+      $Step1 = 0;
+      for ($Run = 0;$Run < strlen($Significance);$Run++) {
+        $Step1 += (substr($AccountNo,$Run + 3,1) * substr($Significance,$Run,1));
+      }
+      $Checksum = $Step1 % 11;
+      if ($Checksum == substr($AccountNo,-1)) {
+        $RetVal = 0;
+      } else {
+        $Checksum = $Checksum + 5;
+        if ($Checksum > 10) {
+          $Checksum = $Checksum - 10;
+        }
+        if ($Checksum == substr($AccountNo,-1)) {
+          $RetVal = 0;
+        }
+      }
+    }
+    return $RetVal;
+  }  /* End of MarkB9 */
 
 /* --- Added FrankM 20060112 --- */
-function MarkC0($AccountNo,$BLZ) {
-        $AccountNo = $this->ExpandAccount($AccountNo);
-        if ((substr($AccountNo,0,2) == "00") And (substr($AccountNo,0,3)!= "000")) {
-                $RetVal = $this->Mark53($AccountNo,$BLZ);
-                if ($RetVal != 0){
-                        $RetVal = $this->Mark20($AccountNo);
-                }       
-        } else {
-                $RetVal = $this->Mark20($AccountNo);
-                //$RetVal = 2;
-        }
-        return $RetVal;
-}  /* End of MarkC0 */
+  private function MarkC0($AccountNo,$BLZ) {
+    // remember account number if length = 8
+    if (strlen($AccountNo) == 8) {
+      $AccountNoShort = $AccountNo;
+    }
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if ((substr($AccountNo,0,2) == '00') and (substr($AccountNo,0,3)!= '000')) {
+      if (isset($AccountNoShort)) {
+        $RetVal = $this->Mark52($AccountNoShort, $BLZ);
+      } else {
+        $RetVal = 1;
+      }
+      if ($RetVal != 0){
+        $RetVal = $this->Mark20($AccountNo);
+      }
+    } else {
+      $RetVal = $this->Mark20($AccountNo);
+    }
+    return $RetVal;
+  }  /* End of MarkC0 */
 
+  private function MarkC1($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $markC1 = 1;
+    if($AccountNo{0} != '5') { // Variante 1
+      // Methode 17, Modulus 11, Gewichtung 1, 2, 1, 2, 1, 2
+      $markC1 = $this->Mark17($AccountNo);
+    } else { // Variante 2
+      $weights = '121212121';
+      $sum = 0;
+      for($i = 0; $i < 9; $i++) {
+        $sum += $this->CrossSum($AccountNo{$i} * $weights{$i});
+      }
+      $sum--;
+      $prz = $sum % 11;
+      if(0 < $prz) {
+        $prz = 10 - $prz;
+      }
+      if($prz == $AccountNo{9}) { // 10. Stelle ist PRZ
+        $markC1 = 0;
+      }
+    }
+    return $markC1;
+  }
+
+  private function MarkC2($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    $markC2 = $this->Mark22($AccountNo);
+    if($markC2 != 0) {
+      $markC2 = $this->Mark00($AccountNo);
+    }
+  return $markC2;
+  }
+
+  private function MarkC3($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo,0,1) != "9") {
+      $markC3 = $this->Mark00($AccountNo);
+    } else {
+      $markC3 = $this->Mark58($AccountNo);
+    }
+    return $markC3;
+  }
+
+  private function MarkC4($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if (substr($AccountNo,0,1) != "9") {
+      $markC4 = $this->Mark15($AccountNo);
+    } else {
+      $markC4 = $this->Mark58($AccountNo);
+    }
+    return $markC4;
+  }
+
+  private function MarkC5($AccountNo) {
+    $aAccountNo = $this->AccountInfo($AccountNo);
+    $AccountNo = $aAccountNo['long'];
+
+    $MarkC5 = 1;
+    // Berechnungsvariante nach Kontonummernlaenge.
+    switch ($aAccountNo['len']) {
+      case 6:
+        // Variante 1, sechsstellige Kontonummer
+        if (intval(substr($AccountNo, 4 ,1)) >= 1 and
+            intval(substr($AccountNo, 4 ,1)) <= 8) {
+          $MarkC5 = $this->Method00($AccountNo, '000021212', 10);
+        }
+        break;
+      case 8:
+        // Variante 4, achtstellige Kontonummer.
+        if (substr($AccountNo,2,1) >= "3" and substr($AccountNo,2,1) <= "5") {
+          $MarkC5 = $this->Mark09($AccountNo);
+        }
+        break;
+      case 9:
+        // Variante 1, neunstellige Kontonummer
+        if (substr($AccountNo,1 ,1) >= '1' and
+            substr($AccountNo,1 ,1) <= '8') {
+          $MarkC5 = $this->Method00($AccountNo, '021212', 7);
+        }
+        break;
+      case 10:
+        // Variante 4, zehnstellige Kontonummer.
+        if ((substr($AccountNo,0,2) == "70") or (substr($AccountNo,0,2) == "85")) {
+          $MarkC5 = $this->Mark09($AccountNo);
+          return $MarkC5;
+          // Variante 2, zehnstellige Kontonummer.
+        } elseif ((substr($AccountNo,0,1) == "1") or (substr($AccountNo,0,1) == "4") or (substr($AccountNo,0,1) == "5") or (substr($AccountNo,0,1) == "6") or (substr($AccountNo,0,1) == "9")) {
+          $MarkC5 = $this->Mark29($AccountNo);
+        // Variante 3, zehnstellige Kontonummer.
+        } elseif ((substr($AccountNo,0,1) == "3")) {
+          $MarkC5 = $this->Mark00($AccountNo);
+        }
+        break;
+    } // End switch.
+
+    return $MarkC5;
+  }
+
+  private function MarkC6($AccountNo) {
+    $MarkC6 = 1;
+
+    $prefix = array(
+      0 => '4451970',
+      1 => '4451981',
+      2 => '4451992',
+      7 => '5499570',
+      9 => '5499579',
+    );
+    $AccountNo = $this->ExpandAccount($AccountNo);
+
+    if (isset($prefix[substr($AccountNo, 0, 1)])) {
+      $AccountNo = $prefix[substr($AccountNo, 0, 1)].substr($AccountNo,1);
+      $MarkC6 = $this->Method00($AccountNo, '212121212121212', 16, 10, false);
+    }
+    return $MarkC6;
+  } /* End of MarkC6 */
+
+  private function MarkC7($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    // Zuerst mit Methode 63 pruefen.
+    $markC7 = $this->Mark63($AccountNo);
+    // Wenn Pruefzifferfehler, dann Methode 06
+    if ($markC7 == 1) {
+      $markC7 = $this->Mark06($AccountNo);
+    }
+    return $markC7;
+  }
+
+  private function MarkC8($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    // Zuerst mit Methode 00 pruefen.
+    $markC8 = $this->Mark00($AccountNo);
+    // Wenn Pruefzifferfehler, dann Methode 04
+    if ($markC8 == 1) {
+      $markC8 = $this->Mark04($AccountNo);
+      // Wenn Pruefzifferfehler, dann Methode 07
+      if ($markC8 == 1) {
+        $markC8 = $this->Mark07($AccountNo);
+      }
+    }
+    return $markC8;
+  }
+
+  private function MarkC9($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    // Zuerst mit Methode 00 pruefen.
+    $markC9 = $this->Mark00($AccountNo);
+    // Wenn Pruefzifferfehler, dann Methode 07
+    if ($markC9 == 1) {
+      $markC9 = $this->Mark07($AccountNo);
+    }
+    return $markC9;
+  }
+
+  private function MarkD0($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    // Wenn die erste und zweite Stelle = 57, dann keine Pruefung.
+    if (substr($AccountNo, 0, 2) == "57") {
+      $markD0 = $this->Mark09($AccountNo);
+    // Andernfalls Methode 20 (modifizierte Methode 06).
+    } else {
+      $markD0 = $this->Method06($AccountNo, '398765432', FALSE, 10, 11);
+    }
+    return $markD0;
+  }
+
+  private function MarkD1($AccountNo) {
+    $AccountNo = $this->ExpandAccount($AccountNo);
+    if ((substr($AccountNo, 0, 1) == "0") or (substr($AccountNo, 0, 1) == "3") or (substr($AccountNo, 0, 1) == "9")) {
+      $markD1 = 1;
+    } else {
+      $Help = '428259' . $AccountNo;
+      // Methode 00, 16. Stelle Pruefziffer, Modulator 10,
+      // Pruefziffer NICHT verschieben, ExpandAccount NICHT anwenden.
+      $markD1 = $this->Method00($Help, '212121212121212', 16, 10, false);
+    }
+    return $markD1;
+  }
+
+  private function MarkD2($AccountNo) {
+    // Zuerst mit Methode 95 pruefen.
+    $markD2 = $this->Mark95($AccountNo);
+    // Wenn Pruefzifferfehler, dann mit Methode 00 pruefen.
+    if ($markD2 == 1) {
+      $markD2 = $this->Mark00($AccountNo);
+      // Wenn Pruefzifferfehler, dann mit Methode 68 pruefen.
+      if ($markD2 == 1) {
+        $markD2 = $this->Mark68($AccountNo);
+      }
+    }
+    return $markD2;
+  }
+
+  private function MarkD3($AccountNo) {
+    $MarkD3 = 1;
+
+    $AccountNo = $this->ExpandAccount($AccountNo);
+
+    $MarkD3 = $this->Mark00($AccountNo);
+    // Wenn Pruefzifferfehler, dann mit Methode 27 pruefen.
+    if ($MarkD3 == 1) {
+      $MarkD3 = $this->Mark27($AccountNo);
+    }
+    return $MarkD3;
+  }
 /*---------- END OF METHODS ---------- */
 
 /* -------- Dies ist die wichtigste function ---------- */
@@ -2099,7 +2216,7 @@ function MarkC0($AccountNo,$BLZ) {
       return 9;  /* Keine Kontonummer übergeben */
     }
 
-/*     Beginn Implementierung */
+    /*     Beginn Implementierung */
     $adata = $this->query($BLZ);
     if ($adata == -1) {
       $Result = 5; // BLZ nicht gefunden;
@@ -2112,16 +2229,28 @@ function MarkC0($AccountNo,$BLZ) {
       $this->PRZ = str_pad ($adata['prz'], 2, "0", STR_PAD_LEFT);
       $this->banktransfer_number=ltrim($banktransfer_number,"0");
       //$this->banktransfer_number=$this->ExpandAccount($banktransfer_number);
-      $this->banktransfer_blz=$banktransfer_blz;
+      $this->banktransfer_blz=$adata['blz'];
 
       $PRZ = $adata['prz'];
 
       switch ($PRZ) {
-        case "52" : $Result = $this->Mark52($KontoNR, $BLZ); break;
-        case "53" : $Result = $this->Mark53($KontoNR, $BLZ); break;
+        case "52":
+          $Result = $this->Mark52($KontoNR, $adata['blz']);
+          break;
+
+        case "53":
+          $Result = $this->Mark53($KontoNR, $adata['blz']);
+          break;
+
         /* --- Added FrankM 20060112 --- */
-        case "B6" : $Result = $this->MarkB6($KontoNR, $BLZ); break;
-        case "C0" : $Result = $this->MarkC0($KontoNR, $BLZ); break;
+        case "B6":
+          $Result = $this->MarkB6($KontoNR, $adata['blz']);
+          break;
+
+        case "C0":
+          $Result = $this->MarkC0($KontoNR, $adata['blz']);
+          break;
+
         default:
           $MethodName = "Mark$PRZ";
           if (method_exists($this, $MethodName)){
@@ -2129,11 +2258,11 @@ function MarkC0($AccountNo,$BLZ) {
           } else {
             $Result = 3;
           }
-        }  /* end switch */
+      } /* end switch */
 
-      } /* end if num_rows */
+    } /* end if num_rows */
 
-      return $Result;
-    }  /* End of CheckAccount */
-  }  /* End Class AccountCheck */
+    return $Result;
+  }  /* End of CheckAccount */
+}  /* End Class AccountCheck */
 ?>

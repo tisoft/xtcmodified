@@ -34,19 +34,19 @@
 10070100;Deutsche Bank Fil Berlin II;63
 10070124;Deutsche Bank Privat und Geschäftskd Berlin II;63
 10077777;norisbank;63
-10080000;Dresdner Bank Filiale Berlin I;76
-10080005;Dresdner Bank Zw A;76
-10080006;Dresdner Bank Zw B;76
-10080055;Dresdner Bank Zw 55;76
-10080057;Dresdner Bank Gf ZW 57;76
-10080085;Dresdner Bank Gf PCC DCC-ITGK 3;09
-10080086;Dresdner Bank, PCC DCC-ITGK 4;09
-10080087;Dresdner Bank, PCC DCC-ITGK 5;09
-10080088;Dresdner Bank IBLZ;76
-10080089;Dresdner Bank, PCC DCC-ITGK 6;09
-10080900;Dresdner Bank Filiale Berlin III;76
-10089260;Dresdner Bank ITGK;09
-10089999;Dresdner Bank ITGK 2;09
+10080000;Commerzbank vormals Dresdner Bank Filiale Berlin I;76
+10080005;Commerzbank vormals Dresdner Bank Zw A;76
+10080006;Commerzbank vormals Dresdner Bank Zw B;76
+10080055;Commerzbank vormals Dresdner Bank Zw 55;76
+10080057;Commerzbank vormals Dresdner Bank Gf ZW 57;76
+10080085;Commerzbank vormals Dresdner Bank Gf PCC DCC-ITGK 3;09
+10080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+10080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
+10080088;Commerzbank vormals Dresdner Bank IBLZ;76
+10080089;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 6;09
+10080900;Commerzbank vormals Dresdner Bank Filiale Berlin III;76
+10089260;Commerzbank vormals Dresdner Bank ITGK;09
+10089999;Commerzbank vormals Dresdner Bank ITGK 2;09
 10090000;Berliner Volksbank;06
 10090300;Bank für Schiffahrt (BFS) Fil d Ostfr VB Leer;09
 10090603;apoBank;14
@@ -55,14 +55,13 @@
 10110400;Investitionsbank Berlin;09
 10110600;Berliner Effektenbank Zndl der quirin bank;17
 10120100;Weberbank;94
-10120600;Ge Money Bank;41
+10120600;Santander Consumer Bank;41
 10120760;Bayer Hypo- und Vereinsbank Ndl 260 Bln;99
 10120800;VON ESSEN Bankgesellschaft;09
 10120900;readybank;09
 10120999;readybank Gf GAA;09
 10130600;Isbank Fil Berlin;06
 10130800;BIW Bank;01
-10220700;Hanseatic Bank;16
 10310600;Tradegate Wertpapierhandelsbank Berlin;09
 10320800;Emporiki Bank - Germany;56
 12016836;KfW Kreditanstalt für Wiederaufbau;09
@@ -74,13 +73,12 @@
 12060000;DZ BANK;09
 12070000;Deutsche Bank Ld Brandenburg;63
 12070024;Deutsche Bank Privat und Geschäftskunden;63
-12080000;Dresdner Bank Filiale Berlin II;76
+12080000;Commerzbank vormals Dresdner Bank Filiale Berlin II;76
 12090640;apoBank;14
 12096597;Sparda-Bank Berlin;A8
 13000000;Bundesbank;09
 13010111;SEB;13
 13020780;Bayer Hypo- und Vereinsbank(ehem. Hypo);99
-13020800;Hanseatic Bank;16
 13040000;Commerzbank;13
 13050000;Ostseesparkasse Rostock;20
 13051042;Kreissparkasse Rügen, Sitz Bergen;C0
@@ -92,12 +90,11 @@
 13061128;Raiffeisenbank;32
 13070000;Deutsche Bank;63
 13070024;Deutsche Bank Privat und Geschäftskunden;63
-13080000;Dresdner Bank;76
+13080000;Commerzbank vormals Dresdner Bank;76
 13090000;Rostocker Volks- und Raiffeisenbank;32
 13091054;Pommersche Volksbank;32
 13091084;Volksbank Wismar -alt-;06
 14000000;Bundesbank eh Schwerin;09
-14020700;Hanseatic Bank;16
 14020781;Bayer Hypo- und Vereinsbank(ehem. Hypo);99
 14040000;Commerzbank;13
 14051000;Sparkasse Mecklenburg-Nordwest;20
@@ -106,14 +103,13 @@
 14052000;Sparkasse Mecklenburg-Schwerin;20
 14061308;Volks- und Raiffeisenbank;32
 14061438;Raiffeisen-Volksbank -alt-;32
-14080000;Dresdner Bank;76
-14080011;Dresdner Bank Zw W;76
+14080000;Commerzbank vormals Dresdner Bank;76
+14080011;Commerzbank vormals Dresdner Bank Zw W;76
 14091464;VR-Bank;32
 15000000;Bundesbank;09
 15040068;Commerzbank;13
 15050100;Müritz-Sparkasse;20
 15050200;Sparkasse Neubrandenburg-Demmin;20
-15050300;Kreissparkasse Demmin -alt-;20
 15050400;Sparkasse Uecker-Randow;20
 15050500;Sparkasse Vorpommern;20
 15051732;Sparkasse Mecklenburg-Strelitz;C0
@@ -121,9 +117,8 @@
 15061638;Volksbank Raiffeisenbank;32
 15061658;Raiffeisenbank Pasewalk-Strasburg;32
 15061698;Raiffeisenbank Malchin;32
-15061738;Raiffeisenbank;11
 15061758;Neubrandenburger Bank -alt-;06
-15080000;Dresdner Bank;76
+15080000;Commerzbank vormals Dresdner Bank;76
 15091674;Volksbank Demmin;06
 15091704;Volksbank Uckermark;06
 16000000;Bundesbank eh Potsdam;09
@@ -141,7 +136,7 @@
 16061938;Raiffeisenbank Ostprignitz-Ruppin;32
 16062008;VR-Bank Fläming;28
 16062073;Brandenburger Bank;32
-16080000;Dresdner Bank;76
+16080000;Commerzbank vormals Dresdner Bank;76
 16091994;Volksbank Rathenow;32
 17000000;Bundesbank eh Frankfurt (Oder);09
 17020086;Bayer Hypo- und Vereinsbank;99
@@ -153,7 +148,7 @@
 17055050;Sparkasse Oder-Spree;20
 17056060;Sparkasse Uckermark;20
 17062428;Raiffeisenbank-Volksbank Oder-Spree;32
-17080000;Dresdner Bank;76
+17080000;Commerzbank vormals Dresdner Bank;76
 17092404;VR Bank Fürstenwalde Seelow Wriezen;32
 18000000;Bundesbank;09
 18020086;Bayer Hypo- und Vereinsbank;99
@@ -162,9 +157,8 @@
 18051000;Sparkasse Elbe-Elster;20
 18055000;Sparkasse Niederlausitz;20
 18062678;VR Bank Lausitz;32
-18062698;Raiffeisenbank Oberspreewald;32
 18062758;VR Bank Forst;32
-18080000;Dresdner Bank;76
+18080000;Commerzbank vormals Dresdner Bank;76
 18092684;Spreewaldbank;32
 18092744;Volksbank Spremberg-Bad Muskau;32
 18092794;Volks- und Raiffeisenbank Cottbus -alt-;32
@@ -217,15 +211,15 @@
 20069989;Volksbank Wulfsen;28
 20070000;Deutsche Bank;63
 20070024;Deutsche Bank Privat und Geschäftskunden;63
-20080000;Dresdner Bank;76
-20080055;Dresdner Bank Zw 55;76
-20080057;Dresdner Bank Gf ZW 57;76
-20080085;Dresdner Bank Gf PCC DCC-ITGK 2;09
-20080086;Dresdner Bank, PCC DCC-ITGK 3;09
-20080087;Dresdner Bank, PCC DCC-ITGK 4;09
-20080088;Dresdner Bank, PCC DCC-ITGK 5;09
-20080089;Dresdner Bank, PCC DCC-ITGK 6;09
-20089200;Dresdner Bank ITGK;09
+20080000;Commerzbank vormals Dresdner Bank;76
+20080055;Commerzbank vormals Dresdner Bank Zw 55;76
+20080057;Commerzbank vormals Dresdner Bank Gf ZW 57;76
+20080085;Commerzbank vormals Dresdner Bank Gf PCC DCC-ITGK 2;09
+20080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 3;09
+20080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+20080088;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
+20080089;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 6;09
+20089200;Commerzbank vormals Dresdner Bank ITGK;09
 20090400;Deutsche Genossenschafts-Hypothekenbank;09
 20090500;netbank;81
 20090602;apoBank;14
@@ -245,10 +239,9 @@
 20120701;Hanseatic Bank Zw Nord;16
 20120744;Hanseatic Bank Filiale Ost;B9
 20120766;Hanseatic Bank Filiale Süd;B9
-20130400;Hesse Newman & Co;00
-20130412;Hesse Newman & Co. Asset Backed Sec.;00
+20130400;GRENKE BANK;00
+20130412;GRENKE BANK Asset Backed Securities;00
 20130600;Barclaycard Barclays Bank;09
-20150000;TxB Transaktionsbank;09
 20190003;Hamburger Volksbank;10
 20190109;Volksbank Stormarn;48
 20190206;Volksbank Hamburg Ost-West -alt-;10
@@ -268,6 +261,26 @@
 20350000;WestLB Hamburg;08
 20690500;Sparda-Bank Hamburg;09
 20730000;Bayer HypoVereinsbank ex Vereins und Westbank;68
+20730001;Bayer Hypo- und Vereinsbank, Gf EAC01;09
+20730002;Bayer Hypo- und Vereinsbank, Gf EAC02;09
+20730003;Bayer Hypo- und Vereinsbank, Gf EAC03;09
+20730004;Bayer Hypo- und Vereinsbank, Gf EAC04;09
+20730005;Bayer Hypo- und Vereinsbank, Gf EAC05;09
+20730006;Bayer Hypo- und Vereinsbank, Gf EAC06;09
+20730007;Bayer Hypo- und Vereinsbank, Gf EAC07;09
+20730008;Bayer Hypo- und Vereinsbank, Gf EAC08;09
+20730009;Bayer Hypo- und Vereinsbank, Gf EAC09;09
+20730010;Bayer Hypo- und Vereinsbank, Gf EAC10;09
+20730011;Bayer Hypo- und Vereinsbank, Gf EAC11;09
+20730012;Bayer Hypo- und Vereinsbank, Gf EAC12;09
+20730013;Bayer Hypo- und Vereinsbank, Gf EAC13;09
+20730014;Bayer Hypo- und Vereinsbank, Gf EAC14;09
+20730015;Bayer Hypo- und Vereinsbank, Gf EAC15;09
+20730016;Bayer Hypo- und Vereinsbank, Gf EAC16;09
+20730017;Bayer Hypo- und Vereinsbank, Gf EAC 17;09
+20730018;Bayer Hypo- und Vereinsbank, Gf EAC18;09
+20730019;Bayer Hypo- und Vereinsbank, Gf EAC19;09
+20730020;Bayer Hypo- und Vereinsbank, Gf EAC20;09
 20730051;Bayer HypoVereinsbank ex Vereins und Westbank;68
 20730053;Bayer HypoVereinsbank ex Vereins und Westbank;68
 20730054;Bayer HypoVereinsbank ex Vereins und Westbank;68
@@ -291,8 +304,8 @@
 21064045;Raiffeisenbank im Kreis Plön;33
 21070020;Deutsche Bank;63
 21070024;Deutsche Bank Privat und Geschäftskunden;63
-21080050;Dresdner Bank;76
-21089201;Dresdner Bank ITGK;09
+21080050;Commerzbank vormals Dresdner Bank;76
+21089201;Commerzbank vormals Dresdner Bank ITGK;09
 21090007;Kieler Volksbank;10
 21090619;apoBank;14
 21090900;PSD Bank Kiel;91
@@ -307,7 +320,7 @@
 21261227;Raiffbk Kl-Kummerfeld -alt-;33
 21270020;Deutsche Bank;63
 21270024;Deutsche Bank Privat und Geschäftskunden;63
-21280002;Dresdner Bank;76
+21280002;Commerzbank vormals Dresdner Bank;76
 21290016;Volksbank Raiffbk Neumünster;48
 21340010;Commerzbank;13
 21352240;Sparkasse Holstein;A7
@@ -321,20 +334,20 @@
 21461627;Raiffeisenbank Jevenstedt -alt-;33
 21463603;Volksbank-Raiffeisenbank im Kreis Rendsburg;32
 21464671;Raiffeisenbank;33
-21480003;Dresdner Bank;76
+21480003;Commerzbank vormals Dresdner Bank;76
 21500000;Bundesbank;09
 21510600;Sydbank Filiale Flensburg;19
 21520100;Union-Bank Flensburg;06
 21530080;Bayer HypoVereinsbank ex Vereins und Westbank;68
 21540060;Commerzbank;13
-21550050;Flensburger Sparkasse;C9
+21550050;Nord-Ostsee Sparkasse;C9
 21563321;Raiffeisenbank Flensburg -alt-;33
 21565316;Raiffeisenbank;33
 21566356;Volks- und Raiffeisenbank;33
 21567360;Raiffeisenbank Kleinjörl -alt-;33
 21570011;Deutsche Bank;63
 21570024;Deutsche Bank Privat und Geschäftskunden;63
-21580000;Dresdner Bank;76
+21580000;Commerzbank vormals Dresdner Bank;76
 21630060;Bayer HypoVereinsbank ex Vereins und Westbank;68
 21630061;Bayer HypoVereinsbank ex Vereins und Westbank;68
 21630062;Bayer HypoVereinsbank ex Vereins und Westbank;68
@@ -383,8 +396,8 @@
 22151730;Stadtsparkasse Wedel;02
 22162113;Volks- u Raiffeisenbank Halstenbek-Schenefeld;33
 22163114;Raiffeisenbank Elbmarsch;33
-22180000;Dresdner Bank;76
-22181400;Dresdner Bank;76
+22180000;Commerzbank vormals Dresdner Bank;76
+22181400;Commerzbank vormals Dresdner Bank;76
 22190030;Volksbank Elmshorn;48
 22191405;VR Bank Pinneberg;48
 22200000;Bundesbank eh Itzehoe;09
@@ -398,7 +411,7 @@
 22251580;Landsparkasse Schenefeld;04
 22252050;Verbandssparkasse Wilster -alt-;04
 22260136;Raiffeisenbank;33
-22280000;Dresdner Bank;76
+22280000;Commerzbank vormals Dresdner Bank;76
 22290031;Volksbank Raiffeisenbank Itzehoe;10
 23000000;Bundesbank;09
 23010111;SEB;13
@@ -416,8 +429,8 @@
 23064107;Raiffeisenbank;32
 23070700;Deutsche Bank Privat und Geschäftskunden;63
 23070710;Deutsche Bank;63
-23080040;Dresdner Bank;76
-23089201;Dresdner Bank ITGK;09
+23080040;Commerzbank vormals Dresdner Bank;76
+23089201;Commerzbank vormals Dresdner Bank ITGK;09
 23090142;Volksbank Lübeck;10
 23092502;Volksbank Lauenburg -alt-;10
 23092620;apoBank;14
@@ -429,8 +442,8 @@
 24061392;Volksbank Bleckede-Dahlenburg -alt-;28
 24070024;Deutsche Bank Privat und Geschäftskunden;63
 24070075;Deutsche Bank;63
-24080000;Dresdner Bank;76
-24090041;Volksbank Lüneburg;28
+24080000;Commerzbank vormals Dresdner Bank;76
+24090041;Volksbank Lüneburg -alt-;28
 24121000;Ritterschaftliches Kreditinstitut Stade;09
 24130000;Bayer HypoVereinsbank ex Vereins und Westbank;68
 24140041;Commerzbank;13
@@ -440,8 +453,8 @@
 24151235;Sparkasse Rotenburg-Bremervörde;00
 24161594;Zevener Volksbank;28
 24162898;Spar- u Darlehnskasse Börde Lamstedt-Hechthausen;28
-24180000;Dresdner Bank;76
-24180001;Dresdner Bank;76
+24180000;Commerzbank vormals Dresdner Bank;76
+24180001;Commerzbank vormals Dresdner Bank;76
 24191015;Volksbank Stade-Cuxhaven;28
 24191255;Volksbank Bremervörde;28
 25000000;Bundesbank;09
@@ -452,7 +465,7 @@
 25010700;Berlin-Hannoversche Hypothekenbank;09
 25010900;Calenberger Kreditverein;28
 25020200;BHF-BANK;60
-25020600;GE Money Bank;41
+25020600;Santander Consumer Bank;41
 25020700;Hanseatic Bank;16
 25030000;Bayer HypoVereinsbank ex Vereins und Westbank;68
 25040066;Commerzbank;13
@@ -476,9 +489,9 @@
 25070077;Deutsche Bank;63
 25070084;Deutsche Bank;63
 25070086;Deutsche Bank;63
-25080020;Dresdner Bank;76
-25080085;Dresdner Bank, PCC DCC-ITGK 2;09
-25089220;Dresdner Bank ITGK;09
+25080020;Commerzbank vormals Dresdner Bank;76
+25080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+25089220;Commerzbank vormals Dresdner Bank ITGK;09
 25090300;Bank für Schiffahrt (BFS) Fil d Ostfr VB Leer;28
 25090500;Sparda-Bank Hannover;81
 25090608;apoBank;14
@@ -516,7 +529,7 @@
 25470078;Deutsche Bank;63
 25471024;Deutsche Bank Privat und Geschäftskunden;63
 25471073;Deutsche Bank;63
-25480021;Dresdner Bank;76
+25480021;Commerzbank vormals Dresdner Bank;76
 25491071;Volksbank Bückeburg-Rinteln ehem VB Rinteln;28
 25491273;Volksbank Aerzen;28
 25491744;Volksbank Bad Münder;28
@@ -541,7 +554,7 @@
 25761894;Volksbank Wittingen-Klötze;28
 25770024;Deutsche Bank Privat und Geschäftskunden;63
 25770069;Deutsche Bank;63
-25780022;Dresdner Bank;76
+25780022;Commerzbank vormals Dresdner Bank;76
 25791516;Volksbank Hankensbüttel-Wahrenholz;28
 25791635;Volksbank Südheide;28
 25800000;Bundesbank eh Uelzen;09
@@ -570,7 +583,7 @@
 25970074;Deutsche Bank;63
 25971024;Deutsche Bank Privat und Geschäftskunden;63
 25971071;Deutsche Bank;63
-25980027;Dresdner Bank;76
+25980027;Commerzbank vormals Dresdner Bank;76
 25990011;Volksbank Hildesheim;28
 25991528;Volksbank Hildesheimer Börde;28
 25991911;Volksbank Sarstedt -alt-;28
@@ -588,7 +601,7 @@
 26062575;Raiffeisenbank;28
 26070024;Deutsche Bank Privat und Geschäftskunden;63
 26070072;Deutsche Bank;63
-26080024;Dresdner Bank;76
+26080024;Commerzbank vormals Dresdner Bank;76
 26090050;Volksbank;28
 26240039;Commerzbank;13
 26250001;Kreis-Sparkasse Northeim;00
@@ -598,8 +611,8 @@
 26261693;Volksbank Solling;28
 26271424;Deutsche Bank Privat und Geschäftskunden;63
 26271471;Deutsche Bank;63
-26280020;Dresdner Bank;76
-26281420;Dresdner Bank;76
+26280020;Commerzbank vormals Dresdner Bank;76
+26281420;Commerzbank vormals Dresdner Bank;76
 26340056;Commerzbank;13
 26341072;Commerzbank;13
 26350001;Stadtsparkasse Osterode;00
@@ -619,7 +632,6 @@
 26560625;apoBank;14
 26562490;Volksbank Bad Laer-Borgloh-Hilter-Melle;28
 26562694;Volksbank Wittlage;28
-26563942;Raiffeisenbank Voltlage-Neuenkirchen -alt-;28
 26563960;Volksbank Bramgau im Osnabrücker Land;28
 26565928;Volksbank GMHütte-Hagen-Bissendorf;28
 26566939;Volksbank Osnabrücker Nordland;28
@@ -627,8 +639,8 @@
 26568924;Volksbank Hilter-Bad Laer -alt-;28
 26570024;Deutsche Bank Privat und Geschäftskunden;63
 26570090;Deutsche Bank;63
-26580070;Dresdner Bank;76
-26589210;Dresdner Bank ITGK;09
+26580070;Commerzbank vormals Dresdner Bank;76
+26589210;Commerzbank vormals Dresdner Bank ITGK;09
 26590025;Volksbank Osnabrück;28
 26600000;Bundesbank eh Lingen (Ems);09
 26620010;Oldenburgische Landesbank AG;61
@@ -654,15 +666,15 @@
 26851620;Sparkasse Salzgitter;22
 26870024;Deutsche Bank Privat und Geschäftskunden;63
 26870032;Deutsche Bank;63
-26880063;Dresdner Bank;76
+26880063;Commerzbank vormals Dresdner Bank;76
 26890019;Volksbank Nordharz;28
 26891484;Volksbank im Harz;28
 26941053;Commerzbank Wolfsburg;13
 26951311;Sparkasse Gifhorn-Wolfsburg;00
 26971024;Deutsche Bank Privat und Geschäftskunden;63
 26971038;Deutsche Bank;63
-26981062;Dresdner Bank;76
-26989221;Dresdner Bank ITGK;09
+26981062;Commerzbank vormals Dresdner Bank;76
+26989221;Commerzbank vormals Dresdner Bank ITGK;09
 26991066;Volksbank Braunschweig Wolfsburg;50
 27000000;Bundesbank eh Braunschweig;09
 27010111;SEB;13
@@ -689,13 +701,13 @@
 27072537;Deutsche Bank;63
 27072724;Deutsche Bank Privat und Geschäftskunden;63
 27072736;Deutsche Bank;63
-27080060;Dresdner Bank;76
-27089221;Dresdner Bank ITGK;09
+27080060;Commerzbank vormals Dresdner Bank;76
+27089221;Commerzbank vormals Dresdner Bank ITGK;09
 27090077;Volksbank Braunschweig -alt-;50
 27090618;apoBank;14
 27090900;PSD Bank;91
 27092555;Volksbank Wolfenbüttel-Salzgitter;28
-27131300;Rautenschlein, Otto, Bankgeschäft;32
+27131300;Bankhaus Rautenschlein;32
 27190082;Volksbank Helmstedt;28
 27240004;Commerzbank;13
 27290087;Volksbank Weserbergland;47
@@ -735,7 +747,7 @@
 28063253;Volksbank;28
 28063526;Volksbank Essen-Cappeln;28
 28063607;Volksbank Bakum;28
-28064090;Volksbank Steinfeld;28
+28064090;VR Bank Dinklage-Steinfeld;28
 28064179;Volksbank Vechta;28
 28064241;Raiffeisen-Volksbank Varel-Nordenham;28
 28065061;Volksbank Löningen;28
@@ -765,7 +777,6 @@
 28069926;Volksbank Niedergrafschaft;28
 28069930;Volksbank Langen-Gersten;28
 28069935;Raiffeisenbank Lorup;28
-28069942;Raiffeisenbank -alt-;28
 28069955;Volksbank Uelsen;28
 28069956;Grafschafter Volksbank;28
 28069991;Volksbank Emstal;28
@@ -788,7 +799,7 @@
 28262794;Raiffeisen-Volksbank Aurich-Wittmund -alt-;28
 28270024;Deutsche Bank Privat und Geschäftskunden;63
 28270056;Deutsche Bank;63
-28280012;Dresdner Bank;76
+28280012;Commerzbank vormals Dresdner Bank;76
 28290063;Volksbank Wilhelmshaven;00
 28291551;Volksbank Esens;28
 28320014;Oldenburgische Landesbank AG;61
@@ -837,8 +848,8 @@
 29070052;Deutsche Bank;63
 29070058;Deutsche Bank;63
 29070059;Deutsche Bank;63
-29080010;Bremer Bank (Dresdner Bank);76
-29089210;Bremer Bank (Dresdner Bank) ITGK;09
+29080010;Commerzbank vormals Bremer Bank (Dresdner Bank);76
+29089210;Commerzbank vormals Bremer Bank (Dresdner Bank) ITGK;09
 29090605;apoBank;14
 29090900;PSD Bank Nord;91
 29121731;Oldenburgische Landesbank AG;61
@@ -866,7 +877,7 @@
 29262646;Spar- und Darlehnskasse Langen-Neuenwalde;28
 29262722;Volksbank Geeste-Nord;28
 29265747;Volksbank Bremerhaven-Cuxland;28
-29280011;Dresdner Bank;76
+29280011;Commerzbank vormals Dresdner Bank;76
 29290034;Volksbank Bremerhaven-Wesermünde -alt-;28
 30000000;Bundesbank;09
 30010111;SEB;13
@@ -902,29 +913,29 @@
 30060992;PSD Bank Rhein-Ruhr;91
 30070010;Deutsche Bank;63
 30070024;Deutsche Bank Privat und Geschäftskunden;63
-30080000;Dresdner Bank;76
-30080005;Dresdner Bank Zw 05;76
-30080022;Dresdner Bank Ztv 22;76
-30080038;Dresdner Bank Zw 38;76
-30080041;Dresdner Bank Zw 41;76
-30080053;Dresdner Bank Zw 53;76
-30080055;Dresdner Bank Zw 55;76
-30080057;Dresdner Bank Gf ZW 57;76
-30080061;Dresdner Bank Zw 61;76
-30080074;Dresdner Bank Zw 74;76
-30080080;Dresdner Bank, PCC DCC-ITGK 3;09
-30080081;Dresdner Bank, PCC DCC-ITGK 4;09
-30080082;Dresdner Bank, PCC DCC-ITGK 5;09
-30080083;Dresdner Bank, PCC DCC-ITGK 6;09
-30080084;Dresdner Bank, PCC DCC-ITGK 7;09
-30080085;Dresdner Bank, PCC DCC-ITGK 8;09
-30080086;Dresdner Bank, PCC DCC-ITGK 9;09
-30080087;Dresdner Bank, PCC DCC-ITGK 10;09
-30080088;Dresdner Bank, PCC DCC-ITGK 11;09
-30080089;Dresdner Bank, PCC DCC-ITGK 12;09
-30080095;Dresdner Bank Zw 95;76
-30089300;Dresdner Bank ITGK I;09
-30089302;Dresdner Bank ITGK II;09
+30080000;Commerzbank vormals Dresdner Bank;76
+30080005;Commerzbank vormals Dresdner Bank Zw 05;76
+30080022;Commerzbank vormals Dresdner Bank Ztv 22;76
+30080038;Commerzbank vormals Dresdner Bank Zw 38;76
+30080041;Commerzbank vormals Dresdner Bank Zw 41;76
+30080053;Commerzbank vormals Dresdner Bank Zw 53;76
+30080055;Commerzbank vormals Dresdner Bank Zw 55;76
+30080057;Commerzbank vormals Dresdner Bank Gf ZW 57;76
+30080061;Commerzbank vormals Dresdner Bank Zw 61;76
+30080074;Commerzbank vormals Dresdner Bank Zw 74;76
+30080080;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 3;09
+30080081;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+30080082;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
+30080083;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 6;09
+30080084;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 7;09
+30080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 8;09
+30080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 9;09
+30080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 10;09
+30080088;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 11;09
+30080089;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 12;09
+30080095;Commerzbank vormals Dresdner Bank Zw 95;76
+30089300;Commerzbank vormals Dresdner Bank ITGK I;09
+30089302;Commerzbank vormals Dresdner Bank ITGK II;09
 30110300;Sumitomo Mitsui Banking Corporation;09
 30120400;ABN AMRO Bank Ndl Deutschland;10
 30120500;KBC Bank Deutschland;18
@@ -958,12 +969,11 @@
 31062553;Volksbank Schwalmtal;06
 31070001;Deutsche Bank;63
 31070024;Deutsche Bank Privat und Geschäftskunden;63
-31080015;Dresdner Bank;76
-31080061;Dresdner Bank Zw 61;76
+31080015;Commerzbank vormals Dresdner Bank;76
+31080061;Commerzbank vormals Dresdner Bank Zw 61;76
 31251220;Kreissparkasse Heinsberg in Erkelenz;00
 31261282;Volksbank Erkelenz-Hückelhoven-Wegberg;06
 31263359;Raiffeisenbank Erkelenz;06
-31450000;Stadtsparkasse Viersen;00
 31460290;Volksbank Viersen;06
 31470004;Deutsche Bank;63
 31470024;Deutsche Bank Privat und Geschäftskunden;63
@@ -977,9 +987,8 @@
 32061414;Volksbank Kempen-Grefrath;06
 32070024;Deutsche Bank Privat und Geschäftskunden;63
 32070080;Deutsche Bank;63
-32080010;Dresdner Bank;76
+32080010;Commerzbank vormals Dresdner Bank;76
 32250050;Verbandssparkasse Goch;00
-32260310;Volksbank Goch-Kevelaer -alt-;06
 32400000;Bundesbank eh Kleve, Niederrhein;09
 32440023;Commerzbank;13
 32450000;Sparkasse Kleve;00
@@ -998,12 +1007,12 @@
 33060616;apoBank;14
 33070024;Deutsche Bank Privat und Geschäftskunden;63
 33070090;Deutsche Bank;63
-33080001;Dresdner Bank, PCC DCC-ITGK 1;09
-33080030;Dresdner Bank;76
-33080085;Dresdner Bank, PCC DCC-ITGK 2;09
-33080086;Dresdner Bank, PCC DCC-ITGK 3;09
-33080087;Dresdner Bank, PCC DCC-ITGK 4;09
-33080088;Dresdner Bank, PCC DCC-ITGK 5;09
+33080001;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+33080030;Commerzbank vormals Dresdner Bank;76
+33080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+33080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 3;09
+33080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+33080088;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
 33440035;Commerzbank;13
 33450000;Sparkasse Hilden-Ratingen-Velbert;00
 33451220;Sparkasse Heiligenhaus -alt-;00
@@ -1014,12 +1023,12 @@
 34060094;Volksbank Remscheid-Solingen Remscheid-Lennep;00
 34070024;Deutsche Bank Privat und Geschäftskunden;63
 34070093;Deutsche Bank;63
-34080031;Dresdner Bank;76
+34080031;Commerzbank vormals Dresdner Bank;76
 34240050;Commerzbank;13
 34250000;Stadt-Sparkasse Solingen;00
 34270024;Deutsche Bank Privat und Geschäftskunden;63
 34270094;Deutsche Bank;63
-34280032;Dresdner Bank;76
+34280032;Commerzbank vormals Dresdner Bank;76
 35000000;Bundesbank;09
 35010111;SEB;13
 35020030;National-Bank;10
@@ -1030,18 +1039,18 @@
 35060632;apoBank;14
 35070024;Deutsche Bank Privat und Geschäftskunden;63
 35070030;Deutsche Bank;63
-35080070;Dresdner Bank;76
-35080085;Dresdner Bank, PCC DCC-ITGK 1;09
-35080086;Dresdner Bank, PCC DCC-ITGK 2;09
-35080087;Dresdner Bank, PCC DCC-ITGK 3;09
-35080088;Dresdner Bank, PCC DCC-ITGK 4;09
-35080089;Dresdner Bank, PCC DCC-ITGK 5;09
+35080070;Commerzbank vormals Dresdner Bank;76
+35080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+35080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+35080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 3;09
+35080088;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+35080089;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
 35090300;Bank für Schiffahrt (BFS) Fil d Ostfr VB Leer;09
 35211012;SEB;13
 35251000;Sparkasse Dinslaken-Voerde-Hünxe;00
 35261248;Volksbank Dinslaken;06
 35450000;Sparkasse am Niederrhein;A2
-35451250;Stadtsparkasse Kamp-Lintfort;00
+35451250;Stadtsparkasse Kamp-Lintfort -alt-;00
 35451460;Sparkasse Neukirchen-Vluyn;00
 35451775;Sparkasse Rheinberg;00
 35461106;Volksbank Niederrhein;06
@@ -1072,9 +1081,9 @@
 36060610;apoBank;14
 36070024;Deutsche Bank Privat und Geschäftskunden;63
 36070050;Deutsche Bank;63
-36080080;Dresdner Bank;76
-36080085;Dresdner Bank, PCC DCC-ITGK  2;09
-36089321;Dresdner Bank ITGK;09
+36080080;Commerzbank vormals Dresdner Bank;76
+36080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK  2;09
+36089321;Commerzbank vormals Dresdner Bank ITGK;09
 36200000;Bundesbank eh Mülheim an der Ruhr;09
 36210111;SEB;13
 36220030;National-Bank -alt-;10
@@ -1082,14 +1091,14 @@
 36250000;Sparkasse Mülheim an der Ruhr;06
 36270024;Deutsche Bank Privat und Geschäftskunden;63
 36270048;Deutsche Bank;63
-36280071;Dresdner Bank;76
+36280071;Commerzbank vormals Dresdner Bank;76
 36500000;Bundesbank eh Oberhausen;09
 36520030;National-Bank -alt-;10
 36540046;Commerzbank;13
 36550000;Stadtsparkasse Oberhausen;00
 36570024;Deutsche Bank Privat und Geschäftskunden;63
 36570049;Deutsche Bank;63
-36580072;Dresdner Bank;76
+36580072;Commerzbank vormals Dresdner Bank;76
 37000000;Bundesbank;09
 37010050;Postbank;24
 37010111;SEB;13
@@ -1111,7 +1120,7 @@
 37021400;Land Rover Financial Services;09
 37030000;BNP PARIBAS Lease Group SA Zndl Deutschland;09
 37030200;Oppenheim, Sal - jr & Cie;09
-37030300;GE Money Bank;09
+37030300;Santander Consumer Bank;09
 37030700;WW Bank;19
 37030800;Isbank Fil Köln;06
 37031000;CNH CAPITAL EUROPE SAS Zndl Deutschland;09
@@ -1140,7 +1149,7 @@
 37069330;Volksbank Haaren;06
 37069331;Raiffeisenbank von 1895 Zw Horrem;06
 37069342;Volksbank Heimbach;06
-37069354;Raiffeisenbank Selfkant Zw;06
+37069354;Raiffeisenbank Selfkant Zw -alt-;06
 37069355;Spar- und Darlehnskasse Hoengen;06
 37069381;Volksbank Randerath-Immendorf;06
 37069401;Raiffeisenbank Junkersdorf;06
@@ -1153,7 +1162,6 @@
 37069521;Raiffeisenbank Rhein-Berg;06
 37069524;Raiffeisenbank Much-Ruppichteroth;06
 37069577;Raiffeisenbank Odenthal -alt-;06
-37069582;Raiffeisenbank Overath-Rösrath -alt-;06
 37069620;Raiffeisenbank Radevormwald -alt-;06
 37069627;Raiffeisenbank Rheinbach Voreifel;06
 37069639;Rosbacher Raiffeisenbank;06
@@ -1161,30 +1169,29 @@
 37069707;Raiffeisenbank St Augustin;06
 37069720;VR-Bank Nordeifel;06
 37069805;Volksbank Wachtberg;06
-37069810;Raiffeisenbank -alt-;06
 37069833;Raiffeisenbk Wesseling -alt-;06
 37069840;Volksbank Wipperfürth-Lindlar;06
-37069991;Brühler Kreditbank;06
+37069991;Brühler Bank;06
 37070024;Deutsche Bank Privat und Geschäftskunden;63
 37070060;Deutsche Bank;63
-37080040;Dresdner Bank;76
-37080085;Dresdner Bank Gf PCC DCC-ITGK 1;09
-37080086;Dresdner Bank, PCC DCC-ITGK 4;09
-37080087;Dresdner Bank, PCC DCC-ITGK 5;09
-37080088;Dresdner Bank, PCC DCC-ITGK 6;09
-37080089;Dresdner Bank, PCC DCC-ITGK 7;09
-37080090;Dresdner Bank, PCC DCC-ITGK 8;09
-37080091;Dresdner Bank, PCC DCC-ITGK 9;09
-37080092;Dresdner Bank, PCC DCC-ITGK 10;09
-37080093;Dresdner Bank, PCC DCC-ITGK 11;09
-37080094;Dresdner Bank, PCC DCC-ITGK 12;09
-37080095;Dresdner Bank, PCC DCC-ITGK 13;09
-37080096;Dresdner Bank Zw 96;76
-37080097;Dresdner Bank Zw 97;76
-37080098;Dresdner Bank, PCC DCC-ITGK 14;09
-37080099;Dresdner Bank Zw 99;76
-37089340;Dresdner Bank ITGK I;09
-37089342;Dresdner Bank ITGK II;09
+37080040;Commerzbank vormals Dresdner Bank;76
+37080085;Commerzbank vormals Dresdner Bank Gf PCC DCC-ITGK 1;09
+37080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+37080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
+37080088;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 6;09
+37080089;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 7;09
+37080090;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 8;09
+37080091;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 9;09
+37080092;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 10;09
+37080093;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 11;09
+37080094;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 12;09
+37080095;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 13;09
+37080096;Commerzbank vormals Dresdner Bank Zw 96;76
+37080097;Commerzbank vormals Dresdner Bank Zw 97;76
+37080098;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 14;09
+37080099;Commerzbank vormals Dresdner Bank Zw 99;76
+37089340;Commerzbank vormals Dresdner Bank ITGK I;09
+37089342;Commerzbank vormals Dresdner Bank ITGK II;09
 37160087;Kölner Bank;06
 37161289;VR-Bank Rhein-Erft;06
 37540050;Commerzbank;13
@@ -1219,7 +1226,7 @@
 38070059;Deutsche Bank;63
 38070724;Deutsche Bank Privat und Geschäftskunden F 950;63
 38077724;Deutsche Bank Privat und Geschäftskunden F 950;63
-38080055;Dresdner Bank;76
+38080055;Commerzbank vormals Dresdner Bank;76
 38160220;VR-Bank Bonn;06
 38250110;Kreissparkasse Euskirchen;00
 38260082;Volksbank Euskirchen;06
@@ -1243,12 +1250,11 @@
 39061981;Heinsberger Volksbank;06
 39070020;Deutsche Bank;63
 39070024;Deutsche Bank Privat und Geschäftskunden;63
-39080005;Dresdner Bank;76
-39080098;Dresdner Bank Zw 98;76
-39080099;Dresdner Bank Zw 99;76
+39080005;Commerzbank vormals Dresdner Bank;76
+39080098;Commerzbank vormals Dresdner Bank Zw 98;76
+39080099;Commerzbank vormals Dresdner Bank Zw 99;76
 39160191;Pax-Bank;06
 39161490;Volksbank Aachen Süd;06
-39162287;Volksbank Herzogenrath -alt-;06
 39162980;VR-Bank;06
 39360097;Volksbank Stolberg-Eschweiler -alt-;06
 39362254;Raiffeisen-Bank Eschweiler;06
@@ -1258,7 +1264,7 @@
 39560201;Volksbank Düren;06
 39570024;Deutsche Bank Privat und Geschäftskunden;63
 39570061;Deutsche Bank;63
-39580041;Dresdner Bank;76
+39580041;Commerzbank vormals Dresdner Bank;76
 40000000;Bundesbank eh Münster;09
 40010111;SEB;13
 40022000;NRW.BANK;08
@@ -1269,7 +1275,7 @@
 40052525;NRW.BANK;08
 40060000;WGZ Bank;44
 40060265;DKM Darlehnskasse Münster;34
-40060300;WL Bank Westfälische Landschaft Bodenkreditbank;09
+40060300;WL BANK Westfälische Landschaft Bodenkreditbank;09
 40060560;Sparda-Bank Münster;85
 40060614;apoBank;14
 40061238;Volksbank Greven;34
@@ -1296,8 +1302,8 @@
 40069716;Volksbank Südkirchen-Capelle-Nordkirchen;34
 40070024;Deutsche Bank Privat und Geschäftskunden;63
 40070080;Deutsche Bank;63
-40080040;Dresdner Bank;76
-40080085;Dresdner Bank, PCC DCC-ITGK 1;09
+40080040;Commerzbank vormals Dresdner Bank;76
+40080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
 40090900;PSD Bank Westfalen-Lippe;91
 40150001;SI/WLB Verrechnung Münster;09
 40153768;Verbundsparkasse Emsdetten Ochtrup;01
@@ -1348,23 +1354,21 @@
 41261419;Volksbank Oelde-Ennigerloh-Neubeckum;34
 41262501;Volksbank Ahlen-Sassenberg-Warendorf;34
 41262621;Vereinigte Volksbank Telgte;34
-41280043;Dresdner Bank;76
+41280043;Commerzbank vormals Dresdner Bank;76
 41440018;Commerzbank;13
 41450075;Sparkasse Soest;00
 41451750;Sparkasse Werl;00
 41460116;Volksbank Hellweg;34
 41462295;Volksbank Wickede, Ruhr;34
-41650001;Stadtsparkasse Lippstadt;00
+41650001;Sparkasse Lippstadt;00
 41651770;Sparkasse Hochsauerland;00
 41651815;Sparkasse Erwitte-Anröchte;00
 41651965;Sparkasse Geseke;00
 41652560;Sparkasse Warstein-Rüthen;00
 41660124;Volksbank Lippstadt;34
 41661206;Volksbank Anröchte;34
-41661379;Volksbank Bad Westernkotten;34
 41661504;Volksbank Benninghausen;34
 41661719;Volksbank Brilon;34
-41662390;Volksbank Rüthen;34
 41662465;Volksbank Störmede;34
 41662557;Volksbank Warstein-Belecke -alt-;34
 41663335;Volksbank Hörste;34
@@ -1380,7 +1384,7 @@
 42050001;Sparkasse Gelsenkirchen;25
 42070024;Deutsche Bank Privat und Geschäftskunden;63
 42070062;Deutsche Bank;63
-42080082;Dresdner Bank;76
+42080082;Commerzbank vormals Dresdner Bank;76
 42260001;Volksbank Ruhr Mitte;34
 42450040;Stadtsparkasse Gladbeck;00
 42451220;Sparkasse Bottrop;00
@@ -1395,7 +1399,7 @@
 42661522;Volksbank Herten-Westerholt -alt-;34
 42661717;Volksbank Waltrop;34
 42662320;Volksbank Dorsten;34
-42680081;Dresdner Bank;76
+42680081;Commerzbank vormals Dresdner Bank;76
 42840005;Commerzbank;13
 42850035;Stadtsparkasse Bocholt;00
 42851310;Kreissparkasse Borken -alt-;00
@@ -1419,7 +1423,7 @@
 43060967;GLS Gemeinschaftsbank;34
 43070024;Deutsche Bank Privat und Geschäftskunden;63
 43070061;Deutsche Bank;63
-43080083;Dresdner Bank;76
+43080083;Commerzbank vormals Dresdner Bank;76
 43250030;Herner Sparkasse;00
 44000000;Bundesbank;09
 44010046;Postbank;24
@@ -1435,11 +1439,11 @@
 44064406;KD-Bank-die Bank für Kirche und Diakonie-Gf SoPr Dortmund;06
 44070024;Deutsche Bank Privat und Geschäftskunden;63
 44070050;Deutsche Bank;63
-44080050;Dresdner Bank;76
-44080055;Dresdner Bank Zw 55;76
-44080057;Dresdner Bank Gf ZW 57;76
-44080085;Dresdner Bank, PCC DCC-ITGK 2;09
-44089320;Dresdner Bank ITGK;09
+44080050;Commerzbank vormals Dresdner Bank;76
+44080055;Commerzbank vormals Dresdner Bank Zw 55;76
+44080057;Commerzbank vormals Dresdner Bank Gf ZW 57;76
+44080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+44089320;Commerzbank vormals Dresdner Bank ITGK;09
 44090920;PSD Bank Dortmund -alt-;91
 44130000;Handel und Kredit Bankhaus Altena Fil;00
 44152255;Sparkasse Castrop-Rauxel -alt-;00
@@ -1458,8 +1462,8 @@
 44561102;Volksbank Letmathe -alt-;34
 44570004;Deutsche Bank;63
 44570024;Deutsche Bank Privat und Geschäftskunden;63
-44580070;Dresdner Bank;76
-44580085;Dresdner Bank, PCC DCC-ITGK 1;09
+44580070;Commerzbank vormals Dresdner Bank;76
+44580085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
 44750065;Sparkasse Menden;00
 44760037;Volksbank Menden -alt-;34
 44761312;Mendener Bank;34
@@ -1473,7 +1477,7 @@
 45061524;Volksbank Hohenlimburg;34
 45070002;Deutsche Bank;63
 45070024;Deutsche Bank Privat und Geschäftskunden;63
-45080060;Dresdner Bank;76
+45080060;Commerzbank vormals Dresdner Bank;76
 45240056;Commerzbank;13
 45250035;Sparkasse Witten;00
 45251480;Stadtsparkasse Wetter;00
@@ -1510,7 +1514,7 @@
 46063405;Volksbank Wittgenstein;34
 46070024;Deutsche Bank Privat und Geschäftskunden;63
 46070090;Deutsche Bank;63
-46080010;Dresdner Bank;76
+46080010;Commerzbank vormals Dresdner Bank;76
 46240016;Commerzbank;13
 46250049;Sparkasse Olpe-Drolshagen-Wenden;00
 46251590;Sparkasse Finnentrop;00
@@ -1577,7 +1581,7 @@
 47862540;Volksbank Peckeloh -alt-;34
 47863288;Verler Volksbank -alt-;34
 47863373;Volksbank Versmold;34
-47880031;Dresdner Bank;76
+47880031;Commerzbank vormals Dresdner Bank;76
 48000000;Bundesbank;09
 48010111;SEB;13
 48020086;Bayer Hypo- und Vereinsbank;99
@@ -1602,11 +1606,11 @@
 48070050;Deutsche Bank;63
 48070051;Deutsche Bank;63
 48070052;Deutsche Bank;63
-48080020;Dresdner Bank;76
-48089350;Dresdner Bank ITGK;09
+48080020;Commerzbank vormals Dresdner Bank;76
+48089350;Commerzbank vormals Dresdner Bank ITGK;09
 48091315;Volksbank Brackwede -alt-;34
 48250110;Sparkasse Lemgo;00
-48262248;Volksbank Nordlippe;34
+48262248;Volksbank Nordlippe -alt-;34
 48291490;Volksbank Bad Salzuflen;34
 49000000;Bundesbank eh Minden;09
 49040043;Commerzbank;13
@@ -1623,7 +1627,7 @@
 49063338;Volksbank Hille -alt-;34
 49070024;Deutsche Bank Privat und Geschäftskunden;63
 49070028;Deutsche Bank;63
-49080025;Dresdner Bank;76
+49080025;Commerzbank vormals Dresdner Bank;76
 49092650;Volksbank Lübbecker Land;34
 49240096;Commerzbank;13
 49262364;Volksbank Schnathorst;34
@@ -1638,11 +1642,10 @@
 50010200;AKBANK;00
 50010424;Aareal Bank;09
 50010517;ING-DiBa;C1
-50010600;Western Union International Bank Ndl. Deutschland;63
 50010700;Degussa Bank;B7
-50010800;DEPFA Deutsche Pfandbriefbank;09
+50010800;Deutsche Pfandbriefbank;09
 50010900;Bank of America;09
-50012800;Alte Leipziger Bauspar;09
+50012800;ALTE LEIPZIGER Bauspar;09
 50020160;Bayer Hypo- und Vereinsbank Ndl 427 Ffm;99
 50020200;BHF-BANK;60
 50020300;KBC Bank Deutschland;18
@@ -1661,6 +1664,7 @@
 50030700;DenizBank (Wien) Zw Frankfurt;09
 50030800;LHB Internationale Handelsbank;00
 50030900;Lehman Brothers Bankhaus Frankfurt;09
+50031000;Triodos Bank Deutschland;06
 50040000;Commerzbank;13
 50040033;Commerzbank Gf BRS;09
 50040040;Commerzbank Gf ZRK;13
@@ -1695,31 +1699,31 @@
 50070024;Deutsche Bank Privat und Geschäftskunden;63
 50073019;Deutsche Bank;63
 50073024;Deutsche Bank Privat und Geschäftskunden;63
-50080000;Dresdner Bank;76
-50080015;Dresdner Bank Zw 15;76
-50080025;Dresdner Bank Zw 25;76
-50080035;Dresdner Bank Zw 35;76
-50080055;Dresdner Bank Zw 55;76
-50080057;Dresdner Bank Gf ZW 57;76
-50080060;Dresdner Bank Gf DrKW;76
-50080061;Dresdner Bank Gf DrKWSL;76
+50080000;Commerzbank vormals Dresdner Bank;76
+50080015;Commerzbank vormals Dresdner Bank Zw 15;76
+50080025;Commerzbank vormals Dresdner Bank Zw 25;76
+50080035;Commerzbank vormals Dresdner Bank Zw 35;76
+50080055;Commerzbank vormals Dresdner Bank Zw 55;76
+50080057;Commerzbank vormals Dresdner Bank Gf ZW 57;76
+50080060;Commerzbank vormals Dresdner Bank Gf DrKW;76
+50080061;Commerzbank vormals Dresdner Bank Gf DrKWSL;76
 50080077;Allianz Dresdner Bauspar;09
-50080080;Dresdner Bank Bs 80;76
-50080081;Dresdner Bank ESOP;76
-50080082;Dresdner Bank Gf AVB;76
-50080085;Dresdner Bank Card Service;09
-50080086;Dresdner Bank ITGK 3;09
-50080087;Dresdner Bank, PCC DCC-ITGK 4;09
-50080088;Dresdner Bank, PCC DCC-ITGK 5;09
-50080089;Dresdner Bank, PCC DCC-ITGK 6;09
-50080091;Dresdner Bank, PCC DCC-ITGK 7;09
-50080092;Dresdner Bank Finance and Controlling;76
-50080095;Dresdner Bank Gf Card Service2;09
-50080099;Dresdner Bank Zw 99;76
-50080300;Dresdner Bank Private Banking Inland;76
-50083007;Dresdner Bank;76
-50083838;Dresdner Bank in Frankfurt MBP;76
-50089400;Dresdner Bank ITGK;09
+50080080;Commerzbank vormals Dresdner Bank Bs 80;76
+50080081;Commerzbank vormals Dresdner Bank ESOP;76
+50080082;Commerzbank vormals Dresdner Bank Gf AVB;76
+50080085;Commerzbank vormals Dresdner Bank Card Service;09
+50080086;Commerzbank vormals Dresdner Bank ITGK 3;09
+50080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+50080088;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
+50080089;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 6;09
+50080091;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 7;09
+50080092;Commerzbank vormals Dresdner Bank Finance and Controlling;76
+50080095;Commerzbank vormals Dresdner Bank Gf Card Service2;09
+50080099;Commerzbank vormals Dresdner Bank Zw 99;76
+50080300;Commerzbank vormals Dresdner Bank Private Banking Inland;76
+50083007;Commerzbank vormals Dresdner Bank;76
+50083838;Commerzbank vormals Dresdner Bank in Frankfurt MBP;76
+50089400;Commerzbank vormals Dresdner Bank ITGK;09
 50090200;VR DISKONTBANK;00
 50090500;Sparda-Bank Hessen;73
 50090607;apoBank;14
@@ -1734,7 +1738,7 @@
 50110300;DVB Bank;10
 50110400;AKA Ausfuhrkredit GmbH;09
 50110500;NATIXIS Zweigniederlassung Deutschland;09
-50110636;DTC Standard Chartered Bank Germany;09
+50110636;DTC Standard Chartered Bank Germany Branch;09
 50110700;Frankfurter Bankgesellschaft;09
 50110800;J.P. Morgan;09
 50110900;Bank of America N.A. Military Bank;09
@@ -1747,7 +1751,7 @@
 50130000;National Bank of Pakistan Zndl Frankfurt;09
 50130100;BethmannMaffei Bank -alt-;09
 50130200;Oppenheim, Sal - jr & Cie;09
-50130300;First International Bank;50
+50130300;FIRST INTERNATIONAL BANK;50
 50130400;Merck Finck & Co;10
 50130600;UBS Deutschland;09
 50150000;Westdeutsche Landesbank Ndl Frankfurt;09
@@ -1827,19 +1831,18 @@
 50220900;Hauck & Aufhäuser Privatbankiers;00
 50230000;ABC International Bank Frankfurt am Main;00
 50230100;Morgan Stanley Bank Internaional;09
-50230200;Deutsche Leasing Finance -alt-;09
 50230300;FCB Firmen-Credit Bank;06
 50230400;ABN AMRO Bank Ndl Deutschland;10
 50230600;Isbank;06
 50230700;Metzler, B. - seel Sohn & Co;00
-50230800;PLUS Finanzservice;09
+50230800;Ikano Bank;09
 50250200;Deutsche Leasing Finance;09
 50310400;Barclays Bank Frankfurt;46
 50310455;Reiseschecks - Barclays Bank Frankfurt;46
 50310900;China Construction Bank Ndl Frankfurt;09
 50320000;VTB Bank (Deutschland);00
 50320191;Bayer Hypo- und Vereinsbank;99
-50320200;Bankhaus Zwirn;00
+50320200;Fair Bank;00
 50320500;Banco Santander Filiale Frankfurt;09
 50320900;Pictet & Cie (Europe) Ndl Frankfurt am Main;09
 50330000;State Bank of India;06
@@ -1861,33 +1864,33 @@
 50561908;Volksbank Obertshausen -alt-;32
 50570018;Deutsche Bank;63
 50570024;Deutsche Bank Privat und Geschäftskunden;63
-50580005;Dresdner Bank;76
-50580085;Dresdner Bank, PCC DCC-ITGK 1;09
+50580005;Commerzbank vormals Dresdner Bank;76
+50580085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
 50590000;Offenbacher Volksbank -alt-;06
 50592200;Volksbank Dreieich;32
 50600000;Bundesbank eh Hanau;09
 50620700;Hanseatic Bank;16
 50640015;Commerzbank;13
-50650023;Sparkasse Hanau;00
+50650023;SPARKASSE HANAU;00
 50652124;Sparkasse Langen-Seligenstadt;00
-50661639;VR Bank Main-Kinzig;32
+50661639;VR Bank Main-Kinzig-Büdingen;32
 50661816;Volksbank Heldenbergen Ndl d Frankfurter VB;06
 50662299;Raiffeisenbank Bruchköbel -alt-;32
 50662669;Raiffeisenbank Maintal Ndl d Frankfurter VB;32
 50663699;Raiffeisenbank;32
 50670009;Deutsche Bank;63
 50670024;Deutsche Bank Privat und Geschäftskunden;63
-50680002;Dresdner Bank;76
-50680085;Dresdner Bank, PCC DCC-ITGK 1;09
+50680002;Commerzbank vormals Dresdner Bank;76
+50680085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
 50690000;Volksbank Raiffeisenbank Hanau Ndl d Frankf VB;32
 50691300;DZB BANK;09
 50692100;Volksbank Seligenstadt;06
 50750094;Kreissparkasse Gelnhausen;01
 50761333;Volksbank;06
-50761613;Volksbank Büdingen;32
+50761613;Volksbank Büdingen -alt-;32
 50762649;VR Bank Bad Orb-Gelnhausen;32
 50763319;Raiffeisenbank Vogelsberg;32
-50780006;Dresdner Bank;76
+50780006;Commerzbank vormals Dresdner Bank;76
 50790000;VR Bank Bad Orb-Gelnhausen;32
 50793200;VR Bank Bad Orb-Gelnhausen;06
 50793300;Birsteiner Volksbank;06
@@ -1919,10 +1922,10 @@
 50865503;Volksbank;32
 50870005;Deutsche Bank;63
 50870024;Deutsche Bank Privat und Geschäftskunden;63
-50880050;Dresdner Bank;76
-50880085;Dresdner Bank, PCC DCC-ITGK 1;09
-50880086;Dresdner Bank, PCC DCC-ITGK 2;09
-50890000;Volksbank Darmstadt;06
+50880050;Commerzbank vormals Dresdner Bank;76
+50880085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+50880086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+50890000;Volksbank Darmstadt - Kreis Bergstraße;06
 50890634;apoBank;14
 50892500;Groß-Gerauer Volksbank;06
 50950068;Sparkasse Bensheim;00
@@ -1945,10 +1948,10 @@
 51050015;Nassauische Sparkasse;A2
 51070021;Deutsche Bank;63
 51070024;Deutsche Bank Privat und Geschäftskunden;63
-51080060;Dresdner Bank;76
-51080085;Dresdner Bank, PCC DCC-ITGK 1;09
-51080086;Dresdner Bank, PCC DCC-ITGK2;09
-51089410;Dresdner Bank ITGK;09
+51080060;Commerzbank vormals Dresdner Bank;76
+51080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+51080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK2;09
+51089410;Commerzbank vormals Dresdner Bank ITGK;09
 51090000;Wiesbadener Volksbank;06
 51090636;apoBank;14
 51091400;Volksbank Eltville;06
@@ -1961,7 +1964,7 @@
 51161606;Volksbank Langendernbach;32
 51170010;Deutsche Bank;63
 51170024;Deutsche Bank Privat und Geschäftskunden;63
-51180041;Dresdner Bank;76
+51180041;Commerzbank vormals Dresdner Bank;76
 51190000;Vereinigte Volksbank Limburg;06
 51191200;Volksbank Goldner Grund;06
 51191800;Volksbank Schupbach;06
@@ -1975,10 +1978,11 @@
 51220700;ZIRAAT BANK International;09
 51220800;Banco do Brasil;09
 51220900;Morgan Stanley Bank;09
+51220910;Morgan Stanley Bank;50
 51230100;Eurohypo ehem. Deutsche Hypothekenbank;09
 51230400;RBS ( Deutschland ) Frankfurt am Main;10
-51230500;Standard Chartered Bank (Germany) Frankfurt;09
-51230502;ETC Standard Chartered Bank Germany;09
+51230500;Standard Chartered Bank Germany Branch, Frankfurt;09
+51230502;ETC Standard Chartered Bank Germany Branch;09
 51230600;Europe ARAB Bank;09
 51230800;Wirecard Bank;09
 51230801;Wirecard Bank;09
@@ -1998,13 +2002,13 @@
 51363407;Volksbank Garbenteich -alt-;32
 51370008;Deutsche Bank;63
 51370024;Deutsche Bank Privat und Geschäftskunden;63
-51380040;Dresdner Bank;76
-51380085;Dresdner Bank, PCC DCC-ITGK 1;09
+51380040;Commerzbank vormals Dresdner Bank;76
+51380085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
 51390000;Volksbank Mittelhessen;06
 51410111;SEB direct;13
 51410600;Merrill Lynch International Bank Limited Zndl Frankfurt;09
 51410700;Bank of China;09
-51410800;BOURSORAMA Zndl Frankfurt;09
+51410800;OnVista Bank;09
 51420200;Misr Bank-Europe;09
 51420300;Bank Julius Bär (Deutschland);17
 51420600;Svenska Handelsbanken Ndl Frankfurt;09
@@ -2015,7 +2019,7 @@
 51560231;Volksbank Wetzlar-Weilburg;32
 51570008;Deutsche Bank;63
 51570024;Deutsche Bank Privat und Geschäftskunden;63
-51580044;Dresdner Bank;76
+51580044;Commerzbank vormals Dresdner Bank;76
 51591300;Volksbank Brandoberndorf;06
 51640043;Commerzbank;13
 51650045;Sparkasse Dillenburg;00
@@ -2069,8 +2073,8 @@
 52070024;Deutsche Bank Privat und Geschäftskunden;63
 52071212;Deutsche Bank;63
 52071224;Deutsche Bank Privat und Geschäftskunden;63
-52080080;Dresdner Bank;76
-52080085;Dresdner Bank, PCC DCC-ITGK1;09
+52080080;Commerzbank vormals Dresdner Bank;76
+52080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK1;09
 52090000;Kasseler Bank;06
 52090500;Sparda-Bank Kassel -alt-;80
 52090611;apoBank;14
@@ -2082,11 +2086,13 @@
 52350005;Sparkasse Waldeck-Frankenberg;00
 52360059;Waldecker Bank;32
 52410300;Reisebank;09
+52410310;ReiseBank Gf2;09
 52410400;Korea Exchange Bank (Deutschland);19
-52410600;NEWEDGE GROUP (Frankfurt Branch);09
+52410600;NEWEDGE GROUP (Frankfurt Branch) Zndl d NewedgeGroup;09
 52410700;Fortis Bank Global Clearing, Frankfurt, Main;09
 52410900;Maple Bank;09
 52411000;Cash Express Gesellschaft f Finanz-u Reisedienstleistungen;09
+52411010;Cash Express Gesellschaft f.Finanz-u.Reisedienstleistungen;09
 52420000;Calyon Deutschland Ndl einer französischen Societe Anonyme;09
 52420300;SHINHAN BANK EUROPE;09
 52420600;Agricultural Bank of Greece Frankfurt Branch;30
@@ -2106,13 +2112,13 @@
 53064023;Raiffeisenbank;32
 53070007;Deutsche Bank;63
 53070024;Deutsche Bank Privat und Geschäftskunden;63
-53080030;Dresdner Bank;76
+53080030;Commerzbank vormals Dresdner Bank;76
 53093200;VR Bank HessenLand;32
 53093255;AgrarB@nk;32
 53200000;Bundesbank eh Bad Hersfeld;09
 53240048;Commerzbank;13
 53250000;Sparkasse Bad Hersfeld-Rotenburg;A6
-53260145;Raiffeisenbank Bad Hersfeld-Asbach;32
+53260145;Raiffeisenbank Asbach-Sorga;32
 53261202;Bankverein Bebra;32
 53261342;Raiffeisenbank Werratal-Landeck Zw;32
 53261700;Raiffeisenbank Aulatal;32
@@ -2120,15 +2126,15 @@
 53262455;Raiffeisenbank Ronshausen-Marksuhl;32
 53270012;Deutsche Bank;63
 53270024;Deutsche Bank Privat und Geschäftskunden;63
-53280081;Dresdner Bank;76
+53280081;Commerzbank vormals Dresdner Bank;76
 53290000;VR-Bank Bad Hersfeld-Rotenburg;06
 53340024;Commerzbank;13
 53350000;Sparkasse Marburg-Biedenkopf;06
 53361724;Raiffeisenbank;32
 53370008;Deutsche Bank;63
 53370024;Deutsche Bank Privat und Geschäftskunden;63
-53380042;Dresdner Bank;76
-53381843;Dresdner Bank;76
+53380042;Commerzbank vormals Dresdner Bank;76
+53381843;Commerzbank vormals Dresdner Bank;76
 53390000;Marburger Bank -alt-;06
 53390635;apoBank;14
 54000000;Bundesbank eh Kaiserslautern;09
@@ -2145,7 +2151,7 @@
 54062027;Raiffeisenbank Donnersberg -alt-;32
 54070024;Deutsche Bank Privat und Geschäftskunden;63
 54070092;Deutsche Bank;63
-54080021;Dresdner Bank;76
+54080021;Commerzbank vormals Dresdner Bank;76
 54090000;Volksbank Kaiserslautern-Nordwestpfalz;06
 54091700;Volksbank Lauterecken;06
 54091800;VR Bank Nordwestpfalz -alt-;06
@@ -2156,11 +2162,10 @@
 54240032;Commerzbank;13
 54250010;Sparkasse Südwestpfalz;00
 54261700;VR-Bank Südwestpfalz;32
-54261900;Genossenschaftsbank Südliche Westpfalz -alt-;32
 54262330;Raiffeisenbank Vinningen -alt-;32
 54270024;Deutsche Bank Privat und Geschäftskunden;63
 54270096;Deutsche Bank;63
-54280023;Dresdner Bank;76
+54280023;Commerzbank vormals Dresdner Bank;76
 54290000;VR-Bank Pirmasens;06
 54291200;Raiffeisen- u Volksbank Dahn;32
 54350010;Stadtsparkasse Zweibrücken;02
@@ -2175,17 +2180,16 @@
 54561310;RV Bank Rhein-Haardt;32
 54570024;Deutsche Bank Privat und Geschäftskunden;63
 54570094;Deutsche Bank;63
-54580020;Dresdner Bank;76
+54580020;Commerzbank vormals Dresdner Bank;76
 54620093;Bayer Hypo- und Vereinsbank;99
 54620574;Bayer Hypo- und Vereinsbank Ndl 660 Ne/W;99
 54640035;Commerzbank;13
 54651240;Sparkasse Rhein-Haardt;00
 54661800;Raiffeisenbank Freinsheim;32
-54662160;Raiffeisenbk Mittelhaardt Neustadt-Deide -alt-;32
 54663270;Raiffeisenbank Friedelsheim-Rödersheim;32
 54670024;Deutsche Bank Privat und Geschäftskunden;63
 54670095;Deutsche Bank;63
-54680022;Dresdner Bank;76
+54680022;Commerzbank vormals Dresdner Bank;76
 54690623;apoBank;14
 54691200;VR Bank Mittelhaardt;06
 54750010;Kreis- und Stadtsparkasse Speyer;00
@@ -2226,9 +2230,9 @@
 55061907;Volksbank Rhein-Selz -alt-;32
 55070024;Deutsche Bank Privat und Geschäftskunden;63
 55070040;Deutsche Bank;63
-55080065;Dresdner Bank;76
-55080085;Dresdner Bank, PCC DCC-ITGK 1;09
-55080086;Dresdner Bank, PCC DCC-ITGK 2;09
+55080065;Commerzbank vormals Dresdner Bank;76
+55080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+55080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
 55090500;Sparda-Bank Südwest;90
 55091200;Volksbank Alzey;06
 55150098;Clearingkonto LRP-SI;09
@@ -2254,7 +2258,7 @@
 56050180;Sparkasse Rhein-Nahe;00
 56051790;Kreissparkasse Rhein-Hunsrück;00
 56061151;Raiffeisenbank Kastellaun;38
-56061472;Volksbank Hunsrück;38
+56061472;Volksbank Hunsrück-Nahe;38
 56061974;Volksbank Nahetal -alt-;38
 56062227;Volksbank;40
 56062577;Vereinigte Raiffeisenkassen;38
@@ -2267,7 +2271,7 @@
 56261735;Raiffeisenbank Nahe;38
 56270024;Deutsche Bank Privat und Geschäftskunden;63
 56270044;Deutsche Bank;63
-56290000;Volksbank-Raiffeisenbank Naheland;06
+56290000;Volksbank-Raiffeisenbank Naheland -alt-;06
 57000000;Bundesbank;09
 57010111;SEB;13
 57020086;Bayer Hypo- und Vereinsbank;99
@@ -2279,7 +2283,6 @@
 57051001;Kreissparkasse Westerwald;00
 57051870;Kreissparkasse Cochem-Zell -alt-;00
 57060000;WGZ Bank;44
-57060354;Volksbank Koblenz Mittelrhein -alt-;64
 57060612;apoBank;14
 57062675;Raiffeisenbank;38
 57063478;Volksbank Vallendar-Niederwerth;38
@@ -2298,7 +2301,7 @@
 57069858;Raiffeisenbank Pronsfeld-Waxweiler Gs -alt-;38
 57070024;Deutsche Bank Privat und Geschäftskunden;63
 57070045;Deutsche Bank;63
-57080070;Dresdner Bank;76
+57080070;Commerzbank vormals Dresdner Bank;76
 57090000;Volksbank Koblenz Mittelrhein;64
 57090900;PSD Bank Koblenz;91
 57091000;Volksbank Montabaur-Höhr-Grenzhausen;06
@@ -2321,14 +2324,12 @@
 57461759;Raiffeisenbank Mittelrhein;09
 57470024;Deutsche Bank Privat und Geschäftskunden;63
 57470047;Deutsche Bank;63
-57490000;VBM Volksbank Mittelrhein -alt-;09
 57650010;Kreissparkasse Mayen;00
 57661253;Raiffeisenbank;38
 57662263;VR Bank Rhein-Mosel;38
 57751310;Kreissparkasse Ahrweiler;00
 57761591;Volksbank RheinAhrEifel;34
 57762265;Raiffeisenbank Grafschaft-Wachtberg;38
-57791800;VBM Volksbank Mittelrhein -alt-;09
 58500000;Bundesbank eh Trier;09
 58510111;SEB;13
 58520086;Bayer Hypo- und Vereinsbank;99
@@ -2343,7 +2344,7 @@
 58564788;Volksbank Hochwald;38
 58570024;Deutsche Bank Privat und Geschäftskunden;63
 58570048;Deutsche Bank;63
-58580074;Dresdner Bank;76
+58580074;Commerzbank vormals Dresdner Bank;76
 58590900;PSD Bank Trier Ndl der PSD Bank Köln;91
 58650030;Kreissparkasse Bitburg-Prüm;00
 58651240;Kreissparkasse Vulkaneifel;00
@@ -2368,6 +2369,13 @@
 59010017;ZVC Postbank Gf FK 17;09
 59010018;ZVC Postbank Gf FK 18;09
 59010019;ZVC Postbank Gf FK 19;09
+59010020;ZVC Postbank GF FK 20;09
+59010021;ZVC Postbank GF FK 21;09
+59010022;ZVC Postbank GF FK 22;09
+59010023;ZVC Postbank GF FK 23;09
+59010024;ZVC Postbank GF FK 24;09
+59010025;ZVC Postbank GF FK 25;09
+59010026;ZVC Postbank GF FK 26;09
 59010066;Postbank;24
 59010111;SEB;13
 59010400;Saarl Investitionskreditbank;32
@@ -2380,14 +2388,13 @@
 59052020;SKG BANK;D3
 59070000;Deutsche Bank Saarbruecken;63
 59070070;Deutsche Bank Privat und Geschäftskunden;63
-59080090;Dresdner Bank;76
-59090500;Sparda-Bank Saarbrücken -alt-;83
+59080090;Commerzbank vormals Dresdner Bank;76
 59090626;apoBank;14
 59090900;PSD Bank RheinNeckarSaar;91
 59091000;Volksbank Völklingen-Warndt;06
 59091500;Volksbank Sulzbachtal -alt-;06
 59091800;Volksbank Quierschied -alt-;06
-59092000;Volksbank Dudweiler;06
+59092000;Vereinigte Volksbank im Regionalverband Saarbrücken;06
 59099330;Volksbank Nonnweiler;09
 59099480;Volksbank Urexweiler-Marpingen -alt-;09
 59099530;Raiffeisenkasse Wiesbach;09
@@ -2424,7 +2431,7 @@
 60010070;Postbank;24
 60010111;SEB;13
 60010424;Aareal Bank;09
-60010500;Hypo Real Estate Bank International;09
+60010500;Hypo Real Estate Bank;09
 60010700;Landeskreditbank Baden-Württemberg Förderbank -alt-;09
 60020030;Baden-Württembergische Bank;65
 60020100;Schwäbische Bank;09
@@ -2467,20 +2474,17 @@
 60069280;Raiffeisenbank Pfedelbach -alt-;10
 60069302;Raiffeisenbank Erlenmoos;10
 60069303;Raiffeisenbank Bad Schussenried;10
-60069305;Raiffeisenbank Härtsfeld -alt-;10
 60069308;Raiffeisenbank;10
 60069315;Volksbank Freiberg und Umgebung;10
-60069317;Raiffeisenbank Essingen -alt-;10
-60069325;Hegnacher Bank;10
+60069325;Hegnacher Bank -alt-;10
 60069336;Raiffeisenbank Maitis;10
 60069343;Raiffeisenbank Rißtal;10
-60069346;Raiffeisenbank Ehingen (Donau);10
+60069346;Raiffeisenbank Ehingen-Hochsträß;10
 60069350;Raiffeisenbank Reute-Gaisbeuren;10
 60069355;Ehninger Bank;10
 60069357;Raiffeisenbank Rottal;10
 60069371;Raiffbk Neukirch Ndl d Volksbank Tettnang;10
 60069378;Volksbank Dettenhausen;10
-60069383;Raiffeisenbank Dewangen -alt-;10
 60069387;Dettinger Bank;10
 60069417;Raiffeisenbank Kirchheim-Walheim;10
 60069419;Uhlbacher Bank;10
@@ -2497,7 +2501,7 @@
 60069505;Volksbank Murgtal Baiersbr-Klosterreichenbach;10
 60069511;Genossenschaftsbank Honhardt;10
 60069517;Scharnhauser Bank;10
-60069520;Raiffeisenbank;10
+60069520;Raiffeisenbank Ehingen-Hochsträß;10
 60069527;Volksbank Brenztal;10
 60069538;Löchgauer Bank;10
 60069544;Raiffeisenbank Westhausen;10
@@ -2507,12 +2511,11 @@
 60069564;Raiffeisenbank Vordere Alb;10
 60069593;Raiffeisenbank Oberes Schlichemtal;10
 60069595;Raiffeisenbank Schrozberg-Rot am See;10
-60069628;Raiffeisenbank -alt-;10
 60069639;Raiffeisenbank Ingersheim;10
 60069647;Ebhauser Bank -Raiffeisenbank -alt-;10
 60069648;Raiffeisenbank;10
 60069669;Erligheimer Bank -alt-;10
-60069670;Raiffeisenbank Hochsträß Pappelau;10
+60069670;Raiffeisenbank Ehingen-Hochsträß;10
 60069673;Abtsgmünder Bank -Raiffeisen-;10
 60069680;Raiffeisenbank Bretzfeld-Neuenstein;10
 60069685;Raiffeisenbank;10
@@ -2545,20 +2548,20 @@
 60069927;Berkheimer Bank;10
 60069931;Raiffeisenbank;10
 60069950;Raiffeisenbank Tüngental;10
-60069971;Raiffeisenbank Oberdischingen-Donaurieden;10
+60069971;Raiffeisenbank Ehingen-Hochsträß;10
 60069972;Raiffeisenbank Sechta-Ries;10
 60069976;Raiffeisenbank Böllingertal;10
 60069980;Raiffeisenbank Maselheim-Äpfingen;10
 60070024;Deutsche Bank Privat und Geschäftskunden;63
 60070070;Deutsche Bank;63
-60080000;Dresdner Bank;76
-60080055;Dresdner Bank Zw 55;76
-60080057;Dresdner Bank Gf Zw 57;76
-60080085;Dresdner Bank ITGK 2;09
-60080086;Dresdner Bank Gf PCC-ITGK 3;09
-60080087;Dresdner Bank, PCC DC-ITGK 4;09
-60080088;Dresdner Bank, PCC DC-ITGK 5;09
-60089450;Dresdner Bank ITGK;09
+60080000;Commerzbank vormals Dresdner Bank;76
+60080055;Commerzbank vormals Dresdner Bank Zw 55;76
+60080057;Commerzbank vormals Dresdner Bank Gf Zw 57;76
+60080085;Commerzbank vormals Dresdner Bank ITGK 2;09
+60080086;Commerzbank vormals Dresdner Bank Gf PCC-ITGK 3;09
+60080087;Commerzbank vormals Dresdner Bank, PCC DC-ITGK 4;09
+60080088;Commerzbank vormals Dresdner Bank, PCC DC-ITGK 5;09
+60089450;Commerzbank vormals Dresdner Bank ITGK;09
 60090100;Stuttgarter Volksbank;10
 60090300;Volksbank Zuffenhausen m Zndl Stammheimer VB;10
 60090500;Württ. Handelsbank - Volksbank -alt-;10
@@ -2592,7 +2595,7 @@
 60340071;Commerzbank Sindelfingen;13
 60350130;Kreissparkasse Böblingen;01
 60361923;Raiffeisenbank Weissach;10
-60380002;Dresdner Bank;76
+60380002;Commerzbank vormals Dresdner Bank;76
 60390000;Vereinigte Volksbank;10
 60390300;Volksbank Region Leonberg;10
 60391310;Volksbank Herrenberg-Rottenburg;10
@@ -2612,7 +2615,7 @@
 60462808;VR-Bank Asperg-Markgröningen;10
 60470024;Deutsche Bank Privat und Geschäftskunden;63
 60470082;Deutsche Bank;63
-60480008;Dresdner Bank;76
+60480008;Commerzbank vormals Dresdner Bank;76
 60490150;Volksbank Ludwigsburg;10
 60491430;VR-Bank Stromberg-Neckar;10
 60651070;Kreissparkasse Calw -alt-;A9
@@ -2630,7 +2633,7 @@
 61060500;Volksbank Göppingen;10
 61070024;Deutsche Bank Privat und Geschäftskunden;63
 61070078;Deutsche Bank;63
-61080006;Dresdner Bank;76
+61080006;Commerzbank vormals Dresdner Bank;76
 61091200;Volksbank-Raiffeisenbank Deggingen;10
 61100000;Bundesbank eh Esslingen;09
 61120030;Baden-Württembergische Bank;65
@@ -2638,11 +2641,10 @@
 61140071;Commerzbank;13
 61150020;Kreissparkasse Esslingen-Nürtingen;01
 61150185;Baden-Württemb.Bank/Landesbank Baden-Württemb.;01
-61160172;Esslinger Bank;10
 61161696;Volksbank Filder;10
 61170024;Deutsche Bank Privat und Geschäftskunden;63
 61170076;Deutsche Bank;63
-61180004;Dresdner Bank;76
+61180004;Commerzbank vormals Dresdner Bank;76
 61190110;Volksbank Esslingen;10
 61191310;Volksbank Plochingen;10
 61220030;Baden-Württembergische Bank;65
@@ -2650,7 +2652,7 @@
 61261339;Volksbank Hohenneuffen;10
 61262258;Genossenschaftsbank Wolfschlugen;10
 61262345;Bernhauser Bank;10
-61281007;Dresdner Bank;76
+61281007;Commerzbank vormals Dresdner Bank;76
 61290120;Volksbank Kirchheim-Nürtingen;10
 61340079;Commerzbank;13
 61361722;Raiffeisenbank Rosenstein;10
@@ -2665,14 +2667,12 @@
 61440086;Commerzbank;13
 61450050;Kreissparkasse Ostalb;01
 61450191;Baden-Württemb.Bank/Landesbank Baden-Württemb.;01
-61460127;Raiffeisenbank Aalen-Unterrombach -alt-;10
-61461958;Wasseralfinger Bank -alt-;10
-61480001;Dresdner Bank;76
+61480001;Commerzbank vormals Dresdner Bank;76
 61490150;VR-Bank Aalen;10
 61491010;VR-Bank Ellwangen;10
 62000000;Bundesbank eh Heilbronn;09
 62020000;Hoerner-Bank;16
-62020100;Fiat Bank;09
+62020100;FGA Bank;09
 62030050;Baden-Württembergische Bank;65
 62030058;Baden-Württembergische Bank;65
 62030059;Baden-Württembergische Bank;65
@@ -2687,7 +2687,7 @@
 62063263;VBU Volksbank im Unterland;10
 62070024;Deutsche Bank Privat und Geschäftskunden;63
 62070081;Deutsche Bank;63
-62080012;Dresdner Bank;76
+62080012;Commerzbank vormals Dresdner Bank;76
 62090100;Volksbank Heilbronn;10
 62091400;Volksbank Brackenheim-Güglingen;10
 62091600;Volksbank Möckmühl-Neuenstadt;10
@@ -2698,9 +2698,9 @@
 62250030;Sparkasse Schwäbisch Hall-Crailsheim;01
 62250182;Baden-Württemb.Bank/Landesbank Baden-Württemb.;01
 62251550;Sparkasse Hohenlohekreis;01
-62280012;Dresdner Bank;76
-62290110;VR Bank Schwäbisch Hall;10
-62291020;Crailsheimer Volksbank;10
+62280012;Commerzbank vormals Dresdner Bank;76
+62290110;VR Bank Schwäbisch Hall-Crailsheim;10
+62291020;Crailsheimer Volksbank -alt-;10
 62351060;Kreissparkasse Mergentheim -alt-;01
 62361274;Creglinger Bank;10
 62391010;Volksbank Bad Mergentheim;10
@@ -2716,8 +2716,8 @@
 63061486;VR-Bank Langenau-Ulmer Alb;10
 63070024;Deutsche Bank Privat und Geschäftskunden;63
 63070088;Deutsche Bank;63
-63080015;Dresdner Bank;76
-63080085;Dresdner Bank, PCC DCC-ITGK 1;09
+63080015;Commerzbank vormals Dresdner Bank;76
+63080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
 63090100;Volksbank Ulm-Biberach;10
 63091010;Ehinger Volksbank;10
 63091200;Volksbank Blaubeuren;10
@@ -2737,7 +2737,7 @@
 64061854;VR Bank Steinlach-Wiesaz-Härten;10
 64070024;Deutsche Bank Privat und Geschäftskunden;63
 64070085;Deutsche Bank;63
-64080014;Dresdner Bank;76
+64080014;Commerzbank vormals Dresdner Bank;76
 64090100;Volksbank Reutlingen;10
 64091200;Volksbank Metzingen-Bad Urach;10
 64091300;Volksbank Münsingen;10
@@ -2749,7 +2749,7 @@
 64161608;Raiffeisenbank Härten -alt-;10
 64161956;Volksbank;10
 64163225;Volksbank Hohenzollern;10
-64180014;Dresdner Bank;76
+64180014;Commerzbank vormals Dresdner Bank;76
 64190110;Volksbank Tübingen;10
 64191030;Volksbank Nagoldtal;10
 64191210;Volksbank Nordschwarzwald;10
@@ -2770,7 +2770,7 @@
 64292310;Volksbank Trossingen;10
 64350070;Kreissparkasse Tuttlingen;01
 64361359;Raiffeisenbank Donau-Heuberg;10
-64380011;Dresdner Bank;76
+64380011;Commerzbank vormals Dresdner Bank;76
 64390130;Volksbank Donau-Neckar;10
 64420030;Baden-Württembergische Bank;65
 64450288;Baden-Württemb.Bank/Landesbank Baden-Württemb.;01
@@ -2784,10 +2784,9 @@
 65062577;Raiffeisenbank Ravensburg;10
 65062793;Raiffeisenbank Vorallgäu;10
 65063086;Raiffeisenbank Bad Saulgau;10
-65063434;Raiffeisenbank;10
 65070024;Deutsche Bank Privat und Geschäftskunden;63
 65070084;Deutsche Bank;63
-65080009;Dresdner Bank;76
+65080009;Commerzbank vormals Dresdner Bank;76
 65090100;Volksbank Ulm-Biberach;10
 65091040;Leutkircher Bank Raiffeisen- und Volksbank;10
 65091300;Bad Waldseer Bank;10
@@ -2802,7 +2801,7 @@
 65150040;Spk -alt-;01
 65161497;Genossenschaftsbank Meckenbeuren;10
 65162832;Raiffeisenbank;10
-65180005;Dresdner Bank;76
+65180005;Commerzbank vormals Dresdner Bank;76
 65190110;Volksbank Friedrichshafen;10
 65191500;Volksbank Tettnang;10
 65300000;Bundesbank eh Albstadt;09
@@ -2818,7 +2817,7 @@
 65362499;Raiffeisenbank Geislingen-Rosenfeld;10
 65370024;Deutsche Bank Privat und Geschäftskunden;63
 65370075;Deutsche Bank;63
-65380003;Dresdner Bank;76
+65380003;Commerzbank vormals Dresdner Bank;76
 65390120;Volksbank Ebingen;10
 65391210;Volksbank Balingen;10
 65392030;Volksbank Tailfingen;10
@@ -2857,21 +2856,21 @@
 66069104;Spar- und Kreditbank;06
 66069117;Raiffeisenbank Döggingen-Mundelfingen -alt-;06
 66069265;Raiffeisenbank Hilsbach -alt-;06
-66069323;Spar- und Kreditbank Daxlanden Karlsruhe;06
+66069323;Spar- und Kreditbank Daxlanden Karlsruhe -alt-;06
 66069342;Volksbank Krautheim;06
 66069573;Raiffeisenbank Sexau -alt-;06
 66069582;Volksbank Hardt;06
 66069617;Raiffeisenbank Schwenningen-Heuberg;06
 66070004;Deutsche Bank;63
 66070024;Deutsche Bank Privat und Geschäftskunden;63
-66080052;Dresdner Bank;76
+66080052;Commerzbank vormals Dresdner Bank;76
 66090621;apoBank;14
 66090800;BBBank;B3
 66090900;PSD Bank Karlsruhe-Neustadt;91
 66091200;Volksbank Ettlingen;06
-66091500;Volksbank Neureut;06
+66091500;Volksbank Neureut -alt-;06
 66190000;Volksbank Karlsruhe;06
-66190100;Volksbank Durlach;06
+66190100;Volksbank Durlach -alt-;06
 66200000;Bundesbank eh Baden-Baden;09
 66220020;Baden-Württembergische Bank;65
 66220562;Bayer Hypo- und Vereinsbank Ndl 410 Baba;99
@@ -2882,7 +2881,7 @@
 66261416;Raiffeisenbank Altschweier;06
 66270001;Deutsche Bank;63
 66270024;Deutsche Bank Privat und Geschäftskunden;63
-66280053;Dresdner Bank;76
+66280053;Commerzbank vormals Dresdner Bank;76
 66290000;Volksbank Baden-Baden Rastatt;06
 66291300;Volksbank Achern;06
 66291400;Volksbank Bühl;06
@@ -2890,10 +2889,10 @@
 66350036;Sparkasse Kraichgau Bruchsal-Bretten-Sinsheim;03
 66361178;Raiffeisenbank Kraich-Hardt -alt-;06
 66361335;Volksbank Kirrlach -alt-;06
-66361588;Raiffeisenbank Sulzfeld;06
+66361588;Raiffeisenbank Sulzfeld -alt-;06
 66362345;Raiffeisenbank Kronau -alt-;06
 66363487;Raiffeisenbank Odenheim-Tiefenbach -alt-;06
-66390000;Volksbank Bruchsal-Bretten;06
+66390000;Volksbank Bruchsal-Bretten -alt-;06
 66391200;Volksbank Bruchsal-Bretten;06
 66391600;Volksbank Bruhrain-Kraich-Hardt;06
 66400000;Bundesbank eh Offenburg;09
@@ -2927,11 +2926,10 @@
 66661454;VR Bank im Enzkreis;42
 66662155;Raiffeisenbank Ersingen;06
 66662220;Volksbank Stein Eisingen;06
-66663145;Raiffeisenbank Eisingen;06
 66663439;Raiffeisen-Gebietsbank;10
 66670006;Deutsche Bank;63
 66670024;Deutsche Bank Privat und Geschäftskunden;63
-66680013;Dresdner Bank;76
+66680013;Commerzbank vormals Dresdner Bank;76
 66690000;Volksbank Pforzheim;43
 66692300;Volksbank Wilferdingen-Keltern;06
 66762332;Raiffeisenbank Kraichgau;06
@@ -2949,13 +2947,12 @@
 67051203;Sparkasse Hockenheim;00
 67052385;Bezirkssparkasse Weinheim;06
 67060031;Volksbank Sandhofen;06
-67063217;Volksbank Neckar-Bergstraße;06
 67070010;Deutsche Bank;63
 67070024;Deutsche Bank Privat und Geschäftskunden;63
-67080050;Dresdner Bank;76
-67080085;Dresdner Bank, PCC DCC-ITGK 2;09
-67080086;Dresdner Bank, PCC DCC-ITGK 3;09
-67089440;Dresdner Bank ITGK;09
+67080050;Commerzbank vormals Dresdner Bank;76
+67080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+67080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 3;09
+67089440;Commerzbank vormals Dresdner Bank ITGK;09
 67090000;VR Bank Rhein-Neckar;06
 67090617;apoBank;14
 67091300;Volksbank Bezirk Schwetzingen -alt-;06
@@ -2972,13 +2969,11 @@
 67251918;Sparkasse Sinsheim -alt-;00
 67261909;Raiffeisenbank Steinsberg -alt-;06
 67262243;Raiffeisenbank Baiertal;06
-67262402;Volksbank Schwarzbachtal;06
+67262402;Volksbank Schwarzbachtal -alt-;06
 67262550;Volksbank Rot;06
-67262606;Raiffeisen-Volksbank Schriesheim;06
-67263256;Volksbank Helmstadt-Reichartshausen;06
 67270003;Deutsche Bank;63
 67270024;Deutsche Bank Privat und Geschäftskunden;63
-67280051;Dresdner Bank;76
+67280051;Commerzbank vormals Dresdner Bank;76
 67290000;Heidelberger Volksbank;06
 67290100;H + G BANK Heidelberg;06
 67291500;Volksbank f d Angelbachtal;06
@@ -3016,16 +3011,15 @@
 68061505;Volksbank Breisgau-Süd;06
 68062105;Raiffeisenbank Denzlingen-Sexau;06
 68062730;Raiffeisenbank Wyhl;06
-68063068;Volksbank Emmendingen-Kaiserstuhl -alt-;06
 68063254;Spar- u Kreditbank Bad Krozingen-Heitersheim;06
 68063479;Raiffeisenbank Kaiserstuhl;06
 68064222;Raiffeisenbank;06
 68070024;Deutsche Bank Privat und Geschäftskunden;63
 68070030;Deutsche Bank;63
-68080030;Dresdner Bank;76
-68080031;Dresdner Bank Zw Münsterstraße;76
-68080085;Dresdner Bank, PCC DCC-ITGK 1;09
-68080086;Dresdner Bank, PCC DCC-ITGK 2;09
+68080030;Commerzbank vormals Dresdner Bank;76
+68080031;Commerzbank vormals Dresdner Bank Zw Münsterstraße;76
+68080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+68080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
 68090000;Volksbank Freiburg;06
 68090622;apoBank;14
 68090900;PSD Bank RheinNeckarSaar;91
@@ -3079,7 +3073,7 @@
 69251755;Sparkasse Stockach;00
 69270024;Deutsche Bank Privat und Geschäftskunden;63
 69270038;Deutsche Bank;63
-69280035;Dresdner Bank;76
+69280035;Commerzbank vormals Dresdner Bank;76
 69290000;Volksbank Hegau;06
 69291000;Volksbank Konstanz;06
 69352060;Sparkasse Meßkirch -alt-;01
@@ -3101,13 +3095,12 @@
 70010111;SEB;13
 70010424;Aareal Bank;09
 70010500;Hypo Real Estate Bank München;09
-70011200;Bank Vontobel Österreich;09
+70011200;Bank Vontobel Europe;09
 70011700;Bankhaus von der Heydt;01
-70011800;Hypo Alpe-Adria-Bank Ndl München;00
 70011900;InterCard;10
 70011910;InterCard Cash Services 10;10
 70011920;InterCard Cash Services 20;10
-70012000;UniCredit Consumer Financing Bank Ndl Deutschland;09
+70012000;UniCredit Family Financing Bank Ndl Deutschland;09
 70012100;VEM Aktienbank;55
 70012200;Bank Sarasin;06
 70012300;V-Bank;17
@@ -3124,7 +3117,7 @@
 70030111;Bankhaus Max Flessa;09
 70030300;Bankhaus Reuschel & Co;09
 70030400;Merck Finck & Co;10
-70030800;Delbrück Bethmann Maffei München;00
+70030800;Delbrück Bethmann Maffei;00
 70031000;Bankhaus Ludwig Sperrer;00
 70032500;St. Galler Kantonalbank Deutschland;09
 70033100;Baader Bank;09
@@ -3144,15 +3137,15 @@
 70054306;Sparkasse Bad Tölz-Wolfratshausen;00
 70070010;Deutsche Bank;63
 70070024;Deutsche Bank Privat und Geschäftskunden;63
-70080000;Dresdner Bank;76
-70080056;Dresdner Bank Zw 56;76
-70080057;Dresdner Bank Gf ZW 57;76
-70080085;Dresdner Bank Gf PCC DCC-ITGK 3;09
-70080086;Dresdner Bank, PCC DCC-ITGK 4;09
-70080087;Dresdner Bank, PCC DCC-ITGK 5;09
-70080088;Dresdner Bank, PCC DCC-ITGK 6;09
-70089470;Dresdner Bank ITGK;09
-70089472;Dresdner Bank ITGK;09
+70080000;Commerzbank vormals Dresdner Bank;76
+70080056;Commerzbank vormals Dresdner Bank Zw 56;76
+70080057;Commerzbank vormals Dresdner Bank Gf ZW 57;76
+70080085;Commerzbank vormals Dresdner Bank Gf PCC DCC-ITGK 3;09
+70080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 4;09
+70080087;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 5;09
+70080088;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 6;09
+70089470;Commerzbank vormals Dresdner Bank ITGK;09
+70089472;Commerzbank vormals Dresdner Bank ITGK;09
 70090100;Hausbank München;88
 70090124;Hausbank München;10
 70090500;Sparda-Bank München;81
@@ -3216,6 +3209,7 @@
 70169464;Genossenschaftsbank München;88
 70169465;Raiffeisenbank München-Nord;88
 70169466;Raiffeisenbank München-Süd;88
+70169470;Raiffeisenbank München-Süd Gf GA;88
 70169472;Raiffeisenbank Hallbergmoos-Neufahrn;88
 70169474;Raiffbk Neumarkt-St. Veit - Niederbergkirchen;88
 70169476;Raiffeisenbank -alt-;88
@@ -3248,7 +3242,7 @@
 70169653;Raiffeisenbank Aiglsbach;88
 70169693;Raiffeisenbank Hallertau;88
 70190000;Münchner Bank;88
-70190200;IntegraBank;88
+70190200;GLS Gemeinschaftsbank;88
 70220000;LfA Förderbank Bayern;09
 70220200;BHF-BANK;60
 70220300;BMW Bank;09
@@ -3256,7 +3250,7 @@
 70220700;Vereinsbank Victoria Bauspar (ehem Heimstatt);09
 70220800;Vereinsbank Victoria Bauspar;07
 70220900;Allianz Dresdner Bauspar;61
-70230000;ADVANCE BANK NDL der Dresdner Bank;00
+70230000;Advance Bank München;00
 70230600;Isbank Fil München;06
 70250150;Kreissparkasse München Starnberg;00
 70300000;Bundesbank eh Garmisch-Partenkirchen;09
@@ -3267,7 +3261,7 @@
 70350000;Kreissparkasse Garmisch-Partenkirchen;00
 70351030;Vereinigte Sparkassen im Landkreis Weilheim;00
 70362595;Raiffeisenbank Wallgau-Krün;88
-70380006;Dresdner Bank;76
+70380006;Commerzbank vormals Dresdner Bank;76
 70390000;VR-Bank im Landkreis Garmisch-Partenkirchen;88
 70391800;Volksbank-Raiffeisenbank Penzberg;88
 71000000;Bundesbank eh Bad Reichenhall;09
@@ -3278,7 +3272,7 @@
 71050000;Sparkasse Berchtesgadener Land;00
 71051010;Kreissparkasse Altötting-Burghausen;00
 71052050;Kreissparkasse Traunstein-Trostberg;00
-71061009;RVB in den Landkreisen Altötting-Mühldorf;88
+71061009;VR I meine Raiffeisenbank;88
 71062194;Volksbank Raiffeisen Traunstein -alt-;88
 71062802;Raiffeisenbank;88
 71090000;Volksbank Raiffeisenbank Oberbayern Südost;88
@@ -3302,7 +3296,7 @@
 71162355;Raiffeisenbank Oberaudorf;88
 71162804;Raiffeisenbank Aschau-Samerberg;88
 71165150;Raiffeisenbank Mangfalltal -alt-;88
-71180005;Dresdner Bank;76
+71180005;Commerzbank vormals Dresdner Bank;76
 71190000;Volksbank Rosenheim -alt-;88
 71191000;VR-Bank Burghausen-Mühldorf;88
 72000000;Bundesbank;09
@@ -3321,7 +3315,7 @@
 72051210;Stadtsparkasse Aichach;00
 72051303;Marktsparkasse Altomünster -alt-;00
 72051840;Sparkasse Günzburg-Krumbach;00
-72060300;Handels- und Gewerbebank Augsburg;88
+72060300;Handels- und Gewerbebank Augsburg -alt-;88
 72062152;VR-Bank Lech-Zusam;88
 72069002;Raiffeisenbank Adelzhausen-Sielenbach;88
 72069005;Raiffeisenbank;88
@@ -3338,7 +3332,7 @@
 72069119;Raiffeisenbank;88
 72069121;Raiffeisenbank -alt-;88
 72069123;Raiffeisenbank Jettingen-Scheppach;88
-72069126;Raiffeisenbank;88
+72069126;Raiffeisenbank Bibertal-Kötz;88
 72069132;Raiffeisenbank Krumbach/Schwaben;88
 72069135;Raiffeisenbank Stauden;88
 72069138;Raiffeisenbank Langerringen;88
@@ -3364,7 +3358,7 @@
 72069789;Raiffeisenbank Pfaffenhausen;88
 72070001;Deutsche Bank;63
 72070024;Deutsche Bank Privat und Geschäftskunden;63
-72080001;Dresdner Bank;76
+72080001;Commerzbank vormals Dresdner Bank;76
 72090000;Augusta-Bank Raiffeisen-Volksbank;88
 72090500;Sparda-Bank Augsburg;84
 72090900;PSD Bank München;91
@@ -3386,7 +3380,7 @@
 72169111;Raiffeisenbank Hohenwart -alt-;88
 72169218;Raiffeisenbank Schrobenhausen;88
 72169246;Raiffeisenbank Schrobenhausener Land;88
-72169380;Raiffeisenbank;88
+72169380;Raiffeisenbank Beilngries;88
 72169733;Raiffeisenbank Berg im Gau-Langenmosen -alt-;88
 72169745;Raiffeisenbank Ehekirchen-Oberhausen;88
 72169753;Raiffeisenbank Ober-Unterhausen-Sinning -alt-;88
@@ -3396,7 +3390,7 @@
 72169831;Raiffeisenbank Riedenburg-Lobsing;88
 72170007;Deutsche Bank;63
 72170024;Deutsche Bank Privat und Geschäftskunden;63
-72180002;Dresdner Bank;76
+72180002;Commerzbank vormals Dresdner Bank;76
 72191300;Volksbank Raiffeisenbank Eichstätt;88
 72191600;Hallertauer Volksbank;88
 72191800;Volksbank Schrobenhausen;88
@@ -3419,12 +3413,12 @@
 73150000;Sparkasse Memmingen-Lindau-Mindelheim;00
 73160000;Genossenschaftsbank Unterallgäu;88
 73161455;Raiffeisenbank Bad Grönenbach;88
-73180011;Dresdner Bank;76
+73180011;Commerzbank vormals Dresdner Bank;76
 73190000;VR-Bank Memmingen;88
 73191500;Volksbank Ulm-Biberach;10
 73300000;Bundesbank eh Kempten;09
-73311600;Hypo-Landesbank Kleinwalsertal;09
-73311800;Bank Austria Riezlern;09
+73311600;Vorarlberger Landes- und Hypothekenbank;09
+73311800;UniCredit Bank Austria;09
 73320073;Bayer Hypo- und Vereinsbank;99
 73320442;Bayer Hypo- und Vereinsbank Ndl 669 Kpt;99
 73321177;Bayer Hypo- und Vereinsbank;99
@@ -3460,7 +3454,7 @@
 73369954;Raiffeisenbank Wald-Görisried;88
 73370008;Deutsche Bank;63
 73370024;Deutsche Bank Privat und Geschäftskunden;63
-73380004;Dresdner Bank;76
+73380004;Commerzbank vormals Dresdner Bank;76
 73390000;Allgäuer Volksbank Kempten-Sonthofen;88
 73391600;Volksbank im Kleinwalsertal;09
 73392000;Volksbank Immenstadt;88
@@ -3471,11 +3465,11 @@
 73450000;Kreis- und Stadtsparkasse Kaufbeuren;00
 73451450;Kreissparkasse Schongau;00
 73460046;VR Bank Kaufbeuren-Ostallgäu;88
-73480013;Dresdner Bank;76
+73480013;Commerzbank vormals Dresdner Bank;76
 73491300;Volksbank Ostallgäu -alt-;88
 74000000;Bundesbank eh Passau;09
 74020074;Bayer Hypo- und Vereinsbank;99
-74020100;Raiffeisenlandesbank OÖ Zndl Süddeutschland;60
+74020100;Raiffeisenlandesbank OÖ Zndl Süddeutschland;09
 74020414;Bayer Hypo- und Vereinsbank Ndl 672 Pass;99
 74040082;Commerzbank Passau;13
 74050000;Sparkasse Passau;00
@@ -3513,7 +3507,7 @@
 74164149;VR-Bank;88
 74165013;Raiffeisenbank Sonnenwald;88
 74167099;Raiffeisenbank Metten;88
-74180009;Dresdner Bank;76
+74180009;Commerzbank vormals Dresdner Bank;76
 74190000;GenoBank DonauWald;88
 74191000;VR-Bank Landau;88
 74220075;Bayer Hypo- und Vereinsbank;99
@@ -3546,7 +3540,7 @@
 74369662;Raiffeisenbank Buch-Eching;88
 74369704;Raiffeisenbank Mengkofen-Loiching;88
 74369709;Raiffeisenbank;88
-74380007;Dresdner Bank;76
+74380007;Commerzbank vormals Dresdner Bank;76
 74390000;VR-Bank Landshut;88
 74391300;Volksbank-Raiffeisenbank Dingolfing;88
 74391400;Rottaler Volksbank-Raiffeisenbank Eggenfelden;88
@@ -3585,7 +3579,7 @@
 75069171;Raiffeisenbank im Naabtal;88
 75070013;Deutsche Bank;63
 75070024;Deutsche Bank Privat und Geschäftskunden;63
-75080003;Dresdner Bank;76
+75080003;Commerzbank vormals Dresdner Bank;76
 75090000;Volksbank Regensburg;88
 75090300;LIGA Bank;88
 75090500;Sparda-Bank Regensburg;84
@@ -3628,7 +3622,7 @@
 76060561;ACREDOBANK;88
 76060618;Volksbank Raiffeisenbank;88
 76061025;Raiffeisen Spar+Kreditbank Lauf a d Pegnitz;88
-76061482;Raiffeisenbank;88
+76061482;Raiffeisenbank Hersbruck;88
 76069359;Raiffeisenbank;88
 76069369;Raiffeisenbank Auerbach-Freihung;88
 76069372;Raiffeisenbank Bad Windsheim;88
@@ -3665,13 +3659,13 @@
 76069669;Raiffeisenbank;88
 76070012;Deutsche Bank;63
 76070024;Deutsche Bank Privat und Geschäftskunden;63
-76080040;Dresdner Bank;76
-76080053;Dresdner Bank Zw 53;76
-76080055;Dresdner Bank Zw 55;09
-76080085;Dresdner Bank, PCC DCC-ITGK 1;09
-76080086;Dresdner Bank, PCC DCC-ITGK 2;09
-76089480;Dresdner Bank ITGK;09
-76089482;Dresdner Bank ITGK;09
+76080040;Commerzbank vormals Dresdner Bank;76
+76080053;Commerzbank vormals Dresdner Bank Zw 53;76
+76080055;Commerzbank vormals Dresdner Bank Zw 55;09
+76080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+76080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+76089480;Commerzbank vormals Dresdner Bank ITGK;09
+76089482;Commerzbank vormals Dresdner Bank ITGK;09
 76090300;Bäcker-Bank Nürnberg;88
 76090400;Evenord-Bank;88
 76090500;Sparda-Bank Nürnberg;81
@@ -3796,7 +3790,7 @@
 79065160;Raiffeisenbank;88
 79066082;Raiffeisenbank;88
 79069001;Raiffeisenbank Volkach-Wiesentheid;88
-79069010;Raiffeisenbank Schweinfurt;88
+79069010;VR-Bank Schweinfurt;88
 79069031;Raiffeisenbank Bütthard-Gaukönigshofen;88
 79069078;Raiffeisenbank Geiselwind -alt-;88
 79069090;Raiffeisenbank Ulsenheim-Gollhofen -alt-;88
@@ -3812,8 +3806,8 @@
 79069271;Raiffeisenbank;88
 79070016;Deutsche Bank;63
 79070024;Deutsche Bank Privat und Geschäftskunden;63
-79080052;Dresdner Bank;76
-79080085;Dresdner Bank, PCC DCC-ITGK 1;09
+79080052;Commerzbank vormals Dresdner Bank;76
+79080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
 79090000;Volksbank Raiffeisenbank;88
 79090624;apoBank;14
 79161058;Raiffeisenbank Fränkisches Weinland;88
@@ -3831,12 +3825,12 @@
 79353090;Sparkasse Bad Neustadt a d Saale;00
 79360255;Genossenschaftsbank Schweinfurt;88
 79362081;VR-Bank Gerolzhofen;88
-79362425;Raiffeisenbank Werneck;88
+79362425;Raiffeisenbank Werneck -alt-;88
 79363016;VR-Bank Rhön-Grabfeld;88
 79363151;Raiffeisen-Volksbank Haßberge;88
 79364069;Raiffeisenbank Frankenwinheim und Umgebung;88
-79364406;VR-Bank Schweinfurt Land;88
-79380051;Dresdner Bank;76
+79364406;VR-Bank Schweinfurt Land -alt-;88
+79380051;Commerzbank vormals Dresdner Bank;76
 79500000;Bundesbank eh Aschaffenburg;09
 79510111;SEB;13
 79520070;Bayer Hypo- und Vereinsbank;99
@@ -3852,8 +3846,8 @@
 79568518;Raiffeisenbank Haibach-Obernau;88
 79570024;Deutsche Bank Privat und Geschäftskunden;63
 79570051;Deutsche Bank;63
-79580099;Dresdner Bank;76
-79589402;Dresdner Bank ITGK;09
+79580099;Commerzbank vormals Dresdner Bank;76
+79589402;Commerzbank vormals Dresdner Bank ITGK;09
 79590000;Volksbank Aschaffenburg;88
 79650000;Sparkasse Miltenberg-Obernburg;00
 79662558;Raiffeisenbank;88
@@ -3875,18 +3869,18 @@
 80053622;Kreissparkasse Köthen;C0
 80053722;Kreissparkasse Anhalt-Bitterfeld;C0
 80053762;Saalesparkasse;B6
-80054000;Kreissparkasse Weißenfels;20
+80054000;Kreissparkasse Weißenfels -alt-;20
 80055008;Sparkasse Mansfeld-Südharz;20
 80055500;Salzlandsparkasse;20
 80062608;Volksbank Elsterland;32
 80063508;Ostharzer Volksbank;32
 80063558;Volksbank;32
 80063598;Volksbank Wittenberg;32
-80063628;Volksbank Köthen;32
+80063628;Volksbank;32
 80063648;Volks- und Raiffeisenbank Saale-Unstrut;28
 80063678;VR-Bank Zeitz;32
 80063718;Volks- und Raiffeisenbank Eisleben;32
-80080000;Dresdner Bank;76
+80080000;Commerzbank vormals Dresdner Bank;76
 80093574;Volksbank Dessau-Anhalt;32
 80093784;Volksbank Halle, Saale;32
 80500000;Bundesbank eh Dessau;09
@@ -3916,7 +3910,7 @@
 81069052;Volksbank Börde-Bernburg;32
 81070000;Deutsche Bank;63
 81070024;Deutsche Bank Privat und Geschäftskunden;63
-81080000;Dresdner Bank;76
+81080000;Commerzbank vormals Dresdner Bank;76
 81093034;Volksbank;32
 81093044;Volksbank Osterburg-Lüchow-Dannenberg -alt-;32
 81093054;Volksbank Stendal;32
@@ -3926,7 +3920,6 @@
 82020086;Bayer Hypo- und Vereinsbank;99
 82020087;Bayer Hypo- und Vereinsbank;99
 82020088;Bayer Hypo- und Vereinsbank;99
-82020700;Hanseatic Bank;16
 82040000;Commerzbank;13
 82050000;Landesbank Hessen-Thür Girozentrale Erfurt;00
 82051000;Sparkasse Mittelthüringen;20
@@ -3946,7 +3939,7 @@
 82064228;Erfurter Bank;32
 82070000;Deutsche Bank;63
 82070024;Deutsche Bank Privat und Geschäftskunden;63
-82080000;Dresdner Bank;76
+82080000;Commerzbank vormals Dresdner Bank;76
 82094004;Volksbank Heiligenstadt;06
 82094054;Nordthüringer Volksbank;32
 82094224;Volksbank Erfurt -alt-;32
@@ -3964,7 +3957,7 @@
 83064568;Geraer Bank;32
 83065408;VR-Bank Altenburger Land;32
 83065410;Deutsche Skatbank Zndl VR Bank Altenburger Land;32
-83080000;Dresdner Bank;76
+83080000;Commerzbank vormals Dresdner Bank;76
 83094444;Raiffeisen-Volksbank Saale-Orla;32
 83094454;Volksbank Saaletal;06
 83094494;Volksbank Eisenberg;32
@@ -3982,7 +3975,7 @@
 84055050;Wartburg-Sparkasse;20
 84064798;Genobank Rhön-Grabfeld;88
 84069065;Raiffeisenbank Schleusingen;32
-84080000;Dresdner Bank;76
+84080000;Commerzbank vormals Dresdner Bank;76
 84094754;VR-Bank Bad Salzungen Schmalkalden;32
 84094764;Volksbank Ilmenau -alt-;32
 84094814;VR Bank Südthüringen;32
@@ -3996,24 +3989,20 @@
 85050100;Sparkasse Oberlausitz-Niederschlesien;20
 85050200;Kreissparkasse Riesa-Großenhain -alt-;20
 85050300;Ostsächsische Sparkasse Dresden;20
-85050333;Ostsächsische Sparkasse Dresden Gf  -Stg Pirna-;20
 85055000;Sparkasse Meißen;20
-85055142;Stadtsparkasse Dresden -alt-;53
 85060000;Volksbank Pirna;32
 85065028;Raiffeisenbank Neustadt, Sachs;32
-85080000;Dresdner Bank;76
-85080085;Dresdner Bank, PCC DCC-ITGK 1;09
-85080086;Dresdner Bank, PCC DCC-ITGK 2;09
-85080200;Dresdner Bank;76
-85089270;Dresdner Bank ITGK;09
+85080000;Commerzbank vormals Dresdner Bank;76
+85080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+85080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+85080200;Commerzbank vormals Dresdner Bank;76
+85089270;Commerzbank vormals Dresdner Bank ITGK;09
 85090000;Dresdner Volksbank Raiffeisenbank;06
 85094984;Volksbank Riesa;06
 85095004;Volksbank Raiffeisenbank Meißen Großenhain;06
 85095164;Landeskirchliche Kredit-Genossenschaft Sachsen;06
 85550000;Kreissparkasse Bautzen;20
 85550200;Kreissparkasse Löbau-Zittau -alt-;20
-85550500;Sparkasse Westlausitz -alt-;20
-85564938;Raiffbk-VB Niesky-Weißwasser Niesky -alt-;32
 85590000;Volksbank Bautzen;06
 85590100;Volksbank Löbau-Zittau;06
 85591000;Volksbank Raiffeisenbank Niederschlesien;06
@@ -4042,12 +4031,12 @@
 86069070;Raiffeisenbank;06
 86070000;Deutsche Bank;63
 86070024;Deutsche Bank Privat und Geschäftskunden;63
-86080000;Dresdner Bank;76
-86080055;Dresdner Bank Zw 55;76
-86080057;Dresdner Bank Gf ZW 57;76
-86080085;Dresdner Bank, PCC DCC-ITGK 1;09
-86080086;Dresdner Bank, PCC DCC-ITGK 2;09
-86089280;Dresdner Bank ITGK;09
+86080000;Commerzbank vormals Dresdner Bank;76
+86080055;Commerzbank vormals Dresdner Bank Zw 55;76
+86080057;Commerzbank vormals Dresdner Bank Gf ZW 57;76
+86080085;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 1;09
+86080086;Commerzbank vormals Dresdner Bank, PCC DCC-ITGK 2;09
+86089280;Commerzbank vormals Dresdner Bank ITGK;09
 86095484;Volks- und Raiffeisenbank Muldental;06
 86095554;Volksbank Delitzsch;06
 86095604;Volksbank Leipzig;06
@@ -4071,7 +4060,7 @@
 87069077;Vereinigte Raiffeisenbank Burgstädt;06
 87070000;Deutsche Bank;63
 87070024;Deutsche Bank Privat und Geschäftskunden;63
-87080000;Dresdner Bank;76
+87080000;Commerzbank vormals Dresdner Bank;76
 87095824;Volksbank Vogtland;06
 87095934;Volksbank Zwickau;06
 87095974;Volksbank-Raiffeisenbank Glauchau;06
