@@ -1255,7 +1255,10 @@ function xtc_create_password($pass)
 
 function xtc_remove_product($product_id) 
 {
-	     	global $LangID, $customers_status_array;  //R Brym
+//BOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array 
+	     	//global $LangID, $customers_status_array;  //R Brym
+	     	global $LangID, $customers_statuses_array;
+//EOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array 
 		    $product_image_query = xtc_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . xtc_db_input($product_id) . "'");
 		    $product_image = xtc_db_fetch_array($product_image_query);
 		
@@ -1299,8 +1302,10 @@ function xtc_remove_product($product_id)
                                                  'text' => $customers_statuses['customers_status_name']);
 
           } 
-
+//BOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array 
           for ($i=0,$n=sizeof($customers_status_array);$i<$n;$i++) {
+          //for ($i=0,$n=sizeof($customers_statuses_array);$i<$n;$i++) {
+//EOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array           
               xtc_db_query("delete from personal_offers_by_customers_status_" . $i . " where products_id = '" . xtc_db_input($product_id) . "'");
           }
 
