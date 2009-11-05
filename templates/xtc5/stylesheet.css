@@ -310,7 +310,7 @@ ul#categorymenu li.level1 a {
 ul#categorymenu li.level1 a:hover {
 	text-decoration:none;
 	color:#333;
-	background-color:#ccc;
+	background-color:#e1e1e1;
 	font-weight:bold;
 }
 /* 2nd TIER */
@@ -330,7 +330,7 @@ ul#categorymenu li.level2 a {
 ul#categorymenu li.level2 a:hover {
 	text-decoration:none;
 	color:#333;
-	background-color:#ccc;
+	background-color:#c7c7c7;
 	font-weight:bold;
 }
 /* 3rd TIER */
@@ -350,7 +350,7 @@ ul#categorymenu li.level3 a {
 ul#categorymenu li.level3 a:hover {
 	text-decoration:none;
 	color:#333;
-	background-color:#ccc;
+	background-color:#b3b3b3;
 	font-weight:bold;
 }
 /* 4th TIER */
@@ -370,7 +370,7 @@ ul#categorymenu li.level4 a {
 ul#categorymenu li.level4 a:hover {
 	text-decoration:none;
 	color:#333;
-	background-color:#ccc;
+	background-color:#999999;
 	font-weight:bold;
 }
 /* CATEGORY IMAGE DEFINITION */
