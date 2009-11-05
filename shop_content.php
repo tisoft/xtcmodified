@@ -56,19 +56,77 @@ if ($_GET['coID'] == 7 && $_GET['action'] == 'success') {
 
 $smarty->assign('CONTENT_HEADING', $shop_content_data['content_heading']);
 
-if ($_GET['coID'] == 7) {
+if ($_GET['coID'] == 7) {    
 
 	$error = false;
 	if (isset ($_GET['action']) && ($_GET['action'] == 'send')) {
-  //BOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
-  //BOF - Tomcraft - 2009-09-16 - test empty message_body
+  // BOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
+  // BOF - Tomcraft - 2009-09-16 - test empty message_body
 		//if (xtc_validate_email(trim($_POST['email'])) && (strtoupper($_POST['vvcode']) == $_SESSION['vvcode']) && $_SESSION['vvcode']!='') {
 		if (xtc_validate_email(trim($_POST['email'])) && (strtoupper($_POST['vvcode']) == $_SESSION['vvcode']) && $_SESSION['vvcode']!='' && trim($_POST['message_body'])!='') {
-  //EOF - Tomcraft - 2009-09-16 - test empty message_body
-  //EOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
+  // EOF - Tomcraft - 2009-09-16 - test empty message_body
+  // EOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
+            // BOF - Tomcraft - 2009-11-05 - Advanced contact form (new email layout)			
+			
+			// Datum und Uhrzeit
+			$datum= date("d.m.Y");
+			$uhrzeit= date("H:i");
+			
+			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (support multilanguage)
+			require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');
+			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (support multilanguage)
+			
+			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
+			$additional_fields = '';			
+			if (isset($_POST['company']))  $additional_fields =  EMAIL_COMPAGNY. $_POST['company'] . "\n" ;
+			if (isset($_POST['street']))   $additional_fields .= EMAIL_STREET . $_POST['street'] . "\n" ;
+			if (isset($_POST['postcode'])) $additional_fields .= EMAIL_POSTCODE . $_POST['postcode'] . "\n" ;
+			if (isset($_POST['city']))     $additional_fields .= EMAIL_CITY . $_POST['city'] . "\n" ;
+			if (isset($_POST['phone']))    $additional_fields .= EMAIL_PHONE . $_POST['phone'] . "\n" ;
+			if (isset($_POST['fax']))      $additional_fields .= EMAIL_FAX . $_POST['fax'] . "\n" ;
+			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 
-			xtc_php_mail($_POST['email'], $_POST['name'], CONTACT_US_EMAIL_ADDRESS, CONTACT_US_NAME, CONTACT_US_FORWARDING_STRING, $_POST['email'], $_POST['name'], '', '', CONTACT_US_EMAIL_SUBJECT, nl2br($_POST['message_body']), $_POST['message_body']);
+			//xtc_php_mail($_POST['email'], $_POST['name'], CONTACT_US_EMAIL_ADDRESS, CONTACT_US_NAME, CONTACT_US_FORWARDING_STRING, $_POST['email'], $_POST['name'], '', '', CONTACT_US_EMAIL_SUBJECT, nl2br($_POST['message_body']), $_POST['message_body']);
+			// BOF - Tomcraft - 2009-11-05 - Advanced contact form
+			
+			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (check for USE_CONTACT_EMAIL_ADDRESS)
+			$use_contact_email_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'USE_CONTACT_EMAIL_ADDRESS'");
+			$use_contact_email = xtc_db_fetch_array($use_contact_email_query);
+			if ($use_contact_email['configuration_value'] == 'true') {
+			    $email = trim(CONTACT_US_EMAIL_ADDRESS);
+				$name = CONTACT_US_NAME;
+				$notify =  EMAIL_NOTIFY . "\n\n";				
+			} else {
+				$email = trim($_POST['email']);
+				$name = $_POST['name'];
+				$notify =  '';                			
+			}
+			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (check for USE_CONTACT_EMAIL_ADDRESS)
+			
+			$email_layout = sprintf(EMAIL_SENT_BY, CONTACT_US_NAME, CONTACT_US_EMAIL_ADDRESS, $datum , $uhrzeit) . "\n" .
+							"--------------------------------------------------------------" . "\n" . $notify .
+							"Name: ". $_POST['name'] . "\n" .
+							"Email: ". trim($_POST['email']) . "\n" .
+							// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
+							$additional_fields .
+							// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
+							"\nNachricht:\n ". $_POST['message_body'] . "\n";
 
+			xtc_php_mail($email, 
+						 $name, 
+						 CONTACT_US_EMAIL_ADDRESS, 
+						 CONTACT_US_NAME, 
+						 CONTACT_US_FORWARDING_STRING, 
+						 $email, 
+						 $name, 				 						 
+						 '', 
+						 '', 
+						 CONTACT_US_EMAIL_SUBJECT, 
+						 nl2br($email_layout), 
+						 $email_layout
+						 );
+			// EOF - Tomcraft - 2009-11-05 - Advanced contact form
+            // EOF - Tomcraft - 2009-11-05 - Advanced contact form (new email layout)
 			if (!isset ($mail_error)) {
 				xtc_redirect(xtc_href_link(FILENAME_CONTENT, 'action=success&coID='.(int) $_GET['coID']));
 			} else {
@@ -77,15 +135,15 @@ if ($_GET['coID'] == 7) {
 			}
 		} else {
 			// error report hier einbauen
-			//BOF - Tomcraft - 2009-09-16 - new error message
-			//$smarty->assign('error_message', ERROR_MAIL);
+			// BOF - Tomcraft - 2009-09-16 - new error message
+			// $smarty->assign('error_message', ERROR_MAIL);
 			$err_msg = '';
 			if (!xtc_validate_email(trim($_POST['email']))) $err_msg .= ERROR_EMAIL;
 			if (strtoupper($_POST['vvcode']) != $_SESSION['vvcode']) $err_msg .= ERROR_VVCODE;
 			if (trim($_POST['message_body']) == '') $err_msg .= ERROR_MSG_BODY;
 			
 			$smarty->assign('error_message', ERROR_MAIL . $err_msg);
-			//EOF - Tomcraft - 2009-09-16 - new error message
+			// EOF - Tomcraft - 2009-09-16 - new error message
 			$error = true;
 		}
 
@@ -110,27 +168,54 @@ if ($_GET['coID'] == 7) {
 			$contact_content = $shop_content_data['content_text'];
 		}
 		require (DIR_WS_INCLUDES.'header.php');
-		if (isset ($_SESSION['customer_id'])) {
+		
+		// BOF - Tomcraft - 2009-11-05 - Advanced contact form (fix override by error request)
+		if (isset ($_SESSION['customer_id']) && !$error) {
+		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (fix override by error request)
 			$customers_name = $_SESSION['customer_first_name'].' '.$_SESSION['customer_last_name'];
-      //BOF - Dokuman - 2009-09-04: preallocate email address on contact form
+			// BOF - Dokuman - 2009-09-04: preallocate email address on contact form
 			//$email_address = $_SESSION['customer_email_address'];
 			$c_query = xtc_db_query("SELECT * FROM ".TABLE_CUSTOMERS." WHERE customers_id='".$_SESSION['customer_id']."'"); 
 			$c_data = xtc_db_fetch_array($c_query); 
-      $email_address = $c_data['customers_email_address']; 
-      //EOF - Dokuman - 2009-09-04: preallocate email address on contact form
+			$email_address = $c_data['customers_email_address'];
+			// EOF - Dokuman - 2009-09-04: preallocate email address on contact form
+			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
+			$phone = $c_data['customers_telephone'];
+			$company = $c_data['entry_company'];
+			$street = $c_data['entry_street_address'];
+			$postcode= $c_data['entry_postcode'];
+			$city = $c_data['entry_city'];
+			$fax= $c_data['customers_fax'];
+			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 		}
 
+		// BOF - Tomcraft - 2009-11-05 - Advanced contact form (product question)
+		$products_info = '';
+		if (trim($_GET['products_name'] != '')) {$products_info= trim($_GET['products_name']);}
+		if (trim($_GET['products_model'] != '')) {$products_info= trim($products_info . ' - ' . trim($_GET['products_model']));}
+		if ($products_info != '') {$products_info = trim($_GET['question'])."\n" . $products_info . "\n"; }
+		if (!$error) $message_body = $products_info . "\n";
+		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (product question)
+		
 		$smarty->assign('CONTACT_CONTENT', $contact_content);
 		$smarty->assign('FORM_ACTION', xtc_draw_form('contact_us', xtc_href_link(FILENAME_CONTENT, 'action=send&coID='.(int) $_GET['coID'])));
 		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
 		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', false));
 		$smarty->assign('INPUT_NAME', xtc_draw_input_field('name', ($error ? xtc_db_input($_POST['name']) : $customers_name), 'size="30"'));
 		$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', ($error ? xtc_db_input($_POST['email']) : $email_address), 'size="30"'));
+		// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
+		$smarty->assign('INPUT_PHONE', xtc_draw_input_field('phone', ($error ? xtc_db_input($_POST['phone']) : $phone), 'size="30"'));
+		$smarty->assign('INPUT_COMPANY', xtc_draw_input_field('company', ($error ? xtc_db_input($_POST['company']) : $company), 'size="30"'));
+		$smarty->assign('INPUT_STREET', xtc_draw_input_field('street', ($error ? xtc_db_input($_POST['street']) : $street), 'size="30"'));
+		$smarty->assign('INPUT_POSTCODE', xtc_draw_input_field('postcode', ($error ? xtc_db_input($_POST['postcode']) : $postcode), 'size="30"'));
+		$smarty->assign('INPUT_CITY', xtc_draw_input_field('city', ($error ? xtc_db_input($_POST['city']) : $city), 'size="30"'));
+		$smarty->assign('INPUT_FAX', xtc_draw_input_field('fax', ($error ? xtc_db_input($_POST['fax']) : $fax), 'size="30"'));			
+		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 		// BOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
 		//$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? xtc_db_input($_POST['message_body']) : $first_name)));
 		$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? stripslashes($_POST['message_body']) : stripslashes($message_body))));
 		// EOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
-		$smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE));
+		$smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_send.gif', IMAGE_BUTTON_SEND));
 		$smarty->assign('FORM_END', '</form>');
 	}
 

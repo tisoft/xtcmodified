@@ -639,4 +639,9 @@ define('USE_ADMIN_TOP_MENU_DESC' , 'Activate Admin Top Navigation?');
 define('USE_ADMIN_LANG_TABS_TITLE' , 'Language Tabs at categories/article');
 define('USE_ADMIN_LANG_TABS_DESC' , 'Use language tabs at categories/article?');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
+
+// BOF - Tomcraft - 2009-11-05 - Advanced contact form
+define('USE_CONTACT_EMAIL_ADDRESS_TITLE' , 'Contact Us - sending option');
+define('USE_CONTACT_EMAIL_ADDRESS_DESC' , 'Use "Contact Us" eMail address for sending contact formular (important for some Hosters like Hosteurope)');
+// EOF - Tomcraft - 2009-11-05 - Advanced contact form
 ?>

@@ -659,4 +659,9 @@ define('USE_ADMIN_TOP_MENU_DESC' , 'Admin Top Navigation aktivieren?');
 define('USE_ADMIN_LANG_TABS_TITLE' , 'Sprachtabs bei Kategorien/Artikel');
 define('USE_ADMIN_LANG_TABS_DESC' , 'Sprachtabs bei den Eingabefeldern f&uml;r Kategorien/Artikel aktivieren?');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
+
+// BOF - Tomcraft - 2009-11-05 - Advanced contact form
+define('USE_CONTACT_EMAIL_ADDRESS_TITLE' , 'Kontaktformular - Sendeoption');
+define('USE_CONTACT_EMAIL_ADDRESS_DESC' , '"Kontakt eMail" Adresse des Shops zum Versenden des Kontaktformulars verwenden (wichtig f&uuml;r einige Provider z.B Hosteurope)');
+// EOF - Tomcraft - 2009-11-05 - Advanced contact form
 ?>
