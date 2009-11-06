@@ -15,9 +15,14 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
-  require('includes/application_top.php');
+require('includes/application_top.php');
 
-  $system = xtc_get_system_information();
+if (isset($_REQUEST['phpInfo'])) {
+  phpinfo();
+  exit;
+}
+
+$system = xtc_get_system_information();
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -25,15 +30,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<style type="text/css">
- table, td, tr {font-family: sans-serif; font-size: 11px;}
-.p {text-align: center;}
-.e {background-color: #ccccff; font-weight: bold; font-size: 11px;}
-.h {background-color: #9999cc; font-weight: bold; font-size: 11px;}
-.v {background-color: #cccccc; font-size: 12px;}
-i {color: #666666; font-size: 11px;}
-hr {display: none; font-size: 11px;}
-</style>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -104,24 +100,13 @@ hr {display: none; font-size: 11px;}
       </tr>
       <tr>
         <td>
-<?php
-  if (function_exists('ob_start')) {
-    ob_start();
-    phpinfo();
-    $phpinfo = ob_get_contents();
-    ob_end_clean();
-
-    $phpinfo = str_replace('border: 1px', '', $phpinfo);
-    //BOF - Dokuman - 2009-08-27 - preg_match not needed anymore due to style definition in header
-    //preg_match('/(<style type=\"text\/css\">{1})(.*)(<\/style>{1})/s', $phpinfo, $regs); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
-    //echo '<style type="text/css">' . $regs[2] . '</style>';
-    //EOF - Dokuman - 2009-08-27 - preg_match not needed anymore due to style definition in header   
-    preg_match('/(<body>{1})(.*)(<\/body>{1})/s', $phpinfo, $regs); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
-    echo $regs[2];
-  } else {
-    phpinfo();
-  }
-?>
+           <iframe src="?phpInfo" width="100%" height="700" style="border: solid 1px #a3a3a3;">
+           <p>Der verwendete Browser kann leider nicht mit inline Frames (iframe)
+             umgehen:
+             <a href="?phpInfo" target="_blank">Hier geht es zur phpinfo()
+             Seite vom System</a>
+           </p>
+         </iframe>
         </td>
       </tr>
     </table></td>
