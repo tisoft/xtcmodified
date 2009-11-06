@@ -37,7 +37,7 @@ define('TEXT_INFO_SENDERS_ID', 'Senders ID:');
 define('TEXT_INFO_AMOUNT_SENT', 'Amount Sent:');
 define('TEXT_INFO_DATE_SENT', 'Date Sent:');
 define('TEXT_INFO_VOUCHER_CODE', 'Voucher Code:');
-define('TEXT_INFO_EMAIL_ADDRESS', 'eMail Address:');
+define('TEXT_INFO_EMAIL_ADDRESS', 'E-Mail Address:');
 define('TEXT_INFO_DATE_REDEEMED', 'Date Redeemed:');
 define('TEXT_INFO_IP_ADDRESS', 'IP Address:');
 define('TEXT_INFO_CUSTOMERS_ID', 'Customer Id:');

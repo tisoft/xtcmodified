@@ -35,7 +35,7 @@ define('BUTTON_INSERT', 'Insert');
 define('BUTTON_UPDATE', 'Update');
 define('BUTTON_EXPORT', 'Export');
 define('BUTTON_REVIEW_APPROVE', 'OK');
-define('BUTTON_SEND_EMAIL', 'Send eMail');
+define('BUTTON_SEND_EMAIL', 'Send E-Mail');
 define('BUTTON_SEND_COUPON', 'Send Coupon');
 define('BUTTON_INVOICE', 'Invoice');
 define('BUTTON_PACKINGSLIP', 'Packing slip');

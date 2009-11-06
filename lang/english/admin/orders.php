@@ -67,7 +67,7 @@ define('ENTRY_POST_CODE', 'Post Code:');
 define('ENTRY_STATE', 'State:');
 define('ENTRY_COUNTRY', 'Country:');
 define('ENTRY_TELEPHONE', 'Telephone:');
-define('ENTRY_EMAIL_ADDRESS', 'eMail Address:');
+define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_DELIVERY_TO', 'Delivery To:');
 define('ENTRY_SHIP_TO', 'SHIP TO:');
 define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');
@@ -104,7 +104,7 @@ define('EMAIL_TEXT_SUBJECT', 'Order Update');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Order Number:');
 define('EMAIL_TEXT_INVOICE_URL', 'Detailed Invoice:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Date Ordered:');
-define('EMAIL_TEXT_STATUS_UPDATE', 'Your order has been updated to the following status.' . "\n\n" . 'New status: %s' . "\n\n" . 'Please reply to this eMail if you have any questions.' . "\n");
+define('EMAIL_TEXT_STATUS_UPDATE', 'Your order has been updated to the following status.' . "\n\n" . 'New status: %s' . "\n\n" . 'Please reply to this E-Mail if you have any questions.' . "\n");
 define('EMAIL_TEXT_COMMENTS_UPDATE', 'The comments for your order are' . "\n\n%s\n\n");
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Error: Order does not exist.');

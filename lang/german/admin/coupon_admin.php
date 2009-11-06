@@ -61,7 +61,7 @@ define('TEXT_REDEMPTIONS_TOTAL', 'Insgesamt');
 define('TEXT_REDEMPTIONS_CUSTOMER', 'F&uuml;r diesen Kunden');
 define('TEXT_NO_FREE_SHIPPING', 'Nicht Versandkostenfrei');
 
-define('NOTICE_EMAIL_SENT_TO', 'Notiz: eMail versendet an: %s');
+define('NOTICE_EMAIL_SENT_TO', 'Notiz: E-Mail versendet an: %s');
 define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Kein Kunde ausgew&auml;hlt.');
 define('COUPON_NAME', 'Kupon Name');
 //define('Kupon_VALUE', 'Kupon Wert');

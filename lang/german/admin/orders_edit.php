@@ -41,7 +41,7 @@ define('TEXT_ZIP', 'Plz:');
 define('TEXT_CITY', 'Stadt:');
 define('TEXT_COUNTRY', 'Land:');
 define('TEXT_CUSTOMER_GROUP', 'Kundengruppe in der Bestellung');
-define('TEXT_CUSTOMER_EMAIL', 'eMail:');
+define('TEXT_CUSTOMER_EMAIL', 'E-Mail:');
 define('TEXT_CUSTOMER_TELEPHONE', 'Telefon:');
 define('TEXT_CUSTOMER_UST', 'UstID:');
 

@@ -61,7 +61,7 @@ define('TEXT_REDEMPTIONS_TOTAL', 'In Total');
 define('TEXT_REDEMPTIONS_CUSTOMER', 'For this Customer');
 define('TEXT_NO_FREE_SHIPPING', 'No Free Shipping');
 
-define('NOTICE_EMAIL_SENT_TO', 'Notice: eMail sent to: %s');
+define('NOTICE_EMAIL_SENT_TO', 'Notice: E-Mail sent to: %s');
 define('ERROR_NO_CUSTOMER_SELECTED', 'Error: No customer has been selected.');
 define('COUPON_NAME', 'Coupon Name');
 //define('COUPON_VALUE', 'Coupon Value');

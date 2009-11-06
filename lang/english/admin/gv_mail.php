@@ -30,15 +30,15 @@ define('HEADING_TITLE', 'Send Gift Voucher To Customers');
 define('TEXT_CUSTOMER', 'Customer:');
 define('TEXT_SUBJECT', 'Subject:');
 define('TEXT_FROM', 'From:');
-define('TEXT_TO', 'eMail to:');
+define('TEXT_TO', 'E-Mail to:');
 define('TEXT_AMOUNT', 'Amount');
 define('TEXT_MESSAGE', 'Message:');
-define('TEXT_SINGLE_EMAIL', '<span class="smallText">Use this for sending single eMails, otherwise use dropdown above</span>');
+define('TEXT_SINGLE_EMAIL', '<span class="smallText">Use this for sending single E-Mails, otherwise use dropdown above</span>');
 define('TEXT_SELECT_CUSTOMER', 'Select Customer');
 define('TEXT_ALL_CUSTOMERS', 'All Customers');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'To All Newsletter Subscribers');
 
-define('NOTICE_EMAIL_SENT_TO', 'Notice: eMail sent to: %s');
+define('NOTICE_EMAIL_SENT_TO', 'Notice: E-Mail sent to: %s');
 define('ERROR_NO_CUSTOMER_SELECTED', 'Error: No customer has been selected.');
 define('ERROR_NO_AMOUNT_SELECTED', 'Error: No amount has been selected.');
 

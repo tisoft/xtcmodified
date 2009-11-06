@@ -37,7 +37,7 @@ define('TEXT_INFO_SENDERS_ID', 'Absender Nr.:');
 define('TEXT_INFO_AMOUNT_SENT', 'Betrag versandt:');
 define('TEXT_INFO_DATE_SENT', 'Datum:');
 define('TEXT_INFO_VOUCHER_CODE', 'Gutschein Code:');
-define('TEXT_INFO_EMAIL_ADDRESS', 'eMail Adresse:');
+define('TEXT_INFO_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('TEXT_INFO_DATE_REDEEMED', 'Einl&ouml;sedatum:');
 define('TEXT_INFO_IP_ADDRESS', 'IP Adresse:');
 define('TEXT_INFO_CUSTOMERS_ID', 'Kunden-Nr.:');

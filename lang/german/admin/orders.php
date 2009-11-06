@@ -67,7 +67,7 @@ define('ENTRY_POST_CODE', 'PLZ:');
 define('ENTRY_STATE', 'Bundesland:');
 define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE', 'Telefon:');
-define('ENTRY_EMAIL_ADDRESS', 'eMail Adresse:');
+define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_DELIVERY_TO', 'Lieferanschrift:');
 define('ENTRY_SHIP_TO', 'Lieferanschrift:');
 define('ENTRY_SHIPPING_ADDRESS', 'Versandadresse:');
@@ -104,7 +104,7 @@ define('EMAIL_TEXT_SUBJECT', 'Status&auml;nderung Ihrer Bestellung');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Bestell-Nr.:');
 define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung k&ouml;nnen Sie unter folgender Adresse einsehen:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
-define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde aktualisiert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Gr&uuml;ssen' . "\n");
+define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde aktualisiert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese E-Mail.' . "\n\n" . 'Mit freundlichen Gr&uuml;ssen' . "\n");
 define('EMAIL_TEXT_COMMENTS_UPDATE', 'Anmerkungen und Kommentare zu Ihrer Bestellung:' . "\n\n%s\n\n");
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Fehler: Die Bestellung existiert nicht!.');

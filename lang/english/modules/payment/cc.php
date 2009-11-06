@@ -62,8 +62,8 @@
   define('USE_CC_START_DESC', 'Do you want to collect the Start Date?');
   define('CC_CVV_MIN_LENGTH_TITLE', 'CVV Number Length');
   define('CC_CVV_MIN_LENGTH_DESC', 'Define CVV length. The default is 3 and should not be changed unless the industry standard changes.');
-  define('MODULE_PAYMENT_CC_EMAIL_TITLE', 'Split Card eMail Address');
-  define('MODULE_PAYMENT_CC_EMAIL_DESC', 'If an eMail address is entered, the middle digits of the card number will be sent to the eMail address (the outside digits are stored in the database with the middle digits censored');
+  define('MODULE_PAYMENT_CC_EMAIL_TITLE', 'Split Card E-Mail Address');
+  define('MODULE_PAYMENT_CC_EMAIL_DESC', 'If an E-Mail address is entered, the middle digits of the card number will be sent to the E-Mail address (the outside digits are stored in the database with the middle digits censored');
 define('TEXT_CCVAL_ERROR_INVALID_DATE', 'The "valid to" date ist invalid.<br />Please correct your information.');
 define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'The "Credit card number", you entered, is invalid.<br />Please correct your information.');
 define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'The first 4 digits of your Credit Card are: %s<br />If this information is correct, your type of card is not accepted.<br />Please correct your information.');

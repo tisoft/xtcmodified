@@ -28,11 +28,11 @@ define('STORE_NAME_TITLE' , 'Store Name');
 define('STORE_NAME_DESC' , 'The name of my store');
 define('STORE_OWNER_TITLE' , 'Store Owner');
 define('STORE_OWNER_DESC' , 'The name of my store owner');
-define('STORE_OWNER_EMAIL_ADDRESS_TITLE' , 'eMail Adress');
-define('STORE_OWNER_EMAIL_ADDRESS_DESC' , 'The eMail Adress of my store owner');
+define('STORE_OWNER_EMAIL_ADDRESS_TITLE' , 'E-Mail Adress');
+define('STORE_OWNER_EMAIL_ADDRESS_DESC' , 'The E-Mail Adress of my store owner');
 
-define('EMAIL_FROM_TITLE' , 'eMail from');
-define('EMAIL_FROM_DESC' , 'The eMail Adress used in (sent) eMails.');
+define('EMAIL_FROM_TITLE' , 'E-Mail from');
+define('EMAIL_FROM_DESC' , 'The E-Mail Adress used in (sent) E-Mails.');
 
 define('STORE_COUNTRY_TITLE' , 'Country');
 define('STORE_COUNTRY_DESC' , 'The country my store is located in <br /><br /><b>Note: Please remember to update the store zone.</b>');
@@ -47,8 +47,8 @@ define('EXPECTED_PRODUCTS_FIELD_DESC' , 'The column to sort by in the expected p
 define('USE_DEFAULT_LANGUAGE_CURRENCY_TITLE' , 'Switch to default language currency');
 define('USE_DEFAULT_LANGUAGE_CURRENCY_DESC' , 'Automatically switch to the languages currency when it is changed.');
 
-define('SEND_EXTRA_ORDER_EMAILS_TO_TITLE' , 'Send extra order eMails to:');
-define('SEND_EXTRA_ORDER_EMAILS_TO_DESC' , 'Send extra order eMails to the following eMail adresses, in this format: Name1 &lt;eMail@adress1&gt;, Name2 &lt;eMail@adress2&gt;');
+define('SEND_EXTRA_ORDER_EMAILS_TO_TITLE' , 'Send extra order E-Mails to:');
+define('SEND_EXTRA_ORDER_EMAILS_TO_DESC' , 'Send extra order E-Mails to the following E-Mail adresses, in this format: Name1 &lt;E-Mail@adress1&gt;, Name2 &lt;E-Mail@adress2&gt;');
 
 define('SEARCH_ENGINE_FRIENDLY_URLS_TITLE' , 'Use Search-Engine Safe URLs?');
 define('SEARCH_ENGINE_FRIENDLY_URLS_DESC' , 'Use search-engine safe urls for all site links.');
@@ -94,8 +94,8 @@ define('ENTRY_LAST_NAME_MIN_LENGTH_TITLE' , 'Last Name');
 define('ENTRY_LAST_NAME_MIN_LENGTH_DESC' , 'Minimum length of last name');
 define('ENTRY_DOB_MIN_LENGTH_TITLE' , 'Date of Birth');
 define('ENTRY_DOB_MIN_LENGTH_DESC' , 'Minimum length of date of birth');
-define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_TITLE' , 'eMail Adress');
-define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_DESC' , 'Minimum length of eMail adress');
+define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_TITLE' , 'E-Mail Adress');
+define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_DESC' , 'Minimum length of E-Mail adress');
 define('ENTRY_STREET_ADDRESS_MIN_LENGTH_TITLE' , 'Street Adress');
 define('ENTRY_STREET_ADDRESS_MIN_LENGTH_DESC' , 'Minimum length of street adress');
 define('ENTRY_COMPANY_MIN_LENGTH_TITLE' , 'Company');
@@ -347,17 +347,17 @@ define('DIR_FS_CACHE_DESC' , 'The directory where the cached files are saved');
 define('ACCOUNT_OPTIONS_TITLE','Account Options');
 define('ACCOUNT_OPTIONS_DESC','How do you want to manage the login management of your store ?<br />You can choose between Customer Accounts and "One Time Orders" without creating a Customer Account (an account will be created but the customer won\'t be informed about that)');
 
-define('EMAIL_TRANSPORT_TITLE' , 'eMail Transport Method');
+define('EMAIL_TRANSPORT_TITLE' , 'E-Mail Transport Method');
 define('EMAIL_TRANSPORT_DESC' , 'Defines if this server uses a local connection to sendmail or uses an SMTP connection via TCP/IP. Servers running on Windows and MacOS should change this setting to SMTP.');
 
-define('EMAIL_LINEFEED_TITLE' , 'eMail Linefeeds');
+define('EMAIL_LINEFEED_TITLE' , 'E-Mail Linefeeds');
 define('EMAIL_LINEFEED_DESC' , 'Defines the character sequence used to separate mail headers.');
-define('EMAIL_USE_HTML_TITLE' , 'Use MIME HTML When Sending eMails');
-define('EMAIL_USE_HTML_DESC' , 'Send eMails in HTML format');
-define('ENTRY_EMAIL_ADDRESS_CHECK_TITLE' , 'Verify eMail Addresses Through DNS');
-define('ENTRY_EMAIL_ADDRESS_CHECK_DESC' , 'Verify eMail address through a DNS server');
-define('SEND_EMAILS_TITLE' , 'Send eMails');
-define('SEND_EMAILS_DESC' , 'Send out eMails');
+define('EMAIL_USE_HTML_TITLE' , 'Use MIME HTML When Sending E-Mails');
+define('EMAIL_USE_HTML_DESC' , 'Send E-Mails in HTML format');
+define('ENTRY_EMAIL_ADDRESS_CHECK_TITLE' , 'Verify E-Mail Addresses Through DNS');
+define('ENTRY_EMAIL_ADDRESS_CHECK_DESC' , 'Verify E-Mail address through a DNS server');
+define('SEND_EMAILS_TITLE' , 'Send E-Mails');
+define('SEND_EMAILS_DESC' , 'Send out E-Mails');
 define('SENDMAIL_PATH_TITLE' , 'The Path to sendmail');
 define('SENDMAIL_PATH_DESC' , 'If you use sendmail, you should give us the right path (default: /usr/bin/sendmail):');
 define('SMTP_MAIN_SERVER_TITLE' , 'Adress of the SMTP Server');
@@ -374,46 +374,46 @@ define('SMTP_PORT_TITLE' , 'SMTP Port');
 define('SMTP_PORT_DESC' , 'Please enter the SMTP port of your SMTP server(default: 25)?');
 
 //Constants for contact_us
-define('CONTACT_US_EMAIL_ADDRESS_TITLE' , 'Contact Us - eMail address');
-define('CONTACT_US_EMAIL_ADDRESS_DESC' , 'Please enter an eMail Address used for normal "Contact Us" messages via shop to your office');
-define('CONTACT_US_NAME_TITLE' , 'Contact Us - eMail address, name');
+define('CONTACT_US_EMAIL_ADDRESS_TITLE' , 'Contact Us - E-Mail address');
+define('CONTACT_US_EMAIL_ADDRESS_DESC' , 'Please enter an E-Mail Address used for normal "Contact Us" messages via shop to your office');
+define('CONTACT_US_NAME_TITLE' , 'Contact Us - E-Mail address, name');
 define('CONTACT_US_NAME_DESC' , 'Please Enter a name used for normal "Contact Us" messages sentded via shop to your office');
 define('CONTACT_US_FORWARDING_STRING_TITLE' , 'Contact Us - forwaring addresses');
-define('CONTACT_US_FORWARDING_STRING_DESC' , 'Please enter eMail addresses (seperated by , ) where "Contact Us" messages, sent via shop to your office, should be forwarded to.');
+define('CONTACT_US_FORWARDING_STRING_DESC' , 'Please enter E-Mail addresses (seperated by , ) where "Contact Us" messages, sent via shop to your office, should be forwarded to.');
 define('CONTACT_US_REPLY_ADDRESS_TITLE' , 'Contact Us - reply address');
-define('CONTACT_US_REPLY_ADDRESS_DESC' , 'Please enter an eMail address where customers can reply to.');
+define('CONTACT_US_REPLY_ADDRESS_DESC' , 'Please enter an E-Mail address where customers can reply to.');
 define('CONTACT_US_REPLY_ADDRESS_NAME_TITLE' , 'Contact Us - reply address , name');
-define('CONTACT_US_REPLY_ADDRESS_NAME_DESC' , 'Sender name for reply eMails.');
-define('CONTACT_US_EMAIL_SUBJECT_TITLE' , 'Contact Us - eMail subject');
-define('CONTACT_US_EMAIL_SUBJECT_DESC' , 'Please enter an eMail Subject for the contact-us messages via shop to your office.');
+define('CONTACT_US_REPLY_ADDRESS_NAME_DESC' , 'Sender name for reply E-Mails.');
+define('CONTACT_US_EMAIL_SUBJECT_TITLE' , 'Contact Us - E-Mail subject');
+define('CONTACT_US_EMAIL_SUBJECT_DESC' , 'Please enter an E-Mail Subject for the contact-us messages via shop to your office.');
 
 //Constants for support system
-define('EMAIL_SUPPORT_ADDRESS_TITLE' , 'Technical Support - eMail adress');
-define('EMAIL_SUPPORT_ADDRESS_DESC' , 'Please enter an eMail adress for sending eMails over the <b>Support System</b> (account creation, password changes).');
-define('EMAIL_SUPPORT_NAME_TITLE' , 'Technical Support - eMail adress, name');
-define('EMAIL_SUPPORT_NAME_DESC' , 'Please enter a name for sending eMails over the <b>Support System</b> (account creation, password changes).');
+define('EMAIL_SUPPORT_ADDRESS_TITLE' , 'Technical Support - E-Mail adress');
+define('EMAIL_SUPPORT_ADDRESS_DESC' , 'Please enter an E-Mail adress for sending E-Mails over the <b>Support System</b> (account creation, password changes).');
+define('EMAIL_SUPPORT_NAME_TITLE' , 'Technical Support - E-Mail adress, name');
+define('EMAIL_SUPPORT_NAME_DESC' , 'Please enter a name for sending E-Mails over the <b>Support System</b> (account creation, password changes).');
 define('EMAIL_SUPPORT_FORWARDING_STRING_TITLE' , 'Technical Support - Forwarding adresses');
 define('EMAIL_SUPPORT_FORWARDING_STRING_DESC' , 'Please enter forwarding adresses for the mails of the <b>Support System</b> (seperated by , )');
 define('EMAIL_SUPPORT_REPLY_ADDRESS_TITLE' , 'Technical Support - reply adress');
-define('EMAIL_SUPPORT_REPLY_ADDRESS_DESC' , 'Please enter an eMail adress for replies of your customers.');
+define('EMAIL_SUPPORT_REPLY_ADDRESS_DESC' , 'Please enter an E-Mail adress for replies of your customers.');
 define('EMAIL_SUPPORT_REPLY_ADDRESS_NAME_TITLE' , 'Technical Support - reply adress, name');
-define('EMAIL_SUPPORT_REPLY_ADDRESS_NAME_DESC' , 'Please enter a sender name for the eMail adress for replies of your customers.');
-define('EMAIL_SUPPORT_SUBJECT_TITLE' , 'Technical Support - eMail subject');
-define('EMAIL_SUPPORT_SUBJECT_DESC' , 'Please enter an eMail subject for the <b>Support System</b> messages via shop to your office.');
+define('EMAIL_SUPPORT_REPLY_ADDRESS_NAME_DESC' , 'Please enter a sender name for the E-Mail adress for replies of your customers.');
+define('EMAIL_SUPPORT_SUBJECT_TITLE' , 'Technical Support - E-Mail subject');
+define('EMAIL_SUPPORT_SUBJECT_DESC' , 'Please enter an E-Mail subject for the <b>Support System</b> messages via shop to your office.');
 
 //Constants for Billing system
-define('EMAIL_BILLING_ADDRESS_TITLE' , 'Billing - eMail adress');
-define('EMAIL_BILLING_ADDRESS_DESC' , 'Please enter an eMail adress for sending eMails over the <b>Billing system</b> (order confirmations, status changes,..).');
-define('EMAIL_BILLING_NAME_TITLE' , 'Billing - eMail adress, name');
-define('EMAIL_BILLING_NAME_DESC' , 'Please enter a name for sending eMails over the <b>Billing System</b> (order confirmations, status changes,..).');
+define('EMAIL_BILLING_ADDRESS_TITLE' , 'Billing - E-Mail adress');
+define('EMAIL_BILLING_ADDRESS_DESC' , 'Please enter an E-Mail adress for sending E-Mails over the <b>Billing system</b> (order confirmations, status changes,..).');
+define('EMAIL_BILLING_NAME_TITLE' , 'Billing - E-Mail adress, name');
+define('EMAIL_BILLING_NAME_DESC' , 'Please enter a name for sending E-Mails over the <b>Billing System</b> (order confirmations, status changes,..).');
 define('EMAIL_BILLING_FORWARDING_STRING_TITLE' , 'Billing - Forwarding adresses');
 define('EMAIL_BILLING_FORWARDING_STRING_DESC' , 'Please enter forwarding adresses for the mails of the <b>Billing System</b> (seperated by , )');
 define('EMAIL_BILLING_REPLY_ADDRESS_TITLE' , 'Billing - reply adress');
-define('EMAIL_BILLING_REPLY_ADDRESS_DESC' , 'Please enter an eMail adress for replies of your customers.');
+define('EMAIL_BILLING_REPLY_ADDRESS_DESC' , 'Please enter an E-Mail adress for replies of your customers.');
 define('EMAIL_BILLING_REPLY_ADDRESS_NAME_TITLE' , 'Billing - reply adress, name');
-define('EMAIL_BILLING_REPLY_ADDRESS_NAME_DESC' , 'Please enter a name for the eMail adress for replies of your customers.');
-define('EMAIL_BILLING_SUBJECT_TITLE' , 'Billing - eMail subject');
-define('EMAIL_BILLING_SUBJECT_DESC' , 'Please enter an eMail Subject for the <b>Billing</b> messages via shop to your office.');
+define('EMAIL_BILLING_REPLY_ADDRESS_NAME_DESC' , 'Please enter a name for the E-Mail adress for replies of your customers.');
+define('EMAIL_BILLING_SUBJECT_TITLE' , 'Billing - E-Mail subject');
+define('EMAIL_BILLING_SUBJECT_DESC' , 'Please enter an E-Mail Subject for the <b>Billing</b> messages via shop to your office.');
 define('EMAIL_BILLING_SUBJECT_ORDER_TITLE','Billing - Ordermail subject');
 define('EMAIL_BILLING_SUBJECT_ORDER_DESC','Please enter a subject for ordermails generated from xtc. (like <b>our order {$nr},{$date}</b>) ps: you can use, {$nr},{$date},{$firstname},{$lastname}');
 
@@ -642,6 +642,6 @@ define('USE_ADMIN_LANG_TABS_DESC' , 'Use language tabs at categories/article?');
 
 // BOF - Tomcraft - 2009-11-05 - Advanced contact form
 define('USE_CONTACT_EMAIL_ADDRESS_TITLE' , 'Contact Us - sending option');
-define('USE_CONTACT_EMAIL_ADDRESS_DESC' , 'Use "Contact Us" eMail address for sending contact formular (important for some Hosters like Hosteurope)');
+define('USE_CONTACT_EMAIL_ADDRESS_DESC' , 'Use "Contact Us" E-Mail address for sending contact formular (important for some Hosters like Hosteurope)');
 // EOF - Tomcraft - 2009-11-05 - Advanced contact form
 ?>
