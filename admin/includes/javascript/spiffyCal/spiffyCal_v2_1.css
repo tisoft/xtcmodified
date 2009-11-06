@@ -2,18 +2,20 @@
 *  Bazillyo's Spiffy Popup Calendar Styles v2.1 Copyright S. Ousta
 */
 #spiffycalendar {
-	width: 185px;
-	height:130px;
-	left: 0px;
-	top: 0px;
-	background-color: black;
-	position: absolute;
+	width: 204px;
+	/*height:130px;*/
+	/*left: 0px;
+	top: 0px;*/
+	background-color: #cacaca;
+	position:absolute;
 	visibility: hidden;
+	border: 2px solid #9e166c;
+	z-index:200;
 }
 
 .cal-SymbolBtn {
 	font-family: Webdings;
-	font-size: 8pt;
+	font-size: 13px;
 	outline-style : none;
 	outline-width: 0px;	
 }
@@ -25,7 +27,7 @@
 
 a.cal-DayLink {
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
     text-decoration: none;
     color: black;
@@ -35,7 +37,7 @@ a.cal-DayLink {
 }
 a.cal-DayLink:hover {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
     background-color: transparent;
@@ -44,7 +46,7 @@ a.cal-DayLink:hover {
 }
 a.cal-DayLink:active {
    font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
     text-decoration: none;
     background-color: transparent;
@@ -54,7 +56,7 @@ a.cal-DayLink:active {
 .cal-TextBox{
     color: Black;
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
     background-color: #FFFFCC;
 }
@@ -62,7 +64,7 @@ a.cal-DayLink:active {
 .cal-TextBoxInvalid{
     color: #660000;
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
 	border-color: Red;
 	border-style:solid;
@@ -71,7 +73,7 @@ a.cal-DayLink:active {
 .cal-TextBoxDisabled{
     color: #808080;
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
 	border-color: silver;
 	border-style:solid;
@@ -82,14 +84,14 @@ a.cal-DayLink:active {
 .cal-ComboBox{
     color: Navy;
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
     background-color: #EAFFFF;
 }
 
 .cal-Today {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
     color: red;
@@ -98,7 +100,7 @@ a.cal-DayLink:active {
 
 .cal-Day {
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
     text-decoration: none;
     color: black;
@@ -108,7 +110,7 @@ a.cal-DayLink:active {
 
 a.cal-TodayLink {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
     color: red;
@@ -117,7 +119,7 @@ a.cal-TodayLink {
 }
 a.cal-TodayLink:hover {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
     background-color: transparent;
@@ -126,7 +128,7 @@ a.cal-TodayLink:hover {
 }
 a.cal-TodayLink:active {
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
     background-color: transparent;
@@ -136,7 +138,7 @@ a.cal-TodayLink:active {
 
 .cal-GreyDate {
     font-family: Verdana,  Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
     text-decoration: none;
 	background-color: #FFFFCC;
@@ -145,7 +147,7 @@ a.cal-TodayLink:active {
 
 .cal-GreyInvalidDate {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
     text-decoration: line-through;
 	background-color: #FFFFCC;
@@ -154,39 +156,39 @@ a.cal-TodayLink:active {
 
 .cal-DayCell {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
 	background-color:White; 
 }
 
 .cal-WeekendCell {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
 	background-color: #B0C4DE; 
 }
 
 .cal-HolidayCell {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: normal;
 	background-color: #99FF99;
 }
 .cal-HeadCell {
     font-family: Verdana, Arial, sans-serif;
-    font-size: 8pt;
+    font-size: 13px;
     font-weight: bold;
 	color: Black;
-	background-color: #99CCFF;  /*#CCCC99; */
+	background-color: #cacaca;  /*#CCCC99; */	
 }
 
-.cal-Table{
-	border-top-color: #6666FF;
-	border-left-color: #6666FF;
-	border-right-color: #6666FF;
-	border-bottom-color:  #6666FF;
-	background-color: #6666CC;
-	border-width:1px;
-	border-style: solid;
+.cal-Table{	
+	background-color: #4a4a4a;	
+	border: solid 2px #cacaca;
 	cursor: url('includes/javascript/spiffyCal/images/spiffycal3.cur');
+	width: 198px;
+}
+.cal-Table-days{
+	width: 200px;
+	border: 2px solid #cacaca;
 }

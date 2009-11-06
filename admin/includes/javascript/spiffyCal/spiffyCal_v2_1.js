@@ -13,7 +13,10 @@
 // GLOBAL variables
 var scImgPath = './includes/javascript/spiffyCal/images/';
 
-var scIE=((navigator.appName == "Microsoft Internet Explorer") || ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion)==5)));
+// BOF - Tomcraft - 2009-11-06 - BUGFIX POSITION OPERA
+//var scIE=((navigator.appName == "Microsoft Internet Explorer") || ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion)==5)));
+var scIE=((navigator.appName == "Microsoft Internet Explorer") || ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion)==5)) || ( navigator.userAgent.indexOf("Opera") !=-1));
+// EOF - Tomcraft - 2009-11-06 - BUGFIX POSITION OPERA
 var scNN6=((navigator.appName == "Netscape") && (parseInt(navigator.appVersion)==5));
 var scNN=((navigator.appName == "Netscape")&&(document.layers));
 
@@ -565,7 +568,10 @@ function ctlSpiffyCalendarBox(strVarName, strFormName, strTextBoxName, strBtnNam
 
 	var msNames     = new makeArray0('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 	var msDays      = new makeArray0(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-	var msDOW       = new makeArray0('S','M','T','W','T','F','S');
+// BOF - Tomcraft - 2009-11-06 - German weekdays
+	//var msDOW       = new makeArray0('S','M','T','W','T','F','S');
+	var msDOW       = new makeArray0('So','Mo','Di','Mi','Do','Fr','Sa');
+// EOF - Tomcraft - 2009-11-06 - German weekdays
 
 
 	var blnInConstructor=true;
@@ -630,6 +636,9 @@ function ctlSpiffyCalendarBox(strVarName, strFormName, strTextBoxName, strBtnNam
 	if ((intBtnMode==null)||(intBtnMode<0 && intBtnMode>2)) {
 		intBtnMode=intDefBtnMode
 	}
+// BOF - Tomcraft - 2009-11-06 - Debugging
+	//alert(intBtnMode);
+// EOF - Tomcraft - 2009-11-06 - Debugging
 	switch (intBtnMode) {
 		case 0 :
 			strBtnImg=strDefBtnImgPath+'btn_date_up.gif';
@@ -795,14 +804,23 @@ function ctlSpiffyCalendarBox(strVarName, strFormName, strTextBoxName, strBtnNam
 		}
 		// special case for form not to be inside table in Netscape 6
 		if (scNN6) {
-			strOutput += strTemp +'<table width="185" border="3" class="cal-Table" cellspacing="0" cellpadding="0"><tr>';
+// BOF - Tomcraft - 2009-11-06 - changed layout
+			//strOutput += strTemp +'<table width="185" border="3" class="cal-Table" cellspacing="0" cellpadding="0"><tr>';
+			strOutput += strTemp +'<table width="185" border="0" class="cal-Table" cellspacing="0" cellpadding="0"><tr>';
+// EOF - Tomcraft - 2009-11-06 - changed layout
 		}
 		else {
-			strOutput += '<table width="185" border="3" class="cal-Table" cellspacing="0" cellpadding="0">'+strTemp+'<tr>';
+// BOF - Tomcraft - 2009-11-06 - changed layout
+			//strOutput += '<table width="185" border="3" class="cal-Table" cellspacing="0" cellpadding="0">'+strTemp+'<tr>';
+			strOutput += '<table width="185" border="0" class="cal-Table" cellspacing="0" cellpadding="0">'+strTemp+'<tr>';
+// EOF - Tomcraft - 2009-11-06 - changed layout
 		}
 
 		if (!(bViewOnly)) {
-			strOutput += '<td class="cal-HeadCell" align="center" width="100%"><a href="javascript:'+this.varName+'.clearDay();"><img name="calbtn1" src="'+strDefBtnImgPath+'btn_del_small.gif" border="0" width="12" height="10"></a>&nbsp;&nbsp;<a href="javascript:'+this.varName+'.scrollMonth(-1);" class="cal-DayLink">&lt;</a>&nbsp;<SELECT class="cal-ComboBox" NAME="cboMonth" onChange="'+this.varName+'.changeMonth();">';
+// BOF - Tomcraft - 2009-11-06 - changed layout
+			//strOutput += '<td class="cal-HeadCell" align="center" width="100%"><a href="javascript:'+this.varName+'.clearDay();"><img name="calbtn1" src="'+strDefBtnImgPath+'btn_del_small.gif" border="0" width="12" height="10"></a>&nbsp;&nbsp;<a href="javascript:'+this.varName+'.scrollMonth(-1);" class="cal-DayLink">&lt;</a>&nbsp;<SELECT class="cal-ComboBox" NAME="cboMonth" onChange="'+this.varName+'.changeMonth();">';
+			strOutput += '<td class="cal-HeadCell" align="center" width="100%"><a href="javascript:'+this.varName+'.clearDay();"><img name="calbtn1" src="'+strDefBtnImgPath+'btn_del_small.gif" border="0" width="12" height="10"></a>&nbsp;&nbsp;<a href="javascript:'+this.varName+'.scrollMonth(-1);" class="cal-DayLink"><b>&lt;</b></a>&nbsp;<SELECT class="cal-ComboBox" NAME="cboMonth" onChange="'+this.varName+'.changeMonth();">';
+// EOF - Tomcraft - 2009-11-06 - changed layout
 
 
 			for (intLoop=0; intLoop<12; intLoop++) {
@@ -818,7 +836,10 @@ function ctlSpiffyCalendarBox(strVarName, strFormName, strTextBoxName, strBtnNam
 				else strOutput += '<OPTION VALUE="' + intLoop + '">' + intLoop + '<\/OPTION>';
 			}
 
-			strOutput += '<\/SELECT>&nbsp;<a href="javascript:'+this.varName+'.scrollMonth(1);" class="cal-DayLink">&gt;</a>&nbsp;&nbsp;<a href="javascript:'+this.varName+'.hide();"><img name="calbtn2" src="'+strDefBtnImgPath+'btn_close_small.gif" border="0" width="12" height="10"></a><\/td><\/tr><tr><td width="100%" align="center">';
+// BOF - Tomcraft - 2009-11-06 - changed layout
+			//strOutput += '<\/SELECT>&nbsp;<a href="javascript:'+this.varName+'.scrollMonth(1);" class="cal-DayLink">&gt;</a>&nbsp;&nbsp;<a href="javascript:'+this.varName+'.hide();"><img name="calbtn2" src="'+strDefBtnImgPath+'btn_close_small.gif" border="0" width="12" height="10"></a><\/td><\/tr><tr><td width="100%" align="center">';
+			strOutput += '<\/SELECT>&nbsp;<a href="javascript:'+this.varName+'.scrollMonth(1);" class="cal-DayLink"><b>&gt;</b></a>&nbsp;&nbsp;<a href="javascript:'+this.varName+'.hide();"><img name="calbtn2" src="'+strDefBtnImgPath+'btn_close_small.gif" border="0" width="12" height="10"></a><\/td><\/tr><tr><td width="100%" align="center">';
+// BOF - Tomcraft - 2009-11-06 - changed layout
 		}
 		else {
 			strOutput += '<td class="cal-HeadCell" align="center" width="100%">'+msNames[intWhatMonth]+'-'+intWhatYear+'<\/td><\/tr><tr><td width="100%" align="center">';
@@ -833,7 +854,10 @@ function ctlSpiffyCalendarBox(strVarName, strFormName, strTextBoxName, strBtnNam
 		else
 			msDays[1] = 28;
 
-		strOutput += '<table width="185" cellspacing="1" cellpadding="2" border="0"><tr>';
+// BOF - Tomcraft - 2009-11-06 - changed layout
+		//strOutput += '<table width="185" cellspacing="1" cellpadding="2" border="0"><tr>';
+		strOutput += '<table class="cal-Table-days" cellspacing="1" cellpadding="2" border="0"><tr>';
+// EOF - Tomcraft - 2009-11-06 - changed layout
 		// Header ROW showing days of week here
 		for (intLoop=0; intLoop<7; intLoop++) {
 			if (intLoop==0 || intLoop==6) {
@@ -945,7 +969,10 @@ function ctlSpiffyCalendarBox(strVarName, strFormName, strTextBoxName, strBtnNam
 	//		strHold+=this.varName+'.show();return false;">';
 			strHold+=this.varName+'.show();">';
 
-			strHold+='<img align="absmiddle" border="0" name="' + this.btnName + '" src="' + strBtnImg +'" width="'+ strBtnW +'" height="'+ strBtnH +'"></a>';
+// BOF - Tomcraft - 2009-11-06 - changed layout
+			//strHold+='<img align="absmiddle" border="0" name="' + this.btnName + '" src="' + strBtnImg +'" width="'+ strBtnW +'" height="'+ strBtnH +'"></a>';
+			strHold+='<img align="top" border="0" name="' + this.btnName + '" src="' + strBtnImg +'" width="'+ strBtnW +'" height="'+ strBtnH +'"></a>';
+// EOF - Tomcraft - 2009-11-06 - changed layout
 		}
 		document.write(strHold);
 	}

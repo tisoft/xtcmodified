@@ -82,7 +82,10 @@
 
           if ($_POST['expires_date']) {
             $expires_date = xtc_db_prepare_input($_POST['expires_date']);
-            list($day, $month, $year) = explode('/', $expires_date);
+// BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
+            //list($day, $month, $year) = explode('/', $expires_date);
+            list($year, $month, $day) = explode('-', $expires_date);
+// EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
 
             $expires_date = $year .
                             ((strlen($month) == 1) ? '0' . $month : $month) .
@@ -96,7 +99,10 @@
 
           if ($_POST['date_scheduled']) {
             $date_scheduled = xtc_db_prepare_input($_POST['date_scheduled']);
-            list($day, $month, $year) = explode('/', $date_scheduled);
+// BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
+            //list($day, $month, $year) = explode('/', $date_scheduled);
+            list($year, $month, $day) = explode('-', $date_scheduled);
+// EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
 
             $date_scheduled = $year .
                               ((strlen($month) == 1) ? '0' . $month : $month) .
@@ -220,8 +226,11 @@ function popupImageWindow(url) {
     if ($_GET['bID']) {
       $bID = xtc_db_prepare_input($_GET['bID']);
       $form_action = 'update';
-
-      $banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%d/%m/%Y') as date_scheduled, date_format(expires_date, '%d/%m/%Y') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($bID) . "'");
+		
+      // BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
+      //$banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%d/%m/%Y') as date_scheduled, date_format(expires_date, '%d/%m/%Y') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($bID) . "'");
+      $banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%Y-%m-%d') as date_scheduled, date_format(expires_date, '%Y-%m-%d') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($bID) . "'");
+      // EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
       $banner = xtc_db_fetch_array($banner_query);
 
       $bInfo = new objectInfo($banner);
@@ -240,8 +249,14 @@ function popupImageWindow(url) {
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script type="text/javascript">
+// BOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
+/*
   var dateExpires = new ctlSpiffyCalendarBox("dateExpires", "new_banner", "expires_date","btnDate1","<?php echo $bInfo->expires_date; ?>",scBTNMODE_CUSTOMBLUE);
   var dateScheduled = new ctlSpiffyCalendarBox("dateScheduled", "new_banner", "date_scheduled","btnDate2","<?php echo $bInfo->date_scheduled; ?>",scBTNMODE_CUSTOMBLUE);
+*/
+  var dateExpires = new ctlSpiffyCalendarBox("dateExpires", "new_banner", "expires_date","btnDate1","<?php echo $bInfo->expires_date; ?>",2);
+  var dateScheduled = new ctlSpiffyCalendarBox("dateScheduled", "new_banner", "date_scheduled","btnDate2","<?php echo $bInfo->date_scheduled; ?>",2);
+// EOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
 </script>
       <tr>
         <td><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -284,6 +299,8 @@ function popupImageWindow(url) {
           <tr>
             <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
+<!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
+<!--
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_SCHEDULED_AT; ?><br /><small>(dd/mm/yyyy)</small></td>
             <td valign="top" class="main"><script type="text/javascript">dateScheduled.writeControl(); dateScheduled.dateFormat="dd/MM/yyyy";</script></td>
@@ -294,7 +311,36 @@ function popupImageWindow(url) {
           <tr>
             <td valign="top" class="main"><?php echo TEXT_BANNERS_EXPIRES_ON; ?><br /><small>(dd/mm/yyyy)</small></td>
             <td class="main"><script type="text/javascript">dateExpires.writeControl(); dateExpires.dateFormat="dd/MM/yyyy";</script><?php echo TEXT_BANNERS_OR_AT . '<br />' . xtc_draw_input_field('impressions', $bInfo->expires_impressions, 'maxlength="7" size="7"') . ' ' . TEXT_BANNERS_IMPRESSIONS; ?></td>
+
+
+
+
+
+
+
+
           </tr>
+//-->
+          <tr>
+            <td class="main"><?php echo TEXT_BANNERS_SCHEDULED_AT; ?><br /><small><?php echo TEXT_BANNERS_DATE_FORMAT; ?></small></td>
+            <td valign="top" class="main"><script type="text/javascript">dateScheduled.writeControl(); dateScheduled.dateFormat="yyyy-MM-dd";</script>
+                <noscript>
+                <?php echo  xtc_draw_input_field('dateScheduled', $bInfo->date_scheduled ,'style="width: 130px"'); ?>
+                </noscript>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>
+          <tr>
+            <td valign="top" class="main"><?php echo TEXT_BANNERS_EXPIRES_ON; ?><br /><small><?php echo TEXT_BANNERS_DATE_FORMAT; ?></small></td>
+            <td class="main"><script type="text/javascript">dateExpires.writeControl(); dateExpires.dateFormat="yyyy-MM-dd";</script><?php echo TEXT_BANNERS_OR_AT . '<br />' . xtc_draw_input_field('impressions', $bInfo->expires_impressions, 'maxlength="7" size="7"') . ' ' . TEXT_BANNERS_IMPRESSIONS; ?>
+                <noscript>
+                <?php echo  xtc_draw_input_field('dateExpires', $bInfo->expires_date ,'style="width: 130px"'); ?>
+                </noscript>
+            </td>
+          </tr>
+<!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
         </table></td>
       </tr>
       <tr>

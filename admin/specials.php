@@ -49,15 +49,23 @@
         $_POST['products_price'] = $new_special_insert['products_price'];
       $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
       }
-     
-     
+
+
+      // BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
+      /*
       $expires_date = '';
       if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
         $expires_date = $_POST['year'];
         $expires_date .= (strlen($_POST['month']) == 1) ? '0' . $_POST['month'] : $_POST['month'];
         $expires_date .= (strlen($_POST['day']) == 1) ? '0' . $_POST['day'] : $_POST['day'];
       }
-     
+      */
+      $expires_date = '';
+      if ($_POST['specials_expires']) {
+        $expires_date = str_replace("-", "", $_POST['specials_expires']);
+      }
+      // EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
+	  
       xtc_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_quantity, specials_new_products_price, specials_date_added, expires_date, status) values ('" . $_POST['products_id'] . "', '" . $_POST['specials_quantity'] . "', '" . $_POST['specials_price'] . "', now(), '" . $expires_date . "', '1')");
       xtc_redirect(xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page']));
       break;
@@ -74,12 +82,20 @@
       if (substr($_POST['specials_price'], -1) == '%')  {
       $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
       }
+      // BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
+      /*
       $expires_date = '';
       if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
         $expires_date = $_POST['year'];
         $expires_date .= (strlen($_POST['month']) == 1) ? '0' . $_POST['month'] : $_POST['month'];
         $expires_date .= (strlen($_POST['day']) == 1) ? '0' . $_POST['day'] : $_POST['day'];
       }
+      */
+      $expires_date = '';
+      if ($_POST['specials_expires']) {
+        $expires_date = str_replace("-", "", $_POST['specials_expires']);
+      }
+      // EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
 
       xtc_db_query("update " . TABLE_SPECIALS . " set specials_quantity = '" . $_POST['specials_quantity'] . "', specials_new_products_price = '" . $_POST['specials_price'] . "', specials_last_modified = now(), expires_date = '" . $expires_date . "' where specials_id = '" . $_POST['specials_id'] . "'");
       xtc_redirect(xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials_id));
@@ -104,14 +120,25 @@
 <?php
   if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) {
 ?>
+<!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+<!--
 <link rel="stylesheet" type="text/css" href="includes/javascript/calendar.css">
 <script type="text/javascript" src="includes/javascript/calendarcode.js"></script>
+//-->
+<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
+<script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
+<!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
 <?php
   }
 ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+<!--
 <div id="popupcalendar" class="text"></div>
+//-->
+<div id="spiffycalendar" class="text"></div>
+<!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -157,6 +184,16 @@
       $product = xtc_db_fetch_array($product_query);
 
       $sInfo = new objectInfo($product);
+	  
+      // BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
+	  // build the expires date in the format YYYY-MM-DD	  
+	  if ($sInfo->expires_date != 0){
+		$expires_date = substr($sInfo->expires_date, 0, 4)."-".
+						substr($sInfo->expires_date, 5, 2)."-".
+						substr($sInfo->expires_date, 8, 2);
+      }	else $expires_date = "";				  
+      // EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1	  
+				
     } else {
       $sInfo = new objectInfo(array());
 
@@ -174,6 +211,11 @@
       }
     }
 ?>
+<!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+<script type="text/javascript">
+  var specialExpires = new ctlSpiffyCalendarBox("specialExpires", "new_special", "specials_expires","btnDate1","<?php echo $expires_date; ?>",2);
+</script>
+<!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
       <tr><form name="new_special" <?php echo 'action="' . xtc_href_link(FILENAME_SPECIALS, xtc_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post"><?php if ($form_action == 'update') echo xtc_draw_hidden_field('specials_id', $_GET['sID']); ?>
         <td><br /><table border="0" cellspacing="0" cellpadding="2">
           
@@ -204,7 +246,16 @@
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?>&nbsp;</td>
+<!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+<!--
             <td class="main"><?php echo xtc_draw_input_field('day', substr($sInfo->expires_date, 8, 2), 'size="2" maxlength="2" class="cal-TextBox"') . xtc_draw_input_field('month', substr($sInfo->expires_date, 5, 2), 'size="2" maxlength="2" class="cal-TextBox"') . xtc_draw_input_field('year', substr($sInfo->expires_date, 0, 4), 'size="4" maxlength="4" class="cal-TextBox"'); ?><a class="so-BtnLink" href="javascript:calClick();return false;" onMouseOver="calSwapImg('BTN_date', 'img_Date_OVER',true);" onMouseOut="calSwapImg('BTN_date', 'img_Date_UP',true);" onClick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_special','dteWhen','BTN_date');return false;"><?php echo xtc_image(DIR_WS_IMAGES . 'cal_date_up.gif', 'Calendar', '22', '17', 'align="absmiddle" name="BTN_date"'); ?></a></td>
+//-->
+            <td class="main"><script type="text/javascript">specialExpires.writeControl(); specialExpires.dateFormat="yyyy-MM-dd";</script>
+                <noscript>
+                <?php echo  xtc_draw_input_field('specials_expires', $expires_date ,'style="width: 130px"'); ?>
+                </noscript>
+            </td>
+<!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
           </tr>
         </table></td>
       </tr>

@@ -146,15 +146,18 @@
             <!-- categories and products table -->
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
             <tr class="dataTableHeadingRow">
-            
+
+<!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
+<!--
              <td class="dataTableHeadingContent" width="22" align="center">
+//-->
+             <td class="dataTableHeadingContent" width="4%" align="center">
+<!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
                 <?php echo TABLE_HEADING_EDIT; ?>
                 <input type="checkbox" onClick="javascript:CheckAll(this.checked);">
              </td>
-             
-    
-            
-            
+<!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
+<!--
                  <td class="dataTableHeadingContent" width="22" align="center">
                  
                   <?php echo 'Artikelnummer'.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
@@ -167,6 +170,12 @@
              
              
              <td class="dataTableHeadingContent" align="center" width="12%">
+//-->
+             <td class="dataTableHeadingContent" width="10%" align="center">                 
+                <?php echo 'Artikelnummer'.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
+             </td>              
+             <td class="dataTableHeadingContent" align="center" width="10%">
+<!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
                 <?php echo TABLE_HEADING_SORT.xtc_sorting(FILENAME_CATEGORIES,'sort'); ?>
              </td>
              <td class="dataTableHeadingContent" align="center" width="30%">
@@ -177,9 +186,7 @@
              if (STOCK_CHECK == 'true') {
                     echo '<td class="dataTableHeadingContent" align="center" width="20%">' . TABLE_HEADING_STOCK . xtc_sorting(FILENAME_CATEGORIES,'stock') . '</td>';
              }
-             ?>
-             
-            
+             ?>             
              <td class="dataTableHeadingContent" align="center" width="7%">
                 <?php echo TABLE_HEADING_STATUS.xtc_sorting(FILENAME_CATEGORIES,'status'); ?>
              </td>
@@ -189,9 +196,16 @@
              <td class="dataTableHeadingContent" align="center" width="10%">
                 <?php echo TABLE_HEADING_PRICE.xtc_sorting(FILENAME_CATEGORIES,'price'); ?>
              </td>
+<!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
+<!--
              <td class="dataTableHeadingContent" align="center" width="10%">
                 <?php echo '% max' . xtc_sorting(FILENAME_CATEGORIES,'discount'); ?>
              </td>
+//-->
+             <td class="dataTableHeadingContent" align="center" width="12%">
+                <?php echo '%&nbsp;max' . xtc_sorting(FILENAME_CATEGORIES,'discount'); ?>
+             </td>
+<!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
              <td class="dataTableHeadingContent" width="10%" align="center">
                 <?php echo TABLE_HEADING_ACTION; ?>
              </td>

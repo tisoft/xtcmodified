@@ -89,7 +89,10 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script type="text/javascript">
-  var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
+// BOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
+  //var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
+  var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",2);
+// BOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
 </script>
 
 <tr><td>
@@ -111,9 +114,19 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
               <td><span class="main"><?php echo xtc_draw_radio_field('products_status', '1', $status) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . xtc_draw_radio_field('products_status', '0', $out_status) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; ?></span></td>
             </tr>
             <tr>
+<!-- BOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT //-->
+<!--
               <td><span class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><small>(JJJJ-MM-TT)</small></span></td>
+//-->
+              <td><span class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?> <small><?php echo TEXT_PRODUCTS_DATE_FORMAT; ?></small></span></td>
+<!-- EOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT //-->
               <td><span class="main">
                 <script type="text/javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script>
+<!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
+		<noscript>
+                <?php echo  xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'style="width: 130px"'); ?>
+                </noscript>
+<!-- EOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
               </span></td>
             </tr>
             <tr>
@@ -257,10 +270,27 @@ if ($content['content_file'] == '') {
   </tr>
 </table>
 
+  <!-- BOF - Tomcraft - 2009-11-06 - Included specials //-->
+ <?php
+ if (file_exists("includes/modules/categories_specials.php")) { 
+	require_once("includes/modules/categories_specials.php");
+	showSpecialsBox();
+ }	
+ ?>
+  <!-- EOF - Tomcraft - 2009-11-06 - Included specials //-->
+
   <!-- BOF - Tomcraft - 2009-11-02 - TOP SAVE AND CANCEL BUTTON //-->
   <?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?>
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
+  <!-- BOF - Tomcraft - 2009-11-06 - Included specials //-->
+	  <?php if (file_exists("includes/modules/categories_specials.php")) { ?>
+      <td class="main" align="left"><div id="butSpecial">&nbsp;</div></td>
+	  <script language="JavaScript" type="text/JavaScript">
+	    document.getElementById('butSpecial').innerHTML= '<a href="JavaScript:showSpecial()" class="button">Sonderangebot &raquo;</a>';
+	  </script>
+	  <?php } ?>
+  <!-- EOF - Tomcraft - 2009-11-06 - Included specials //-->
       <td class="main" align="right">      	
       	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
       	&nbsp;&nbsp;

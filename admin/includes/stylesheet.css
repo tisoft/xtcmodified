@@ -64,7 +64,7 @@ padding: 2px;
 
 .columnLeft2 { 
 vertical-align: top; 
-font-color: #000000;
+color: #000000;
  }
 
  .boxCenter {
@@ -215,7 +215,7 @@ div.stock_warn {
 .messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
 
 /* forms */
-CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA, FILE { font-family: Verdana, Arial, sans-serif; font-size: 11px; }
+CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA, FILE { font-family: Verdana, Arial, sans-serif; font-size: 12px; border: solid 1px #a3a3a3;}
 FORM { display: inline; }
 
 /* account */

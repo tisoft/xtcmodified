@@ -175,6 +175,7 @@ class categories {
 			$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
 			xtc_db_perform(TABLE_CATEGORIES, $sql_data_array, 'update', 'categories_id = \''.$categories_id.'\'');
 		}
+		
 		xtc_set_groups($categories_id, $permission_array);
 		$languages = xtc_get_languages();
 		foreach ($languages AS $lang) {
@@ -394,7 +395,7 @@ class categories {
 		//for ($i = 0, $n = sizeof($customers_status_array); $i < $n; $i ++) {
 		$customers_statuses_array = xtc_get_customers_statuses();
 		for ($i = 0, $n = sizeof($customers_statuses_array); $i < $n; $i ++) {
-//EOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array	
+//EOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array
 			if (isset($customers_statuses_array[$i]['id']))
 				xtc_db_query("delete from personal_offers_by_customers_status_".$customers_statuses_array[$i]['id']." where products_id = '".xtc_db_input($product_id)."'");
 		}
@@ -629,6 +630,13 @@ class categories {
 			$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
 			xtc_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\'');
 		}
+		
+		// BOF - Tomcraft - 2009-11-06 - Included specials
+		if (file_exists("includes/modules/categories_specials.php")) {			
+			require_once("includes/modules/categories_specials.php");
+			saveSpecialsData($products_id);
+		}
+		// EOF - Tomcraft - 2009-11-06 - Included specials
 
 		$languages = xtc_get_languages();
 		// Here we go, lets write Group prices into db

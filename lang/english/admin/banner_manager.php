@@ -69,4 +69,8 @@ define('ERROR_UNKNOWN_STATUS_FLAG', 'Error: Unknown status flag.');
 
 define('ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST', 'Error: Graphs directory does not exist. Please create a \'graphs\' directory inside \'images\'.');
 define('ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE', 'Error: Graphs directory is not writeable.');
+
+// BOF - Tomcraft - 2009-11-06 - Use variable TEXT_BANNERS_DATE_FORMAT
+define('TEXT_BANNERS_DATE_FORMAT', 'JJJJ-MM-TT');
+// EOF - Tomcraft - 2009-11-06 - Use variable TEXT_BANNERS_DATE_FORMAT
 ?>

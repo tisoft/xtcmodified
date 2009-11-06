@@ -197,4 +197,8 @@ define('HEADING_GROUP','Group');
 define('TEXT_SORT_ASC','ascending');
 define('TEXT_SORT_DESC','descending');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
+
+// BOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT
+define('TEXT_PRODUCTS_DATE_FORMAT', 'JJJJ-MM-TT');
+// EOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT
 ?>
