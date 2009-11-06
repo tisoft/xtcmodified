@@ -38,4 +38,9 @@ define('TEXT_OK_TO_DELETE', 'Mit dieser Option sind keine Artikel, sowie Options
 define('TEXT_SEARCH','Suche:');
 define('TEXT_OPTION_ID', 'Options ID');
 define('TEXT_OPTION_NAME', 'Optionsname');
+
+// BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
+define('TABLE_HEADING_SORTORDER', 'Sortierung');
+define('TEXT_SORTORDER', 'Sortierung');
+// EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 ?>

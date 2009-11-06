@@ -39,4 +39,8 @@ define('TEXT_SEARCH','Search:');
 define('TEXT_OPTION_ID', 'Option ID');
 define('TEXT_OPTION_NAME', 'Option Name');
 
+// BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
+define('TABLE_HEADING_SORTORDER', 'Sorting');
+define('TEXT_SORTORDER', 'Sorting');
+// EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 ?>
