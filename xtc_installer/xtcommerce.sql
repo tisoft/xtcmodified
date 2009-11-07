@@ -807,9 +807,6 @@ CREATE TABLE products_options (
   products_options_id int NOT NULL default '0',
   language_id int NOT NULL default '1',
   products_options_name varchar(32) NOT NULL default '',
-# BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
-  products_options_sortorder INT( 11 ) NOT NULL,
-# EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
   PRIMARY KEY  (products_options_id,language_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 

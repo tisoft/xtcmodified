@@ -22,18 +22,10 @@
     $page_info = 'option_page=' . $_GET['option_page'] . '&value_page=' . $_GET['value_page'] . '&attribute_page=' . $_GET['attribute_page'];
     switch($_GET['action']) {
       case 'add_product_options':
-// BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
-/*
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = $_POST['option_name'];
           xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, language_id) values ('" . $_POST['products_options_id'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
         }
-*/
-	    $option_name = $_POST['option_name'];
-        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-		  xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_sortorder, products_options_name, language_id) values ('" . $_POST['products_options_id'] . "', '" . $_POST['products_options_sortorder'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
-       	}
-// EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info)); 
         break;
       case 'add_product_option_values':
@@ -53,18 +45,10 @@
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_option_name':
-// BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
-/*
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = $_POST['option_name'];
           xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
         }
-*/
-	    $option_name = $_POST['option_name'];
-        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-		  xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_sortorder = '" . $_POST['products_options_sortorder'] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");          
-		}
-// EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_value':
@@ -90,10 +74,10 @@
     
     $del_options = xtc_db_query("select products_options_values_id from " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "'");
     while($del_options_values = xtc_db_fetch_array($del_options)){  
-    	// BOF - Dokuman - 2009-09-02: Beim LÃ¶schen eines Artikelmerkmals werden die zugehÃ¶rigen Optionswerte nicht mitgelÃ¶scht
+    	//BOF - Dokuman - 2009-09-02: Beim Löschen eines Artikelmerkmals werden die zugehörigen Optionswerte nicht mitgelöscht
     	//xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $_GET['option_id'] . "'");
         xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $del_options_values['products_options_values_id'] . "'"); 
-     	// EOF - Dokuman - 2009-09-02: Beim LÃ¶schen eines Artikelmerkmals werden die zugehÃ¶rigen Optionswerte nicht mitgelÃ¶scht
+     	//EOF - Dokuman - 2009-09-02: Beim Löschen eines Artikelmerkmals werden die zugehörigen Optionswerte nicht mitgelöscht
        	 }
         xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "'");
         xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "'");
@@ -153,10 +137,7 @@ function go_option() {
 <!-- options //-->
 <?php
   if ($_GET['action'] == 'delete_product_option') { // delete product option
-// BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
-    //$options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
-	$options = xtc_db_query("select products_options_id, products_options_sortorder, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
-// EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
+    $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
     $options_values = xtc_db_fetch_array($options);
 ?>
               <tr>
@@ -166,7 +147,7 @@ function go_option() {
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td colspan="4"><?php echo xtc_black_line(); ?></td>
+                    <td colspan="3"><?php echo xtc_black_line(); ?></td>
                   </tr>
 <?php
     $products = xtc_db_query("select p.products_id, pd.products_name, pov.products_options_values_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pov.language_id = '" . $_SESSION['languages_id'] . "' and pd.language_id = '" . $_SESSION['languages_id'] . "' and pa.products_id = p.products_id and pa.options_id='" . $_GET['option_id'] . "' and pov.products_options_values_id = pa.options_values_id order by pd.products_name");
@@ -174,19 +155,11 @@ function go_option() {
 ?>
                   <tr class="dataTableHeadingRow">
                     <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-					<td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_SORTORDER; ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                     <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
                     <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
                   </tr>
                   <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                     <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                    <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                   </tr>
 <?php
       while ($products_values = xtc_db_fetch_array($products)) {
@@ -194,9 +167,6 @@ function go_option() {
 ?>
                   <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
                     <td align="center" class="smallText">&nbsp;<?php echo $products_values['products_id']; ?>&nbsp;</td>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-                    <td class="smallText">&nbsp;<?php echo $products_values['products_options_sortorder']; ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                     <td class="smallText">&nbsp;<?php echo $products_values['products_name']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<?php echo $products_values['products_options_values_name']; ?>&nbsp;</td>
                   </tr>
@@ -204,47 +174,22 @@ function go_option() {
       }
 ?>
                   <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                     <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                    <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                   </tr>
                   <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                     <td colspan="3" class="main"><br /><?php echo TEXT_WARNING_OF_DELETE; ?></td>
-//-->
-                    <td colspan="4" class="main"><br /><?php echo TEXT_WARNING_OF_DELETE; ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                   </tr>
                   <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                     <td align="right" colspan="3" class="main"><br /><?php echo xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $_GET['value_page'] . '&attribute_page=' . $attribute_page, 'NONSSL'));?>&nbsp;</td>
-//-->
-                    <td align="right" colspan="4" class="main"><br /><?php echo xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $_GET['value_page'] . '&attribute_page=' . $attribute_page, 'NONSSL'));?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                   </tr>
 <?php
     } else {
 ?>
                   <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                     <td class="main" colspan="3"><br /><?php echo TEXT_OK_TO_DELETE; ?></td>
-//-->
-                    <td class="main" colspan="4"><br /><?php echo TEXT_OK_TO_DELETE; ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                   </tr>
                   <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                     <td class="main" align="right" colspan="3"><br /><?php echo xtc_button_link(BUTTON_DELETE, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $_GET['option_id'], 'NONSSL'));?>&nbsp;&nbsp;&nbsp;<?php echo xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL'));?>&nbsp;</td>
-//-->
-                    <td class="main" align="right" colspan="4"><br /><?php echo xtc_button_link(BUTTON_DELETE, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $_GET['option_id'], 'NONSSL'));?>&nbsp;&nbsp;&nbsp;<?php echo xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL'));?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                   </tr>
 <?php
     }
@@ -276,10 +221,6 @@ function go_option() {
 							<?php echo TEXT_OPTION_ID; ?></option>
 							<option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>>
 							<?php echo TEXT_OPTION_NAME; ?></option>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-							<option value="products_options_sortorder"<?php if ($option_order_by == 'products_options_sortorder') { echo ' SELECTED'; } ?>>
-							<?php echo TEXT_SORTORDER; ?></option>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
 							</select>
 							</form>		
 							</td>
@@ -287,12 +228,7 @@ function go_option() {
 					</table>																
 				</td>  
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                 <td colspan="3" class="smallText">
-//-->
-                <td colspan="4" class="smallText">
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
 <?php
 	$option_page = (int)$_GET['option_page'];
     $per_page = MAX_ROW_LISTS_OPTIONS;
@@ -349,28 +285,15 @@ function go_option() {
                 </td>
               </tr>
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                 <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
               </tr>
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_SORTORDER; ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                 <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
                 <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                 <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
               </tr>
 <?php
     $next_id = 1;
@@ -390,9 +313,6 @@ function go_option() {
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-		        <td align="left" class="smallText">&nbsp;<?php echo TABLE_HEADING_SORTORDER;?>:&nbsp;<input type="text" name="products_options_sortorder" size="4" value="<?php echo $options_values['products_options_sortorder']; ?>">&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                 <td class="smallText"><?php echo $inputs; ?></td>
                 <td align="center" class="smallText">&nbsp;<?php echo xtc_button(BUTTON_UPDATE); ?>&nbsp;<?php echo xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL'));?>&nbsp;</td>
 <?php
@@ -400,9 +320,6 @@ function go_option() {
       } else {
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values["products_options_id"]; ?>&nbsp;</td>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-                <td class="smallText">&nbsp;<?php echo $options_values["products_options_sortorder"]; ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                 <td class="smallText">&nbsp;<?php echo $options_values["products_options_name"]; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo xtc_button_link(BUTTON_EDIT, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option&option_id=' . $options_values['products_options_id'] . '&option_order_by=' . $option_order_by . '&option_page=' . $option_page, 'NONSSL'));?>&nbsp;&nbsp;<?php echo xtc_button_link(BUTTON_DELETE, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_option&option_id=' . $options_values['products_options_id'], 'NONSSL'));?>&nbsp;</td>
 <?php
@@ -416,12 +333,7 @@ function go_option() {
     }
 ?>
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                 <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
               </tr>
 <?php
     if ($_GET['action'] != 'update_option') {
@@ -435,9 +347,6 @@ function go_option() {
       }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-                <td class="smallText"><?php echo TABLE_HEADING_SORTORDER . ':&nbsp;<input type="text" name="products_options_sortorder" size="4" value="' . $option_name['products_options_sortorder'] . '">'; ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                 <td class="smallText"><?php echo $inputs; ?></td>
                 <td align="center" class="smallText">&nbsp;<?php echo xtc_button(BUTTON_INSERT); ?>&nbsp;</td>
 <?php
@@ -445,12 +354,7 @@ function go_option() {
 ?>
               </tr>
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
                 <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
               </tr>
 <?php
     }
@@ -685,10 +589,7 @@ function go_option() {
 <?php
       $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $_SESSION['languages_id'] . "' order by products_options_name");
       while ($options_values = xtc_db_fetch_array($options)) {
-// BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
-        //echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
-        echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . ' ID-' . $options_values['products_options_id']. '</option>';
-// EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
+        echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
       }
 
       $inputs = '';
