@@ -79,7 +79,10 @@ class shoppingCart {
 		while ($products = xtc_db_fetch_array($products_query)) {
 			$this->contents[$products['products_id']] = array ('qty' => $products['customers_basket_quantity']);
 			// attributes
-			$attributes_query = xtc_db_query("select products_options_id, products_options_value_id from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products['products_id']."'");
+// BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
+			//$attributes_query = xtc_db_query("select products_options_id, products_options_value_id from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products['products_id']."'");
+			$attributes_query = xtc_db_query("select products_options_id, products_options_value_id from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products['products_id']."' order by customers_basket_attributes_id");
+// EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 			while ($attributes = xtc_db_fetch_array($attributes_query)) {
 				$this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
 			}
@@ -271,8 +274,8 @@ class shoppingCart {
 				}
 			}
 				
-				// $this->total hat netto * Stück in der 1. Runde
-				// Artikel Rabatt berücksichtigt
+				// $this->total hat netto * StÃ¼ck in der 1. Runde
+				// Artikel Rabatt berÃ¼cksichtigt
 				// Gesamt Rabatt auf Bestellung nicht
 				// Nur weiterrechnen, falls Product nicht ohne Steuer
 				// $this->total + $this->tax wird berechnet
@@ -280,7 +283,7 @@ class shoppingCart {
 				if ($product['products_tax_class_id'] != 0) {
 					
 					if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
-						// Rabatt für die Steuerberechnung
+						// Rabatt fÃ¼r die Steuerberechnung
 						// der eigentliche Rabatt wird im order-details_cart abgezogen
 						$products_price_tax = $products_price - ($products_price / 100 * $_SESSION['customers_status']['customers_status_ot_discount']);
 						$attribute_price_tax = $attribute_price - ($attribute_price / 100 * $_SESSION['customers_status']['customers_status_ot_discount']);
