@@ -462,6 +462,9 @@ CREATE TABLE languages (
   directory varchar(32),
   sort_order int(3),
   language_charset text NOT NULL,
+# BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+  status int(1) NOT NULL default '1',
+# EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages  
   PRIMARY KEY (languages_id),
   KEY IDX_LANGUAGES_NAME (name)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
