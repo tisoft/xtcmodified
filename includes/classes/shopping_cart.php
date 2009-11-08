@@ -274,8 +274,8 @@ class shoppingCart {
 				}
 			}
 				
-				// $this->total hat netto * StÃ¼ck in der 1. Runde
-				// Artikel Rabatt berÃ¼cksichtigt
+				// $this->total hat netto * Stück in der 1. Runde
+				// Artikel Rabatt berücksichtigt
 				// Gesamt Rabatt auf Bestellung nicht
 				// Nur weiterrechnen, falls Product nicht ohne Steuer
 				// $this->total + $this->tax wird berechnet
@@ -283,7 +283,7 @@ class shoppingCart {
 				if ($product['products_tax_class_id'] != 0) {
 					
 					if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
-						// Rabatt fÃ¼r die Steuerberechnung
+						// Rabatt für die Steuerberechnung
 						// der eigentliche Rabatt wird im order-details_cart abgezogen
 						$products_price_tax = $products_price - ($products_price / 100 * $_SESSION['customers_status']['customers_status_ot_discount']);
 						$attribute_price_tax = $attribute_price - ($attribute_price / 100 * $_SESSION['customers_status']['customers_status_ot_discount']);
