@@ -23,11 +23,17 @@
       $code = xtc_db_prepare_input($_POST['code']);
       $image = xtc_db_prepare_input($_POST['image']);
       $directory = xtc_db_prepare_input($_POST['directory']);
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      $status = xtc_db_prepare_input($_POST['status']);
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
       $sort_order = xtc_db_prepare_input($_POST['sort_order']);
       $charset = xtc_db_prepare_input($_POST['charset']);
 
-      xtc_db_query("insert into " . TABLE_LANGUAGES . " (name, code, image, directory, sort_order,language_charset) values ('" . xtc_db_input($name) . "', '" . xtc_db_input($code) . "', '" . xtc_db_input($image) . "', '" . xtc_db_input($directory) . "', '" . xtc_db_input($sort_order) . "', '" . xtc_db_input($charset) . "')");
-      $insert_id = xtc_db_insert_id();
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      //xtc_db_query("insert into " . TABLE_LANGUAGES . " (name, code, image, directory, sort_order,language_charset) values ('" . xtc_db_input($name) . "', '" . xtc_db_input($code) . "', '" . xtc_db_input($image) . "', '" . xtc_db_input($directory) . "', '" . xtc_db_input($sort_order) . "', '" . xtc_db_input($charset) . "')");
+      xtc_db_query("insert into " . TABLE_LANGUAGES . " (name, code, image, directory, status, sort_order,language_charset) values ('" . xtc_db_input($name) . "', '" . xtc_db_input($code) . "', '" . xtc_db_input($image) . "', '" . xtc_db_input($directory) . "', '" . xtc_db_input($status) . "', '" . xtc_db_input($sort_order) . "', '" . xtc_db_input($charset) . "')");
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+	  $insert_id = xtc_db_insert_id();
 
       // create additional categories_description records
       $categories_query = xtc_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id where cd.language_id = '" . $_SESSION['languages_id'] . "'");
@@ -121,11 +127,17 @@
       $code = xtc_db_prepare_input($_POST['code']);
       $image = xtc_db_prepare_input($_POST['image']);
       $directory = xtc_db_prepare_input($_POST['directory']);
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      $status = xtc_db_prepare_input($_POST['status']);
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
       $sort_order = xtc_db_prepare_input($_POST['sort_order']);
-     $charset = xtc_db_prepare_input($_POST['charset']);
+      $charset = xtc_db_prepare_input($_POST['charset']);
 	  
-      xtc_db_query("update " . TABLE_LANGUAGES . " set name = '" . xtc_db_input($name) . "', code = '" . xtc_db_input($code) . "', image = '" . xtc_db_input($image) . "', directory = '" . xtc_db_input($directory) . "', sort_order = '" . xtc_db_input($sort_order) . "', language_charset = '" . xtc_db_input($charset) . "' where languages_id = '" . xtc_db_input($lID) . "'");
-
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      //xtc_db_query("update " . TABLE_LANGUAGES . " set name = '" . xtc_db_input($name) . "', code = '" . xtc_db_input($code) . "', image = '" . xtc_db_input($image) . "', directory = '" . xtc_db_input($directory) . "', sort_order = '" . xtc_db_input($sort_order) . "', language_charset = '" . xtc_db_input($charset) . "' where languages_id = '" . xtc_db_input($lID) . "'");
+      xtc_db_query("update " . TABLE_LANGUAGES . " set name = '" . xtc_db_input($name) . "', code = '" . xtc_db_input($code) . "', image = '" . xtc_db_input($image) . "', directory = '" . xtc_db_input($directory) . "', status = '" . xtc_db_input($status) . "', sort_order = '" . xtc_db_input($sort_order) . "', language_charset = '" . xtc_db_input($charset) . "' where languages_id = '" . xtc_db_input($lID) . "'");
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+	  
       if ($_POST['default'] == 'on') {
         xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($code) . "' where configuration_key = 'DEFAULT_LANGUAGE'");
       }
@@ -211,10 +223,16 @@
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LANGUAGE_CODE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+<!-- BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages //-->
+				<td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></td>				
+<!-- EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages //-->
+				<td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $languages_query_raw = "select languages_id, name, code, image, directory, sort_order,language_charset from " . TABLE_LANGUAGES . " order by sort_order";
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+  //$languages_query_raw = "select languages_id, name, code, image, directory, sort_order,language_charset from " . TABLE_LANGUAGES . " order by sort_order";
+  $languages_query_raw = "select languages_id, name, code, image, directory, status, sort_order,language_charset from " . TABLE_LANGUAGES . " order by sort_order";
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
   $languages_split = new splitPageResults($_GET['page'], '20', $languages_query_raw, $languages_query_numrows);
   $languages_query = xtc_db_query($languages_query_raw);
 
@@ -236,6 +254,9 @@
     }
 ?>
                 <td class="dataTableContent"><?php echo $languages['code']; ?></td>
+<!-- BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages //-->
+				<td class="dataTableContent"><?php if ($languages['status'] == 1){echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN);} else if ($languages['status'] == 0){echo xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED);} ?></td>				
+<!-- EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages //-->
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
                 <td class="dataTableContent" align="right"><?php if ( (is_object($lInfo)) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_LANGUAGES, 'page=' . $_GET['page'] . '&lID=' . $languages['languages_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
@@ -282,7 +303,11 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_CHARSET . '<br />' . xtc_draw_input_field('charset'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_IMAGE . '<br />' . xtc_draw_input_field('image', 'icon.gif'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br />' . xtc_draw_input_field('directory'));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . xtc_draw_input_field('sort_order'));
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      //$contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . xtc_draw_input_field('sort_order'));
+	  $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_STATUS . '<br />' . xtc_draw_input_field('status'));	  
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+	  $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . xtc_draw_input_field('sort_order'));
       $contents[] = array('text' => '<br />' . xtc_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
       $contents[] = array('align' => 'center', 'text' => '<br /><button class="button" type="submit" />' . BUTTON_INSERT . '</button> <a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_LANGUAGES, 'page=' . $_GET['page'] . '&lID=' . $_GET['lID']) . '">' . BUTTON_CANCEL . '</a>');
       break;
@@ -297,7 +322,11 @@
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_CHARSET . '<br />' . xtc_draw_input_field('charset', $lInfo->language_charset));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_IMAGE . '<br />' . xtc_draw_input_field('image', $lInfo->image));
       $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br />' . xtc_draw_input_field('directory', $lInfo->directory));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . xtc_draw_input_field('sort_order', $lInfo->sort_order));
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      //$contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . xtc_draw_input_field('sort_order', $lInfo->sort_order));
+	  $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_STATUS . '<br />' . xtc_draw_input_field('status', $lInfo->status));	
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+	  $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br />' . xtc_draw_input_field('sort_order', $lInfo->sort_order)); 
       if (DEFAULT_LANGUAGE != $lInfo->code) $contents[] = array('text' => '<br />' . xtc_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
       $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_UPDATE . '"/> <a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_LANGUAGES, 'page=' . $_GET['page'] . '&lID=' . $lInfo->languages_id) . '">' . BUTTON_CANCEL . '</a>');
       break;
@@ -321,7 +350,11 @@
 
         $contents[] = array('text' => '<br />' . xtc_image(DIR_WS_LANGUAGES . $lInfo->directory . '/' . $lInfo->image, $lInfo->name));
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br />' . DIR_WS_LANGUAGES . '<b>' . $lInfo->directory . '</b>');
-        $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+		//$contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
+		$contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_STATUS . ' ' . $lInfo->status);	
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+		$contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
       }
       break;
   }

@@ -67,8 +67,11 @@ if ( !class_exists( "language" ) ) {
 
 
       $this->catalog_languages = array();
-      $languages_query = xtc_db_query("select languages_id, name, code, image, directory,language_charset from " . TABLE_LANGUAGES . " order by sort_order");
-      while ($languages = xtc_db_fetch_array($languages_query)) {
+// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      //$languages_query = xtc_db_query("select languages_id, name, code, image, directory,language_charset from " . TABLE_LANGUAGES . " order by sort_order");
+      $languages_query = xtc_db_query("select languages_id, name, code, image, directory,language_charset from " . TABLE_LANGUAGES . " where status = '1' order by sort_order");
+// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+	  while ($languages = xtc_db_fetch_array($languages_query)) {
         $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
                                                              'name' => $languages['name'],
                                                              'image' => $languages['image'],
