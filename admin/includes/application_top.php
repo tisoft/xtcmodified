@@ -49,6 +49,12 @@
     require('includes/configure.php');
   }
 
+// BOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
+  if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
+	date_default_timezone_set('Europe/Berlin');
+  }
+// EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
+
   define('SQL_CACHEDIR',DIR_FS_CATALOG.'cache/');
 
   // Define the project version
