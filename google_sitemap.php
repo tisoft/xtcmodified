@@ -145,8 +145,11 @@ if ($usegzip) {
     $file_extension = '.xml'; 
 } 
 
-$c = 0; 
-$i = 1; 
+$c = 0;
+//BOF - Dokuman - 2009-11-09 - Create "sitemap.xml" instead of "sitemap1.xml"
+//$i = 1; 
+$i = ''; 
+//EOF - Dokuman - 2009-11-09 - Create "sitemap.xml" instead of "sitemap1.xml"
 
 $sitemap_filename = 'sitemap'.$i.$file_extension; 
 if ($autogenerate) { 
