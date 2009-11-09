@@ -53,6 +53,10 @@ define('PHP4_3_10', $php4_3_10);
 // define the project version
 define('PROJECT_VERSION', 'xtcModified v1.02 dated: 2009-07-13');
 
+// BOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
+define('TAX_DECIMAL_PLACES', 0);
+// EOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
+
 // set the type of request (secure or not)
 $request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
 
