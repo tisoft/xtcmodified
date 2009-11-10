@@ -296,8 +296,12 @@ echo '<br/><input type="submit" class="button" onClick="this.blur();" value="' .
     <td class="pageHeading">Export</td>
   </tr>
   <tr>
-    <td class="infoBoxHeading"><?php echo TEXT_EXPORT; ?>
+    <td class="dataTableHeadingContent">
       <table width="100%"  border="0" cellspacing="2" cellpadding="0">
+       <tr>
+          <td width="7%"></td>
+          <td width="93%" class="infoBoxHeading"><?php echo TEXT_EXPORT; ?></td>
+        </tr>
         <tr>
           <td>&nbsp;</td>
           <td>
