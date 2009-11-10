@@ -1,8 +1,7 @@
 <?php
 
-
 /* --------------------------------------------------------------
-   $Id: import.php 1319 2005-10-23 10:35:15Z mz $
+   $Id: import.php 899 2009-09-13 07:44:47Z joerg $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -13,15 +12,28 @@
    --------------------------------------------------------------
 */
 defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
+
+/*******************************************************************************
+ **
+ *C xtcImport . . . . . . . . . . . . . . . . . . . . . . . . . . . .  xtcImport
+ **
+ ******************************************************************************/
 class xtcImport {
 
+  /*****************************************************************************
+   **
+   *F xtcImport . . . . . . . . . . . . . . . . . . . . . . . . . . .  xtcImport
+   **
+	 ****************************************************************************/
 	function xtcImport($filename) {
 		$this->seperator = CSV_SEPERATOR;
 		$this->TextSign = CSV_TEXTSIGN;
-		if (CSV_SEPERATOR == '')
+		if (CSV_SEPERATOR == '') {
 			$this->seperator = "\t";
-		if (CSV_SEPERATOR == '\t')
+		}
+		if (CSV_SEPERATOR == '\t') {
 			$this->seperator = "\t";
+		}
 		$this->filename = $filename;
 		$this->ImportDir = DIR_FS_CATALOG.'import/';
 		$this->catDepth = 6;
@@ -36,37 +48,42 @@ class xtcImport {
 		$this->CatCache = true;
 		$this->FileSheme = array ();
 		$this->Groups = xtc_get_customers_statuses();
-
 	}
 
-	/**
-	*   generating file layout
-	*   @param array $mapping standard fields
-	*   @return array
-	*/
+  /*****************************************************************************
+	 **
+	 *F generate_map . . . . . . . . . . . . . . . . . . . . . . . .  generate_map
+	 **
+	 **   generating file layout
+	 **
+	 **   @param array $mapping standard fields
+	 **   @return array
+	 **
+	 ****************************************************************************/
 	function generate_map() {
 
 		// lets define a standard fieldmapping array, with importable fields
-			$file_layout = array ('p_model' => '', // products_model
-		'p_stock' => '', // products_quantity
-		'p_tpl' => '', // products_template
-		'p_sorting' => '', // products_sorting
-		'p_manufacturer' => '', // manufacturer
-		'p_fsk18' => '', // FSK18
-		'p_priceNoTax' => '', // Nettoprice
-		'p_tax' => '', // taxrate in percent
-		'p_status' => '', // products status
-		'p_weight' => '', // products weight
-		'p_ean' => '', // products ean
-		'p_disc' => '', // products discount
-		'p_opttpl' => '', // options template
-		'p_image' => '', // product image
-		'p_vpe' => '', // products VPE
-		'p_vpe_status' => '', // products VPE Status
-		'p_vpe_value' => '', // products VPE value
-		'p_shipping' => '' // product shipping_time
-	);
-
+		$file_layout = array (
+			'p_model' => '', // products_model
+			'p_stock' => '', // products_quantity
+			'p_tpl' => '', // products_template
+			'p_sorting' => '', // products_sorting
+			'p_manufacturer' => '', // manufacturer
+			'p_fsk18' => '', // FSK18
+			'p_priceNoTax' => '', // Nettoprice
+			'p_tax' => '', // taxrate in percent
+			'p_status' => '', // products status
+			'p_weight' => '', // products weight
+			'p_ean' => '', // products ean
+			'p_disc' => '', // products discount
+			'p_opttpl' => '', // options template
+			'p_image' => '', // product image
+			'p_vpe' => '', // products VPE
+			'p_vpe_status' => '', // products VPE Status
+			'p_vpe_value' => '', // products VPE value
+			'p_shipping' => '' // product shipping_time
+		);
+		
 		// Group Prices
 		for ($i = 0; $i < count($this->Groups) - 1; $i ++) {
 			$file_layout = array_merge($file_layout, array ('p_priceNoTax.'.$this->Groups[$i +1]['id'] => ''));
@@ -91,14 +108,16 @@ class xtcImport {
 			$file_layout = array_merge($file_layout, array ('p_cat.'.$i => ''));
 
 		return $file_layout;
-
 	}
 
-	/**
-	*   generating mapping layout for importfile
-	*   @param array $mapping standard fields
-	*   @return array
-	*/
+	/*****************************************************************************
+	 **
+	 *F map_file . . . . . . . . . . . . . . . . . . . . . . . . . . . .  map_file
+	 **
+	 **  generating mapping layout for importfile
+	 **  @param array $mapping standard fields
+	 **  @return array
+	 ****************************************************************************/
 	function map_file($mapping) {
 		if (!file_exists($this->ImportDir.$this->filename)) {
 			// error
@@ -123,10 +142,14 @@ class xtcImport {
 		}
 	}
 
-	/**
-	*   Get installed languages
-	*   @return array
-	*/
+	/*****************************************************************************
+	 **
+	 *F get_lang . . . . . . . . . . . . . . . . . . . . . . . . . . . .  get_lang
+	 **
+	 **   Get installed languages
+	 **
+	 **   @return array
+	 ****************************************************************************/
 	function get_lang() {
 
 		$languages_query = xtc_db_query("select languages_id, name, code, image, directory from ".TABLE_LANGUAGES." order by sort_order");
@@ -137,31 +160,25 @@ class xtcImport {
 		return $languages_array;
 	}
 
+	/*****************************************************************************
+	 **
+	 *F import . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  import
+	 **
+	 ****************************************************************************/
 	function import($mapping) {
+
 		// open file
-		$inhalt = file($this->ImportDir.$this->filename);
-		$lines = count($inhalt);
+		$fp = fopen($this->ImportDir.$this->filename, 'r');
 
-		// walk through file data, and ignore first line
-		for ($i = 1; $i < $lines; $i ++) {
-			$line_content = '';
+		// read the header line
+		$header = fgetcsv($fp, NULL, $this->seperator, $this->TextSign);
+		foreach($header as $key=>$name) {
+				$mapping[$name] = $key;
+		}
 
-			// get line content
-			$line_fetch = $this->get_line_content($i, $inhalt, $lines);
-			$line_content = explode($this->seperator, $line_fetch['data']);
-			$i += $line_fetch['skip'];
-
-			// ok, now crossmap data into array
-			$line_data = $this->generate_map();
-
-			foreach ($mapping as $key => $value)
-				$line_data[$key] = $this->RemoveTextNotes($line_content[$value]);
-
-			if ($this->debug) {
-				echo '<pre>';
-				print_r($line_data);
-				echo '</pre>';
-
+		while ($line = fgetcsv($fp, NULL, $this->seperator, $this->TextSign)) {
+			foreach($mapping as $name => $key) {
+				$line_data[$name] = $line[$key];
 			}
 
 			if ($line_data['p_model'] != '') {
@@ -189,23 +206,33 @@ class xtcImport {
 		return array ($this->counter, $this->errorLog, $this->calcElapsedTime($this->time_start));
 	}
 
-	/**
-	*   Check if a product exists in database, query for model number
-	*   @param string $model products modelnumber
-	*   @return boolean
-	*/
+	/*****************************************************************************
+	 **
+	 *F checkModel . . . . . . . . . . . . . . . . . . . . . . . . . .  checkModel
+	 **
+	 ** Check if a product exists in database, query for model number
+	 **
+	 ** @param string $model products modelnumber
+	 ** @return boolean
+	 **
+	 ****************************************************************************/
 	function checkModel($model) {
 		$model_query = xtc_db_query("SELECT products_id FROM ".TABLE_PRODUCTS." WHERE products_model='".addslashes($model)."'");
 		if (!xtc_db_num_rows($model_query))
 			return false;
 		return true;
 	}
-	
-	/**
-	*   Check if a image exists
-	*   @param string $model products modelnumber
-	*   @return boolean
-	*/
+
+	/*****************************************************************************
+	 **
+	 *F checkImage . . . . . . . . . . . . . . . . . . . . . . . . . .  checkImage
+	 **
+	 ** Check if a image exists
+	 **
+	 ** @param string $model products modelnumber
+	 ** @return boolean
+	 **
+	*****************************************************************************/
 	function checkImage($imgID,$pID) {
 		$img_query = xtc_db_query("SELECT image_id FROM ".TABLE_PRODUCTS_IMAGES." WHERE products_id='".$pID."' and image_nr='".$imgID."'");
 		if (!xtc_db_num_rows($img_query))
@@ -213,24 +240,33 @@ class xtcImport {
 		return true;
 	}
 
-	/**
-	*   removing textnotes from a dataset
-	*   @param String $data data
-	*   @return String cleaned data
-	*/
+	/*****************************************************************************
+	 **
+	 *F RemoveTextNotes . . . . . . . . . . . . . . . . . . . . .  RemoveTextNotes
+	 **
+	 ** removing textnotes from a dataset
+	 **
+	 ** @param String $data data
+	 ** @return String cleaned data
+	 **
+	 ****************************************************************************/
 	function RemoveTextNotes($data) {
 		if (substr($data, -1) == $this->TextSign)
 			$data = substr($data, 1, strlen($data) - 2);
-
 		return $data;
 
 	}
 
-	/**
-	*   Get/create manufacturers ID for a given Name
-	*   @param String $manufacturer Manufacturers name
-	*   @return int manufacturers ID
-	*/
+	/*****************************************************************************
+	 **
+	 *F getMAN . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  getMAN
+	 **
+	 ** Get/create manufacturers ID for a given Name
+	 **
+	 ** @param String $manufacturer Manufacturers name
+	 ** @return int manufacturers ID
+	 **
+	 ****************************************************************************/
 	function getMAN($manufacturer) {
 		if ($manufacturer == '')
 			return;
@@ -248,11 +284,17 @@ class xtcImport {
 		}
 		return $this->mfn[$manufacturer]['id'];
 	}
-	/**
-	*   Insert a new product into Database
-	*   @param array $dataArray Linedata
-	*   @param string $mode insert or update flag
-	*/
+
+	/*****************************************************************************
+	 **
+	 *F insertProduct . . . . . . . . . . . . . . . . . . . . . . .  insertProduct
+	 **
+	 ** Insert a new product into Database
+	 **
+	 ** @param array $dataArray Linedata
+	 ** @param string $mode insert or update flag
+	 **
+	 ****************************************************************************/
 	function insertProduct(& $dataArray, $mode = 'insert',$touchCat = false) {
 
 		$products_array = array ('products_model' => $dataArray['p_model']);
@@ -290,6 +332,7 @@ class xtcImport {
 			$products_array = array_merge($products_array, array ('products_shippingtime' => $dataArray['p_shipping']));
 		if ($this->FileSheme['p_sorting'] == 'Y')
 			$products_array = array_merge($products_array, array ('products_sort' => $dataArray['p_sorting']));
+		$products_array = array_merge($products_array, array ('products_date_added' => 'now()'));
 
 		if ($mode == 'insert') {
 			$this->counter['prod_new']++;
@@ -329,14 +372,14 @@ class xtcImport {
 				xtc_db_perform(TABLE_PRODUCTS, $insert_array, 'update', 'products_id = \''.$products_id.'\'');
 			}
 		}
-		
+
 		// insert images
 		for ($i = 1; $i < MO_PICS + 1; $i ++) {
-			if (isset($dataArray['p_image.'.$i]) && $dataArray['p_image.'.$i]!="") {		
+			if (isset($dataArray['p_image.'.$i]) && $dataArray['p_image.'.$i]!="") {
 			// check if entry exists
 			if ($this->checkImage($i,$products_id)) {
 				$insert_array = array ('image_name' => $dataArray['p_image.'.$i]);
-				xtc_db_perform(TABLE_PRODUCTS_IMAGES, $insert_array, 'update', 'products_id = \''.$products_id.'\' and image_nr=\''.$i.'\'');	
+				xtc_db_perform(TABLE_PRODUCTS_IMAGES, $insert_array, 'update', 'products_id = \''.$products_id.'\' and image_nr=\''.$i.'\'');
 			} else {
 				$insert_array = array ('image_name' => $dataArray['p_image.'.$i],'image_nr'=>$i,'products_id'=>$products_id);
 				xtc_db_perform(TABLE_PRODUCTS_IMAGES, $insert_array);
@@ -373,16 +416,20 @@ class xtcImport {
 		}
 	}
 
-	/**
-	*   Match and insert Categories
-	*   @param array $dataArray data array
-	*   @param string $mode insert mode
-	*   @param int $pID  products ID
-	*/
+	/*****************************************************************************
+	 **
+	 *F insertCategory . . . . . . . . . . . . . . . . . . . . . .  insertCategory
+	 **
+	 ** Match and insert Categories
+	 **
+	 ** @param array $dataArray data array
+	 ** @param string $mode insert mode
+	 ** @param int $pID  products ID
+	 ****************************************************************************/
 	function insertCategory(& $dataArray, $mode = 'insert', $pID) {
 		if ($this->debug) {
 			echo '<pre>';
-			print_r($this->CatTree);
+			//print_ r($this->CatTree);
 			echo '</pre>';
 		}
 		$cat = array ();
@@ -454,11 +501,16 @@ class xtcImport {
 
 	}
 
-	/**
-	*   Insert products to categories connection
-	*   @param int $pID products ID
-	*   @param int $cID categories ID
-	*/
+	/*****************************************************************************
+	 **
+	 *F insertPtoCconnection . . . . . . . . . . . . . . . .  insertPtoCconnection
+	 **
+	 ** Insert products to categories connection
+	 **
+	 ** @param int $pID products ID
+	 ** @param int $cID categories ID
+	 **
+	 ****************************************************************************/
 	function insertPtoCconnection($pID, $cID) {
 		$prod2cat_query = xtc_db_query("SELECT *
 										                                    FROM ".TABLE_PRODUCTS_TO_CATEGORIES."
@@ -473,13 +525,17 @@ class xtcImport {
 		}
 	}
 
-	/**
-	*   Parse Inputfile until next line
-	*   @param int $line taxrate in percent
-	*   @param string $file_content taxrate in percent
-	*   @param int $max_lines taxrate in percent
-	*   @return array
-	*/
+	/*****************************************************************************
+	 **
+	 *F get_line_content . . . . . . . . . . . . . . . . . . . .  get_line_content
+	 **
+	 ** Parse Inputfile until next line
+	 **
+	 ** @param int $line taxrate in percent
+	 ** @param string $file_content taxrate in percent
+	 ** @param int $max_lines taxrate in percent
+	 ** @return array
+	 ****************************************************************************/
 	function get_line_content($line, $file_content, $max_lines) {
 		// get first line
 		$line_data = array ();
@@ -494,11 +550,15 @@ class xtcImport {
 		return $line_data;
 	}
 
-	/**
-	*   Calculate Elapsed time from 2 given Timestamps
-	*   @param int $time old timestamp
-	*   @return String elapsed time
-	*/
+	/*****************************************************************************
+	 **
+	 *F calcElapsedTime . . . . . . . . . . . . . . . . . . . . .  calcElapsedTime
+	 **
+	 ** Calculate Elapsed time from 2 given Timestamps
+	 ** @param int $time old timestamp
+	 ** @return String elapsed time
+	 **
+	 ****************************************************************************/
 	function calcElapsedTime($time) {
 
 		// calculate elapsed time (in seconds!)
@@ -529,10 +589,15 @@ class xtcImport {
 
 	}
 
-	/**
-	*   Get manufacturers
-	*   @return array
-	*/
+	/*****************************************************************************
+	 **
+	 *F get_mfn . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  get_mfn
+	 **
+	 ** Get manufacturers
+	 **
+	 ** @return array
+	 **
+	 ****************************************************************************/
 	function get_mfn() {
 		$mfn_query = xtc_db_query("select manufacturers_id, manufacturers_name from ".TABLE_MANUFACTURERS);
 		while ($mfn = xtc_db_fetch_array($mfn_query)) {
@@ -543,10 +608,18 @@ class xtcImport {
 
 }
 
-// EXPORT
-
+/*******************************************************************************
+ **
+ *C xtcExport . . . . . . . . . . . . . . . . . . . . . . . . . . . .  xtcExport
+ **
+ ******************************************************************************/
 class xtcExport {
 
+	/*****************************************************************************
+	 **
+	 *F xtcExport . . . . . . . . . . . . . . . . . . . . . . . . . . .  xtcExport
+	 **
+	 ****************************************************************************/
 	function xtcExport($filename) {
 		$this->catDepth = 6;
 		$this->languages = $this->get_lang();
@@ -565,13 +638,18 @@ class xtcExport {
 		$this->Groups = xtc_get_customers_statuses();
 	}
 
-	/**
-	*   Get installed languages
-	*   @return array
-	*/
+	/*****************************************************************************
+	 **
+	 *F get_lang . . . . . . . . . . . . . . . . . . . . . . . . . . . .  get_lang
+	 **
+	 ** Get installed languages
+	 **
+	 ** @return array
+	 **
+	 ****************************************************************************/
 	function get_lang() {
 
-		$languages_query = xtc_db_query("select languages_id, name, code, image, directory from ".TABLE_LANGUAGES);
+		$languages_query = xtc_db_query('select languages_id, name, code, image, directory from '.TABLE_LANGUAGES.' order by sort_order');
 		while ($languages = xtc_db_fetch_array($languages_query)) {
 			$languages_array[] = array ('id' => $languages['languages_id'], 'name' => $languages['name'], 'code' => $languages['code']);
 		}
@@ -579,85 +657,98 @@ class xtcExport {
 		return $languages_array;
 	}
 
+	/*****************************************************************************
+	 **
+	 *F encode . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  encode
+	 **
+	 ****************************************************************************/
+  function encode($data) {
+    $result = $data;
+    $delim = false;
+    if (strpos($data, $this->seperator) !== false) {
+      $delim = true;
+    } elseif(substr($data,0,1)==$this->TextSign) {
+      $delim = true;
+    }
+    if($delim) {
+      $result = $this->TextSign.str_replace($this->TextSign, str_repeat($this->TextSign,2), $data).$this->TextSign;
+    }
+    return $result.$this->seperator;
+  }
+
+	/*****************************************************************************
+	 **
+	 *F exportProdFile . . . . . . . . . . . . . . . . . . . . . .  exportProdFile
+	 **
+	 ****************************************************************************/
 	function exportProdFile() {
 
-		$fp = fopen(DIR_FS_DOCUMENT_ROOT.'export/'.$this->filename, "w+");
-		$heading = $this->TextSign.'XTSOL'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_model'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_stock'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_sorting'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_shipping'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_tpl'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_manufacturer'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_fsk18'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_priceNoTax'.$this->TextSign.$this->seperator;
-		for ($i = 0; $i < count($this->Groups) - 1; $i ++) {
-			$heading .= $this->TextSign.'p_priceNoTax.'.$this->Groups[$i +1]['id'].$this->TextSign.$this->seperator;
-		}
-		if (GROUP_CHECK == 'true') {
-			for ($i = 0; $i < count($this->Groups) - 1; $i ++) {
-				$heading .= $this->TextSign.'p_groupAcc.'.$this->Groups[$i +1]['id'].$this->TextSign.$this->seperator;
-			}
-		}
-		$heading .= $this->TextSign.'p_tax'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_status'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_weight'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_ean'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_disc'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_opttpl'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_vpe'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_vpe_status'.$this->TextSign.$this->seperator;
-		$heading .= $this->TextSign.'p_vpe_value'.$this->TextSign.$this->seperator;
-		// product images
+		$fp = fopen(DIR_FS_CATALOG.'export/'.$this->filename, "w+");
+    $line = '';
+    $headings = array('XTSOL', 'p_model', 'p_stock', 'p_sorting', 'p_shipping',
+                  'p_tpl', 'p_manufacturer', 'p_fsk18', 'p_priceNoTax');
+    foreach($headings as $heading) {
+      $line .= $this->encode($heading);
+    }
 
+    for ($i=1; $i<count($this->Groups); $i++) {
+      $line .= $this->encode('p_priceNoTax.'.$this->Groups[$i]['id']);
+    }
+    if (GROUP_CHECK == 'true') {
+      for ($i=1; $i<count($this->Groups); $i++) {
+        $line .= $this->encode('p_groupAcc.'.$this->Groups[$i]['id']);
+      }
+    }
+
+    $headings = array('p_tax', 'p_status', 'p_weight', 'p_ean', 'p_disc',
+                      'p_opttpl', 'p_vpe', 'p_vpe_status', 'p_vpe_value');
+    foreach($headings as $heading) {
+      $line .= $this->encode($heading);
+    }
+
+    // product images
 		for ($i = 1; $i < MO_PICS + 1; $i ++) {
-			$heading .= $this->TextSign.'p_image.'.$i.$this->TextSign.$this->seperator;
-			;
+			$line .= $this->encode('p_image.'.$i);
 		}
-
-		$heading .= $this->TextSign.'p_image'.$this->TextSign;
+    
+    $line .= $this->encode('p_image');
 
 		// add lang fields
 		for ($i = 0; $i < sizeof($this->languages); $i ++) {
-			$heading .= $this->seperator.$this->TextSign;
-			$heading .= 'p_name.'.$this->languages[$i]['code'].$this->TextSign.$this->seperator;
-			$heading .= $this->TextSign.'p_desc.'.$this->languages[$i]['code'].$this->TextSign.$this->seperator;
-			$heading .= $this->TextSign.'p_shortdesc.'.$this->languages[$i]['code'].$this->TextSign.$this->seperator;
-			$heading .= $this->TextSign.'p_meta_title.'.$this->languages[$i]['code'].$this->TextSign.$this->seperator;
-			$heading .= $this->TextSign.'p_meta_desc.'.$this->languages[$i]['code'].$this->TextSign.$this->seperator;
-			$heading .= $this->TextSign.'p_meta_key.'.$this->languages[$i]['code'].$this->TextSign.$this->seperator;
-			$heading .= $this->TextSign.'p_keywords.'.$this->languages[$i]['code'].$this->TextSign.$this->seperator;
-			$heading .= $this->TextSign.'p_url.'.$this->languages[$i]['code'].$this->TextSign;
-
+			$line .= $this->encode('p_name.'.$this->languages[$i]['code']);
+			$line .= $this->encode('p_desc.'.$this->languages[$i]['code']);
+			$line .= $this->encode('p_shortdesc.'.$this->languages[$i]['code']);
+      $line .= $this->encode('p_meta_title.'.$this->languages[$i]['code']);
+      $line .= $this->encode('p_meta_desc.'.$this->languages[$i]['code']);
+			$line .= $this->encode('p_meta_key.'.$this->languages[$i]['code']);
+			$line .= $this->encode('p_keywords.'.$this->languages[$i]['code']);
+      $line .= $this->encode('p_url.'.$this->languages[$i]['code']);
 		}
 		// add categorie fields
-		for ($i = 0; $i < $this->catDepth; $i ++)
-			$heading .= $this->seperator.$this->TextSign.'p_cat.'.$i.$this->TextSign;
+		for ($i = 0; $i < $this->catDepth; $i ++) {
+			$line .= $this->encode('p_cat.'.$i);
+    }
+		fputs($fp, $line."\n");
 
-		$heading .= "\n";
-
-		fputs($fp, $heading);
 		// content
-		$export_query = xtc_db_query("SELECT
-										                             *
-										                         FROM
-										                             ".TABLE_PRODUCTS);
-
+		$export_query = xtc_db_query('-- admin/includes/classes/import.php export
+      select *
+      from '.TABLE_PRODUCTS);
 		while ($export_data = xtc_db_fetch_array($export_query)) {
-
 			$this->counter['prod_exp']++;
-			$line = $this->TextSign.'XTSOL'.$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_model'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_quantity'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_sort'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_shippingtime'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['product_template'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$this->man[$export_data['manufacturers_id']].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_fsk18'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_price'].$this->TextSign.$this->seperator;
+			$line = $this->encode('XTSOL');
+			$line .= $this->encode($export_data['products_model']);
+			$line .= $this->encode($export_data['products_quantity']);
+      $line .= $this->encode($export_data['products_sort']);
+			$line .= $this->encode($export_data['products_shippingtime']);
+			$line .= $this->encode($export_data['product_template']);
+			$line .= $this->encode($this->man[$export_data['manufacturers_id']]);
+			$line .= $this->encode($export_data['products_fsk18']);
+      $line .= $this->encode($export_data['products_price']);
+
 			// group prices  Qantity:Price::Quantity:Price
-			for ($i = 0; $i < count($this->Groups) - 1; $i ++) {
-				$price_query = "SELECT * FROM ".TABLE_PERSONAL_OFFERS_BY.$this->Groups[$i +1]['id']." WHERE products_id = '".$export_data['products_id']."'ORDER BY quantity";
+			for ($i=1; $i<count($this->Groups); $i++) {
+				$price_query = "SELECT * FROM ".TABLE_PERSONAL_OFFERS_BY.$this->Groups[$i]['id']." WHERE products_id = '".$export_data['products_id']."'ORDER BY quantity";
 				$price_query = xtc_db_query($price_query);
 				$groupPrice = '';
 				while ($price_data = xtc_db_fetch_array($price_query)) {
@@ -669,26 +760,26 @@ class xtcExport {
 				$groupPrice = str_replace(':::', '', $groupPrice);
 				if ($groupPrice == ':')
 					$groupPrice = "";
-				$line .= $this->TextSign.$groupPrice.$this->TextSign.$this->seperator;
+				$line .= $this->encode($groupPrice);
 
 			}
 
 			// group permissions
 			if (GROUP_CHECK == 'true') {
-				for ($i = 0; $i < count($this->Groups) - 1; $i ++) {
-					$line .= $this->TextSign.$lang_data['group_permission_'.$this->Groups[$i +1]['id']].$this->TextSign.$this->seperator;
+				for ($i=1; $i<count($this->Groups); $i++) {
+					$line .= $this->encode($export_data['group_permission_'.$this->Groups[$i]['id']]);
 				}
 			}
 
-			$line .= $this->TextSign.$export_data['products_tax_class_id'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_status'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_weight'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_ean'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_discount_allowed'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['options_template'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_vpe'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_vpe_status'].$this->TextSign.$this->seperator;
-			$line .= $this->TextSign.$export_data['products_vpe_value'].$this->TextSign.$this->seperator;
+			$line .= $this->encode($export_data['products_tax_class_id']);
+			$line .= $this->encode($export_data['products_status']);
+			$line .= $this->encode($export_data['products_weight']);
+      $line .= $this->encode($export_data['products_ean']);
+			$line .= $this->encode($export_data['products_discount_allowed']);
+      $line .= $this->encode($export_data['options_template']);
+      $line .= $this->encode($export_data['products_vpe']);
+      $line .= $this->encode($export_data['products_vpe_status']);
+			$line .= $this->encode($export_data['products_vpe_value']);
 
 			if (MO_PICS > 0) {
 				$mo_query = "SELECT * FROM ".TABLE_PRODUCTS_IMAGES." WHERE products_id='".$export_data['products_id']."'";
@@ -703,13 +794,13 @@ class xtcExport {
 			// product images
 			for ($i = 1; $i < MO_PICS + 1; $i ++) {
 				if (isset ($img[$i])) {
-					$line .= $this->TextSign.$img[$i].$this->TextSign.$this->seperator;
+					$line .= $this->encode($img[$i]);
 				} else {
-					$line .= $this->TextSign."".$this->TextSign.$this->seperator;
+					$line .= $this->encode('');
 				}
 			}
 
-			$line .= $this->TextSign.$export_data['products_image'].$this->TextSign.$this->seperator;
+			$line .= $this->encode($export_data['products_image']);
 
 			for ($i = 0; $i < sizeof($this->languages); $i ++) {
 				$lang_query = xtc_db_query("SELECT * FROM ".TABLE_PRODUCTS_DESCRIPTION." WHERE language_id='".$this->languages[$i]['id']."' and products_id='".$export_data['products_id']."'");
@@ -720,29 +811,27 @@ class xtcExport {
 				$lang_data['products_short_description'] = str_replace("\r", "", $lang_data['products_short_description']);
 				$lang_data['products_description'] = str_replace(chr(13), "", $lang_data['products_description']);
 				$lang_data['products_short_description'] = str_replace(chr(13), "", $lang_data['products_short_description']);
-				$line .= $this->TextSign.stripslashes($lang_data['products_name']).$this->TextSign.$this->seperator;
-				$line .= $this->TextSign.stripslashes($lang_data['products_description']).$this->TextSign.$this->seperator;
-				$line .= $this->TextSign.stripslashes($lang_data['products_short_description']).$this->TextSign.$this->seperator;
-				$line .= $this->TextSign.stripslashes($lang_data['products_meta_title']).$this->TextSign.$this->seperator;
-				$line .= $this->TextSign.stripslashes($lang_data['products_meta_description']).$this->TextSign.$this->seperator;
-				$line .= $this->TextSign.stripslashes($lang_data['products_meta_keywords']).$this->TextSign.$this->seperator;
-				$line .= $this->TextSign.stripslashes($lang_data['products_keywords']).$this->TextSign.$this->seperator;
-				$line .= $this->TextSign.$lang_data['products_url'].$this->TextSign.$this->seperator;
+				$line .= $this->encode(stripslashes($lang_data['products_name']));
+				$line .= $this->encode(stripslashes($lang_data['products_description']));
+        $line .= $this->encode(stripslashes($lang_data['products_short_description']));
+				$line .= $this->encode(stripslashes($lang_data['products_meta_title']));
+				$line .= $this->encode(stripslashes($lang_data['products_meta_description']));
+				$line .= $this->encode(stripslashes($lang_data['products_meta_keywords']));
+        $line .= $this->encode(stripslashes($lang_data['products_keywords']));
+				$line .= $this->encode($lang_data['products_url']);;
 
 			}
 			$cat_query = xtc_db_query("SELECT categories_id FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id='".$export_data['products_id']."'");
 			$cat_data = xtc_db_fetch_array($cat_query);
 
 			$line .= $this->buildCAT($cat_data['categories_id']);
-			$line .= $this->TextSign;
-			$line .= "\n";
-			fputs($fp, $line);
+			fputs($fp, $line."\n");
 		}
 
 		fclose($fp);
 		/*
 		if (COMPRESS_EXPORT=='true') {
-			$backup_file = DIR_FS_DOCUMENT_ROOT.'export/' . $this->filename;
+			$backup_file = DIR_FS_CATALOG.'export/' . $this->filename;
 			exec(LOCAL_EXE_ZIP . ' -j ' . $backup_file . '.zip ' . $backup_file);
 		   unlink($backup_file);
 		}
@@ -750,11 +839,15 @@ class xtcExport {
 		return array (0 => $this->counter, 1 => '', 2 => $this->calcElapsedTime($this->time_start));
 	}
 
-	/**
-	*   Calculate Elapsed time from 2 given Timestamps
-	*   @param int $time old timestamp
-	*   @return String elapsed time
-	*/
+	/*****************************************************************************
+	 **
+	 *F calcElapsedTime . . . . . . . . . . . . . . . . . . . . .  calcElapsedTime
+	 **
+	 ** Calculate Elapsed time from 2 given Timestamps
+	 **
+	 ** @param int $time old timestamp
+	 ** @return String elapsed time
+	 ****************************************************************************/
 	function calcElapsedTime($time) {
 
 		$diff = time() - $time;
@@ -784,41 +877,43 @@ class xtcExport {
 
 	}
 
+	/*****************************************************************************
+	 **
+	 *F buildCAT . . . . . . . . . . . . . . . . . . . . . . . . . . . .  buildCAT
+	 **
+	 ****************************************************************************/
 	function buildCAT($catID) {
-
-		if (isset ($this->CAT[$catID])) {
-			return $this->CAT[$catID];
-		} else {
-			$cat = array ();
+		if (!isset($this->CAT[$catID])) {
+			$this->CAT[$catID]=array();
 			$tmpID = $catID;
 
-			while ($this->getParent($catID) != 0 || $catID != 0) {
-				$cat_select = xtc_db_query("SELECT categories_name FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id='".$catID."' and language_id='".$this->languages[0]['id']."'");
-				$cat_data = xtc_db_fetch_array($cat_select);
-				$catID = $this->getParent($catID);
-				$cat[] = $cat_data['categories_name'];
-
+			while ($this->getParent($tmpID) != 0 || $tmpID != 0) {
+        $sql = '-- admin/includes/classes/import export buildCat
+          select categories_name
+          from '.TABLE_CATEGORIES_DESCRIPTION.'
+          where categories_id='.$tmpID.' and language_id='.$this->languages[0]['id'];
+        $query = xtc_db_query($sql);
+				$cat_data = xtc_db_fetch_array($query);
+				$tmpID = $this->getParent($tmpID);
+				array_unshift($this->CAT[$catID], $this->encode($cat_data['categories_name']));
 			}
-			$catFiller = '';
-			for ($i = $this->catDepth - count($cat); $i > 0; $i --) {
-				$catFiller .= $this->TextSign.$this->TextSign.$this->seperator;
-			}
-			$catFiller .= $this->TextSign;
-			$catStr = '';
-			for ($i = count($cat); $i > 0; $i --) {
-				$catStr .= $this->TextSign.$cat[$i -1].$this->TextSign.$this->seperator;
-			}
-			$this->CAT[$tmpID] = $catStr.$catFiller;
-			return $this->CAT[$tmpID];
+      for ($i=$this->catDepth - count($this->CAT[$catID]); $i>0; $i--) {
+        $this->CAT[$catID][] = $this->encode('');
+      }
 		}
+    return implode('', $this->CAT[$catID]);
 	}
 
-	/**
-	*   Get the tax_class_id to a given %rate
-	*   @return array
-	*/
-	function getTaxRates() // must be optimazed (pre caching array)
-	{
+	/*****************************************************************************
+	 **
+	 *F getTaxRates . . . . . . . . . . . . . . . . . . . . . . . . .  getTaxRates
+	 **
+	 ** Get the tax_class_id to a given %rate
+	 **
+	 ** @return array
+	 **
+	 ****************************************************************************/
+	function getTaxRates() { // must be optimazed (pre caching array)
 		$tax = array ();
 		$tax_query = xtc_db_query("Select
 										                                      tr.tax_class_id,
@@ -839,14 +934,19 @@ class xtcExport {
 		return $tax;
 	}
 
-	/**
-	*   Prefetch Manufactrers
-	*   @return array
-	*/
+	/*****************************************************************************
+	 **
+	 *F getManufacturers . . . . . . . . . . . . . . . . . . . .  getManufacturers
+	 **
+	 ** Prefetch Manufactrers
+	 **
+	 ** @return array
+	 **
+	 ****************************************************************************/
 	function getManufacturers() {
 		$man = array ();
 		$man_query = xtc_db_query("SELECT
-										                                manufacturers_name,manufacturers_id 
+										                                manufacturers_name,manufacturers_id
 										                                FROM
 										                                ".TABLE_MANUFACTURERS);
 		while ($man_data = xtc_db_fetch_array($man_query)) {
@@ -855,10 +955,15 @@ class xtcExport {
 		return $man;
 	}
 
-	/**
-	*   Return Parent ID for a given categories id
-	*   @return int
-	*/
+	/*****************************************************************************
+	 **
+	 *F getParent . . . . . . . . . . . . . . . . . . . . . . . . . . .  getParent
+	 **
+	 ** Return Parent ID for a given categories id
+	 **
+	 ** @return int
+	 **
+	 ****************************************************************************/
 	function getParent($catID) {
 		if (isset ($this->PARENT[$catID])) {
 			return $this->PARENT[$catID];
@@ -869,6 +974,4 @@ class xtcExport {
 			return $parent_data['parent_id'];
 		}
 	}
-
 }
-?>
