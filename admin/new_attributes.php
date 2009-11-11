@@ -60,6 +60,15 @@
 <!-- body_text //-->
     <td  class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
+
+// BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
+  if ($_GET['option_order_by'] && !isset($_POST['action'])) {
+      $pageTitle = TITLE_EDIT.': ' . xtc_findTitle($_GET['current_product_id'], $languageFilter);
+      include(DIR_WS_MODULES.'new_attributes_include.php');
+  }
+  
+  if (!isset($_GET['option_order_by'])) {
+// EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
   switch($_POST['action']) {
     case 'edit':
       if ($_POST['copy_product_id'] != 0) {
@@ -83,6 +92,9 @@
       include(DIR_WS_MODULES.'new_attributes_select.php');
       break;
   }
+// BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
+  }
+// EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 ?>
     </table></td>
   </tr>

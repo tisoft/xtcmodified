@@ -26,10 +26,47 @@ defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
    require_once(DIR_FS_INC .'xtc_get_tax_class_id.inc.php');
    require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
    $xtPrice = new xtcPrice(DEFAULT_CURRENCY,$_SESSION['customers_status']['customers_status_id']);
+   
+// BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
+   if ($_GET['option_order_by']) {
+      $option_order_by = $_GET['option_order_by'];
+	  $_POST['current_product_id'] = $_GET['current_product_id'];
+    } else {
+      $option_order_by = 'products_options_id';
+    }
+// EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 ?>
+<!-- BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION //-->
+<script type="text/javascript"><!--
+function go_option() {
+  if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
+    location = "<?php echo xtc_href_link(FILENAME_NEW_ATTRIBUTES, 'option_page=' . ($_GET['option_page'] ? $_GET['option_page'] : 1)).'&current_product_id='. $_POST['current_product_id']; ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
+  }
+}
+//--></script>
+<!-- EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION //-->
   <tr>
     <td class="pageHeading" colspan="3"><?php echo $pageTitle; ?></td>
   </tr>
+<!-- BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION //-->
+  <tr><td colspan="3">
+	<form name="option_order_by" action="<?php echo FILENAME_NEW_ATTRIBUTES ?>">
+	<select name="selected" onChange="go_option()">							
+	<option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>>
+	<?php echo TEXT_OPTION_ID; ?></option>
+	<option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>>
+	<?php echo TEXT_OPTION_NAME; ?></option>
+	<!--bof OPTIONS SORTORDER //-->
+	<option value="products_options_sortorder"<?php if ($option_order_by == 'products_options_sortorder') { echo ' SELECTED'; } ?>>
+	<?php echo TEXT_SORTORDER; ?></option>
+	<!--eof OPTIONS SORTORDER //-->
+	</select>
+	</form>
+	<br>
+	<?php echo xtc_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '5'); ?>
+    </tr></td>
+<!-- EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION //-->
+	
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change">
 <?php
 echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
@@ -38,13 +75,19 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
   require(DIR_WS_MODULES . 'new_attributes_functions.php');
 
   // Temp id for text input contribution.. I'll put them in a seperate array.
-  $tempTextID = '1999043';
+  //$tempTextID = '1999043'; 
 
   // Lets get all of the possible options
-  $query = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS." where products_options_id LIKE '%' AND language_id = '" . $_SESSION['languages_id'] . "'";
+// BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
+  $query = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS." 
+                     where products_options_id LIKE '%' 
+					 AND language_id = '" . $_SESSION['languages_id'] . "'
+					 order by ". $option_order_by;
+// EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
+  
   $result = xtc_db_query($query);
-  $matches = xtc_db_num_rows($result);
-
+  $matches = xtc_db_num_rows($result);  
+    
   if ($matches) {
     while ($line = xtc_db_fetch_array($result)) {
       $current_product_option_name = $line['products_options_name'];
@@ -63,8 +106,11 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
       echo "</TR>";
 
       // Find all of the Current Option's Available Values
-      $query2 = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS." WHERE products_options_id = '" . $current_product_option_id . "' ORDER BY products_options_values_id DESC";
-      $result2 = xtc_db_query($query2);
+// BOF - Tomcraft - 2009-11-11 - CHANGE DESC TO ASC
+      //$query2 = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS." WHERE products_options_id = '" . $current_product_option_id . "' ORDER BY products_options_values_id DESC";
+      $query2 = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS." WHERE products_options_id = '" . $current_product_option_id . "' ORDER BY products_options_values_id ASC";
+// EOF - Tomcraft - 2009-11-11 - CHANGE DESC TO ASC
+	  $result2 = xtc_db_query($query2);
       $matches2 = xtc_db_num_rows($result2);
 
       if ($matches2) {
@@ -140,7 +186,10 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
     <td colspan="10" class="main"><br />
 <?php
 echo xtc_button(BUTTON_SAVE) . '&nbsp;';
-echo xtc_button_link(BUTTON_CANCEL,'javascript:history.back()');
+// BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
+//echo xtc_button_link(BUTTON_CANCEL,'javascript:history.back()');
+echo xtc_button_link(BUTTON_CANCEL,$_SERVER['PHP_SELF']);
+// EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 ?>
 </td>
   </tr>
