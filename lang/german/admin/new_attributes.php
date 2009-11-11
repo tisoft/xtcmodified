@@ -27,5 +27,9 @@
    define('SELECT_PRODUCT','Bitte w&auml;hlen Sie ein Produkt aus der Liste zum Editieren:');
    define('SELECT_COPY','Bestehende Attribute k&ouml;nnen ebenfalls auf andere Produkte kopiert werden, w&auml;hlen Sie hierzu das Originalprodukt aus:');
 
-
+// BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
+   define('TEXT_OPTION_ID', 'Options ID');
+   define('TEXT_OPTION_NAME', 'Optionsname');
+   define('TEXT_SORTORDER', 'Sortierung');
+// EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 ?>
