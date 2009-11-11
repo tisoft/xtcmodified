@@ -56,10 +56,10 @@ function go_option() {
 	<?php echo TEXT_OPTION_ID; ?></option>
 	<option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>>
 	<?php echo TEXT_OPTION_NAME; ?></option>
-	<!--bof OPTIONS SORTORDER //-->
+<!-- BOF - Tomcraft - 2009-11-11 - Added sortorder to products_options  //-->
 	<option value="products_options_sortorder"<?php if ($option_order_by == 'products_options_sortorder') { echo ' SELECTED'; } ?>>
 	<?php echo TEXT_SORTORDER; ?></option>
-	<!--eof OPTIONS SORTORDER //-->
+<!-- EOF - Tomcraft - 2009-11-11 - Added sortorder to products_options  //-->
 	</select>
 	</form>
 	<br>
@@ -86,7 +86,7 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
 // EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
   
   $result = xtc_db_query($query);
-  $matches = xtc_db_num_rows($result);  
+  $matches = xtc_db_num_rows($result);
     
   if ($matches) {
     while ($line = xtc_db_fetch_array($result)) {
