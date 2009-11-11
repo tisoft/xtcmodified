@@ -117,7 +117,7 @@ function showSpecialsBox() {
       <table width="100%" border="0" cellpadding="3" cellspacing="0" style="border: 0px dotted black;">
           <tr>
             <td class="main" style="width:270px;"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
-            <td class="main" style="width:250px;"><?php echo xtc_draw_input_field('specials_price', $new_price, 'style="width: 130px"');?> </td>
+            <td class="main" style="width:250px;"><?php echo xtc_draw_input_field('specials_price', $new_price, 'style="width: 135px"');?> </td>
             <td class="main" style="width:340px;">&nbsp;<?php if(isset($_GET['pID']) and xtc_db_num_rows($specials_query, true) > 0) { ?>
 			<input type="checkbox" name="specials_delete" value="true"
 				id="input_specials_delete"
@@ -126,7 +126,7 @@ function showSpecialsBox() {
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_SPECIAL_QUANTITY; ?>&nbsp;</td>
-            <td class="main"><?php echo xtc_draw_input_field('specials_quantity', $sInfo->specials_quantity, 'style="width: 130px"');?> </td>
+            <td class="main"><?php echo xtc_draw_input_field('specials_quantity', $sInfo->specials_quantity, 'style="width: 135px"');?> </td>
             <td class="main">&nbsp;</td>
           </tr>
 		<?php if(isset($_GET['pID']) and xtc_db_num_rows($specials_query, true) > 0) { ?>
@@ -145,7 +145,7 @@ function showSpecialsBox() {
           <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></td>
           <td class="main"><script type="text/javascript">specialExpires.writeControl(); specialExpires.dateFormat="yyyy-MM-dd";</script>
 				<noscript>
-                <?php echo  xtc_draw_input_field('specials_expires', $expires_date ,'style="width: 130px"'); ?>
+                <?php echo  xtc_draw_input_field('specials_expires', $expires_date ,'style="width: 135px"'); ?>
                 </noscript>
           </td>				
 		  <td class="main">&nbsp;</td>

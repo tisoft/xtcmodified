@@ -162,35 +162,50 @@ border-color: #cccccc;
  *  Admin Buttons 
  */
 
-.button {
+input.button {
 	width: auto;
 	border: 1px solid Black;
 	background-color: #F1F1F1;
-	padding: 1px 4px 3px 4px;
+	padding: 2px 4px 4px 4px;
+	margin: 6px 2px 0px 2px;
 	text-decoration: none;
 	font-size: 10px;
 	cursor: pointer;
-	line-height: 20px;
-	height: 20px;	
+	height: 22px;
 }
 
 /* IE Fix */
-* html .button {
-	padding: 2px 0px 4px 0px;
-	line-height: 12px;
-	margin-bottom: 1px;	
+* html input.button { padding: 1px 0 1px 0; margin: 1px 1px; line-height: 12px; }
+* html button.button { padding: 1px 0 0 0; margin: -2px 1px; line-height: 14px; }
+
+a.button,
+a.button:link, 
+a.button:visited,  
+a.button:active,  
+a.button:hover,
+span.button    {
+	border: 1px solid Black;
+	padding: 4px 6px 4px 6px;
+	margin: 6px 2px 0px 2px;
+	background-color: #F1F1F1;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	font-weight: normal;
+	text-decoration: none;
+	cursor: pointer;
+	line-height: 22px;
 }
-* html button.button { padding: 1px 0px 0px 0px; margin: -2px 1px; line-height: 14px; }
 
-a.button:link     { border: 1px solid Black; line-height: 24px; height: 24px; padding: 3px 4px 3px 4px; background-color: #F1F1F1; font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: none; }
-a.button:visited  { border: 1px solid Black; line-height: 24px; height: 24px; padding: 3px 4px 3px 4px; background-color: #F1F1F1; font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: none; }
-a.button:active   { border: 1px solid Black; line-height: 24px; height: 24px; padding: 3px 4px 3px 4px; background-color: #F1F1F1; font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: none; }
-a.button:hover    { border: 1px solid Black; line-height: 24px; height: 24px; padding: 3px 4px 3px 4px; background-color: #F1F1F1; font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: none; }
-
-* html a.button:link    { line-height: 14px; padding: 2px 8px 2px 8px;	height: 14px;	margin-bottom: 0px;}
-* html a.button:visited { line-height: 14px; padding: 2px 8px 2px 8px;	height: 14px;	margin-bottom: 0px;}
-* html a.button:active  { line-height: 14px; padding: 2px 8px 2px 8px;	height: 14px;	margin-bottom: 0px;}
-* html a.button:hover   { line-height: 14px; padding: 2px 8px 2px 8px;	height: 14px;	margin-bottom: 0px;}
+* html a.button:link,    
+* html a.button:visited, 
+* html a.button:active, 
+* html a.button:hover,   {
+	line-height: 16px;
+	padding: 2px 8px 1px 8px;
+	height: 22px;	
+	margin-bottom: 0px;
+}
 
 span.button { border: 1px solid Black; line-height: 18px; padding: 3px 5px 3px 5px; background-color: #F1F1F1; font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: none; }
 

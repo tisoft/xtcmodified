@@ -75,15 +75,16 @@ $languages = xtc_get_languages();
 switch ($pInfo->products_status) {
 	case '0' :
 		$status = false;
-		$out_status = true;
+		//$out_status = true;
 		break;
 	case '1' :
 	default :
 		$status = true;
-		$out_status = false;
+		//$out_status = false;
 }
+$product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),array('id'=>1,'text'=>TEXT_PRODUCT_AVAILABLE));
 
-if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $startpage_checked = false; }
+//if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $startpage_checked = false; }
 
 ?>
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
@@ -111,7 +112,7 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
         <td width="58%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
             <tr>
               <td width="260"><span class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_radio_field('products_status', '1', $status) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . xtc_draw_radio_field('products_status', '0', $out_status) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_pull_down_menu('products_status', $product_status_array, $status, 'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
 <!-- BOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT //-->
@@ -124,22 +125,22 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
                 <script type="text/javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script>
 <!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
 		<noscript>
-                <?php echo  xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'style="width: 130px"'); ?>
+                <?php echo  xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'style="width: 135px"'); ?>
                 </noscript>
 <!-- EOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
               </span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_STARTPAGE; ?></span></td>
-              <td><span class="main"><?php echo TEXT_PRODUCTS_STARTPAGE_YES . xtc_draw_radio_field('products_startpage', '1', $startpage_checked) . '&nbsp;' . TEXT_PRODUCTS_STARTPAGE_NO . xtc_draw_radio_field('products_startpage', '0', !$startpage_checked) ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_selection_field('products_startpage', 'checkbox', '1',$pInfo->products_startpage==1 ? true : false); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_STARTPAGE_SORT; ?></span></td>
-              <td><span class="main"><?php echo  xtc_draw_input_field('products_startpage_sort', $pInfo->products_startpage_sort ,'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo  xtc_draw_input_field('products_startpage_sort', $pInfo->products_startpage_sort ,'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_SORT; ?></span></td>
-              <td><span class="main"><?php echo  xtc_draw_input_field('products_sort', $pInfo->products_sort,'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo  xtc_draw_input_field('products_sort', $pInfo->products_sort,'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td>
@@ -149,15 +150,15 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
                     <td align="right"><span class="main"><?php echo TEXT_PRODUCTS_VPE_VALUE; ?></span></td>
                   </tr>
                 </table></td>
-              <td><span class="main"><?php echo xtc_draw_input_field('products_vpe_value', $pInfo->products_vpe_value,'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_input_field('products_vpe_value', $pInfo->products_vpe_value,'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_VPE ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe, 'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe, 'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_FSK18; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_pull_down_menu('fsk18', $fsk18_array, $pInfo->products_fsk18, 'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_pull_down_menu('fsk18', $fsk18_array, $pInfo->products_fsk18, 'style="width: 135px"'); ?></span></td>
             </tr>
           </table>
         </td>
@@ -165,28 +166,28 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
         <td width="38%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_QUANTITY; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_input_field('products_quantity', $pInfo->products_quantity, 'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_input_field('products_quantity', $pInfo->products_quantity, 'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></span></td>
-              <td><span class="main"><?php echo  xtc_draw_input_field('products_model', $pInfo->products_model, 'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo  xtc_draw_input_field('products_model', $pInfo->products_model, 'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_EAN; ?></span></td>
-              <td><span class="main"><?php echo  xtc_draw_input_field('products_ean', $pInfo->products_ean, 'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo  xtc_draw_input_field('products_ean', $pInfo->products_ean, 'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id, 'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id, 'style="width: 135px"'); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_input_field('products_weight', $pInfo->products_weight, 'style="width: 130px"'); ?>&nbsp;<?php echo TEXT_PRODUCTS_WEIGHT_INFO; ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_input_field('products_weight', $pInfo->products_weight, 'style="width: 135px"'); ?>&nbsp;<?php echo TEXT_PRODUCTS_WEIGHT_INFO; ?></span></td>
             </tr>
             <?php if (ACTIVATE_SHIPPING_STATUS=='true') { ?>
             <tr>
               <td><span class="main"><?php echo BOX_SHIPPING_STATUS.':'; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_pull_down_menu('shipping_status', $shipping_statuses, $pInfo->products_shippingtime, 'style="width: 130px"'); ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_pull_down_menu('shipping_status', $shipping_statuses, $pInfo->products_shippingtime, 'style="width: 135px"'); ?></span></td>
             </tr>
             <?php } ?>
             <tr>
@@ -399,7 +400,11 @@ if ($content['content_file'] == '') {
 <?php } ?>
 </div>
 <!-- EOF - Tomcraft - 2009-11-02 - Block2 //-->
- 
+
+<!-- BOF - Tomcraft - 2009-11-11 - STYLEFIX FOR GOOGLE CHROME-->
+<div style=clear:both;></div>
+<!-- EOF - Tomcraft - 2009-11-11 - STYLEFIX FOR GOOGLE CHROME-->
+
 <?php // BOF - Tomcraft - 2009-11-02 - NEW WIDTH ?>
 <div style="width: 860px; padding:5px;">
 <?php // EOF - Tomcraft - 2009-11-02 - NEW WIDTH ?>
