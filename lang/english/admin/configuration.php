@@ -51,7 +51,9 @@ define('SEND_EXTRA_ORDER_EMAILS_TO_TITLE' , 'Send extra order E-Mails to:');
 define('SEND_EXTRA_ORDER_EMAILS_TO_DESC' , 'Send extra order E-Mails to the following E-Mail adresses, in this format: Name1 &lt;E-Mail@adress1&gt;, Name2 &lt;E-Mail@adress2&gt;');
 
 define('SEARCH_ENGINE_FRIENDLY_URLS_TITLE' , 'Use Search-Engine Safe URLs?');
-define('SEARCH_ENGINE_FRIENDLY_URLS_DESC' , 'Use search-engine safe urls for all site links.');
+// BOF - Dokuman - 2009-11-12 - enhance explanation of SEO-URL procedure
+define('SEARCH_ENGINE_FRIENDLY_URLS_DESC' , 'Use search-engine friendly URLs for all site links.<br /><br /><strong>For search-engine optimized URLs, the file _.htaccess in the root directory has to be activated, i.e. renamed to .htaccess! Moreover, you webserver has to support the <a href="http://www.modrewrite.com/" target="_blank">mod_rewrite</a> module!</strong> (Ask your webhoster if you are unsure how to check that.)');
+// EOF - Dokuman - 2009-11-12 - enhance explanation of SEO-URL procedure
 
 define('DISPLAY_CART_TITLE' , 'Display Cart After Adding a Product?');
 define('DISPLAY_CART_DESC' , 'Display the shopping cart after adding a product or return back to their origin?');
