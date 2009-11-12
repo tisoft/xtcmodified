@@ -49,7 +49,7 @@ function go_option() {
     <td class="pageHeading" colspan="3"><?php echo $pageTitle; ?></td>
   </tr>
 <!-- BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION //-->
-  <tr><td colspan="3">
+  <tr><td class="main" colspan="3"><?php echo SORT_ORDER; ?>
 	<form name="option_order_by" action="<?php echo FILENAME_NEW_ATTRIBUTES ?>">
 	<select name="selected" onChange="go_option()">							
 	<option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>>
