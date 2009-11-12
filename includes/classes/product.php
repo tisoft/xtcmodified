@@ -449,8 +449,11 @@ class product {
 		}
 
 		if ($name == '') {
-			if ($this->useStandardImage == 'true' && $this->standardImage != '')
-				return $path.$this->standardImage;
+// BOF - Tomcraft - 2009-11-12 - noimage.gif is displayed, when no image is defined
+			//if ($this->useStandardImage == 'true' && $this->standardImage != '') // comment in when "noimage.gif" should be displayed when there is no image defined in the database
+			//	return $path.$this->standardImage; // comment in when "noimage.gif" should be displayed when there is no image defined in the database
+			return $name; // comment out when "noimage.gif" should be displayed when there is no image defined in the database
+// EOF - Tomcraft - 2009-11-12 - noimage.gif is displayed, when no image is defined
 		} else {
 			// check if image exists
 			if (!file_exists($path.$name)) {
