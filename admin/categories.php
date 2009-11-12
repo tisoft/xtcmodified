@@ -115,6 +115,10 @@ if ($_GET['action']) {
 				if ($_GET['pID']) {
 					$catfunc->set_product_startpage($_GET['pID'], $_GET['flag']);
 					if ($_GET['flag'] == '1') $catfunc->link_product($_GET['pID'], 0);
+					//BOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
+					$catfunc->set_product_remove_startpage_sql($_GET['pID'], $_GET['flag']);
+					if ($_GET['flag'] == '0') xtc_redirect(xtc_href_link(FILENAME_CATEGORIES)); 
+					//EOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
 				}
 			}
 			if ($_GET['pID']) {

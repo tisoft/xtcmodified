@@ -461,6 +461,9 @@ class categories {
          	}
          	
          if ($products_data['products_startpage'] == 0 ) {
+					//BOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
+         $this->set_product_remove_startpage_sql($products_data['products_id'], 0);
+					//EOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
  			$products_status = xtc_db_prepare_input($products_data['products_status']);
          }
          
@@ -995,6 +998,26 @@ class categories {
 	}
 
 	// ----------------------------------------------------------------------------------------------------- //  
+
+	//BOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
+	// Set a product remove on startpage sql (BUGFIX #0000351)
+  function set_product_remove_startpage_sql($products_id, $status) {
+      if ($status == '0') {
+          global $messageStack;
+          $check_query = xtc_db_query("SELECT COUNT(*) AS total
+                                                   FROM ".TABLE_PRODUCTS_TO_CATEGORIES."
+                                                   WHERE products_id = '".$products_id."'
+                                                   AND categories_id = '0'");
+          $check = xtc_db_fetch_array($check_query);
+
+          if ($check['total'] >= '1') {
+              return xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id = '".$products_id."' and categories_id = '0'");;
+          }
+      }
+  }
+
+	// ----------------------------------------------------------------------------------------------------- //  
+	//EOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
 
 	// Counts how many products exist in a category
 	function count_category_products($category_id, $include_deactivated = false) {
