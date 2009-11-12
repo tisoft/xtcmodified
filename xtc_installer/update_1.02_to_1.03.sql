@@ -85,3 +85,6 @@ ALTER TABLE products_options ADD products_options_sortorder INT( 11 ) NOT NULL A
 #Tomcraft - 2009-11-08 - Added option to deactivate languages 
 ALTER TABLE `languages` ADD `status` INT( 1 ) NOT NULL AFTER language_charset;
 UPDATE `languages` SET `status` = '1' WHERE `status` = '0';
+
+#Dokuman - 2009-11-12 - corrected refferers_id-field from int(5) to varchar(32), see TABLE orders
+ALTER TABLE customers MODIFY refferers_id VARCHAR( 32 ) NOT NULL DEFAULT '0';
