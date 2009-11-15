@@ -544,8 +544,9 @@ h2.boxcartheader a {
 }
 .productPreviewContent .taxandshippinginfo a {
 	font-size:11px;
-	font-weight:normal;
+	font-weight:bold;
 	color:#999;
+	text-decoration:underline;
 }
 /* PRODUCT INFO / PRODUCT DETAILS */
 #productinfowrap {
@@ -609,8 +610,9 @@ h2.boxcartheader a {
 	margin:0;
 	padding:0;
 	font-size:11px;
-	font-weight:normal;
+	font-weight:bold;
 	color:#999;
+	text-decoration:underline;
 }
 #productinfoprice .shippingtime {
 	margin:0;
