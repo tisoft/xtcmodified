@@ -85,7 +85,10 @@ $module_smarty->assign('INPUT_STREET',xtc_draw_input_fieldNote(array('name'=>'st
   if ($_POST['country']){
   $selected = $_POST['country'];
   }else{
-  $selected = $entry['entry_country_id'];
+// BOF - Tomcraft - 2009-11-15 - Use STORE_COUNTRY as default country
+//  $selected = $entry['entry_country_id'];
+  $selected = STORE_COUNTRY;
+// EOF - Tomcraft - 2009-11-15 - Use STORE_COUNTRY as default country
   }
 
   $module_smarty->assign('SELECT_COUNTRY',xtc_get_country_list(array('name'=>'country','text'=>'&nbsp;' . (xtc_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">' . ENTRY_COUNTRY_TEXT . '</span>': '')), $selected));
