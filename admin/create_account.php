@@ -720,10 +720,10 @@ if ($error == true) {
 if ($processed == true) {
 	echo xtc_draw_hidden_field('status');
 } else {
-// BOF - Tomcraft - 2009-10-27 - Set default customers-group to "new customer"/"Neuer Kunde"
+// BOF - Tomcraft - 2009-10-27 - Set default customers-group to default customers group
 //	echo xtc_draw_pull_down_menu('status', $customers_statuses_array);
-	echo xtc_draw_pull_down_menu('status', $customers_statuses_array, 2);
-// EOF - Tomcraft - 2009-10-27 - Set default customers-group to "new customer"/"Neuer Kunde"
+	echo xtc_draw_pull_down_menu('status', $customers_statuses_array, DEFAULT_CUSTOMERS_STATUS_ID);
+// EOF - Tomcraft - 2009-10-27 - Set default customers-group to default customers group
 }
 ?></td>
           </tr>
