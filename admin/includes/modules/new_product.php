@@ -319,7 +319,10 @@ if ($content['content_file'] == '') {
   $csstab_nojs = '<style type="text/css">';
   for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
     $tabtmp = "\'tab_lang_$i\'," ; 
-	$langtabs.= '<li onclick="showTab('. $tabtmp. $n.')" style="cursor: pointer;" id="tabselect_' . $i .'">' .xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . $languages[$i]['name'].  '</li>';
+// BOF - Tomcraft - 2009-11-17 - changed path to show language-flag
+//	$langtabs.= '<li onclick="showTab('. $tabtmp. $n.')" style="cursor: pointer;" id="tabselect_' . $i .'">' .xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . $languages[$i]['name'].  '</li>';
+	$langtabs.= '<li onclick="showTab('. $tabtmp. $n.')" style="cursor: pointer;" id="tabselect_' . $i .'">' .xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . $languages[$i]['name'].  '</li>';
+// EOF - Tomcraft - 2009-11-17 - changed path to show language-flag
     if($i > 0) $csstab .= '#tab_lang_' . $i .'{display: none;' . $csstabstyle . '}';
     $csstab_nojs .= '#tab_lang_' . $i .'{display: block;' . $csstabstyle . '}';	
   }
@@ -354,7 +357,12 @@ if ($content['content_file'] == '') {
   <td bgcolor="000000" height="10"></td>
   </tr>
   <tr>
+<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
+<!--
     <td bgcolor="#FFCC33" valign="top" class="main"><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;<STRONG><?php echo TEXT_PRODUCTS_NAME; ?>&nbsp;</STRONG><?php echo xtc_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : xtc_get_products_name($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
+//-->
+    <td bgcolor="#FFCC33" valign="top" class="main"><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;<STRONG><?php echo TEXT_PRODUCTS_NAME; ?>&nbsp;</STRONG><?php echo xtc_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : xtc_get_products_name($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
+<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
   </tr>
   <tr>
     <td class="main"><?php echo TEXT_PRODUCTS_URL . '&nbsp;<small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?><?php echo xtc_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (($products_url[$languages[$i]['id']]) ? stripslashes($products_url[$languages[$i]['id']]) : xtc_get_products_url($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
@@ -365,7 +373,12 @@ if ($content['content_file'] == '') {
 <table width="100%" border="0">
   <tr>
     <td class="main">
+<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
+<!--
         <STRONG><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_DESCRIPTION; ?></STRONG><br />
+//-->
+        <STRONG><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_DESCRIPTION; ?></STRONG><br />
+<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
         <?php echo xtc_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '103', '30', (($products_description[$languages[$i]['id']]) ? stripslashes($products_description[$languages[$i]['id']]) : xtc_get_products_description($pInfo->products_id, $languages[$i]['id']))); ?>
     </td>
   </tr>
@@ -374,7 +387,12 @@ if ($content['content_file'] == '') {
     
     <table>
     <tr>
+<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
+<!--
      <td width="60%" valign="top" class="main">        <strong><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></strong><br />
+//-->
+     <td width="60%" valign="top" class="main">        <strong><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></strong><br />
+<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
        <?php echo xtc_draw_textarea_field('products_short_description_' . $languages[$i]['id'], 'soft', '103', '20', (($products_short_description[$languages[$i]['id']]) ? stripslashes($products_short_description[$languages[$i]['id']]) : xtc_get_products_short_description($pInfo->products_id, $languages[$i]['id']))); ?> </td>
      <td class="main" valign="top" style="padding: 15px;">
         <?php echo TEXT_PRODUCTS_KEYWORDS; ?><br />

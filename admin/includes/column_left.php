@@ -31,8 +31,11 @@
 echo '<div class="suckertreemenu">';
 echo '<ul id="treemenu1">';
 
+//---------------------------Ausgewählte Admin Sprache als Flagge
+echo ('<div id="lang_flag">' . xtc_image('../lang/' .  $_SESSION['language'] .'/admin/images/' . 'icon.gif', $_SESSION['language']). '</div>');
+
 //---------------------------STARTSEITE
-echo ('<li><a href="start.php" id="current"><b>Startseite</b></a></li>');
+echo ('<li><a href="start.php" id="current"><b>' . TEXT_ADMIN_START . '</b></a></li>');
 
 //---------------------------KUNDEN
 echo ('<li>');

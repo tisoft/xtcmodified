@@ -30,7 +30,7 @@
   reset($lng->catalog_languages);
   while (list($key, $value) = each($lng->catalog_languages)) {
   $count_lng++;
- 	  $languages_string .= '&nbsp;<a href="' . xtc_href_link(basename($_SERVER["PHP_SELF"]), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), 'NONSSL') . '">' . xtc_image('../lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a>';
+ 	  $languages_string .= '&nbsp;<a href="' . xtc_href_link(basename($_SERVER["PHP_SELF"]), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), 'NONSSL') . '">' . xtc_image('../lang/' .  $value['directory'] .'/admin/images/' . $value['image'], $value['name']) . '</a>';
   }
   //if ($count_lng > 1 ) echo $languages_string;
 // EOF - Tomcraft - 2009-11-02 - Admin language switch

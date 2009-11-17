@@ -95,10 +95,11 @@ padding-top: 1em;
 /* End */
 
 .suckertreemenu #current{
+	width: 70px;
 	background: #b40076;
 	color: #ffffff;
 	border-bottom: 1px solid #b40076;
-	margin-left: 14px;
+	margin-left: 5px;
 	text-align: center;
 	letter-spacing: normal;
 }
@@ -148,4 +149,9 @@ li{
 	margin-left:0px;
 }
 
+#lang_flag{
+	float: left;
+	margin-left: 5px;
+	margin-top: 3px;
+}
 

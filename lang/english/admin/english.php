@@ -437,6 +437,7 @@ define('BOX_CUSTOMERS_GROUP','CG-authorizations');
 // EOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
 
 // BOF - Tomcraft - 2009-11-02 - New admin top menu
+define('TEXT_ADMIN_START', 'Home');
 define('BOX_HEADING_CONFIGURATION2','Advanced Configuration');
 // EOF - Tomcraft - 2009-11-02 - New admin top menu
 ?>
