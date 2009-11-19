@@ -79,7 +79,10 @@
 						}
 					}
 					header('HTTP/1.1 301 Moved Permanently' );
-					header('Location: '.eregi_replace("[\r\n]+(.*)$","",$RedirectionLink));            
+					// BOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+					// header('Location: '.eregi_replace("[\r\n]+(.*)$","",$RedirectionLink));
+					header('Location: '.preg_replace("/[\r\n]+(.*)$/i","",$RedirectionLink));
+					// EOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 				}
 			
 			// Wenn es den Artikel nicht gibt
@@ -93,7 +96,10 @@
 					}
 				}
 				header('HTTP/1.1 404 Not Found' );
-				header('Location: '.eregi_replace("[\r\n]+(.*)$","",$DefaultLink));            
+				// BOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+				// header('Location: '.eregi_replace("[\r\n]+(.*)$","",$DefaultLink)); 
+				header('Location: '.preg_replace("/[\r\n]+(.*)$/i","",$DefaultLink)); 
+				// EOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 			}
 		}
 	}

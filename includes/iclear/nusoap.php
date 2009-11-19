@@ -2383,7 +2383,7 @@ class soap_transport_http extends nusoap_base {
 				$this->persistentConnection = false;
 				$this->debug('set Connection: ' . $this->outgoing_headers['Connection']);
 			}
-			set_magic_quotes_runtime(0);
+			@set_magic_quotes_runtime(0); // Hetfield - 2009-11-19 - depricated function set_magic_quotes_runtime to be ready for PHP >= 5.3
 			// deprecated
 			$this->encoding = $enc;
 		}
@@ -2580,7 +2580,10 @@ class soap_transport_http extends nusoap_base {
 				}
 			}
 			// remove 100 header
-			if(isset($lb) && ereg('^HTTP/1.1 100',$data)){
+			// BOF - Hetfield - 2009-11-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+			// if(isset($lb) && ereg('^HTTP/1.1 100',$data)){
+			if(isset($lb) && preg_match('/^HTTP/1.1 100/',$data)){
+			// EOF - Hetfield - 2009-11-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
 				unset($lb);
 				$data = '';
 			}//

@@ -118,7 +118,7 @@
       }
       $shipping = -1;
 //        $gls_cost = constant('MODULE_SHIPPING_GLS_COST_' . $i);
-      $gls_table = split("[-:,]" , $gls_cost['gls_weight_price_string']); // get the string and process it
+      $gls_table = preg_split("/[-:,]/" , $gls_cost['gls_weight_price_string']); // Hetfield - 2009-11-19 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
       $n=1;
       $y=2;
       for ($i = 0; $i < count($gls_table); $i ++) {

@@ -100,10 +100,14 @@ class paypal_checkout {
 				endif;
 			endif;
 		endif;
-		if(ereg('^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$',PAYPAL_API_CO_BACK))
+		// BOF - Hetfield - 2009-11-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		//if(ereg('^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$',PAYPAL_API_CO_BACK))
+		if(preg_match('/^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$/',PAYPAL_API_CO_BACK))
 			$this->BackColor = PAYPAL_API_CO_BACK;
-		if(ereg('^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$',PAYPAL_API_CO_BORD))
+		//if(ereg('^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$',PAYPAL_API_CO_BORD))
+		if(preg_match('/^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$/',PAYPAL_API_CO_BORD))
 			$this->BorderColor = PAYPAL_API_CO_BORD;
+		// EOF - Hetfield - 2009-11-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
 	}
 /*************************************************************/
 	function build_express_checkout_button(){
