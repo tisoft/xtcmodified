@@ -1163,11 +1163,17 @@ var $PRZ; //Enthält die Prüfziffer
         if (substr($AccountNo,0,1) == '9') {
           $Help = $this->Method00($AccountNo,'0021212',8);
         } else {
-          $Help = $this->Method00($AccountNo,'012121',7);
+          //BOF - Dokuman - 2009-11-19 - Update on Significance inversion
+          //$Help = $this->Method00($AccountNo,'012121',7);
+          $Help = $this->Method00($AccountNo,'021212', 7);
+          //EOF - Dokuman - 2009-11-19 - Update on Significance inversion          
         }
         break;
       case 10 :
-        $Help = $this->Method00($AccountNo,'012121',7);
+          //BOF - Dokuman - 2009-11-19 - Update on Significance inversion     
+        //$Help = $this->Method00($AccountNo,'012121',7);
+        $Help = $this->Method00($AccountNo,'021212', 7);
+          //EOF - Dokuman - 2009-11-19 - Update on Significance inversion          
         break;
     }
     return $Help;
@@ -2250,6 +2256,12 @@ var $PRZ; //Enthält die Prüfziffer
         case "C0":
           $Result = $this->MarkC0($KontoNR, $adata['blz']);
           break;
+
+        //BOF - Dokuman - 2009-11-19 - added missing C7 method          
+        case "C7":
+          $Result = $this->MarkC7($KontoNR, $adata['blz']);
+          break;          
+        //EOF - Dokuman - 2009-11-19 - added missing C7 method          
 
         default:
           $MethodName = "Mark$PRZ";
