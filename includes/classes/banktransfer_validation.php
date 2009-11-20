@@ -1154,13 +1154,20 @@ var $PRZ; //Enthält die Prüfziffer
 
   private function Mark75($AccountNo) {
     $Help = 1;
-    switch (strlen($AccountNo)) {
+    //BOF - Dokuman - 2009-11-20 - Mark75 requires the actual account number lenght    
+    $account = $this->AccountInfo($AccountNo);
+    //switch (strlen($AccountNo)) {
+    switch ($account['len']) {
+    //EOF - Dokuman - 2009-11-20 - Mark75 requires the actual account number lenght    
       case 6 :
       case 7 :
         $Help = $this->Method00($AccountNo,'000021212',10);
         break;
       case 9 :
-        if (substr($AccountNo,0,1) == '9') {
+        //BOF - Dokuman - 2009-11-20 - Mark75 requires the actual account number lenght     
+        //if (substr($AccountNo,0,1) == '9') {
+        if (substr($account['short'],0,1) == '9') {
+        //EOF - Dokuman - 2009-11-20 - Mark75 requires the actual account number lenght     
           $Help = $this->Method00($AccountNo,'0021212',8);
         } else {
           //BOF - Dokuman - 2009-11-19 - Update on Significance inversion
