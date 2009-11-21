@@ -84,7 +84,7 @@ This program is distributed in the hope that it will be useful, but <strong>WITH
  <p>Dieses Programm wurde ver&ouml;ffentlich, in der Hoffnung hilfreich zu sein. Wir geben jedoch keinerlei Garantie auf die fehlerfreie Implementierung.</p>
  <hr />
  <dl>
-  <dt>Entwickler der xtc-modified Shop-Software:</dt>
+  <dt>Entwickler der xtcModified eCommerce Shopsoftware:</dt>
   <dd>
    <dl id="person">
     <dt>Tomcraft</dt><dd>&lt;tomcraft1980@users.sourceforge.net&gt;</dd>
@@ -101,8 +101,8 @@ This program is distributed in the hope that it will be useful, but <strong>WITH
   <dt style="color: #d68000; font-weight: bold;">Die Shopsoftware basiert auf:</dt>
   <dd>
    <ul style="list-style: none; padding-left: 0px;">
-    <li>&copy;2009 xtc-modified basierend auf V3.0.4 SP2.1 | http://www.xtc-modified.org/ </li>
-    <li>&copy;2006 xt:Commerce V3.0.4 SP2.1 | http://www.xtcommerce.de/ </li>
+    <li><?php echo '&copy;'.date('Y').'&nbsp;'; echo PROJECT_VERSION; ?> | http://www.xtc-modified.org/</li>
+    <li>&copy;2006 xt:Commerce V3.0.4 SP2.1 | http://www.xtcommerce.de/</li>
     <li>&copy;2003 neXTCommerce</li>
     <li>&copy;2002-2003 osCommerce (Milestone2) by Harald Ponce de Leon | http://www.oscommerce.com/</li>
     <li>&copy;2000-2001 The Exchange Project by Harald Ponce de Leon | http://www.oscommerce.com/</li>
