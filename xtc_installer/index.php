@@ -252,13 +252,26 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
  //EOF - Dokuman - 2009-09-02: update PHP-Version check
 
  $status='OK';
- if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</strong>';
+ if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
  $ok_message.='PHP VERSION .............................. '.$status.'<br /><hr noshade>';
-
-
+ 
+ // BOF - Tomcraft - 2009-11-22 - Check MySQL version
+ if (function_exists('version_compare')) {
+	if(version_compare(mysql_get_client_info(), "4.1.2", "<")){
+		$error_flag = true;
+		$php_flag = true;
+		$message .= '<br /><strong>ACHTUNG! Ihre MySQL-Version ist zu alt. Der Shop setzt mindestens die Version 4.1.2 voraus.</b><br /><br />
+					Ihre MySQL-Version: <b>' . mysql_get_client_info() . '</strong>.';
+    }
+	$status='OK';
+	if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
+	$ok_message.='MySQL-VERSION .............................. '.$status.'<br /><hr noshade>'; 
+ }
+ // EOF - Tomcraft - 2009-11-22 - Check MySQL version
+ 
  $gd=gd_info();
 
- if ($gd['GD Version']=='') $gd['GD Version']='<strong><font color="#ff0000">FEHLER: KEINE GDLIB GEFUNDEN!</strong>';
+ if ($gd['GD Version']=='') $gd['GD Version']='<strong><font color="#ff0000">FEHLER: KEINE GDLIB GEFUNDEN!</font></strong>';
 
  $status=$gd['GD Version'].' <br /> falls GDlib Version < 2+ , klicken Sie hier f&uuml;r weitere Informationen';
 
@@ -268,7 +281,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
  if ($gd['GIF Read Support']==1 or $gd['GIF Support']==1) {
  $status='OK';
  } else {
- $status='<strong><font color="#ff0000">FEHLER</strong><br />Sie haben keine GIF-Unterst&uuml;tzung innerhalb der GDlib, so dass Sie im Shop keine GIF-Bilder und GIF-Wasserzeichen-Funktionen nutzen k&ouml;nnen!';
+ $status='<strong><font color="#ff0000">FEHLER</font></strong><br />Sie haben keine GIF-Unterst&uuml;tzung innerhalb der GDlib, so dass Sie im Shop keine GIF-Bilder und GIF-Wasserzeichen-Funktionen nutzen k&ouml;nnen!';
  }
  $ok_message.='GDlib GIF-Unterst&uuml;tzung .............................. '.$status.'<br /><hr noshade>';
 
