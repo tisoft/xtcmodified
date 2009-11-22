@@ -18,6 +18,14 @@
   require('includes/application_top.php');
 
   switch ($_GET['action']) {
+// BOF - Tomcraft - 2009-11-22 - Added option to deactivate languages (clickable status icons)
+    case 'setlflag':
+        $language_id = xtc_db_prepare_input($_GET['lID']);
+        $status = xtc_db_prepare_input($_GET['flag']);      
+        xtc_db_query("update " . TABLE_LANGUAGES . " set status = '" . xtc_db_input($status) . "' where languages_id = '" . xtc_db_input($language_id) . "'");
+        xtc_redirect(xtc_href_link(FILENAME_LANGUAGES, 'page=' . $_GET['page'] . '&lID=' . $language_id));      
+      break;
+// BOF - Tomcraft - 2009-11-22 - Added option to deactivate languages (clickable status icons)
     case 'insert':
       $name = xtc_db_prepare_input($_POST['name']);
       $code = xtc_db_prepare_input($_POST['code']);
@@ -254,15 +262,23 @@
     }
 ?>
                 <td class="dataTableContent"><?php echo $languages['code']; ?></td>
-<!-- BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages //-->
-				<td class="dataTableContent"><?php if ($languages['status'] == 1){echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN);} else if ($languages['status'] == 0){echo xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED);} ?></td>				
-<!-- EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages //-->
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+<!-- BOF - Tomcraft - 2009-11-22 - Added option to deactivate languages (clickable status icons) //-->
+				<td class="dataTableContent">				
+				<?php               
+			      if ($languages['status'] == 1) {
+			        echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10, 'style="margin-left: 5px;"') . '<a href="' . xtc_href_link(FILENAME_LANGUAGES, xtc_get_all_get_params(array('page', 'action', 'lID')) . 'action=setlflag&flag=0&lID=' . $languages['languages_id'] . '&page='.$_GET['page']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10, 'style="margin-left: 5px;"') . '</a>';
+			      } else {
+			        echo '<a href="' . xtc_href_link(FILENAME_LANGUAGES, xtc_get_all_get_params(array('page', 'action', 'lID')) . 'action=setlflag&flag=1&lID=' . $languages['languages_id'].'&page='.$_GET['page']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10, 'style="margin-left: 5px;"') . '</a>' . xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10, 'style="margin-left: 5px;"');
+			      }                
+				?>
+				</td>
+<!-- EOF - Tomcraft - 2009-11-22 - Added option to deactivate languages (clickable status icons) //-->
+<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons //-->
 <!--
                 <td class="dataTableContent" align="right"><?php if ( (is_object($lInfo)) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_LANGUAGES, 'page=' . $_GET['page'] . '&lID=' . $languages['languages_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
+//-->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($lInfo)) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_LANGUAGES, 'page=' . $_GET['page'] . '&lID=' . $languages['languages_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons //-->
               </tr>
 <?php
   }
