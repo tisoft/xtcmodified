@@ -177,15 +177,15 @@ if ($_GET['coID'] == 7) {
 			//$email_address = $_SESSION['customer_email_address'];
 			$c_query = xtc_db_query("SELECT * FROM ".TABLE_CUSTOMERS." WHERE customers_id='".$_SESSION['customer_id']."'"); 
 			$c_data = xtc_db_fetch_array($c_query); 
-			$email_address = $c_data['customers_email_address'];
+			$email_address = stripslashes($c_data['customers_email_address']);
 			// EOF - Dokuman - 2009-09-04: preallocate email address on contact form
 			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
-			$phone = $c_data['customers_telephone'];
-			$company = $c_data['entry_company'];
-			$street = $c_data['entry_street_address'];
-			$postcode= $c_data['entry_postcode'];
-			$city = $c_data['entry_city'];
-			$fax= $c_data['customers_fax'];
+			$phone = stripslashes($c_data['customers_telephone']);
+			$company = stripslashes($c_data['entry_company']);
+			$street = stripslashes($c_data['entry_street_address']);
+			$postcode= stripslashes($c_data['entry_postcode']);
+			$city = stripslashes($c_data['entry_city']);
+			$fax= stripslashes($c_data['customers_fax']);
 			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 		}
 
@@ -201,19 +201,19 @@ if ($_GET['coID'] == 7) {
 		$smarty->assign('FORM_ACTION', xtc_draw_form('contact_us', xtc_href_link(FILENAME_CONTENT, 'action=send&coID='.(int) $_GET['coID'])));
 		$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES).'" alt="Captcha" />');
 		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', false));
-		$smarty->assign('INPUT_NAME', xtc_draw_input_field('name', ($error ? xtc_db_input($_POST['name']) : $customers_name), 'size="30"'));
-		$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', ($error ? xtc_db_input($_POST['email']) : $email_address), 'size="30"'));
+		$smarty->assign('INPUT_NAME', xtc_draw_input_field('name', ($error ? $_POST['name'] : $customers_name), 'size="30"'));
+		$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', ($error ? $_POST['email'] : $email_address), 'size="30"'));
 		// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
-		$smarty->assign('INPUT_PHONE', xtc_draw_input_field('phone', ($error ? xtc_db_input($_POST['phone']) : $phone), 'size="30"'));
-		$smarty->assign('INPUT_COMPANY', xtc_draw_input_field('company', ($error ? xtc_db_input($_POST['company']) : $company), 'size="30"'));
-		$smarty->assign('INPUT_STREET', xtc_draw_input_field('street', ($error ? xtc_db_input($_POST['street']) : $street), 'size="30"'));
-		$smarty->assign('INPUT_POSTCODE', xtc_draw_input_field('postcode', ($error ? xtc_db_input($_POST['postcode']) : $postcode), 'size="30"'));
-		$smarty->assign('INPUT_CITY', xtc_draw_input_field('city', ($error ? xtc_db_input($_POST['city']) : $city), 'size="30"'));
-		$smarty->assign('INPUT_FAX', xtc_draw_input_field('fax', ($error ? xtc_db_input($_POST['fax']) : $fax), 'size="30"'));			
+		$smarty->assign('INPUT_PHONE', xtc_draw_input_field('phone', ($error ? $_POST['phone'] : $phone), 'size="30"'));
+		$smarty->assign('INPUT_COMPANY', xtc_draw_input_field('company', ($error ? $_POST['company'] : $company), 'size="30"'));
+		$smarty->assign('INPUT_STREET', xtc_draw_input_field('street', ($error ? $_POST['street'] : $street), 'size="30"'));
+		$smarty->assign('INPUT_POSTCODE', xtc_draw_input_field('postcode', ($error ? $_POST['postcode'] : $postcode), 'size="30"'));
+		$smarty->assign('INPUT_CITY', xtc_draw_input_field('city', ($error ? $_POST['city'] : $city), 'size="30"'));
+		$smarty->assign('INPUT_FAX', xtc_draw_input_field('fax', ($error ? $_POST['fax'] : $fax), 'size="30"'));			
 		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 		// BOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
 		//$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? xtc_db_input($_POST['message_body']) : $first_name)));
-		$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? stripslashes($_POST['message_body']) : stripslashes($message_body))));
+		$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? $_POST['message_body'] : $message_body)));
 		// EOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
 		$smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_send.gif', IMAGE_BUTTON_SEND));
 		$smarty->assign('FORM_END', '</form>');
