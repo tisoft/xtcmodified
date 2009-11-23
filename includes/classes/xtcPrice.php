@@ -333,7 +333,10 @@ class xtcPrice {
 		}
 
 		if ($format) {
-			$Pprice = number_format($price, $this->currencies[$this->actualCurr]['decimal_places'], $this->currencies[$this->actualCurr]['decimal_point'], $this->currencies[$this->actualCurr]['thousands_point']);
+// BOF - Tomcraft - 2009-11-23 - Added flotval for PHP5.3 compatibility
+			//$Pprice = number_format($price, $this->currencies[$this->actualCurr]['decimal_places'], $this->currencies[$this->actualCurr]['decimal_point'], $this->currencies[$this->actualCurr]['thousands_point']);
+			$Pprice = number_format(floatval($price), $this->currencies[$this->actualCurr]['decimal_places'], $this->currencies[$this->actualCurr]['decimal_point'], $this->currencies[$this->actualCurr]['thousands_point']);
+// EOF - Tomcraft - 2009-11-23 - Added flotval for PHP5.3 compatibility
 			$Pprice = $this->checkAttributes($pID).$this->currencies[$this->actualCurr]['symbol_left'].' '.$Pprice.' '.$this->currencies[$this->actualCurr]['symbol_right'];
 			if ($vpeStatus == 0) {
 				return $Pprice;
