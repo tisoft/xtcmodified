@@ -1807,8 +1807,8 @@ INSERT INTO currencies VALUES (1,'Euro','EUR','','EUR',',','.','2','1.0000', now
 
 
 # BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages (status 1)
-INSERT INTO languages VALUES (1,'Deutsch','de','icon.gif','german',1,'iso-8859-15',1);
-INSERT INTO languages VALUES (2,'English','en','icon.gif','english',2,'iso-8859-15',1);
+INSERT INTO languages VALUES (1,'English','en','icon.gif','english',1,'iso-8859-15',1);
+INSERT INTO languages VALUES (2,'Deutsch','de','icon.gif','german',2,'iso-8859-15',1);
 # EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages (status 1)
 
 
