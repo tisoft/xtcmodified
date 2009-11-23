@@ -608,7 +608,10 @@ class amoneybookers {
 			}
 			
 				$mb_installed = false;
-		$tables = mysql_list_tables(DB_DATABASE);
+//BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated				
+				//$tables = mysql_list_tables(DB_DATABASE);
+				$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
+//EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated							
 		while ($row = mysql_fetch_row($tables)) {
     		if ($row[0] == 'payment_moneybookers') $mb_installed=true;
 		}
