@@ -1552,17 +1552,7 @@ INSERT INTO configuration_group VALUES ('20', 'Import/Export', 'Import/Export', 
 INSERT INTO configuration_group VALUES ('21', 'Afterbuy', 'Afterbuy.de', '21', '1');
 INSERT INTO configuration_group VALUES ('22', 'Search Options', 'Additional Options for search function', '22', '1');
 
-DROP TABLE IF EXISTS countries;
-CREATE TABLE countries (
-  countries_id int NOT NULL auto_increment,
-  countries_name varchar(64) NOT NULL,
-  countries_iso_code_2 char(2) NOT NULL,
-  countries_iso_code_3 char(3) NOT NULL,
-  address_format_id int NOT NULL,
-  status int(1) DEFAULT '1' NULL,  
-  PRIMARY KEY (countries_id),
-  KEY IDX_COUNTRIES_NAME (countries_name)
-);
+#Countries
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1','1');
 INSERT INTO countries VALUES (3,'Algeria','DZ','DZA','1','1');
