@@ -65,10 +65,9 @@ if ($order->info['payment_method'] != '' && $order->info['payment_method'] != 'n
 
 
 // Order History
-//BOF - 2006-06-05 - Dokuman - replace table with div
+//BOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 //$history_block = '<table summary="order history">';
-$history_block = '<div>';
-//EOF - 2006-06-05 - Dokuman - replace table with div
+//EOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 
 $statuses_query = xtc_db_query("select os.orders_status_name,
                                        osh.date_added,
@@ -80,15 +79,14 @@ $statuses_query = xtc_db_query("select os.orders_status_name,
                                 and os.language_id = '".(int) $_SESSION['languages_id']."' 
                                 order by osh.date_added");
 while ($statuses = xtc_db_fetch_array($statuses_query)) {
-//BOF - 2006-06-05 - Dokuman - replace table with div
+//BOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 //	$history_block .= '              <tr>'."\n".'                <td style="vertical-align:top;">'.xtc_date_short($statuses['date_added']).'</td>'."\n".'                <td style="vertical-align:top;">'.$statuses['orders_status_name'].'</td>'."\n".'                <td style="vertical-align:top;">'. (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))).'</td>'."\n".'              </tr>'."\n";
-	$history_block .= xtc_date_short($statuses['date_added']). '&nbsp;<strong>' .$statuses['orders_status_name']. '</strong>' . (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments'])));
-//EOF - 2006-06-05 - Dokuman - replace table with div
+	$history_block .= xtc_date_short($statuses['date_added']). '&nbsp;<strong>' .$statuses['orders_status_name']. '</strong>&nbsp;' . (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))) .'<br />';
+//EOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 }
-//BOF - 2006-06-05 - Dokuman - replace table with div
+//BOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 //$history_block .= '</table>';
-$history_block .= '</div>';
-//EOF - 2006-06-05 - Dokuman - replace table with div
+//EOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 
 $smarty->assign('HISTORY_BLOCK', $history_block);
 
