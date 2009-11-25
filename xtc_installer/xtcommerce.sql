@@ -1802,12 +1802,12 @@ INSERT INTO languages VALUES (2,'Deutsch','de','icon.gif','german',2,'iso-8859-1
 # EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages (status 1)
 
 
-INSERT INTO orders_status VALUES ( '1', '2', 'Pending');
-INSERT INTO orders_status VALUES ( '1', '1', 'Offen');
-INSERT INTO orders_status VALUES ( '2', '2', 'Processing');
-INSERT INTO orders_status VALUES ( '2', '1', 'In Bearbeitung');
-INSERT INTO orders_status VALUES ( '3', '2', 'Delivered');
-INSERT INTO orders_status VALUES ( '3', '1', 'Versendet');
+INSERT INTO orders_status VALUES ( '1', '1', 'Pending');
+INSERT INTO orders_status VALUES ( '1', '2', 'Offen');
+INSERT INTO orders_status VALUES ( '2', '1', 'Processing');
+INSERT INTO orders_status VALUES ( '2', '2', 'In Bearbeitung');
+INSERT INTO orders_status VALUES ( '3', '1', 'Delivered');
+INSERT INTO orders_status VALUES ( '3', '2', 'Versendet');
 
 
 
