@@ -28,12 +28,15 @@ $customers_statuses_array = xtc_get_customers_statuses();
 // remove entries that have expired
 xtc_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
 
+$language_id = (int) $_SESSION['languages_id'];
 // customer stats
 $customers_query = xtc_db_query('select cs.customers_status_name cust_group, count(*) cust_count   
                      from ' . TABLE_CUSTOMERS . ' c
                      join ' . TABLE_CUSTOMERS_STATUS . ' cs on cs.customers_status_id = c.customers_status
                      --  exclude admin
                      where c.customers_status > 0
+                     -- restrict to current language setting
+                     and cs.language_id = ' . $language_id . '
                      group by 1
                      union
                      select \'Kunden gesamt\', count(*)   
@@ -474,4 +477,6 @@ foreach($this_month as $row) {
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+ 	  	 
+
  	  	 
