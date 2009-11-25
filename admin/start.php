@@ -23,59 +23,26 @@ require_once (DIR_FS_INC.'xtc_validate_vatid_status.inc.php');
 require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC.'xtc_js_lang.php');
-function array_qsort (&$array, $column=0, $order=SORT_ASC, $first=0, $last= -2)
-{
-// $array - the array to be sorted
-// $column - index (column) on which to sort
-// can be a string if using an associative array
-// $order - SORT_ASC (default) for ascending or SORT_DESC for descending
-// $first - start index (row) for partial array sort
-// $last - stop index (row) for partial array sort
-// $keys - array of key values for hash array sort
-$keys = array_keys($array);
-if($last == -2) $last = count($array) - 1;
-if($last > $first) {
-$alpha = $first;
-$omega = $last;
-$key_alpha = $keys[$alpha];
-$key_omega = $keys[$omega];
-$guess = $array[$key_alpha][$column];
-while($omega >= $alpha) {
-if($order == SORT_ASC) {
-while($array[$key_alpha][$column] < $guess) {$alpha++; $key_alpha =
-$keys[$alpha]; }
-while($array[$key_omega][$column] > $guess) {$omega--; $key_omega =
-$keys[$omega]; }
-} else {
-while($array[$key_alpha][$column] > $guess) {$alpha++; $key_alpha =
-$keys[$alpha]; }
-while($array[$key_omega][$column] < $guess) {$omega--; $key_omega =
-$keys[$omega]; }
-}
-if($alpha > $omega) break;
-$temporary = $array[$key_alpha];
-$array[$key_alpha] = $array[$key_omega]; $alpha++;
-$key_alpha = $keys[$alpha];
-$array[$key_omega] = $temporary; $omega--;
-$key_omega = $keys[$omega];
-}
-array_qsort ($array, $column, $order, $first, $omega);
-array_qsort ($array, $column, $order, $alpha, $last);
-}
-}
+
 $customers_statuses_array = xtc_get_customers_statuses();
 // remove entries that have expired
 xtc_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
 
-
-$customers_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS);
-$customers = xtc_db_fetch_array($customers_query);
-$customers_gast_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS. " WHERE customers_status='1'");
-$customers_gast = xtc_db_fetch_array($customers_gast_query);
-$customers_neukunde_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS. " WHERE customers_status='2'");
-$customers_neukunde = xtc_db_fetch_array($customers_neukunde_query);
-$customers_haendler_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS. " WHERE customers_status='3'");
-$customers_haendler = xtc_db_fetch_array($customers_haendler_query);
+// customer stats
+$customers_query = xtc_db_query('select cs.customers_status_name cust_group, count(*) cust_count   
+                     from ' . TABLE_CUSTOMERS . ' c
+                     join ' . TABLE_CUSTOMERS_STATUS . ' cs on cs.customers_status_id = c.customers_status
+                     --  exclude admin
+                     where c.customers_status > 0
+                     group by 1
+                     union
+                     select \'Kunden gesamt\', count(*)   
+                     from ' . TABLE_CUSTOMERS . '
+                     order by 2 desc');
+// save query result
+$customers = array();
+while ($row = mysql_fetch_array($customers_query))
+  $customers[] = $row;
 
 $newsletter_query = xtc_db_query("select count(*) as count from " . TABLE_NEWSLETTER_RECIPIENTS. " where mail_status='1'");
 $newsletter = xtc_db_fetch_array($newsletter_query);
@@ -213,22 +180,13 @@ h1 {
 					</tr>
 			   </table></td>
 		  <td width="25%" valign="top"><table width="100%">
-					<tr>
-						 <td style="background:#e4e4e4"><strong>Kunden gesamt:</strong></td>
-						 <td  style="background:#e4e4e4" align="center"><?php echo $customers['count']; ?></td>
-					</tr>
-					<tr>
-						 <td style="background:#e4e4e4"><strong>Gast-Kunden:</strong></td>
-						 <td  style="background:#e4e4e4" align="center"><?php echo $customers_gast['count']; ?></td>
-					</tr>
-					<tr>
-						 <td style="background:#e4e4e4"><strong>Neu-Kunden:</strong></td>
-						 <td  style="background:#e4e4e4" align="center"><?php echo $customers_neukunde['count']; ?></td>
-					</tr>
-					<tr>
-						 <td style="background:#e4e4e4"><strong>Händler-Kunden:</strong></td>
-						 <td  style="background:#e4e4e4" align="center"><?php echo $customers_haendler['count']; ?></td>
-					</tr>
+		  
+		  <?php
+	         foreach ($customers as $customer) {
+                echo '<tr><td style="background:#e4e4e4"><strong>' . $customer['cust_group'] . ':</strong></td>';
+                echo '<td style="background:#e4e4e4" align="center">' . $customer['cust_count'] . '</td></tr>';
+             }
+           ?>
 					<tr>
 						 <td style="background:#e4e4e4"><strong>davon Newsletter Abo:</strong></td>
 						 <td style="background:#e4e4e4" align="center"><?php echo $newsletter['count']; ?></td>
@@ -340,7 +298,7 @@ h1 {
         </tr>
         <?php
 	
-	  $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
+	 // $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
 		    
 	?>
         <?php
@@ -391,7 +349,7 @@ h1 {
         </tr>
         <?php
 	
-	  $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
+	 // $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
 	    
 	?>
         <?php
@@ -516,3 +474,4 @@ foreach($this_month as $row) {
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+ 	  	 
