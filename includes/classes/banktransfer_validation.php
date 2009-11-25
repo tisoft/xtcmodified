@@ -2281,6 +2281,13 @@ var $PRZ; //Enthält die Prüfziffer
 
     } /* end if num_rows */
 
+//BOF - Dokuman - 2009-11-25 - return 0 if bank account could not be checked
+//Result 2 und 4 (Bankdaten nicht prüfbar) als OK zurückgeben
+    if ($Result == 2 || $Result == 4) {
+      $Result = 0;
+	  }
+//EOF - Dokuman - 2009-11-25 - return 0 if bank account could not be checked
+
     return $Result;
   }  /* End of CheckAccount */
 }  /* End Class AccountCheck */
