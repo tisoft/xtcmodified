@@ -54,4 +54,13 @@
     define('HITS','Hits');
     define('PERCENTAGE','Percentage');
     define('HOST','Host');
+    
+// BOF - Tomcraft - 2009-11-25 - Added missing definitions for /admin/start.php/
+define('TOTAL_CUSTOMERS','Customers total');
+define('TOTAL_SUBSCRIBERS','Newsletter 	subscriptions');
+define('TOTAL_PRODUCTS_ACTIVE','Active products');
+define('TOTAL_PRODUCTS_INACTIVE','Inactive products');
+define('TOTAL_PRODUCTS','Products total');
+define('TOTAL_SPECIALS','Specials');
+// EOF - Tomcraft - 2009-11-25 - Added missing definitions for /admin/start.php/
 ?>

@@ -39,7 +39,7 @@ $customers_query = xtc_db_query('select cs.customers_status_name cust_group, cou
                      and cs.language_id = ' . $language_id . '
                      group by 1
                      union
-                     select \'Kunden gesamt\', count(*)   
+                     select \'' . TOTAL_CUSTOMERS . '\', count(*)   
                      from ' . TABLE_CUSTOMERS . '
                      order by 2 desc');
 // save query result

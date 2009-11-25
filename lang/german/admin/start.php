@@ -85,4 +85,12 @@
 
 define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte &Auml;nderung: ');
 
+// BOF - Tomcraft - 2009-11-25 - Added missing definitions for /admin/start.php/
+define('TOTAL_CUSTOMERS','Kunden gesamt');
+define('TOTAL_SUBSCRIBERS','Newsletter Abos');
+define('TOTAL_PRODUCTS_ACTIVE','Aktive Artikel');
+define('TOTAL_PRODUCTS_INACTIVE','Inaktive Artikel');
+define('TOTAL_PRODUCTS','Artikel gesamt');
+define('TOTAL_SPECIALS','Sonderangebote');
+// EOF - Tomcraft - 2009-11-25 - Added missing definitions for /admin/start.php/
 ?>
