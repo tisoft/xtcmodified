@@ -511,4 +511,6 @@ define('PAYPAL_NEUBUTTON','Press please again around the order to pay.<br />Ever
 define('PAYPAL_GS','Coupon');
 define('PAYPAL_TAX','Tax');
 // EOF - 2009-10-03 - PayPal Express Modul
+
+define('BASICPRICE_VPE_TEXT','in this volume only '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
 ?>

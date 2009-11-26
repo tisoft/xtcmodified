@@ -484,4 +484,6 @@ define('ERROR_ADDRESS_NOT_ACCEPTED', '* Solange Sie Ihre Rechnungs- und Versanda
 define('PAYPAL_GS','Gutschein/Coupon');
 define('PAYPAL_TAX','MwSt.');
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
+define('BASICPRICE_VPE_TEXT','bei dieser Menge nur '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
 ?>
