@@ -119,7 +119,7 @@ require('includes/application_top.php');
 												<dt>&nbsp;</dt><dd>&nbsp;</dd>
 												<dt>&nbsp;</dt>
 												<dd>
-													<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6302373" target="_blank"><img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="Unterstützen Sie dieses Projekt mit Ihrer Spende" border="0"></a>
+													<a href="http://www.xtc-modified.org/spenden"><img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="Unterstützen Sie dieses Projekt mit Ihrer Spende" border="0"></a>
 												</dd>
 											</dl>
 										</dd>
