@@ -75,4 +75,8 @@ define('BUTTON_NEW_TAX_CLASS', 'New Tax Class');
 define('BUTTON_NEW_TAX_RATE', 'New Tax Rate');
 define('BUTTON_SEND', 'Send');
 
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+define('BUTTON_EDIT_XTBOOSTER', 'eBay-Product');
+define('BUTTON_XTBOOSTER_MULTI', 'eBay-Multi-Product');
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 ?>

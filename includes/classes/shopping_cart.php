@@ -149,6 +149,23 @@ class shoppingCart {
 		if (empty ($quantity))
 			return true; // nothing needs to be updated if theres no quantity, so we return true..
 
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+		// xs:booster start (v1.041)
+		$pid=strpos($products_id,"{")>0?substr($products_id,0,strpos($products_id,"{")):$products_id;		
+		if(is_array($_SESSION['xtb0']['tx']))
+                {
+		  $sum = 0; $cc = true;
+		  foreach($_SESSION['xtb0']['tx'] as $tx) {  
+			  if($tx['products_id']==$pid) {
+				  $sum += $tx['XTB_QUANTITYPURCHASED'];
+				  if($tx['XTB_ALLOW_USER_CHQTY']=='false') $cc=false;
+			  }
+		  }
+		  if($quantity!=$sum&&$cc==false) $quantity=$sum;
+		}
+		// xs:booster end
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+
 		$this->contents[$products_id] = array ('qty' => $quantity);
 		// update database
 		if (isset ($_SESSION['customer_id']))

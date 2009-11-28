@@ -31,7 +31,19 @@ $info_smarty = new Smarty;
 $info_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 $group_check = '';
 
-
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+// xs:booster start (v1.041)
+$xsb_tx = array();
+if(@is_array($_SESSION['xtb0']['tx'])) {
+	foreach($_SESSION['xtb0']['tx'] as $tx) {
+		if($tx['products_id']==$product->data['products_id']) {
+			$xsb_tx = $tx;
+			break;
+		}
+	}
+}
+// xs:booster end
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 if (!is_object($product) || !$product->isProduct()) { // product not found in database
 
@@ -52,11 +64,23 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			// fsk18
 			if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
 				if ($product->data['products_fsk18'] == '0') {
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+					//$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+				if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
 					$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+				else
+					$info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 					$info_smarty->assign('ADD_CART_BUTTON', xtc_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART));
 				}
 			} else {
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+				//$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+			if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
 				$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+			else
+				$info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 				$info_smarty->assign('ADD_CART_BUTTON', xtc_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART));
 			}
 		}
@@ -90,6 +114,10 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$info_smarty->assign('PRODUCTS_ORDERED', $product->data['products_ordered']);
 		$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:hand" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')" alt="" />');
 		$info_smarty->assign('PRODUCTS_DESCRIPTION', stripslashes($product->data['products_description']));
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+		if(isset($xsb_tx['XTB_REDIRECT_USER_TO'])&&$xsb_tx['products_id']==$product->data['products_id'])
+			$info_smarty->assign('XTB_REDIRECT_USER_TO', $xsb_tx['XTB_REDIRECT_USER_TO']);
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 		$image = '';
 // BOF - Tomcraft - 2009-10-30 - use allready defined function from product.php
 /*

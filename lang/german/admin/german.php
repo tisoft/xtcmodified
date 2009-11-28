@@ -447,4 +447,11 @@ define('BOX_CUSTOMERS_GROUP','KG-Berechtigungen');
 define('TEXT_ADMIN_START', 'Startseite');
 define('BOX_HEADING_CONFIGURATION2','Erweiterte Konfiguration');
 // EOF - Tomcraft - 2009-11-02 - New admin top menu
+
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+define('BOX_HEADING_XSBOOSTER','xs:booster');
+define('BOX_XSBOOSTER_LISTAUCTIONS','Auktionen anzeigen');
+define('BOX_XSBOOSTER_ADDAUCTIONS','Auktionen erstellen');
+define('BOX_XSBOOSTER_CONFIG','Grundkonfiguration');
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 ?>

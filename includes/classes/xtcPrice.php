@@ -101,6 +101,12 @@ class xtcPrice {
 			$pPrice = $this->getPprice($pID);
 		$pPrice = $this->xtcAddTax($pPrice, $products_tax);
 
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+		// xs:booster Auktionspreis pruefen
+		if ($sPrice = $this->xtcCheckXTBAuction($pID))
+			return $this->xtcFormatSpecial($pID, $sPrice, $pPrice, $format, $vpeStatus);
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+
 		// check specialprice
 		if ($sPrice = $this->xtcCheckSpecial($pID))
 			return $this->xtcFormatSpecial($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus);
@@ -137,6 +143,23 @@ class xtcPrice {
 		$price = $this->xtcCalculateCurr($price);
 		return round($price, $this->currencies[$this->actualCurr]['decimal_places']);
 	}
+
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+	// xs:booster start (v1.041)
+	function xtcCheckXTBAuction($pID)
+	{
+		if(($pos=strpos($pID,"{"))) $pID=substr($pID,0,$pos);
+		if(!is_array($_SESSION['xtb0']['tx'])) return false;
+		foreach($_SESSION['xtb0']['tx'] as $tx) {  
+			if($tx['products_id']==$pID&&$tx['XTB_QUANTITYPURCHASED']!=0) {
+				$this->actualCurr=$tx['XTB_AMOUNTPAID_CURRENCY'];
+				return round($tx['XTB_AMOUNTPAID'], $this->currencies[$this->actualCurr]['decimal_places']);
+			}
+		}
+		return false;
+	}
+	// xs:booster end
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 	function xtcCheckDiscount($pID) {
 

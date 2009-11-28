@@ -546,4 +546,7 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
 // EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
 
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+  define('FILENAME_XTBOOSTER','xtbooster.php');
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 ?>

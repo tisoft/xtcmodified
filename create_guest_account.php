@@ -127,6 +127,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	}
 	// New VAT CHECK END
 
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+	// xs:booster prefill (customer group)
+	if($_SESSION['xtb0']['DEFAULT_CUSTOMER_GROUP']!='')
+		$customers_status = $_SESSION['xtb0']['DEFAULT_CUSTOMER_GROUP'];
+	// xs:booster prefill end
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+
 	//BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
 	if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
 		$error = true;
@@ -321,6 +328,23 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 $breadcrumb->add(NAVBAR_TITLE_CREATE_GUEST_ACCOUNT, xtc_href_link(FILENAME_CREATE_GUEST_ACCOUNT, '', 'SSL'));
 
 require (DIR_WS_INCLUDES . 'header.php');
+
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+// xs:booster start (v1.041)
+if(@isset($_SESSION['xtb0']['tx'][0]))
+{
+	$GLOBALS['gender']=			'm';
+	$GLOBALS['firstname']=		substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],0,strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," "));
+	$GLOBALS['lastname']=		substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," ")+1,strlen($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']));
+	$GLOBALS['street_address']=	$_SESSION['xtb0']['tx'][0]['XTB_EBAY_STREET'];
+	$GLOBALS['postcode']=		$_SESSION['xtb0']['tx'][0]['XTB_EBAY_POSTALCODE'];
+	$GLOBALS['city']=			$_SESSION['xtb0']['tx'][0]['XTB_EBAY_CITY'];
+	$GLOBALS['country']=		$_SESSION['xtb0']['tx'][0]['XTB_EBAY_COUNTRYNAME'];
+	$GLOBALS['email_address']=	$_SESSION['xtb0']['tx'][0]['XTB_EBAY_EMAIL'];
+	$GLOBALS['telephone']=		$_SESSION['xtb0']['tx'][0]['XTB_EBAY_PHONE'];
+}
+// xs:booster end
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 if ($messageStack->size('create_account') > 0) {
 	$smarty->assign('error', $messageStack->output('create_account'));

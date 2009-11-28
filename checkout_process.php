@@ -457,6 +457,14 @@ if (!$tmp) {
 	$order_total_modules->clear_posts(); //ICW ADDED FOR CREDIT CLASS SYSTEM
 	// GV Code End
 
+// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+	if(@isset($_SESSION['xtb0']))
+	{
+		define('XTB_CHECKOUT_PROCESS', __LINE__);
+		require 'xtbcallback.php';
+	}
+// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+
 // BOF - Tomcraft - 2009-10-03 - PayPal Express Modul (PayPal GiroPay aufrufen zum bestätigen)
 	if(isset($_SESSION['reshash']['REDIRECTREQUIRED'])  && strtoupper($_SESSION['reshash']['REDIRECTREQUIRED'])=="TRUE"):
 		$payment_modules->giropay_process();
