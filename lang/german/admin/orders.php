@@ -75,7 +75,7 @@ define('ENTRY_BILLING_ADDRESS', 'Rechnungsadresse:');
 define('ENTRY_PAYMENT_METHOD', 'Zahlungsweise:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Kreditkartentyp:');
 define('ENTRY_CREDIT_CARD_OWNER', 'Kreditkarteninhaber:');
-define('ENTRY_CREDIT_CARD_NUMBER', 'Kerditkartennnummer:');
+define('ENTRY_CREDIT_CARD_NUMBER', 'Kreditkartennummer:');
 define('ENTRY_CREDIT_CARD_CVV', 'Sicherheitscode (CVV)):');
 define('ENTRY_CREDIT_CARD_EXPIRES', 'Kreditkarte l&auml;uft ab am:');
 define('ENTRY_SUB_TOTAL', 'Zwischensumme:');
