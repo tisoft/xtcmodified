@@ -27,10 +27,12 @@ function unserialize_session_data( $session_data ) {
 }
 
 function xtc_get_products($session) {
-      if (!is_array($session)) return false;
-
-      $products_array = array();
-      reset($session);
+  if (!is_array($session)) return false;
+  $products_array = array();
+  reset($session);
+  //BOF - Dokuman - 2009-11-30 - check for array in cart
+  if (is_array($session['cart']->contents)) {     
+  //EOF - Dokuman - 2009-11-30 - check for array in cart
       while (list($products_id, ) = each($session['cart']->contents)) {
         $products_query = xtc_db_query("select p.products_id, pd.products_name,p.products_image, p.products_model, p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id='" . xtc_get_prid($products_id) . "' and pd.products_id = p.products_id and pd.language_id = '" . $_SESSION['languages_id'] . "'");
         if ($products = xtc_db_fetch_array($products_query)) {
@@ -60,7 +62,11 @@ function xtc_get_products($session) {
       }
 
       return $products_array;
-    }
+  //BOF - Dokuman - 2009-11-30 - check for array in cart
+	}
+	return false;
+  //EOF - Dokuman - 2009-11-30 - check for array in cart
+}
     
 function attributes_price($products_id,$session) {
       $xtPrice = new xtcPrice($session['currency'],$session['customers_status']['customers_status_id']);
