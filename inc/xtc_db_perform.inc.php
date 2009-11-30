@@ -49,7 +49,11 @@
             $query .= $columns . ' = now(), ';
             break;
           case 'null':
-            $query .= $columns .= ' = null, ';
+            //BOF - Dokuman - 2009-11-30 - fixed minor typo (=)
+            //$query .= $columns .= ' = null, ';
+            $query .= $columns . ' = null, ';
+            //EOF - Dokuman - 2009-11-30 - fixed minor typo (=)
+            
             break;
           default:
             $query .= $columns . ' = \'' . xtc_db_input($value) . '\', ';
