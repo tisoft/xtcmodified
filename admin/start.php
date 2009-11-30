@@ -47,50 +47,48 @@ $customers = array();
 while ($row = mysql_fetch_array($customers_query))
   $customers[] = $row;
 
-$newsletter_query = xtc_db_query("select count(*) as count from " . TABLE_NEWSLETTER_RECIPIENTS. " where mail_status='1'");
+// newsletter
+$newsletter_query = xtc_db_query("select count(*) as count 
+                    from " . TABLE_NEWSLETTER_RECIPIENTS. " where mail_status='1'");
 $newsletter = xtc_db_fetch_array($newsletter_query);
-$products_query = xtc_db_query("select count(*) as count from " . TABLE_PRODUCTS . " where products_status = '1'");
-$products = xtc_db_fetch_array($products_query);
-$products1_query = xtc_db_query("select count(*) as count from " . TABLE_PRODUCTS . " where products_status = '0'");
-$products1 = xtc_db_fetch_array($products1_query);
-$products2_query = xtc_db_query("select count(*) as count from " . TABLE_PRODUCTS . "");
-$products2 = xtc_db_fetch_array($products2_query);
-$orders0_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '0'");
-$orders0 = xtc_db_fetch_array($orders0_query);
-$orders1_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '1'");
-$orders1 = xtc_db_fetch_array($orders1_query);
-$orders2_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '2'");
-$orders2 = xtc_db_fetch_array($orders2_query);
-$orders3_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '3'");
-$orders3 = xtc_db_fetch_array($orders3_query);
-$specials_query = xtc_db_query("select count(*) as count from " . TABLE_SPECIALS);
-$specials = xtc_db_fetch_array($specials_query);
-	        
-	        
-$datelastyear=	date("Y");
-$datelastmonth=	date("m")-1;
-$datethismonth=	date("m");
-
-//Query HEUTE
-	$orders_today_query = xtDBquery(" SELECT sum(ot.value) FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.date_purchased LIKE '".date("Y-m-d")."%' AND ot.orders_id = o.orders_id AND ot.class = 'ot_total' ");
-	$orders_today = xtc_db_fetch_array($orders_today_query);
-//Query GESTERN	
-	$orders_yesterday_query = xtDBquery(" SELECT sum(ot.value) FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.date_purchased LIKE '".date("Y-m-d",time() - 86400)."%' AND ot.orders_id = o.orders_id AND ot.class = 'ot_total' ");
-	$orders_yesterday = xtc_db_fetch_array($orders_yesterday_query);
-//Query DIESER MONAT ALLE	
-	$orders_thismonth_query = xtDBquery(" SELECT sum(ot.value) FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.date_purchased LIKE '". $datelastyear . "-" . $datethismonth . "%' AND ot.orders_id = o.orders_id AND ot.class = 'ot_total' ");
-	$orders_thismonth = xtc_db_fetch_array($orders_thismonth_query);
-//Query LETZTER MONAT ALLE	
-	$orders_lastmonth_query = xtDBquery(" SELECT sum(ot.value) FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.date_purchased LIKE '". $datelastyear . "-" . $datelastmonth . "%' AND ot.orders_id = o.orders_id AND ot.class = 'ot_total' ");
-	$orders_lastmonth = xtc_db_fetch_array($orders_lastmonth_query);
-//Query LETZTER MONAT OHNE STATUS OFFEN	
-	$orders_lastmonth_bereinigt_query = xtDBquery(" SELECT sum(ot.value) FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_status NOT LIKE 1 AND o.date_purchased LIKE '". $datelastyear . "-" . $datelastmonth . "%' AND ot.orders_id = o.orders_id AND ot.class = 'ot_total' ");
-	$orders_lastmonth_bereinigt = xtc_db_fetch_array($orders_lastmonth_bereinigt_query);	
-//Query ALLE	
-	$orders_total_query = xtDBquery(" SELECT sum(ot.value) FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE ot.orders_id = o.orders_id AND ot.class = 'ot_total' ");
-	$orders_total = xtc_db_fetch_array($orders_total_query);
+  
+// products  
+$products_query = xtc_db_query('select 
+                  count(if(products_status = 0, products_id, null)) inactive_count,
+                  count(if(products_status = 1, products_id, null)) active_count, 
+                  count(*) total_count 
+                  from ' . TABLE_PRODUCTS);
+$products = xtc_db_fetch_array($products_query);					  
+		
+// orders (status)		
+$orders_query = xtc_db_query('select coalesce(os.orders_status_name, \'' . UNASSIGNED . '\') status, count(*) count
+                from ' . TABLE_ORDERS . ' o
+                left join ' . TABLE_ORDERS_STATUS . ' os on os.orders_status_id = o.orders_status
+                where os.language_id = ' . $language_id . '
+                group by 1
+                order by o.orders_status');
+$orders = array();
+while ($row = mysql_fetch_array($orders_query))
+  $orders[] = $row;
 	
+// specials	
+$specials_query = xtc_db_query("select count(*) as count from " . TABLE_SPECIALS);
+$specials = xtc_db_fetch_array($specials_query);	        
+	        
+// turnover
+$turnover_query = xtc_db_query('select 
+  round(sum(if(date(o.date_purchased) = current_date, ot.value, null)), 2) today,
+  round(sum(if(date(o.date_purchased) = current_date - interval 1 day, ot.value, null)), 2) yesterday, 
+  round(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date), ot.value, null)), 2) this_month,
+  round(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month), ot.value, null)), 2) last_month,
+  round(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month) and o.orders_status <> 1, ot.value, null)), 2) last_month_paid,
+  round(sum(ot.value), 2) total   
+  from orders o 
+  join orders_total ot on ot.orders_id = o.orders_id 
+  where ot.class = \'ot_total\'');
+$turnover = mysql_fetch_array($turnover_query);	
 ?>
+
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -158,28 +156,28 @@ h1 {
 	 <tr>
 		  <td width="25%" valign="top"><table width="100%" border="0">
 					<tr>
-						 <td style="background:#eee"><strong>Umsatz heute:</strong></td>
-						 <td  style="background:#eee" align="right"><?php echo number_format($orders_today['sum(ot.value)'],2); ?>&euro;</td>
+						 <td style="background:#eee"><strong><?php echo TURNOVER_TODAY; ?>:</strong></td>
+						 <td  style="background:#eee" align="right"><?php echo $turnover['today']; ?>&euro;</td>
 					</tr>
 					<tr>
-						 <td style="background:#fff"><strong>Umsatz gestern:</strong></td>
-						 <td style="background:#fff" align="right"><?php echo number_format($orders_yesterday['sum(ot.value)'],2); ?>&euro;</td>
+						 <td style="background:#fff"><strong><?php echo TURNOVER_YESTERDAY; ?>:</strong></td>
+						 <td style="background:#fff" align="right"><?php echo $turnover['yesterday']; ?>&euro;</td>
 					</tr>
 					<tr>
-						 <td style="background:#eee"><strong>aktueller Monat:</strong></td>
-						 <td  style="background:#eee" align="right"><?php echo number_format($orders_thismonth['sum(ot.value)'],2); ?>&euro;</td>
+						 <td style="background:#eee"><strong><?php echo TURNOVER_THIS_MONTH; ?>:</strong></td>
+						 <td  style="background:#eee" align="right"><?php echo $turnover['this_month']; ?>&euro;</td>
 					</tr>
 					<tr>
-						 <td style="background:#ccc"><strong>letzter Monat (alle):</strong></td>
-						 <td style="background:#ccc" align="right"><?php echo number_format($orders_lastmonth['sum(ot.value)'],2); ?>&euro;</td>
+						 <td style="background:#ccc"><strong><?php echo TURNOVER_LAST_MONTH; ?>:</strong></td>
+						 <td style="background:#ccc" align="right"><?php echo $turnover['last_month']; ?>&euro;</td>
 					</tr>
 					<tr>
-						 <td style="background:#ccc"><strong>letzter Monat (bezahlt):</strong></td>
-						 <td style="background:#ccc" align="right"><?php echo number_format($orders_lastmonth_bereinigt['sum(ot.value)'],2); ?>&euro;</td>
+						 <td style="background:#ccc"><strong><?php echo TURNOVER_LAST_MONTH_PAID; ?>:</strong></td>
+						 <td style="background:#ccc" align="right"><?php echo $turnover['last_month_paid']; ?>&euro;</td>
 					</tr>
 					<tr>
-						 <td style="background:#666; color:#FFF"><strong>Umsatz gesamt:</strong></td>
-						 <td style="background:#666; color:#FFF" align="right"><?php echo number_format($orders_total['sum(ot.value)'],2); ?>&euro;</td>
+						 <td style="background:#666; color:#FFF"><strong><?php echo TOTAL_TURNOVER; ?>:</strong></td>
+						 <td style="background:#666; color:#FFF" align="right"><?php echo $turnover['total']; ?>&euro;</td>
 					</tr>
 			   </table></td>
 		  <td width="25%" valign="top"><table width="100%">
@@ -191,46 +189,38 @@ h1 {
              }
            ?>
 					<tr>
-						 <td style="background:#e4e4e4"><strong>davon Newsletter Abo:</strong></td>
+						 <td style="background:#e4e4e4"><strong><?php echo TOTAL_SUBSCRIBERS; ?>:</strong></td>
 						 <td style="background:#e4e4e4" align="center"><?php echo $newsletter['count']; ?></td>
 					</tr>
 			   </table></td>
 		  <td width="25%" valign="top"><table width="100%">
 					<tr>
-						 <td style="background:#e4e4e4"><strong>Aktive Artikel:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $products['count']; ?></td>
+						 <td style="background:#e4e4e4"><strong><?php echo TOTAL_PRODUCTS_ACTIVE; ?>:</strong></td>
+						 <td style="background:#e4e4e4"><?php echo $products['active_count']; ?></td>
 					</tr>
 					<tr>
-						 <td style="background:#e4e4e4"><strong>Inaktive Artikel:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $products1['count']; ?></td>
+						 <td style="background:#e4e4e4"><strong><?php echo TOTAL_PRODUCTS_INACTIVE; ?>:</strong></td>
+						 <td style="background:#e4e4e4"><?php echo $products['inactive_count']; ?></td>
 					</tr>
 					<tr>
-						 <td style="background:#e4e4e4"><strong>Artikel gesamt:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $products2['count'] ?></td>
+						 <td style="background:#e4e4e4"><strong><?php echo TOTAL_PRODUCTS; ?>:</strong></td>
+						 <td style="background:#e4e4e4"><?php echo $products['total_count'] ?></td>
 					</tr>
 					<tr>
-						 <td style="background:#e4e4e4"><strong>Sonderangebote:</strong></td>
+						 <td style="background:#e4e4e4"><strong><?php echo TOTAL_SPECIALS; ?>:</strong></td>
 						 <td style="background:#e4e4e4"><?php echo $specials['count']; ?></td>
 					</tr>
 			   </table></td>
-		  <td width="25%" valign="top"><table width="100%">
-					<tr>
-						 <td style="background:#e4e4e4"><strong>Offen:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $orders1['count']; ?></td>
-					</tr>
-					<tr>
-						 <td style="background:#e4e4e4"><strong>In Bearbeitung:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $orders2['count']; ?></td>
-					</tr>
-					<tr>
-						 <td style="background:#e4e4e4"><strong>Versendet:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $orders3['count']; ?></td>
-					</tr>
-					<tr>
-						 <td style="background:#e4e4e4"><strong>Nicht zugeordnet:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $orders0['count']; ?></td>
-					</tr>
-			   </table></td>
+		  <td width="25%" valign="top">
+		  <table width="100%">
+		  <?php
+	         foreach ($orders as $order) {
+                echo '<tr><td style="background:#e4e4e4"><strong>' . $order['status'] . ':</strong></td>';
+                echo '<td style="background:#e4e4e4">' . $order['count'] . '</td></tr>';
+             }
+           ?>		
+		  </table>
+		  </td>
 	 </tr>
 </table>			   
 			   <!--  EOF START INFOS STATISTIK -->
@@ -477,6 +467,3 @@ foreach($this_month as $row) {
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
- 	  	 
-
- 	  	 

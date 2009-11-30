@@ -93,4 +93,14 @@ define('TOTAL_PRODUCTS_INACTIVE','Inaktive Artikel');
 define('TOTAL_PRODUCTS','Artikel gesamt');
 define('TOTAL_SPECIALS','Sonderangebote');
 // EOF - Tomcraft - 2009-11-25 - Added missing definitions for /admin/start.php/
+// BOF - Tomcraft - 2009-11-30 - Added missing definitions for /admin/start.php/
+define('UNASSIGNED', 'Nicht zugeordnet');
+define('TURNOVER_TODAY', 'Umsatz heute');
+define('TURNOVER_YESTERDAY', 'Umsatz gestern');
+define('TURNOVER_THIS_MONTH', 'aktueller Monat');
+define('TURNOVER_LAST_MONTH', 'letzter Monat (alle)');
+define('TURNOVER_LAST_MONTH_PAID', 'letzter Monat (bezahlt)');
+define('TOTAL_TURNOVER', 'Umsatz gesamt');
+// EOF - Tomcraft - 2009-11-30 - Added missing definitions for /admin/start.php/
 ?>
+ 	  	 
