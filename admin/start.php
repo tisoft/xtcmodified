@@ -61,12 +61,13 @@ $products_query = xtc_db_query('select
 $products = xtc_db_fetch_array($products_query);					  
 		
 // orders (status)		
-$orders_query = xtc_db_query('select coalesce(os.orders_status_name, \'' . UNASSIGNED . '\') status, count(*) count
-                from ' . TABLE_ORDERS . ' o
-                left join ' . TABLE_ORDERS_STATUS . ' os on os.orders_status_id = o.orders_status
+$orders_query = xtc_db_query('select os.orders_status_name status, coalesce(o.count, 0) count
+                from ' . TABLE_ORDERS_STATUS . ' os
+                left join (select orders_status, count(*) count
+                           from ' . TABLE_ORDERS . ' 
+                           group by 1) o on o.orders_status = os.orders_status_id
                 where os.language_id = ' . $language_id . '
-                group by 1
-                order by o.orders_status');
+                order by os.orders_status_id');
 $orders = array();
 while ($row = mysql_fetch_array($orders_query))
   $orders[] = $row;
@@ -77,12 +78,12 @@ $specials = xtc_db_fetch_array($specials_query);
 	        
 // turnover
 $turnover_query = xtc_db_query('select 
-  round(sum(if(date(o.date_purchased) = current_date, ot.value, null)), 2) today,
-  round(sum(if(date(o.date_purchased) = current_date - interval 1 day, ot.value, null)), 2) yesterday, 
-  round(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date), ot.value, null)), 2) this_month,
-  round(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month), ot.value, null)), 2) last_month,
-  round(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month) and o.orders_status <> 1, ot.value, null)), 2) last_month_paid,
-  round(sum(ot.value), 2) total   
+  round(coalesce(sum(if(date(o.date_purchased) = current_date, ot.value, null)), 0), 2) today,
+  round(coalesce(sum(if(date(o.date_purchased) = current_date - interval 1 day, ot.value, null)), 0), 2) yesterday, 
+  round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date), ot.value, null)), 0), 2) this_month,
+  round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month), ot.value, null)), 0), 2) last_month,
+  round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month) and o.orders_status <> 1, ot.value, null)), 0), 2) last_month_paid,
+  round(coalesce(sum(ot.value), 0), 2) total   
   from orders o 
   join orders_total ot on ot.orders_id = o.orders_id 
   where ot.class = \'ot_total\'');
@@ -157,27 +158,27 @@ h1 {
 		  <td width="25%" valign="top"><table width="100%" border="0">
 					<tr>
 						 <td style="background:#eee"><strong><?php echo TURNOVER_TODAY; ?>:</strong></td>
-						 <td  style="background:#eee" align="right"><?php echo $turnover['today']; ?>&euro;</td>
+						 <td  style="background:#eee" align="right"><?php echo $xtPrice->xtcFormat($turnover['today'], true); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#fff"><strong><?php echo TURNOVER_YESTERDAY; ?>:</strong></td>
-						 <td style="background:#fff" align="right"><?php echo $turnover['yesterday']; ?>&euro;</td>
+						 <td style="background:#fff" align="right"><?php echo $xtPrice->xtcFormat($turnover['yesterday'], true); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#eee"><strong><?php echo TURNOVER_THIS_MONTH; ?>:</strong></td>
-						 <td  style="background:#eee" align="right"><?php echo $turnover['this_month']; ?>&euro;</td>
+						 <td  style="background:#eee" align="right"><?php echo $xtPrice->xtcFormat($turnover['this_month'], true); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#ccc"><strong><?php echo TURNOVER_LAST_MONTH; ?>:</strong></td>
-						 <td style="background:#ccc" align="right"><?php echo $turnover['last_month']; ?>&euro;</td>
+						 <td style="background:#ccc" align="right"><?php echo $xtPrice->xtcFormat($turnover['last_month'], true); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#ccc"><strong><?php echo TURNOVER_LAST_MONTH_PAID; ?>:</strong></td>
-						 <td style="background:#ccc" align="right"><?php echo $turnover['last_month_paid']; ?>&euro;</td>
+						 <td style="background:#ccc" align="right"><?php echo $xtPrice->xtcFormat($turnover['last_month_paid'], true); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#666; color:#FFF"><strong><?php echo TOTAL_TURNOVER; ?>:</strong></td>
-						 <td style="background:#666; color:#FFF" align="right"><?php echo $turnover['total']; ?>&euro;</td>
+						 <td style="background:#666; color:#FFF" align="right"><?php echo $xtPrice->xtcFormat($turnover['total'], true); ?></td>
 					</tr>
 			   </table></td>
 		  <td width="25%" valign="top"><table width="100%">
