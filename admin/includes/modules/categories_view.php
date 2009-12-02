@@ -316,6 +316,9 @@
         p.products_sort,
         p.products_quantity,
         p.products_image,
+-- BOF - Tomcraft - 2009-12-03 - show model-number upon search for products
+        p.products_model,
+-- EOF - Tomcraft - 2009-12-03 - show model-number upon search for products
         p.products_price,
         p.products_discount_allowed,
         p.products_date_added,
