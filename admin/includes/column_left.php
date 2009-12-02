@@ -68,6 +68,7 @@ echo ('</li>');
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 //---------------------------XSBOOSTER
+  if (MODULE_XTBOOSTER_STATUS=='True') {
 echo ('<li>');
   echo ('<div class="dataTableHeadingContent"><strong>'.BOX_HEADING_XSBOOSTER.'</strong></div>');
 echo ('<ul>');
@@ -76,6 +77,7 @@ echo ('<ul>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['configuration'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_XTBOOSTER."?xtb_module=conf", '', 'NONSSL') . '" class="menuBoxContentLink"> - '.BOX_XSBOOSTER_CONFIG.'</a></li>';
 echo ('</ul>');
 echo ('</li>');
+}
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 //---------------------------MODULE
