@@ -549,9 +549,4 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
   define('FILENAME_XTBOOSTER','xtbooster.php');
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
-
-// BOF - Tomcraft - 2009-12-01 - Needed for /admin/start.php
-require_once (DIR_FS_CATALOG.DIR_WS_CLASSES.'xtcPrice.php');
-$xtPrice = new xtcPrice($_SESSION['currency'], $_SESSION['customers_status']['customers_status_id']);
-// EOF - Tomcraft - 2009-12-01 - Needed for /admin/start.php
 ?>

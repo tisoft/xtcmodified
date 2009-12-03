@@ -24,6 +24,9 @@ require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC.'xtc_js_lang.php');
 
+require_once(DIR_WS_CLASSES . 'currencies.php');
+$currencies = new currencies();
+
 $customers_statuses_array = xtc_get_customers_statuses();
 // remove entries that have expired
 xtc_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
@@ -158,27 +161,27 @@ h1 {
 		  <td width="25%" valign="top"><table width="100%" border="0">
 					<tr>
 						 <td style="background:#eee"><strong><?php echo TURNOVER_TODAY; ?>:</strong></td>
-						 <td  style="background:#eee" align="right"><?php echo $xtPrice->xtcFormat($turnover['today'], true); ?></td>
+						 <td  style="background:#eee" align="right"><?php echo $currencies->format($turnover['today']); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#fff"><strong><?php echo TURNOVER_YESTERDAY; ?>:</strong></td>
-						 <td style="background:#fff" align="right"><?php echo $xtPrice->xtcFormat($turnover['yesterday'], true); ?></td>
+						 <td style="background:#fff" align="right"><?php echo $currencies->format($turnover['yesterday']); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#eee"><strong><?php echo TURNOVER_THIS_MONTH; ?>:</strong></td>
-						 <td  style="background:#eee" align="right"><?php echo $xtPrice->xtcFormat($turnover['this_month'], true); ?></td>
+						 <td  style="background:#eee" align="right"><?php echo $currencies->format($turnover['this_month']); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#ccc"><strong><?php echo TURNOVER_LAST_MONTH; ?>:</strong></td>
-						 <td style="background:#ccc" align="right"><?php echo $xtPrice->xtcFormat($turnover['last_month'], true); ?></td>
+						 <td style="background:#ccc" align="right"><?php echo $currencies->format($turnover['last_month']); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#ccc"><strong><?php echo TURNOVER_LAST_MONTH_PAID; ?>:</strong></td>
-						 <td style="background:#ccc" align="right"><?php echo $xtPrice->xtcFormat($turnover['last_month_paid'], true); ?></td>
+						 <td style="background:#ccc" align="right"><?php echo $currencies->format($turnover['last_month_paid']); ?></td>
 					</tr>
 					<tr>
 						 <td style="background:#666; color:#FFF"><strong><?php echo TOTAL_TURNOVER; ?>:</strong></td>
-						 <td style="background:#666; color:#FFF" align="right"><?php echo $xtPrice->xtcFormat($turnover['total'], true); ?></td>
+						 <td style="background:#666; color:#FFF" align="right"><?php echo $currencies->format($turnover['total']); ?></td>
 					</tr>
 			   </table></td>
 		  <td width="25%" valign="top"><table width="100%">
