@@ -81,7 +81,7 @@ require('includes/application_top.php');
 					<div id="credits">
 						<dl id="contentHead">
 							<dt style="float: left"><?php echo xtc_image(DIR_WS_ICONS.'heading_news.gif'); ?></dt>
-							<dd><span class="pageHeading">Credits</span><br /><span class="main">Danksagung</span></dd>
+							<dd><span class="pageHeading"><?php echo HEADING_TITLE; ?></span><br /></dd>
 						</dl>
 						<font color="D68000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo PROJECT_VERSION; ?></strong></font>
 						<br />
@@ -89,14 +89,14 @@ require('includes/application_top.php');
 						Released under the GNU General Public License<br /><br />
 						This program is distributed in the hope that it will be useful, but <strong>WITHOUT ANY WARRANTY</strong>;<br />without even the implied warranty of <strong>MERCHANTABILITY</strong> or <strong>FITNESS FOR A PARTICULAR PURPOSE</strong>.<br />See the GNU General Public License for more details. You should have received a copy of the<br />GNU General Public License along with this program; if not, write to the<br />Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.<br />See <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">http://www.gnu.org/copyleft/gpl.html</a> for details. <br />
 						<br />
-						<p>Wir danken allen Programmieren und Entwicklern, die an diesem Projekt mitarbeiten. Sollten wir jemanden in der unten stehenden Auflistung vergessen haben, so bitten wir um Mitteilung über das <a href="http://www.xtc-modified.org/forum/" target="_blank">Forum</a> oder an einen der genannten Entwickler.</p>
-						<p>Dieses Programm wurde ver&ouml;ffentlich, in der Hoffnung hilfreich zu sein. Wir geben jedoch keinerlei Garantie auf die fehlerfreie Implementierung.</p>
+						<p><?php echo TEXT_INFO_THANKS; ?></p>
+						<p><?php echo TEXT_INFO_DISCLAIMER; ?></p>
 						<hr />
 						<table border="0" width="100%" cellspacing="0" cellpadding="0">
 							<tr>
 								<td width="50%" valign="top">
 									<dl>
-										<dt>Entwickler der xtcModified eCommerce Shopsoftware:</dt>
+										<dt><?php echo TEXT_HEADING_DEVELOPERS; ?></dt>
 										<dd>
 											<dl id="person">
 												<dt>Tomcraft</dt><dd>&lt;tomcraft1980@users.sourceforge.net&gt;</dd>
@@ -111,15 +111,15 @@ require('includes/application_top.php');
 								</td>
 								<td width="50%" valign="top">
 									<dl>
-										<dt>Unterstützen Sie die Weiterentwicklung:</dt>
+										<dt><?php echo TEXT_HEADING_SUPPORT; ?></dt>
 										<dd>
 											<dl id="person">
-												<dt>Spenden:</dt>
-												<dd>xtcModified ist ein OpenSource-Projekt, trotzden stecken wir jede Menge Arbeit und Freizeit in dieses Projekt und würden uns daher über eine Spende als kleine Anerkennung freuen.</dd>
+												<dt><?php echo TEXT_HEADING_DONATIONS; ?></dt>
+												<dd><?php echo TEXT_INFO_DONATIONS; ?></dd>
 												<dt>&nbsp;</dt><dd>&nbsp;</dd>
 												<dt>&nbsp;</dt>
 												<dd>
-													<a href="http://www.xtc-modified.org/spenden"><img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="Unterstützen Sie dieses Projekt mit Ihrer Spende" border="0"></a>
+													<a href="http://www.xtc-modified.org/spenden"><img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="<?php echo TEXT_INFO_DONATIONS_IMG_ALT; ?>" border="0"></a>
 												</dd>
 											</dl>
 										</dd>
@@ -129,7 +129,7 @@ require('includes/application_top.php');
 						</table>
 						<hr />
 						<dl>
-							<dt style="color: #d68000; font-weight: bold;">Die Shopsoftware basiert auf:</dt>
+							<dt style="color: #d68000; font-weight: bold;"><?php echo TEXT_HEADING_BASED_ON; ?></dt>
 							<dd>
 								<ul style="list-style: none; padding-left: 0px;">
 									<li><?php echo '&copy;'.date('Y').'&nbsp;'; echo PROJECT_VERSION; ?> | http://www.xtc-modified.org/</li>
