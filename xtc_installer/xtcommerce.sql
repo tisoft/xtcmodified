@@ -1179,12 +1179,12 @@ INSERT INTO database_version(version) VALUES ('xtcM_1.0.3.0');
 INSERT INTO cm_file_flags (file_flag, file_flag_name) VALUES ('0', 'information');
 INSERT INTO cm_file_flags (file_flag, file_flag_name) VALUES ('1', 'content');
 
-INSERT INTO shipping_status VALUES (1, 2, '3-4 Days', '');
-INSERT INTO shipping_status VALUES (1, 1, '3-4 Tage', '');
-INSERT INTO shipping_status VALUES (2, 2, '1 Week', '');
-INSERT INTO shipping_status VALUES (2, 1, '1 Woche', '');
-INSERT INTO shipping_status VALUES (3, 2, '2 Weeks', '');
-INSERT INTO shipping_status VALUES (3, 1, '2 Wochen', '');
+INSERT INTO shipping_status VALUES (1, 1, '3-4 Days', '');
+INSERT INTO shipping_status VALUES (1, 2, '3-4 Tage', '');
+INSERT INTO shipping_status VALUES (2, 1, '1 Week', '');
+INSERT INTO shipping_status VALUES (2, 2, '1 Woche', '');
+INSERT INTO shipping_status VALUES (3, 1, '2 Weeks', '');
+INSERT INTO shipping_status VALUES (3, 2, '2 Wochen', '');
 
 # data
 
