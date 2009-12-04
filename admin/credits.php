@@ -105,6 +105,7 @@ require('includes/application_top.php');
 												<dt>web28</dt><dd>&lt;web28@users.sourceforge.net&gt;</dd>
 												<dt>Pufaxx</dt><dd>&lt;info@gunnart.de&gt;</dd>
 												<dt>Christian</dt><dd>&lt;hallo@jungcreative.de&gt;</dd>
+												<dt>vr</dt><dd>&lt;tonne1@users.sourceforge.net&gt;</dd>
 											</dl>
 										</dd>
 									</dl>
