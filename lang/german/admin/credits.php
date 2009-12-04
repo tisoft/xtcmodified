@@ -26,7 +26,7 @@ define('TEXT_INFO_GPL', 'Die Ver&ouml;ffentlichung dieses Programms erfolgt in d
     der <strong>MARKTREIFE</strong> oder der <strong>EIGNUNG FÜR EINEN BESTIMMTEN ZWECK</strong>.<br />
     Details finden Sie in der GNU General Public License.<br /><br />
     Sie sollten eine Kopie der GNU General Public License zusammen
-    mit diesem Programm erhalten haben. Falls nicht, schreiben Sie
+    mit diesem Programm erhalten haben.<br />Falls nicht, schreiben Sie
     an die Free Software Foundation, Inc., 675 Mass Ave, Cambridge,
     MA 02139, USA.<br />
 	Einzelheiten (in Englisch) hier:<a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">http://www.gnu.org/copyleft/gpl.html</a>.');
