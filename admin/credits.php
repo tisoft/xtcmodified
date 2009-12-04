@@ -86,8 +86,8 @@ require('includes/application_top.php');
 						<font color="D68000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo PROJECT_VERSION; ?></strong></font>
 						<br />
 						<br />
-						Released under the GNU General Public License<br /><br />
-						This program is distributed in the hope that it will be useful, but <strong>WITHOUT ANY WARRANTY</strong>;<br />without even the implied warranty of <strong>MERCHANTABILITY</strong> or <strong>FITNESS FOR A PARTICULAR PURPOSE</strong>.<br />See the GNU General Public License for more details. You should have received a copy of the<br />GNU General Public License along with this program; if not, write to the<br />Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.<br />See <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">http://www.gnu.org/copyleft/gpl.html</a> for details. <br />
+						<?php echo TEXT_HEADING_GPL; ?><br /><br />
+						<?php echo TEXT_INFO_GPL; ?><br />
 						<br />
 						<p><?php echo TEXT_INFO_THANKS; ?></p>
 						<p><?php echo TEXT_INFO_DISCLAIMER; ?></p>
