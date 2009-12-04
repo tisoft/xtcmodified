@@ -81,7 +81,7 @@ require('includes/application_top.php');
 					<div id="credits">
 						<dl id="contentHead">
 							<dt style="float: left"><?php echo xtc_image(DIR_WS_ICONS.'heading_news.gif'); ?></dt>
-							<dd><span class="pageHeading"><?php echo HEADING_TITLE; ?></span><br /></dd>
+							<dd><span class="pageHeading"><?php echo HEADING_TITLE; ?></span><br /><span class="main"><?php echo HEADING_SUBTITLE; ?></span></dd>
 						</dl>
 						<font color="D68000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><?php echo PROJECT_VERSION; ?></strong></font>
 						<br />

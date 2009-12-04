@@ -15,7 +15,8 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
-define('HEADING_TITLE', 'Danksagung');
+define('HEADING_TITLE', 'Credits');
+define('HEADING_SUBTITLE', 'Danksagung');
 
 define('TEXT_HEADING_DEVELOPERS', 'Entwickler der xtcModified eCommerce Shopsoftware:');
 define('TEXT_HEADING_SUPPORT', 'Unterstützen Sie die Weiterentwicklung:');
