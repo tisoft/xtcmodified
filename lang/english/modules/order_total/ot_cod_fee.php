@@ -87,6 +87,22 @@
   00 is used you have to enter it as last argument. If
   no 00:9.99 is entered the COD shipping into foreign countries will not be calculated
   (not possible).');
+  
+  // BOF - vr - 2009-12-04 - missing language definitions for OT-COD-FEE-UPS
+  define('MODULE_ORDER_TOTAL_COD_FEE_UPS_TITLE','UPS');
+  define('MODULE_ORDER_TOTAL_COD_FEE_UPS_DESC','&lt;ISO2-Code&gt;:&lt;Price&gt;, ....<br />
+  00 as ISO2-Code allows the COD shipping in all countries. If
+  00 is used you have to enter it as last argument. If
+  no 00:9.99 is entered the COD shipping into foreign countries will not be calculated
+  (not possible).');
+  
+  define('MODULE_ORDER_TOTAL_COD_FEE_UPSE_TITLE','UPS Express');
+  define('MODULE_ORDER_TOTAL_COD_FEE_UPSE_DESC','&lt;ISO2-Code&gt;:&lt;Price&gt;, ....<br />
+  00 as ISO2-Code allows the COD shipping in all countries. If
+  00 is used you have to enter it as last argument. If
+  no 00:9.99 is entered the COD shipping into foreign countries will not be calculated
+  (not possible).');
+  // EOF - vr - 2009-12-04 - missing language definitions for OT-COD-FEE-UPS
 
   define('MODULE_ORDER_TOTAL_COD_FEE_FREE_TITLE','Free Shipping (Order Total Modul Shipping)');
   define('MODULE_ORDER_TOTAL_COD_FEE_FREE_DESC','&lt;ISO2-Code&gt;:&lt;Price&gt;, ....<br />
