@@ -58,7 +58,7 @@
   define('SQL_CACHEDIR',DIR_FS_CATALOG.'cache/');
 
   // Define the project version
-  define('PROJECT_VERSION', 'xtcModified v1.02 dated: 2009-07-13');
+  define('PROJECT_VERSION', 'xtcModified v1.03 dated: 2009-12-04');
 
 // BOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
   define('TAX_DECIMAL_PLACES', 0);
