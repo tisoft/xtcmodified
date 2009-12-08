@@ -210,7 +210,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 
  if (!is_writeable(DIR_FS_CATALOG . 'sitemap.xml')) {
     $error_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'sitemap1.xml<br />';
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'sitemap.xml<br />';
  }
  
   if (!is_writeable(DIR_FS_CATALOG . 'import/')) {
