@@ -239,7 +239,10 @@ if ($_SESSION['cart']->show_total() > 0 ) {
 	$smarty->assign('BUTTON_CHECKOUT', '<a href="'.xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL').'">'.xtc_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT).'</a>');		
 */
 	if(isset($_SESSION['paypal_warten'])):
-		$smarty->assign('error', $_SESSION['paypal_warten']);
+// BOF - Tomcraft - 2009-12-08 - fixed duplicate error messages in shopping cart
+		//$smarty->assign('error', $_SESSION['paypal_warten']);
+		$smarty->assign('info_message', $_SESSION['paypal_warten']);
+// EOF - Tomcraft - 2009-12-08 - fixed duplicate error messages in shopping cart
 	else:
 		if ($_GET['info_message'])
 			$smarty->assign('info_message', str_replace('+', ' ', htmlspecialchars($_GET['info_message'])));
