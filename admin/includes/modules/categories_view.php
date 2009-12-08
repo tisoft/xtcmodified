@@ -25,72 +25,67 @@
  defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');  
     // get sorting option and switch accordingly        
     if ($_GET['sorting']) {
-    switch ($_GET['sorting']){
-	
-	
-	    case 'model'       :
-            $catsort    = 'c.categories_status ASC';
-            $prodsort   = 'p.products_model ASC';
-            break;
-		
-		case 'model'       :
-            $catsort    = 'c.categories_status DESC';
-            $prodsort   = 'p.products_model DESC';
-            break;
-	
-        case 'sort'         : 
-            $catsort    = 'c.sort_order ASC';
-            $prodsort   = 'p.products_sort ASC';
-            break;
-		
-        case 'sort-desc'    :
-            $catsort    = 'c.sort_order DESC';
-            $prodsort   = 'p.products_sort DESC';
-        case 'name'         :
-            $catsort    = 'cd.categories_name ASC';
-            $prodsort   = 'pd.products_name ASC';
-            break;
-        case 'name-desc'    :
-            $catsort    = 'cd.categories_name DESC';
-            $prodsort   = 'pd.products_name DESC';
-            break;                  
-        case 'status'       :
-            $catsort    = 'c.categories_status ASC';
-            $prodsort   = 'p.products_status ASC';
-            break;
-        case 'status-desc'  :
-            $catsort    = 'c.categories_status DESC';
-            $prodsort   = 'p.products_status DESC';
-            break;             
-        case 'price'        :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_price ASC';            
-            break;
-        case 'price-desc'   :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_price DESC';            
-            break;            
-        case 'stock'        :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_quantity ASC';            
-            break;
-        case 'stock-desc'   :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_quantity DESC';            
-            break;            
-        case 'discount'     :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_discount_allowed ASC';            
-            break;  
-        case 'discount-desc':
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_discount_allowed DESC';            
-            break;                                   
-        default             :
-            $catsort    = 'cd.categories_name ASC';
-            $prodsort   = 'pd.products_name ASC';
-            break;
-    }
+		switch ($_GET['sorting']){		
+			case 'model'       :
+				$catsort    = 'c.sort_order ASC';
+				$prodsort   = 'p.products_model ASC';
+				break;		
+			case 'model-desc'  :
+				$catsort    = 'c.sort_order ASC';
+				$prodsort   = 'p.products_model DESC';
+				break;	
+			case 'sort'         : 
+				$catsort    = 'c.sort_order ASC';
+				$prodsort   = 'p.products_sort ASC';
+				break;		
+			case 'sort-desc'    :
+				$catsort    = 'c.sort_order DESC';
+				$prodsort   = 'p.products_sort DESC';
+			case 'name'         :
+				$catsort    = 'cd.categories_name ASC';
+				$prodsort   = 'pd.products_name ASC';
+				break;
+			case 'name-desc'    :
+				$catsort    = 'cd.categories_name DESC';
+				$prodsort   = 'pd.products_name DESC';
+				break;                  
+			case 'status'       :
+				$catsort    = 'c.categories_status ASC';
+				$prodsort   = 'p.products_status ASC';
+				break;
+			case 'status-desc'  :
+				$catsort    = 'c.categories_status DESC';
+				$prodsort   = 'p.products_status DESC';
+				break;             
+			case 'price'        :
+				$catsort    = 'c.sort_order ASC'; //default
+				$prodsort   = 'p.products_price ASC';            
+				break;
+			case 'price-desc'   :
+				$catsort    = 'c.sort_order ASC'; //default
+				$prodsort   = 'p.products_price DESC';            
+				break;            
+			case 'stock'        :
+				$catsort    = 'c.sort_order ASC'; //default
+				$prodsort   = 'p.products_quantity ASC';            
+				break;
+			case 'stock-desc'   :
+				$catsort    = 'c.sort_order ASC'; //default
+				$prodsort   = 'p.products_quantity DESC';            
+				break;            
+			case 'discount'     :
+				$catsort    = 'c.sort_order ASC'; //default
+				$prodsort   = 'p.products_discount_allowed ASC';            
+				break;  
+			case 'discount-desc':
+				$catsort    = 'c.sort_order ASC'; //default
+				$prodsort   = 'p.products_discount_allowed DESC';            
+				break;                                   
+			default             :
+				$catsort    = 'cd.categories_name ASC';
+				$prodsort   = 'pd.products_name ASC';
+				break;
+		}
     } else {
             $catsort    = 'c.sort_order, cd.categories_name ASC';
             $prodsort   = 'p.products_sort, pd.products_name ASC';
@@ -378,9 +373,6 @@
         echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" >' . "\n";
       }
 
-      ?>
-      
-      <?php
       //checkbox again after submit and before final submit 
       unset($is_checked);
       if (is_array($_POST['multi_products'])) { 
@@ -389,38 +381,24 @@
         }
       } 
       ?>
-      
-      
       <td class="categories_view_data">        
         <input type="checkbox" name="multi_products[]" value="<?php echo $products['products_id']; ?>" <?php echo $is_checked; ?>>
       </td>
-      
-      
-      
-  
-      
-      
       <?php if ($products['products_model'] !='' ){   ?>  
-        <td class="categories_view_data">
-      <?php echo $products['products_model']; ?>
-      </td> 
-       
-      <?php } else { ?>
-       
-        <td class="categories_view_data" widt="22">--</td> 
-        <?php }  ?>
-      
-      
-     
-      
       <td class="categories_view_data">
-        <?php 
-        if ($current_category_id == 0){
-        echo $products['products_startpage_sort'];
-        } else {
-        echo $products['products_sort'];
-        }
-         ?>
+        <?php echo $products['products_model']; ?>
+      </td>       
+      <?php } else { ?>
+      <td class="categories_view_data" width="22">--</td> 
+      <?php }  ?>
+      <td class="categories_view_data">
+      <?php 
+      if ($current_category_id == 0){
+      	echo $products['products_startpage_sort'];
+      } else {
+       	echo $products['products_sort'];
+      }
+      ?>
       </td>
       <td class="categories_view_data" style="text-align: left; padding-left: 8px;">
         <?php echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id'] ) . '">' . xtc_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '&nbsp;</a><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id']) .'">' . $products['products_name']; ?></a>
@@ -428,11 +406,10 @@
       <?php
       // check product and attributes stock
       if (STOCK_CHECK == 'true') { ?>
-        <td class="categories_view_data">
+      <td class="categories_view_data">
         <?php echo check_stock($products['products_id']); ?>
-        </td>
-      <?php } ?>   
-      
+      </td>
+      <?php } ?>
       <td class="categories_view_data">
       <?php
             if ($products['products_status'] == '1') {
