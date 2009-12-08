@@ -363,7 +363,9 @@
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_CODE . ' ' . $lInfo->code);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_CHARSET_INFO . ' ' . $lInfo->language_charset);
-
+// BOF - Tomcraft - 2009-12-08 - show language_id
+        $contents[] = array('text' => 'Language-ID:' . ' ' . $lInfo->languages_id);
+// EOF - Tomcraft - 2009-12-08 - show language_id
         $contents[] = array('text' => '<br />' . xtc_image(DIR_WS_LANGUAGES . $lInfo->directory . '/' . $lInfo->image, $lInfo->name));
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br />' . DIR_WS_LANGUAGES . '<b>' . $lInfo->directory . '</b>');
 // BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
