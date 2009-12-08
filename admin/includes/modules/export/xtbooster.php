@@ -1,6 +1,6 @@
 <?php
 ##
-## xt:booster v1.042 für xt:Commerce.
+## xt:booster #version# für xt:Commerce.
 ## Copyright (c) 2008 xt:booster Limited
 ##
 ## Licensed under GNU/GPL
@@ -57,8 +57,11 @@ class xtbooster
 	function install() {
 
 		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XTBOOSTER_STATUS', 'True',  '6', '1', '', now())");
+		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XTBOOSTER_SHOPKEY', '', '6', '1', '', now())");
 		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XTBOOSTER_STDSITE', 'DE',  '6', '1', '', now())");
 		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XTBOOSTER_STDCURRENCY', 'EUR',  '6', '1', '', now())");
+		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XTBOOSTER_STDSTANDORT', '', '6', '1', '', now())");
+		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XTBOOSTER_STDPLZ', '', '6', '1', '', now())");
 
 		/* Table Structur */
 xtc_db_query("
@@ -127,12 +130,14 @@ CREATE TABLE IF NOT EXISTS `xtb_transactions` (
 xtc_db_query("ALTER TABLE `admin_access` ADD `xtbooster` INT( 1 ) NOT NULL");
 xtc_db_query("UPDATE `admin_access` SET `xtbooster` = '1' WHERE `customers_id` = '1'");
 xtc_db_query("UPDATE `admin_access` SET `xtbooster` = '1' WHERE `customers_id` = '".$_SESSION['customer_id']."'");
+xtc_db_query("ALTER TABLE `products` ADD `products_ebay_quantity` INT( 4 ) NOT NULL DEFAULT 0 AFTER `products_quantity`");
+
 
 	}
 
 	function remove() {
-#		xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
-#		xtc_db_query("ALTER TABLE `admin_access` DROP `xtbooster`");
+		xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
+		xtc_db_query("ALTER TABLE `admin_access` DROP `xtbooster`");
 	}
 
 	function keys() {
