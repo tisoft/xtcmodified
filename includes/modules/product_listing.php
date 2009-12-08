@@ -89,6 +89,9 @@ if ($category['listing_template'] == '' or $category['listing_template'] == 'def
 if ($result != false) {
 
 	$module_smarty->assign('MANUFACTURER_DROPDOWN', $manufacturer_dropdown);
+// BOF - Tomcraft - 2009-12-08 - Added smarty for MANUFACTURERS_NAME
+	$module_smarty->assign('MANUFACTURERS_NAME', $manufacturers_name);
+// EOF - Tomcraft - 2009-12-08 - Added smarty for MANUFACTURERS_NAME
 	$module_smarty->assign('language', $_SESSION['language']);
 	$module_smarty->assign('module_content', $module_content);
 
