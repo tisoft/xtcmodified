@@ -1,1 +1,40 @@
-{config_load file="$language/lang_$language.conf" section="index"}<div id="wrap">    <div id="header">        <div id="logo"><img src="{$tpl_path}img/spacer.gif" width="400" alt="{$store_name}" /></div>        <div id="search">{$box_SEARCH}</div>    </div>    <div id="topmenuwrap">        <ul id="topmenu">            <li><a href="{php}echo xtc_href_link(FILENAME_DEFAULT);{/php}">Home</a></li>            <li><a href="{$cart}">{#link_cart#}</a></li>            {if $account}            <li><a href="{$account}">{#link_account#}</a></li>            {/if}             {php}if ($_SESSION['customers_status']['customers_status_id'] == 1) { {/php}             <li><a href="{php}echo xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL');{/php}">{#new_customer#}</a></li>             {php}}{/php}            <li><a href="{$checkout}">{#link_checkout#}</a></li>            {php} if (isset($_SESSION['customer_id'])) { {/php}            <li><a href="{$logoff}">{#link_logoff#}</a></li>            {php} } {/php}        </ul>        <div id="languages">{$box_LANGUAGES}</div>    </div>    <div id="breadcrumb">{$navtrail}</div>    <div id="contentwrap"> {if !strstr ($smarty.server.PHP_SELF, 'checkout')}        <div id="leftcol">{$box_CATEGORIES}{$box_ADD_QUICKIE}{$box_CONTENT}{$box_INFORMATION}{$box_LAST_VIEWED}{$box_REVIEWS}{$box_SPECIALS}{$box_WHATSNEW}</div>        {/if}        <div		{if !strstr ($smarty.server.PHP_SELF, 'checkout')}			id="content"		{else}			id="contentfull"		{/if}		 >        {$main_content}</div>    {if !strstr ($smarty.server.PHP_SELF, 'checkout')}    <div id="rightcol">{$box_CART}{$box_LOGIN}{$box_ADMIN}{$box_NEWSLETTER}{$box_BESTSELLERS}{$box_INFOBOX}{$box_CURRENCIES}{$box_MANUFACTURERS_INFO}{$box_MANUFACTURERS}</div>    {/if} </div><p class="footer">{php}echo TITLE; echo ' &copy; '.date('Y');{/php} | Template &copy; 2009 by xtcModified eCommerce Shopsoftware</p></div>
+{config_load file="$language/lang_$language.conf" section="index"}
+<div id="wrap">
+    <div id="header">
+        <div id="logo"><img src="{$tpl_path}img/spacer.gif" width="400" alt="{$store_name}" /></div>
+        <div id="search">{$box_SEARCH}</div>
+    </div>
+    <div id="topmenuwrap">
+        <ul id="topmenu">
+            <li><a href="{php}echo xtc_href_link(FILENAME_DEFAULT);{/php}">Home</a></li>
+            <li><a href="{$cart}">{#link_cart#}</a></li>
+            {if $account}
+            <li><a href="{$account}">{#link_account#}</a></li>
+            {/if}
+             {php}if ($_SESSION['customers_status']['customers_status_id'] == 1) { {/php} 
+            <li><a href="{php}echo xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL');{/php}">{#new_customer#}</a></li>
+             {php}}{/php}
+            <li><a href="{$checkout}">{#link_checkout#}</a></li>
+            {php} if (isset($_SESSION['customer_id'])) { {/php}
+            <li><a href="{$logoff}">{#link_logoff#}</a></li>
+            {php} } {/php}
+        </ul>
+        <div id="languages">{$box_LANGUAGES}</div>
+    </div>
+    <div id="breadcrumb">{$navtrail}</div>
+    <div id="contentwrap"> {if !strstr ($smarty.server.PHP_SELF, 'checkout')}
+        <div id="leftcol">{$box_CATEGORIES}{$box_ADD_QUICKIE}{$box_CONTENT}{$box_INFORMATION}{$box_LAST_VIEWED}{$box_REVIEWS}{$box_SPECIALS}{$box_WHATSNEW}</div>
+        {/if}
+        <div
+		{if !strstr ($smarty.server.PHP_SELF, 'checkout')}
+			id="content"
+		{else}
+			id="contentfull"
+		{/if}
+		 >
+        {$main_content}</div>
+    {if !strstr ($smarty.server.PHP_SELF, 'checkout')}
+    <div id="rightcol">{$box_CART}{$box_LOGIN}{$box_ADMIN}{$box_NEWSLETTER}{$box_BESTSELLERS}{$box_INFOBOX}{$box_CURRENCIES}{$box_MANUFACTURERS_INFO}{$box_MANUFACTURERS}</div>
+    {/if} </div>
+<p class="footer">{php}echo TITLE; echo ' &copy; '.date('Y');{/php} | Template &copy; 2009 by xtcModified eCommerce Shopsoftware</p>
+</div>
