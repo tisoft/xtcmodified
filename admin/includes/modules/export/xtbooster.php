@@ -127,10 +127,14 @@ CREATE TABLE IF NOT EXISTS `xtb_transactions` (
 ) AUTO_INCREMENT=1
 ");
 
-xtc_db_query("ALTER TABLE `admin_access` ADD `xtbooster` INT( 1 ) NOT NULL");
+$admin_access_xtbooster_column_exists = xtc_db_num_rows(xtc_db_query("SHOW COLUMNS FROM `admin_access` WHERE Field='xtbooster'"));
+if(!$admin_access_xtbooster_column_exists)
+{ xtc_db_query("ALTER TABLE `admin_access` ADD `xtbooster` INT( 1 ) NOT NULL"); }
 xtc_db_query("UPDATE `admin_access` SET `xtbooster` = '1' WHERE `customers_id` = '1'");
 xtc_db_query("UPDATE `admin_access` SET `xtbooster` = '1' WHERE `customers_id` = '".$_SESSION['customer_id']."'");
-xtc_db_query("ALTER TABLE `products` ADD `products_ebay_quantity` INT( 4 ) NOT NULL DEFAULT 0 AFTER `products_quantity`");
+$products_ebay_quantity_column_exists = xtc_db_num_rows(xtc_db_query("SHOW COLUMNS FROM `products` WHERE Field='products_ebay_quantity'"));
+if(!$products_ebay_quantity_column_exists)
+{ xtc_db_query("ALTER TABLE `products` ADD `products_ebay_quantity` INT( 4 ) NOT NULL DEFAULT 0 AFTER `products_quantity`"); }
 
 
 	}
