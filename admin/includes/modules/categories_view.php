@@ -675,7 +675,9 @@
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_delete" onClick="this.blur();" value="'. BUTTON_DELETE . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_move" value="' . BUTTON_MOVE . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_copy" value="' . BUTTON_COPY . '">');
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_status_on" onClick="this.blur();" value="'. BUTTON_STATUS_ON . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_status_off" value="' . BUTTON_STATUS_OFF . '">');
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
+            if (MODULE_XTBOOSTER_STATUS=='True') {
             $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_XTBOOSTER_MULTI, 'submit', 'name="multi_xtb"'));
+            }
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
             $contents[] = array('text'  => '</form>');
             //Single Element Actions
@@ -699,7 +701,9 @@
             $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_DELETE, 'submit', 'name="multi_delete"').'&nbsp;'.xtc_button(BUTTON_MOVE, 'submit', 'name="multi_move"').'&nbsp;'.xtc_button(BUTTON_COPY, 'submit', 'name="multi_copy"'));
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_status_on" onClick="this.blur();" value="'. BUTTON_STATUS_ON . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_status_off" value="' . BUTTON_STATUS_OFF . '">');
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
+            if (MODULE_XTBOOSTER_STATUS=='True') {
             $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_XTBOOSTER_MULTI, 'submit', 'name="multi_xtb"'));
+            }
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
             $contents[] = array('text'  => '</form>');            
             //Single Product Actions
