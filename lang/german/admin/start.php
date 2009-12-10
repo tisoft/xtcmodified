@@ -103,4 +103,3 @@ define('TURNOVER_LAST_MONTH_PAID', 'letzter Monat (bezahlt)');
 define('TOTAL_TURNOVER', 'Umsatz gesamt');
 // EOF - Tomcraft - 2009-11-30 - Added missing definitions for /admin/start.php/
 ?>
- 	  	 
