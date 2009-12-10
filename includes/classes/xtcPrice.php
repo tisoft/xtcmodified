@@ -379,7 +379,7 @@ class xtcPrice {
 		if ($format) {
 //BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br />'.YOU_SAVE.$discount.'%';
-			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100,1).' % /'.$this->xtcFormat($pPrice-$sPrice, $format);
+      $price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100).' % /'.$this->xtcFormat($pPrice-$sPrice, $format);			
 			// Ausgabe des gültigen Kundengruppen-Rabatts (sofern vorhanden)
 			if ($discount != 0)
 					{ $price .= '<br />'.BOX_LOGINBOX_DISCOUNT.': '.round($discount).' %'; }
@@ -399,7 +399,7 @@ class xtcPrice {
 		if ($format) {
 //BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
-			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100,1).' % /'.$this->xtcFormat($pPrice-$sPrice, $format).'</small>';
+			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100).' % /'.$this->xtcFormat($pPrice-$sPrice, $format).'</small>';
 //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			if ($vpeStatus == 0) {
 				return $price;
