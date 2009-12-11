@@ -106,12 +106,6 @@
 
 <?php
 if ($admin_top_menu['configuration_value'] != 'false') {
-?>
-<script language="javascript">
-	<!--
-	document.write('<?php require(DIR_WS_INCLUDES . "column_left.php");?>');	
-	//-->
-</script>
-<?php
+  include(DIR_WS_INCLUDES . 'column_left.php');
 }
 ?>
