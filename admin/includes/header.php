@@ -24,6 +24,8 @@
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language;
   }
+  
+  var_dump($lng);
 
   $languages_string = '';
   $count_lng='';
