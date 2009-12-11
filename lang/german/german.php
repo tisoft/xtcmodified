@@ -43,6 +43,12 @@ function xtc_date_raw($date, $reverse = false) {
   }
 }
 
+// BOF - vr - 2009-12-11 - Added language dependent currency code
+// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency when changing language, 
+// instead of staying with the applications default currency
+define('LANGUAGE_CURRENCY', 'EUR');
+// EOF - vr - 2009-12-11 - Added language dependent currency code
+
 define('MALE', 'Herr');
 define('FEMALE', 'Frau');
 
