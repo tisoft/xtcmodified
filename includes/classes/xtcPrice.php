@@ -399,7 +399,13 @@ class xtcPrice {
 		if ($format) {
 //BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
-			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100).' % /'.$this->xtcFormat($pPrice-$sPrice, $format).'</small>';
+			//BOF - vr - 2009-12-11 avoid div / 0 if product price is 0
+			if (!isset($pPrice) || $pPrice == 0) 
+			  $discount = 0;
+			else
+			  $discount = ($pPrice - $sPrice) / $pPrice * 100;
+			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round($discount).' % /'.$this->xtcFormat($pPrice-$sPrice, $format).'</small>';
+			//BOF - vr - 2009-12-11 avoid div / 0 if product price is 0
 //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			if ($vpeStatus == 0) {
 				return $price;
