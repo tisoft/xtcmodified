@@ -187,6 +187,11 @@
         $remove_language = false;
         $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
       }
+	  
+	  // BOF - vr - 2009-12-11 - $lng must not be an array when entering header 
+	  unset($lng);
+	  // EOF - vr - 2009-12-11 - $lng must not be an array when entering header 
+	  
       break;
   }
 ?>

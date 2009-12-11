@@ -24,8 +24,6 @@
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language;
   }
-  
-  var_dump($lng);
 
   $languages_string = '';
   $count_lng='';
@@ -105,7 +103,9 @@
 <div id="top2"></div>
 
 <?php
-if ($admin_top_menu['configuration_value'] != 'false') {
+// BOF - vr - 2009-12-11 - JavaScript WEICHE  - Admin Umschaltauswahl
+if ($admin_top_menu['configuration_value'] != 'false') 
   include(DIR_WS_INCLUDES . 'column_left.php');
-}
+// EOF - vr - 2009-12-11 - JavaScript WEICHE  - Admin Umschaltauswahl
+
 ?>
