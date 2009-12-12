@@ -103,9 +103,13 @@
 <div id="top2"></div>
 
 <?php
-// BOF - vr - 2009-12-11 - JavaScript WEICHE  - Admin Umschaltauswahl
-if ($admin_top_menu['configuration_value'] != 'false') 
-  include(DIR_WS_INCLUDES . 'column_left.php');
-// EOF - vr - 2009-12-11 - JavaScript WEICHE  - Admin Umschaltauswahl
-
+if ($admin_top_menu['configuration_value'] != 'false') {
+?>
+<script language="javascript">
+	<!--
+	document.write('<?php require(DIR_WS_INCLUDES . "column_left.php");?>');	
+	//-->
+</script>
+<?php
+}
 ?>
