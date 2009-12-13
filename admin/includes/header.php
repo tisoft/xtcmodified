@@ -104,12 +104,14 @@
 
 <?php
 if ($admin_top_menu['configuration_value'] != 'false') {
+// BOF - vr/web28 - 2009-12-13 - escape some characters
 ?>
 <script language="javascript">
 	<!--
-	document.write('<?php require(DIR_WS_INCLUDES . "column_left.php");?>');	
+    document.write('<?php ob_start(); require(DIR_WS_INCLUDES . "column_left.php"); $content = ob_get_clean(); echo addslashes($content);?>');	
 	//-->
 </script>
 <?php
+// EOF - vr/web28 - 2009-12-13 - escape some characters
 }
 ?>
