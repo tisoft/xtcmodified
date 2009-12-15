@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_db_prepare_input.inc.php 528 2009-11-28 17:14:40Z dis $   
+   $Id: xtc_db_prepare_input.inc.php 899 2005-04-29 02:40:57Z hhgag $   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -15,10 +15,8 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/  
   function xtc_db_prepare_input($string) {
-  	$rv = '';
     if (is_string($string)) {
-      $rv = trim(stripslashes($string));
-      return ai_clean_db_input($rv);
+  return trim(stripslashes($string));
     } elseif (is_array($string)) {
       reset($string);
       while (list($key, $value) = each($string)) {
@@ -26,20 +24,7 @@
       }
       return $string;
     } else {
-      return ($string);
+      return $string;
     }
-  }
-  
-  function ai_clean_db_input($string) {
-  	$rv = $string;
-  	if(preg_match('/select.*from/i', $rv)) {
-  		$rv = preg_replace('/(.*?)\s*(?:union)?\s*select.*from.*/i', '$1', $rv);
-  		if($lc = substr($rv, strlen($rv) - 1, 1)) {
-  			if($lc  == "'" || $lc == '"') {
-  			 $rv = substr($rv, 0, strlen($rv) -1);
-  			}
-  		}
-  	}
-  	return $rv;
   }
  ?>
