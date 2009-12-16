@@ -105,13 +105,15 @@
 <?php
 if ($admin_top_menu['configuration_value'] != 'false') {
 // BOF - vr/web28 - 2009-12-13 - escape some characters
+// BOF - Hetfield  2009-12-16 - rename $content in $menucontent because $content already exist
 ?>
 <script language="javascript">
 	<!--
-    document.write('<?php ob_start(); require(DIR_WS_INCLUDES . "column_left.php"); $content = ob_get_clean(); echo addslashes($content);?>');	
+    document.write('<?php ob_start(); require(DIR_WS_INCLUDES . "column_left.php"); $menucontent = ob_get_clean(); echo addslashes($menucontent);?>');	
 	//-->
 </script>
 <?php
+// EOF - Hetfield  2009-12-16 - rename $content in $menucontent because $content already exist
 // EOF - vr/web28 - 2009-12-13 - escape some characters
 }
 ?>
