@@ -54,7 +54,9 @@ define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Please insert a new category or 
 define('TEXT_PRODUCT_MORE_INFORMATION', 'For more information, please visit this products <a href="http://%s" target="_blank"><u>webpage</u></a>.');
 define('TEXT_PRODUCT_DATE_ADDED', 'This product was added to our catalog on %s.');
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'This product will be in stock on %s.');
+// BOF - vr - 2009-12-16 removed unnecessary define
 define('TEXT_CHOOSE_INFO_TEMPLATE', 'Product-Info Template:');
+// EOF - vr - 2009-12-16 removed unnecessary define
 define('TEXT_CHOOSE_OPTIONS_TEMPLATE', 'Product-Optionen Template:');
 define('TEXT_SELECT', 'Please select:');
 
@@ -152,7 +154,9 @@ define('TXT_STAFFELPREIS','Graduated Price');
 define('HEADING_PRODUCTS_MEDIA','<b>Products Media</b>');
 define('TABLE_HEADING_PRICE','Price');
 
+// BOF - vr - 2009-12-16 removed unnecessary define
 define('TEXT_CHOOSE_INFO_TEMPLATE','Productdetail Template');
+// EOF - vr - 2009-12-16 removed unnecessary define
 define('TEXT_SELECT','--Select--');
 define('TEXT_CHOOSE_OPTIONS_TEMPLATE','Productoptions Template');
 define('SAVE_ENTRY','Save ?');

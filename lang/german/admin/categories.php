@@ -54,7 +54,9 @@ define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte f&uuml;gen Sie eine neue K
 define('TEXT_PRODUCT_MORE_INFORMATION', 'F&uuml;r weitere Informationen, besuchen Sie bitte die <a href="http://%s" target="_blank"><u>Homepage</u></a> des Herstellers.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Diesen Artikel haben wir am %s in unseren Katalog aufgenommen.');
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erh&auml;ltlich ab %s.');
-define('TEXT_CHOOSE_INFO_TEMPLATE', 'Artikel-Info Vorlage:');
+// BOF - vr - 2009-12-16 removed unnecessary define
+// define('TEXT_CHOOSE_INFO_TEMPLATE', 'Artikel-Info Vorlage:');
+// EOF - vr - 2009-12-16 removed unnecessary define
 define('TEXT_CHOOSE_OPTIONS_TEMPLATE', 'Artikel-Optionen Vorlage:');
 define('TEXT_SELECT', 'Bitte ausw&auml;hlen:');
 
@@ -150,7 +152,9 @@ define('TXT_STAFFELPREIS','Staffelpreise');
 define('HEADING_PRODUCTS_MEDIA','<b>Artikelmedium</b>');
 define('TABLE_HEADING_PRICE','Preis');
 
-define('TEXT_CHOOSE_INFO_TEMPLATE','Artikel-Details Vorlage');
+// BOF - vr - 2009-12-16 removed unnecessary define
+// define('TEXT_CHOOSE_INFO_TEMPLATE','Artikel-Details Vorlage');
+// EOF - vr - 2009-12-16 removed unnecessary define
 define('TEXT_SELECT','--bitte w&auml;hlen--');
 define('TEXT_CHOOSE_OPTIONS_TEMPLATE','Optionen-Details Vorlage');
 define('SAVE_ENTRY','Speichern ?');
