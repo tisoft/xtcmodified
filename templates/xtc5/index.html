@@ -11,9 +11,9 @@
             {if $account}
             <li><a href="{$account}">{#link_account#}</a></li>
             {/if}
-             {php}if ($_SESSION['customers_status']['customers_status_id'] == 1) { {/php} 
-            <li><a href="{php}echo xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL');{/php}">{#new_customer#}</a></li>
-             {php}}{/php}
+            {if $smarty.session.customers_status.customers_status_id == '1'}             
+            <li><a href="{php}echo xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL');{/php}">{#new_customer#}</a></li>             
+            {/if}
             <li><a href="{$checkout}">{#link_checkout#}</a></li>
             {if $smarty.session.customer_id}
             <li><a href="{$logoff}">{#link_logoff#}</a></li>
@@ -38,5 +38,5 @@
     {if !strstr ($smarty.server.PHP_SELF, 'checkout')}
     <div id="rightcol">{$box_CART}{$box_LOGIN}{$box_ADMIN}{$box_NEWSLETTER}{$box_BESTSELLERS}{$box_INFOBOX}{$box_CURRENCIES}{$box_MANUFACTURERS_INFO}{$box_MANUFACTURERS}</div>
     {/if} </div>
-<p class="footer">{php}echo TITLE; echo ' &copy; '.date('Y');{/php} | Template &copy; 2009 by xtcModified eCommerce Shopsoftware</p>
+<p class="footer">{$smarty.const.TITLE} &copy; {$smarty.now|date_format:"%Y"} | Template &copy; 2009 by xtcModified eCommerce Shopsoftware</p>
 </div>
