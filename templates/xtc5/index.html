@@ -6,7 +6,7 @@
     </div>
     <div id="topmenuwrap">
         <ul id="topmenu">
-            <li><a href="{php}echo xtc_href_link(FILENAME_DEFAULT);{/php}">Home</a></li>
+            <li><a href="{$index}">{#link_index#}</a></li>
             <li><a href="{$cart}">{#link_cart#}</a></li>
             {if $account}
             <li><a href="{$account}">{#link_account#}</a></li>
@@ -15,9 +15,11 @@
             <li><a href="{php}echo xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL');{/php}">{#new_customer#}</a></li>
              {php}}{/php}
             <li><a href="{$checkout}">{#link_checkout#}</a></li>
-            {php} if (isset($_SESSION['customer_id'])) { {/php}
+            {if $smarty.session.customer_id}
             <li><a href="{$logoff}">{#link_logoff#}</a></li>
-            {php} } {/php}
+            {else}
+            <li><a href="{$login}">{#link_login#}</a></li>
+            {/if}
         </ul>
         <div id="languages">{$box_LANGUAGES}</div>
     </div>

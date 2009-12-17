@@ -336,10 +336,14 @@ require('includes/google_conversiontracking.js.php');
 
 
 $smarty->assign('navtrail',$breadcrumb->trail(' &raquo; '));
+// BOF - Hetfield - 2009-12-17 - added new links index and login for index.html
 if (isset($_SESSION['customer_id'])) {
-
-$smarty->assign('logoff',xtc_href_link(FILENAME_LOGOFF, '', 'SSL'));
+	$smarty->assign('logoff',xtc_href_link(FILENAME_LOGOFF, '', 'SSL'));
+} else {
+	$smarty->assign('login',xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
+$smarty->assign('index',xtc_href_link(FILENAME_DEFAULT));
+// EOF - Hetfield - 2009-12-17 - added new links index and login for index.html
 if ( $_SESSION['account_type']=='0') {
 $smarty->assign('account',xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 }
@@ -351,27 +355,12 @@ $smarty->assign('checkout',xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'))
 $smarty->assign('store_name', htmlspecialchars(TITLE));
 // EOF - Dokuman - 2009-05-27 - added htmlspecialchars
 
-  if (isset($_GET['error_message']) && xtc_not_null($_GET['error_message'])) {
+if (isset($_GET['error_message']) && xtc_not_null($_GET['error_message'])) {
+	$smarty->assign('error','<p class="errormessage">'. htmlspecialchars(urldecode($_GET['error_message'])).'</p>');
+}
+if (isset($_GET['info_message']) && xtc_not_null($_GET['info_message'])) {
+	$smarty->assign('error','<p class="errormessage">'.htmlspecialchars($_GET['info_message']).'</p>');
+}
 
-$smarty->assign('error','
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr class="headerError">
-        <td class="headerError">'. htmlspecialchars(urldecode($_GET['error_message'])).'</td>
-      </tr>
-    </table>');
-
-  }
-
-  if (isset($_GET['info_message']) && xtc_not_null($_GET['info_message'])) {
-
-$smarty->assign('error','
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr class="headerInfo">
-        <td class="headerInfo">'.htmlspecialchars($_GET['info_message']).'</td>
-      </tr>
-    </table>');
-
-  }
-
-  include(DIR_WS_INCLUDES.FILENAME_BANNER);
+include(DIR_WS_INCLUDES.FILENAME_BANNER);
 ?>

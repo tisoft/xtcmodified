@@ -68,8 +68,9 @@
         <td>
 <!-- BOF - Tomcraft - 2009-11-02 - Block1 //-->
 <div style="width: 860px; padding:5px;">
- 
-<table "width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="f3f3f3" style="width: 100%; border: 1px solid; border-color: #aaaaaa; padding: 5px;">
+<!-- BOF - Hetfield - 2009-12-17 - removing HTML-Error //-->
+<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="f3f3f3" style="width: 100%; border: 1px solid; border-color: #aaaaaa; padding: 5px;">
+<!-- EOF - Hetfield - 2009-12-17 - removing HTML-Error //-->
 <tr>
 	<td class="main" width="204" valign="top"><?php echo TEXT_EDIT_CATEGORIES_IMAGE; ?></td>
 	<td class="main"><?php echo xtc_draw_file_field('categories_image') . '<br />' . xtc_draw_separator('pixel_trans.gif', '24', '15') . xtc_draw_hidden_field('categories_previous_image', $cInfo->categories_image); ?>
