@@ -17,7 +17,7 @@
 define('MODULE_PAYMENT_PAYPALEXPRESS_TEXT_TITLE', 'PayPal Express Purchase (cart)');
 define('MODULE_PAYMENT_PAYPALEXPRESS_TEXT_DESCRIPTION', 'PayPal Express Purchase');
 define('MODULE_PAYMENT_PAYPALEXPRESS_TEXT_INFO', '');
-define('MODULE_PAYMENT_PAYPALEXPRESS_STATUS_TITLE', 'PayPal-Express Modul aktivieren');
+define('MODULE_PAYMENT_PAYPALEXPRESS_STATUS_TITLE', 'ActivatePayPal-Express module');
 define('MODULE_PAYMENT_PAYPALEXPRESS_STATUS_DESC', 'Do you want to accept PayPal Express payments?');
 define('MODULE_PAYMENT_PAYPALEXPRESS_ALT_BUTTON', ' Pay with PayPal ');
 ?>

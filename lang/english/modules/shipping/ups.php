@@ -45,7 +45,7 @@ define('MODULE_SHIPPING_UPS_SORT_ORDER_DESC' , 'Niedrigste wird zuerst angezeigt
 define('MODULE_SHIPPING_UPS_ALLOWED_TITLE' , 'Einzelne Versandzonen');
 define('MODULE_SHIPPING_UPS_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll, z. B.: AT,DE.');
 define('MODULE_SHIPPING_UPS_FREEAMOUNT_TITLE' , 'Versandkostenfrei Inland');
-define('MODULE_SHIPPING_UPS_FREEAMOUNT_DESC' , 'Mindestbestellwert für den versandkostenfreien Versand im Inland und den erm&auml;&szlig;igten Versand ins Ausland.');
+define('MODULE_SHIPPING_UPS_FREEAMOUNT_DESC' , 'Mindestbestellwert f&uuml;r den versandkostenfreien Versand im Inland und den erm&auml;&szlig;igten Versand ins Ausland.');
 
 define('MODULE_SHIPPING_UPS_COUNTRIES_1_TITLE' , 'Staaten f&uuml;r UPS Standard Zone 1');
 define('MODULE_SHIPPING_UPS_COUNTRIES_1_DESC' , 'Durch Komma getrennte ISO-K&uuml;rzel der Staaten f&uuml;r Zone 1:');

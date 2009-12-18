@@ -36,4 +36,3 @@ define('HEADING_LATESELLS', 'Late Sells');
 define('HEADING_SUM', 'Summe');
 define('TEXT_REFERER', 'Referer:');
 ?>
-

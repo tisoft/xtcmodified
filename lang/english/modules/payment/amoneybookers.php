@@ -1,12 +1,12 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: amoneybookers.php 87 2007-01-15 10:18:00Z mzanier $
+   $Id: amoneybookers.php 85 2007-01-14 15:19:44Z mzanier $
 
-   XT-Commerce - community made shopping
+   xt:Commerce - community made shopping
    http://www.xt-commerce.com
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2006 xt:Commerce
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
@@ -30,7 +30,6 @@ define('MODULE_PAYMENT_AMONEYBOOKERS_ORDER_TEXT', 'Date of the order: ');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_ERROR', 'Payment error!');
 define('MODULE_PAYMENT_AMONEYBOOKERS_CONFIRMATION_TEXT', 'Thank you for your order!');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TRANSACTION_FAILED_TEXT', 'Your payment transaction at Moneybookers has failed. Please try again, or select an other payment option!');
-
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_2', '<b>100% security</b> - All data transactions are secure with Moneybookers most modern security technology');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_3', '<b>100% data protection</b> - Your personal data will be stored at Moneybookers and not be passed on to the shop');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_4', '<b>Maximum comfort</b> -  Once you have a Moneybookers account, you only need your e-mail address and password for all future transactions');
@@ -74,5 +73,4 @@ define('MODULE_PAYMENT_AMONEYBOOKERS_ZONE_TITLE', 'Payment Zone');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ZONE_DESC', 'If a zone is selected, only enable this payment method for that zone.');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ALLOWED_TITLE' , 'Allowed Zones');
 define('MODULE_PAYMENT_AMONEYBOOKERS_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
-
 ?>

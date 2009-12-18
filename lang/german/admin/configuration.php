@@ -300,7 +300,6 @@ define('ACCOUNT_SUBURB_DESC' , 'Die Abfrage f&uuml;r den Vorort im Account benut
 define('ACCOUNT_STATE_TITLE' , 'Bundesland');
 define('ACCOUNT_STATE_DESC' , 'Die Abfrage f&uuml;r das Bundesland im Account benutzen');
 
-
 define('DEFAULT_CURRENCY_TITLE' , 'Standard W&auml;hrung');
 define('DEFAULT_CURRENCY_DESC' , 'W&auml;hrung die standardm&auml;ssig benutzt wird');
 define('DEFAULT_LANGUAGE_TITLE' , 'Standard Sprache');
@@ -335,7 +334,6 @@ define('STOCK_CHECK_DESC' , 'Pr&uuml;fen ob noch genug Ware zum Ausliefern von B
 
 define('ATTRIBUTE_STOCK_CHECK_TITLE' , '&Uuml;berpr&uuml;fen des Artikelattribut Bestandes');
 define('ATTRIBUTE_STOCK_CHECK_DESC' , '&Uuml;berpr&uuml;fen des Bestandes an Ware mit bestimmten Artikelattributen');
-
 define('STOCK_LIMITED_TITLE' , 'Warenmenge abziehen');
 define('STOCK_LIMITED_DESC' , 'Warenmenge im Warenbestand abziehen, wenn die Ware bestellt wurde');
 define('STOCK_ALLOW_CHECKOUT_TITLE' , 'Einkaufen nicht vorr&auml;tiger Ware erlauben');
@@ -344,7 +342,6 @@ define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_TITLE' , 'Kennzeichnung vergriffener Art
 define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_DESC' , 'Dem Kunden kenntlich machen, welche Artikel nicht mehr verf&uuml;gbar sind.');
 define('STOCK_REORDER_LEVEL_TITLE' , 'Meldung an den Admin dass ein Artikel nachbestellt werden muss');
 define('STOCK_REORDER_LEVEL_DESC' , 'Ab welcher St&uuml;ckzahl soll diese Meldung erscheinen?');
-
 define('STORE_PAGE_PARSE_TIME_TITLE' , 'Speichern der Berechnungszeit der Seite');
 define('STORE_PAGE_PARSE_TIME_DESC' , 'Speicher der Zeit die ben&ouml;tigt wird, um Skripte bis zum Output der Seite zu berechnen');
 define('STORE_PAGE_PARSE_TIME_LOG_TITLE' , 'Speicherort des Logfile der Berechnungszeit');
@@ -354,7 +351,6 @@ define('STORE_PARSE_DATE_TIME_FORMAT_DESC' , 'Das Datumsformat f&uuml;r Logging'
 
 define('DISPLAY_PAGE_PARSE_TIME_TITLE' , 'Berechnungszeiten der Seiten anzeigen');
 define('DISPLAY_PAGE_PARSE_TIME_DESC' , 'Wenn das Speichern der Berechnungszeiten f&uuml;r Seiten eingeschaltet ist, k&ouml;nnen diese im Footer angezeigt werden.');
-
 define('STORE_DB_TRANSACTIONS_TITLE' , 'Speichern der Database Queries');
 define('STORE_DB_TRANSACTIONS_DESC' , 'Speichern der einzelnen Datenbank Queries im Logfile f&uuml;r Berechnungszeiten (PHP4 only)');
 
@@ -564,8 +560,6 @@ define('DOWNLOAD_MIN_ORDERS_STATUS_DESC', 'Min. Bestellstatus, ab dem bestellte 
 
 // Vat ID
 define('STORE_OWNER_VAT_ID_TITLE' , 'UST ID des Shopbetreibers');
-define('STORE_OWNER_VAT_ID_DESC' , 'Die UST ID des Shopbetreibers');
-define('STORE_OWNER_VAT_ID_TITLE' , 'Umsatzsteuer ID');
 define('STORE_OWNER_VAT_ID_DESC' , 'Die Umsatzsteuer ihres Unternehmens');
 define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_TITLE' , 'Kundenstatus f&uuml;r UST ID gepr&uuml;fte Kunden (Ausland)');
 define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_DESC' , 'W&auml;hlen Sie den Kundenstatus(Gruppe) f&uuml;r UST ID gepr&uuml;fte Kunden aus!');
@@ -579,6 +573,7 @@ define('ACCOUNT_VAT_BLOCK_ERROR_TITLE' , 'Eintragung falscher oder ungepr&uuml;f
 define('ACCOUNT_VAT_BLOCK_ERROR_DESC' , 'Durch einschalten dieser Option werden nur gepr&uuml;fte und richtige UstIDs eingetragen');
 define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_TITLE','Kundenstatus f&uuml;r UST ID Gepr&uuml;fte Kunden (Inland)');
 define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_DESC','W&auml;hlen Sie den Kundenstatus(Gruppe) f&uuml;r UST ID gepr&uuml;fte Kunden aus!');
+
 // Google Conversion
 define('GOOGLE_CONVERSION_TITLE','Google Conversion-Tracking');
 define('GOOGLE_CONVERSION_DESC','Die Aufzeichnung von Conversions-Keywords bei Bestellungen');
@@ -586,6 +581,7 @@ define('GOOGLE_CONVERSION_ID_TITLE','Conversion ID');
 define('GOOGLE_CONVERSION_ID_DESC','Ihre Google Conversion ID');
 define('GOOGLE_LANG_TITLE','Google Sprache');
 define('GOOGLE_LANG_DESC','ISO Code der verwendeten Sprache');
+
 // Afterbuy
 define('AFTERBUY_ACTIVATED_TITLE','Aktiv');
 define('AFTERBUY_ACTIVATED_DESC','Afterbuyschnittstelle aktivieren');

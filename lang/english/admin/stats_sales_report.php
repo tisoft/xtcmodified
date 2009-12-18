@@ -1,5 +1,4 @@
 <?php
-
 /* --------------------------------------------------------------
    $Id: stats_sales_report.php 1311 2005-10-18 12:30:40Z mz $   
 
@@ -51,7 +50,7 @@ define('SORT_VAL0', 'standard');
 define('SORT_VAL1', 'description');
 define('SORT_VAL2', 'description desc');
 define('SORT_VAL3', '# Products');
-define('SORT_VAL4', '#Items desc');
+define('SORT_VAL4', '# Products desc');
 define('SORT_VAL5', 'Revenue');
 define('SORT_VAL6', 'Revenue desc');
 

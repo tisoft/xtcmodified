@@ -26,9 +26,9 @@
           '<br />IBAN: ' . MODULE_PAYMENT_EUTRANSFER_ACCIBAN .
           '<br />BIC/SWIFT: ' . MODULE_PAYMENT_EUTRANSFER_BANKBIC .
 //        '<br />Sort Code: ' . MODULE_PAYMENT_EUTRANSFER_SORTCODE .
-          '<br /><br />Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.<br />');
+          '<br /><br />Die Ware wird erst ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.<br />');
 
-  define('MODULE_PAYMENT_EUTRANSFER_TEXT_INFO','&Uuml;berweisen Sie den Rechnungsbetrag auf unser Konto. Die Kontodaten erhalten Sie nach Bestellannahme per E-Mail');
+  define('MODULE_PAYMENT_EUTRANSFER_TEXT_INFO','Bitte &uuml;berweisen Sie den f&auml;lligen Rechnungsbetrag auf unser Konto. Die Kontodaten erhalten Sie nach Bestellannahme per E-Mail');
   define('MODULE_PAYMENT_EUTRANSFER_STATUS_TITLE','Allow Bank Transfer Payment');
   define('MODULE_PAYMENT_EUTRANSFER_STATUS_DESC','M&ouml;chten Sie &Uuml;berweisungen akzeptieren?');
 

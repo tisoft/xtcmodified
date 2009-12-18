@@ -24,10 +24,9 @@
 define('TITLE', STORE_NAME);
 define('HEADER_TITLE_TOP', 'Startseite');    
 define('HEADER_TITLE_CATALOG', 'Katalog');
-
 define('HTML_PARAMS','dir="ltr" xml:lang="de"');
-
 @setlocale(LC_TIME, 'de_DE@euro', 'de_DE', 'de-DE', 'de', 'ge', 'de_DE.ISO_8859-1', 'German','de_DE.ISO_8859-15');
+
 
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
@@ -42,6 +41,7 @@ function xtc_date_raw($date, $reverse = false) {
     return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
   }
 }
+
 
 // BOF - vr - 2009-12-11 - Added language dependent currency code
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency when changing language, 

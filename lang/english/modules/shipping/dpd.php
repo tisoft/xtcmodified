@@ -1,6 +1,5 @@
 <?php
-/*
-   ------------------------------------------------------------------------------
+/*------------------------------------------------------------------------------
    v 1.0
    XTC-DPD Shipping Module - Contribution for XT-Commerce http://xt-commerce.com
    modified by http://www.hwangelshop.de

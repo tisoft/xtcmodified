@@ -257,4 +257,5 @@ define('TXT_MULTIREVERSECATS_DESCR','Beim Hinzuf&uuml;gen neuer (Multi-)Auktione
 # FUER IQPI AG
 define('TXT_ADD_SHOPKEY','Neuer ShopKey');
 define('TXT_DELETE_SHOPKEY','L&ouml;sche ShopKey');
+
 ?>

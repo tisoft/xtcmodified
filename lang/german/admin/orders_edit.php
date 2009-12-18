@@ -23,21 +23,22 @@ define('TEXT_SAVE_ORDER', 'Bestellungsbearbeitung beenden und Bestellung neu ber
 define('TEXT_EDIT_ADDRESS', 'Adressdaten und Kundendaten bearbeiten und einf&uuml;gen.');
 define('TEXT_EDIT_PRODUCTS', 'Artikel und Artikeloptionen bearbeiten und einf&uuml;gen.');
 define('TEXT_EDIT_OTHER', 'Versandkosten, Zahlungsweisen, W&auml;hrungen, Sprachen usw bearbeiten und einf&uuml;gen.');
+define('TEXT_EDIT_GIFT', 'Gutscheine und Rabatt bearbeiten oder einf&uuml;gen');
+define('TEXT_EDIT_ADDRESS_SUCCESS', 'Adress&auml;nderung wurde gespeichert.');
 
 define('IMAGE_EDIT_ADDRESS', 'Adressen bearbeiten oder einf&uuml;gen');
 define('IMAGE_EDIT_PRODUCTS', 'Artikel und Optionen bearbeiten oder einf&uuml;gen');
-define('IMAGE_EDIT_OTHER', 'Versandkosten Zahlung Gutscheine usw. bearbeiten oder einf&uuml;gen');
+define('IMAGE_EDIT_OTHER', 'Versandkosten, Zahlung, Gutscheine usw. bearbeiten oder einf&uuml;gen');
 
-// Adress&auml;nderung
+// Adressaenderung
 define('TEXT_INVOICE_ADDRESS', 'Kundenadresse');
 define('TEXT_SHIPPING_ADDRESS', 'Versandadresse');
 define('TEXT_BILLING_ADDRESS', 'Rechnungsadresse');
 
-
 define('TEXT_COMPANY', 'Firma:');
 define('TEXT_NAME', 'Name:');
 define('TEXT_STREET', 'Stra&szlig;e');
-define('TEXT_ZIP', 'Plz:');
+define('TEXT_ZIP', 'PLZ:');
 define('TEXT_CITY', 'Stadt:');
 define('TEXT_COUNTRY', 'Land:');
 define('TEXT_CUSTOMER_GROUP', 'Kundengruppe in der Bestellung');
@@ -47,8 +48,6 @@ define('TEXT_CUSTOMER_UST', 'UstID:');
 
 // Artikelbearbeitung
 
-define('TEXT_EDIT_GIFT', 'Gutscheine und Rabatt bearbeiten oder einf&uuml;gen');
-define('TEXT_EDIT_ADDRESS_SUCCESS', 'Adress&auml;nderung wurde gespeichert.');
 define('TEXT_SMALL_NETTO', '(Netto)');
 define('TEXT_PRODUCT_ID', 'pID:');
 define('TEXT_PRODUCTS_MODEL', 'Art.Nr:');
@@ -63,6 +62,13 @@ define('TEXT_PRODUCT_OPTION', 'Artikelmerkmale:');
 define('TEXT_PRODUCT_OPTION_VALUE', 'Optionswert:');
 define('TEXT_PRICE', 'Preis:');
 define('TEXT_PRICE_PREFIX', 'Price Prefix:');
+define('TEXT_SAVE_ORDER', 'Bestellung abschlie&szlig;en und neu berechnen');
+define('TEXT_INS', 'Hinzuf&uuml;gen:');
+define('TEXT_SHIPPING', 'Versandkosten');
+define('TEXT_COD_COSTS', 'Nachnahmekosten');
+define('TEXT_VALUE', 'Preis');
+define('TEXT_DESC', 'Einf&uuml;gen');
+define('TEXT_CUSTOMER_GROUP', 'Kundengruppe:');
 
 // Sonstiges
 
@@ -75,6 +81,5 @@ define('TEXT_SAVE', 'Speichern');
 define('TEXT_ACTUAL', 'Aktuell: ');
 define('TEXT_NEW', 'Neu: ');
 define('TEXT_PRICE', 'Kosten: ');
-define('TEXT_ACTUAL', 'aktuell:');
-define('TEXT_NEW', 'neu:');
+
 ?>

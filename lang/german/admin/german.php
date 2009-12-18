@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: german.php 905 2005-04-29 13:02:06Z novalis $   
+   $Id: english.php 1231 2005-09-21 13:05:36Z mz $   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -24,6 +24,7 @@
 // on RedHat6.0 I used 'de_DE'
 // on FreeBSD 4.0 I use 'de_DE.ISO_8859-1'
 // this may not work under win32 environments..
+
 setlocale(LC_TIME, 'de_DE@euro', 'de_DE', 'de-DE', 'de', 'ge', 'de_DE.ISO_8859-1', 'German','de_DE.ISO_8859-15');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
@@ -123,10 +124,7 @@ define('BOX_HEADING_REPORTS', 'Berichte');
 define('BOX_PRODUCTS_VIEWED', 'Besuchte Artikel');
 define('BOX_STOCK_WARNING','Lager Bericht');
 define('BOX_PRODUCTS_PURCHASED', 'Verkaufte Artikel');
-// BOF - Tomcraft - 2009-11-02 - New admin top menu
-//define('BOX_STATS_CUSTOMERS', 'Kunden-<br />&nbsp;Bestellstatistik');
 define('BOX_STATS_CUSTOMERS', 'Kunden-Bestellstatistik');
-// EOF - Tomcraft - 2009-11-02 - New admin top menu
 define('BOX_BACKUP', 'Datenbank Manager');
 define('BOX_BANNER_MANAGER', 'Banner Manager');
 define('BOX_CACHE', 'Cache Steuerung');
@@ -369,10 +367,8 @@ define('_DECEMBER', 'Dezember');
 // Beschreibung f&uuml;r Abmeldelink im Newsletter
 define('TEXT_NEWSLETTER_REMOVE', 'Um sich von unserem Newsletter abzumelden klicken Sie hier:');
 
-
 define('TEXT_DISPLAY_NUMBER_OF_GIFT_VOUCHERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Gutscheinen)');
 define('TEXT_DISPLAY_NUMBER_OF_COUPONS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> ((von insgesamt <b>%d</b> Kupons)');
-
 define('TEXT_VALID_PRODUCTS_LIST', 'Artikelliste');
 define('TEXT_VALID_PRODUCTS_ID', 'Artikelnummer');
 define('TEXT_VALID_PRODUCTS_NAME', 'Artikelname');

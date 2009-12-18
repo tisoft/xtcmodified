@@ -24,3 +24,5 @@ define('TEXT_PRODUCTS_SUCCESSFULLY_SET', 'Produktberechtigungen erfolgreich gese
 define('TEXT_PRODUCTS_SUCCESSFULLY_UNSET', 'Produktberechtigungen erfolgreich entfernt.');
 define('TEXT_CONTENT_SUCCESSFULLY_SET', 'Inhaltsberechtigungen erfolgreich gesetzt.');
 define('TEXT_CONTENT_SUCCESSFULLY_UNSET', 'Inhaltsberechtigungen erfolgreich entfernt.');
+
+?>

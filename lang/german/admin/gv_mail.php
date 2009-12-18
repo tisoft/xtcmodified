@@ -9,7 +9,7 @@
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(gv_mail.php,v 1.1.2.1 2003/05/15); www.oscommerce.com
+   (c) 2002-2003 osCommerce(gv_mail.php,v 1.5.2.2 2003/04/27); www.oscommerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -53,4 +53,5 @@ define ('TEXT_REDEEM_COUPON_MESSAGE_HEADER', 'Sie haben k&uuml;rzlich in unserem
 define ('TEXT_REDEEM_COUPON_MESSAGE_AMOUNT', "\n\n" . 'Der Wert Ihres Gutscheines betr&auml;gt %s');
 define ('TEXT_REDEEM_COUPON_MESSAGE_BODY', "\n\n" . 'Sie k&ouml;nnen nun &uuml;ber Ihr pers&ouml;nliches Konto den Gutschein an jemanden versenden.');
 define ('TEXT_REDEEM_COUPON_MESSAGE_FOOTER', "\n\n");
+
 ?>

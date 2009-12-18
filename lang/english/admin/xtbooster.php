@@ -1,6 +1,6 @@
 <?php
 ##
-## xs:booster v1.0423 fÃ¼r xt:Commerce.
+## xs:booster v1.0423 für xt:Commerce.
 ## Copyright (c) 2008-2009 xs:booster Limited
 ## http://www.xs-booster.com
 ##

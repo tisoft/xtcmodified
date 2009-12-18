@@ -13,7 +13,6 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
  
-  define('HEADING_TITLE','Welcome');
   define('ATTENTION_TITLE','! ATTENTION !');
 
   // text for Warnings:
@@ -41,20 +40,50 @@
   define('REFFERING_HOST','Referring Host:');
   define('ENTRY_PAGE','Entry Page:');
   define('HOURLY_TRAFFIC_SUMMARY','Hourly Traffic Summary');
-    define('WEB_BROWSER_SUMMARY','Web Browser Summary');
-    define('OPERATING_SYSTEM_SUMMARY','Operatin System Summary');
-    define('TOP_REFERRERS','Top 10 Referrers');
-    define('TOP_HOSTS','Top Ten Hosts');
-    define('LIST_ALL','List all');    
-    define('SEARCH_ENGINE_SUMMARY','Search Engine Summary');
-    define('SEARCH_ENGINE_SUMMARY_TEXT',' ( Percentage is based on total visits referred from search engines. )');
-    define('SEARCH_QUERY_SUMMARY','Search Query Summary');
-    define('SEARCH_QUERY_SUMMARY_TEXT',' ) ( Percentage is based on total search query strings logged. )');
-    define('REFERRING_URL','Reffering Url');
-    define('HITS','Hits');
-    define('PERCENTAGE','Percentage');
-    define('HOST','Host');
+  define('WEB_BROWSER_SUMMARY','Web Browser Summary');
+  define('OPERATING_SYSTEM_SUMMARY','Operatin System Summary');
+  define('TOP_REFERRERS','Top 10 Referrers');
+  define('TOP_HOSTS','Top Ten Hosts');
+  define('LIST_ALL','List all');
+  define('SEARCH_ENGINE_SUMMARY','Search Engine Summary');
+  define('SEARCH_ENGINE_SUMMARY_TEXT',' ( Percentage is based on total visits referred from search engines. )');
+  define('SEARCH_QUERY_SUMMARY','Search Query Summary');
+  define('SEARCH_QUERY_SUMMARY_TEXT',' ) ( Percentage is based on total search query strings logged. )');
+  define('REFERRING_URL','Reffering Url');
+  define('HITS','Hits');
+  define('PERCENTAGE','Percentage');
+  define('HOST','Host');
     
+// NEU HINZUGEFUEGT 04.12.2008 - Neue Startseite im Admin BOF	
+	
+	define('HEADING_TITLE', 'Orders');
+	define('HEADING_TITLE_SEARCH', 'Order-Nr.:');
+	define('HEADING_TITLE_STATUS', 'Status:');
+	define('TABLE_HEADING_AFTERBUY', 'Afterbuy'); //Dokuman - 2009-05-27 - added missing definition
+	define('TABLE_HEADING_CUSTOMERS', 'Customers');
+	define('TABLE_HEADING_ORDER_TOTAL', 'Total value');
+	define('TABLE_HEADING_DATE_PURCHASED', 'Order Date');
+	define('TABLE_HEADING_STATUS', 'Status');
+	define('TABLE_HEADING_ACTION', 'Action');
+	define('TABLE_HEADING_QUANTITY', 'Quantity');
+	define('TABLE_HEADING_PRODUCTS_MODEL', 'Product-Nr.');
+	define('TABLE_HEADING_PRODUCTS', 'Product');
+	define('TABLE_HEADING_TAX', 'VAT');
+	define('TABLE_HEADING_TOTAL', 'Total sum');
+	define('TABLE_HEADING_STATUS', 'Status');
+	define('TABLE_HEADING_DATE_ADDED', 'added on:');
+	define('ENTRY_CUSTOMER', 'Customer:');
+	define('TEXT_DATE_ORDER_CREATED', 'Order Date:');
+	define('TEXT_INFO_PAYMENT_METHOD', 'Payment method:');
+	define('TEXT_VALIDATING','Not validated');
+	define('TEXT_ALL_ORDERS', 'All orders');
+	define('TEXT_NO_ORDER_HISTORY', 'No order history available');
+	define('TEXT_DATE_ORDER_LAST_MODIFIED','Last change');
+    
+// NEU HINZUGEFUEGT 04.12.2008 - Neue Startseite im Admin EOF
+
+define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte &Auml;nderung: ');
+
 // BOF - Tomcraft - 2009-11-25 - Added missing definitions for /admin/start.php/
 define('TOTAL_CUSTOMERS','Customers total');
 define('TOTAL_SUBSCRIBERS','Newsletter 	subscriptions');

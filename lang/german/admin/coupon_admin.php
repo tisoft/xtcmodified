@@ -9,13 +9,13 @@
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(Kupon_admin.php,v 1.1.2.2 2003/05/15); www.oscommerce.com
+   (c) 2002-2003 osCommerce(coupon_admin.php,v 1.1.2.5 2003/05/13); www.oscommerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contributions:
 
-   Credit Class/Gift Vouchers/Discount Kupons (Version 5.10)
+   Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
    Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com

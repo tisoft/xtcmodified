@@ -1,12 +1,12 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: moneybookers_cc.php 36 2009-01-22 12:31:32Z mzanier $
+   $Id: moneybookers_cc.php 38 2009-01-22 14:46:06Z mzanier $
 
    xt:Commerce - community made shopping
    http://www.xt-commerce.com
 
-   Copyright (c) 2007 xt:Commerce
+   Copyright (c) 2009 xt:Commerce GmbH
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/

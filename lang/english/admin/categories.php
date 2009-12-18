@@ -124,11 +124,12 @@ define('TEXT_PRODUCTS_URL', 'Products URL:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Products Price:');
 define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
+define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without leading http://)</small>');
+define('TEXT_PRODUCTS_PRICE', 'Product price:');
+define('TEXT_PRODUCTS_WEIGHT', 'Product weight:');
 define('TEXT_PRODUCTS_EAN','Barcode/EAN');
 define('TEXT_PRODUCT_LINKED_TO','Linked to:');
-
 define('TEXT_DELETE', 'Delete');
-
 define('EMPTY_CATEGORY', 'Empty Category');
 
 define('TEXT_HOW_TO_COPY', 'Copy Method:');
@@ -164,12 +165,18 @@ define('SAVE_ENTRY','Save ?');
 define('TEXT_FSK18','FSK 18:');
 define('TEXT_CHOOSE_INFO_TEMPLATE_CATEGORIE','Template for Category Listing');
 define('TEXT_CHOOSE_INFO_TEMPLATE_LISTING','Template for Product Listing');
-define('TEXT_PRODUCTS_SORT','Sorting:');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
+//define('TEXT_PRODUCTS_SORT','Sorting:');
+define('TEXT_PRODUCTS_SORT','Sort order:');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TEXT_EDIT_PRODUCT_SORT_ORDER','Product Sorting');
 define('TXT_PRICES','Price');
-define('TXT_NAME','Productname');
+define('TXT_NAME','Product name');
 define('TXT_ORDERED','Products ordered');
+// BOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TXT_SORT','Sorting');
+define('TXT_SORT','Sort order');
+// EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TXT_WEIGHT','Weight');
 define('TXT_QTY','On Stock');
 // BOF - Tomcraft - 2009-09-12 - add option to sort by date
@@ -190,12 +197,12 @@ define('CROSS_SELLING','Cross selling for article');
 define('CROSS_SELLING_SEARCH','Search product:');
 define('BUTTON_EDIT_CROSS_SELLING','Cross selling');
 define('HEADING_DEL','delete');
+define('HEADING_ADD','Add?');
+define('HEADING_GROUP','Group');
 define('HEADING_SORTING','sorting');
 define('HEADING_MODEL','model');
 define('HEADING_NAME','article');
 define('HEADING_CATEGORY','category');
-define('HEADING_ADD','Add?');
-define('HEADING_GROUP','Group');
 
 // BOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TEXT_SORT_ASC','ascending');

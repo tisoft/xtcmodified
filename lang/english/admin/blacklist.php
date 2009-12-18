@@ -31,9 +31,6 @@ define('TEXT_LAST_MODIFIED', 'Last Modified:');
 
 define('TEXT_NEW_INTRO', 'Please fill out the following information for the new manufacturer');
 define('TEXT_EDIT_INTRO', 'Please make any necessary changes');
-
 define('TEXT_BLACKLIST_CARD_NUMBER', 'Card Number:');
 define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this blacklisted card?');
-
-
 ?>

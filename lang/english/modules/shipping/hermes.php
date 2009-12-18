@@ -42,6 +42,6 @@ define('MODULE_SHIPPING_HERMES_SORT_ORDER_TITLE' , 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_HERMES_SORT_ORDER_DESC' , 'Niedrigste wird zuerst angezeigt.');
 
 define('MODULE_SHIPPING_HERMES_ALLOWED_TITLE' , 'Einzelne Versandzonen');
-define('MODULE_SHIPPING_HERMES_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand m&ouml;glich sein soll, z. B.: AT,DE.');
+define('MODULE_SHIPPING_HERMES_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
 
 ?>

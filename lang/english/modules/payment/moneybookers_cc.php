@@ -11,8 +11,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-define('MODULE_PAYMENT_MONEYBOOKERS_CC_TEXT_TITLE', 'Creditcard');
-$_var = 'Creditcard via Moneybookers';
+define('MODULE_PAYMENT_MONEYBOOKERS_CC_TEXT_TITLE', 'Credit card');
+$_var = 'Credit card via Moneybookers';
 if (_PAYMENT_MONEYBOOKERS_EMAILID=='') {
 	$_var.='<br /><br /><b><font color="red">Please setup moneybookers.com configuration first! (Configuration -> xt:C Partner -> Moneybookers.com)!</font></b>';
 }
@@ -25,7 +25,6 @@ define('MODULE_PAYMENT_MONEYBOOKERS_CC_ORDER_TEXT', 'Date of the order: ');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_TEXT_ERROR', 'Payment error!');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_CONFIRMATION_TEXT', 'Thank you for your order!');
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_TRANSACTION_FAILED_TEXT', 'Your payment transaction at Moneybookers has failed. Please try again, or select an other payment option!');
-
 
 
 define('MODULE_PAYMENT_MONEYBOOKERS_CC_STATUS_TITLE', 'Enable Moneybookers');

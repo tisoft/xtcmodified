@@ -27,7 +27,6 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Gruppe l&ouml;
 define('TEXT_INFO_HEADING_NEW_XSELL_GROUP', 'Neuer Gruppenname');
 define('TEXT_INFO_HEADING_EDIT_XSELL_GROUP', 'Gruppenname bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_XSELL_GROUP', 'Gruppenname l&ouml;schen');
-
 define('ERROR_STATUS_USED_IN_ORDERS', 'Fehler: Diese Gruppe wird zur Zeit noch bei Cross-Marketing Artikeln verwendet.');
 
 ?>

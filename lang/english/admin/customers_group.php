@@ -24,3 +24,5 @@ define('TEXT_PRODUCTS_SUCCESSFULLY_SET', 'Productauthorizations successfully set
 define('TEXT_PRODUCTS_SUCCESSFULLY_UNSET', 'Productauthorizations successfully removed.');
 define('TEXT_CONTENT_SUCCESSFULLY_SET', 'Contentauthorizations successfully set.');
 define('TEXT_CONTENT_SUCCESSFULLY_UNSET', 'Contentauthorizations successfully removed.');
+
+?>

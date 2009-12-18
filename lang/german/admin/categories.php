@@ -130,8 +130,11 @@ define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
 define('TEXT_PRODUCTS_EAN','Barcode/EAN');
 define('TEXT_PRODUCT_LINKED_TO','Verlinkt in:');
 define('TEXT_DELETE', 'L&ouml;schen');
-
 define('EMPTY_CATEGORY', 'Leere Kategorie');
+
+define('TEXT_HOW_TO_COPY', 'Kopiermethode:');
+define('TEXT_COPY_AS_LINK', 'Verlinken');
+define('TEXT_COPY_AS_DUPLICATE', 'Duplizieren');
 
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Artikel k&ouml;nnen nicht in der gleichen Kategorie verlinkt werden.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . DIR_FS_CATALOG_IMAGES);
@@ -185,9 +188,6 @@ define('TEXT_MULTICOPY_DESC','Elemente in folgende Kategorien kopieren:<br />(Fa
 define('TEXT_SINGLECOPY','Einfach');
 define('TEXT_SINGLECOPY_DESC','Elemente in folgende Kategorie kopieren:<br />(Daf&uuml;r darf unter "Mehrfach" keine Kategorie aktiviert sein.)');
 define('TEXT_SINGLECOPY_CATEGORY','Kategorie:');
-define('TEXT_HOW_TO_COPY', 'Kopiermethode:');
-define('TEXT_COPY_AS_LINK', 'Verlinken');
-define('TEXT_COPY_AS_DUPLICATE', 'Duplizieren');
 
 define('TEXT_PRODUCTS_VPE','VPE');
 define('TEXT_PRODUCTS_VPE_VISIBLE','Anzeige VPE:');

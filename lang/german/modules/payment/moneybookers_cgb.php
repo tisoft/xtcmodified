@@ -1,12 +1,12 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: moneybookers_cgb.php 40 2009-01-22 15:54:43Z mzanier $
+   $Id: moneybookers_cgb.php 38 2009-01-22 14:46:06Z mzanier $
 
    xt:Commerce - community made shopping
    http://www.xt-commerce.com
 
-   Copyright (c) 2007 xt:Commerce
+   Copyright (c) 2009 xt:Commerce GmbH
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -25,7 +25,6 @@ define('MODULE_PAYMENT_MONEYBOOKERS_CGB_ORDER_TEXT', 'Bestelldatum: ');
 define('MODULE_PAYMENT_MONEYBOOKERS_CGB_TEXT_ERROR', 'Fehler bei Zahlung!');
 define('MODULE_PAYMENT_MONEYBOOKERS_CGB_CONFIRMATION_TEXT', 'Danke f&uuml;r Ihre Bestellung!');
 define('MODULE_PAYMENT_MONEYBOOKERS_CGB_TRANSACTION_FAILED_TEXT', 'Ihre Zahlungstransaktion bei moneybookers.com ist fehlgeschlagen. Bitte versuchen Sie es nochmal, oder w&auml;hlen Sie eine andere Zahlungsm&ouml;glichkeit!');
-
 
 
 define('MODULE_PAYMENT_MONEYBOOKERS_CGB_STATUS_TITLE', 'Moneybookers aktivieren');

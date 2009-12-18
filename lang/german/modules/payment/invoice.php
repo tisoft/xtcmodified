@@ -15,10 +15,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-  define('MODULE_PAYMENT_INVOICE_TEXT_DESCRIPTION', 'Rechnung');
-  define('MODULE_PAYMENT_INVOICE_TEXT_TITLE', 'Rechnung');
-  define('MODULE_PAYMENT_INVOICE_TEXT_INFO','');
-  define('MODULE_PAYMENT_INVOICE_STATUS_TITLE' , 'Rechnungsmodul aktivieren');
+define('MODULE_PAYMENT_INVOICE_TEXT_DESCRIPTION', 'Rechnung');
+define('MODULE_PAYMENT_INVOICE_TEXT_TITLE', 'Rechnung');
+define('MODULE_PAYMENT_INVOICE_TEXT_INFO','');
+define('MODULE_PAYMENT_INVOICE_STATUS_TITLE' , 'Rechnungsmodul aktivieren');
 define('MODULE_PAYMENT_INVOICE_STATUS_DESC' , 'M&ouml;chten Sie Zahlungen per Invoices akzeptieren?');
 define('MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID_TITLE' , 'Bestellstatus festlegen');
 define('MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID_DESC' , 'Bestellungen, welche mit diesem Modul gemacht werden, auf diesen Status setzen');

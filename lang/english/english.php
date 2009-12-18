@@ -2,10 +2,10 @@
 /* -----------------------------------------------------------------------------------------
    $Id: english.php 1260 2005-09-29 17:48:04Z gwinger $
 
-   XT-Commerce - community made shopping
+   xt:Commerce - community made shopping
    http://www.xt-commerce.com
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2003 xt:Commerce
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
@@ -22,31 +22,12 @@
  */
 
 define('TITLE', STORE_NAME);
-define('HEADER_TITLE_TOP', 'Main page');     
+define('HEADER_TITLE_TOP', 'Main page');
 define('HEADER_TITLE_CATALOG', 'Catalogue');
-//BOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
-//define('HTML_PARAMS','dir="ltr" lang="de"');
 define('HTML_PARAMS','dir="ltr" xml:lang="en"');
-//EOF - Dokuman - 2009-08-19 - BUGFIX: Fehler in der Datei /lang/english/english.php
 @setlocale(LC_TIME, 'en_EN@euro', 'en_US', 'en-US', 'en', 'en_US.ISO_8859-1', 'English','en_US.ISO_8859-15');
 
-
 //BOF - Dokuman - 2009-06-03 - correct english date format
-/*
-define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
-define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
-define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
-define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
-define('DOB_FORMAT_STRING', 'dd.mm.jjjj');
-
-function xtc_date_raw($date, $reverse = false) {
-  if ($reverse) {
-    return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-  } else {
-    return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
-  }
-}
-*/
 define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'm/d/Y');  // this is used for strftime()
@@ -60,11 +41,13 @@ function xtc_date_raw($date, $reverse = false) {
     return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
   }
 }
-
 //EOF - Dokuman - 2009-06-03 - correct english date format
 
-// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
+// BOF - vr - 2009-12-11 - Added language dependent currency code
+// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency when changing language, 
+// instead of staying with the applications default currency
 define('LANGUAGE_CURRENCY', 'EUR');
+// EOF - vr - 2009-12-11 - Added language dependent currency code
 
 define('MALE', 'Mr.');
 define('FEMALE', 'Miss/Ms./Mrs.');
@@ -125,15 +108,11 @@ define('ENTRY_FIRST_NAME_ERROR', 'Your firstname must consist of at least  ' . E
 define('ENTRY_FIRST_NAME_TEXT', '*');
 define('ENTRY_LAST_NAME_ERROR', 'Your e-mail address must consist of at least ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.');
 define('ENTRY_LAST_NAME_TEXT', '*');
-//BOF - Dokuman - 2009-06-03 - correct english date format
-//define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth has to be entered in the following form DD.MM.YYYY (e.g. 21.05.1970) ');
-//define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 21.05.1970)');
-define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth has to be entered in the following form MM/DD/YYYY (e.g. 05/21/1970) ');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 05/21/1970)');
-//EOF - Dokuman - 2009-06-03 - correct english date format
-
+define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth has to be entered in the following form MM/DD/YYYY (e.g. 05/21/1970) '); //Dokuman - 2009-06-03 - correct english date format
+define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 05/21/1970)'); //Dokuman - 2009-06-03 - correct english date format
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your e-mail address must consist of at least  ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'The e-mail address you entered is incorrect - please correct it'); //changed by electronica 2009-09-06
+define('ENTRY_EMAIL_ERROR_NOT_MATCHING', 'Your entered e-mail addresses do not match.'); // Hetfield - 2009-08-15 - confirm e-mail at registration
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'The e-mail address you entered already exists in our database - please correct it'); //changed by electronica 2009-09-06
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
 define('ENTRY_STREET_ADDRESS_ERROR', 'Street/Nr. must consist of at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.'); //changed by electronica 2009-09-06
@@ -500,7 +479,7 @@ define('ERROR_EMAIL','<br><br><b>Your e-mail address:</b> None or invalid input!
 define('ERROR_VVCODE','<br><br><b>Security code:</b> No match, please enter your security code again!');
 define('ERROR_MSG_BODY','<br><br><b>Your message:</b> No input!');
 
-// BOF - 2009-10-03 - PayPal Express Modul
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 define('NAVBAR_TITLE_PAYPAL_CHECKOUT','PayPal-Checkout');
 define('PAYPAL_ERROR','PayPal abort');
 define('PAYPAL_NOT_AVIABLE','PayPal Express is not available.<br />Please select another method of payment<br />or try again later.<br />');
@@ -510,7 +489,7 @@ define('PAYPAL_WARTEN','PayPal announced an error to the completion.<br />You mu
 define('PAYPAL_NEUBUTTON','Press please again around the order to pay.<br />Every other key leads to the abort of the order.');
 define('PAYPAL_GS','Coupon');
 define('PAYPAL_TAX','Tax');
-// EOF - 2009-10-03 - PayPal Express Modul
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 define('BASICPRICE_VPE_TEXT','in this volume only '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
 ?>

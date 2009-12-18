@@ -9,7 +9,7 @@
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(gv_sent.php,v 1.1 2003/02/18); www.oscommerce.com
+   (c) 2002-2003 osCommerce(gv_sent.php,v 1.2 2003/02/18 00:15:52); www.oscommerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------

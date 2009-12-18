@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: orders.php 1193 2005-08-28 17:02:03Z matthias $   
+   $Id: orders.php 1308 2005-10-15 14:22:18Z hhgag $   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -115,6 +115,7 @@ define('TABLE_HEADING_DISCOUNT','Discount');
 define('ENTRY_CUSTOMERS_GROUP','Customers Group:');
 define('ENTRY_CUSTOMERS_VAT_ID','VAT-ID:');
 define('TEXT_VALIDATING','Not validated');
+
 // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 define('TEXT_INFO_PAYPAL_DELETE', 'Delete PayPal Transaktion data also.');
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul

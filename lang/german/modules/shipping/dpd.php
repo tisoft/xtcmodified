@@ -5,7 +5,6 @@
    modified by http://www.hwangelshop.de
 
    Copyrigt (c) 2004 cigamth
-
   ------------------------------------------------------------------------------
    $Id: gls.php,v 1.1 2004/08/13 10:00:13 HHGAG Exp $
 

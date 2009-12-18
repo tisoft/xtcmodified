@@ -86,7 +86,6 @@ define('ALLOW_DISCOUNT_ON_PRODUCTS_ATTRIBUTES_TITLE' , 'Allow discount on produc
 define('ALLOW_DISCOUNT_ON_PRODUCTS_ATTRIBUTES_DESC' , 'Allow customers to get discount on attribute price (if main product is not a "special" product)');
 define('CURRENT_TEMPLATE_TITLE' , 'Templateset (Theme)');
 define('CURRENT_TEMPLATE_DESC' , 'Choose a Templateset (Theme). The Theme must be saved before in the following folder: www.Your-Domain.com/templates/');
-
 define('CC_KEYCHAIN_TITLE','CC String');
 define('CC_KEYCHAIN_DESC','String to encrypt CC number (please change!)');
 
@@ -169,7 +168,6 @@ define('MAX_PRODUCTS_QTY_DESC', 'Maximum quantity input length');
 define('MAX_DISPLAY_NEW_PRODUCTS_DAYS_TITLE' , 'Maximum days for new products');
 define('MAX_DISPLAY_NEW_PRODUCTS_DAYS_DESC' , 'Maximum quantity of days new products to display');
 
-
 define('PRODUCT_IMAGE_THUMBNAIL_WIDTH_TITLE' , 'Width of Product-Thumbnails');
 define('PRODUCT_IMAGE_THUMBNAIL_WIDTH_DESC' , 'Maximal Width of Product-Thumbnails in Pixel');
 define('PRODUCT_IMAGE_THUMBNAIL_HEIGHT_TITLE' , 'Height of Product-Thumbnails');
@@ -206,22 +204,32 @@ define('CONFIG_CALCULATE_IMAGE_SIZE_DESC' , 'Calculate the size of images?');
 define('IMAGE_REQUIRED_TITLE' , 'Image Required');
 define('IMAGE_REQUIRED_DESC' , 'Enable to display broken images. Good for development.');
 
+define('MO_PICS_TITLE','Number of products images');
+define('MO_PICS_DESC','if this number is set > 0 , you will be able to upload/display more images per product');
+
 //This is for the Images showing your products for preview. All the small stuff.
 
 define('PRODUCT_IMAGE_THUMBNAIL_BEVEL_TITLE' , 'Products-Thumbnails:Bevel<br /><img src="images/config_bevel.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_BEVEL_DESC' , 'Products-Thumbnails:Bevel<br /><br />Default-values: (8,FFCCCC,330000)<br /><br />shaded bevelled edges<br />Usage:<br />(edge width,hex light colour,hex dark colour)');
+
 define('PRODUCT_IMAGE_THUMBNAIL_GREYSCALE_TITLE' , 'Products-Thumbnails:Greyscale<br /><img src="images/config_greyscale.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_GREYSCALE_DESC' , 'Products-Thumbnails:Greyscale<br /><br />Default-values: (32,22,22)<br /><br />basic black n white<br />Usage:<br />(int red,int green,int blue)');
+
 define('PRODUCT_IMAGE_THUMBNAIL_ELLIPSE_TITLE' , 'Products-Thumbnails:Ellipse<br /><img src="images/config_eclipse.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_ELLIPSE_DESC' , 'Products-Thumbnails:Ellipse<br /><br />Default-values: (FFFFFF)<br /><br />ellipse on bg colour<br />Usage:<br />(hex background colour)');
+
 define('PRODUCT_IMAGE_THUMBNAIL_ROUND_EDGES_TITLE' , 'Products-Thumbnails:Round-edges<br /><img src="images/config_edge.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_ROUND_EDGES_DESC' , 'Products-Thumbnails:Round-edges<br /><br />Default-values: (5,FFFFFF,3)<br /><br />corner trimming<br />Usage:<br />(edge_radius,background colour,anti-alias width)');
+
 define('PRODUCT_IMAGE_THUMBNAIL_MERGE_TITLE' , 'Products-Thumbnails:Merge<br /><img src="images/config_merge.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_MERGE_DESC' , 'Products-Thumbnails:Merge<br /><br />Default-values: (overlay.gif,10,-50,60,FF0000)<br /><br />overlay merge image<br />Usage:<br />(merge image,x start [neg = from right],y start [neg = from base],opacity, transparent colour on merge image)');
+
 define('PRODUCT_IMAGE_THUMBNAIL_FRAME_TITLE' , 'Products-Thumbnails:Frame<br /><img src="images/config_frame.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_FRAME_DESC' , 'Products-Thumbnails:Frame<br /><br />Default-values: (FFFFFF,000000,3,EEEEEE)<br /><br />plain raised border<br />Usage:<br />(hex light colour,hex dark colour,int width of mid bit,hex frame colour [optional - defaults to half way between light and dark edges])');
+
 define('PRODUCT_IMAGE_THUMBNAIL_DROP_SHADDOW_TITLE' , 'Products-Thumbnails:Drop-Shadow<br /><img src="images/config_shadow.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_DROP_SHADDOW_DESC' , 'Products-Thumbnails:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
+
 define('PRODUCT_IMAGE_THUMBNAIL_MOTION_BLUR_TITLE' , 'Products-Thumbnails:Motion-Blur<br /><img src="images/config_motion.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_MOTION_BLUR_DESC' , 'Products-Thumbnails:Motion-Blur<br /><br />Default-values: (4,FFFFFF)<br /><br />fading parallel lines<br />Usage:<br />(int number of lines,hex background colour)');
 
@@ -229,18 +237,25 @@ define('PRODUCT_IMAGE_THUMBNAIL_MOTION_BLUR_DESC' , 'Products-Thumbnails:Motion-
 
 define('PRODUCT_IMAGE_INFO_BEVEL_TITLE' , 'Product-Images:Bevel');
 define('PRODUCT_IMAGE_INFO_BEVEL_DESC' , 'Product-Images:Bevel<br /><br />Default-values: (8,FFCCCC,330000)<br /><br />shaded bevelled edges<br />Usage:<br />(edge width, hex light colour, hex dark colour)');
+
 define('PRODUCT_IMAGE_INFO_GREYSCALE_TITLE' , 'Product-Images:Greyscale');
 define('PRODUCT_IMAGE_INFO_GREYSCALE_DESC' , 'Product-Images:Greyscale<br /><br />Default-values: (32,22,22)<br /><br />basic black n white<br />Usage:<br />(int red, int green, int blue)');
+
 define('PRODUCT_IMAGE_INFO_ELLIPSE_TITLE' , 'Product-Images:Ellipse');
 define('PRODUCT_IMAGE_INFO_ELLIPSE_DESC' , 'Product-Images:Ellipse<br /><br />Default-values: (FFFFFF)<br /><br />ellipse on bg colour<br />Usage:<br />(hex background colour)');
+
 define('PRODUCT_IMAGE_INFO_ROUND_EDGES_TITLE' , 'Product-Images:Round-edges');
 define('PRODUCT_IMAGE_INFO_ROUND_EDGES_DESC' , 'Product-Images:Round-edges<br /><br />Default-values: (5,FFFFFF,3)<br /><br />corner trimming<br />Usage:<br />( edge_radius, background colour, anti-alias width)');
+
 define('PRODUCT_IMAGE_INFO_MERGE_TITLE' , 'Product-Images:Merge');
 define('PRODUCT_IMAGE_INFO_MERGE_DESC' , 'Product-Images:Merge<br /><br />Default-values: (overlay.gif,10,-50,60,FF0000)<br /><br />overlay merge image<br />Usage:<br />(merge image,x start [neg = from right],y start [neg = from base],opacity,transparent colour on merge image)');
+
 define('PRODUCT_IMAGE_INFO_FRAME_TITLE' , 'Product-Images:Frame');
 define('PRODUCT_IMAGE_INFO_FRAME_DESC' , 'Product-Images:Frame<br /><br />Default-values: (FFFFFF,000000,3,EEEEEE)<br /><br />plain raised border<br />Usage:<br />(hex light colour,hex dark colour,int width of mid bit,hex frame colour [optional - defaults to half way between light and dark edges])');
+
 define('PRODUCT_IMAGE_INFO_DROP_SHADDOW_TITLE' , 'Product-Images:Drop-Shadow');
 define('PRODUCT_IMAGE_INFO_DROP_SHADDOW_DESC' , 'Product-Images:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
+
 define('PRODUCT_IMAGE_INFO_MOTION_BLUR_TITLE' , 'Product-Images:Motion-Blur');
 define('PRODUCT_IMAGE_INFO_MOTION_BLUR_DESC' , 'Product-Images:Motion-Blur<br /><br />Default-values: (4,FFFFFF)<br /><br />fading parallel lines<br />Usage:<br />(int number of lines,hex background colour)');
 
@@ -248,26 +263,31 @@ define('PRODUCT_IMAGE_INFO_MOTION_BLUR_DESC' , 'Product-Images:Motion-Blur<br />
 
 define('PRODUCT_IMAGE_POPUP_BEVEL_TITLE' , 'Product-Popup-Images:Bevel');
 define('PRODUCT_IMAGE_POPUP_BEVEL_DESC' , 'Product-Popup-Images:Bevel<br /><br />Default-values: (8,FFCCCC,330000)<br /><br />shaded bevelled edges<br />Usage:<br />(edge width,hex light colour,hex dark colour)');
+
 define('PRODUCT_IMAGE_POPUP_GREYSCALE_TITLE' , 'Product-Popup-Images:Greyscale');
 define('PRODUCT_IMAGE_POPUP_GREYSCALE_DESC' , 'Product-Popup-Images:Greyscale<br /><br />Default-values: (32,22,22)<br /><br />basic black n white<br />Usage:<br />(int red,int green,int blue)');
+
 define('PRODUCT_IMAGE_POPUP_ELLIPSE_TITLE' , 'Product-Popup-Images:Ellipse');
 define('PRODUCT_IMAGE_POPUP_ELLIPSE_DESC' , 'Product-Popup-Images:Ellipse<br /><br />Default-values: (FFFFFF)<br /><br />ellipse on bg colour<br />Usage:<br />(hex background colour)');
+
 define('PRODUCT_IMAGE_POPUP_ROUND_EDGES_TITLE' , 'Product-Popup-Images:Round-edges');
 define('PRODUCT_IMAGE_POPUP_ROUND_EDGES_DESC' , 'Product-Popup-Images:Round-edges<br /><br />Default-values: (5,FFFFFF,3)<br /><br />corner trimming<br />Usage:<br />(edge_radius,background colour,anti-alias width)');
+
 define('PRODUCT_IMAGE_POPUP_MERGE_TITLE' , 'Product-Popup-Images:Merge');
 define('PRODUCT_IMAGE_POPUP_MERGE_DESC' , 'Product-Popup-Images:Merge<br /><br />Default-values: (overlay.gif,10,-50,60,FF0000)<br /><br />overlay merge image<br />Usage:<br />(merge image,x start [neg = from right],y start [neg = from base],opacity,transparent colour on merge image)');
+
 define('PRODUCT_IMAGE_POPUP_FRAME_TITLE' , 'Product-Popup-Images:Frame');
 define('PRODUCT_IMAGE_POPUP_FRAME_DESC' , 'Product-Popup-Images:Frame<br /><br />Default-values: (FFFFFF,000000,3,EEEEEE)<br /><br />plain raised border<br />Usage:<br />(hex light colour,hex dark colour,int width of mid bit,hex frame colour [optional - defaults to half way between light and dark edges])');
+
 define('PRODUCT_IMAGE_POPUP_DROP_SHADDOW_TITLE' , 'Product-Popup-Images:Drop-Shadow');
 define('PRODUCT_IMAGE_POPUP_DROP_SHADDOW_DESC' , 'Product-Popup-Images:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
+
 define('PRODUCT_IMAGE_POPUP_MOTION_BLUR_TITLE' , 'Product-Popup-Images:Motion-Blur');
 define('PRODUCT_IMAGE_POPUP_MOTION_BLUR_DESC' , 'Product-Popup-Images:Motion-Blur<br /><br />Default-values: (4,FFFFFF)<br /><br />fading parallel lines<br />Usage:<br />(int number of lines,hex background colour)');
 
-define('MO_PICS_TITLE','Number of products images');
-define('MO_PICS_DESC','if this number is set > 0 , you will be able to upload/display more images per product');
-
 define('IMAGE_MANIPULATOR_TITLE','GDlib processing');
 define('IMAGE_MANIPULATOR_DESC','Image Manipulator for GD2 or GD1');
+
 
 define('ACCOUNT_GENDER_TITLE' , 'Gender');
 define('ACCOUNT_GENDER_DESC' , 'Display gender in the customers account');
@@ -314,7 +334,6 @@ define('STOCK_CHECK_DESC' , 'Check to see if sufficent stock is available');
 
 define('ATTRIBUTE_STOCK_CHECK_TITLE' , 'Check attribute-stock level');
 define('ATTRIBUTE_STOCK_CHECK_DESC' , 'Check to see if sufficent attribute-stock is available');
-
 define('STOCK_LIMITED_TITLE' , 'Subtract stock');
 define('STOCK_LIMITED_DESC' , 'Subtract product in stock by product orders');
 define('STOCK_ALLOW_CHECKOUT_TITLE' , 'Allow Checkout');
@@ -323,7 +342,6 @@ define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_TITLE' , 'Mark product out of stock');
 define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_DESC' , 'Display something on screen so customer can see which product has insufficient stock');
 define('STOCK_REORDER_LEVEL_TITLE' , 'Stock Re-order level');
 define('STOCK_REORDER_LEVEL_DESC' , 'Define when stock needs to be re-ordered');
-
 define('STORE_PAGE_PARSE_TIME_TITLE' , 'Store Page Parse Time');
 define('STORE_PAGE_PARSE_TIME_DESC' , 'Store the time it takes to parse a page');
 define('STORE_PAGE_PARSE_TIME_LOG_TITLE' , 'Log Destination');
@@ -333,7 +351,6 @@ define('STORE_PARSE_DATE_TIME_FORMAT_DESC' , 'The date format');
 
 define('DISPLAY_PAGE_PARSE_TIME_TITLE' , 'Display The Page Parse Time');
 define('DISPLAY_PAGE_PARSE_TIME_DESC' , 'Display the page parse time (store page parse time must be enabled)');
-
 define('STORE_DB_TRANSACTIONS_TITLE' , 'Store Database Queries');
 define('STORE_DB_TRANSACTIONS_DESC' , 'Store the database queries in the page parse time log (PHP4 only)');
 
@@ -341,7 +358,10 @@ define('USE_CACHE_TITLE' , 'Use Cache');
 define('USE_CACHE_DESC' , 'Use caching features');
 
 define('DB_CACHE_TITLE','Database Caching');
-define('DB_CACHE_TITLE','If set to true, Shop can cache SELECT Queries for a period of time, to increase speed');
+define('DB_CACHE_DESC','Cache SELECT query results in files to gain more speed for slow databases.');
+
+define('DB_CACHE_EXPIRE_TITLE','DB Cache lifetime');
+define('DB_CACHE_EXPIRE_DESC','Time in seconds to rebuld cached resulst.');
 
 define('DIR_FS_CACHE_TITLE' , 'Cache Directory');
 define('DIR_FS_CACHE_DESC' , 'The directory where the cached files are saved');
@@ -459,7 +479,7 @@ define('META_AUTHOR_DESC' , '<meta name="author">');
 define('META_PUBLISHER_TITLE' , 'publisher');
 define('META_PUBLISHER_DESC' , '<meta name="publisher">');
 define('META_COMPANY_TITLE' , 'company');
-define('META_COMPANY_DESC' , '<meta name="conpany">');
+define('META_COMPANY_DESC' , '<meta name="company">');
 define('META_TOPIC_TITLE' , 'page-topic');
 define('META_TOPIC_DESC' , '<meta name="page-topic">');
 define('META_REPLY_TO_TITLE' , 'reply-to');
@@ -485,12 +505,6 @@ define('CACHE_LIFETIME_DESC','This is the number of seconds cached content will 
 define('CACHE_CHECK_TITLE','Check if cache modified');
 define('CACHE_CHECK_DESC','If true, then If-Modified-Since headers are respected with cached content, and appropriate HTTP headers are sent. This way repeated hits to a cached page do not send the entire page to the client every time.');
 
-define('DB_CACHE_TITLE','DB Cache');
-define('DB_CACHE_DESC','Cache SELECT query results in files to gain more speed for slow databases.');
-
-define('DB_CACHE_EXPIRE_TITLE','DB Cache lifetime');
-define('DB_CACHE_EXPIRE_DESC','Time in seconds to rebuld cached resulst.');
-
 define('PRODUCT_REVIEWS_VIEW_TITLE','Reviews in Productdetails');
 define('PRODUCT_REVIEWS_VIEW_DESC','Number of displayed reviews in the productdetails page');
 
@@ -505,6 +519,7 @@ define('PRICE_IS_BRUTTO_DESC','Usage of prices with tax in Admin');
 
 define('PRICE_PRECISION_TITLE','Gross/Net precision');
 define('PRICE_PRECISION_DESC','Gross/Net precision');
+
 define('CHECK_CLIENT_AGENT_TITLE','Prevent Spider Sessions');
 define('CHECK_CLIENT_AGENT_DESC','Prevent known spiders from starting a session.');
 define('SHOW_IP_LOG_TITLE','IP-Log in Checkout?');
@@ -558,6 +573,7 @@ define('ACCOUNT_VAT_BLOCK_ERROR_TITLE' , 'Allow wrong UST ID?');
 define('ACCOUNT_VAT_BLOCK_ERROR_DESC' , 'Set to true, only validated VAT IDs are acceptet.');
 define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_TITLE','Customer-group - correct VAT ID (Shop country)');
 define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_DESC','Customers-group for customers with correct VAT ID, Shop country = customers country');
+
 // Google Conversion
 define('GOOGLE_CONVERSION_TITLE','Google Conversion-Tracking');
 define('GOOGLE_CONVERSION_DESC','Track the Conversion Keywords at orders');

@@ -54,4 +54,8 @@ define('NEW_ORDER','New order ?');
 define('ENTRY_PAYMENT_UNALLOWED','Unallowed paymentmodules:');
 define('ENTRY_SHIPPING_UNALLOWED','Unallowed shippingmodules:');
 define('ENTRY_NEW_PASSWORD','New Password:');
+
+// NEU HINZUGEFUEGT 04.12.2008 - UMSATZANZEIGE BEI KUNDEN 03.12.2008
+define('TABLE_HEADING_UMSATZ','total revenue');
+
 ?>

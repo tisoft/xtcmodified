@@ -13,7 +13,6 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
  
-  define('HEADING_TITLE','Willkommen');  
   define('ATTENTION_TITLE','! ACHTUNG !');
   
   // text for Warnings:

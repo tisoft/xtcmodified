@@ -55,7 +55,7 @@ define('MODULE_SHIPPING_CHP_ZONE_DESC' , 'Wenn Sie eine Zone auswählen, wird die
 define('MODULE_SHIPPING_CHP_SORT_ORDER_TITLE' , 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_CHP_SORT_ORDER_DESC' , 'Niedrigste wird zuerst angezeigt.');
 define('MODULE_SHIPPING_CHP_ALLOWED_TITLE' , 'Einzelne Versandzonen');
-define('MODULE_SHIPPING_CHP_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, in welche ein Versand möglich sein soll. zb AT,DE');
+define('MODULE_SHIPPING_CHP_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
 define('MODULE_SHIPPING_CHP_COUNTRIES_1_TITLE' , 'Tarifzone 0 Länder');
 define('MODULE_SHIPPING_CHP_COUNTRIES_1_DESC' , 'Inlandszone');
 define('MODULE_SHIPPING_CHP_COST_ECO_1_TITLE' , 'Tariftabelle für Zone 0 bis 30 kg ECO');

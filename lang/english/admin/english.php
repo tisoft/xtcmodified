@@ -95,6 +95,7 @@ define('BOX_CONFIGURATION_14', 'Gzip Compression');
 define('BOX_CONFIGURATION_15', 'Sessions');
 define('BOX_CONFIGURATION_16', 'Meta-Tags/Searchengines');
 define('BOX_CONFIGURATION_17', 'Specialmodules');
+define('BOX_CONFIGURATION_18', 'VAT ID');
 define('BOX_CONFIGURATION_19', 'xt:C Partner');
 define('BOX_CONFIGURATION_22', 'Search-Options');
  
@@ -363,9 +364,11 @@ define('_OCTOBER', 'October');
 define('_NOVEMBER', 'November');
 define('_DECEMBER', 'December');
 
+// Beschreibung f&uuml;r Abmeldelink im Newsletter
+define('TEXT_NEWSLETTER_REMOVE', 'To unsubscribe from a newsletter, click here:');
+
 define('TEXT_DISPLAY_NUMBER_OF_GIFT_VOUCHERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> gift vouchers)');
 define('TEXT_DISPLAY_NUMBER_OF_COUPONS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> coupons)');
-
 define('TEXT_VALID_PRODUCTS_LIST', 'Products List');
 define('TEXT_VALID_PRODUCTS_ID', 'Products ID');
 define('TEXT_VALID_PRODUCTS_NAME', 'Products Name');
@@ -386,10 +389,10 @@ define('NEW_SIGNUP_DISCOUNT_COUPON_DESC', 'Welcome Discount Coupon Code: if you 
 define('TXT_ALL','All');
 
 // UST ID
-define('BOX_CONFIGURATION_18', 'Vat ID');
 define('HEADING_TITLE_VAT','Vat-ID');
 define('HEADING_TITLE_VAT','Vat-ID');
 define('ENTRY_VAT_ID','Vat-ID');
+define('ENTRY_CUSTOMERS_VAT_ID', 'Vat-ID:');
 define('TEXT_VAT_FALSE','<font color="#ff0000">Checked/False!</font>');
 define('TEXT_VAT_TRUE','<font color="#ff0000">Checked/True!</font>');
 define('TEXT_VAT_UNKNOWN_COUNTRY','<font color="#ff0000">Not Checked/Unknown Country!</font>');
@@ -410,7 +413,7 @@ define('BOX_PAYPAL','PayPal');
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 // BOF - Dokuman - 2009-10-02 - added moneybookers payment module version 2.4
-define('_PAYMENT_MONEYBOOKERS_EMAILID_TITLE','Moneybookers E-Mail Address');
+define('_PAYMENT_MONEYBOOKERS_EMAILID_TITLE','Moneybookers E-Mail Adresse');
 define('_PAYMENT_MONEYBOOKERS_EMAILID_DESC','E-Mail Adresse mit welcher Sie bei Moneybookers.com registriert sind.<br />Wenn Sie noch &uuml;ber kein Konto verf&uuml;gen, <b>melden Sie sich</b> jetzt bei <a href="https://www.moneybookers.com/app/register.pl" target="_blank"><b>Moneybookers</b></a> <b>gratis</b> an.');
 define('_PAYMENT_MONEYBOOKERS_MERCHANTID_TITLE','Moneybookers H&auml;ndler ID');
 define('_PAYMENT_MONEYBOOKERS_MERCHANTID_DESC','Ihre Moneybookers.com H&auml;ndler ID');

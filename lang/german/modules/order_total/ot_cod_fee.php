@@ -88,6 +88,7 @@
   kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet
   (nicht m&ouml;glich).');
   
+  // BOF - vr - 2009-12-04 - missing language definitions for OT-COD-FEE-UPS
   define('MODULE_ORDER_TOTAL_COD_FEE_UPS_TITLE','UPS');
   define('MODULE_ORDER_TOTAL_COD_FEE_UPS_DESC','&lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />
   00 als ISO2-Code erm&ouml;glicht den Nachnahmeversand in alle L&auml;nder. Wenn
@@ -101,7 +102,7 @@
   00 verwendet wird, muss dieses als letztes Argument eingetragen werden. Wenn
   kein 00:9.99 eingetragen ist, wird der Nachnahmeversand ins Ausland nicht berechnet
   (nicht m&ouml;glich).');
-  
+  // EOF - vr - 2009-12-04 - missing language definitions for OT-COD-FEE-UPS
 
   define('MODULE_ORDER_TOTAL_COD_FEE_FREE_TITLE','Versandkostenfrei (Modul Versandkosten in Zusammenfassung)');
   define('MODULE_ORDER_TOTAL_COD_FEE_FREE_DESC','&lt;ISO2-Code&gt;:&lt;Preis&gt;, ....<br />

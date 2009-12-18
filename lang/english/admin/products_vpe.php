@@ -27,5 +27,6 @@ define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this packing u
 define('TEXT_INFO_HEADING_NEW_PRODUCTS_VPE', 'New packing unit');
 define('TEXT_INFO_HEADING_EDIT_PRODUCTS_VPE', 'Edit packing unit');
 define('TEXT_INFO_HEADING_DELETE_PRODUCTS_VPE', 'Delete packing unit');
+
 define('ERROR_REMOVE_DEFAULT_PRODUCTS_VPE', 'Error: The default packing unit can not be removed. Please set another packing unit as default, and try again.');
 ?>

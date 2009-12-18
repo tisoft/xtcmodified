@@ -50,10 +50,12 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_I
 	
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_TEXT', 'Online-Überweisung mit TÜV geprüftem Datenschutz ohne Registrierung. Bitte halten Sie Ihre Online-Banking-Daten (PIN/TAN) bereit.  Dienstleistungen/Waren werden bei Verfügbarkeit SOFORT geliefert bzw. versendet!');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGEALT', 'sofort&uuml;berweisung.de ist der kostenlose, T&Uuml;V-zertifizierte Zahlungsdienst der Payment Network AG. Ihre Vorteile: keine zus&auml;tzliche Registrierung, automatische Abbuchung von Ihrem Online-Bankkonto, h&ouml;chste Sicherheitsstandards und sofortiger Versand von Lagerware. F&uuml;r die Bezahlung mit sofort&uuml;berweisung.de ben&ouml;tigen Sie Ihre eBanking Zugangsdaten, d.h. Bankverbindung, Kontonummer, PIN und TAN.');
+
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED_TITLE', 'Erlaubte Zonen');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED_DESC', 'Geben Sie <b>einzeln</b> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS_TITLE', 'sofort&uuml;berweisung.de Modul aktivieren');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS_DESC', 'M&ouml;chten Sie Zahlungen per sofort&uuml;berweisung.de akzeptieren?');
+
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID_TITLE', 'Kundennummer');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID_DESC', 'Ihre Kundennummer bei der sofort&uuml;berweisung.de');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID_TITLE', 'Projektnummer');
@@ -64,14 +66,14 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_TITLE', 'Anzeigereihenfo
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE_TITLE', 'Zahlungszone');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE_DESC', 'Wenn eine Zone ausgew&auml;hlt ist, gilt die Zahlungsmethode nur f&uuml;r diese Zone.');
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_CURRENCY_TITLE', 'Transaktionsw&auml;hrung');
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_CURRENCY_DESC', 'Empfangende W&auml;hrung laut sofort&uuml;berweisung.de Projekteinstellung');
+
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID_TITLE', 'best&auml;tigter Bestellstatus');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID_DESC', 'Order Status nach Eingang einer Bestellung, bei der von sofort&uuml;berweisung.de eine erfolgreiche Zahlungsbest&auml;tigung &uuml;bermittelt wurde');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID_TITLE', 'Tempor&auml;rer Bestellstatus');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID_DESC', 'Bestellstatus f&uuml;r noch nicht abgeschlossene Transaktionen');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID_TITLE', 'Zu &uuml;berpr&uuml;fender Bestellstatus');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID_DESC', 'Order Status nach Eingang einer Bestellung bei der eine fehlerhafte Zahlungsbest&auml;tigung &uuml;bermittelt wurde');
+
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1_TITLE', 'Verwendungszweck Zeile 1');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1_DESC', 'Im Verwendungszweck 1 k&ouml;nnen folgende Optionen ausgew&auml;hlt werden');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2_TITLE', 'Verwendungszweck Zeile 2');

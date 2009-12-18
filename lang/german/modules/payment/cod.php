@@ -1,5 +1,4 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id: cod.php 998 2005-07-07 14:18:20Z mz $   
 
@@ -18,7 +17,6 @@
 define('MODULE_PAYMENT_TYPE_PERMISSION', 'cod');
 define('MODULE_PAYMENT_COD_TEXT_TITLE', 'Nachnahme');
 define('MODULE_PAYMENT_COD_TEXT_DESCRIPTION', 'Nachnahme');
-
 define('MODULE_PAYMENT_COD_TEXT_INFO', '');
 define('MODULE_PAYMENT_COD_ZONE_TITLE', 'Zahlungszone');
 define('MODULE_PAYMENT_COD_ZONE_DESC', 'Wenn eine Zone ausgew&auml;hlt ist, gilt die Zahlungsmethode nur f&uuml;r diese Zone.');

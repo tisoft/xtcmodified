@@ -9,7 +9,7 @@
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(gv_queue.php,v 1.1.2.1 2003/05/15); www.oscommerce.com
+   (c) 2002-2003 osCommerce(gv_queue.php,v 1.2.2.1 2003/04/27); www.oscommerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -43,4 +43,5 @@ define('TEXT_REDEEM_COUPON_MESSAGE_AMOUNT', 'Der von Ihnen bestellte Gutschein h
 
 define('TEXT_REDEEM_COUPON_MESSAGE_BODY', '');
 define('TEXT_REDEEM_COUPON_MESSAGE_FOOTER', '');
-define('TEXT_REDEEM_COUPON_SUBJECT', 'Gutschein kaufen');?>
+define('TEXT_REDEEM_COUPON_SUBJECT', 'Gutschein kaufen');
+?>

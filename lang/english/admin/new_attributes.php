@@ -13,7 +13,6 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-
    define('SORT_ORDER','Sort order');
    define('ATTR_MODEL','Attribute Model');
    define('ATTR_STOCK','Stock');

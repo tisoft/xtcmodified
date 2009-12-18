@@ -65,7 +65,7 @@ define('MODULE_PAYMENT_WORLDPAY_TEXT_INFO','');
   define('MODULE_PAYMENT_WORLDPAY_ZONE_TITLE', 'Payment Zone');
   define('MODULE_PAYMENT_WORLDPAY_ZONE_DESC', 'If a zone is selected, only enable this payment method for that zone.');
 
-define('MODULE_PAYMENT_WORLDPAY_ALLOWED_TITLE' , 'Erlaubte Zonen');
-define('MODULE_PAYMENT_WORLDPAY_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
+define('MODULE_PAYMENT_WORLDPAY_ALLOWED_TITLE' , 'Allowed zones');
+define('MODULE_PAYMENT_WORLDPAY_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
 
 ?>

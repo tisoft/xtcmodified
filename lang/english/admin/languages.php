@@ -35,7 +35,6 @@ define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Delete Language');
 define('TEXT_INFO_LANGUAGE_CHARSET','Charset');
 define('TEXT_INFO_LANGUAGE_CHARSET_INFO','meta-content:');
 
-
 define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Error: The default language can not be removed. Please set another language as default, and try again.');
 
 // BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages

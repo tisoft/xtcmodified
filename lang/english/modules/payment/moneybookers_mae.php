@@ -26,8 +26,6 @@ define('MODULE_PAYMENT_MONEYBOOKERS_MAE_TEXT_ERROR', 'Payment error!');
 define('MODULE_PAYMENT_MONEYBOOKERS_MAE_CONFIRMATION_TEXT', 'Thank you for your order!');
 define('MODULE_PAYMENT_MONEYBOOKERS_MAE_TRANSACTION_FAILED_TEXT', 'Your payment transaction at Moneybookers has failed. Please try again, or select an other payment option!');
 
-
-
 define('MODULE_PAYMENT_MONEYBOOKERS_MAE_STATUS_TITLE', 'Enable Moneybookers');
 define('MODULE_PAYMENT_MONEYBOOKERS_MAE_STATUS_DESC', 'Do you want to accept payments through Moneybookers?<br /><br /><img src="images/icon_arrow_right.gif"> <b><a href="http://www.xt-commerce.com/index.php?option=com_content&task=view&id=76&lang=en" target="_blank">Help / Explanation</a></b>');
 define('MODULE_PAYMENT_MONEYBOOKERS_MAE_SORT_ORDER_TITLE', 'Sort order of display.');
