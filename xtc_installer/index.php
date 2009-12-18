@@ -242,6 +242,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
      $message .= '<strong>ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 4.3.3 voraus.</b><br /><br />
                  Ihre PHP-Version: <b>' . phpversion() . '</strong>.';
 	 }
+	
  }
  else{
  		$error_flag = true;
@@ -253,7 +254,16 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 
  $status='OK';
  if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
- $ok_message.='PHP VERSION .............................. '.$status.'<br /><hr noshade>';
+ 
+ //PHP 5.3 WARNING 
+ if (function_exists('version_compare')) {
+	if(version_compare(phpversion(), "5.3.0", ">=")){
+		$status = '<strong><font color="#FF0000">WARNUNG! Ihre PHP-Version ist zu neu! Bitte nur als Testshop installieren!</font></strong>';		
+	}
+ }
+ //EOF PHP 5.3 WARNING
+ 
+ $ok_message.='PHP VERSION .............................. '.phpversion(). '&nbsp;&nbsp;&nbsp;'.$status.'<br /><hr noshade>';
  
  // BOF - Tomcraft - 2009-11-22 - Check MySQL version
  if (function_exists('version_compare')) {
@@ -265,7 +275,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     }
 	$status='OK';
 	if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
-	$ok_message.='MySQL-VERSION .............................. '.$status.'<br /><hr noshade>'; 
+	$ok_message.='MySQL-VERSION .............................. '.mysql_get_client_info() . ' '. $status.'<br /><hr noshade>'; 
  }
  // EOF - Tomcraft - 2009-11-22 - Check MySQL version
  
