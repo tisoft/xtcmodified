@@ -231,10 +231,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
   <link rel="stylesheet" type="text/css" href="includes/lang_tabs_menu/lang_tabs_menu.css">
   <script type="text/javascript" src="includes/lang_tabs_menu/lang_tabs_menu.js"></script>
   
-  <?php 
-  $lang_tab_menu_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'USE_ADMIN_LANG_TABS'");
-  $lang_tab_menu = xtc_db_fetch_array($lang_tab_menu_query);
-  if ($lang_tab_menu['configuration_value'] != 'false') { $use_lang_tabs= true; } else { $use_lang_tabs= false;}
+  <?php  
   $langtabs = '<div class="tablangmenu"><ul>';
   $csstabstyle = 'border: 1px solid #aaaaaa; padding: 5px; width: 848px; margin-top: -1px; margin-bottom: 10px; float: left; background: #f3f3f3;';
   $csstab = '<style type="text/css">' .  '#tab_lang_0' . '{display: block;' . $csstabstyle . '}';
@@ -280,7 +277,8 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
 <?php // BOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
 <tr>    
 	<td colspan="2">
-<?php if ($use_lang_tabs != false) { ?>	
+<?php if (USE_ADMIN_LANG_TABS != 'false') { ?>	
+
 <script type="text/javascript">
     
 	document.write('<?php echo ($csstab);?>');

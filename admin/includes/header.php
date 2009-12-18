@@ -36,9 +36,7 @@
 // EOF - Tomcraft - 2009-11-02 - Admin language switch
   
 // BOF - Tomcraft - 2009-11-02 - JavaScript WEICHE  - Admin Umschaltauswahl
-  $admin_top_menu_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'USE_ADMIN_TOP_MENU'");
-  $admin_top_menu = xtc_db_fetch_array($admin_top_menu_query);
-  if ($admin_top_menu['configuration_value'] != 'false') {
+    if (USE_ADMIN_TOP_MENU != 'false') {  
   ?>
    <script language="javascript">
 	<!--
@@ -103,7 +101,7 @@
 <div id="top2"></div>
 
 <?php
-if ($admin_top_menu['configuration_value'] != 'false') {
+if (USE_ADMIN_TOP_MENU != 'false') {
 // BOF - vr/web28 - 2009-12-13 - escape some characters
 // BOF - Hetfield  2009-12-16 - rename $content in $menucontent because $content already exist
 ?>
