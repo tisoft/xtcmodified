@@ -77,6 +77,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 <?php
 //BOF - DokuMan - 2009-05-19 - removed webbug to www.xt-commerce.com
 //<img src='http://www.xt-commerce.com/_banner/adview.php?what=zone:18&amp;n=a61c088d' border='0' alt=''>
+<img src='http://count.xtc-modified.org/pixel_trans.gif?piwik_campaign=xtcModified-installs' border='0' alt=''>
 //EOF - DokuMan - 2009-05-19 - removed webbug to www.xt-commerce.com
 ?>
 <table width="800" style="border:30px solid #fff;" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -97,7 +98,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
         <tr>
           <td><img src="images/title_index.gif" width="705" height="180" border="0"><br />
             
-            <br /><br /><div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo TEXT_WELCOME_INDEX; ?></div><br />
+            <br /><br /><div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo TEXT_WELCOME_INDEX; ?><br /><br /><a href="http://www.xtc-modified.org/spenden"><img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="<?php echo TEXT_INFO_DONATIONS_IMG_ALT; ?>" border="0"></a></div><br />
             <br /></td>
         </tr>
         
