@@ -193,8 +193,10 @@ if ($content['content_file']=='') {
 <!-- EOF - Tomcraft - 2009-11-02 - Block1 //-->
 
 <!-- BOF - Tomcraft - 2009-11-02 - Customers group block //-->
-<div style="width: 860px; padding:5px;"> 
-<table "width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="f3f3f3" style="width: 100%; border: 1px solid; border-color: #aaaaaa; padding: 5px;">
+<div style="width: 860px; padding:5px;">
+<!-- BOF - Tomcraft - 2009-12-18 - removing HTML-Error //-->
+<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="f3f3f3" style="width: 100%; border: 1px solid; border-color: #aaaaaa; padding: 5px;">
+<!-- EOF - Tomcraft - 2009-12-18 - removing HTML-Error //-->
 <?php
 if (GROUP_CHECK=='true') {
 	$customers_statuses_array = xtc_get_customers_statuses();
