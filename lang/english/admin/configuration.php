@@ -361,7 +361,7 @@ define('DB_CACHE_TITLE','Database Caching');
 define('DB_CACHE_DESC','Cache SELECT query results in files to gain more speed for slow databases.');
 
 define('DB_CACHE_EXPIRE_TITLE','DB Cache lifetime');
-define('DB_CACHE_EXPIRE_DESC','Time in seconds to rebuld cached resulst.');
+define('DB_CACHE_EXPIRE_DESC','Time in seconds to rebuild cached result.');
 
 define('DIR_FS_CACHE_TITLE' , 'Cache Directory');
 define('DIR_FS_CACHE_DESC' , 'The directory where the cached files are saved');
@@ -505,8 +505,8 @@ define('CACHE_LIFETIME_DESC','This is the number of seconds cached content will 
 define('CACHE_CHECK_TITLE','Check if cache modified');
 define('CACHE_CHECK_DESC','If true, then If-Modified-Since headers are respected with cached content, and appropriate HTTP headers are sent. This way repeated hits to a cached page do not send the entire page to the client every time.');
 
-define('PRODUCT_REVIEWS_VIEW_TITLE','Reviews in Productdetails');
-define('PRODUCT_REVIEWS_VIEW_DESC','Number of displayed reviews in the productdetails page');
+define('PRODUCT_REVIEWS_VIEW_TITLE','Reviews in Product Details');
+define('PRODUCT_REVIEWS_VIEW_DESC','Number of displayed reviews in the product details page');
 
 define('DELETE_GUEST_ACCOUNT_TITLE','Deleting Guest Accounts');
 define('DELETE_GUEST_ACCOUNT_DESC','Shold guest accounts be deleted after placing orders ? (Order data will be saved)');
