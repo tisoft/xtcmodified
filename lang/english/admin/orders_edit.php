@@ -17,23 +17,23 @@
 
 // Allgemeine Texte
 define('TABLE_HEADING', 'Edit Order');
-define('TABLE_HEADING_ORDER', 'Order Nr:&nbsp;');
-define('TEXT_SAVE_ORDER', 'Bestellungsbearbeitung beenden und Bestellung neu berechnen.');
+define('TABLE_HEADING_ORDER', 'Order #:&nbsp;');
+define('TEXT_SAVE_ORDER', 'Finish Editing and Recalculate Order');
 
-define('TEXT_EDIT_ADDRESS', 'Edit addressdata');
-define('TEXT_EDIT_PRODUCTS', 'Edit products');
-define('TEXT_EDIT_SHIPPING', 'Edit Shipping information');
-define('TEXT_EDIT_GIFT', 'Insert gift vouchers or discount');
-define('TEXT_EDIT_ADDRESS_SUCCESS', 'Address saved.');
+define('TEXT_EDIT_ADDRESS', 'Edit Address');
+define('TEXT_EDIT_PRODUCTS', 'Edit Products');
+define('TEXT_EDIT_SHIPPING', 'Edit Shipping Information');
+define('TEXT_EDIT_GIFT', 'Add or Edit Gift Vouchers or Discount');
+define('TEXT_EDIT_ADDRESS_SUCCESS', 'Address Saved');
 
-define('IMAGE_EDIT_ADDRESS', 'Edit addressdata');
-define('IMAGE_EDIT_PRODUCTS', 'Edit products');
-define('IMAGE_EDIT_OTHER', 'Edit shipping costs, payment terms, vouchers and more.');
+define('IMAGE_EDIT_ADDRESS', 'Edit Address');
+define('IMAGE_EDIT_PRODUCTS', 'Edit Products');
+define('IMAGE_EDIT_OTHER', 'Edit Shipping Costs, Payment Terms, Vouchers and more');
 
 // Adressaenderung
-define('TEXT_INVOICE_ADDRESS', 'Customersaddress');
-define('TEXT_SHIPPING_ADDRESS', 'Shippingaddress');
-define('TEXT_BILLING_ADDRESS', 'Paymentaddress');
+define('TEXT_INVOICE_ADDRESS', 'Customer Address');
+define('TEXT_SHIPPING_ADDRESS', 'Shipping Address');
+define('TEXT_BILLING_ADDRESS', 'Billing Address');
 
 define('TEXT_COMPANY', 'Company:');
 define('TEXT_NAME', 'Name:');
@@ -41,7 +41,7 @@ define('TEXT_STREET', 'Street');
 define('TEXT_ZIP', 'Postcode:');
 define('TEXT_CITY', 'City:');
 define('TEXT_COUNTRY', 'Country:');
-define('TEXT_CUSTOMER_GROUP', 'Customer group in the order');
+define('TEXT_CUSTOMER_GROUP', 'Customer Group from Order');
 define('TEXT_CUSTOMER_EMAIL', 'E-mail:');
 define('TEXT_CUSTOMER_TELEPHONE', 'Phone:');
 define('TEXT_CUSTOMER_UST', 'VAT-ID:');
@@ -50,22 +50,22 @@ define('TEXT_CUSTOMER_UST', 'VAT-ID:');
 
 define('TEXT_SMALL_NETTO', '(net)');
 define('TEXT_PRODUCT_ID', 'pID:');
-define('TEXT_PRODUCTS_MODEL', 'Art.Nr:');
+define('TEXT_PRODUCTS_MODEL', 'Product #:');
 define('TEXT_QUANTITY', 'Qty:');
-define('TEXT_PRODUCT', 'Article:');
+define('TEXT_PRODUCT', 'Product:');
 define('TEXT_TAX', 'Tax:');
 define('TEXT_PRICE', 'Price:');
 define('TEXT_FINAL', 'Total:');
-define('TEXT_PRODUCT_SEARCH', 'Search Article:');
+define('TEXT_PRODUCT_SEARCH', 'Search Products:');
 
 define('TEXT_PRODUCT_OPTION', 'Attributes:');
-define('TEXT_PRODUCT_OPTION_VALUE', 'Optionvalue:');
+define('TEXT_PRODUCT_OPTION_VALUE', 'Option Value:');
 define('TEXT_PRICE', 'Price:');
 define('TEXT_PRICE_PREFIX', 'Price Prefix:');
-define('TEXT_SAVE_ORDER', 'Finish and recalculate');
+define('TEXT_SAVE_ORDER', 'Finish and Recalculate');
 define('TEXT_INS', 'Add:');
-define('TEXT_SHIPPING', 'Shipping cost');
-define('TEXT_COD_COSTS', 'Cash on delivery costs');
+define('TEXT_SHIPPING', 'Shipping Costs');
+define('TEXT_COD_COSTS', 'COD Costs');
 define('TEXT_VALUE', 'Price');
 define('TEXT_DESC', 'insert');
 define('TEXT_CUSTOMER_GROUP', 'Customer Group:');
