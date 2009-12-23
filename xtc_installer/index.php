@@ -79,7 +79,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 //<img src='http://www.xt-commerce.com/_banner/adview.php?what=zone:18&amp;n=a61c088d' border='0' alt=''>
 //EOF - DokuMan - 2009-05-19 - removed webbug to www.xt-commerce.com
 ?>
-<img src='http://count.xtc-modified.org/pixel_trans.gif?piwik_campaign=xtcModified-installs' border='0' alt=''>
+<img src='http://count.xtc-modified.org/pixel_counter.gif?piwik_campaign=xtcModified-installs' border='0' alt=''>
 <table width="800" style="border:30px solid #fff;" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="95" colspan="2" ><table width="100%" border="0" cellpadding="0" cellspacing="0">
