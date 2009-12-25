@@ -193,16 +193,3 @@
 <br /><br />
 <?php } ?>
 <!-- Adressbearbeitung Ende //-->
-
-
-
-
-
-
-
-
-
-
-
-
-

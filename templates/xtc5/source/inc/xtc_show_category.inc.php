@@ -46,7 +46,10 @@ function xtc_show_category($counter) {
 		$categories_string .= '';
 	}*/
 	
-	$categories_string .= $foo[$counter]['name'];
+	//BOF - Dokuman - 2009-12-25 - added htmlspecialchars for valid XHTML
+	//$categories_string .= $foo[$counter]['name'];
+  $categories_string .= htmlspecialchars($foo[$counter]['name']);
+	//EOF - Dokuman - 2009-12-25 - added htmlspecialchars for valid XHTML
 
 	if ( ($id) && (in_array($counter, $id)) ) {
 			//$categories_string .= '</b>';

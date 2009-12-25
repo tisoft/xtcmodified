@@ -59,37 +59,37 @@
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 5px;">  
   <tr>
-    <td><?php echo xtc_image(DIR_WS_IMAGES . 'logo.gif', 'xt:Commerce').'<br>&nbsp;&nbsp;&nbsp;'.$languages_string ; ?></td>
+    <td><?php echo xtc_image(DIR_WS_IMAGES . 'logo.gif', 'xt:Commerce').'<br />&nbsp;&nbsp;&nbsp;'.$languages_string ; ?></td>
     <td valign="bottom" align="left" width="100%"><table border="0" cellspacing="0" cellpadding="2">      
       <tr>
-        <td class="fastmenu" align="center"><a href="orders.php"><img src="images/icons/fastnav/icon_orders.jpg" alt="<?php echo (BOX_ORDERS) ; ?>" width="40" height="40" border="0"></a><br>
+        <td class="fastmenu" align="center"><a href="orders.php"><img src="images/icons/fastnav/icon_orders.jpg" alt="<?php echo (BOX_ORDERS) ; ?>" width="40" height="40" border="0"></a><br />
 		<?php echo (BOX_ORDERS) ; ?>
 		</td>
-         <!--td class="fastmenu" align="center"><a href="orders_status.php"><img src="images/icons/fastnav/icon_order_status.jpg" alt="<?php echo (BOX_ORDERS_STATUS) ; ?>" width="40" height="40" border="0"></a><br>
+         <!--td class="fastmenu" align="center"><a href="orders_status.php"><img src="images/icons/fastnav/icon_order_status.jpg" alt="<?php echo (BOX_ORDERS_STATUS) ; ?>" width="40" height="40" border="0"></a><br />
 		<?php //echo (BOX_ORDERS_STATUS) ; ?>
 		</td>
-         <td class="fastmenu" align="center"><a href="shipping_status.php"><img src="images/icons/fastnav/icon_shipping_status.jpg" alt="<?php echo (BOX_SHIPPING_STATUS) ; ?>" width="40" height="40" border="0"></a><br>
+         <td class="fastmenu" align="center"><a href="shipping_status.php"><img src="images/icons/fastnav/icon_shipping_status.jpg" alt="<?php echo (BOX_SHIPPING_STATUS) ; ?>" width="40" height="40" border="0"></a><br />
 		<?php //echo (BOX_SHIPPING_STATUS) ; ?>
 		</td-->
-         <td class="fastmenu" align="center"><a href="content_manager.php"><img src="images/icons/fastnav/icon_content.jpg" alt="<?php echo (BOX_CONTENT) ; ?>" width="40" height="40" border="0"></a><br>
+         <td class="fastmenu" align="center"><a href="content_manager.php"><img src="images/icons/fastnav/icon_content.jpg" alt="<?php echo (BOX_CONTENT) ; ?>" width="40" height="40" border="0"></a><br />
 		<?php echo (BOX_CONTENT) ; ?>
 		</td>
-         <td class="fastmenu" align="center"><a href="backup.php"><img src="images/icons/fastnav/icon_backup.jpg" alt="<?php echo (BOX_BACKUP) ; ?>" width="40" height="40" border="0"></a><br>
+         <td class="fastmenu" align="center"><a href="backup.php"><img src="images/icons/fastnav/icon_backup.jpg" alt="<?php echo (BOX_BACKUP) ; ?>" width="40" height="40" border="0"></a><br />
 		<?php echo (BOX_BACKUP) ; ?>
 		</td>
-         <td class="fastmenu" align="center"><a href="customers.php"><img src="images/icons/fastnav/icon_customers.jpg" alt="<?php echo (BOX_CUSTOMERS) ; ?>" width="40" height="40" border="0"></a><br>
+         <td class="fastmenu" align="center"><a href="customers.php"><img src="images/icons/fastnav/icon_customers.jpg" alt="<?php echo (BOX_CUSTOMERS) ; ?>" width="40" height="40" border="0"></a><br />
 		<?php echo (BOX_CUSTOMERS) ; ?>
 		</td>
-         <td class="fastmenu" align="center"><a href="categories.php"><img src="images/icons/fastnav/icon_categories.jpg" alt="<?php echo (BOX_CATEGORIES) ; ?>" width="40" height="40" border="0"></a><br>
+         <td class="fastmenu" align="center"><a href="categories.php"><img src="images/icons/fastnav/icon_categories.jpg" alt="<?php echo (BOX_CATEGORIES) ; ?>" width="40" height="40" border="0"></a><br />
 		<?php echo (BOX_CATEGORIES) ; ?>
 		</td>
-         <td class="fastmenu" align="center"><a href="../index.php" target="_blank"><img src="images/icons/fastnav/icon_shop.jpg" width="40" height="40" border="0"></a><br>
+         <td class="fastmenu" align="center"><a href="../index.php" target="_blank"><img src="images/icons/fastnav/icon_shop.jpg" width="40" height="40" border="0"></a><br />
 		Shop
 		</td>
-        <td class="fastmenu" align="center"><a href="../logoff.php"><img src="images/icons/fastnav/icon_logout.jpg" width="40" height="40" border="0"></a><br>
+        <td class="fastmenu" align="center"><a href="../logoff.php"><img src="images/icons/fastnav/icon_logout.jpg" width="40" height="40" border="0"></a><br />
 		Logout
 		</td>
-        <td class="fastmenu" align="center"><a href="credits.php"><img src="images/icons/fastnav/icon_credits.jpg" width="40" height="40" border="0"></a><br>
+        <td class="fastmenu" align="center"><a href="credits.php"><img src="images/icons/fastnav/icon_credits.jpg" width="40" height="40" border="0"></a><br />
 		Credits
 		</td>      
     </table>

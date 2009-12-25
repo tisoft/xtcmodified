@@ -82,7 +82,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     if ($params) {
       $image .= ' ' . $params;
     }
-    $image .= '>';
+    $image .= ' />';
 
     return $image;
   }

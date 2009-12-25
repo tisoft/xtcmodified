@@ -377,7 +377,7 @@ class paypal_admin extends paypal_checkout {
 										</tr>
 										<tr>
 											<td width="10" valign="top">' . $this->getStatusSymbol($response['ADDRESSSTATUS']) . '</dt>
-											<td class="main">(' . $response['ADDRESSSTATUS'] . ')<br>' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTONAME']) . '<br>' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTOSTREET']) . '<br>' . $response['SHIPTOZIP'] . ' ' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTOCITY']) . '<br>' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTOCOUNTRYNAME']) . '</td>
+											<td class="main">(' . $response['ADDRESSSTATUS'] . ')<br />' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTONAME']) . '<br />' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTOSTREET']) . '<br />' . $response['SHIPTOZIP'] . ' ' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTOCITY']) . '<br />' . $this->mn_iconv("UTF-8", $_SESSION['language_charset'], $response['SHIPTOCOUNTRYNAME']) . '</td>
 										</tr>
 										<tr>
 											<td width="10" valign="top">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif') . '</dt>

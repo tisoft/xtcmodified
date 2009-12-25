@@ -175,7 +175,7 @@ define('TXT_PICTURE_1','1. Bild des Produkts');
 define('TXT_PICTURE_2','2. Bild des Produkts');
 define('TXT_PICTURE_N','<strong>N</strong>. Bild des Produkts');
 define('TXT_PACKAGING_UNIT','Verpackungseinheit');
-define('TXT_NOTE_USE_BUTTON_SOURCECODE',"<strong>Hinweis: Bitte nutzen Sie den Button \"Quellcode\",<br>\num ggf. vorhandene HTML-Quelltext als Template zu hinterlegen.</strong>");
+define('TXT_NOTE_USE_BUTTON_SOURCECODE',"<strong>Hinweis: Bitte nutzen Sie den Button \"Quellcode\",<br />\num ggf. vorhandene HTML-Quelltext als Template zu hinterlegen.</strong>");
 define('TXT_NO_COUNTER','Keinen Counter');
 define('TXT_STANDARD_COUNTER','Standard');
 define('TXT_GREEN_LED_COUNTER','Gr&uuml;ne LEDs');

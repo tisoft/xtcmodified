@@ -14,13 +14,13 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
-define('MODULE_PREISSUCHMASCHINE_TEXT_DESCRIPTION', '<hr noshade="noshade"><br><center><a href="http://www.preissuchmaschine.de/"><img src="http://bilder.preissuchmaschine.de/other/PSMLogoMid1.jpg" width="100" height="46" border="0" alt="Preissuchmaschine - Ihr Preisvergleich"></a></center><br><br>
-<b>Export</b><br>PreisSuchmaschine.de<br><br>
-<b>Trennzeichen</b><br>getrennt durch | (PIPE)<br><br>
-<b>Format</b><br>- ProduktID<br>- Gewicht<br>- EAN<br>- Lagerbestand<br>- Hersteller<br>- ProduktBezeichnung<br>- ArtikelNr. (ggf. auch Hersteller-ArtikelNr.)<br>- Preis<br>- Produktbeschreibung (kurz)<br>- Produktbeschreibung (lang)<br>- Lieferzeit<br>- Produktlink<br>- FotoLink<br>- Kategoriename<br>- Vorkasse<br>- Nachnahme<br>- Rechnung<br>- Kreditkarte<br>- Lastschrift<br>- PayPal<br>- Moneybookers<br>- Giropay<br><br>
-<b>Besonderheiten</b><br>- Automatisches Kampagnentracking innherhalb von XT-Commerce<br>- Unterst&uuml;tzt Google-Analytics Kampagnentracking<br><br>
-<b>Modulversion</b><br>PreisSuchmaschine.de - <i>November 2009 - 2.0</i><br><br>
-<b>Fragen</b><br>guenstiger.de GmbH<br>Vorsetzen 53<br>20459 Hamburg<br><br>Tel: 040 319 796-30<br>Fax: 040 319 796-39<br>E-Mail:<a href="mailto:post@metashopper.de?SUBJECT=Fragen zum XT:Commerce-Modul November 2009 - 2.0"><u>post@metashopper.de</u></a>');
+define('MODULE_PREISSUCHMASCHINE_TEXT_DESCRIPTION', '<hr noshade="noshade"><br /><center><a href="http://www.preissuchmaschine.de/"><img src="http://bilder.preissuchmaschine.de/other/PSMLogoMid1.jpg" width="100" height="46" border="0" alt="Preissuchmaschine - Ihr Preisvergleich"></a></center><br /><br />
+<b>Export</b><br />PreisSuchmaschine.de<br /><br />
+<b>Trennzeichen</b><br />getrennt durch | (PIPE)<br /><br />
+<b>Format</b><br />- ProduktID<br />- Gewicht<br />- EAN<br />- Lagerbestand<br />- Hersteller<br />- ProduktBezeichnung<br />- ArtikelNr. (ggf. auch Hersteller-ArtikelNr.)<br />- Preis<br />- Produktbeschreibung (kurz)<br />- Produktbeschreibung (lang)<br />- Lieferzeit<br />- Produktlink<br />- FotoLink<br />- Kategoriename<br />- Vorkasse<br />- Nachnahme<br />- Rechnung<br />- Kreditkarte<br />- Lastschrift<br />- PayPal<br />- Moneybookers<br />- Giropay<br /><br />
+<b>Besonderheiten</b><br />- Automatisches Kampagnentracking innherhalb von XT-Commerce<br />- Unterst&uuml;tzt Google-Analytics Kampagnentracking<br /><br />
+<b>Modulversion</b><br />PreisSuchmaschine.de - <i>November 2009 - 2.0</i><br /><br />
+<b>Fragen</b><br />guenstiger.de GmbH<br />Vorsetzen 53<br />20459 Hamburg<br /><br />Tel: 040 319 796-30<br />Fax: 040 319 796-39<br />E-Mail:<a href="mailto:post@metashopper.de?SUBJECT=Fragen zum XT:Commerce-Modul November 2009 - 2.0"><u>post@metashopper.de</u></a>');
 define('MODULE_PREISSUCHMASCHINE_EMAIL','Sehr%20geehrtes%20Preissuchmaschine.de%20Team,%0A%0Ahierbei%20handelt%20es%20sich%20um%20eine%20%FCber%20das%20%22Preissuchmaschine.de%20-%20CSV%22%20Modul%20automatisch%20generierte%20E-Mail%20aus%20dem%20XT-Commerce%20Backoffice.%0A%0ABitte%20pr%FCfen%20sie%20meinen%20Shop%20<-SHOP->%20ob%20dieser%20bei%20Ihnen%20aufgenommen%20werden%20kann.%0A%0ADer%20Link%20zu%20der%20Produktdatenliste%20ist:%0A<-LINK->%0A%0ABitte%20geben%20Sie%20diese%20Informationen%20an%20den%20entsprechenden%20kaufm%E4nnischen%20Berater%20weiter.%0A%0AVielen%20Dank.');
 define('MODULE_PREISSUCHMASCHINE_TEXT_TITLE', 'Preissuchmaschine.de - CSV');
 define('MODULE_PREISSUCHMASCHINE_FILE_TITLE' , '<hr noshade>Dateiname:');
@@ -41,8 +41,8 @@ define('MODULE_PREISSUCHMASCHINE_psmgoogle_YES','Aktivieren');
 define('MODULE_PREISSUCHMASCHINE_EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
 define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS','<hr noshade><b>Kampagnen:</b> (automatisch)');
 define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_CATALOG."admin/stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
-define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_DESC','Durch unsere automatische Kampagneneinrichtung k&ouml;nnen Sie jederzeit die von der <a href="campaigns.php"><i>Kampagne</i></a> Preissuchmaschine.de in Ihren Onlineshop weitergeleiteten Nutzer auswerten. Sie sollten &uuml;ber folgenden Link den durch uns generierten Warenkorbumsatz jederzeit nachvollziehen k&ouml;nnen:<br><br><a style="text-decoration:underline" href=\''.MODULE_PREISSUCHMASCHINE_CAMPAIGNS_LINK.'\'><i><b>Kampagnen-Report</b></i></a><br><br>');
-define('MODULE_PREISSUCHMASCHINE_EXPORT_LINK_SEND','Den vorangegangenen Link sollten Sie nun unter dem Punkt Preisliste/Produktdatenliste auf der Stammdatenerfassung der PreisSuchmaschine.de eintragen. Die Stammdatenerfassung kann man hier anfordern: <a style="text-decoration:underline" href=\'mailto:mitmachen@metashopper.de?SUBJECT=Anfrage - Interesse an einer eventuellen Onlinekooperation&BODY=' .  str_replace("<-SHOP->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG,str_replace("<-LINK->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_PREISSUCHMASCHINE_EXPORT_LINK . MODULE_PREISSUCHMASCHINE_FILE,MODULE_PREISSUCHMASCHINE_EMAIL)) .  '\'><br><br><i><b>zur Anfrage</b> </i></a>(sofern noch nicht erfolgt)');
+define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_DESC','Durch unsere automatische Kampagneneinrichtung k&ouml;nnen Sie jederzeit die von der <a href="campaigns.php"><i>Kampagne</i></a> Preissuchmaschine.de in Ihren Onlineshop weitergeleiteten Nutzer auswerten. Sie sollten &uuml;ber folgenden Link den durch uns generierten Warenkorbumsatz jederzeit nachvollziehen k&ouml;nnen:<br /><br /><a style="text-decoration:underline" href=\''.MODULE_PREISSUCHMASCHINE_CAMPAIGNS_LINK.'\'><i><b>Kampagnen-Report</b></i></a><br /><br />');
+define('MODULE_PREISSUCHMASCHINE_EXPORT_LINK_SEND','Den vorangegangenen Link sollten Sie nun unter dem Punkt Preisliste/Produktdatenliste auf der Stammdatenerfassung der PreisSuchmaschine.de eintragen. Die Stammdatenerfassung kann man hier anfordern: <a style="text-decoration:underline" href=\'mailto:mitmachen@metashopper.de?SUBJECT=Anfrage - Interesse an einer eventuellen Onlinekooperation&BODY=' .  str_replace("<-SHOP->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG,str_replace("<-LINK->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_PREISSUCHMASCHINE_EXPORT_LINK . MODULE_PREISSUCHMASCHINE_FILE,MODULE_PREISSUCHMASCHINE_EMAIL)) .  '\'><br /><br /><i><b>zur Anfrage</b> </i></a>(sofern noch nicht erfolgt)');
 
 
 $psmgoogle_input_query = xtc_db_query("select configuration_value from  " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PREISSUCHMASCHINE_PSMGOOGLEV' LIMIT 1");
@@ -710,19 +710,19 @@ if (isset($_POST['psmgoogle'])) {
   	 $campaign_array[] = array ('id' => 'refID=psm&', 'text' => "Preissuchmaschine (automatisch)",);
   }
 
-    return array('text' =>  '<br>' . HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_PREISSUCHMASCHINE_EXPORT_LINK . MODULE_PREISSUCHMASCHINE_FILE . '<br><br>' . MODULE_PREISSUCHMASCHINE_EXPORT_LINK_SEND . 
+    return array('text' =>  '<br />' . HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_PREISSUCHMASCHINE_EXPORT_LINK . MODULE_PREISSUCHMASCHINE_FILE . '<br /><br />' . MODULE_PREISSUCHMASCHINE_EXPORT_LINK_SEND . 
                           
-                            MODULE_PREISSUCHMASCHINE_CAMPAIGNS.'<br>'.
+                            MODULE_PREISSUCHMASCHINE_CAMPAIGNS.'<br />'.
                             MODULE_PREISSUCHMASCHINE_CAMPAIGNS_DESC.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array, 'refID=psm&').'<br>'.                             
-                            MODULE_PREISSUCHMASCHINE_psmgoogleHeader.'<br>'.
-                            MODULE_PREISSUCHMASCHINE_psmgoogle_DESC.'<br>'.
-                          	xtc_draw_radio_field('psmgoogle', 'no',!$UseGoogle).MODULE_PREISSUCHMASCHINE_psmgoogle_NO.'<br>'.
-                            xtc_draw_radio_field('psmgoogle', 'yes',$UseGoogle).MODULE_PREISSUCHMASCHINE_psmgoogle_YES.'<br><br>'.
-                            MODULE_PREISSUCHMASCHINE_EXPORT_TYPE.'<br>'.
-                            MODULE_PREISSUCHMASCHINE_EXPORT.'<br>'.
-                          	xtc_draw_radio_field('export', 'no',true).MODULE_PREISSUCHMASCHINE_EXPORT_NO.'<br>'.
-                            xtc_draw_radio_field('export', 'yes',false).MODULE_PREISSUCHMASCHINE_EXPORT_YES.'<br><br>' . xtc_button(BUTTON_EXPORT) .
+                          	xtc_draw_pull_down_menu('campaign',$campaign_array, 'refID=psm&').'<br />'.                             
+                            MODULE_PREISSUCHMASCHINE_psmgoogleHeader.'<br />'.
+                            MODULE_PREISSUCHMASCHINE_psmgoogle_DESC.'<br />'.
+                          	xtc_draw_radio_field('psmgoogle', 'no',!$UseGoogle).MODULE_PREISSUCHMASCHINE_psmgoogle_NO.'<br />'.
+                            xtc_draw_radio_field('psmgoogle', 'yes',$UseGoogle).MODULE_PREISSUCHMASCHINE_psmgoogle_YES.'<br /><br />'.
+                            MODULE_PREISSUCHMASCHINE_EXPORT_TYPE.'<br />'.
+                            MODULE_PREISSUCHMASCHINE_EXPORT.'<br />'.
+                          	xtc_draw_radio_field('export', 'no',true).MODULE_PREISSUCHMASCHINE_EXPORT_NO.'<br />'.
+                            xtc_draw_radio_field('export', 'yes',false).MODULE_PREISSUCHMASCHINE_EXPORT_YES.'<br /><br />' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preissuchmaschine')));
 
 

@@ -634,10 +634,10 @@ elseif($xtb_module=='add_ajx') {
 header("Content-type: text/html; charset=utf-8", true);
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="includes/xsbooster/xsbooster.css" />
@@ -1211,7 +1211,7 @@ function sendTestMail()
 			</tr>
 			</table>
 		</td>
-		<td valign="top" class="dataTableContent" style="vertical-align:top;"><div id="DIV_EMAIL_VARIABLES" style="display:<?php echo $email_display?>"><strong><?php echo TXT_VARIABLES?>:</strong><br><br>
+		<td valign="top" class="dataTableContent" style="vertical-align:top;"><div id="DIV_EMAIL_VARIABLES" style="display:<?php echo $email_display?>"><strong><?php echo TXT_VARIABLES?>:</strong><br /><br />
 			#NAME# = <?php echo TXT_EMAIL_TEMPLATE_NAMEOFBUYER?><br />
 			#ARTICLE_TITLE# = <?php echo TXT_ARTICLE_TITLE?><br />
                         #ARTICLE_SUBTITLE# = <?php echo TXT_ARTICLE_SUBTITLE?><br />
@@ -1252,16 +1252,16 @@ function sendTestMail()
 			</tr>
 			</table>
 		</td>
-		<td valign="top" class="dataTableContent" style="vertical-align:top;"><strong><?php echo TXT_VARIABLES?>:</strong><br><br>
-			#ARTICLE_TITLE# = <?php echo TXT_ARTICLE_TITLE?><br>
-                        #ARTICLE_SUBTITLE# = <?php echo TXT_ARTICLE_SUBTITLE?><br>
-                        #ARTICLE_DESCRIPTION# = <?php echo TXT_TRADE_TEMPLATE_DESCRIPTION?><br>
-                        #ARTICLE_PRICE# = <?php echo TXT_ARTICLE_PRICE?><br>
-                        #ARTICLE_NUMBER# = <?php echo TXT_LONG_ART_NO?><br>
-						#ARTICLE_VPE# = <?php echo TXT_PACKAGING_UNIT?><br>
-                        #PICTURE_1# = <?php echo TXT_PICTURE_1?><br>
-                        #PICTURE_2# = <?php echo TXT_PICTURE_2?><br>
-                        #PICTURE_<strong>N</strong># = <?php echo TXT_PICTURE_N?><br>
+		<td valign="top" class="dataTableContent" style="vertical-align:top;"><strong><?php echo TXT_VARIABLES?>:</strong><br /><br />
+			#ARTICLE_TITLE# = <?php echo TXT_ARTICLE_TITLE?><br />
+                        #ARTICLE_SUBTITLE# = <?php echo TXT_ARTICLE_SUBTITLE?><br />
+                        #ARTICLE_DESCRIPTION# = <?php echo TXT_TRADE_TEMPLATE_DESCRIPTION?><br />
+                        #ARTICLE_PRICE# = <?php echo TXT_ARTICLE_PRICE?><br />
+                        #ARTICLE_NUMBER# = <?php echo TXT_LONG_ART_NO?><br />
+						#ARTICLE_VPE# = <?php echo TXT_PACKAGING_UNIT?><br />
+                        #PICTURE_1# = <?php echo TXT_PICTURE_1?><br />
+                        #PICTURE_2# = <?php echo TXT_PICTURE_2?><br />
+                        #PICTURE_<strong>N</strong># = <?php echo TXT_PICTURE_N?><br />
 			<hr>
 		
 			<?php echo TXT_NOTE_USE_BUTTON_SOURCECODE?>
@@ -1926,7 +1926,7 @@ var TXT_WARNING_NOT_ALL_AUCTIONS_SUBMITTED="<?php echo TXT_WARNING_NOT_ALL_AUCTI
 <?php
 $rowi=0; 
 ?>
-<link rel="stylesheet" type="text/css" media="all" href="includes/xsbooster/calendar-win2k-cold-1.css">
+<link rel="stylesheet" type="text/css" media="all" href="includes/xsbooster/calendar-win2k-cold-1.css" />
 <script type="text/javascript" src="includes/xsbooster/calendar.js"></script>
 <script type="text/javascript" src="includes/xsbooster/calendar-en.js"></script>
 <script type="text/javascript" src="includes/xsbooster/calendar-setup.js"></script>
@@ -2188,7 +2188,7 @@ foreach($images as $image) {
 					align          :    "Bl",           // alignment (defaults to "Bl")
 					singleClick    :    true
 				});
-			</script><br>
+			</script><br />
 
 		<div style="padding:3px;color:gray;"><?php echo TXT_WARNING_SCHEDULETIME?></div>
 	</td>
@@ -2732,7 +2732,7 @@ while($x = xtc_db_fetch_array($products_query)) # This line includes GNU/GPL lic
 	<td class="smallText" valign="top"><?php echo $x['BUYITNOWPRICE']." ".$x['CURRENCY']; ?></td>
 	<td class="smallText" valign="top"><?php echo $x['QUANTITY']; ?></td>
 	<td class="smallText" valign="top"><?php echo $x['_EBAY_QUANTITY_BUYED']; ?></td>
-	<td class="smallText" valign="top"><?php echo strftime(TIME_FORMAT,$x['_EBAY_START_TIME'])." ".TXT_TO."<br>".strftime(TIME_FORMAT,$x['_EBAY_END_TIME']); ?></td>
+	<td class="smallText" valign="top"><?php echo strftime(TIME_FORMAT,$x['_EBAY_START_TIME'])." ".TXT_TO."<br />".strftime(TIME_FORMAT,$x['_EBAY_END_TIME']); ?></td>
 	<td class="smallText" valign="top">
 <?php
 $sql = "SELECT t.XTB_ITEM_ID,t.XTB_EBAY_USERID,t.XTB_KEY,MD5(CONCAT(t.XTB_ITEM_ID,'',t.XTB_EBAY_USERID)) as HASH, t.XTB_CHECKOUT_TS,t.XTC_ORDER_ID,t.XTB_EBAY_NAME,t.XTB_EBAY_TS FROM xtb_transactions as t LEFT JOIN xtb_auctions as a ON (a._EBAY_ITEM_ID=t.XTB_ITEM_ID) WHERE t.XTB_ITEM_ID=".$x['_EBAY_ITEM_ID'];

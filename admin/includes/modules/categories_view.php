@@ -120,7 +120,7 @@
              <td class="smallText" align="right">
                 <?php 
                     echo xtc_draw_form('goto', FILENAME_CATEGORIES, '', 'get');
-                    echo HEADING_TITLE_GOTO . ' ' . xtc_draw_pull_down_menu('cPath', xtc_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); 
+                    echo HEADING_TITLE_GOTO . ' ' . xtc_draw_pull_down_menu('cPath', xtc_get_category_tree(), $current_category_id, 'onchange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); 
                 ?>
                 </form>
              </td>

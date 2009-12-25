@@ -1013,7 +1013,7 @@ class paypal_checkout {
 		// Stand: 29.04.2009
 		$data = array_merge($_SESSION['nvpReqArray'],$_SESSION['reshash']);
 		if(!$data['TRANSACTIONID'] OR $data['TRANSACTIONID']=='')
-			$data['TRANSACTIONID']='PayPal Fehler!<br>'.date("d.m.Y - H:i:s");
+			$data['TRANSACTIONID']='PayPal Fehler!<br />'.date("d.m.Y - H:i:s");
 		$data_array = array('xtc_order_id' => $o_id,
 												'txn_type' => $data['TRANSACTIONTYPE'],
 												'reason_code' => $data['REASONCODE'],
@@ -1260,15 +1260,15 @@ class paypal_checkout {
 			$error_reason = 'IPN-Fehler: Keine Order gefunden zu den empfangenen Daten.';
 		}
 		if(xtc_not_null(EMAIL_SUPPORT_ADDRESS) && strlen($error_reason)) {
-			$email_body = $error_reason . "\n\n".'<br>';
-			$email_body .= $_SERVER["REQUEST_METHOD"] . " - " . $_SERVER["REMOTE_ADDR"] . " - " . $_SERVER["HTTP_REFERER"] . " - " . $_SERVER["HTTP_ACCEPT"] . "\n\n".'<br>';
-			$email_body .= '$_POST:' . "\n\n".'<br>';
+			$email_body = $error_reason . "\n\n".'<br />';
+			$email_body .= $_SERVER["REQUEST_METHOD"] . " - " . $_SERVER["REMOTE_ADDR"] . " - " . $_SERVER["HTTP_REFERER"] . " - " . $_SERVER["HTTP_ACCEPT"] . "\n\n".'<br />';
+			$email_body .= '$_POST:' . "\n\n".'<br />';
 			foreach($this->data as $key => $value) {
-				$email_body .= $key . '=' . $value . "\n".'<br>';
+				$email_body .= $key . '=' . $value . "\n".'<br />';
 			}
-			$email_body .= "\n" . '$_GET:' . "\n\n".'<br>';
+			$email_body .= "\n" . '$_GET:' . "\n\n".'<br />';
 			foreach($_GET as $key => $value) {
-				$email_body .= $key . '=' . $value . "\n".'<br>';
+				$email_body .= $key . '=' . $value . "\n".'<br />';
 			}
 			xtc_php_mail(EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_ADDRESS, '', EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, false, false, 'PayPal IPN Invalid Process', $email_body, $email_body);
 		}

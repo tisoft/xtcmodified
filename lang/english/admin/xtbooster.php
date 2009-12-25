@@ -175,7 +175,7 @@ define('TXT_PICTURE_1','1st picture of the item');
 define('TXT_PICTURE_2','2nd picture of the item');
 define('TXT_PICTURE_N','<strong>N</strong>th picture of the item');
 define('TXT_PACKAGING_UNIT','Packaging unit');
-define('TXT_NOTE_USE_BUTTON_SOURCECODE',"<strong>Note: Please use the \"Quellcode\" button<br>\nto submit your existing HTML source code as a template.</strong>");
+define('TXT_NOTE_USE_BUTTON_SOURCECODE',"<strong>Note: Please use the \"Quellcode\" button<br />\nto submit your existing HTML source code as a template.</strong>");
 define('TXT_NO_COUNTER','no counter');
 define('TXT_STANDARD_COUNTER','basic style counter ');
 define('TXT_GREEN_LED_COUNTER','green LED\'s');

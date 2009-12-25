@@ -1115,23 +1115,23 @@ function ShowHTMLMenu ()
 <h3><a href="http://www.cao-faktura.de">CAO-Faktura - xt:Commerce Shopanbindung</a></h3>
 <h4>Mehr dazu im <a href="http://www.cao-faktura.de/index.php?option=com_forum&Itemid=44">Forum</a></h4>
 <h4>Version <?php echo $version_nr; ?> Stand : <?php echo $version_datum; ?></h4>
-<br>
-<br><b>m&ouml;gliche Funktionen :</b><br><br>
-<a href="<?php echo $Url; ?>&action=version">Ausgabe XML Scriptversion</a><br>
-<br>
-<a href="<?php echo $Url; ?>&action=manufacturers_export">Ausgabe XML Manufacturers</a><br>
-<a href="<?php echo $Url; ?>&action=categories_export">Ausgabe XML Categories</a><br>
-<a href="<?php echo $Url; ?>&action=products_export">Ausgabe XML Products</a><br>
-<a href="<?php echo $Url; ?>&action=customers_export">Ausgabe XML Customers</a><br>
-<a href="<?php echo $Url; ?>&action=customers_newsletter_export">Ausgabe XML Customers-Newsletter</a><br>
-<br>
-<a href="<?php echo $Url; ?>&action=orders_export">Ausgabe XML Orders</a><br>
-<br>
-<a href="<?php echo $Url; ?>&action=config_export">Ausgabe XML Shop-Config</a><br>
-<br>
-<a href="<?php echo $Url; ?>&action=update_tables">MySQL-Tabellen f&uuml;r die verwendung mit CAO-Faktura aktualisieren</a><br>
-<br>
-<a href="<?php echo $Url; ?>&action=send_log">aktuelles Transfer-Log ansehen (die le. 100 Eintr&auml;ge)</a><br>
+<br />
+<br /><b>m&ouml;gliche Funktionen :</b><br /><br />
+<a href="<?php echo $Url; ?>&action=version">Ausgabe XML Scriptversion</a><br />
+<br />
+<a href="<?php echo $Url; ?>&action=manufacturers_export">Ausgabe XML Manufacturers</a><br />
+<a href="<?php echo $Url; ?>&action=categories_export">Ausgabe XML Categories</a><br />
+<a href="<?php echo $Url; ?>&action=products_export">Ausgabe XML Products</a><br />
+<a href="<?php echo $Url; ?>&action=customers_export">Ausgabe XML Customers</a><br />
+<a href="<?php echo $Url; ?>&action=customers_newsletter_export">Ausgabe XML Customers-Newsletter</a><br />
+<br />
+<a href="<?php echo $Url; ?>&action=orders_export">Ausgabe XML Orders</a><br />
+<br />
+<a href="<?php echo $Url; ?>&action=config_export">Ausgabe XML Shop-Config</a><br />
+<br />
+<a href="<?php echo $Url; ?>&action=update_tables">MySQL-Tabellen f&uuml;r die verwendung mit CAO-Faktura aktualisieren</a><br />
+<br />
+<a href="<?php echo $Url; ?>&action=send_log">aktuelles Transfer-Log ansehen (die le. 100 Eintr&auml;ge)</a><br />
 </body>
 </html>
 <?php
@@ -1171,7 +1171,7 @@ function UpdateTables ()
 
   for ($i=1;$i<=13;$i++)
   {
-    echo '<b>SQL:</b> ' . $sql[$i] . '<br>';;
+    echo '<b>SQL:</b> ' . $sql[$i] . '<br />';;
 	   
     if (@mysql_query($sql[$i], $$link))
     {
@@ -1199,7 +1199,7 @@ function UpdateTables ()
 	     echo '<b>Ergebnis : OK, Spalte existierte bereits !</b>';
 	   }	   
 	 }
-    echo '<br><br>';
+    echo '<br /><br />';
   }
   echo '</body></html>';
 }
@@ -2644,22 +2644,22 @@ function SendLog ()
 	  $res = xtc_db_query($sql);
 	  while ($log = xtc_db_fetch_array($res)) 
 	  {
-	    echo 'Date:' . $log['date'] . '<br>' . "\n";
-	    echo 'Method:' . $log['method'] . '<br>' . "\n";
-	    echo 'Action:' . $log['action'] . '<br>' . "\n";
-	    echo 'Post-Data:<br>' . nl2br($log['post_data']) . '<br>' . "\n";
-	    echo 'Get-Data:<br>' . nl2br($log['get_data']) . '<br>' . "\n";
+	    echo 'Date:' . $log['date'] . '<br />' . "\n";
+	    echo 'Method:' . $log['method'] . '<br />' . "\n";
+	    echo 'Action:' . $log['action'] . '<br />' . "\n";
+	    echo 'Post-Data:<br />' . nl2br($log['post_data']) . '<br />' . "\n";
+	    echo 'Get-Data:<br />' . nl2br($log['get_data']) . '<br />' . "\n";
 	    
 	    echo "<hr>" . "\n";
 	  }
   }
    else
   {
-    echo '<br><br><br><hr><h5>Der Logger wurde im Script deaktiviert !</h5><hr>';
+    echo '<br /><br /><br /><hr><h5>Der Logger wurde im Script deaktiviert !</h5><hr>';
   
   }
 	  
-  echo '<br><br></body></html>'; 
+  echo '<br /><br /></body></html>'; 
 
 }
 

@@ -159,12 +159,3 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 
 <br /><br />
 <!-- Artikel Einfügen Ende //-->
-
-
-
-
-
-
-
-
-

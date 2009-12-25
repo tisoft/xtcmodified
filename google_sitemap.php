@@ -257,11 +257,11 @@ if ($autogenerate) {
     $function_close($fp); 
 } 
 
-$main_content .= "<br><br>" . $c_cat_total . " <b>Kategorien</b> und " . $c_prod_total . " <b>Produkte</b> exportiert."; 
+$main_content .= "<br /><br />" . $c_cat_total . " <b>Kategorien</b> und " . $c_prod_total . " <b>Produkte</b> exportiert."; 
 // generates sitemap-index file 
 if ($autogenerate && $i > 1) { 
     $sitemap_index_file = 'sitemap_index'.$file_extension; 
-    $main_content = $main_content . "<br><br>Sitemap-Index-Datei '<b>" . $sitemap_index_file . "</b>' erstellt."; 
+    $main_content = $main_content . "<br /><br />Sitemap-Index-Datei '<b>" . $sitemap_index_file . "</b>' erstellt."; 
     $notify_url = SITEMAP_CATALOG.$sitemap_index_file; 
     $fp = $function_open('sitemap_index'.$file_extension, 'w'); 
     $function_write($fp, SITEMAPINDEX_HEADER); 
@@ -341,7 +341,7 @@ function output_entry()
             $i++; 
             $filename = 'sitemap'.$i.$file_extension; 
             $fp = $function_open($filename, 'w'); 
-            $main_content = $main_content . "<br>Sitemap-Datei '<b>" . $filename . "</b>' erstellt."; 
+            $main_content = $main_content . "<br />Sitemap-Datei '<b>" . $filename . "</b>' erstellt."; 
             output(SITEMAP_HEADER); 
             $strlen = strlen(SITEMAP_HEADER); 
         } 
@@ -380,10 +380,10 @@ function sitemap_replace($result) {
     $out = preg_replace( '/<img(.*?)>/si'  , ''  , $result['1']); 
     $out = preg_replace("/<br(.*?)>/si", "<br />", $out); 
     $out = preg_replace("/<h(.*?)>(.*?)<\/h(.*?)>/si", "<h2>\\2</h2>", $out); 
-    $out = str_replace("<br>", "<br />", $out);   
+    $out = str_replace("<br />", "<br />", $out);   
     $out = preg_replace("/<div(.*?)>(.*?)<\/div>/si", "<div>\\2</div>", $out); 
     $out = preg_replace("/<br(.*?)>(.*?)<br(.*?)>(.*?)<br(.*?)>(.*?)<br(.*?)>/si", "", $out);     
-    $out = strip_tags($out,'<a>,<p>,<br>,<h2>,<div>'); 
+    $out = strip_tags($out,'<a>,<p>,<br />,<h2>,<div>'); 
     return $out;   
 } 
 require(DIR_WS_INCLUDES . 'application_bottom.php');  

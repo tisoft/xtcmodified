@@ -175,8 +175,8 @@ if ($user=='' or $password=='')
 <h3><a href="http://www.cao-faktura.de">CAO-Faktura - xt:Commerce Shopanbindung</a></h3>
 <h4>Mehr dazu im <a href="http://www.cao-faktura.de/index.php?option=com_forum&Itemid=44">Forum</a></h4>
 <h4>Version <?php echo $version_nr; ?> Stand : <?php echo $version_datum; ?></h4>
-<br><br>
-Aufruf des Scriptes mit <br><b><?php echo $PHP_SELF; ?>?user=<font color="red">ADMIN-EMAIL</font>&password=<font color="red">ADMIN-PASSWORD-IM-KLARTEXT</font>
+<br /><br />
+Aufruf des Scriptes mit <br /><b><?php echo $PHP_SELF; ?>?user=<font color="red">ADMIN-EMAIL</font>&password=<font color="red">ADMIN-PASSWORD-IM-KLARTEXT</font>
 </b>
 </body></html>
 <?php
