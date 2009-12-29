@@ -254,7 +254,8 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
   <?php // EOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
   
 <!-- BOF - Tomcraft - 2009-11-02 - Block2 //-->
-<!--div style="width: 860px; padding:5px;">
+<!--
+<div style="width: 860px; padding:5px;">
 <table "width="100%"  border="0" cellpadding="3" cellspacing="0" bgcolor="f3f3f3" style="border: 1px solid; border-color: #aaaaaa; padding:5px;">	      
 <?php    for ($i=0; $i<sizeof($languages); $i++) { ?>         
           <tr>
@@ -271,7 +272,8 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
 <?php } ?>    
 </table>
 </div>
-<br>
+<br />
+//-->
 <!-- EOF - Tomcraft - 2009-11-02 - Block2 //-->
 
 

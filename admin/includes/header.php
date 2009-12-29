@@ -36,15 +36,15 @@
 // EOF - Tomcraft - 2009-11-02 - Admin language switch
   
 // BOF - Tomcraft - 2009-11-02 - JavaScript WEICHE  - Admin Umschaltauswahl
-    if (USE_ADMIN_TOP_MENU != 'false') {  
+    if (USE_ADMIN_TOP_MENU != 'false') {
   ?>
+   <script src="includes/liststyle_menu/topmenu.js" type="text/javascript"></script>
    <script language="javascript">
-	<!--
-	document.write('<script src="includes/liststyle_menu/topmenu.js" type="text/javascript"></script>');
+    <!--
 	document.write('<link href="includes/liststyle_menu/liststyle_top.css" rel="stylesheet" type="text/css" />');
 	//-->
-	</script>	 
-  <?php	 
+	</script>
+  <?php
   } else echo '<link href="includes/liststyle_menu/liststyle_left.css" rel="stylesheet" type="text/css" />';
  // EOF - Tomcraft - 2009-11-02 - JavaScript WEICHE  - Admin Umschaltauswahl
 ?>
