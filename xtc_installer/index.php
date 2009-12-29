@@ -240,16 +240,16 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
    if(version_compare(phpversion(), "4.3.3", "<")){
 	   $error_flag = true;
      $php_flag = true;
-     $message .= '<strong>ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 4.3.3 voraus.</b><br /><br />
-                 Ihre PHP-Version: <b>' . phpversion() . '</strong>.';
+     $message .= '<strong>ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 4.3.3 voraus.<br /><br />
+                 Ihre PHP-Version: ' . phpversion() . '</strong>.';
 	 }
 	
  }
  else{
  		$error_flag = true;
     $php_flag = true;
-    $message .= '<strong>ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 4.3.3 voraus.</b><br /><br />
-                 Ihre PHP-Version: <b>' . phpversion() . '</strong>.';
+    $message .= '<strong>ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 4.3.3 voraus.<br /><br />
+                 Ihre PHP-Version: ' . phpversion() . '</strong>.';
  }
  //EOF - Dokuman - 2009-09-02: update PHP-Version check
 
@@ -271,8 +271,8 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 	if(version_compare(mysql_get_client_info(), "4.1.2", "<")){
 		$error_flag = true;
 		$php_flag = true;
-		$message .= '<br /><strong>ACHTUNG! Ihre MySQL-Version ist zu alt. Der Shop setzt mindestens die Version 4.1.2 voraus.</b><br /><br />
-					Ihre MySQL-Version: <b>' . mysql_get_client_info() . '</strong>.';
+		$message .= '<br /><strong>ACHTUNG! Ihre MySQL-Version ist zu alt. Der Shop setzt mindestens die Version 4.1.2 voraus.<br /><br />
+					Ihre MySQL-Version: ' . mysql_get_client_info() . '</strong>.';
     }
 	$status='OK';
 	if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
