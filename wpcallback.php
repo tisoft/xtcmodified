@@ -53,11 +53,11 @@ require (DIR_WS_INCLUDES.'header.php');
 //if(isset($transStatus) && $transStatus == "Y") {
 if($_POST['transStatus'] == "Y") {
 	$url = xtc_href_link(FILENAME_CHECKOUT_PROCESS, $cartId, 'NONSSL', false);
-	$meta = "<meta http-equiv='Refresh' content='2; Url=\"$url\"' />";
+	$meta = "<meta http-equiv='Refresh' content='2; Url=\"$url\"'>";
 	$text = WP_TEXT_SUCCESS;
 } else {
 	$url = xtc_href_link(FILENAME_CHECKOUT_PAYMENT, $cartId, 'NONSSL', false);
-	$meta = "<meta http-equiv='Refresh' content='2; Url=\"$url\"' />";
+	$meta = "<meta http-equiv='Refresh' content='2; Url=\"$url\"'>";
 	$link = '<a href="'.xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL', false).'">'.xtc_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE).'</a>';
 }
 

@@ -31,7 +31,7 @@ define('TEXT_SPECIALS_EXPIRES_DATE', 'Expiry Date: <small>(YYYY-MM-DD)</small>')
 // EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
 // BOF - Tomcraft - 2009-11-06 - extended description
 //define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li><li>Leave the expiry date empty for no expiration</li></ul>');
-define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li><li>Leave the expiry date empty for no expiration</li></ul><br />You can enter the item quantity in the field <strong>quantity</strong> for products the special price apply to. Remain the field empty, if you don\'t want to limit the quantity.');
+define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li><li>Leave the expiry date empty for no expiration</li></ul><br>You can enter the item quantity in the field <strong>quantity</strong> for products the special price apply to. Remain the field empty, if you don\'t want to limit the quantity.');
 // EOF - Tomcraft - 2009-11-06 - extended description
 
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');

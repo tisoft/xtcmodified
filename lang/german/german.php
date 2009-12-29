@@ -475,9 +475,9 @@ define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Ihr Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Konto l&ouml;schen');
 	
 //contact-form error messages
-define('ERROR_EMAIL','<br /><br /><b>Ihre E-Mail-Adresse:</b> Keine oder ung&uuml;ltige Eingabe!');
-define('ERROR_VVCODE','<br /><br /><b>Sicherheitscode:</b> Keine &Uuml;bereinstimmung, bitte geben Sie den Sicherheitscode erneut ein!');
-define('ERROR_MSG_BODY','<br /><br /><b>Ihre Nachricht:</b> Keine Eingabe!');	
+define('ERROR_EMAIL','<br><br><b>Ihre E-Mail-Adresse:</b> Keine oder ung&uuml;ltige Eingabe!');
+define('ERROR_VVCODE','<br><br><b>Sicherheitscode:</b> Keine &Uuml;bereinstimmung, bitte geben Sie den Sicherheitscode erneut ein!');
+define('ERROR_MSG_BODY','<br><br><b>Ihre Nachricht:</b> Keine Eingabe!');	
 
 // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 define('NAVBAR_TITLE_PAYPAL_CHECKOUT','PayPal-Checkout');

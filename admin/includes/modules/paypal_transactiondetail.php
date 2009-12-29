@@ -132,7 +132,7 @@ if($show) {
 			</tr>
 			<tr>
 				<td width="10%" valign="top"><?php echo TEXT_PAYPAL_ADRESS; ?></td>
-				<td width="90%"><?php echo $ipn_data['address_name'].'<br />'.$ipn_data['address_street'].'<br />'.$ipn_data['address_zip'].' '.$ipn_data['address_city'].'<br />'.$ipn_data['address_country']; ?></td>
+				<td width="90%"><?php echo $ipn_data['address_name'].'<br>'.$ipn_data['address_street'].'<br>'.$ipn_data['address_zip'].' '.$ipn_data['address_city'].'<br>'.$ipn_data['address_country']; ?></td>
 			</tr>
 			<?php if($ipn_data['address_status']!='' and $ipn_data['address_status']!='None') { ?>
 				<tr>

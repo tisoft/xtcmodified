@@ -45,7 +45,7 @@
   $box_smarty = new smarty;
   $box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
   $box_content='';
-  $box_content=xtc_draw_form('currencies', xtc_href_link(basename($PHP_SELF), '', $request_type, false), 'get').xtc_draw_pull_down_menu('currency', $currencies_array, $_SESSION['currency'], 'onchange="this.form.submit();" style="width: 100%"') . $hidden_get_variables . xtc_hide_session_id().'</form>';
+  $box_content=xtc_draw_form('currencies', xtc_href_link(basename($PHP_SELF), '', $request_type, false), 'get').xtc_draw_pull_down_menu('currency', $currencies_array, $_SESSION['currency'], 'onChange="this.form.submit();" style="width: 100%"') . $hidden_get_variables . xtc_hide_session_id().'</form>';
   $box_smarty->assign('BOX_CONTENT', $box_content);
   $box_smarty->assign('language', $_SESSION['language']);
   $box_smarty->caching = 0;

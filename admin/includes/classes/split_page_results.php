@@ -65,7 +65,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           $display_links .= PREVNEXT_BUTTON_PREV . '&nbsp;&nbsp;';
         }
 
-        $display_links .= sprintf(TEXT_RESULT_PAGE, xtc_draw_pull_down_menu($page_name, $pages_array, $current_page_number, 'onchange="this.form.submit();"'), $num_pages);
+        $display_links .= sprintf(TEXT_RESULT_PAGE, xtc_draw_pull_down_menu($page_name, $pages_array, $current_page_number, 'onChange="this.form.submit();"'), $num_pages);
 
         if (($current_page_number < $num_pages) && ($num_pages != 1)) {
           $display_links .= '&nbsp;&nbsp;<a href="' . xtc_href_link(basename($_SERVER['PHP_SELF']), $parameters . $page_name . '=' . ($current_page_number + 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';

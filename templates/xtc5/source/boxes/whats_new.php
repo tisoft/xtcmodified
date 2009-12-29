@@ -63,10 +63,7 @@ if ($random_product = xtc_random_select("select distinct
 	$whats_new_price = $xtPrice->xtcGetPrice($random_product['products_id'], $format = true, 1, $random_product['products_tax_class_id'], $random_product['products_price']);
 }
 
-//BOF - Dokuman - 2009-12-25 - added htmlspecialchars for valid XHTML
-//$random_product['products_name'] = xtc_get_products_name($random_product['products_id']);
-$random_product['products_name'] = htmlspecialchars(xtc_get_products_name($random_product['products_id']));
-//EOF - Dokuman - 2009-12-25 - added htmlspecialchars for valid XHTML
+$random_product['products_name'] = xtc_get_products_name($random_product['products_id']);
 
 if ($random_product['products_name'] != '') {
 

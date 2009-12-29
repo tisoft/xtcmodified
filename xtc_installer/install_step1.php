@@ -48,11 +48,11 @@
   $dir_ws_www_root = implode('/', $dir_ws_www_root);
   
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <title>xtcModified Installer - STEP 1 / Settings</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <style type="text/css">
 
 body { background: #eee; font-family: Arial, sans-serif; font-size: 12px;}

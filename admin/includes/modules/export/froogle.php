@@ -19,7 +19,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 define('MODULE_FROOGLE_TEXT_DESCRIPTION', 'Export - Froogle.de (Tab getrennt)');
 define('MODULE_FROOGLE_TEXT_TITLE', 'Froogle.de - TXT');
 define('MODULE_FROOGLE_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_FROOGLE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
+define('MODULE_FROOGLE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
 define('MODULE_FROOGLE_STATUS_DESC','Modulstatus') ;
 define('MODULE_FROOGLE_STATUS_TITLE','Status');
 define('MODULE_FROOGLE_CURRENCY_TITLE','W&auml;hru ng');
@@ -246,7 +246,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
     $curr='';
     $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
     while ($currencies_data=xtc_db_fetch_array($currencies)) {
-     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
+     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br>';
     }
 
     $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
@@ -255,20 +255,20 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y'); // this is used for strftime()
 	$campaign_array[] = array ('id' => 'refID='.$campaign['campaigns_refID'].'&', 'text' => $campaign['campaigns_name'],);
 	}
 
-    return array('text' =>  EXPORT_STATUS_TYPE.'<br />'.
-                          	EXPORT_STATUS.'<br />'.
-                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
-                            CURRENCY.'<br />'.
-                            CURRENCY_DESC.'<br />'.
+    return array('text' =>  EXPORT_STATUS_TYPE.'<br>'.
+                          	EXPORT_STATUS.'<br>'.
+                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br>'.
+                            CURRENCY.'<br>'.
+                            CURRENCY_DESC.'<br>'.
                             $curr.
-                            CAMPAIGNS.'<br />'.
-                            CAMPAIGNS_DESC.'<br />'.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.
-                            EXPORT_TYPE.'<br />'.
-                            EXPORT.'<br />'.
-                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
-                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
-                            '<br />' . xtc_button(BUTTON_EXPORT) .
+                            CAMPAIGNS.'<br>'.
+                            CAMPAIGNS_DESC.'<br>'.
+                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br>'.
+                            EXPORT_TYPE.'<br>'.
+                            EXPORT.'<br>'.
+                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br>'.
+                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br>'.
+                            '<br>' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=froogle')));
 
 

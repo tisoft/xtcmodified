@@ -28,17 +28,17 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 define('MODULE_IDEALO_TEXT_DESCRIPTION', 'Export - Idealo (Semikolon getrennt)');
 define('MODULE_IDEALO_TEXT_TITLE', 'Idealo - CSV');
 define('MODULE_IDEALO_FILE_TITLE' , '<hr noshade>Dateiname');
-define('MODULE_IDEALO_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
+define('MODULE_IDEALO_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
 define('FIELDSEPARATOR', '<b>Spaltentrenner</b>');
-define('FIELDSEPARATOR_HINT', 'Beispiel:<br />;&nbsp;&nbsp;&nbsp;(Semikolon)<br />,&nbsp;&nbsp;&nbsp;(Komma)<br />\t&nbsp;&nbsp;(Tab)<br />...<br />Wird das Feld leer gelassen, wird Tab als Trenner genutzt.');
+define('FIELDSEPARATOR_HINT', 'Beispiel:<br>;&nbsp;&nbsp;&nbsp;(Semikolon)<br>,&nbsp;&nbsp;&nbsp;(Komma)<br>\t&nbsp;&nbsp;(Tab)<br>...<br>Wird das Feld leer gelassen, wird Tab als Trenner genutzt.');
 define('QUOTING','<b>Quoting</b>');
-define('QUOTING_HINT','Beispiel:<br />"&nbsp;&nbsp;&nbsp;(Anf&uuml;hrungszeichen)<br />\'&nbsp;&nbsp;&nbsp;(Hochkomma)<br />#&nbsp;&nbsp;(Raute)<br />... <br />Wird das Feld leer gelassen, wird nicht gequotet.');
+define('QUOTING_HINT','Beispiel:<br>"&nbsp;&nbsp;&nbsp;(Anf&uuml;hrungszeichen)<br>\'&nbsp;&nbsp;&nbsp;(Hochkomma)<br>#&nbsp;&nbsp;(Raute)<br>... <br>Wird das Feld leer gelassen, wird nicht gequotet.');
 define('SHIPPINGCOMMENT', '<b>Versandkommentar</b>');
 define('SHIPPINGCOMMENT_HINT', 'Max. 100 Zeichen');
 define('FREESHIPPINGCOMMENT', '<b>Kommentar zur Versankosten-Grenze</b>');
-define('FREESHIPPINGCOMMENT_HINT', 'Wird bei allen Angeboten angezeigt, die unter der Versandkostenfreiheits-Grenze liegen.<br />Max. 100 Zeichen');
+define('FREESHIPPINGCOMMENT_HINT', 'Wird bei allen Angeboten angezeigt, die unter der Versandkostenfreiheits-Grenze liegen.<br>Max. 100 Zeichen');
 define('LANGUAGE', '<b>Export f&uuml;r</b>');
-define('LANGUAGE_HINT', 'Beispiel:<br />DE (Deutschland)<br />AT (&Ouml;sterreich)<br />...<br />Es sollten(!) die Sprachen genutzt werden, die auch bei den Versandkosten etc. korrekt hinterlegt sind.<br />Wird das Feld leer gelassen, wird \'DE\' benutzt.');
+define('LANGUAGE_HINT', 'Beispiel:<br>DE (Deutschland)<br>AT (&Ouml;sterreich)<br>...<br>Es sollten(!) die Sprachen genutzt werden, die auch bei den Versandkosten etc. korrekt hinterlegt sind.<br>Wird das Feld leer gelassen, wird \'DE\' benutzt.');
 define('MODULE_IDEALO_STATUS_DESC','Modulstatus');
 define('MODULE_IDEALO_STATUS_TITLE','Status');
 define('MODULE_IDEALO_CURRENCY_TITLE','W&auml;hrung');
@@ -626,7 +626,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
             // remove trash
 
             // characters that should be replaced
-			$spaceToReplace = array("<br />", "<br />", "\n", "\r", "\t", "\v", chr(13)); // replace by space
+			$spaceToReplace = array("<br>", "<br />", "\n", "\r", "\t", "\v", chr(13)); // replace by space
 			$commaToReplace = array("'");  												// replace by comma
 			$quoteToReplace = array("&quot,", "&qout,");								// replace by quote ( " )
 
@@ -776,7 +776,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 	    $curr='';
 	    $currencies=xtc_db_query("SELECT code FROM ".TABLE_CURRENCIES);
 	    while ($currencies_data=xtc_db_fetch_array($currencies)) {
-	     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br />';
+	     $curr.=xtc_draw_radio_field('currencies', $currencies_data['code'],true).$currencies_data['code'].'<br>';
 	    }
 
 	    $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
@@ -791,7 +791,7 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 			$freeshipping_comment_db = xtc_db_fetch_array($freeshipping_input_query);
 
 			$freeValue_Input_Text = ( $this->freeShippingValue != '' ) ? $freeshipping_comment_db['configuration_value'] : '';
-			$freeshippingHTML = FREESHIPPINGCOMMENT . '<br />' . FREESHIPPINGCOMMENT_HINT . '<br />' . xtc_draw_input_field('freeshippingcomment_input', "{$freeValue_Input_Text}") . '<br /><br />';
+			$freeshippingHTML = FREESHIPPINGCOMMENT . '<br>' . FREESHIPPINGCOMMENT_HINT . '<br>' . xtc_draw_input_field('freeshippingcomment_input', "{$freeValue_Input_Text}") . '<br><br>';
 		} else {
 			$freeshippingHTML = '';
 		}
@@ -802,33 +802,33 @@ require_once(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
 		$shipping_comment_text = ( $shipping_comment_db !== false ) ? $shipping_comment_db['configuration_value'] : '';
 
 	    return array('text' =>
-	    						'<br />' . FIELDSEPARATOR . '<br />' .
-	    						FIELDSEPARATOR_HINT . '<br />' .
-	    						xtc_draw_small_input_field('separator_input', ';') . '<br /><br />' .
-	    						QUOTING . '<br />' .
-	    						QUOTING_HINT . '<br />' .
-	    						xtc_draw_small_input_field('quoting_input', '"') . '<br /><br />' .
-								SHIPPINGCOMMENT . '<br />' .
-								SHIPPINGCOMMENT_HINT . '<br />' .
-								xtc_draw_input_field('shippingcomment_input', $shipping_comment_text) . '<br /><br />'.
+	    						'<br>' . FIELDSEPARATOR . '<br>' .
+	    						FIELDSEPARATOR_HINT . '<br>' .
+	    						xtc_draw_small_input_field('separator_input', ';') . '<br><br>' .
+	    						QUOTING . '<br>' .
+	    						QUOTING_HINT . '<br>' .
+	    						xtc_draw_small_input_field('quoting_input', '"') . '<br><br>' .
+								SHIPPINGCOMMENT . '<br>' .
+								SHIPPINGCOMMENT_HINT . '<br>' .
+								xtc_draw_input_field('shippingcomment_input', $shipping_comment_text) . '<br><br>'.
 								$freeshippingHTML .
-	    						LANGUAGE . '<br />' .
-	    						LANGUAGE_HINT . '<br />' .
-	    						xtc_draw_small_input_field('language_input', 'DE') . '<br />' .
-	    						EXPORT_STATUS_TYPE.'<br />'.
-	                          	EXPORT_STATUS.'<br />'.
-	                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br />'.
-	                            CURRENCY.'<br />'.
-	                            CURRENCY_DESC.'<br />'.
+	    						LANGUAGE . '<br>' .
+	    						LANGUAGE_HINT . '<br>' .
+	    						xtc_draw_small_input_field('language_input', 'DE') . '<br>' .
+	    						EXPORT_STATUS_TYPE.'<br>'.
+	                          	EXPORT_STATUS.'<br>'.
+	                          	xtc_draw_pull_down_menu('status',$customers_statuses_array, '1').'<br>'.
+	                            CURRENCY.'<br>'.
+	                            CURRENCY_DESC.'<br>'.
 	                            $curr.
-	                            CAMPAIGNS.'<br />'.
-	                            CAMPAIGNS_DESC.'<br />'.
-	                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br />'.
-	                            EXPORT_TYPE.'<br />'.
-	                            EXPORT.'<br />'.
-	                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br />'.
-	                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
-	                            '<br />' . xtc_button(BUTTON_EXPORT) .
+	                            CAMPAIGNS.'<br>'.
+	                            CAMPAIGNS_DESC.'<br>'.
+	                          	xtc_draw_pull_down_menu('campaign',$campaign_array).'<br>'.
+	                            EXPORT_TYPE.'<br>'.
+	                            EXPORT.'<br>'.
+	                          	xtc_draw_radio_field('export', 'no',false).EXPORT_NO.'<br>'.
+	                            xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br>'.
+	                            '<br>' . xtc_button(BUTTON_EXPORT) .
 	                            xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=idealo')));
 
 

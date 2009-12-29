@@ -148,11 +148,11 @@ xtc_db_query("create table personal_offers_by_customers_status_3 (price_id INT N
         }
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <title>xtc:Modified Installer - STEP 7 / Success</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <?php require('includes/form_check.js.php'); ?>
 <style type="text/css">
 

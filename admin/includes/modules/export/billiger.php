@@ -20,7 +20,7 @@ defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 define('MODULE_BILLIGER_TEXT_DESCRIPTION', 'Einfach mit wenigen Klicks alle Artikel samt Versandkosten f&uuml;r www.billiger.de exportieren.');
 define('MODULE_BILLIGER_TEXT_TITLE', 'Billiger.de Export - CSV');
 define('MODULE_BILLIGER_FILE_TITLE' , '<hr />Dateiname');
-define('MODULE_BILLIGER_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
+define('MODULE_BILLIGER_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportadatei am Server gespeichert werden soll.<br>(Verzeichnis export/)');
 define('MODULE_BILLIGER_STATUS_DESC', 'Modulstatus');
 define('MODULE_BILLIGER_STATUS_TITLE', 'Status');
 define('MODULE_BILLIGER_CURRENCY_TITLE', 'W&auml;hrung');
@@ -271,9 +271,9 @@ class billiger {
     {
         $string = strip_tags($string);
         $string = html_entity_decode($string);
+        $string = str_replace("<br>", " ", $string);
         $string = str_replace("<br />", " ", $string);
-        $string = str_replace("<br />", " ", $string);
-        $string = str_replace("<br />", " ", $string);
+        $string = str_replace("<br/>", " ", $string);
         $string = str_replace(";", ", ", $string);
         $string = str_replace("'", ", ", $string);
         $string = str_replace("\n", " ", $string);
@@ -296,14 +296,14 @@ class billiger {
         $curr = '';
         $currencies = xtc_db_query("SELECT code FROM " . TABLE_CURRENCIES . " ORDER BY currencies_id DESC");
         while ($currencies_data = xtc_db_fetch_array($currencies)) {
-            $curr .= xtc_draw_radio_field('currencies', $currencies_data['code'], true) . $currencies_data['code'] . '<br />';
+            $curr .= xtc_draw_radio_field('currencies', $currencies_data['code'], true) . $currencies_data['code'] . '<br>';
         }
 
         /* Auswahl Sprachen vorbereiten (ich)*/
         $lang = '';
         $languages = xtc_db_query("SELECT languages_id, name FROM " . TABLE_LANGUAGES . " ORDER BY sort_order ASC");
         while ($languages_data = xtc_db_fetch_array($languages)) {
-            $lang .= xtc_draw_radio_field('languages_id', $languages_data['languages_id'], true) . $languages_data['name'] . '<br />';
+            $lang .= xtc_draw_radio_field('languages_id', $languages_data['languages_id'], true) . $languages_data['name'] . '<br>';
         }
         /* Auswahl Kampagnen vorbereiten */
         $campaign_array = array(array('id' => '', 'text' => TEXT_NONE));
@@ -314,20 +314,20 @@ class billiger {
 
         /* Ausgabe */
         return array('text' =>
-            EXPORT_STATUS_TYPE . '<br />' .
-            EXPORT_STATUS . '<br />' .
-            xtc_draw_pull_down_menu('status', $customers_statuses_array, '1') . '<br />' .
-            LANGUAGE . '<br />' .
-            LANGUAGE_DESC . '<br />' . $lang .
-            CURRENCY . '<br />' .
-            CURRENCY_DESC . '<br />' . $curr .
-            CAMPAIGNS . '<br />' .
-            CAMPAIGNS_DESC . '<br />' .
-            xtc_draw_pull_down_menu('campaign', $campaign_array) . '<br />' .
-            EXPORT_TYPE . '<br />' .
-            EXPORT . '<br />' .
-            xtc_draw_radio_field('export', 'no', false) . EXPORT_NO . '<br />' .
-            xtc_draw_radio_field('export', 'yes', true) . EXPORT_YES . '<br />' . '<br />' . xtc_button(BUTTON_EXPORT) .
+            EXPORT_STATUS_TYPE . '<br>' .
+            EXPORT_STATUS . '<br>' .
+            xtc_draw_pull_down_menu('status', $customers_statuses_array, '1') . '<br>' .
+            LANGUAGE . '<br>' .
+            LANGUAGE_DESC . '<br>' . $lang .
+            CURRENCY . '<br>' .
+            CURRENCY_DESC . '<br>' . $curr .
+            CAMPAIGNS . '<br>' .
+            CAMPAIGNS_DESC . '<br>' .
+            xtc_draw_pull_down_menu('campaign', $campaign_array) . '<br>' .
+            EXPORT_TYPE . '<br>' .
+            EXPORT . '<br>' .
+            xtc_draw_radio_field('export', 'no', false) . EXPORT_NO . '<br>' .
+            xtc_draw_radio_field('export', 'yes', true) . EXPORT_YES . '<br>' . '<br>' . xtc_button(BUTTON_EXPORT) .
             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=billiger')) . '');
     }
     // check

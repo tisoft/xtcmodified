@@ -14,13 +14,13 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
-define('MODULE_GUENSTIGER_TEXT_DESCRIPTION', '<hr noshade="noshade"><br /><center><a href="http://www.guenstiger.de/"><img src="http://www.guenstiger.de/bilder/guenstiger_L_blau.GIF" width="149" height="113" border="0" alt="guenstiger.de - Der grosse Preisvergleich im Internet"></a></center><br /><br />
-<b>Export</b><br />guenstiger.de<br /><br />
-<b>Trennzeichen</b><br />getrennt durch | (PIPE)<br /><br />
-<b>Format</b><br />- ProduktID<br />- Gewicht<br />- EAN<br />- Lagerbestand<br />- Hersteller<br />- ProduktBezeichnung<br />- ArtikelNr. (ggf. auch Hersteller-ArtikelNr.)<br />- Preis<br />- Produktbeschreibung (kurz)<br />- Produktbeschreibung (lang)<br />- Lieferzeit<br /><span style="color:#006">- Produktlink <i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i></span><br />- FotoLink<br />- Kategoriename<br />- Vorkasse<br />- Nachnahme<br />- Rechnung<br />- Kreditkarte<br />- Lastschrift<br />- PayPal<br />- Moneybookers<br />- Giropay<br /><br />
-<span style="color:#006"><b>Besonderheiten</b><br /><i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i><br />- Automatisches Kampagnentracking innherhalb von XT-Commerce<br />- Unterst&uuml;tzt Google-Analytics Kampagnentracking<br /><br /></span>
-<b>Modulversion</b><br />guenstiger.de - <i>November 2009 - 2.0</i><br /><br />
-<b>Fragen</b><br />guenstiger.de Verlag GmbH<br />Vorsetzen 53<br />20459 Hamburg<br /><br />Tel: 040 319 796-0<br />Fax: 040 319 796-99<br />E-Mail:<a href="mailto:kontakt@guenstiger.de?SUBJECT=Fragen zum XT:Commerce-Modul November 2009 - 2.0"><u>kontakt@guenstiger.de</u></a>');
+define('MODULE_GUENSTIGER_TEXT_DESCRIPTION', '<hr noshade="noshade"><br><center><a href="http://www.guenstiger.de/"><img src="http://www.guenstiger.de/bilder/guenstiger_L_blau.GIF" width="149" height="113" border="0" alt="guenstiger.de - Der grosse Preisvergleich im Internet"></a></center><br><br>
+<b>Export</b><br>guenstiger.de<br><br>
+<b>Trennzeichen</b><br>getrennt durch | (PIPE)<br><br>
+<b>Format</b><br>- ProduktID<br>- Gewicht<br>- EAN<br>- Lagerbestand<br>- Hersteller<br>- ProduktBezeichnung<br>- ArtikelNr. (ggf. auch Hersteller-ArtikelNr.)<br>- Preis<br>- Produktbeschreibung (kurz)<br>- Produktbeschreibung (lang)<br>- Lieferzeit<br><span style="color:#006">- Produktlink <i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i></span><br>- FotoLink<br>- Kategoriename<br>- Vorkasse<br>- Nachnahme<br>- Rechnung<br>- Kreditkarte<br>- Lastschrift<br>- PayPal<br>- Moneybookers<br>- Giropay<br><br>
+<span style="color:#006"><b>Besonderheiten</b><br><i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i><br>- Automatisches Kampagnentracking innherhalb von XT-Commerce<br>- Unterst&uuml;tzt Google-Analytics Kampagnentracking<br><br></span>
+<b>Modulversion</b><br>guenstiger.de - <i>November 2009 - 2.0</i><br><br>
+<b>Fragen</b><br>guenstiger.de Verlag GmbH<br>Vorsetzen 53<br>20459 Hamburg<br><br>Tel: 040 319 796-0<br>Fax: 040 319 796-99<br>E-Mail:<a href="mailto:kontakt@guenstiger.de?SUBJECT=Fragen zum XT:Commerce-Modul November 2009 - 2.0"><u>kontakt@guenstiger.de</u></a>');
 define('MODULE_GUENSTIGER_EMAIL','Sehr%20geehrtes%20guenstiger.de-Team,%0A%0Ahierbei%20handelt%20es%20sich%20um%20eine%20%FCber%20das%20%22guenstiger.de%20-%20CSV%22%20Modul%20automatisch%20generierte%20E-Mail%20aus%20dem%20XT-Commerce%20Backoffice.%0A%0ABitte%20pr%FCfen%20Sie%20meinen%20Shop%20<-SHOP->%20,%20ob%20dieser%20bei%20Ihnen%20aufgenommen%20werden%20kann.%0A%0ADer%20Link%20zu%20der%20Produktdatenliste%20ist:%0A<-LINK->%0A%0ABitte%20geben%20Sie%20diese%20Informationen%20an%20den%20entsprechenden%20kaufm%E4nnischen%20Berater%20weiter.%0A%0AVielen%20Dank.');
 define('MODULE_GUENSTIGER_TEXT_TITLE', 'guenstiger.de - CSV');
 define('MODULE_GUENSTIGER_FILE_TITLE' , '<hr noshade>Dateiname:');
@@ -34,15 +34,15 @@ define('MODULE_GUENSTIGER_EXPORT_LINK','export/');
 define('MODULE_GUENSTIGER_EXPORT','Bitte diesen Export-Prozess AUF <b>KEINEN</b> FALL unterbrechen. Dieser kann vor allem bei Shops mit gr&ouml;&szlig;eren Datenbest&auml;nden einige Minuten in Anspruch nehmen.');
  
 define('MODULE_GUENSTIGER_GTGOOGLEHeader','<span style="color:#006"><hr noshade><b>Google-Analytics:</b></span>');
-define('MODULE_GUENSTIGER_GTGOOGLE_DESC','<span style="color:#006"><i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i><br />Wenn Sie diese Option einschalten, werden an die Produktlinks automatisch Parameter angeh&auml;ngt, mit denen Sie den Erfolg der Kooperation mit Preissuchmaschine.de zus&auml;tzlich in Google-Analytics verfolgen k&ouml;nnen. Sie finden die Auswertung unter dem Men&uuml;punkt "Zugriffsquellen" -&gt; "Kampagnen" -&gt; "preissuchmaschine".</span>');
+define('MODULE_GUENSTIGER_GTGOOGLE_DESC','<span style="color:#006"><i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i><br>Wenn Sie diese Option einschalten, werden an die Produktlinks automatisch Parameter angeh&auml;ngt, mit denen Sie den Erfolg der Kooperation mit Preissuchmaschine.de zus&auml;tzlich in Google-Analytics verfolgen k&ouml;nnen. Sie finden die Auswertung unter dem Men&uuml;punkt "Zugriffsquellen" -&gt; "Kampagnen" -&gt; "preissuchmaschine".</span>');
 define('MODULE_GUENSTIGER_GTGOOGLE_NO','<span style="color:#006">Nicht aktivieren</span>');
 define('MODULE_GUENSTIGER_GTGOOGLE_YES','<span style="color:#006">Aktivieren</span>');
 
 define('MODULE_GUENSTIGER_EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
 define('MODULE_GUENSTIGER_CAMPAIGNS','<span style="color:#006"><hr noshade><b>Kampagnen:</b> (automatisch)</span>');
 define('MODULE_GUENSTIGER_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_CATALOG."admin/stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
-define('MODULE_GUENSTIGER_CAMPAIGNS_DESC','<span style="color:#006"><i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i><br />Durch unsere automatische Kampagneneinrichtung k&ouml;nnen Sie jederzeit die von der <a href="campaigns.php"><i>Kampagne</i></a> Preissuchmaschine.de in Ihren Onlineshop weitergeleiteten Nutzer auswerten. Sie sollten &uuml;ber folgenden Link den durch uns generierten Warenkorbumsatz jederzeit nachvollziehen k&ouml;nnen:<br /><br /><a style="text-decoration:underline:color:#006" href=\''.MODULE_GUENSTIGER_CAMPAIGNS_LINK.'\'><i><b>Kampagnen-Report</b></i></a><br /><br /></span>');
-define('MODULE_GUENSTIGER_EXPORT_LINK_SEND','<a style="text-decoration:underline" href=\'mailto:haendlerinfo@guenstiger.de?SUBJECT=Anfrage - Interesse an einer eventuellen Onlinekooperation&BODY=' .  str_replace("<-SHOP->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG,str_replace("<-LINK->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_GUENSTIGER_EXPORT_LINK . MODULE_GUENSTIGER_FILE,MODULE_GUENSTIGER_EMAIL)) .  '\'><br /><br /><i><b>zur Anfrage</b> </i></a>(sofern noch nicht erfolgt)');
+define('MODULE_GUENSTIGER_CAMPAIGNS_DESC','<span style="color:#006"><i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i><br>Durch unsere automatische Kampagneneinrichtung k&ouml;nnen Sie jederzeit die von der <a href="campaigns.php"><i>Kampagne</i></a> Preissuchmaschine.de in Ihren Onlineshop weitergeleiteten Nutzer auswerten. Sie sollten &uuml;ber folgenden Link den durch uns generierten Warenkorbumsatz jederzeit nachvollziehen k&ouml;nnen:<br><br><a style="text-decoration:underline:color:#006" href=\''.MODULE_GUENSTIGER_CAMPAIGNS_LINK.'\'><i><b>Kampagnen-Report</b></i></a><br><br></span>');
+define('MODULE_GUENSTIGER_EXPORT_LINK_SEND','<a style="text-decoration:underline" href=\'mailto:haendlerinfo@guenstiger.de?SUBJECT=Anfrage - Interesse an einer eventuellen Onlinekooperation&BODY=' .  str_replace("<-SHOP->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG,str_replace("<-LINK->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_GUENSTIGER_EXPORT_LINK . MODULE_GUENSTIGER_FILE,MODULE_GUENSTIGER_EMAIL)) .  '\'><br><br><i><b>zur Anfrage</b> </i></a>(sofern noch nicht erfolgt)');
 
 
 $gtgoogle_input_query = xtc_db_query("select configuration_value from  " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_GUENSTIGER_PSMGOOGLEV' LIMIT 1");
@@ -777,19 +777,19 @@ if (isset($_POST['gtgoogle'])) {
   	 $campaign_array[] = array ('id' => 'refID=psm&', 'text' => "Preissuchmaschine (automatisch)",);
   }
 
-    return array('text' =>  '<br />' . HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_GUENSTIGER_EXPORT_LINK . MODULE_GUENSTIGER_FILE . '<br /><br />' . MODULE_GUENSTIGER_EXPORT_LINK_SEND . 
+    return array('text' =>  '<br>' . HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_GUENSTIGER_EXPORT_LINK . MODULE_GUENSTIGER_FILE . '<br><br>' . MODULE_GUENSTIGER_EXPORT_LINK_SEND . 
                           
-                            MODULE_GUENSTIGER_CAMPAIGNS.'<br />'.
+                            MODULE_GUENSTIGER_CAMPAIGNS.'<br>'.
                             MODULE_GUENSTIGER_CAMPAIGNS_DESC.
-                          	xtc_draw_pull_down_menu('campaign',$campaign_array, 'refID=psm&').'<br />'.                             
-                            MODULE_GUENSTIGER_GTGOOGLEHeader.'<br />'.
-                            MODULE_GUENSTIGER_GTGOOGLE_DESC.'<br />'.
-                          	xtc_draw_radio_field('gtgoogle', 'no',!$UseGoogle).MODULE_GUENSTIGER_GTGOOGLE_NO.'<br />'.
-                            xtc_draw_radio_field('gtgoogle', 'yes',$UseGoogle).MODULE_GUENSTIGER_GTGOOGLE_YES.'<br /><br />'.
-                            MODULE_GUENSTIGER_EXPORT_TYPE.'<br />'.
-                            MODULE_GUENSTIGER_EXPORT.'<br />'.
-                          	xtc_draw_radio_field('export', 'no',true).MODULE_GUENSTIGER_EXPORT_NO.'<br />'.
-                            xtc_draw_radio_field('export', 'yes',false).MODULE_GUENSTIGER_EXPORT_YES.'<br /><br />' . xtc_button(BUTTON_EXPORT) .
+                          	xtc_draw_pull_down_menu('campaign',$campaign_array, 'refID=psm&').'<br>'.                             
+                            MODULE_GUENSTIGER_GTGOOGLEHeader.'<br>'.
+                            MODULE_GUENSTIGER_GTGOOGLE_DESC.'<br>'.
+                          	xtc_draw_radio_field('gtgoogle', 'no',!$UseGoogle).MODULE_GUENSTIGER_GTGOOGLE_NO.'<br>'.
+                            xtc_draw_radio_field('gtgoogle', 'yes',$UseGoogle).MODULE_GUENSTIGER_GTGOOGLE_YES.'<br><br>'.
+                            MODULE_GUENSTIGER_EXPORT_TYPE.'<br>'.
+                            MODULE_GUENSTIGER_EXPORT.'<br>'.
+                          	xtc_draw_radio_field('export', 'no',true).MODULE_GUENSTIGER_EXPORT_NO.'<br>'.
+                            xtc_draw_radio_field('export', 'yes',false).MODULE_GUENSTIGER_EXPORT_YES.'<br><br>' . xtc_button(BUTTON_EXPORT) .
                             xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preissuchmaschine')));
 
 

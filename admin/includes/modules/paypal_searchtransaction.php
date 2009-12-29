@@ -42,7 +42,7 @@
 		<tr>
 			<td class="main" width="200" valign="top"><input type="radio" name="span" value="broad">Zeitraum</td>
 			<td class="main">
-				<select name="for" onchange="javascript:CheckMe('0',this.form);"><option value="1">Letzter Tag</option>
+				<select name="for" onChange="javascript:CheckMe('0',this.form);"><option value="1">Letzter Tag</option>
 				<option value="2">Letzte Woche</option>
 				<option value="3">Letzter Monat</option>
 				<option value="4">Letztes Jahr</option></select>

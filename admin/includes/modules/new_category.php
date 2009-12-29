@@ -230,7 +230,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
 
 <?php // BOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
 
-  <link rel="stylesheet" type="text/css" href="includes/lang_tabs_menu/lang_tabs_menu.css" />
+  <link rel="stylesheet" type="text/css" href="includes/lang_tabs_menu/lang_tabs_menu.css">
   <script type="text/javascript" src="includes/lang_tabs_menu/lang_tabs_menu.js"></script>
   
   <?php  
@@ -271,7 +271,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
 <?php } ?>    
 </table>
 </div>
-<br />
+<br>
 <!-- EOF - Tomcraft - 2009-11-02 - Block2 //-->
 
 

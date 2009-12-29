@@ -190,7 +190,7 @@ xtc_draw_radio_field('export', 'yes',true).EXPORT_YES.'<br />'.
 '<a href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preisroboter') . '">' .
 xtc_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
 */
-'<br />' . xtc_button(BUTTON_EXPORT) .
+'<br>' . xtc_button(BUTTON_EXPORT) .
 
 xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=preisroboter')));
 //EOF - Tomcraft - 2009-07-21 - Exclude xtc_image_submit.inc.php as it is allready declared in /admin/includes/functions/general.php

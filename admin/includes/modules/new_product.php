@@ -87,7 +87,7 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
 //if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $startpage_checked = false; }
 
 ?>
-<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css" />
+<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script type="text/javascript">
 // BOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
@@ -307,7 +307,7 @@ if ($content['content_file'] == '') {
 <div style="width: 860px; padding:5px;">  
   <?php // BOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
   
-  <link rel="stylesheet" type="text/css" href="includes/lang_tabs_menu/lang_tabs_menu.css" />
+  <link rel="stylesheet" type="text/css" href="includes/lang_tabs_menu/lang_tabs_menu.css">
   <script type="text/javascript" src="includes/lang_tabs_menu/lang_tabs_menu.js"></script>
   <?php  
   $langtabs = '<div class="tablangmenu"><ul>';
