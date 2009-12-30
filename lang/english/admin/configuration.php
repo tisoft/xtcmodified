@@ -516,7 +516,7 @@ define('PRICE_IS_BRUTTO_TITLE','Gross Admin');
 define('PRICE_IS_BRUTTO_DESC','Usage of prices with tax in admin');
 
 define('PRICE_PRECISION_TITLE','Gross/Net Precision');
-define('PRICE_PRECISION_DESC','Gross/Net precision');
+define('PRICE_PRECISION_DESC','Gross/Net precision (Has no inluence on the display in the shop, which always displays 2 decimal places.)');
 
 define('CHECK_CLIENT_AGENT_TITLE','Prevent Spider Sessions');
 define('CHECK_CLIENT_AGENT_DESC','Prevent known spiders from starting a session.');

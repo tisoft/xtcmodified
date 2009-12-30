@@ -518,7 +518,7 @@ define('PRICE_IS_BRUTTO_TITLE','Brutto Admin');
 define('PRICE_IS_BRUTTO_DESC','Erm&ouml;glicht die Eingabe der Bruttopreise im Admin');
 
 define('PRICE_PRECISION_TITLE','Brutto/Netto Dezimalstellen');
-define('PRICE_PRECISION_DESC','Umrechnungsgenauigkeit');
+define('PRICE_PRECISION_DESC','Umrechnungsgenauigkeit (Hat keinen Einfluss auf die Anzeige im Shop, dort werden immer 2 Nachkommastellen angezeigt.)');
 
 define('CHECK_CLIENT_AGENT_TITLE','Spider Sessions vermeiden?');
 define('CHECK_CLIENT_AGENT_DESC','Bekannte Suchmaschinen Spider ohne Session auf die Seite lassen.');
