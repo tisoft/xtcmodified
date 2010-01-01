@@ -26,7 +26,10 @@
 
 // BOF - Dokuman - 2009-09-02 - Disable "STRICT" mode for MySQL 5!
     $vers = @mysql_get_server_info();
-    if(substr($vers,0,1) > 4) @mysql_query("SET SESSION sql_mode='MYSQL40'");
+// BOF - vr - 2010-01-01 - Disable "STRICT" mode for MySQL 5!
+//    if(substr($vers,0,1) > 4) @mysql_query("SET SESSION sql_mode='MYSQL40'");
+    if(substr($vers, 0, 1) > 4) @mysql_query("SET SESSION sql_mode=''");
+// EOF - vr - 2010-01-01 - Disable "STRICT" mode for MySQL 5!
 // EOF - Dokuman - 2009-09-02 - Disable "STRICT" mode for MySQL 5!
 
 // BOF - Dokuman - 2009-05-27 - revised database connection
