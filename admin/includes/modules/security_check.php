@@ -60,7 +60,7 @@ if ($file_warning != '' or $folder_warning != '') {
 <table style="border: 1px solid; border-color: #ff0000;" bgcolor="FDAC00" border="0" width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td>
-<div class"main"> 
+<div class="main"> 
         <table width="100%" border="0">
           <tr>
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
