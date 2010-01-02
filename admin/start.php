@@ -393,7 +393,7 @@ CarpConf('iorder','link,date,desc');
 CarpConf('maxitems',3);
         
         // before each item
-        CarpConf('bi','<br /><div class"feedtitle" style="padding:5px;font-size:11px;" align="left">');
+        CarpConf('bi','<br /><div class="feedtitle" style="padding:5px;font-size:11px;" align="left">');
         
         // after each item
         CarpConf('ai','</div><hr noshade="noshade" />');
