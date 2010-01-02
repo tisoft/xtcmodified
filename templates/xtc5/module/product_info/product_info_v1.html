@@ -6,7 +6,7 @@
 <table><tr><td style="padding-right:20px;">
 	{if $PRODUCTS_IMAGE!=''}
 
-		<a title="{$PRODUCTS_NAME}" href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}"><img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" class="productimage" />{if $PRODUCTS_POPUP_LINK!=''}<div class="hrlightgrey"></div>{#text_zoom#}{/if}</a>
+		<a title="{$PRODUCTS_NAME}" href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}"><img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" class="productimage" />{if $PRODUCTS_POPUP_LINK!=''}<br/>{#text_zoom#}{/if}</a>
 
 	{/if}</td><td>
   	<div id="productinfopricewithimages">
