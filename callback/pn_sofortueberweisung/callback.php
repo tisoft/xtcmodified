@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.1.2 - 26.10.2009
+ * @version sofortüberweisung.de 3.1.4 - 16.12.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -44,6 +44,7 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_HASH', 'Error (SU202): 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_TOTALS', "Error (SU203): Totals do not match.\n(%s != %s)\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_UNEXPECTED_STATUS', 'Error (SU204): Order status is not temporary' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TRANSACTION', "Error during HTTP notification\nPlease check transaction and notification\nTransaction-ID: %s\n");
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TERMINATED', "\n" . 'Script terminated' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SUCCESS_TRANSACTION', "Payment successful\nTransaction-ID: %s\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SUCCESS_CALLBACK', 'Success (SU000): Order status successfully updated' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_WARNING_CALLBACK', 'Warning (SU001): Error discovered, but order status updated' . "\n");
@@ -88,20 +89,20 @@ foreach($fields as $key) {
 $data['project_password'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD;
 
 $validationhash = sha1(implode('|', $data));
-$order_id = $customer_id = $amount = '';
+$x_order_id = $x_customer_id = $amount = '';
 $error = false;
 
 if (! empty($_POST['user_variable_0'])) {
-	$order_id = $_POST['user_variable_0'];
+	$x_order_id = $_POST['user_variable_0'];
 }
 if (! empty($_POST['user_variable_1'])) {
-	$customer_id = $_POST['user_variable_1'];
+	$x_customer_id = $_POST['user_variable_1'];
 }
 if (! empty($_POST['amount'])) {
 	$amount = number_format($_POST['amount'], 2, '.', '');
 }
 
-if (empty($order_id) || empty($customer_id)) {
+if (empty($x_order_id) || empty($x_customer_id)) {
 	print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_NO_ORDER_DETAILS);
 	$error = true;
 }
@@ -110,14 +111,16 @@ if ($validationhash != $_POST['hash']) {
 	$error = true;
 }
 
-$order_query = xtc_db_query("select orders_status, currency_value from " . TABLE_ORDERS . " where orders_id = '" . (int) $order_id . "' and customers_id = '" . (int) $customer_id . "'");
+if ($error) exit(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TERMINATED);
+
+$order_query = xtc_db_query("select orders_status, currency_value from " . TABLE_ORDERS . " where orders_id = '" . (int) $x_order_id . "' and customers_id = '" . (int) $x_customer_id . "'");
 if (xtc_db_num_rows($order_query) < 1) {
-	printf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_ORDER_NOT_FOUND, $order_id);
+	printf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_ORDER_NOT_FOUND, $x_order_id);
 } else {
 	$order = xtc_db_fetch_array($order_query);
 	
 	if ($order['orders_status'] == MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID) {
-		$total_query = xtc_db_query("select value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . (int) $order_id . "' and class = 'ot_total' limit 1");
+		$total_query = xtc_db_query("select value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . (int) $x_order_id . "' and class = 'ot_total' limit 1");
 		$total = xtc_db_fetch_array($total_query);
 		$order_total = number_format($total['value'] / $order['currency_value'], 2, '.', '');
 
@@ -128,18 +131,18 @@ if (xtc_db_num_rows($order_query) < 1) {
 		} else {
 			printf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_TOTALS, $amount, $order_total);
 			$error = true;
-		}
+		}          
 		
 		if ($error) {
 			$order_status = (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID > 0 ? (int) MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID : (int) DEFAULT_ORDERS_STATUS_ID);
 			$comment = sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TRANSACTION, $_POST['transaction']);
-			print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROBLEM_CALLBACK);
+			print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_WARNING_CALLBACK);
 		}
 		
 		// Update status
-		$sql_data_array = array('orders_id' => (int) $order_id , 'orders_status_id' => $order_status , 'date_added' => 'now()' , 'customer_notified' => '0' , 'comments' => $comment);
+		$sql_data_array = array('orders_id' => (int) $x_order_id , 'orders_status_id' => $order_status , 'date_added' => 'now()' , 'customer_notified' => '0' , 'comments' => $comment);
 		xtc_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
-		xtc_db_query("update " . TABLE_ORDERS . " set orders_status = '" . $order_status . "', last_modified = now() where orders_id = '" . (int) $order_id . "'");
+		xtc_db_query("update " . TABLE_ORDERS . " set orders_status = '" . $order_status . "', last_modified = now() where orders_id = '" . (int) $x_order_id . "'");
 
 	} else {
 		print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_UNEXPECTED_STATUS);

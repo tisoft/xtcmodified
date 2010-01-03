@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortÃ¼berweisung.de 3.1.2 - 26.10.2009
+ * @version sofortüberweisung.de 3.1.4 - 16.12.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -41,7 +41,7 @@ class pn_sofortueberweisung {
 	function pn_sofortueberweisung () {
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
-		$this->version = '3.1.2';
+		$this->version = '3.1.3';
 		$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER;
@@ -236,10 +236,17 @@ class pn_sofortueberweisung {
 				$parameter['user_variable_5'],
 				MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD);
 			$parameter['hash'] = sha1(implode("|", $tmparray));
-			
-			$parameter['encoding'] = 'iso-8859-1';
-			$parameter['payment_module'] = sprintf('XTC %s (v%s)', $this->code, $this->version);
 		}
+
+		$parameter['encoding'] = 'iso-8859-1';
+		$parameter['payment_module'] = sprintf('XTC %s (v%s)', $this->code, $this->version);
+
+		
+		// Additionally update status
+		$sql_data_array = array('orders_id' => (int) $order_id , 'orders_status_id' => MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID , 'date_added' => 'now()' , 'customer_notified' => '0' , 'comments' => MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE);
+		xtc_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
+	
+
 		$dataString = '';
 		foreach ($parameter as $key => $value) {
 		      $dataString .= $key . '=' . urlencode($value) . '&';
@@ -387,40 +394,67 @@ $html = sprintf($html, STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_AD
 		$char = chr(xtc_rand(0,255));
 	      }
 	      if ($type == 'mixed') {
-// BOF - DokuMan - 2009-10-11 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
-/*
-		if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
-	      } elseif ($type == 'chars') {
-		if (eregi('^[a-z]$', $char)) $rand_value .= $char;
-	      } elseif ($type == 'digits') {
-		if (ereg('^[0-9]$', $char)) $rand_value .= $char;
-*/
 		if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char;
 	      } elseif ($type == 'chars') {
 		if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char;
 	      } elseif ($type == 'digits') {
 		if (preg_match('/^[0-9]$/i', $char)) $rand_value .= $char;
-// EOF - DokuMan - 2009-10-11 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
 	      }
 	    }
 	
 	    return $rand_value;
 	 }
 
+
 	// xtc_remove_order() in admin/includes/functions/general.php
-	function _remove_order($order_id, $restock = false) {
+	// mods by Gambio
+	function _remove_order($order_id, $restock = false, $canceled = false) {
 		if ($restock == 'on') {
-			$order_query = xtc_db_query("select products_id, products_quantity from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($order_id)."'");
+			// BOF GM_MOD:
+			$order_query = xtc_db_query("select orders_products_id, products_id, products_quantity from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($order_id)."'");
 			while ($order = xtc_db_fetch_array($order_query)) {
 				xtc_db_query("update ".TABLE_PRODUCTS." set products_quantity = products_quantity + ".$order['products_quantity'].", products_ordered = products_ordered - ".$order['products_quantity']." where products_id = '".$order['products_id']."'");
+				// BOF GM_MOD
+				if(ATTRIBUTE_STOCK_CHECK == 'true'){
+					$gm_get_orders_attributes = xtc_db_query("SELECT 
+																											products_options, 
+																											products_options_values 
+																										FROM orders_products_attributes 
+																										WHERE orders_id = '" . xtc_db_input($order_id) . "'
+																										AND orders_products_id = '" . $order['orders_products_id'] . "'");
+					while($gm_orders_attributes = xtc_db_fetch_array($gm_get_orders_attributes)) {
+						$gm_get_attributes_id = xtc_db_query("SELECT 
+																										pa.products_attributes_id	
+																									FROM 
+																										products_options_values pov, 
+																										products_options po, 
+																										products_attributes pa 
+																									WHERE 
+																										po.products_options_name = '" . $gm_orders_attributes['products_options'] . "'
+																										AND po.products_options_id = pa.options_id
+																										AND pov.products_options_values_id = pa.options_values_id
+																										AND pov.products_options_values_name = '" . $gm_orders_attributes['products_options_values'] . "'
+																										AND pa.products_id = '" . $order['products_id'] . "'
+																									LIMIT 1");
+						if(xtc_db_num_rows($gm_get_attributes_id) == 1){
+							$gm_attributes_id = xtc_db_fetch_array($gm_get_attributes_id);
+							xtc_db_query("UPDATE products_attributes 
+														SET attributes_stock = attributes_stock + ".$order['products_quantity']." 
+														WHERE products_attributes_id = '" . $gm_attributes_id['products_attributes_id'] . "'");
+						}			
+					}
+				}
+				// EOF GM_MOD
 			}
 		}
 	
-		xtc_db_query("delete from ".TABLE_ORDERS." where orders_id = '".xtc_db_input($order_id)."'");
-		xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($order_id)."'");
-		xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_id = '".xtc_db_input($order_id)."'");
-		xtc_db_query("delete from ".TABLE_ORDERS_STATUS_HISTORY." where orders_id = '".xtc_db_input($order_id)."'");
-		xtc_db_query("delete from ".TABLE_ORDERS_TOTAL." where orders_id = '".xtc_db_input($order_id)."'");
+		if(!$canceled) {
+			xtc_db_query("delete from ".TABLE_ORDERS." where orders_id = '".xtc_db_input($order_id)."'");
+			xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($order_id)."'");
+			xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_id = '".xtc_db_input($order_id)."'");
+			xtc_db_query("delete from ".TABLE_ORDERS_STATUS_HISTORY." where orders_id = '".xtc_db_input($order_id)."'");
+			xtc_db_query("delete from ".TABLE_ORDERS_TOTAL." where orders_id = '".xtc_db_input($order_id)."'");
+		} 
 	}
 }
 ?>

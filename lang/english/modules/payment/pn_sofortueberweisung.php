@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.1.2 - 26.10.2009
+ * @version sofortüberweisung.de 3.1.4 - 16.12.2009
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
