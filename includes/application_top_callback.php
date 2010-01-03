@@ -41,7 +41,7 @@
 // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
   
   // define the project version
-  define('PROJECT_VERSION', 'xtcModified v1.02 dated: 2009-07-13');
+  define('PROJECT_VERSION', 'xtcModified v1.03 dated: 2010-01-04');
 
 // BOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
   define('TAX_DECIMAL_PLACES', 0);
