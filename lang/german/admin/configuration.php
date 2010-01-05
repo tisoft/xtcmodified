@@ -32,17 +32,17 @@ define('STORE_OWNER_EMAIL_ADDRESS_TITLE' , 'E-Mail Adresse');
 define('STORE_OWNER_EMAIL_ADDRESS_DESC' , 'Die E-Mail Adresse des Shop-Betreibers');
 
 define('EMAIL_FROM_TITLE' , 'E-Mail von');
-define('EMAIL_FROM_DESC' , 'E-Mail Adresse die beim versenden (send mail) benutzt werden soll.');
+define('EMAIL_FROM_DESC' , 'E-Mail Adresse, die beim Versenden (send mail) benutzt werden soll.');
 
 define('STORE_COUNTRY_TITLE' , 'Land');
-define('STORE_COUNTRY_DESC' , 'Das Land aus dem der Versand erfolgt <br /><br /><b>Hinweis: Bitte nicht vergessen die Region richtig anzupassen.</b>');
+define('STORE_COUNTRY_DESC' , 'Das Land, aus dem der Versand erfolgt <br /><br /><b>Hinweis: Bitte nicht vergessen, die Region richtig anzupassen.</b>');
 define('STORE_ZONE_TITLE' , 'Region');
-define('STORE_ZONE_DESC' , 'Die Region des Landes aus dem der Versand erfolgt.');
+define('STORE_ZONE_DESC' , 'Die Region des Landes, aus dem der Versand erfolgt.');
 
 define('EXPECTED_PRODUCTS_SORT_TITLE' , 'Reihenfolge f&uuml;r Artikelank&uuml;ndigungen');
-define('EXPECTED_PRODUCTS_SORT_DESC' , 'Das ist die Reihenfolge wie angek&uuml;ndigte Artikel angezeigt werden.');
+define('EXPECTED_PRODUCTS_SORT_DESC' , 'Das ist die Reihenfolge, wie angek&uuml;ndigte Artikel angezeigt werden.');
 define('EXPECTED_PRODUCTS_FIELD_TITLE' , 'Sortierfeld f&uuml;r Artikelank&uuml;ndigungen');
-define('EXPECTED_PRODUCTS_FIELD_DESC' , 'Das ist die Spalte die zum Sortieren angek&uuml;ndigter Artikel benutzt wird.');
+define('EXPECTED_PRODUCTS_FIELD_DESC' , 'Das ist die Spalte, die zum Sortieren angek&uuml;ndigter Artikel benutzt wird.');
 
 define('USE_DEFAULT_LANGUAGE_CURRENCY_TITLE' , 'Auf die Landesw&auml;hrung automatisch umstellen');
 define('USE_DEFAULT_LANGUAGE_CURRENCY_DESC' , 'Wenn die Spracheinstellung gewechselt wird, automatisch die W&auml;hrung anpassen.');
@@ -55,20 +55,20 @@ define('SEARCH_ENGINE_FRIENDLY_URLS_TITLE' , 'Suchmaschinenfreundliche URLs benu
 define('SEARCH_ENGINE_FRIENDLY_URLS_DESC' , 'Die Seiten URLs k&ouml;nnen automatisch f&uuml;r Suchmaschinen optimiert angezeigt werden.<br /><br /><strong>F&uuml;r suchmaschinenoptimierte URLs muss die Datei _.htaccess im Hauptverzeichnis des Shops aktiviert bzw. in .htaccess umbenannt werden! Au&szlig;erdem muss der Webserver <a href="http://www.modrewrite.de/" target="_blank">mod_rewrite</a> unterst&uuml;tzen!</strong> (Fragen sie ihren Webhoster, wenn sie das nicht &uuml;berpr&uuml;fen k&ouml;nnen.)');
 // EOF - Dokuman - 2009-11-12 - enhance explanation of SEO-URL procedure
 
-define('DISPLAY_CART_TITLE' , 'Soll Warenkorb nach dem einf&uuml;gen Angezeigt werden?');
-define('DISPLAY_CART_DESC' , 'Nach dem hinzuf&uuml;gen eines Artikels zum Warenkorb, oder zur&uuml;ck zum Artikel?');
+define('DISPLAY_CART_TITLE' , 'Soll Warenkorb nach dem Einf&uuml;gen angezeigt werden?');
+define('DISPLAY_CART_DESC' , 'Nach dem Hinzuf&uuml;gen eines Artikels zum Warenkorb, oder zur&uuml;ck zum Artikel?');
 
 define('ALLOW_GUEST_TO_TELL_A_FRIEND_TITLE' , 'G&auml;sten erlauben, ihre Bekannten per E-Mail zu informieren?');
 define('ALLOW_GUEST_TO_TELL_A_FRIEND_DESC' , 'G&auml;sten erlauben, ihre Bekannten per E-Mail &uuml;ber Artikel zu informieren?');
 
 define('ADVANCED_SEARCH_DEFAULT_OPERATOR_TITLE' , 'Suchverkn&uuml;pfungen');
-define('ADVANCED_SEARCH_DEFAULT_OPERATOR_DESC' , 'Standard Operator zum Verkn&uuml;pfen von Suchw&ouml;rtern.');
+define('ADVANCED_SEARCH_DEFAULT_OPERATOR_DESC' , 'Standardoperator zum Verkn&uuml;pfen von Suchw&ouml;rtern.');
 
 define('STORE_NAME_ADDRESS_TITLE' , 'Gesch&auml;ftsadresse und Telefonnummer etc');
 define('STORE_NAME_ADDRESS_DESC' , 'Tragen Sie hier Ihre Gesch&auml;ftsadresse wie in einem Briefkopf ein.');
 
 define('SHOW_COUNTS_TITLE' , 'Artikelanzahl hinter Kategorienamen?');
-define('SHOW_COUNTS_DESC' , 'Z&auml;hlt rekursiv die Anzahl der verschiedenen Artikel pro Warengruppe, und zeigt die anzahl (x) hinter jedem Kategorienamen');
+define('SHOW_COUNTS_DESC' , 'Z&auml;hlt rekursiv die Anzahl der verschiedenen Artikel pro Warengruppe, und zeigt die Anzahl (x) hinter jedem Kategorienamen');
 
 define('DISPLAY_PRICE_WITH_TAX_TITLE' , 'Preis inkl. MwSt. anzeigen');
 define('DISPLAY_PRICE_WITH_TAX_DESC' , 'Preise inklusive Steuer anzeigen (true) oder am Ende aufrechnen (false)');
@@ -96,7 +96,7 @@ define('ENTRY_LAST_NAME_MIN_LENGTH_DESC' , 'Minimum L&auml;nge des Nachnamens');
 define('ENTRY_DOB_MIN_LENGTH_TITLE' , 'Geburtsdatum');
 define('ENTRY_DOB_MIN_LENGTH_DESC' , 'Minimum L&auml;nge des Geburtsdatums');
 define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_TITLE' , 'E-Mail Adresse');
-define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_DESC' , 'Minimum L&auml;nge der E-Mail Adresse');
+define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_DESC' , 'Minimum L&auml;nge der E-Mailadresse');
 define('ENTRY_STREET_ADDRESS_MIN_LENGTH_TITLE' , 'Strasse');
 define('ENTRY_STREET_ADDRESS_MIN_LENGTH_DESC' , 'Minimum L&auml;nge der Strassenanschrift');
 define('ENTRY_COMPANY_MIN_LENGTH_TITLE' , 'Firma');
@@ -108,9 +108,9 @@ define('ENTRY_CITY_MIN_LENGTH_DESC' , 'Minimum L&auml;nge des St&auml;dtenamens'
 define('ENTRY_STATE_MIN_LENGTH_TITLE' , 'Bundesland');
 define('ENTRY_STATE_MIN_LENGTH_DESC' , 'Minimum L&auml;nge des Bundeslandes');
 define('ENTRY_TELEPHONE_MIN_LENGTH_TITLE' , 'Telefon Nummer');
-define('ENTRY_TELEPHONE_MIN_LENGTH_DESC' , 'Minimum L&auml;nge der Telefon Nummer');
+define('ENTRY_TELEPHONE_MIN_LENGTH_DESC' , 'Minimum L&auml;nge der Telefonnummer');
 define('ENTRY_PASSWORD_MIN_LENGTH_TITLE' , 'Passwort');
-define('ENTRY_PASSWORD_MIN_LENGTH_DESC' , 'Minimum L&auml;nge des Passwort');
+define('ENTRY_PASSWORD_MIN_LENGTH_DESC' , 'Minimum L&auml;nge des Passworts');
 
 define('CC_OWNER_MIN_LENGTH_TITLE' , 'Kreditkarteninhaber');
 define('CC_OWNER_MIN_LENGTH_DESC' , 'Minimum L&auml;nge des Namens des Kreditkarteninhabers');
@@ -312,7 +312,7 @@ define('SHIPPING_ORIGIN_COUNTRY_DESC' , 'W&auml;hlen Sie das Versandland aus, zu
 define('SHIPPING_ORIGIN_ZIP_TITLE' , 'Postleitzahl des Versandstandortes');
 define('SHIPPING_ORIGIN_ZIP_DESC' , 'Bitte geben Sie die Postleitzahl des Versandstandortes ein, der zur Berechnung der Versandkosten in Frage kommt.');
 define('SHIPPING_MAX_WEIGHT_TITLE' , 'Maximalgewicht, dass als ein Paket versendet werden kann');
-define('SHIPPING_MAX_WEIGHT_DESC' , 'Versandpartner(Post/UPS etc haben ein maximales Paketgewicht. Geben Sie einen Wert daf&uuml;r ein.');
+define('SHIPPING_MAX_WEIGHT_DESC' , 'Versandpartner (Post/UPS etc.) haben ein maximales Paketgewicht. Geben Sie einen Wert daf&uuml;r ein.');
 define('SHIPPING_BOX_WEIGHT_TITLE' , 'Paketleergewicht.');
 define('SHIPPING_BOX_WEIGHT_DESC' , 'Wie hoch ist das Gewicht eines durchschnittlichen kleinen bis mittleren Leerpaketes?');
 define('SHIPPING_BOX_PADDING_TITLE' , 'Bei gr&ouml;sseren Leerpaketen - Gewichtszuwachs in %.');
@@ -364,10 +364,10 @@ define('DB_CACHE_EXPIRE_TITLE','DB Cache Lebenszeit');
 define('DB_CACHE_EXPIRE_DESC','Zeit in Sekunden, bevor Cache Datein mit Daten aus der Datenbank automatisch &Uuml;berschrieben werden.');
 
 define('DIR_FS_CACHE_TITLE' , 'Cache Ordner');
-define('DIR_FS_CACHE_DESC' , 'Der Ordner wo die gecachten Files gespeichert werden sollen');
+define('DIR_FS_CACHE_DESC' , 'Der Ordner, wo die gecachten Files gespeichert werden sollen');
 
 define('ACCOUNT_OPTIONS_TITLE','Art der Kontoerstellung');
-define('ACCOUNT_OPTIONS_DESC','Wie m&ouml;chten Sie die Anmeldeprozedur in Ihrem Shop gestallten ?<br />Sie haben die Wahl zwischen Kundenkonten und "einmal Bestellungen" ohne erstellung eines Kundenkontos (es wird ein Konto erstellt, aber dies ist f&uuml;r den Kunden nicht ersichtlich)');
+define('ACCOUNT_OPTIONS_DESC','Wie m&ouml;chten Sie die Anmeldeprozedur in Ihrem Shop gestallten?<br />Sie haben die Wahl zwischen regul&auml;ren Kundenkonten und "Einmalbestellungen" ohne Erstellung eines Kundenkontos (es wird ein Konto erstellt, aber dies ist f&uuml;r den Kunden nicht ersichtlich)');
 
 define('EMAIL_TRANSPORT_TITLE' , 'E-Mail Transport Methode');
 define('EMAIL_TRANSPORT_DESC' , 'Definiert ob der Server eine lokale Verbindung zum "Sendmail-Programm" benutzt oder ob er eine SMTP Verbindung &uuml;ber TCP/IP ben&ouml;tigt. Server die auf Windows oder MacOS laufen sollten SMTP verwenden.');
@@ -509,7 +509,7 @@ define('PRODUCT_REVIEWS_VIEW_TITLE','Bewertungen in Artikeldetails');
 define('PRODUCT_REVIEWS_VIEW_DESC','Anzahl der angezeigten Bewertungen in der Artikeldetailansicht');
 
 define('DELETE_GUEST_ACCOUNT_TITLE','L&ouml;schen von Gast-Konten');
-define('DELETE_GUEST_ACCOUNT_DESC','Sollen Gast-Konten nach erfolgter Bestellung gel&ouml;scht werden ? (Bestelldaten bleiben erhalten)');
+define('DELETE_GUEST_ACCOUNT_DESC','Sollen Gast-Konten nach erfolgter Bestellung gel&ouml;scht werden? (Bestelldaten bleiben erhalten)');
 
 define('USE_WYSIWYG_TITLE','WYSIWYG-Editor aktivieren');
 define('USE_WYSIWYG_DESC','WYSIWYG-Editor f&uuml;r CMS und Artikel aktivieren ?');
@@ -538,7 +538,7 @@ define('IMAGE_QUALITY_TITLE','Bildqualit&auml;t');
 define('IMAGE_QUALITY_DESC','Bildqualit&auml;t (0= h&ouml;chste Kompression, 100=beste Qualit&auml;t)');
 
 define('GROUP_CHECK_TITLE','Kundengruppencheck');
-define('GROUP_CHECK_DESC','Nur bestimmten Kundengruppen Zugang zu einzelnen Kategorien,Produkten,Contentelementen erlauben ? (Nach Aktivierung erscheinen Eingabem&ouml;glichkeiten bei Artikeln,Kategorien und im Contentmanager)');
+define('GROUP_CHECK_DESC','Nur bestimmten Kundengruppen Zugang zu einzelnen Kategorien, Produkten, Contentelementen erlauben? (Nach Aktivierung erscheinen Eingabem&ouml;glichkeiten bei Artikeln, Kategorien und im Contentmanager)');
 
 define('ACTIVATE_NAVIGATOR_TITLE','Artikelnavigator aktivieren?');
 define('ACTIVATE_NAVIGATOR_DESC','Artikelnavigator in der Artikeldetailansicht aktivieren/deaktivieren (aus performancegr&uuml;nden bei hoher Artikelanzahl)');

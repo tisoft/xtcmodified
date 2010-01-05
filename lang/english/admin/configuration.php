@@ -365,7 +365,7 @@ define('DIR_FS_CACHE_TITLE' , 'Cache Directory');
 define('DIR_FS_CACHE_DESC' , 'The directory where cached files are saved');
 
 define('ACCOUNT_OPTIONS_TITLE','Account Options');
-define('ACCOUNT_OPTIONS_DESC','How do you want to manage the login management of your store ?<br />You can choose between regular customer accounts and "One-Off Orders" without creating a customer account (an account will be created but the customer won\'t be informed about that)');
+define('ACCOUNT_OPTIONS_DESC','How do you want to configure the login procedure of your store?<br />You can choose between regular customer accounts and "One-Off Orders" without creating a customer account (an account will be created but the customer won\'t be informed about that)');
 
 define('EMAIL_TRANSPORT_TITLE' , 'E-Mail Transport Method');
 define('EMAIL_TRANSPORT_DESC' , 'Defines if this server uses a local connection to sendmail or uses an SMTP connection via TCP/IP. Servers running on Windows and MacOS should change this setting to SMTP.');
@@ -507,10 +507,10 @@ define('PRODUCT_REVIEWS_VIEW_TITLE','Reviews in Product Details');
 define('PRODUCT_REVIEWS_VIEW_DESC','Number of reviews displayed on the product details page');
 
 define('DELETE_GUEST_ACCOUNT_TITLE','Delete Guest Accounts');
-define('DELETE_GUEST_ACCOUNT_DESC','Shold guest accounts be deleted after placing orders ? (Order data will be saved)');
+define('DELETE_GUEST_ACCOUNT_DESC','Shold guest accounts be deleted after placing orders? (Order data will be saved)');
 
 define('USE_WYSIWYG_TITLE','Activate WYSIWYG Editor');
-define('USE_WYSIWYG_DESC','activate WYSIWYG editor for CMS and products');
+define('USE_WYSIWYG_DESC','Activate WYSIWYG editor for CMS and products');
 
 define('PRICE_IS_BRUTTO_TITLE','Gross Admin');
 define('PRICE_IS_BRUTTO_DESC','Usage of prices with tax in admin');
