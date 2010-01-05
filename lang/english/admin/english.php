@@ -25,11 +25,11 @@
 // on FreeBSD 4.0 I use 'en_US.ISO_8859-1'
 // this may not work under win32 environments..
 
-setlocale(LC_TIME, 'en_US@euro', 'en_US', 'en-US', 'en', 'en_US.ISO_8859-1', 'English','en_US.ISO_8859-15');
-define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
+setlocale(LC_TIME, 'en_GB@euro', 'en_GB', 'en-GB', 'en', 'en_GB.ISO_8859-1', 'English','en_GB.ISO_8859-15');
+define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
-define('DATE_FORMAT', 'm/d/Y');  // this is used for strftime()
-define('PHP_DATE_TIME_FORMAT', 'm/d/Y H:i:s'); // this is used for date()
+define('DATE_FORMAT', 'd/m/Y');  // this is used for strftime()
+define('PHP_DATE_TIME_FORMAT', 'd/m/Y H:i:s'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 ////
@@ -58,11 +58,11 @@ define('HEADER_TITLE_ONLINE_CATALOG', 'Online Catalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
 
 // text for gender
-define('MALE', 'Male');
-define('FEMALE', 'Female');
+define('MALE', 'Mr.');
+define('FEMALE', 'Ms./Mrs.');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
+define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
 
 // configuration box text in includes/boxes/configuration.php
 
@@ -191,17 +191,17 @@ define('JS_PRODUCTS_IMAGE', '* The new product needs an image value\n');
 
 define('JS_SPECIALS_PRODUCTS_PRICE', '* A new price for this product needs to be set\n');
 
-define('JS_GENDER', '* The \'Gender\' value must be chosen.\n');
+define('JS_GENDER', '* The \'Salutation\' value must be chosen.\n');
 define('JS_FIRST_NAME', '* The \'First Name\' entry must have at least ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.\n');
 define('JS_LAST_NAME', '* The \'Last Name\' entry must have at least ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.\n');
 define('JS_DOB', '* The \'Date of Birth\' entry must be in the format: xx/xx/xxxx (month/date/year).\n');
-define('JS_EMAIL_ADDRESS', '* The \'E-Mail-Adress\' entry must have at least ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.\n');
-define('JS_ADDRESS', '* The \'Street Adress\' entry must have at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.\n');
-define('JS_POST_CODE', '* The \'Post Code\' entry must have at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.\n');
+define('JS_EMAIL_ADDRESS', '* The \'E-Mail Address\' entry must have at least ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.\n');
+define('JS_ADDRESS', '* The \'Street Address\' entry must have at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.\n');
+define('JS_POST_CODE', '* The \'Postcode\' entry must have at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.\n');
 define('JS_CITY', '* The \'City\' entry must have at least ' . ENTRY_CITY_MIN_LENGTH . ' characters.\n');
-define('JS_STATE', '* The \'State\' entry must be selected.\n');
+define('JS_STATE', '* The \'District\' entry must be selected.\n');
 define('JS_STATE_SELECT', '-- Select above --');
-define('JS_ZONE', '* The \'State\' entry must be selected from the list for this country.');
+define('JS_ZONE', '* The \'District\' entry must be selected from the list for this country.');
 define('JS_COUNTRY', '* The \'Country\' value must be chosen.\n');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have at least ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
 define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must match and have at least ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
@@ -209,12 +209,12 @@ define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must matc
 define('JS_ORDER_DOES_NOT_EXIST', 'Order Number %s does not exist!');
 
 define('CATEGORY_PERSONAL', 'Personal');
-define('CATEGORY_ADDRESS', 'Adress');
+define('CATEGORY_ADDRESS', 'Address');
 define('CATEGORY_CONTACT', 'Contact');
 define('CATEGORY_COMPANY', 'Company');
 define('CATEGORY_OPTIONS', 'More Options');
 
-define('ENTRY_GENDER', 'Gender:');
+define('ENTRY_GENDER', 'Salutation:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<span class="errorText">required</span>');
 define('ENTRY_FIRST_NAME', 'First Name:');
 define('ENTRY_FIRST_NAME_ERROR', '&nbsp;<span class="errorText">min. ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' chars</span>');
@@ -222,34 +222,34 @@ define('ENTRY_LAST_NAME', 'Last Name:');
 define('ENTRY_LAST_NAME_ERROR', '&nbsp;<span class="errorText">min. ' . ENTRY_LAST_NAME_MIN_LENGTH . ' chars</span>');
 define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
 define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<span class="errorText">(e.g. 05/21/1970)</span>');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adress:');
+define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<span class="errorText">min. ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' chars</span>');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<span class="errorText">Invalid E-Mail-Adress!</span>');
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<span class="errorText">This E-Mail-Adress already exists!</span>');
 define('ENTRY_COMPANY', 'Company name:');
-define('ENTRY_STREET_ADDRESS', 'Street Adress:');
+define('ENTRY_STREET_ADDRESS', 'Street Address:');
 define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<span class="errorText">min. ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Chars</span>');
 define('ENTRY_SUBURB', 'Suburb:');
-define('ENTRY_POST_CODE', 'Post Code:');
+define('ENTRY_POST_CODE', 'Postcode:');
 define('ENTRY_POST_CODE_ERROR', '&nbsp;<span class="errorText">min. ' . ENTRY_POSTCODE_MIN_LENGTH . ' chars</span>');
 define('ENTRY_CITY', 'City:');
 define('ENTRY_CITY_ERROR', '&nbsp;<span class="errorText">min. ' . ENTRY_CITY_MIN_LENGTH . ' chars</span>');
 define('ENTRY_STATE', 'State:');
 define('ENTRY_STATE_ERROR', '&nbsp;<span class="errorText">required</font></small>');
-define('ENTRY_COUNTRY', 'County:');
+define('ENTRY_COUNTRY', 'Country:');
 define('ENTRY_TELEPHONE_NUMBER', 'Telephone Number:');
 define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<span class="errorText">min. ' . ENTRY_TELEPHONE_MIN_LENGTH . ' chars</span>');
 define('ENTRY_FAX_NUMBER', 'Fax Number:');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
-define('ENTRY_CUSTOMERS_STATUS', 'Customers status:');
+define('ENTRY_CUSTOMERS_STATUS', 'Customer status:');
 define('ENTRY_NEWSLETTER_YES', 'Subscribed');
 define('ENTRY_NEWSLETTER_NO', 'Unsubscribed');
 define('ENTRY_MAIL_ERROR','&nbsp;<span class="errorText">Please choose an option</span>');
 define('ENTRY_PASSWORD','Password (generated)');
 define('ENTRY_PASSWORD_ERROR','&nbsp;<span class="errorText">min. ' . ENTRY_PASSWORD_MIN_LENGTH . ' chars</span>');
-define('ENTRY_MAIL_COMMENTS','additional E-Mailtext:');
+define('ENTRY_MAIL_COMMENTS','additional e-mail text:');
 
-define('ENTRY_MAIL','Send E-Mail with password to customer?');
+define('ENTRY_MAIL','Send e-mail with password to customer?');
 define('YES','yes');
 define('NO','no');
 define('SAVE_ENTRY','Save changes?');
@@ -332,13 +332,13 @@ define('TEXT_SHIPPING_ERROR','<b>WARNING:</b><br />Please activate a Shipping Mo
 
 define('TEXT_NETTO','no tax: ');
 
-define('ENTRY_CID','Customers ID:');
+define('ENTRY_CID','Customer ID:');
 define('IP','Order IP:');
 define('CUSTOMERS_MEMO','Memos:');
 define('DISPLAY_MEMOS','Show/Write');
-define('TITLE_MEMO','Customers MEMO');
+define('TITLE_MEMO','Customer MEMO');
 define('ENTRY_LANGUAGE','Language:');
-define('CATEGORIE_NOT_FOUND','Categorie not found!');
+define('CATEGORIE_NOT_FOUND','Category not found!');
 
 // BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 // Image Icons

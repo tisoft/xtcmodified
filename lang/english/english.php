@@ -25,14 +25,14 @@ define('TITLE', STORE_NAME);
 define('HEADER_TITLE_TOP', 'Main page');
 define('HEADER_TITLE_CATALOG', 'Catalogue');
 define('HTML_PARAMS','dir="ltr" xml:lang="en"');
-@setlocale(LC_TIME, 'en_EN@euro', 'en_US', 'en-US', 'en', 'en_US.ISO_8859-1', 'English','en_US.ISO_8859-15');
+@setlocale(LC_TIME, 'en_GB@euro', 'en_GB', 'en-GB', 'en', 'en_GB.ISO_8859-1', 'English','en_GB.ISO_8859-15');
 
 //BOF - Dokuman - 2009-06-03 - correct english date format
-define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
+define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
-define('DATE_FORMAT', 'm/d/Y');  // this is used for strftime()
+define('DATE_FORMAT', 'd/m/Y');  // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
-define('DOB_FORMAT_STRING', 'mm/dd/jjjj');
+define('DOB_FORMAT_STRING', 'dd/mm/jjjj');
  
 function xtc_date_raw($date, $reverse = false) {
   if ($reverse) {
@@ -50,7 +50,7 @@ define('LANGUAGE_CURRENCY', 'EUR');
 // EOF - vr - 2009-12-11 - Added language dependent currency code
 
 define('MALE', 'Mr.');
-define('FEMALE', 'Miss/Ms./Mrs.');
+define('FEMALE', 'Ms./Mrs.');
 
 /*
  *
@@ -102,28 +102,28 @@ define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Please choose a method of payment fo
 
 define('ENTRY_COMPANY_ERROR', '');
 define('ENTRY_COMPANY_TEXT', '');
-define('ENTRY_GENDER_ERROR', 'Please select your gender.');
+define('ENTRY_GENDER_ERROR', 'Please select your salutation.');
 define('ENTRY_GENDER_TEXT', '*');
-define('ENTRY_FIRST_NAME_ERROR', 'Your firstname must consist of at least  ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.');
+define('ENTRY_FIRST_NAME_ERROR', 'Your first name must consist of at least  ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.');
 define('ENTRY_FIRST_NAME_TEXT', '*');
 define('ENTRY_LAST_NAME_ERROR', 'Your e-mail address must consist of at least ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.');
 define('ENTRY_LAST_NAME_TEXT', '*');
-define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth has to be entered in the following form MM/DD/YYYY (e.g. 05/21/1970) '); //Dokuman - 2009-06-03 - correct english date format
-define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 05/21/1970)'); //Dokuman - 2009-06-03 - correct english date format
+define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your date of birth needs to be entered in the following form DD/MM/YYYY (e.g. 21/05/1970) '); //Dokuman - 2009-06-03 - correct english date format
+define('ENTRY_DATE_OF_BIRTH_TEXT', '* (e.g. 21/05/1970)'); //Dokuman - 2009-06-03 - correct english date format
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your e-mail address must consist of at least  ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'The e-mail address you entered is incorrect - please correct it'); //changed by electronica 2009-09-06
 define('ENTRY_EMAIL_ERROR_NOT_MATCHING', 'Your entered e-mail addresses do not match.'); // Hetfield - 2009-08-15 - confirm e-mail at registration
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'The e-mail address you entered already exists in our database - please correct it'); //changed by electronica 2009-09-06
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
-define('ENTRY_STREET_ADDRESS_ERROR', 'Street/Nr. must consist of at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.'); //changed by electronica 2009-09-06
+define('ENTRY_STREET_ADDRESS_ERROR', 'Street/No. must consist of at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.'); //changed by electronica 2009-09-06
 define('ENTRY_STREET_ADDRESS_TEXT', '*');
 define('ENTRY_SUBURB_TEXT', '');
-define('ENTRY_POST_CODE_ERROR', 'Your zip code must consist of at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.');
+define('ENTRY_POST_CODE_ERROR', 'Your postcode must consist of at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.');
 define('ENTRY_POST_CODE_TEXT', '*');
 define('ENTRY_CITY_ERROR', 'City must consist of at least ' . ENTRY_CITY_MIN_LENGTH . ' characters.');
 define('ENTRY_CITY_TEXT', '*');
-define('ENTRY_STATE_ERROR', 'Your state must consist of at least ' . ENTRY_STATE_MIN_LENGTH . ' characters.');
-define('ENTRY_STATE_ERROR_SELECT', 'Please choose your state from the list...'); //changed by electronica 2009-09-06
+define('ENTRY_STATE_ERROR', 'Your district must consist of at least ' . ENTRY_STATE_MIN_LENGTH . ' characters.');
+define('ENTRY_STATE_ERROR_SELECT', 'Please choose your district from the list.'); //changed by electronica 2009-09-06
 define('ENTRY_STATE_TEXT', '*');
 define('ENTRY_COUNTRY_ERROR', 'Please choose your country.');
 define('ENTRY_COUNTRY_TEXT', '*');
