@@ -489,8 +489,8 @@ define('PAYPAL_NEUBUTTON','Bitte erneut dr&uuml;cken, um die Bestellung zu bezah
 define('ERROR_ADDRESS_NOT_ACCEPTED', '* Solange Sie Ihre Rechnungs- und Versandadresse nicht akzeptieren,\n k&ouml;nnen wir Ihre Bestellung bedauerlicherweise nicht entgegennehmen!\n\n');
 define('PAYPAL_GS','Gutschein/Coupon');
 define('PAYPAL_TAX','MwSt.');
-define('PAYPAL_EXP_WARN','Achtung! Eventuell anfallende Versandkosten werden erst im Shop endgültig berechnet.');
-define('PAYPAL_EXP_VORL','Vorläufige Versandkosten');
+define('PAYPAL_EXP_WARN','Achtung! Eventuell anfallende Versandkosten werden erst im Shop endg&uuml;ltig berechnet.');
+define('PAYPAL_EXP_VORL','Vorl&auml;ufige Versandkosten');
 define('PAYPAL_EXP_VERS','6.90');
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
