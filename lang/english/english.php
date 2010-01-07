@@ -489,6 +489,9 @@ define('PAYPAL_WARTEN','PayPal announced an error to the completion.<br />You mu
 define('PAYPAL_NEUBUTTON','Press please again around the order to pay.<br />Every other key leads to the abort of the order.');
 define('PAYPAL_GS','Coupon');
 define('PAYPAL_TAX','Tax');
+define('PAYPAL_EXP_WARN','Note! Possibly resulting forwarding expenses are only computed in the shop finally.');
+define('PAYPAL_EXP_VORL','Provisional forwarding expenses');
+define('PAYPAL_EXP_VERS','12.90');
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 define('BASICPRICE_VPE_TEXT','in this volume only '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices

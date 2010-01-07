@@ -99,10 +99,19 @@
 			$order_gs_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_gv'");
 			$order_gs = xtc_db_fetch_array($order_gs_query);
 			$pp_order_gs-=$order_gs['SUM(value)'];
+			///  customers bonus
+      $order_gs_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_bonus_fee'");
+      $order_gs = xtc_db_fetch_array($order_gs_query);
+      $pp_order_gs-=$order_gs['SUM(value)'];
 			$pp_order_fee=0;
 			$order_fee_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_payment'");
 			$order_fee = xtc_db_fetch_array($order_fee_query);
-			$pp_order_fee+=$order_fee['SUM(value)'];
+      // Rabatt aus Fremd Modul
+			if($order_fee['SUM(value)'] < 0):
+				$pp_order_disc+=$order_fee['SUM(value)'];
+			else:
+				$pp_order_fee+=$order_fee['SUM(value)'];
+			endif;
 			$order_fee_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_cod_fee'");
 			$order_fee = xtc_db_fetch_array($order_fee_query);
 			$pp_order_fee+=$order_fee['SUM(value)'];

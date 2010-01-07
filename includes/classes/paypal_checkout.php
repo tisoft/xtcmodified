@@ -20,7 +20,7 @@
  *
  * ab 15.08.2008 Teile vom Hamburger-Internetdienst geändert
  * Hamburger-Internetdienst Support Forums at www.forum.hamburger-internetdienst.de
- * Stand: 01.06.2009
+ * Stand: 05.01.2020
 */
 require_once(DIR_FS_INC . 'xtc_write_user_info.inc.php');
 define('PROXY_HOST', '127.0.0.1');
@@ -145,7 +145,7 @@ class paypal_checkout {
 		// Daten aus der Cart - Order noch nicht gespeichert
 		// 1. Call um die Token ID zu bekommen
 		// Daten mitgeben, da direkt bestätigung ohne nochmaliges Confirm im Shop
-		// Stand: 29.04.2009
+		// Stand: 05.01.2010
 		global $xtPrice,$order;
 		// Session säubern
 		unset($_SESSION['reshash']);
@@ -178,8 +178,16 @@ class paypal_checkout {
 				case 'ot_gv':
 					$order_gs-=$order_totals[$i]['value'];
 					break;
+				///  customers bonus
+        case 'ot_bonus_fee':
+          $order_gs-=$order_totals[$i]['value'];
+          break;
 				case 'ot_payment':
-					$order_fee+=$order_totals[$i]['value'];
+          if($order_totals[$i]['value'] < 0): // Rabatt aus Fremd Modul
+						$order_discount+=$order_totals[$i]['value'];
+					else:
+						$order_fee+=$order_totals[$i]['value'];
+					endif;
 					break;
 				case 'ot_cod_fee':
 					$order_fee+=$order_totals[$i]['value'];
@@ -277,7 +285,7 @@ class paypal_checkout {
 		// aufruf aus cart_actions.php
 		// 1. Call um die Token ID zu bekommen
 		// Steuer, Artikel usw bei eingeloggt
-		// Stand: 29.04.2009
+		// Stand: 05.01.2010
 		global $xtPrice,$order;
 		// Session säubern
 		unset($_SESSION['reshash']);
@@ -317,9 +325,16 @@ class paypal_checkout {
 				case 'ot_gv':
 					$order_gs-=$order_totals[$i]['value'];
 					break;
+				///  customers bonus
+        case 'ot_bonus_fee':
+          $order_gs-=$order_totals[$i]['value'];
+          break;
 				case 'ot_payment':
-					$order_fee+=$order_totals[$i]['value'];
-					break;
+          if($order_totals[$i]['value'] < 0): // Rabatt aus Fremd Modul
+						$order_discount+=$order_totals[$i]['value'];
+					else:
+						$order_fee+=$order_totals[$i]['value'];
+					endif;
 				case 'ot_cod_fee':
 					$order_fee+=$order_totals[$i]['value'];
 					break;
@@ -338,6 +353,10 @@ class paypal_checkout {
 		if($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1):
 			$order_tax=$_SESSION['cart']->show_tax(false);
 		endif;
+		// Vorläufige Versandkosten
+		if(PAYPAL_EXP_VORL!='' AND PAYPAL_EXP_VERS!=0):
+			$paymentAmount+=PAYPAL_EXP_VERS;
+		endif;
 		// AMT
 		$paymentAmount = round($paymentAmount, $xtPrice->get_decimal_places($order->info['currency']));
 		// Summen der Order
@@ -345,7 +364,7 @@ class paypal_checkout {
 		$order_discount=round($order_discount, $xtPrice->get_decimal_places($order->info['currency']));
 		$order_gs=round($order_gs, $xtPrice->get_decimal_places($order->info['currency']));
 		$order_fee=round($order_fee, $xtPrice->get_decimal_places($order->info['currency']));
-		$nvp_products=$this->paypal_get_products($paymentAmount,$order_tax,$order_discount,$order_fee,$order_shipping,$order_gs);
+		$nvp_products=$this->paypal_get_products($paymentAmount,$order_tax,$order_discount,$order_fee,$order_shipping,$order_gs,True);
 		$paymentAmount = urlencode(number_format($paymentAmount, $xtPrice->get_decimal_places($order->info['currency']), '.', ','));
 		$currencyCodeType = urlencode($order->info['currency']);
 		// Payment Type
@@ -801,12 +820,13 @@ class paypal_checkout {
 	//  @nvpStr is nvp string.
 	//  returns an associtive array containing the response from the server.
 	//  08.01.2009.ergänzt für PHP ohne cURL von Stefan Kl.
+	//  05.01.2010 Verbose auf 0 da bei einigen Hostern sonst zuviel angezeigt wird
 	function hash_call($methodName,$nvpStr,$pp_token=''){
-		// Stand: 29.04.2009
+		// Stand: 05.01.2010
 		if(function_exists('curl_init')):
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL,$this->API_Endpoint.$pp_token);
-			curl_setopt($ch, CURLOPT_VERBOSE, 1);
+			curl_setopt($ch, CURLOPT_VERBOSE, 0);
 			//turning off the server and peer verification(TrustManager Concept).
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
@@ -913,10 +933,11 @@ class paypal_checkout {
 		$_SESSION['reshash']['FORMATED_ERRORS'] = $error;
 	}
 /*************************************************************/
-	function paypal_get_products($paymentAmount,$order_tax,$order_discount,$order_fee,$order_shipping,$order_gs){
+	function paypal_get_products($paymentAmount,$order_tax,$order_discount,$order_fee,$order_shipping,$order_gs,$express_call=False){
 		// für beide PayPal Versionen
 		// Artikel Details mitgeben
-		// Stand: 29.04.2009
+		// Für den Express Call Vermerk für den Versand + Vorläufige Kosten mitgeben
+		// Stand: 05.01.2010
 		global $xtPrice,$order;
 		$products_sum_amt = 0;
 		$tmp_products='';
@@ -967,6 +988,21 @@ class paypal_checkout {
 											'&L_NUMBER'.$i.'='.
 											'&L_QTY'.$i.'=1'.
 											'&L_AMT'.$i.'='.urlencode(number_format($order_tax, $xtPrice->get_decimal_places($order->info['currency']), '.', ','));
+			$i++;
+		endif;
+		if($express_call AND PAYPAL_EXP_WARN!=''):
+			$tmp_products .='&L_NAME'.$i.'='.urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8",substr(PAYPAL_EXP_WARN,0,127))).
+											'&L_NUMBER'.$i.'='.
+											'&L_QTY'.$i.'=0'.
+											'&L_AMT'.$i.'=0';
+			$i++;
+		endif;
+		if($express_call AND PAYPAL_EXP_VORL!='' AND PAYPAL_EXP_VERS!=0):
+			$products_sum_amt+=PAYPAL_EXP_VERS;
+			$tmp_products .='&L_NAME'.$i.'='.urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8",substr(PAYPAL_EXP_VORL,0,127))).
+											'&L_NUMBER'.$i.'='.
+											'&L_QTY'.$i.'=1'.
+											'&L_AMT'.$i.'='.urlencode(number_format(PAYPAL_EXP_VERS, $xtPrice->get_decimal_places($order->info['currency']), '.', ','));
 			$i++;
 		endif;
 		$products_sum_amt = round($products_sum_amt,$xtPrice->get_decimal_places($order->info['currency']));
