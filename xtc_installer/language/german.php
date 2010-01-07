@@ -225,6 +225,6 @@ define('TEXT_STATUS_BT_PERMISSION_LONG','Erlaubt dem Kunden per Bankeinzug zu be
 // install_fnished.php
 
 define('TEXT_SHOP_CONFIG_SUCCESS','<strong>xtcModified</strong> Shop Konfiguration war erfolgreich');
-define('TEXT_TEAM','Vielen Dank, dass Sie sich f&uuml;r xtcModified entschieden haben. Besuchen Sie uns auf der xtcModified Supportseite <a href="http://www.xtc-Modified.org">http://www.xtcModified.com</a><br />Alles Gute und viel Erfolg w&uuml;nscht Ihnen das gesamte xtcModified Team.');
+define('TEXT_TEAM','Vielen Dank, dass Sie sich f&uuml;r die xtcModified eCommerce Shopsoftware entschieden haben. Besuchen Sie uns auf der <a href="http://www.xtc-modified.org">xtcModified Supportseite</a>.<br /><br />Alles Gute und viel Erfolg w&uuml;nscht Ihnen das gesamte xtcModified Team.<br /><br />Wenn Sie uns unterst&uuml;tzen wollen, würden wir uns über eine kleine Spende freuen.<br />');
    
  ?>

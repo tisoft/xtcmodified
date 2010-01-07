@@ -221,6 +221,6 @@ define('TITLE_CHMOD','Setting rights on files');
 // install_fnished.php
 
 define('TEXT_SHOP_CONFIG_SUCCESS','<strong>xtcModified</strong> Shop configuration was successful.');
-define('TEXT_TEAM','The xtcModified dev Team.<br /><a href="http://www.xtcModified.com">xtcModified support site</a>');
+define('TEXT_TEAM','Thank you for chosing the xtcModified eCommerce Shopsoftware. Please viti the xtcModified developer team at <a href="http://www.xtc-modified.org">xtcModified support site</a>.<br /><br />If you like xtcModified, we would appreciate a small donation.<br />');
    
  ?>

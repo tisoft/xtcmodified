@@ -66,8 +66,10 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                       
             <div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo TEXT_SHOP_CONFIG_SUCCESS; ?><br />
               <br />
-              <?php echo TEXT_TEAM; ?></div><br />
-              </p>
+              <?php echo TEXT_TEAM; ?><br />
+              <br />
+              <a href="http://www.xtc-modified.org/spenden" target="_blank"><img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="<?php echo TEXT_INFO_DONATIONS_IMG_ALT; ?>" border="0"></a>
+              </div><br />
             <table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr> 
                 <td align="center"><a href="<?php echo HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'index.php'; ?>" target="_blank"><img src="images/button_catalog.gif" border="0" alt="Catalog"></a></td>
