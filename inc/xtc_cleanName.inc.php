@@ -12,8 +12,8 @@
 
 
  function xtc_cleanName($name) {
- 	$search_array=array('ä','Ä','ö','Ö','ü','Ü','&auml;','&Auml;','&ouml;','&Ouml;','&uuml;','&Uuml;');
- 	$replace_array=array('ae','Ae','oe','Oe','ue','Ue','ae','Ae','oe','Oe','ue','Ue');
+ 	$search_array=array('ä','Ä','ö','Ö','ü','Ü','ß','&auml;','&Auml;','&ouml;','&Ouml;','&uuml;','&Uuml;','&szlig;');
+ 	$replace_array=array('ae','Ae','oe','Oe','ue','Ue','ss','ae','Ae','oe','Oe','ue','Ue','ss');
  	$name=str_replace($search_array,$replace_array,$name);   	
  	
      $replace_param='/[^a-zA-Z0-9]/';

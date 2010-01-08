@@ -30,7 +30,7 @@ require_once (DIR_FS_INC.'xtc_random_charcode.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC.'xtc_validate_password.inc.php');
 require_once (DIR_FS_INC.'xtc_rand.inc.php');
-$case = double_opt;
+$case = 'double_opt';
 $info_message = TEXT_PASSWORD_FORGOTTEN;
 if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
 
@@ -60,16 +60,16 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
 	if (strtoupper($_POST['vvcode']) == $_SESSION['vvcode']) {
   //BOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
 		if (!xtc_db_num_rows($check_customer_query)) {
-			$case = wrong_mail;
+			$case = 'wrong_mail';
 			$info_message = TEXT_EMAIL_ERROR;
 		} else {
-			$case = first_opt_in;
+			$case = 'first_opt_in';
 			xtc_db_query("update ".TABLE_CUSTOMERS." set password_request_key = '".$vlcode."' where customers_id = '".$check_customer['customers_id']."'");
 			xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, $check_customer['customers_email_address'], '', '', EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', TEXT_EMAIL_PASSWORD_FORGOTTEN, $html_mail, $txt_mail);
 
 		}
 	} else {
-		$case = code_error;
+		$case = 'code_error';
 		$info_message = TEXT_CODE_ERROR;
 	}
 }
@@ -80,7 +80,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'verified')) {
 	$check_customer = xtc_db_fetch_array($check_customer_query);
 	if (!xtc_db_num_rows($check_customer_query) || $_GET['key']=="") {
 
-		$case = no_account;
+		$case = 'no_account';
 		$info_message = TEXT_NO_ACCOUNT;
 	} else {
 
@@ -115,16 +115,15 @@ $breadcrumb->add(NAVBAR_TITLE_PASSWORD_DOUBLE_OPT, xtc_href_link(FILENAME_PASSWO
 require (DIR_WS_INCLUDES.'header.php');
 
 switch ($case) {
-	case first_opt_in :
+	case 'first_opt_in' :
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		$smarty->assign('info_message', TEXT_LINK_MAIL_SENDED);
 		$smarty->assign('language', $_SESSION['language']);
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
-
 		break;
-	case second_opt_in :
+	case 'second_opt_in' :
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		//    $smarty->assign('info_message', TEXT_PASSWORD_MAIL_SENDED);
@@ -132,8 +131,8 @@ switch ($case) {
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
 		break;
-	case code_error :
-		
+
+	case 'code_error' :
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com - BUGFIX: #0000241 password recovery bug in IE
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
 		//BOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
@@ -154,10 +153,9 @@ switch ($case) {
 		$smarty->assign('language', $_SESSION['language']);
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
-
 		break;
-	case wrong_mail :
 
+	case 'wrong_mail' :
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
 		//BOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
@@ -178,18 +176,17 @@ switch ($case) {
 		$smarty->assign('language', $_SESSION['language']);
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
-
 		break;
-	case no_account :
+
+	case 'no_account' :
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		$smarty->assign('language', $_SESSION['language']);
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
-
 		break;
-	case double_opt :
 
+	case 'double_opt' :
 		//BUGFIX 24.04.2009 - JUNG/GESTALTEN.com
 		//$smarty->assign('VVIMG', '<img src="'.FILENAME_DISPLAY_VVCODES.'">');
 		//BOF - Dokuman - 2009-08-13: fix not displaying Captcha on SSL(Proxy) connections
@@ -211,7 +208,6 @@ switch ($case) {
 		$smarty->assign('language', $_SESSION['language']);
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
-
 		break;
 }
 

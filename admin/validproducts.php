@@ -35,7 +35,7 @@ require('includes/application_top.php');
 <head>
 <title>Valid Categories/Products List</title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<head>
+</head>
 <body>
 <table width="550" cellspacing="1">
 <tr>

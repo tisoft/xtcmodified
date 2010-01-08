@@ -42,7 +42,7 @@ th {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 -->
 </style>
-<head>
+</head>
 <body>
 <table width="550" border="1" cellspacing="1" bordercolor="gray">
 <tr>
