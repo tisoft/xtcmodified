@@ -8,7 +8,7 @@
 $PHPMAILER_LANG = array();
 
 $PHPMAILER_LANG['provide_address']      = 'Bitte geben Sie mindestens eine Empf&auml;nger Emailadresse an.';
-$PHPMAILER_LANG['mailer_not_supported'] = ' mailer wird nicht unterstützt.';
+$PHPMAILER_LANG['mailer_not_supported'] = ' mailer wird nicht unterst&uuml;tzt.';
 $PHPMAILER_LANG['execute']              = 'Konnte folgenden Befehl nicht ausf&uuml;hren: ';
 $PHPMAILER_LANG['instantiate']          = 'Mail Funktion konnte nicht initialisiert werden.';
 $PHPMAILER_LANG['authenticate']         = 'SMTP Fehler: Authentifizierung fehlgeschlagen.';
