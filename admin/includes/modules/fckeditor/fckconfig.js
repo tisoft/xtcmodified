@@ -50,7 +50,7 @@ FCKConfig.SkinDialogCSS = '' ;	// FCKConfig.SkinPath + "|<minified css>" ;
 FCKConfig.PreloadImages = [ FCKConfig.SkinPath + 'images/toolbar.start.gif', FCKConfig.SkinPath + 'images/toolbar.buttonarrow.gif' ] ;
 
 FCKConfig.PluginsPath = FCKConfig.BasePath + 'plugins/' ;
-
+FCKConfig.Plugins.Add( 'flvPlayer','de') ;
 // FCKConfig.Plugins.Add( 'autogrow' ) ;
 // FCKConfig.Plugins.Add( 'dragresizetable' );
 FCKConfig.AutoGrowMax = 400 ;
@@ -109,7 +109,7 @@ FCKConfig.ToolbarSets["Default"] = [
 	['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote','CreateDiv'],
 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
 	['Link','Unlink','Anchor'],
-	['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
+	['Image','Flash','flvPlayer','Table','Rule','Smiley','SpecialChar','PageBreak'],
 	'/',
 	['Style','FontFormat','FontName','FontSize'],
 	['TextColor','BGColor'],
@@ -297,6 +297,11 @@ FCKConfig.FlashBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/br
 FCKConfig.FlashBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	//70% ;
 FCKConfig.FlashBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	//70% ;
 
+FCKConfig.MediaBrowser = true ;
+FCKConfig.MediaBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.php?Type=Media&Connector=' + encodeURIComponent( FCKConfig.BasePath + 'filemanager/connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ) ;
+FCKConfig.MediaBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	//70% ;
+FCKConfig.MediaBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	//70% ;
+
 FCKConfig.LinkUpload = true ;
 FCKConfig.LinkUploadURL = FCKConfig.BasePath + 'filemanager/connectors/' + _QuickUploadLanguage + '/upload.' + _QuickUploadExtension ;
 FCKConfig.LinkUploadAllowedExtensions	= ".(7z|aiff|asf|avi|bmp|csv|doc|fla|flv|gif|gz|gzip|jpeg|jpg|mid|mov|mp3|mp4|mpc|mpeg|mpg|ods|odt|pdf|png|ppt|pxd|qt|ram|rar|rm|rmi|rmvb|rtf|sdc|sitd|swf|sxc|sxw|tar|tgz|tif|tiff|txt|vsd|wav|wma|wmv|xls|xml|zip)$" ;			// empty for all
@@ -311,6 +316,11 @@ FCKConfig.FlashUpload = true ;
 FCKConfig.FlashUploadURL = FCKConfig.BasePath + 'filemanager/connectors/' + _QuickUploadLanguage + '/upload.' + _QuickUploadExtension + '?Type=Flash' ;
 FCKConfig.FlashUploadAllowedExtensions	= ".(swf|flv)$" ;		// empty for all
 FCKConfig.FlashUploadDeniedExtensions	= "" ;					// empty for no one
+
+FCKConfig.MediaUpload = true ;
+FCKConfig.MediaUploadURL = FCKConfig.BasePath + 'filemanager/connectors/' + _QuickUploadLanguage + '/upload.' + _QuickUploadExtension + '?Type=Media' ;
+FCKConfig.MediaUploadAllowedExtensions	= ".(swf|flv)$" ;		// empty for all
+FCKConfig.MediaUploadDeniedExtensions	= "" ;					// empty for no one
 
 FCKConfig.SmileyPath	= FCKConfig.BasePath + 'images/smiley/msn/' ;
 FCKConfig.SmileyImages	= ['regular_smile.gif','sad_smile.gif','wink_smile.gif','teeth_smile.gif','confused_smile.gif','tounge_smile.gif','embaressed_smile.gif','omg_smile.gif','whatchutalkingabout_smile.gif','angry_smile.gif','angel_smile.gif','shades_smile.gif','devil_smile.gif','cry_smile.gif','lightbulb.gif','thumbs_down.gif','thumbs_up.gif','heart.gif','broken_heart.gif','kiss.gif','envelope.gif'] ;
