@@ -37,7 +37,10 @@ if (isset ($_GET['action']) && $_GET['action'] == 'process') {
 		$date_now = date('Ymd');
 		if ($customer_values['customers_lastname'] == '')
 			$customer_values['customers_lastname'] = TEXT_GUEST;
-		xtc_db_query("insert into ".TABLE_REVIEWS." (products_id, customers_id, customers_name, reviews_rating, date_added) values ('".$product->data['products_id']."', '".(int) $_SESSION['customer_id']."', '".addslashes($customer_values['customers_firstname']).' '.addslashes($customer_values['customers_lastname'])."', '".addslashes($_POST['rating'])."', now())");
+    //BOF - Dokuman 2010-01-11 - shorten the reviewer's name from "Max Mustermann" to "Max M."
+		//xtc_db_query("insert into ".TABLE_REVIEWS." (products_id, customers_id, customers_name, reviews_rating, date_added) values ('".$product->data['products_id']."', '".(int) $_SESSION['customer_id']."', '".addslashes($customer_values['customers_firstname']).' '.addslashes($customer_values['customers_lastname'])."', '".addslashes($_POST['rating'])."', now())"		
+		xtc_db_query("insert into ".TABLE_REVIEWS." (products_id, customers_id, customers_name, reviews_rating, date_added) values ('".$product->data['products_id']."', '".(int) $_SESSION['customer_id']."', '".addslashes($customer_values['customers_firstname']).' '.addslashes($customer_values['customers_lastname'][0].'.')."', '".addslashes($_POST['rating'])."', now())");
+		//EOF - Dokuman 2010-01-11 - shorten the reviewer's name from "Max Mustermann" to "Max M."
 		$insert_id = xtc_db_insert_id();
 		xtc_db_query("insert into ".TABLE_REVIEWS_DESCRIPTION." (reviews_id, languages_id, reviews_text) values ('".$insert_id."', '".(int) $_SESSION['languages_id']."', '".addslashes($_POST['review'])."')");
 	}
