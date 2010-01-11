@@ -255,14 +255,6 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
  $status='OK';
  if ($php_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
  
- //PHP 5.3 WARNING 
- if (function_exists('version_compare')) {
-	if(version_compare(phpversion(), "5.3.0", ">=")){
-		$status = '<strong><font color="#FF0000">WARNUNG! Ihre PHP-Version ist zu neu! Bitte nur als Testshop installieren!</font></strong>';		
-	}
- }
- //EOF PHP 5.3 WARNING
- 
  $ok_message.='PHP VERSION .............................. '.phpversion(). '&nbsp;&nbsp;&nbsp;'.$status.'<br /><hr noshade>';
  
  // BOF - Tomcraft - 2009-11-22 - Check MySQL version
