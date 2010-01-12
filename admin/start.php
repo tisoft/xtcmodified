@@ -64,9 +64,9 @@ $products_query = xtc_db_query('select
 $products = xtc_db_fetch_array($products_query);					  
 		
 // orders (status)		
-$orders_query = xtc_db_query('select os.orders_status_name status, coalesce(o.count, 0) count
+$orders_query = xtc_db_query('select os.orders_status_name status, coalesce(o.order_count, 0) order_count
                 from ' . TABLE_ORDERS_STATUS . ' os
-                left join (select orders_status, count(*) count
+                left join (select orders_status, count(*) order_count
                            from ' . TABLE_ORDERS . ' 
                            group by 1) o on o.orders_status = os.orders_status_id
                 where os.language_id = ' . $language_id . '
@@ -76,7 +76,7 @@ while ($row = mysql_fetch_array($orders_query))
   $orders[] = $row;
 	
 // specials	
-$specials_query = xtc_db_query("select count(*) as count from " . TABLE_SPECIALS);
+$specials_query = xtc_db_query("select count(*) as specials_count from " . TABLE_SPECIALS);
 $specials = xtc_db_fetch_array($specials_query);	        
 	        
 // turnover
@@ -212,7 +212,7 @@ h1 {
 					</tr>
 					<tr>
 						 <td style="background:#e4e4e4"><strong><?php echo TOTAL_SPECIALS; ?>:</strong></td>
-						 <td style="background:#e4e4e4"><?php echo $specials['count']; ?></td>
+						 <td style="background:#e4e4e4"><?php echo $specials['specials_count']; ?></td>
 					</tr>
 			   </table></td>
 		  <td width="25%" valign="top">
@@ -220,7 +220,7 @@ h1 {
 		  <?php
 	         foreach ($orders as $order) {
                 echo '<tr><td style="background:#e4e4e4"><strong>' . $order['status'] . ':</strong></td>';
-                echo '<td style="background:#e4e4e4">' . $order['count'] . '</td></tr>';
+                echo '<td style="background:#e4e4e4">' . $order['order_count'] . '</td></tr>';
              }
            ?>		
 		  </table>
