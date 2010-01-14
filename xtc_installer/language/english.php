@@ -32,11 +32,16 @@ define('PULL_DOWN_DEFAULT','Please select a Country!');
  	// index.php
 	define('SELECT_LANGUAGE_ERROR','Please select a language!');
 	// install_step2,5.php
-	define('TEXT_CONNECTION_ERROR','A test connection made to the database was NOT successful.');
-	define('TEXT_CONNECTION_SUCCESS','A test connection made to the database was successful.');
+	define('TEXT_CONNECTION_ERROR','The test connect to the database was NOT successful.');
+	define('TEXT_CONNECTION_SUCCESS','The test connect to the database was successful.');
 	define('TEXT_DB_ERROR','The error message returned is:');
 	define('TEXT_DB_ERROR_1','Please click on the <i>Back</i> graphic to review your database server settings.');
 	define('TEXT_DB_ERROR_2','If you require help with your database server settings, please consult your hosting company.');
+	// BOF - vr - 2010-01-14 - check MySQL *server* version
+	define('TEXT_DB_SERVER_VERSION_ERROR','Your MySQL version is too old. The shop requires at least version: ');
+	define('TEXT_DB_SERVER_VERSION','Your MySQL version: ');
+	// EOF - vr - 2010-01-14 - check MySQL *server* version
+	
 	// install_step6.php
 	define('ENTRY_FIRST_NAME_ERROR','Firstname to short');
 	define('ENTRY_LAST_NAME_ERROR','Lastname to short');

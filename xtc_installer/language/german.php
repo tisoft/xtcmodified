@@ -37,6 +37,11 @@ define('PULL_DOWN_DEFAULT','Bitte W&auml;hlen Sie ein Land');
 	define('TEXT_DB_ERROR','Folgender Fehler wurde zur&uuml;ckgegeben:');
 	define('TEXT_DB_ERROR_1','Bitte klicken Sie auf <i>Back</i> um Ihre Datenbankeinstellungen zu &uuml;berpr&uuml;fen.');
 	define('TEXT_DB_ERROR_2','Wenn Sie Hilfe zu Ihrer Datenbank ben&ouml;tigen, wenden Sie sich bitte an Ihren Provider.');
+	// BOF - vr - 2010-01-14 - check MySQL *server* version
+	define('TEXT_DB_SERVER_VERSION_ERROR','Ihre MySQL-Version ist zu alt. Der Shop benötigt mindestens die Version: ');
+	define('TEXT_DB_SERVER_VERSION','Ihre MySQL-Version: ');
+	// EOF - vr - 2010-01-14 - check MySQL *server* version
+	
 	// install_step6.php
 	define('ENTRY_FIRST_NAME_ERROR','Vorname ist zu kurz');
 	define('ENTRY_LAST_NAME_ERROR','Nachname ist zu kurz');

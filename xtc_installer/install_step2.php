@@ -113,6 +113,16 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 
     $db_error = false;
     xtc_db_connect_installer($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+	
+	// BOF - vr - 2010-01-14 - check MySQL *server* version
+	if (!$db_error) {
+		if (function_exists('version_compare')) {
+			if(version_compare(mysql_get_server_info(), "4.1.2", "<")){
+				$db_error = '<br /><strong>' . TEXT_DB_SERVER_VERSION_ERROR .  ' 4.1.2. <br /><br />' . TEXT_DB_SERVER_VERSION . mysql_get_server_info() . '</strong>.';
+			}
+		}
+	}
+	// EOF - vr - 2010-01-14 - check MySQL *server* version
 
     if (!$db_error) {
       xtc_db_test_create_db_permission($db['DB_DATABASE']);
