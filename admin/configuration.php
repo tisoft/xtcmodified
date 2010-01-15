@@ -61,7 +61,7 @@
     }
   }
 
-  $cfg_group_query = xtc_db_query("select configuration_group_title from " . TABLE_CONFIGURATION_GROUP . " where configuration_group_id = '" . (int)$_GET['gID'] . "'");
+  $cfg_group_query = xtc_db_query("select configuration_group_title, configuration_group_id from " . TABLE_CONFIGURATION_GROUP . " where configuration_group_id = '" . (int)$_GET['gID'] . "'"); // Hetfield - 2010-01-15 - multilanguage title in configuration
   $cfg_group = xtc_db_fetch_array($cfg_group_query);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
