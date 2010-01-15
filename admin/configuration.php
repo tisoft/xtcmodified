@@ -72,7 +72,7 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -95,7 +95,15 @@
 				<table border="0" width="100%" cellspacing="0" cellpadding="0">
 					<tr>
 						<td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_configuration.gif'); ?></td>
-						<td class="pageHeading"><?php echo $cfg_group['configuration_group_title']; ?></td>
+						<td class="pageHeading"><?php 
+						// BOF - Hetfield - 2010-01-15 - multilanguage title in configuration
+						if (!@constant(BOX_CONFIGURATION_.$cfg_group['configuration_group_id'])) {
+							echo $cfg_group['configuration_group_title'];
+						} else {
+							echo @constant(BOX_CONFIGURATION_.$cfg_group['configuration_group_id']);
+						}
+						// EOF - Hetfield - 2010-01-15 - multilanguage title in configuration
+						?></td>
 					</tr>
 					<tr>
 						<td class="main" valign="top">XT Configuration</td>
