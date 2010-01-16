@@ -87,8 +87,8 @@ $turnover_query = xtc_db_query('select
   round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month), ot.value, null)), 0), 2) last_month,
   round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month) and o.orders_status <> 1, ot.value, null)), 0), 2) last_month_paid,
   round(coalesce(sum(ot.value), 0), 2) total   
-  from orders o 
-  join orders_total ot on ot.orders_id = o.orders_id 
+  from ' . TABLE_ORDERS . ' o 
+  join ' . TABLE_ORDERS_TOTAL . ' ot on ot.orders_id = o.orders_id 
   where ot.class = \'ot_total\'');
 $turnover = mysql_fetch_array($turnover_query);	
 ?>
@@ -299,7 +299,7 @@ h1 {
 		    
 	?>
         <?php
-	  $abfrage = "SELECT * FROM customers ORDER BY customers_date_added DESC LIMIT 15";
+	  $abfrage = "SELECT * FROM " . TABLE_CUSTOMERS . " ORDER BY customers_date_added DESC LIMIT 15";
 	  $ergebnis = mysql_query($abfrage);
 	  while($row = mysql_fetch_object($ergebnis)){
 	?>
@@ -350,7 +350,7 @@ h1 {
 	    
 	?>
         <?php
-	  $abfrage = "SELECT * FROM orders ORDER BY orders_id DESC LIMIT 20";
+	  $abfrage = "SELECT * FROM " . TABLE_ORDERS . " ORDER BY orders_id DESC LIMIT 20";
 	  $ergebnis = mysql_query($abfrage);
 	  while($row = mysql_fetch_object($ergebnis)){
 	?>
