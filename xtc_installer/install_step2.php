@@ -228,7 +228,6 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
   </tr>
 </table>
 <br />
-<div align="center" style="font-family:Arial, sans-serif; font-size:11px;">eCommerce Engine 2006 based on xt:Commerce<br />
-eCommerce Engine © 2008 - 2009 xtcModified.org licensed under GNU/GPL</div>
+<div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo TEXT_FOOTER; ?></div>
 </body>
 </html>

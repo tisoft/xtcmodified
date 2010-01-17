@@ -14,7 +14,7 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 // Global
-define('TEXT_FOOTER','Copyright  &copy; 2002 - 2006 <a href="http://www.xtcModified.com">xtcModified</a><br />Powered by xtcModified'); 
+define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
    
 // Box names
 define('BOX_LANGUAGE','Language');

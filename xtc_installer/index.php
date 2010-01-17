@@ -363,7 +363,6 @@ if ($ok_message!='') {
       </table></td>
   </tr>
 </table><br />
-<div align="center" style="font-family:Arial, sans-serif; font-size:11px;">eCommerce Engine 2006 based on xt:Commerce<br />
-eCommerce Engine &copy; 2008 - 2009 xtcModified.org licensed under GNU/GPL</div>
+<div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo '<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>'; ?></div>
 </body>
 </html>
