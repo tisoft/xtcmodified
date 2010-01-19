@@ -31,7 +31,6 @@ class ot_coupon {
 
 	function ot_coupon() {
 		global $xtPrice;
-
 		$this->code = 'ot_coupon';
 		$this->header = MODULE_ORDER_TOTAL_COUPON_HEADER;
 		$this->title = MODULE_ORDER_TOTAL_COUPON_TITLE;
@@ -45,22 +44,43 @@ class ot_coupon {
 		$this->tax_class = MODULE_ORDER_TOTAL_COUPON_TAX_CLASS;
 		$this->credit_class = true;
 		$this->output = array ();
-
 	}
 
 	function process() {
 		global $order, $xtPrice;
-
 		$order_total = $this->get_order_total();
 		$od_amount = $this->calculate_credit($order_total);
 		$tod_amount = 0.0; //Fred
 		$this->deduction = $od_amount;
-	
+
+		//BOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
+		// BRC World Barnim
+		// Änderung der Ust Berechnung
+		/*	
 		if ($this->calculate_tax != 'None') { //Fred - changed from 'none' to 'None'!
 		   $tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
-		}
+		*/
 
 		if ($od_amount > 0) {
+			// korrigierte Ust Berechnung
+			if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
+				reset($order->info['tax_groups']);
+				while (list ($key, $value) = each($order->info['tax_groups'])) {
+					$tax_rate = xtc_get_tax_rate($this->tax_class);
+					//print_r($tax_rate);
+					if ($this->include_tax == 'false') {
+						$od_amount = $od_amount + ($od_amount * $tax_rate / 100);
+						$od_amount = $od_amount;
+					}
+					$tax_betrag = $od_amount * $tax_rate / (100 + $tax_rate);
+					$order->info['tax_groups'][$key] = $order->info['tax_groups'][$key] - $tax_betrag;
+				}
+				$order->info['tax'] = $order->info['tax'] - $tax_betrag;
+		}
+		// BRC World Barnim Ende
+		//if ($od_amount > 0) {
+		//EOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
+
 			$order->info['total'] = $order->info['total'] - $od_amount;
 			$order->info['deduction'] = $od_amount;
 			$this->output[] = array ('title' => $this->title.':'.$this->coupon_code.':', 'text' => '<strong><font color="#ff0000">-'.$xtPrice->xtcFormat($od_amount, true).'</font></strong>', 'value' => $od_amount); //Fred added hyphen
@@ -165,8 +185,9 @@ class ot_coupon {
 				
 				if ($get_result['coupon_type'] == 'S')
 					$c_deduct = $order->info['shipping_cost'];
-					
-				if ($get_result['coupon_type']=='S' && $get_result['coupon_amount'] > 0 ) $c_deduct = $order->info['shipping_cost'] + $get_result['coupon_amount'];
+				
+				if ($get_result['coupon_type']=='S' && $get_result['coupon_amount'] > 0 ) 
+					$c_deduct = $order->info['shipping_cost'] + $get_result['coupon_amount'];
 				
 				if ($get_result['coupon_minimum_order'] <= $this->get_order_total()) {
 
@@ -176,19 +197,14 @@ class ot_coupon {
 							if ($get_result['restrict_to_products']) {
 								$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 								
-								
-								//BUG FOUND 09.04.2009
+								//BOF - 09.04.2009 - Christian - ot_coupon Bugfixes
 								//for ($ii = 0; $p < count($pr_ids); $ii ++) {
-								
-								//FIXT 09.04.2009
 								for ($ii = 0; $ii < count($pr_ids); $ii ++) {
-								// FIX END	
-								
-									
-									
+								//EOF - 09.04.2009 - Christian - ot_coupon Bugfixes
+
 									if ($pr_ids[$ii] == xtc_get_prid($order->products[$i]['id'])) {
 										if ($get_result['coupon_type'] == 'P') {
-											
+										
 											$od_amount = $amount * $get_result['coupon_amount'] / 100;
 											$pr_c = $this->product_price($pr_ids[$ii]); //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
 											$pod_amount = round($pr_c*10)/10*$c_deduct/100;
@@ -261,7 +277,6 @@ class ot_coupon {
 					// for each product reduce tax group per product by ratio amount.
 					$products = $_SESSION['cart']->get_products();
 					
-					
 					$valid_product = false;
 					for ($i = 0; $i < sizeof($products); $i ++) {
 						$valid_product = false;
@@ -270,29 +285,28 @@ class ot_coupon {
 						$cc_query = xtc_db_query("select products_tax_class_id from ".TABLE_PRODUCTS." where products_id = '".$t_prid."'");
 						$cc_result = xtc_db_fetch_array($cc_query);
 						
-						
 						if ($get_result['restrict_to_products']) {
 							$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 							for ($p = 0; $p < sizeof($pr_ids); $p ++) {
 								if ($pr_ids[$p] == $t_prid)
 									$valid_product = true;
-							                                          }
-						                                          }
+							}
+						}
 						                                          
 						if ($get_result['restrict_to_categories']) {
-                        // v5.13a Tanaka 2005-4-30:  New code, this correctly identifies valid products in subcategories
-                        $cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
-                        $my_path = xtc_get_product_path($t_prid);
-                        $sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
-                        for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
-                            for ($ii = 0; $ii < count($cat_ids); $ii++) {
-                                if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
-                                    $valid_product = true;
-                                    continue 2;
-                                }
-                            }
-                            
-                        }
+	                        // v5.13a Tanaka 2005-4-30:  New code, this correctly identifies valid products in subcategories
+	                        $cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+	                        $my_path = xtc_get_product_path($t_prid);
+	                        $sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+	                        for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
+	                            for ($ii = 0; $ii < count($cat_ids); $ii++) {
+	                                if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
+	                                    $valid_product = true;
+	                                    continue 2;
+	                                }
+	                            }
+	                            
+	                        }
 						}					 
 						
 						if ($valid_product) {
@@ -429,9 +443,11 @@ $order->info['tax'] -= $tod_amount;
 		// OK thats fine for global coupons but what about restricted coupons
 		// where you can only redeem against certain products/categories.
 		// and I though this was going to be easy !!!
+		// Hier holt er sich den Coupon Code
 		$coupon_query = xtc_db_query("select coupon_code from ".TABLE_COUPONS." where coupon_id='".$_SESSION['cc_id']."'");
 		if (xtc_db_num_rows($coupon_query) != 0) {
 			$coupon_result = xtc_db_fetch_array($coupon_query);
+			// Holt den Kupon-Wert, -Mindestbestellwert, Gueltige Artikel, Gueltige Kategorie 
 			$coupon_get = xtc_db_query("select coupon_amount, coupon_minimum_order,restrict_to_products,restrict_to_categories, coupon_type from ".TABLE_COUPONS." where coupon_code='".$coupon_result['coupon_code']."'");
 			$get_result = xtc_db_fetch_array($coupon_get);
 			$in_cat = true;
@@ -452,11 +468,12 @@ $order->info['tax'] -= $tod_amount;
 				}
 			}
 			$in_cart = true;
+			// HIER MUSS DAS ÜBEL SEIN!!!
 			if ($get_result['restrict_to_products']) {
-
+				// Falls mehr Produkte einen Rabatt haben, werden diese durch ein Komma getrennt und hier gesplittet
 				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
-
 				$in_cart = false;
+				// Hier werden die Produkte aus dem Einkaufswagen geholt
 				$products_array = $_SESSION['cart']->get_products();
 
 				for ($i = 0; $i < sizeof($pr_ids); $i ++) {
@@ -477,11 +494,14 @@ $order->info['tax'] -= $tod_amount;
 		global $order,$xtPrice;
 		$products_id = xtc_get_prid($product_id);
 		// products price
-		$qty = $_SESSION['cart']->contents[$products_id]['qty'];
+		//BOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
+		//$qty = $_SESSION['cart']->contents[$products_id]['qty'];
+		$qty = $_SESSION['cart']->contents[$product_id]['qty'];
+		//EOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
+
 		$product_query = xtc_db_query("select products_id, products_price, products_tax_class_id, products_weight from ".TABLE_PRODUCTS." where products_id='".$product_id."'");
 		if ($product = xtc_db_fetch_array($product_query)) {
 			$prid = $product['products_id'];
-
 
 			if ($this->include_tax == 'true') {
 $total_price += $qty * $xtPrice->xtcGetPrice($product['products_id'], $format = false, 1, $product['products_tax_class_id'], $product['products_price'], 1);
