@@ -872,10 +872,13 @@ elseif ($_GET['action'] == 'custom_action') {
 // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 			if(defined('TABLE_PAYPAL')):
 				$db_installed = false;
-//BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated				
+//BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
 				//$tables = mysql_list_tables(DB_DATABASE);
-				$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
-//EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated							
+// BOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
+				//$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
+				$tables = mysql_query('SHOW TABLES FROM `' . DB_DATABASE . '`');
+// EOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
+//EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
 				while ($row = mysql_fetch_row($tables)) {
 					if ($row[0] == TABLE_PAYPAL) $db_installed=true;
 				}
