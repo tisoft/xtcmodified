@@ -35,7 +35,10 @@ if (count($data) > 0) {
 // reverse cross selling
 if (ACTIVATE_REVERSE_CROSS_SELLING=='true') {
 $module_smarty = new Smarty;
-	
+//BOF - Dokuman - 2010-01-20: set template path also on activated cross selling
+$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - Dokuman - 2010-01-20: set template path also on activated cross selling
+
 $data = $product->getReverseCrossSells();	
 	
 
