@@ -212,8 +212,10 @@ if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 		$conditions = '<iframe SRC="' . DIR_WS_CATALOG . 'media/content/' . $shop_content_data['content_file'] . '" width="100%" height="300">';
 		$conditions .= '</iframe>';
 	} else {
-
-		$conditions = '<textarea name="blabla" cols="60" rows="10" readonly="readonly">' . strip_tags(str_replace('<br />', "\n", $shop_content_data['content_text'])) . '</textarea>';
+		/* BOF - Hetfield - 2010-01-20 - Remove agb-textarea from checkout_payment */
+		//$conditions = '<textarea name="blabla" cols="60" rows="10" readonly="readonly">' . strip_tags(str_replace('<br />', "\n", $shop_content_data['content_text'])) . '</textarea>';
+		$conditions = '<div class="agbframe">' . $shop_content_data['content_text'] . '</div>';
+		/* EOF - Hetfield - 2010-01-20 - Remove agb-textarea from checkout_payment */
 	}
 
 	$smarty->assign('AGB', $conditions);
