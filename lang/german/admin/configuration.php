@@ -411,9 +411,9 @@ define('CONTACT_US_EMAIL_SUBJECT_DESC' , 'Betreff f&uuml;r E-Mails vom Kontaktfo
 
 //Constants for support system
 define('EMAIL_SUPPORT_ADDRESS_TITLE' , 'Technischer Support - E-Mail Adresse');
-define('EMAIL_SUPPORT_ADDRESS_DESC' , 'Bitte geben Sie eine korrekte Absender Adresse f&uuml;r das Versenden der E-Mails &uuml;ber das <b>Support System</b> ein (Kontoerstellung,Passwort&auml;nderung).');
+define('EMAIL_SUPPORT_ADDRESS_DESC' , 'Bitte geben Sie eine korrekte Absender Adresse f&uuml;r das Versenden der E-Mails &uuml;ber das <b>Support System</b> ein (Kontoerstellung, Passwort vergessen).');
 define('EMAIL_SUPPORT_NAME_TITLE' , 'Technischer Support - E-Mail Adresse, Name');
-define('EMAIL_SUPPORT_NAME_DESC' , 'Bitte geben Sie einen Absender Namen f&uuml;r das Versenden der mails &uuml;ber das <b>Support System</b> ein (Kontoerstellung,Passwort&auml;nderung).');
+define('EMAIL_SUPPORT_NAME_DESC' , 'Bitte geben Sie einen Absender Namen f&uuml;r das Versenden der mails &uuml;ber das <b>Support System</b> ein (Kontoerstellung, Passwort vergessen).');
 define('EMAIL_SUPPORT_FORWARDING_STRING_TITLE' , 'Technischer Support - Weiterleitungsadressen');
 define('EMAIL_SUPPORT_FORWARDING_STRING_DESC' , 'Geben Sie weitere E-Mailadressen ein, an welche die E-Mails des <b>Support Systems</b> noch versendet werden sollen (mit , getrennt)');
 define('EMAIL_SUPPORT_REPLY_ADDRESS_TITLE' , 'Technischer Support - Antwortadresse');
@@ -425,9 +425,9 @@ define('EMAIL_SUPPORT_SUBJECT_DESC' , 'Betreff f&uuml;r E-Mails des <b>Support S
 
 //Constants for Billing system
 define('EMAIL_BILLING_ADDRESS_TITLE' , 'Verrechnung - E-Mail Adresse');
-define('EMAIL_BILLING_ADDRESS_DESC' , 'Bitte geben Sie eine korrekte Absenderadresse f&uuml;r das Versenden der mails &uuml;ber das <b>Verrechnungssystem</b> ein (Bestellbest&auml;tigung,Status&auml;nderungen,..).');
+define('EMAIL_BILLING_ADDRESS_DESC' , 'Bitte geben Sie eine korrekte Absenderadresse f&uuml;r das Versenden der mails &uuml;ber das <b>Verrechnungssystem</b> ein (Bestellbest&auml;tigung, Status&auml;nderungen,..).');
 define('EMAIL_BILLING_NAME_TITLE' , 'Verrechnung - Mail Adresse, Name');
-define('EMAIL_BILLING_NAME_DESC' , 'Bitte geben Sie einen Absendernamen f&uuml;r das Versenden der E-Mails &uuml;ber das <b>Verrechnungssystem</b> ein (Bestellbest&auml;tigung,Status&auml;nderungen,..).');
+define('EMAIL_BILLING_NAME_DESC' , 'Bitte geben Sie einen Absendernamen f&uuml;r das Versenden der E-Mails &uuml;ber das <b>Verrechnungssystem</b> ein (Bestellbest&auml;tigung, Status&auml;nderungen,..).');
 define('EMAIL_BILLING_FORWARDING_STRING_TITLE' , 'Verrechnung - Weiterleitungsadressen');
 define('EMAIL_BILLING_FORWARDING_STRING_DESC' , 'Geben Sie weitere Mailadressen ein, wohin die E-Mails des <b>Verrechnungssystem</b> noch versendet werden sollen (mit , getrennt)');
 define('EMAIL_BILLING_REPLY_ADDRESS_TITLE' , 'Verrechnung - Antwortadresse');
