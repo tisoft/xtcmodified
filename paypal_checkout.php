@@ -401,13 +401,22 @@ if(DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 																			AND languages_id='" . $_SESSION['languages_id'] . "'");
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
 	if($shop_content_data['content_file'] != '') {
-		$conditions = '<iframe SRC="' . DIR_WS_CATALOG . 'media/content/' . $shop_content_data['content_file'] . '" width="100%" height="300">';
-		$conditions .= '</iframe>';
+		/* BOF - Hetfield - 2010-01-22 - Bugfix including contentfiles at SSL-Proxy */
+		//$conditions = '<iframe SRC="' . DIR_WS_CATALOG . 'media/content/' . $shop_content_data['content_file'] . '" width="100%" height="300">';
+		//$conditions .= '</iframe>';
+		$conditions = '<div class="agbframe">' . file_get_contents(DIR_FS_DOCUMENT_ROOT . 'media/content/' . $shop_content_data['content_file']) . '</div>';
+		/* EOF - Hetfield - 2010-01-22 - Bugfix including contentfiles at SSL-Proxy */
 	} else {
-		$conditions = '<textarea name="blabla" cols="60" rows="10" readonly="readonly">' . strip_tags(str_replace('<br />', "\n", $shop_content_data['content_text'])) . '</textarea>';
+		/* BOF - Hetfield - 2010-01-22 - Remove agb-textarea from checkout_payment */
+		//$conditions = '<textarea name="blabla" cols="60" rows="10" readonly="readonly">' . strip_tags(str_replace('<br />', "\n", $shop_content_data['content_text'])) . '</textarea>';
+		$conditions = '<div class="agbframe">' . $shop_content_data['content_text'] . '</div>';
+		/* EOF - Hetfield - 2010-01-22 - Remove agb-textarea from checkout_payment */
 	}
 	$smarty->assign('AGB', $conditions);
-	$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
+	//BOF - Hetfield - 2010-01-22 - SSL for Content-Links per getContentLink 
+	//$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
+	$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO,'SSL'));
+    //EOF - Hetfield - 2010-01-22 - SSL for Content-Links per getContentLink
 	if(isset($_GET['step']) && $_GET['step'] == 'step2') {
 		$smarty->assign('AGB_checkbox', '<input type="checkbox" value="conditions" name="conditions" checked />');
 	} else {
