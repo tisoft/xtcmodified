@@ -1178,7 +1178,7 @@ td.main_row {
 }
 /* EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation */
 /* BOF - Hetfield - 2010-01-20 - Remove agb-textarea from checkout_payment */
-div.agbframe, iframe {
+div.agbframe {
 	width:100%;
 	height:200px;
 	overflow:auto;
