@@ -411,24 +411,18 @@ class product {
 				'PRODUCTS_SHIPPING_IMAGE'=>$shipping_status_image, 
 				'PRODUCTS_DESCRIPTION' => $array['products_description'],
 				
-				
-				// BOF - Christian - 2009-06-26 - strip tags... ignore HTML Formating
-				
+				// BOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
 				//'PRODUCTS_DESCRIPTION' => strip_tags($array['products_description']),
-				
-				// EOF - Christian - 2009-06-26 - strip tags... ignore HTML Formating
+				'PRODUCTS_DESCRIPTION' => $array['products_description'],
+				// EOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
 				
 				'PRODUCTS_EXPIRES' => $array['expires_date'],
 				'PRODUCTS_CATEGORY_URL'=>$array['cat_url'],
 				
-				// BOF - Christian - 2009-06-26 - strip tags... ignore HTML Formating
-				
-				//'PRODUCTS_SHORT_DESCRIPTION' => strip_tags($array['products_short_description']), 
-				
-				// EOF - Christian - 2009-06-26 - strip tags... ignore HTML Formating
-				
+				// BOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
+				//'PRODUCTS_SHORT_DESCRIPTION' => strip_tags($array['products_short_description']),
 				'PRODUCTS_SHORT_DESCRIPTION' => $array['products_short_description'],
-				'PRODUCTS_FSK18' => $array['products_fsk18']);		
+				// EOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
 				
 
 	}
