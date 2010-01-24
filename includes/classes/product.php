@@ -423,6 +423,7 @@ class product {
 				//'PRODUCTS_SHORT_DESCRIPTION' => strip_tags($array['products_short_description']),
 				'PRODUCTS_SHORT_DESCRIPTION' => $array['products_short_description'],
 				// EOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
+				'PRODUCTS_FSK18' => $array['products_fsk18']);
 				
 
 	}
