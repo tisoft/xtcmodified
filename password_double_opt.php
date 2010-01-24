@@ -148,7 +148,10 @@ switch ($case) {
 		$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type
 		//$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
+		// BOF - Tomcraft - 2010-01-24 - unified the captcha field size.
+		//$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
+		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', '', false));
+		// EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type
 		$smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
 		$smarty->assign('language', $_SESSION['language']);
@@ -171,7 +174,10 @@ switch ($case) {
 		$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type
 		//$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
+		// BOF - Tomcraft - 2010-01-24 - unified the captcha field size.
+		//$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
+		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', '', false));
+		// EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type	
 		$smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
 		$smarty->assign('language', $_SESSION['language']);
@@ -202,7 +208,10 @@ switch ($case) {
 		$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type
 		//$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
+		// BOF - Tomcraft - 2010-01-24 - unified the captcha field size.
+		//$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
+		$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', '', false));
+		// EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type
 		$smarty->assign('BUTTON_SEND', xtc_image_submit('button_continue.gif', IMAGE_BUTTON_LOGIN));
 		$smarty->assign('FORM_END', '</form>');
