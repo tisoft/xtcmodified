@@ -294,8 +294,12 @@ class xtc_afterbuy_functions {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $DATAstring);
 		$result = curl_exec($ch);
-
-		if (preg_match("/<success>1</success>/", $result)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+    
+    //BOF - Dokuman - 2010-01-27 - added missing escape Character to preg_match
+		//if (preg_match("/<success>1</success>/", $result)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		if (preg_match("/<success>1<\/success>/", $result)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+    //EOF - Dokuman - 2010-01-27 - added missing escape Character to preg_match
+		
 			// result ok, mark order
 			// extract ID from result
 			$cdr = explode('<KundenNr>', $result);
