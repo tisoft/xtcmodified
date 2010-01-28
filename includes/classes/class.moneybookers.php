@@ -284,16 +284,13 @@ class fcnt_moneybookers {
 		
 		//
 		$mb_installed = false;
-//BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-				//$tables = mysql_list_tables(DB_DATABASE);
-// BOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-				//$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
-				$tables = mysql_query('SHOW TABLES FROM `' . DB_DATABASE . '`');
-// EOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-//EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-		while ($row = mysql_fetch_row($tables)) {
-    		if ($row[0] == 'payment_moneybookers') $mb_installed=true;
+		//BOF - Hetfield - 2010-01-28 - replace mysql_list_tables with query SHOW TABLES -> PHP5.3 depricated
+		//$tables = mysql_list_tables(DB_DATABASE);
+		$tables = xtc_db_query("SHOW TABLES LIKE 'payment_moneybookers'");			
+		while ($checktables = mysql_fetch_array($tables, MYSQL_NUM)) {
+			if ($checktables[0] == 'payment_moneybookers')  $mb_installed=true;
 		}
+		//EOF - Hetfield - 2010-01-28 - replace mysql_list_tables with query SHOW TABLES -> PHP5.3 depricated
 
 		if ($mb_installed==false) {
 		xtc_db_query("CREATE TABLE payment_moneybookers (mb_TRID varchar(255) NOT NULL default '',mb_ERRNO smallint(3) unsigned NOT NULL default '0',mb_ERRTXT varchar(255) NOT NULL default '',mb_DATE datetime NOT NULL default '0000-00-00 00:00:00',mb_MBTID bigint(18) unsigned NOT NULL default '0',mb_STATUS tinyint(1) NOT NULL default '0',mb_ORDERID int(11) unsigned NOT NULL default '0',PRIMARY KEY  (mb_TRID))");
