@@ -100,7 +100,7 @@ require('includes/application_top.php');
 										<dd>
 											<dl id="person">
 												<dt>Tomcraft</dt><dd>&lt;tomcraft1980@users.sourceforge.net&gt;</dd>
-												<dt>Hetfield</dt><dd>&lt;jhetfield@users.sourceforge.net&gt;</dd>
+												<dt>Hetfield</dt><dd>&lt;info@merz-it-service.de&gt;</dd>
 												<dt>DokuMan</dt><dd>&lt;dokuman@users.sourceforge.net&gt;</dd>
 												<dt>web28</dt><dd>&lt;web28@users.sourceforge.net&gt;</dd>
 												<dt>Pufaxx</dt><dd>&lt;info@gunnart.de&gt;</dd>

@@ -115,8 +115,10 @@ define('TEXT_PRODUCTS_STARTPAGE_NO', 'Nein');
 define('TEXT_PRODUCTS_STARTPAGE_SORT', 'Sortierreihenfolge (Startseite):');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Erscheinungsdatum:');
-define('TEXT_PRODUCT_AVAILABLE', 'Auf Lager');
-define('TEXT_PRODUCT_NOT_AVAILABLE', 'Nicht Vorr&auml;tig');
+// BOF - Hetfield - 2010-01-28 - Changing product available in correctly names for status
+define('TEXT_PRODUCT_AVAILABLE', 'Aktiviert');
+define('TEXT_PRODUCT_NOT_AVAILABLE', 'Deaktiviert');
+// EOF - Hetfield - 2010-01-28 - Changing product available in correctly names for status
 define('TEXT_PRODUCTS_MANUFACTURER', 'Artikelhersteller:');
 define('TEXT_PRODUCTS_NAME', 'Artikelname:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Artikelbeschreibung:');

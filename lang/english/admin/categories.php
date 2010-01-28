@@ -112,8 +112,10 @@ define('TEXT_PRODUCTS_STARTPAGE_YES', 'Yes');
 define('TEXT_PRODUCTS_STARTPAGE_NO', 'No');
 define('TEXT_PRODUCTS_STARTPAGE_SORT', 'Sort order (startpage):');
 define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Date Available:');
-define('TEXT_PRODUCT_AVAILABLE', 'In Stock');
-define('TEXT_PRODUCT_NOT_AVAILABLE', 'Out of Stock');
+// BOF - Hetfield - 2010-01-28 - Changing product available in correctly names for status
+define('TEXT_PRODUCT_AVAILABLE', 'Active');
+define('TEXT_PRODUCT_NOT_AVAILABLE', 'Deactivated');
+// EOF - Hetfield - 2010-01-28 - Changing product available in correctly names for status
 define('TEXT_PRODUCTS_MANUFACTURER', 'Products Manufacturer:');
 define('TEXT_PRODUCTS_NAME', 'Products Name:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Products Description:');
