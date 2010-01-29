@@ -152,7 +152,7 @@ table td {
 /* HEADER WITH LOGO, SEARCH BOX AND LANGUAGE SELECTION */
 #header {
 	height:115px;
-	background: #AD4C79 url(img/top_logo.jpg) no-repeat;
+	background: #893769 url(img/top_logo.jpg) no-repeat;
 	border-top: 10px solid #fff;
 	border-bottom:1px solid #fff;
 }
@@ -473,7 +473,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 }
 /* CART BOX */
 h2.boxcartheader {
-	background: #AD4C79 url(img/bg_boxheader_cart.gif);
+	background: #893769 url(img/bg_boxheader_cart.gif);
 	height:28px;
 	font-size:12px;
 	color:#fff;
