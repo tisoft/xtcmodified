@@ -36,27 +36,27 @@ $box_content='';
 
   if ($random_product) {
     // display random review box
-    $review_query = "select substring(reviews_text, 1, 250) as reviews_text from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . $random_product['reviews_id'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'";
+    $review_query = "select substring(reviews_text, 1, 60) as reviews_text from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . $random_product['reviews_id'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'";
     $review_query = xtDBquery($review_query);
     $review = xtc_db_fetch_array($review_query,true);
 
     $review = htmlspecialchars($review['reviews_text']);
-    $review = xtc_break_string($review, 25, '-<br />');
+    $review = xtc_break_string($review, 15, '-<br />');
 
-    $box_content = '<div align="center" class="bewert"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id']) . '">' . xtc_image(DIR_WS_THUMBNAIL_IMAGES . $random_product['products_image'], $random_product['products_name']) . '</a></div><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id']) . '">' . $review . ' ..</a><br />';
-
+    //BOF - Dokuman - 2010-01-29 - show review stars in box
+    //$box_content = '<div align="center" class="bewert"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id']) . '">' . xtc_image(DIR_WS_THUMBNAIL_IMAGES . $random_product['products_image'], $random_product['products_name']) . '</a></div><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id']) . '">' . $review . ' ..</a><br />';
+     $box_content = '<div align="center" class="bewert"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&amp;reviews_id=' . $random_product['reviews_id']) . '">' . xtc_image(DIR_WS_THUMBNAIL_IMAGES . $random_product['products_image'], $random_product['products_name']) . '</a></div><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&amp;reviews_id=' . $random_product['reviews_id']) . '">' . $review . ' ..</a><br /><div align="center">' . xtc_image('templates/' . CURRENT_TEMPLATE . '/img/stars_' . $random_product['reviews_rating'] . '.gif' , sprintf(BOX_REVIEWS_TEXT_OF_5_STARS, $random_product['reviews_rating'])) . '</div>';
+    //EOF - Dokuman - 2010-01-29 - show review stars in box
 
   } elseif ($product->isProduct()) {
-    
 	
-	
-	// Verhindern das Gäste oder Spamer bewerten können. www.aranowa.de
-   
+	// Verhindern das Gäste oder Spamer bewerten können. www.aranowa.de 
     if (isset($_SESSION['customer_id'])) {
-   
+
    // display 'write a review' box
    $box_content = '<table border="0" cellspacing="0" cellpadding="2"><tr><td align="left" class="infoBoxContents"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xtc_product_link($product->data['products_id'],$product->data['products_name'])) . '">' . BOX_REVIEWS_WRITE_REVIEW .'</a></td></tr></table>';
-   }}
+    }
+  }
 
   if ($box_content!='') {
   $box_smarty->assign('REVIEWS_LINK',xtc_href_link(FILENAME_REVIEWS)); 
