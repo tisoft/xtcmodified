@@ -52,9 +52,14 @@ class order_total {
 			// PayPal Änderung:
 			$header_string  = '<tr><td>';
 			$header_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="2">';
-			$header_string .= '<tr><td class="main"><b>'.TABLE_HEADING_CREDIT.'</b></td></tr>';
+			// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
+			//$header_string .= '<tr><td class="main"><b>'.TABLE_HEADING_CREDIT.'</b></td></tr>';
+			$header_string .= '<tr><td><div style="margin-left:15px"><b>'.TABLE_HEADING_CREDIT.'</b></div></td></tr>';
+			// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
 			$header_string .= '</table>';
 			$header_string .= '</td></tr>';
+			// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
+			/*
 			$header_string .= '<tr><td>';
 			$header_string .= '<table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">';
 			$header_string .= '<tr class="infoBoxContents"><td>';
@@ -67,6 +72,8 @@ class order_total {
 			$close_string .= '</td>';
 			$close_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
 			$close_string .= '</tr></table></td></tr></table></td></tr>';
+			*/
+			// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
 			$close_string .= '<tr><td width="100%">'.xtc_draw_separator('pixel_trans.gif', '100%', '10').'</td></tr>';
 			reset($this->modules);
 			$output_string = '';
@@ -78,11 +85,18 @@ class order_total {
 						$selection_string = $GLOBALS[$class]->credit_selection();
 					if (($use_credit_string != '') || ($selection_string != '')) {
 						$output_string .= '<tr colspan="4"><td colspan="4" width="100%">'.xtc_draw_separator('pixel_trans.gif', '100%', '10').'</td></tr>';
-						$output_string .= '<tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >';
+						// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
+						//$output_string .= '<tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >';
+						$output_string .= '<tr>';
+						// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
 						$output_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
-						$output_string .= '<td class="main"><b>'.$GLOBALS[$class]->header.'</b></td>';
+						// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
+						//$output_string .= '<td class="main"><b>'.$GLOBALS[$class]->header.'</b></td>';
+						// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
 						$output_string .=  $use_credit_string;
-						$output_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
+						// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
+						//$output_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
+						// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
 						$output_string .= '</tr>';
 						$output_string .= $selection_string;
 					}
