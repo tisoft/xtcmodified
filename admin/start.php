@@ -18,7 +18,7 @@
 
   $xx_mins_ago = (time() - 900);
 require ('includes/application_top.php');
-require_once 'includes/modules/carp/carp.php';
+require_once ('includes/modules/carp/carp.php');
 require_once (DIR_FS_INC.'xtc_validate_vatid_status.inc.php');
 require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
@@ -94,7 +94,7 @@ $turnover = mysql_fetch_array($turnover_query);
 ?>
 
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Language" content="de">
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
