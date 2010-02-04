@@ -278,16 +278,13 @@ class paypal {
 		// Table paypal_status_history
 		$m_fields="payment_status_history_id int(11) NOT NULL auto_increment, paypal_ipn_id int(11) NOT NULL default '0', txn_id varchar(64) NOT NULL default '', parent_txn_id varchar(64) NOT NULL default '', payment_status varchar(17) NOT NULL default '', pending_reason varchar(64) default NULL, mc_amount decimal(7,2) NOT NULL, date_added datetime NOT NULL default '0001-01-01 00:00:00'";
 		$db_installed = false;
-//BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-				//$tables = mysql_list_tables(DB_DATABASE);
-// BOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-				//$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
-				$tables = mysql_query('SHOW TABLES FROM `' . DB_DATABASE . '`');
-// EOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-//EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-		while($row = mysql_fetch_row($tables)) {
-			if($row[0] == TABLE_PAYPAL_STATUS_HISTORY) $db_installed=true;
+		//BOF - Hetfield - 2010-02-04 - replace mysql_list_tables with query SHOW TABLES -> PHP5.3 depricated
+		//$tables = mysql_list_tables(DB_DATABASE);
+		$tables = xtc_db_query("SHOW TABLES LIKE '".TABLE_PAYPAL_STATUS_HISTORY."'");			
+		while ($checktables = mysql_fetch_array($tables, MYSQL_NUM)) {
+			if ($checktables[0] == TABLE_PAYPAL_STATUS_HISTORY)  $db_installed=true;
 		}
+		//EOF - Hetfield - 2010-02-04 - replace mysql_list_tables with query SHOW TABLES -> PHP5.3 depricated
 		if($db_installed==false):
 			xtc_db_query("create table ".TABLE_PAYPAL_STATUS_HISTORY." ( ".$m_fields.", PRIMARY KEY ( payment_status_history_id), KEY paypal_ipn_id (paypal_ipn_id) )");
 		else:
