@@ -213,7 +213,10 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
 $files = array ();
 if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/')) {
 	while (($file = readdir($dir)) !== false) {
-		if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and ($file != "index.html")) {
+// BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+		//if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and ($file != "index.html")) {
+		if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+// EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
 			$files[] = array ('id' => $file, 'text' => $file);
 		} //if
 	} // while
@@ -240,7 +243,10 @@ if ($content['content_file'] == '') {
 $files = array ();
 if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/')) {
 	while (($file = readdir($dir)) !== false) {
-		if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and ($file != "index.html")) {
+// BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+		//if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and ($file != "index.html")) {
+		if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+// EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
 			$files[] = array ('id' => $file, 'text' => $file);
 		} //if
 	} // while

@@ -1029,9 +1029,14 @@ function SendShopConfig ()
   {
       while (($file = readdir($dir)) != false)
       {
+// BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+/*
           if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_listing/'.$file) and
              ($file != "index.html"))
          {
+*/
+          if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_listing/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+// EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
              $schema .= "<TEMPLATE>" . $file . "</TEMPLATE>\n";
          } //if
      } // while
@@ -1046,9 +1051,14 @@ function SendShopConfig ()
   {
       while (($file = readdir($dir)) != false)
       {
+// BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+/*
           if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and
              ($file != "index.html"))
          {
+*/
+          if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+// EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
              $schema .= "<TEMPLATE>" . $file . "</TEMPLATE>\n";
          } //if
      } // while
@@ -1063,9 +1073,14 @@ function SendShopConfig ()
   {
       while (($file = readdir($dir)) != false)
       {
+// BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+/*
           if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and
              ($file != "index.html"))
          {
+*/
+         	if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+// EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
              $schema .= "<TEMPLATE>" . $file . "</TEMPLATE>\n";
          } //if
      } // while

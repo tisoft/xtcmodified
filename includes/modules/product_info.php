@@ -203,7 +203,10 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$files = array ();
 		if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/')) {
 			while ($file = readdir($dir)) {
-				if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+// BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+				//if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+				if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+// EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
 					$files[] = array ('id' => $file, 'text' => $file);
 				} //if
 			} // while
