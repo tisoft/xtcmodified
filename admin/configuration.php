@@ -259,7 +259,8 @@
 
    if (strstr($value_field,'configuration_value')) $value_field=str_replace('configuration_value',$configuration['configuration_key'],$value_field);
 
-   echo '
+  // BOF vr - 2010-02-04 admin configuration pages 3 column layout 
+  /* echo '
   <tr>
     <td width="300" valign="top" class="dataTableContent"><b>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</b></td>
     <td valign="top" class="dataTableContent">
@@ -270,7 +271,16 @@
     </table>
     <br />'.constant(strtoupper( $configuration['configuration_key'].'_DESC')).'</td>
   </tr>
+  ';*/
+  
+  echo '
+  <tr>
+    <td style="min-width:20%; border-bottom: 1px dotted #CCCCCC;" class="dataTableContent"><b>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</b></td>
+    <td style="min-width:20%; border-bottom: 1px dotted #CCCCCC; background-color:#FCF2CF;" class="dataTableContent">'.$value_field.'</td>
+    <td style="min-width:60%; border-bottom: 1px dotted #CCCCCC;" class="dataTableContent">'.constant(strtoupper( $configuration['configuration_key'].'_DESC')).'</td>
+  </tr>
   ';
+  // EOF vr - 2010-02-04 admin configuration pages 3 column layout 
 
   }
 ?>

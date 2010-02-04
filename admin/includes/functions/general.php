@@ -922,14 +922,41 @@ function xtc_set_time_limit($limit) {
 function xtc_cfg_select_option($select_array, $key_value, $key = '') {
 	for ($i = 0, $n = sizeof($select_array); $i < $n; $i ++) {
 		$name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
-		$string .= '<br /><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
+		// BOF vr - 2010-02-04 admin configuration pages 3 column layout 
+		/*$string .= '<br /><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
+		if ($key_value == $select_array[$i])
+			$string .= ' CHECKED';
+		$string .= '> '.$select_array[$i];*/
+		if ($i < $n-1)
+			$string .= '<div style="float:left;min-width:120px;"><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
+		else
+			$string .= '<div><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
 		if ($key_value == $select_array[$i])
 			$string .= ' CHECKED';
 		$string .= '> '.$select_array[$i];
+		$string .= '</div>';
+		// EOF vr - 2010-02-04 admin configuration pages 3 column layout 
 	}
 
 	return $string;
 }
+
+// Alias function for Store configuration values in the Administration Tool
+function xtc_cfg_select_option($select_array, $key_value, $key = '') {
+  for ($i = 0, $n = sizeof($select_array); $i < $n; $i ++) {
+    $name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
+    if ($i < $n-1)
+	  $string .= '<div style="float:left;min-width:120px;"><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
+    else
+	  $string .= '<div><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
+	if ($key_value == $select_array[$i])
+	  $string .= ' CHECKED';
+	$string .= '> '.$select_array[$i];
+	$string .= '</div>';
+  }
+  return $string;
+}
+
 
 ////
 // Alias function for module configuration keys
