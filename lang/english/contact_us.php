@@ -1,6 +1,6 @@
 <?php
 
- define('EMAIL_COMPAGNY', 'Company: ');
+ define('EMAIL_COMPANY', 'Company: ');
  define('EMAIL_STREET', 'Street: ');
  define('EMAIL_POSTCODE', 'Postcode: ');
  define('EMAIL_CITY', 'City: ');

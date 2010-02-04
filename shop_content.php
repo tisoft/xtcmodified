@@ -78,7 +78,7 @@ if ($_GET['coID'] == 7) {
 			
 			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 			$additional_fields = '';			
-			if (isset($_POST['company']))  $additional_fields =  EMAIL_COMPAGNY. $_POST['company'] . "\n" ;
+			if (isset($_POST['company']))  $additional_fields =  EMAIL_COMPANY. $_POST['company'] . "\n" ;
 			if (isset($_POST['street']))   $additional_fields .= EMAIL_STREET . $_POST['street'] . "\n" ;
 			if (isset($_POST['postcode'])) $additional_fields .= EMAIL_POSTCODE . $_POST['postcode'] . "\n" ;
 			if (isset($_POST['city']))     $additional_fields .= EMAIL_CITY . $_POST['city'] . "\n" ;
