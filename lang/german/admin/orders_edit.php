@@ -68,7 +68,6 @@ define('TEXT_SHIPPING', 'Versandkosten');
 define('TEXT_COD_COSTS', 'Nachnahmekosten');
 define('TEXT_VALUE', 'Preis');
 define('TEXT_DESC', 'Einf&uuml;gen');
-define('TEXT_CUSTOMER_GROUP', 'Kundengruppe:');
 
 // Sonstiges
 

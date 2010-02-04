@@ -357,7 +357,7 @@ if ($content['content_file'] == '') {
   
   <table width="100%" border="0">
   <tr>
-  <td bgcolor="000000" height="10"></td>
+  <td bgcolor="#000000" height="10"></td>
   </tr>
   <tr>
 <!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
