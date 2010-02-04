@@ -660,4 +660,9 @@ define('USE_ADMIN_LANG_TABS_DESC' , 'Use language tabs with categories / article
 define('USE_CONTACT_EMAIL_ADDRESS_TITLE' , 'Contact Us - sending option');
 define('USE_CONTACT_EMAIL_ADDRESS_DESC' , 'Use "Contact Us" e-mail address for sending contact form (important for some Hosters like Hosteurope)');
 // EOF - Tomcraft - 2009-11-05 - Advanced contact form
+
+// BOF - Dokuman - 2010-02-04 - delete cache files in admin section
+define('DELETE_CACHE_SUCCESSFUL', 'Cache deleted successfully.');
+define('DELETE_TEMP_CACHE_SUCCESSFUL', 'Templatecache deleted successfully.');
+// EOF - Dokuman - 2010-02-04 - delete cache files in admin section
 ?>

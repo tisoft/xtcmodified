@@ -439,7 +439,6 @@ define('EMAIL_BILLING_SUBJECT_DESC' , 'Geben Sie bitte einen E-Mailbetreff f&uum
 define('EMAIL_BILLING_SUBJECT_ORDER_TITLE','Verrechnung - E-Mail Betreff');
 define('EMAIL_BILLING_SUBJECT_ORDER_DESC','Geben Sie bitte einen E-Mailbetreff f&uuml;r Ihre Bestellmails an. (zb: <b>Ihre Bestellung {$nr},am {$date}</b>) ps: folgende Variablen stehen zur Verf&uuml;gung, {$nr},{$date},{$firstname},{$lastname}');
 
-
 define('DOWNLOAD_ENABLED_TITLE' , 'Download von Artikeln erlauben');
 define('DOWNLOAD_ENABLED_DESC' , 'Die Artikel Download Funktionen einschalten (Software etc).');
 define('DOWNLOAD_BY_REDIRECT_TITLE' , 'Download durch Redirection');
@@ -662,4 +661,10 @@ define('USE_ADMIN_LANG_TABS_DESC' , 'Sprachtabs bei den Eingabefeldern f&uuml;r 
 define('USE_CONTACT_EMAIL_ADDRESS_TITLE' , 'Kontaktformular - Sendeoption');
 define('USE_CONTACT_EMAIL_ADDRESS_DESC' , '"Kontakt E-Mail" Adresse des Shops zum Versenden des Kontaktformulars verwenden (wichtig f&uuml;r einige Provider z.B Hosteurope)');
 // EOF - Tomcraft - 2009-11-05 - Advanced contact form
+
+// BOF - Dokuman - 2010-02-04 - delete cache files in admin section
+define('DELETE_CACHE_SUCCESSFUL', 'Cache erfolgreich geleert.');
+define('DELETE_TEMP_CACHE_SUCCESSFUL', 'Templatecache erfolgreich geleert.');
+// EOF - Dokuman - 2010-02-04 - delete cache files in admin section
+
 ?>
