@@ -83,7 +83,7 @@
          <td class="fastmenu" align="center"><a href="categories.php"><img src="images/icons/fastnav/icon_categories.jpg" alt="<?php echo (BOX_CATEGORIES) ; ?>" width="40" height="40" border="0"></a><br>
 		<?php echo (BOX_CATEGORIES) ; ?>
 		</td>
-         <td class="fastmenu" align="center"><a href="../index.php" target="_blank"><img src="images/icons/fastnav/icon_shop.jpg" width="40" height="40" border="0"></a><br>
+         <td class="fastmenu" align="center"><a href="../index.php"><img src="images/icons/fastnav/icon_shop.jpg" width="40" height="40" border="0"></a><br>
 		Shop
 		</td>
         <td class="fastmenu" align="center"><a href="../logoff.php"><img src="images/icons/fastnav/icon_logout.jpg" width="40" height="40" border="0"></a><br>
