@@ -123,7 +123,7 @@
 				<table border="0" width="100%" cellspacing="0" cellpadding="0">
 					<tr>
 						<td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_configuration.gif'); ?></td>
-						<td class="pageHeading"><?php 
+						<td width="184" class="pageHeading"><?php 
 						// BOF - Hetfield - 2010-01-15 - multilanguage title in configuration
 						if (!@constant(BOX_CONFIGURATION_.$cfg_group['configuration_group_id'])) {
 							echo $cfg_group['configuration_group_title'];
@@ -132,6 +132,20 @@
 						}
 						// EOF - Hetfield - 2010-01-15 - multilanguage title in configuration
 						?></td>
+						<?PHP //BOF - Dokuman - 2010-02-04 - delete cache files in admin section ?>
+					    <td rowspan="2" class="pageHeading">
+					    <?PHP				          
+							if ($_GET['gID']==11) {
+								echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=delcache');
+								echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE_CACHE . '"/></form> ';
+								echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=deltempcache');
+								echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE_TEMP_CACHE . '"/></form>';
+							}						
+
+
+						?>
+						</td>
+						<?PHP //EOF - Dokuman - 2010-02-04 - delete cache files in admin section ?>
 					</tr>
 					<tr>
 						<td class="main" valign="top">XT Configuration</td>
@@ -192,7 +206,7 @@
           
           <tr>
             <td valign="top" align="right"><?php echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=save'); ?>
-            <table width="100%"  border="0" cellspacing="0" cellpadding="4">
+            <table width="100%"  border="0" cellspacing="0" cellpadding="8">
 <?php
   $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
 
@@ -275,9 +289,9 @@
   
   echo '
   <tr>
-    <td style="min-width:20%; border-bottom: 1px dotted #CCCCCC;" class="dataTableContent"><b>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</b></td>
-    <td style="min-width:20%; border-bottom: 1px dotted #CCCCCC; background-color:#FCF2CF;" class="dataTableContent">'.$value_field.'</td>
-    <td style="min-width:60%; border-bottom: 1px dotted #CCCCCC;" class="dataTableContent">'.constant(strtoupper( $configuration['configuration_key'].'_DESC')).'</td>
+    <td style="min-width:20%; border-bottom: 1px solid #aaaaaa;" class="dataTableContent"><b>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</b></td>
+    <td style="min-width:20%; border-bottom: 1px solid #aaaaaa; background-color:#e8e8e8;" class="dataTableContent">'.$value_field.'</td>
+    <td style="min-width:60%; border-bottom: 1px solid #aaaaaa;" class="dataTableContent">'.constant(strtoupper( $configuration['configuration_key'].'_DESC')).'</td>
   </tr>
   ';
   // EOF vr - 2010-02-04 admin configuration pages 3 column layout 
@@ -287,16 +301,6 @@
             </table>
 			<?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?>
 			</form>
-<?php
-	//BOF - Dokuman - 2010-02-04 - delete cache files in admin section
-	if ($_GET['gID']==11) {
-	  echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=delcache');
-	  echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE_CACHE . '"/></form> ';
-	  echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=deltempcache');
-	  echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE_TEMP_CACHE . '"/></form>';
-	}
-	//EOF - Dokuman - 2010-02-04 - delete cache files in admin section
-?>
             </td>
 
           </tr>
