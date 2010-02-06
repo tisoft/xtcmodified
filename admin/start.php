@@ -47,7 +47,7 @@ $customers_query = xtc_db_query('select cs.customers_status_name cust_group, cou
                      order by 2 desc');
 // save query result
 $customers = array();
-while ($row = mysql_fetch_array($customers_query))
+while ($row = xtc_db_fetch_array($customers_query))
   $customers[] = $row;
 
 // newsletter
@@ -72,7 +72,7 @@ $orders_query = xtc_db_query('select os.orders_status_name status, coalesce(o.or
                 where os.language_id = ' . $language_id . '
                 order by os.orders_status_id');
 $orders = array();
-while ($row = mysql_fetch_array($orders_query))
+while ($row = xtc_db_fetch_array($orders_query))
   $orders[] = $row;
 	
 // specials	
@@ -90,7 +90,7 @@ $turnover_query = xtc_db_query('select
   from ' . TABLE_ORDERS . ' o 
   join ' . TABLE_ORDERS_TOTAL . ' ot on ot.orders_id = o.orders_id 
   where ot.class = \'ot_total\'');
-$turnover = mysql_fetch_array($turnover_query);	
+$turnover = xtc_db_fetch_array($turnover_query);	
 ?>
 
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -430,7 +430,7 @@ $ergebnis = xtc_db_query("select
                           order by customers_dob");
 
 $this_month = array();
-while($row = mysql_fetch_array($ergebnis))
+while($row = xtc_db_fetch_array($ergebnis))
 {
    if ($row['today'] == 1) {
      echo '<tr><td width="68%" bgcolor="#F9F0F1">' . $row['name'] . '</td>';
