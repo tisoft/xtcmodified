@@ -148,11 +148,11 @@ define('TEXT_TITLE_SUCCESS','Der Datenbank-Import war erfolgreich.');
 
 // install_step4.php
 define('TITLE_WEBSERVER_CONFIGURATION','Webserver Informationen:');
-define('TITLE_STEP4_ERROR','Der folgenden Fehler ist aufgetreten:');
-define('TEXT_STEP4_ERROR','<b>Die Konfigurationsdateien existieren nicht, oder deren Rechte sind nicht richtig gesetzt.</b><br /><br />Bitte F&uuml;hren Sie folgende Aktionen durch: ');
+define('TITLE_STEP4_ERROR','Der folgende Fehler ist aufgetreten:');
+define('TEXT_STEP4_ERROR','<b>Die Konfigurationsdateien existieren nicht, oder deren Rechte sind nicht richtig gesetzt.</b><br /><br />Bitte f&uuml;hren Sie folgende Aktionen durch: ');
 define('TEXT_STEP4_ERROR_1','Wenn <i>chmod 706</i> nicht funktioniert, versuchen Sie <i>chmod 777</i>.');
 define('TEXT_STEP4_ERROR_2','Wenn Sie diese Installationsroutine in einer Windows Umgebung ausf&uuml;hren, versuchen Sie das Umbenennen der entsprechenden Dateien.');
-define('TEXT_VALUES','Die folgenden Kofiguarations-Werte werden nun in die Dateien geschrieben:');
+define('TEXT_VALUES','Die folgenden Konfigurations-Werte werden nun in die Dateien geschrieben:');
 define('TITLE_CHECK_CONFIGURATION','Bitte pr&uuml;fen Sie Ihre Webserver Informationen');
 define('TEXT_HTTP','HTTP Server');
 define('TEXT_HTTP_LONG','Der Webserver kann als Hostnamen, wie zum Beispiel <i>http://www.myserver.com</i>, oder als IP-Adresse <i>http://192.168.0.1</i> angegeben werden.');
