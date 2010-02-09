@@ -32,7 +32,10 @@ define('PRIORITY_PRODUCTS', '0.5');
 define('MAX_ENTRYS', 50000); 
 define('MAX_SIZE', 10000000); 
 define('GOOGLE_URL', 'http://www.google.com/webmasters/sitemaps/ping?sitemap='); 
-define('LIVE_URL', 'http://webmaster.live.com/webmaster/ping.aspx?siteMap=');      
+// BOF - Tomcraft - 2010-02-09 - Changed LIVE_URL
+//define('LIVE_URL', 'http://webmaster.live.com/webmaster/ping.aspx?siteMap=');      
+define('LIVE_URL', 'http://www.bing.com/webmaster/ping.aspx?siteMap=');
+// EOF - Tomcraft - 2010-02-09 - Changed LIVE_URL
 define('ASK_URL', 'http://submissions.ask.com/ping?sitemap=');     
 $SEO_DOMAINS = array(LIVE_URL,ASK_URL,GOOGLE_URL); 
 
