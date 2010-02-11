@@ -86,3 +86,6 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WIL','Wiltshire');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WOR','Worcestershire');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','YOR','York');
+
+# BOF - DokuMan - 2010-02-11 - set default separator sign to semicolon ';' instead of tabulator '\t'
+UPDATE configuration SET configuration_value = ';' WHERE configuration_key = 'CSV_SEPERATOR';

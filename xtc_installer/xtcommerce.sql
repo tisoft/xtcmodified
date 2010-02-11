@@ -1502,7 +1502,9 @@ INSERT INTO configuration (configuration_id,  configuration_key, configuration_v
 
 #configuration_group_id 20
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CSV_TEXTSIGN', '"', '20', '1', NULL , '0000-00-00 00:00:00', NULL , NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CSV_SEPERATOR', '\t', '20', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
+# BOF - DokuMan - 2010-02-11 - set default separator sign to semicolon ';' instead of tabulator '\t'
+INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CSV_SEPERATOR', ';', '20', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
+# EOF - DokuMan - 2010-02-11 - set default separator sign to semicolon ';' instead of tabulator '\t'
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'COMPRESS_EXPORT', 'false', '20', '3', NULL , '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #configuration_group_id 21, Afterbuy

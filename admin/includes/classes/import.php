@@ -28,6 +28,11 @@ class xtcImport {
 	function xtcImport($filename) {
 		$this->seperator = CSV_SEPERATOR;
 		$this->TextSign = CSV_TEXTSIGN;
+		//BOF - Dokuman - 2010-02-11 - set default textsign
+		if (trim(CSV_TEXTSIGN) == '') {
+			$this->TextSign = '"';
+		}
+    //EOF - Dokuman - 2010-02-11 - set default textsign
 		if (CSV_SEPERATOR == '') {
 			$this->seperator = "\t";
 		}
