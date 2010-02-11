@@ -41,28 +41,28 @@
 *************************************************************************
    ---------------------------------------------------------------------------------------*/
 
-  define('MODULE_PAYMENT_ICLEAR_TEXT_TITLE', 'iclear Payment System');
-  define('MODULE_PAYMENT_ICLEAR_TEXT_DESCRIPTION', 'iclear');
-  define('MODULE_PAYMENT_ICLEAR_TEXT_ERROR_MESSAGE', 'Bei der &Uuml;berp&uuml;fung Ihres iclear Rechnungskaufes ist ein Fehler aufgetreten! Bitte versuchen Sie es nochmal oder w&auml;hlen Sie eine andere Zahlungsweise.');
+  define('MODULE_PAYMENT_ICLEAR_TEXT_TITLE', 'EuroCoin iclear Payment System');
+  define('MODULE_PAYMENT_ICLEAR_TEXT_DESCRIPTION', 'EuroCoin iclear');
+  define('MODULE_PAYMENT_ICLEAR_TEXT_ERROR_MESSAGE', 'There was an error during your payment at EuroCoin iclear! Please try again/ select another payment option.');
   define('MODULE_PAYMENT_ICLEAR_TEXT_INFO','');
-  define('MODULE_PAYMENT_ICLEAR_ALLOWED_TITLE' , 'Erlaubte Zonen');
-  define('MODULE_PAYMENT_ICLEAR_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
+  define('MODULE_PAYMENT_ICLEAR_ALLOWED_TITLE', 'Allowed zones');
+  define('MODULE_PAYMENT_ICLEAR_ALLOWED_DESC', 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
 
-define('MODULE_PAYMENT_ICLEAR_STATUS_TITLE', 'Allow iclear');
-  define('MODULE_PAYMENT_ICLEAR_STATUS_DESC', 'Wollen Sie Zahlungen per iclear Rechnungskauf anbieten?');
+  define('MODULE_PAYMENT_ICLEAR_STATUS_TITLE', 'Allow EuroCoin iclear');
+  define('MODULE_PAYMENT_ICLEAR_STATUS_DESC', 'Do you want to accept EuroCoin iclear payments?');
 
   define('MODULE_PAYMENT_ICLEAR_ID_TITLE', 'Merchant ID');
   define('MODULE_PAYMENT_ICLEAR_ID_DESC', 'Your merchant ID at EuroCoin iclear.');
 
-  define('MODULE_PAYMENT_ICLEAR_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige.');
-  define('MODULE_PAYMENT_ICLEAR_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');
+  define('MODULE_PAYMENT_ICLEAR_SORT_ORDER_TITLE', 'Sort order');
+  define('MODULE_PAYMENT_ICLEAR_SORT_ORDER_DESC', 'Sort order of the view. Lowest numeral will be displayed first');
 
-  define('MODULE_PAYMENT_ICLEAR_ZONE_TITLE', 'Zone für diese Zahlungsweise');
-  define('MODULE_PAYMENT_ICLEAR_ZONE_DESC', 'Wenn Sie eine Zone auswählen, wird diese Zahlungsweise nur in dieser Zone angeboten.');
+  define('MODULE_PAYMENT_ICLEAR_ZONE_TITLE', 'Payment zone');
+  define('MODULE_PAYMENT_ICLEAR_ZONE_DESC', 'If a zone is choosen, the payment method will be valid for this zone only.');
 
-  define('MODULE_PAYMENT_ICLEAR_ORDER_STATUS_ID_TITLE', 'Order Status');
-  define('MODULE_PAYMENT_ICLEAR_ORDER_STATUS_ID_DESC', 'Festlegung des Status für Bestellungen, welche mit dieser Zahlungsweise durchgeführt werden.');
+  define('MODULE_PAYMENT_ICLEAR_ORDER_STATUS_ID_TITLE', 'Set Order Status');
+  define('MODULE_PAYMENT_ICLEAR_ORDER_STATUS_ID_DESC', 'Set the status of orders made with this payment module to this value');
 
-  define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_TITLE', 'MWST Satz Versandkosten');
-  define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_DESC', 'Festlegen mit welchem MWST Satz Versandkosten erstellt werden, falls Versandkosten ohne MWST Satz angegeben sind.');
+  define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_TITLE', 'Tax Class');
+  define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_DESC', 'Use the following tax class on the shipping fee.');
 ?>
