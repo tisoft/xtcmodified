@@ -138,9 +138,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 			$info_message = TEXT_EMAIL_NOT_EXIST;
 		} else {
 			$del_query = xtc_db_query("delete from ".TABLE_NEWSLETTER_RECIPIENTS." where customers_email_address ='".xtc_db_input($_POST['email'])."'");
-            //BOF - web28 - 2010-02-09:UPDATE TABLE CUSTOMERS
-            xtc_db_query("update ".TABLE_CUSTOMERS." set customers_newsletter = '0' where customers_email_address = '".xtc_db_input($_POST['email'])."'");
-			//EOF - web28 - 2010-02-09: UPDATE TABLE CUSTOMERS
+           
 			$info_message = TEXT_EMAIL_DEL;
 		}	
 	}	
@@ -160,9 +158,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'activate')) {
 			$info_message = TEXT_EMAIL_ACTIVE_ERROR;
 		} else {
 			xtc_db_query("update ".TABLE_NEWSLETTER_RECIPIENTS." set mail_status = '1' where customers_email_address = '".xtc_db_input($_GET['email'])."'");
-			//BOF - web28 - 2010-02-09: UPDATE TABLE CUSTOMERS
-            xtc_db_query("update ".TABLE_CUSTOMERS." set customers_newsletter = '1' where customers_email_address = '".xtc_db_input($_GET['email'])."'");
-			//EOF - web28 - 2010-02-09:UPDATE TABLE CUSTOMERS
+			
 			$info_message = TEXT_EMAIL_ACTIVE;
 		}
 	}
@@ -186,9 +182,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'remove')) {
 			$info_message = TEXT_EMAIL_DEL_ERROR;
 		} else {
 			$del_query = xtc_db_query("delete from ".TABLE_NEWSLETTER_RECIPIENTS." where  customers_email_address ='".xtc_db_input($_GET['email'])."' and mail_key = '".xtc_db_input($_GET['key'])."'");
-			//BOF - web28 - 2010-02-09: UPDATE TABLE CUSTOMERS
-            xtc_db_query("update ".TABLE_CUSTOMERS." set customers_newsletter = '0' where customers_email_address = '".xtc_db_input($_GET['email'])."'");
-			//EOF - web28 - 2010-02-09: UPDATE TABLE CUSTOMERS
+			
 			$info_message = TEXT_EMAIL_DEL;
 		}
 	}
