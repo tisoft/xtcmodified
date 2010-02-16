@@ -161,9 +161,6 @@
          		case 21:
          			echo AFTERBUY_URL;
          		case 19:
-            // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-         		case 25:
-            // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
             //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
          		case 31:
             //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
@@ -184,11 +181,6 @@
                 			<td width="1">|
                 			</td>
                 			<td width="150" align="center">
-                			<a class="button" class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=25', 'NONSSL').'">PayPal</a>
-                			</td>
-                			<td width="1">|
-                			</td>
-                			<td width="150" align="center">
                 			<a class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=31', 'NONSSL').'">Moneybookers.com</a>
                 			</td>
                 			<td width="1">|
@@ -198,7 +190,7 @@
             				</tr>
         					</table>';
 						if ($_GET['gID']=='31') echo MB_INFO;
-//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers & paypal payment module version 2.4        		
+//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4        		
          			break;
          	}
          	?> 

@@ -115,8 +115,4 @@ define('TABLE_HEADING_DISCOUNT','Rabatt');
 define('ENTRY_CUSTOMERS_GROUP','Kundengruppe:');
 define('ENTRY_CUSTOMERS_VAT_ID','UST-ID:');
 define('TEXT_VALIDATING','Nicht best&auml;tigt');
-
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-define('TEXT_INFO_PAYPAL_DELETE', 'PayPal Transaktions Daten auch löschen.');
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 ?>

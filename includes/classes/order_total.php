@@ -1,16 +1,16 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: order_total.php 1029 2005-07-14 19:08:49Z mz $
+   $Id: order_total.php 1029 2005-07-14 19:08:49Z mz $   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2003 XT-Commerce
    -----------------------------------------------------------------------------------------
-   based on:
+   based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(order_total.php,v 1.4 2003/02/11); www.oscommerce.com
+   (c) 2002-2003 osCommerce(order_total.php,v 1.4 2003/02/11); www.oscommerce.com 
    (c) 2003	 nextcommerce (order_total.php,v 1.6 2003/08/13); www.nextcommerce.org
 
    Released under the GNU General Public License
@@ -49,31 +49,21 @@ class order_total {
 		$close_string = '';
 		$credit_class_string = '';
 		if (MODULE_ORDER_TOTAL_INSTALLED) {
-			// PayPal Änderung:
-			$header_string  = '<tr><td>';
-			$header_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="2">';
-			// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
-			//$header_string .= '<tr><td class="main"><b>'.TABLE_HEADING_CREDIT.'</b></td></tr>';
-			$header_string .= '<tr><td><div style="margin-left:15px"><b>'.TABLE_HEADING_CREDIT.'</b></div></td></tr>';
-			// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
-			$header_string .= '</table>';
-			$header_string .= '</td></tr>';
-			// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
-			/*
-			$header_string .= '<tr><td>';
-			$header_string .= '<table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">';
-			$header_string .= '<tr class="infoBoxContents"><td>';
-			$header_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="2">';
-			$header_string .= '<tr>';
-			$header_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
-			$header_string .= '<td colspan="2">';
-			$header_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="2">';
-			$close_string  = '</table>';
-			$close_string .= '</td>';
+			$header_string = '<tr>'."\n";
+			$header_string .= '   <td><table border="0" width="100%" cellspacing="0" cellpadding="2">'."\n";
+			$output1_string .= '      <tr>'."\n";
+			$header_string .= '        <td class="main"><strong>'.TABLE_HEADING_CREDIT.'</strong></td>'."\n";
+			$header_string .= '      </tr>'."\n";
+			$header_string .= '    </table></td>'."\n";
+			$header_string .= '  </tr>'."\n";
+			$header_string .= '<tr>'."\n";
+			$header_string .= '   <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">'."\n";
+			$header_string .= '     <tr class="infoBoxContents"><td><table border="0" width="100%" cellspacing="0" cellpadding="2">'."\n";
+			$header_string .= '       <tr><td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>'."\n";
+			$header_string .= '           <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">'."\n";
+			$close_string = '                           </table></td>';
 			$close_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
-			$close_string .= '</tr></table></td></tr></table></td></tr>';
-			*/
-			// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
+			$close_string .= '</tr></table></td></tr></table></td>';
 			$close_string .= '<tr><td width="100%">'.xtc_draw_separator('pixel_trans.gif', '100%', '10').'</td></tr>';
 			reset($this->modules);
 			$output_string = '';
@@ -85,19 +75,9 @@ class order_total {
 						$selection_string = $GLOBALS[$class]->credit_selection();
 					if (($use_credit_string != '') || ($selection_string != '')) {
 						$output_string .= '<tr colspan="4"><td colspan="4" width="100%">'.xtc_draw_separator('pixel_trans.gif', '100%', '10').'</td></tr>';
-						// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
-						//$output_string .= '<tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >';
-						$output_string .= '<tr>';
-						// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
-						$output_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
-						// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
-						//$output_string .= '<td class="main"><b>'.$GLOBALS[$class]->header.'</b></td>';
-						// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
-						$output_string .=  $use_credit_string;
-						// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
-						//$output_string .= '<td width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
-						// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
-						$output_string .= '</tr>';
+						$output_string = ' <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >'."\n".'   <td s width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>'.'     <td   class="main"><strong>'.$GLOBALS[$class]->header.'</strong></td>'.$use_credit_string;
+						$output_string .= '<td  width="10">'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>';
+						$output_string .= '  </tr>'."\n";
 						$output_string .= $selection_string;
 					}
 
@@ -272,26 +252,7 @@ class order_total {
 				if ($GLOBALS[$class]->enabled) {
 					$size = sizeof($GLOBALS[$class]->output);
 					for ($i = 0; $i < $size; $i ++) {
-						$output_string .= '<tr><td align="right" class="main">'.$GLOBALS[$class]->output[$i]['title'].'</td><td align="right" class="main">'.$GLOBALS[$class]->output[$i]['text'].'</td></tr>';
-					}
-				}
-			}
-		}
-
-		return $output_string;
-	}
-
-	// PayPal Änderung:
-	function pp_output() {
-		$output_string = '';
-		if (is_array($this->modules)) {
-			reset($this->modules);
-			while (list (, $value) = each($this->modules)) {
-				$class = substr($value, 0, strrpos($value, '.'));
-				if ($GLOBALS[$class]->enabled) {
-					$size = sizeof($GLOBALS[$class]->output);
-					for ($i = 0; $i < $size; $i ++) {
-						$output_string[] = array('title'=>$GLOBALS[$class]->output[$i]['title'], 'text'=>$GLOBALS[$class]->output[$i]['text']);
+						$output_string .= '              <tr>'."\n".'                <td align="right" class="main">'.$GLOBALS[$class]->output[$i]['title'].'</td>'."\n".'                <td align="right" class="main">'.$GLOBALS[$class]->output[$i]['text'].'</td>'."\n".'              </tr>';
 					}
 				}
 			}

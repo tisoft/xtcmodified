@@ -233,12 +233,6 @@ if (isset ($_GET['action'])) {
 			}
 			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'SSL'));
 			break;
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-		case 'paypal_express_checkout' :
-			$o_paypal->paypal_express_auth_call();
-			xtc_redirect($o_paypal->payPalURL);
-			break;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 	}
 }
 ?>

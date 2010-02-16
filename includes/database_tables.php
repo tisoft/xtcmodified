@@ -108,9 +108,7 @@
   define('TABLE_PAYMENT_MONEYBOOKERS','payment_moneybookers');
   define('TABLE_PAYMENT_AMONEYBOOKERS_CURRENCIES','payment_AMONEYBOOKERS_currencies');
   define('TABLE_PAYMENT_AMONEYBOOKERS_COUNTRIES','payment_AMONEYBOOKERS_countries');
-  // Paypal
-  define('TABLE_PAYPAL', 'paypal');
-  define('TABLE_PAYPAL_STATUS_HISTORY', 'paypal_status_history');
+
   // Sofortüberweisung
   define('TABLE_PAYMENT_IPAYMENT', 'payment_ipayment');
   define('TABLE_PAYMENT_IPAYMENT_LOG', 'payment_ipayment_log');

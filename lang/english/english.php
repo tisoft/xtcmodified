@@ -479,20 +479,5 @@ define('ERROR_EMAIL','<p><b>Your e-mail address:</b> None or invalid input!</p>'
 define('ERROR_VVCODE','<p><b>Security code:</b> No match, please enter your security code again!</p>');
 define('ERROR_MSG_BODY','<p><b>Your message:</b> No input!</p>');
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-define('NAVBAR_TITLE_PAYPAL_CHECKOUT','PayPal-Checkout');
-define('PAYPAL_ERROR','PayPal abort');
-define('PAYPAL_NOT_AVIABLE','PayPal Express is not available.<br />Please select another method of payment<br />or try again later.<br />');
-define('ERROR_ADDRESS_NOT_ACCEPTED', 'We are not able to accept your order if you do not accept your address!');
-define('PAYPAL_FEHLER','PayPal announced an error to the completion..<br />Your order is stored, is however not implemented.<br />Please enter a new order.<br />Thanks for your understanding.<br />');
-define('PAYPAL_WARTEN','PayPal announced an error to the completion.<br />You must pay again to PayPal around the order.<br />Down you see the stored order.<br /> Thanks for it pressing to understanding request you again the button PayPal express.<br />');
-define('PAYPAL_NEUBUTTON','Press please again around the order to pay.<br />Every other key leads to the abort of the order.');
-define('PAYPAL_GS','Coupon');
-define('PAYPAL_TAX','Tax');
-define('PAYPAL_EXP_WARN','Note! Possibly resulting forwarding expenses are only computed in the shop finally.');
-define('PAYPAL_EXP_VORL','Provisional forwarding expenses');
-define('PAYPAL_EXP_VERS','12.90');
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-
 define('BASICPRICE_VPE_TEXT','in this volume only '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
 ?>

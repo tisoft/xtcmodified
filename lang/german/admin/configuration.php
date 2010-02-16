@@ -606,47 +606,6 @@ define('REVOCATION_ID_DESC','Content ID des Widerrufrechts');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_TITLE','Anzeige Widerrufrecht?');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_DESC','Widerrufrecht auf checkout_confirmation anzeigen?');
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-define('PAYPAL_MODE_TITLE','PayPal-Modus:');
-define('PAYPAL_MODE_DESC','Live (Normal) oder Testbetrieb (Sandbox)');
-define('PAYPAL_API_USER_TITLE','PayPal-API-Benutzer (Live)');
-define('PAYPAL_API_USER_DESC','trage hier den Benutzernamen ein.');
-define('PAYPAL_API_PWD_TITLE','PayPal-API-Passwort (Live)');
-define('PAYPAL_API_PWD_DESC','trage hier das Passwort ein.');
-define('PAYPAL_API_SIGNATURE_TITLE','PayPal-API-Signatur (Live)');
-define('PAYPAL_API_SIGNATURE_DESC','trage hier die API Signatur ein.');
-define('PAYPAL_API_SANDBOX_USER_TITLE','PayPal-API-Benutzer (Sandbox)');
-define('PAYPAL_API_SANDBOX_USER_DESC','trage hier den Benutzernamen ein.');
-define('PAYPAL_API_SANDBOX_PWD_TITLE','PayPal-API-Passwort (Sandbox)');
-define('PAYPAL_API_SANDBOX_PWD_DESC','trage hier das Passwort ein.');
-define('PAYPAL_API_SANDBOX_SIGNATURE_TITLE','PayPal-API-Signatur (Sandbox)');
-define('PAYPAL_API_SANDBOX_SIGNATURE_DESC','trage hier die API Signatur ein.');
-define('PAYPAL_API_VERSION_TITLE','PayPal-API-Version');
-define('PAYPAL_API_VERSION_DESC','trage hier die aktuelle PayPal API Version ein - z.B.: 57.0');
-define('PAYPAL_API_IMAGE_TITLE','PayPal Shop-Logo');
-define('PAYPAL_API_IMAGE_DESC','trage hier die Logo-Datei ein, die bei PayPal angezeigt werden soll.<br />Achtung: Wird nur &uuml;bertragen wenn der Shop mit SSL arbeitet.<br />Das Bild darf max. 750px breit und 90px hoch sein.<br />Aufgerufen wird die Datei aus: '.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
-define('PAYPAL_API_CO_BACK_TITLE','PayPal Hintergrund-Farbe');
-define('PAYPAL_API_CO_BACK_DESC','trage hier die Hintergrundfarbe ein, die bei PayPal angezeigt werden soll. z.B. FEE8B9');
-define('PAYPAL_API_CO_BORD_TITLE','PayPal Rahmen-Farbe');
-define('PAYPAL_API_CO_BORD_DESC','trage hier die Rahmenfarbe ein, die bei PayPal angezeigt werden soll. z.B. E4C558');
-define('PAYPAL_ERROR_DEBUG_TITLE','PayPal Fehler Anzeige');
-define('PAYPAL_ERROR_DEBUG_DESC','Soll der original PayPal Fehler angezeigt werden? Normal=false');
-define('PAYPAL_ORDER_STATUS_TMP_ID_TITLE','Bestellstatus "abgebrochen"');
-define('PAYPAL_ORDER_STATUS_TMP_ID_DESC','w&auml;hle den Bestellstatus f&uuml;r ein abgebrochenen Aktion aus (z.B. PayPal Abbruch)');
-define('PAYPAL_ORDER_STATUS_SUCCESS_ID_TITLE','Bestellstatus OK');
-define('PAYPAL_ORDER_STATUS_SUCCESS_ID_DESC','w&auml;hle den Bestellstatus f&uuml;r eine erfolgreiche Transaktion aus (z.B. Offen PP bezahlt)');
-define('PAYPAL_ORDER_STATUS_PENDING_ID_TITLE','Bestellstatus "in Bearbeitung"');
-define('PAYPAL_ORDER_STATUS_PENDING_ID_DESC','w&auml;hle den Bestellstatus f&uuml;r eine Transaktion aus, die noch nicht von PayPal bearbeitet wurde (z.B. Offen PP wartend)');
-define('PAYPAL_ORDER_STATUS_REJECTED_ID_TITLE','Bestellstatus "abgewiesen"');
-define('PAYPAL_ORDER_STATUS_REJECTED_ID_DESC','w&auml;hle den Bestellstatus f&uuml;r eine abgelehnte Transaktion aus (z.B. PayPal abgelehnt)');
-define('PAYPAL_COUNTRY_MODE_TITLE','PayPal-L&auml;ndermodus');
-define('PAYPAL_COUNTRY_MODE_DESC','w&auml;hle hier die Einstellung f&uuml;r den L&auml;ndermodus. Verschiedene Funktionen von PayPal sind nur in UK m&ouml;glich (z.b. DirectPayment )');
-define('PAYPAL_EXPRESS_ADDRESS_CHANGE_TITLE','PayPal-Express-Adressdaten');
-define('PAYPAL_EXPRESS_ADDRESS_CHANGE_DESC','Erlaubt das &Auml;ndern der von PayPal &uuml;bermittelten Adressdaten');
-define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_TITLE','Lieferadresse &uuml;berschreiben');
-define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Erlaubt das &Auml;ndern der von PayPal &uuml;bermittelten Adressdaten (bestehendes Konto)');
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-
 // BOF - Tomcraft - 2009-11-02 - New admin top menu
 define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Top Navigation');
 define('USE_ADMIN_TOP_MENU_DESC' , 'Admin Top Navigation aktivieren?');

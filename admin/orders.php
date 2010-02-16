@@ -103,9 +103,6 @@ switch ($_GET['action']) {
 
 				$smarty->assign('NAME', $check_status['customers_name']);
 				$smarty->assign('ORDER_NR', $oID);
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-				$smarty->assign('ORDER_ID', $oID);
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 				$smarty->assign('ORDER_LINK', xtc_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id='.$oID, 'SSL'));
 				$smarty->assign('ORDER_DATE', xtc_date_long($check_status['date_purchased']));
 				$smarty->assign('NOTIFY_COMMENTS', nl2br($notify_comments)); // Tomcraft - 2009-10-10 - Fixed wordwrap in notify_comments
@@ -131,25 +128,10 @@ switch ($_GET['action']) {
 
 		xtc_redirect(xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('action')).'action=edit'));
 		break;
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-	case 'resendordermail':
-
-		break;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 	case 'deleteconfirm' :
 		$oID = xtc_db_prepare_input($_GET['oID']);
 
 		xtc_remove_order($oID, $_POST['restock']);
-
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-		if($_POST['paypaldelete']):
-			$query = xtc_db_query("SELECT * FROM " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oID . "'");
-			while ($values = xtc_db_fetch_array($query)) {
-				xtc_db_query("delete from " . TABLE_PAYPAL_STATUS_HISTORY . " WHERE paypal_ipn_id = '" . $values['paypal_ipn_id'] . "'");
-			}
-			xtc_db_query("delete from " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oID . "'");
-		endif;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 		xtc_redirect(xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action'))));
 		break;
@@ -459,16 +441,6 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
 // End sofortüberweisung.de
 */
 // EOF - Tomcraft - 2009-11-03 - commented out the old sofortueberweisung.de payment module
-
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-	if ($order->info['payment_method']=='paypal_ipn' or $order->info['payment_method']=='paypal_directpayment' or $order->info['payment_method']=='paypal' or $order->info['payment_method']=='paypalexpress') {
-		require('../includes/classes/paypal_checkout.php');
-		require('includes/classes/class.paypal.php');
-		$paypal = new paypal_admin();
-		$paypal->admin_notification((int)$_GET['oID']);
-	}
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-
 
 	// begin modification for banktransfer
 	$banktransfer_query = xtc_db_query("select banktransfer_prz, banktransfer_status, banktransfer_owner, banktransfer_number, banktransfer_bankname, banktransfer_blz, banktransfer_fax from banktransfer where orders_id = '".xtc_db_input($_GET['oID'])."'");
@@ -869,28 +841,6 @@ elseif ($_GET['action'] == 'custom_action') {
 			$contents = array ('form' => xtc_draw_form('orders', FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=deleteconfirm'));
 			$contents[] = array ('text' => TEXT_INFO_DELETE_INTRO.'<br /><br /><b>'.$cInfo->customers_firstname.' '.$cInfo->customers_lastname.'</b>');
 			$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('restock').' '.TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-			if(defined('TABLE_PAYPAL')):
-				$db_installed = false;
-//BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-				//$tables = mysql_list_tables(DB_DATABASE);
-// BOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-				//$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
-				$tables = mysql_query('SHOW TABLES FROM `' . DB_DATABASE . '`');
-// EOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-//EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-				while ($row = mysql_fetch_row($tables)) {
-					if ($row[0] == TABLE_PAYPAL) $db_installed=true;
-				}
-				if ($db_installed==true):
-					$query = "SELECT * FROM " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oInfo->orders_id . "'";
-					$query = xtc_db_query($query);
-					if(xtc_db_num_rows($query)>0):
-						$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.TEXT_INFO_PAYPAL_DELETE);
-					endif;
-				endif;
-			endif;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 			$contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" value="'. BUTTON_DELETE .'"><a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id).'">' . BUTTON_CANCEL . '</a>');
 			break;
 		default :

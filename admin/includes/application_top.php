@@ -147,11 +147,6 @@
   define('FILENAME_CAMPAIGNS_REPORT','stats_campaigns.php');
   define('FILENAME_XSELL_GROUPS','cross_sell_groups.php');
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-  define('FILENAME_PAYPAL','paypal.php');
-  define('FILENAME_PAYPAL_CHECKOUT', 'paypal_checkout.php');
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-
   // GOOGLE SITEMAP - JUNG GESTALTEN - 07.10.2008
   define('FILENAME_GOOGLE_SITEMAP', '../google_sitemap.php'); 
 
@@ -207,20 +202,10 @@
 
   // set application wide parameters
   $configuration_query = xtc_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
-/*
   while ($configuration = xtc_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
-*/
-  while ($configuration = xtc_db_fetch_array($configuration_query)) {
-    if($configuration['cfgKey']=='DB_CACHE'):
-      define("DB_CACHE", "false");
-    else:
-      define($configuration['cfgKey'], $configuration['cfgValue']);
-    endif;
-  }
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
+
   define('FILENAME_IMAGEMANIPULATOR',IMAGE_MANIPULATOR);
     function xtDBquery($query) {
        if (DB_CACHE=='true') {

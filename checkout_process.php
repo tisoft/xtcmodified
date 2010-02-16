@@ -39,22 +39,6 @@ require_once (DIR_FS_INC.'changedatain.inc.php');
 // initialize smarty
 $smarty = new Smarty;
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-if (is_array($_SESSION['nvpReqArray']) && $_SESSION['payment'] == 'paypalexpress'):
-	if ($_POST['comments_added'] != '')
-		$_SESSION['comments'] = xtc_db_prepare_input($_POST['comments']);
-endif;
-$error_mess='';
-if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true'):
-	if (is_array($_SESSION['nvpReqArray']) && $_POST['conditions'] != 'conditions' && $_SESSION['payment'] == 'paypalexpress')
-		$error_mess='1';
-endif;
-if (is_array($_SESSION['nvpReqArray']) && $_POST['address'] != 'address' && $_SESSION['payment'] == 'paypalexpress')
-	$error_mess.='2';
-if($error_mess!='')
-	xtc_redirect(xtc_href_link(FILENAME_PAYPAL_CHECKOUT, 'error_message='.$error_mess, 'SSL', true, false));
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-
 // if the customer is not logged on, redirect them to the login page
 if (!isset ($_SESSION['customer_id'])) {
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
@@ -64,8 +48,6 @@ if ($_SESSION['customers_status']['customers_status_show_price'] != '1') {
 	xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', ''));
 }
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-/*
 if (!isset ($_SESSION['sendto'])) {
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 }
@@ -80,34 +62,6 @@ if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
 		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
 	}
 }
-*/
-if (!isset ($_SESSION['sendto'])):
-	if($_SESSION['payment']=='paypalexpress'):
-		xtc_redirect(xtc_href_link(FILENAME_PAYPAL_CHECKOUT, '', 'SSL'));
-	else:
-		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
-	endif;
-endif;
-
-if ((xtc_not_null(MODULE_PAYMENT_INSTALLED)) && (!isset ($_SESSION['payment']))):
-	if($_SESSION['payment']=='paypalexpress'):
-		xtc_redirect(xtc_href_link(FILENAME_PAYPAL_CHECKOUT, '', 'SSL'));
-	else:
-		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
-	endif;
-endif;
-
-// avoid hack attempts during the checkout procedure by checking the internal cartID
-if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])):
-	if ($_SESSION['cart']->cartID != $_SESSION['cartID']):
-		if($_SESSION['payment']=='paypalexpress'):
-			xtc_redirect(xtc_href_link(FILENAME_PAYPAL_CHECKOUT, '', 'SSL'));
-		else:
-			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-		endif;
-	endif;
-endif;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 // load selected payment module
 require (DIR_WS_CLASSES.'payment.php');
@@ -142,10 +96,7 @@ if (isset ($_SESSION['tmp_oID']) && is_numeric($_SESSION['tmp_oID'])) {
 }
 else {
 	// check if tmp order need to be created
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-//	if (isset ($$_SESSION['payment']->form_action_url) && $$_SESSION['payment']->tmpOrders) {
-	if ($$_SESSION['payment']->tmpOrders == true) {
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+	if (isset ($$_SESSION['payment']->form_action_url) && $$_SESSION['payment']->tmpOrders) {
 		$tmp = true;
 		$tmp_status = $$_SESSION['payment']->tmpStatus;
 	}
@@ -161,8 +112,6 @@ if (strtolower(CC_ENC) == 'true') {
 }
 // BMC CC Mod End
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul (andere Schreibweise)
-/*
 if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
 	$discount = $_SESSION['customers_status']['customers_status_ot_discount'];
 } else {
@@ -180,17 +129,6 @@ if ($_SESSION['credit_covers'] != '1') {
 	// free gift , no paymentaddress
 	$sql_data_array = array ('customers_id' => $_SESSION['customer_id'], 'customers_name' => $order->customer['firstname'].' '.$order->customer['lastname'], 'customers_firstname' => $order->customer['firstname'], 'customers_lastname' => $order->customer['lastname'], 'customers_cid' => $order->customer['csID'], 'customers_vat_id' => $_SESSION['customer_vat_id'], 'customers_company' => $order->customer['company'], 'customers_status' => $_SESSION['customers_status']['customers_status_id'], 'customers_status_name' => $_SESSION['customers_status']['customers_status_name'], 'customers_status_image' => $_SESSION['customers_status']['customers_status_image'], 'customers_status_discount' => $discount, 'customers_street_address' => $order->customer['street_address'], 'customers_suburb' => $order->customer['suburb'], 'customers_city' => $order->customer['city'], 'customers_postcode' => $order->customer['postcode'], 'customers_state' => $order->customer['state'], 'customers_country' => $order->customer['country']['title'], 'customers_telephone' => $order->customer['telephone'], 'customers_email_address' => $order->customer['email_address'], 'customers_address_format_id' => $order->customer['format_id'], 'delivery_name' => $order->delivery['firstname'].' '.$order->delivery['lastname'], 'delivery_firstname' => $order->delivery['firstname'], 'delivery_lastname' => $order->delivery['lastname'], 'delivery_company' => $order->delivery['company'], 'delivery_street_address' => $order->delivery['street_address'], 'delivery_suburb' => $order->delivery['suburb'], 'delivery_city' => $order->delivery['city'], 'delivery_postcode' => $order->delivery['postcode'], 'delivery_state' => $order->delivery['state'], 'delivery_country' => $order->delivery['country']['title'], 'delivery_country_iso_code_2' => $order->delivery['country']['iso_code_2'], 'delivery_address_format_id' => $order->delivery['format_id'], 'payment_method' => $order->info['payment_method'], 'payment_class' => $order->info['payment_class'], 'shipping_method' => $order->info['shipping_method'], 'shipping_class' => $order->info['shipping_class'], 'cc_type' => $order->info['cc_type'], 'cc_owner' => $order->info['cc_owner'], 'cc_number' => $order->info['cc_number'], 'cc_expires' => $order->info['cc_expires'], 'date_purchased' => 'now()', 'orders_status' => $tmp_status, 'currency' => $order->info['currency'], 'currency_value' => $order->info['currency_value'], 'customers_ip' => $customers_ip, 'comments' => $order->info['comments']);
 }
-*/
-	$discount = (($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1)?$_SESSION['customers_status']['customers_status_ot_discount']:'0.00');
-
-	$customers_ip = (($_SERVER["HTTP_X_FORWARDED_FOR"])?$_SERVER["HTTP_X_FORWARDED_FOR"]:$_SERVER["REMOTE_ADDR"]);
-
-	$sql_data_array = array ('customers_id' => $_SESSION['customer_id'], 'customers_name' => $order->customer['firstname'].' '.$order->customer['lastname'], 'customers_firstname' => $order->customer['firstname'], 'customers_lastname' => $order->customer['lastname'], 'customers_cid' => $order->customer['csID'], 'customers_vat_id' => $_SESSION['customer_vat_id'], 'customers_company' => $order->customer['company'], 'customers_status' => $_SESSION['customers_status']['customers_status_id'], 'customers_status_name' => $_SESSION['customers_status']['customers_status_name'], 'customers_status_image' => $_SESSION['customers_status']['customers_status_image'], 'customers_status_discount' => $discount, 'customers_street_address' => $order->customer['street_address'], 'customers_suburb' => $order->customer['suburb'], 'customers_city' => $order->customer['city'], 'customers_postcode' => $order->customer['postcode'], 'customers_state' => $order->customer['state'], 'customers_country' => $order->customer['country']['title'], 'customers_telephone' => $order->customer['telephone'], 'customers_email_address' => $order->customer['email_address'], 'customers_address_format_id' => $order->customer['format_id'], 'delivery_name' => $order->delivery['firstname'].' '.$order->delivery['lastname'], 'delivery_firstname' => $order->delivery['firstname'], 'delivery_lastname' => $order->delivery['lastname'], 'delivery_company' => $order->delivery['company'], 'delivery_street_address' => $order->delivery['street_address'], 'delivery_suburb' => $order->delivery['suburb'], 'delivery_city' => $order->delivery['city'], 'delivery_postcode' => $order->delivery['postcode'], 'delivery_state' => $order->delivery['state'], 'delivery_country' => $order->delivery['country']['title'], 'delivery_country_iso_code_2' => $order->delivery['country']['iso_code_2'], 'delivery_address_format_id' => $order->delivery['format_id'],'payment_method' => $order->info['payment_method'], 'payment_class' => $order->info['payment_class'], 'shipping_method' => $order->info['shipping_method'], 'shipping_class' => $order->info['shipping_class'], 'cc_type' => $order->info['cc_type'], 'cc_owner' => $order->info['cc_owner'], 'cc_number' => $order->info['cc_number'], 'cc_expires' => $order->info['cc_expires'],'date_purchased' => 'now()', 'orders_status' => $tmp_status, 'currency' => $order->info['currency'], 'currency_value' => $order->info['currency_value'], 'customers_ip' => $customers_ip,'comments' => $order->info['comments'], 'language' => $_SESSION['language']);
-	if ($_SESSION['credit_covers'] != '1'):
-		// no free gift , with paymentaddress
-		$sql_data_array['billing_name'] = $order->billing['firstname'].' '.$order->billing['lastname'];$sql_data_array['billing_firstname'] = $order->billing['firstname'];$sql_data_array['billing_lastname'] = $order->billing['lastname'];$sql_data_array['billing_company'] = $order->billing['company'];$sql_data_array['billing_street_address'] = $order->billing['street_address'];$sql_data_array['billing_suburb'] = $order->billing['suburb'];$sql_data_array['billing_city'] = $order->billing['city'];$sql_data_array['billing_postcode'] = $order->billing['postcode'];$sql_data_array['billing_state'] = $order->billing['state'];$sql_data_array['billing_country'] = $order->billing['country']['title'];$sql_data_array['billing_country_iso_code_2'] = $order->billing['country']['iso_code_2'];$sql_data_array['billing_address_format_id'] = $order->billing['format_id'];$sql_data_array['cc_start'] = $order->info['cc_start'];$sql_data_array['cc_cvv'] = $order->info['cc_cvv'];$sql_data_array['cc_issue'] = $order->info['cc_issue'];
-	endif;
-// EOF - Tomcraft - 2009-10-03 -Paypal Express Modul (andere Schreibweise)
 
 xtc_db_perform(TABLE_ORDERS, $sql_data_array);
 $insert_id = xtc_db_insert_id();
@@ -310,8 +248,7 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 								                                and pa.options_values_id = poval.products_options_values_id
 								                                and popt.language_id = '".$_SESSION['languages_id']."'
 								                                and poval.language_id = '".$_SESSION['languages_id']."'";
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-/*
+
 				$attributes = xtc_db_query($attributes_query);
 			} else {
 				$attributes = xtc_db_query("select popt.products_options_name,
@@ -327,23 +264,6 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 								                                             and popt.language_id = '".$_SESSION['languages_id']."'
 								                                             and poval.language_id = '".$_SESSION['languages_id']."'");
 			}
-*/
-			} else {
-				$attributes_query = "select popt.products_options_name,
-								                                             poval.products_options_values_name,
-								                                             pa.options_values_price,
-								                                             pa.price_prefix
-								                                             from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, ".TABLE_PRODUCTS_ATTRIBUTES." pa
-								                                             where pa.products_id = '".$order->products[$i]['id']."'
-								                                             and pa.options_id = '".$order->products[$i]['attributes'][$j]['option_id']."'
-								                                             and pa.options_id = popt.products_options_id
-								                                             and pa.options_values_id = '".$order->products[$i]['attributes'][$j]['value_id']."'
-								                                             and pa.options_values_id = poval.products_options_values_id
-								                                             and popt.language_id = '".$_SESSION['languages_id']."'
-								                                             and poval.language_id = '".$_SESSION['languages_id']."'";
-			}
-			$attributes = xtc_db_query($attributes_query);
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 			// update attribute stock
 			xtc_db_query("UPDATE ".TABLE_PRODUCTS_ATTRIBUTES." set
@@ -441,29 +361,13 @@ if (!$tmp) {
 	// load the after_process function from the payment modules
 	$payment_modules->after_process();
 
-// BOF - Tomcraft - 2009-10-03 - PayPal Express Modul
-	// PayPal ERROR Check, Order gespeichert, Mail gesendet, Cart noch belegt
-	if( isset($_SESSION['reshash']['ACK']) && strtoupper($_SESSION['reshash']['ACK'])!="SUCCESS" && strtoupper($_SESSION['reshash']['ACK'])!="SUCCESSWITHWARNING"):
-		if($_SESSION['payment'] == 'paypalexpress'):
-			xtc_redirect($o_paypal->EXPRESS_CANCEL_URL);
-		else:
-			if(isset($_SESSION['reshash']['REDIRECTREQUIRED'])  && strtoupper($_SESSION['reshash']['REDIRECTREQUIRED'])=="TRUE"):
-				xtc_redirect($o_paypal->EXPRESS_CANCEL_URL);
-			else:
-				xtc_redirect($o_paypal->CANCEL_URL);
-			endif;
-		endif;
-	endif;
-// EOF - Tomcraft - 2009-10-03 - PayPal Express Modul
 	$_SESSION['cart']->reset(true);
 
 	// unregister session variables used during checkout
 	unset ($_SESSION['sendto']);
 	unset ($_SESSION['billto']);
 	unset ($_SESSION['shipping']);
-// BOF - Tomcraft - 2009-10-03 - PayPal Express Modul
-//	unset ($_SESSION['payment']);
-// EOF - Tomcraft - 2009-10-03 - PayPal Express Modul
+	unset ($_SESSION['payment']);
 	unset ($_SESSION['comments']);
 	unset ($_SESSION['last_order']);
 	unset ($_SESSION['tmp_oID']);
@@ -482,16 +386,6 @@ if (!$tmp) {
 		require 'xtbcallback.php';
 	}
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
-
-// BOF - Tomcraft - 2009-10-03 - PayPal Express Modul (PayPal GiroPay aufrufen zum bestätigen)
-	if(isset($_SESSION['reshash']['REDIRECTREQUIRED'])  && strtoupper($_SESSION['reshash']['REDIRECTREQUIRED'])=="TRUE"):
-		$payment_modules->giropay_process();
-	else:
-		unset($_SESSION['payment']);
-		unset($_SESSION['nvpReqArray']);
-		unset($_SESSION['reshash']);
-	endif;
-// EOF - Tomcraft - 2009-10-03 - PayPal Express Modul (PayPal GiroPay aufrufen zum bestätigen)
 
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 

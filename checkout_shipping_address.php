@@ -29,17 +29,6 @@ require_once (DIR_FS_INC.'xtc_address_format.inc.php');
 require_once (DIR_FS_INC.'xtc_get_country_name.inc.php');
 require_once (DIR_FS_INC.'xtc_get_zone_code.inc.php');
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-if (is_array($_SESSION['nvpReqArray'])) {
-	$link_checkout_shipping = FILENAME_PAYPAL_CHECKOUT;
-	if(PAYPAL_EXPRESS_ADDRESS_CHANGE=='true'){
-		$_SESSION['pp_allow_address_change'] = 'true';
-	}
-} else {
-	$link_checkout_shipping = FILENAME_CHECKOUT_SHIPPING;
-}
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-
 // if the customer is not logged on, redirect them to the login page
 if (!isset ($_SESSION['customer_id'])) {
 
@@ -176,11 +165,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 			xtc_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array);
 
 			$_SESSION['sendto'] = xtc_db_insert_id();
-
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-//			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-			xtc_redirect(xtc_href_link($link_checkout_shipping, '', 'SSL'));
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
 		}
 		// process the selected shipping destination
 	}
@@ -202,20 +187,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 		if ($check_address['total'] == '1') {
 			if ($reset_shipping == true)
 				unset ($_SESSION['shipping']);
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-//			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-			xtc_redirect(xtc_href_link($link_checkout_shipping, '', 'SSL'));
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
 		} else {
 			unset ($_SESSION['sendto']);
 		}
 	} else {
 		$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
-
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-//		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-		xtc_redirect(xtc_href_link($link_checkout_shipping, '', 'SSL'));
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
 	}
 }
 
@@ -224,10 +202,7 @@ if (!isset ($_SESSION['sendto'])) {
 	$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
 }
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-//$breadcrumb->add(NAVBAR_TITLE_1_CHECKOUT_SHIPPING_ADDRESS, xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-$breadcrumb->add(NAVBAR_TITLE_1_CHECKOUT_SHIPPING_ADDRESS, xtc_href_link($link_checkout_shipping, '', 'SSL'));
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+$breadcrumb->add(NAVBAR_TITLE_1_CHECKOUT_SHIPPING_ADDRESS, xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
 $breadcrumb->add(NAVBAR_TITLE_2_CHECKOUT_SHIPPING_ADDRESS, xtc_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'));
 
 $addresses_count = xtc_count_customer_address_book_entries();

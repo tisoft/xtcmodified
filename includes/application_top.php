@@ -459,11 +459,6 @@ if (TRACKING_ECONDA_ACTIVE=='true') {
 	$econda = new econda();
 }
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-require_once (DIR_WS_CLASSES.'paypal_checkout.php');
-$o_paypal = new paypal_checkout();
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-
 require (DIR_WS_INCLUDES.FILENAME_CART_ACTIONS);
 // create the shopping cart & fix the cart if necesary
 if (!is_object($_SESSION['cart'])) {

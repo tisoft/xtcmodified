@@ -40,15 +40,7 @@
 
       if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-//        $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
-		if($_SESSION['paypal_express_checkout']==true){
-			$this->modules = explode(';', $_SESSION['paypal_express_payment_modules'] );
-		}else{
-			$this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
-			$this->modules = str_replace('paypalexpress.php', '', $this->modules);
-		}
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+        $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
 
         $include_modules = array();
 
@@ -258,16 +250,7 @@
         }
       }
     }
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-		// PayPal Express Giropay
-    function giropay_process() {
-      if (is_array($this->modules)) {
-        if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
-          return $GLOBALS[$this->selected_module]->giropay_process();
-        }
-      }
-    }
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
     function get_error() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
