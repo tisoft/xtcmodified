@@ -64,7 +64,10 @@ function go_option() {
 	</form>
 	<br>
 	<?php echo xtc_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '5'); ?>
-    </tr></td>
+<!-- BOF - vr - 2010-02-16 - assign *all* option values to product, thx to web28 //-->
+<!--	</tr></td> // -->
+	</td></tr>
+<!-- EOF - vr - 2010-02-16 - assign *all* option values to product, thx to web28 //-->
 <!-- EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION //-->
 	
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change">
