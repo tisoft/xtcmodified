@@ -420,7 +420,7 @@ define('_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID_DESC',' Sobald der Kunde im Shop auf
 define('_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID_TITLE','Bestellstatus - Zahlung OK');
 define('_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID_DESC','Erscheint, wenn die Zahlung von Moneybookers best&auml;tigt wurde.');
 define('_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID_TITLE','Bestellstatus - Zahlung in Warteschleife');
-define('_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID_DESC','');
+define('_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID_DESC','Wenn der Kunde kein Guthaben auf seinem Konto hat wird die Zahlung solange schwebend gehalten bis das Konto Moneybookers ausgeglichen ist.');
 define('_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID_TITLE','Bestellstatus - Zahlung Storniert');
 define('_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID_DESC','Wird erscheinen, wenn z.B. eine Kreditkarte abgelehnt wurde');
 define('MB_TEXT_MBDATE', 'Letzte Aktualisierung:');

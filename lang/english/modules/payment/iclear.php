@@ -41,18 +41,18 @@
 *************************************************************************
    ---------------------------------------------------------------------------------------*/
 
-  define('MODULE_PAYMENT_ICLEAR_TEXT_TITLE', 'EuroCoin iclear Payment System');
-  define('MODULE_PAYMENT_ICLEAR_TEXT_DESCRIPTION', 'EuroCoin iclear');
-  define('MODULE_PAYMENT_ICLEAR_TEXT_ERROR_MESSAGE', 'There was an error during your payment at EuroCoin iclear! Please try again/ select another payment option.');
+  define('MODULE_PAYMENT_ICLEAR_TEXT_TITLE', 'iclear Payment System');
+  define('MODULE_PAYMENT_ICLEAR_TEXT_DESCRIPTION', 'iclear');
+  define('MODULE_PAYMENT_ICLEAR_TEXT_ERROR_MESSAGE', 'There was an error during your payment at iclear! Please try again/ select another payment option.');
   define('MODULE_PAYMENT_ICLEAR_TEXT_INFO','');
   define('MODULE_PAYMENT_ICLEAR_ALLOWED_TITLE', 'Allowed zones');
   define('MODULE_PAYMENT_ICLEAR_ALLOWED_DESC', 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
 
-  define('MODULE_PAYMENT_ICLEAR_STATUS_TITLE', 'Allow EuroCoin iclear');
-  define('MODULE_PAYMENT_ICLEAR_STATUS_DESC', 'Do you want to accept EuroCoin iclear payments?');
+  define('MODULE_PAYMENT_ICLEAR_STATUS_TITLE', 'Allow iclear');
+  define('MODULE_PAYMENT_ICLEAR_STATUS_DESC', 'Do you want to accept iclear payments?');
 
   define('MODULE_PAYMENT_ICLEAR_ID_TITLE', 'Merchant ID');
-  define('MODULE_PAYMENT_ICLEAR_ID_DESC', 'Your merchant ID at EuroCoin iclear.');
+  define('MODULE_PAYMENT_ICLEAR_ID_DESC', 'Your merchant ID at iclear.');
 
   define('MODULE_PAYMENT_ICLEAR_SORT_ORDER_TITLE', 'Sort order');
   define('MODULE_PAYMENT_ICLEAR_SORT_ORDER_DESC', 'Sort order of the view. Lowest numeral will be displayed first');
