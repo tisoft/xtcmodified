@@ -216,7 +216,10 @@ if ($_GET['coID'] == 7) {
 		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 		// BOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
 		//$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? xtc_db_input($_POST['message_body']) : $first_name)));
-		$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? $_POST['message_body'] : $message_body)));
+		// BOF - Tomcraft - 2010-02-18 - Fixed width of textarea in FireFox under Linux.
+		//$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? $_POST['message_body'] : $message_body)));
+		$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 45, 15, ($error ? $_POST['message_body'] : $message_body)));
+		// EOF - Tomcraft - 2010-02-18 - Fixed width of textarea in FireFox under Linux.
 		// EOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
 		$smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_send.gif', IMAGE_BUTTON_SEND));
 		$smarty->assign('FORM_END', '</form>');
