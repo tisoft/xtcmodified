@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2010 Frederico Caldeira Knabben
  * Modified for xt:Commerce v3.0.4 SP2.1 by Hetfield - Copyright (c) 2009 by MerZ IT-SerVice http://www.merz-it-service.de
  *
  * == BEGIN LICENSE ==
@@ -60,7 +60,7 @@ FCKConfig.AutoGrowMax = 400 ;
 // FCKConfig.ProtectedSource.Add( /(<asp:[^\>]+>[\s|\S]*?<\/asp:[^\>]+>)|(<asp:[^\>]+\/>)/gi ) ;	// ASP.Net style tags <asp:control>
 
 FCKConfig.AutoDetectLanguage	= true ;
-FCKConfig.DefaultLanguage		= 'en' ;
+FCKConfig.DefaultLanguage		= 'de' ;
 FCKConfig.ContentLangDirection	= 'ltr' ;
 
 FCKConfig.ProcessHTMLEntities	= true ;

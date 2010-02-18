@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2010 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -76,7 +76,7 @@ Blockquote			: "Blockquote",	//MISSING
 CreateDiv			: "Create Div Container",	//MISSING
 EditDiv				: "Edit Div Container",	//MISSING
 DeleteDiv			: "Remove Div Container",	//MISSING
-Undo				: "Poniti akciju",
+Undo				: "Poni�ti akciju",
 Redo				: "Ponovi akciju",
 NumberedListLbl		: "Nabrojiva lista",
 NumberedList		: "Unesi/ukloni nabrojivu listu",
