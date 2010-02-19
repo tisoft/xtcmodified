@@ -145,7 +145,13 @@
       $module = new $class();
       if ($module->check() > 0) {
         if ($module->sort_order > 0) {
-          $installed_modules[$module->sort_order] = $file;
+		// BOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
+         // $installed_modules[$module->sort_order] = $file;
+		 if (!$installed_modules[$module->sort_order])
+            $installed_modules[$module->sort_order] = $file;
+          else
+            $installed_modules[] = $file;
+		// EOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list  
         } else {
           $installed_modules[] = $file;
         }
