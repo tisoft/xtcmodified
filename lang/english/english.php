@@ -143,7 +143,7 @@ define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'Your passwords do not match.');
 
 /*
  *
- *  RESTULTPAGES
+ *  RESULT PAGES
  *
  */
 
@@ -196,7 +196,9 @@ define('IMAGE_BUTTON_UPDATE_CART', 'Update shopping cart');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Write evaluation'); //changed by electronica 2009-09-06
 define('IMAGE_BUTTON_ADMIN', 'Admin');
 define('IMAGE_BUTTON_PRODUCT_EDIT', 'Edit product');
-define('IMAGE_BUTTON_LOGIN', 'Login');
+// BOF - vr - 2010-02-20 removed double definition 
+// define('IMAGE_BUTTON_LOGIN', 'Login');
+// EOF - vr - 2010-02-20 removed double definition 
 
 define('SMALL_IMAGE_BUTTON_DELETE', 'Delete');
 define('SMALL_IMAGE_BUTTON_EDIT', 'Edit');
@@ -312,7 +314,7 @@ define('ERROR_INVALID_PRODUCT', 'The product chosen was not found!');
 
 /*
  *
- * NAVBAR Titel
+ * NAVBAR TITLE
  *
  */
 

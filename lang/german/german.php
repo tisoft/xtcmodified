@@ -17,7 +17,7 @@
 
 /*
  * 
- *  ZEIT / DATUM
+ *  DATE / TIME
  * 
  */
  
@@ -54,7 +54,7 @@ define('FEMALE', 'Frau');
 
 /*
  * 
- *  BOX TEXT
+ *  BOXES
  * 
  */
 
@@ -143,7 +143,7 @@ define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'Ihre Passw&ouml;rter stimmen ni
 
 /*
  * 
- *  RESTULTPAGES
+ *  RESULT PAGES
  * 
  */
  
@@ -196,7 +196,9 @@ define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 define('IMAGE_BUTTON_ADMIN', 'Admin'); 
 define('IMAGE_BUTTON_PRODUCT_EDIT', 'Produkt bearbeiten');
-define('IMAGE_BUTTON_LOGIN', 'Anmelden');
+// BOF - vr - 2010-02-20 removed double definition 
+// define('IMAGE_BUTTON_LOGIN', 'Anmelden');
+// EOF - vr - 2010-02-20 removed double definition 
 
 define('SMALL_IMAGE_BUTTON_DELETE', 'L&ouml;schen');
 define('SMALL_IMAGE_BUTTON_EDIT', '&Auml;ndern');
@@ -312,7 +314,7 @@ define('ERROR_INVALID_PRODUCT', 'Der von Ihnen gew&auml;hlte Artikel wurde nicht
 
 /*
  * 
- * NAVBAR Titel
+ * NAVBAR TITLE
  * 
  */
 
