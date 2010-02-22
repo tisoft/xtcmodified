@@ -1133,7 +1133,7 @@ if ($error == true) {
 	  $sort = 'order by ci.customers_info_date_account_created DESC';
 	// EOF - vr - 2010-02-22 - default sort order
 
-// BOF - Tomcraft - 2009-10-22 - changed default sorting to customer created descending
+// BOF - vr - 2010-02-22 - removed group by part to prevent folding of customers records with the same creation timestamp
 /*
 	$customers_query_raw = "select
 	                                c.account_type,
@@ -1159,32 +1159,6 @@ if ($error == true) {
 	                                group by c.customers_id
 	                                ".$sort;
 */
-/*	$customers_query_raw = "select
-	                                c.account_type,
-	                                c.customers_id,
-	                                c.customers_vat_id,
-	                                c.customers_vat_id_status,
-	                                c.customers_lastname,
-	                                c.customers_firstname,
-	                                c.customers_email_address,
-	                                a.entry_country_id,
-	                                c.customers_status,
-	                                c.member_flag,
-	                                ci.customers_info_date_account_created
-	                                from
-	                                ".TABLE_CUSTOMERS." c ,
-	                                ".TABLE_ADDRESS_BOOK." a,
-	                                ".TABLE_CUSTOMERS_INFO." ci
-	                                Where
-	                                c.customers_id = a.customers_id
-	                                and c.customers_default_address_id = a.address_book_id
-	                                and ci.customers_info_id = c.customers_id
-	                                ".$search."
-	                                group by ci.customers_info_date_account_created DESC
-	                                ".$sort;
-// EOF - Tomcraft - 2009-10-22 - changed default sorting to customer created descending*/
-
-// BOF - vr - 2010-02-22 - removed group by part to prevent folding of customers records with the same creation timestamp 
   $customers_query_raw = "select
 	                                c.account_type,
 	                                c.customers_id,
@@ -1207,7 +1181,7 @@ if ($error == true) {
 	                                and ci.customers_info_id = c.customers_id
 	                                ".$search."
 	                                ".$sort;
-// BOF - vr - 2010-02-22 - removed group by part to prevent folding of customers records with the same creation timestamp 
+// EOF - vr - 2010-02-22 - removed group by part to prevent folding of customers records with the same creation timestamp 
 
 	$customers_split = new splitPageResults($_GET['page'], '100', $customers_query_raw, $customers_query_numrows);
 	$customers_query = xtc_db_query($customers_query_raw);
