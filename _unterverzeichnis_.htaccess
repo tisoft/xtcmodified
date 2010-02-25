@@ -38,8 +38,14 @@
 #  php_value register_globals 1
 #</IfModule>
 
+#-- Turn off ETags in HTTP-header
+FileETag None
+
 #-- Call time pass reference error ?!
 #php_flag  allow_call_time_pass_reference On
+
+#-- XTC Session only on first visit
+#php_flag session.use_trans_sid 0
 
 #-----------------------------------------
 #- SEO Hartmut König
