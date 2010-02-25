@@ -38,6 +38,11 @@ if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded == true) && ($ini_zlib_out
 if (TRACKING_ECONDA_ACTIVE == 'true') {
 	require_once (DIR_WS_INCLUDES . 'econda/econda.php');
 }
+
+//BOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
+require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
+//EOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
+
 echo '</body></html>';
 
 //--- SHOPSTAT -------------------------//
