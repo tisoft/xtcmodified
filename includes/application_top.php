@@ -100,7 +100,9 @@ define('SQL_CACHEDIR', DIR_FS_CATALOG.'cache/');
 //  define('NEW_SIGNUP_DISCOUNT_COUPON', '3'); // placed in the admin configuration mystore
 
 // Store DB-Querys in a Log File
-define('STORE_DB_TRANSACTIONS', 'false');
+//BOF - DokuMan - 2010-02-25 - Constant STORE_DB_TRANSACTIONS already defined in DB
+//define('STORE_DB_TRANSACTIONS', 'false');
+//EOF - DokuMan - 2010-02-25 - Constant STORE_DB_TRANSACTIONS already defined in DB
 
 // graduated prices model or products assigned ?
 define('GRADUATED_ASSIGN', 'true');
@@ -493,7 +495,10 @@ elseif (isset($_GET['products_id'])) {
 	$product = new product($actual_products_id);
 	
 }
-if (!is_object($product)) {
+//BOF - DokuMan - 2010-02-25 - check for defined variable: product 
+//if (!is_object($product)) {
+if (!isset($product) || !is_object($product)) {
+//EOF - DokuMan - 2010-02-25 - check for defined variable: product 
 	$product = new product();	
 }
 

@@ -23,7 +23,11 @@
 
   function xtc_db_fetch_array(&$db_query,$cq=false) {
 
-      if (DB_CACHE=='true' && $cq) {
+      //BOF - DokuMan - 2010-02-25 - also check for defined DB_CACHE constant
+      if (defined('DB_CACHE') && DB_CACHE=='true' && $cq) {
+      //if (DB_CACHE=='true' && $cq) {
+      //EOF - DokuMan - 2010-02-25 - also check for defined DB_CACHE constant
+
       	// BOF - Tomcraft - 2009-08-18 - fixed bug with switched on DB-CACHE in relation with multi-language metatags.php
         //if (!count($db_query)) return false;
         if (!is_array($db_query) || !count($db_query)) return false;
@@ -40,5 +44,4 @@
         return mysql_fetch_array($db_query, MYSQL_ASSOC);
       }
   }
-
- ?>
+?>
