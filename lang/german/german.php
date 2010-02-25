@@ -422,7 +422,9 @@ define('ERROR_INVALID_FINISDATE_COUPON','Ihr Kupon ist bereits abgelaufen.');
 define('PERSONAL_MESSAGE', '%s schreibt:');
 
 //Popup Window
-define('TEXT_CLOSE_WINDOW', 'Fenster schliessen.');
+// BOF - DokuMan - 2010-02-25 removed double definition 
+//define('TEXT_CLOSE_WINDOW', 'Fenster schliessen.');
+// EOF - DokuMan - 2010-02-25 removed double definition 
 
 /*
  * 

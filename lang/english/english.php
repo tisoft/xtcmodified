@@ -422,7 +422,9 @@ define('ERROR_INVALID_FINISDATE_COUPON','Your voucher is already expired.'); //c
 define('PERSONAL_MESSAGE', '%s writes:'); //changed by electronica 2009-09-06
 
 //Popup Window
-define('TEXT_CLOSE_WINDOW', 'Close window.'); //changed by electronica 2009-09-06
+// BOF - DokuMan - 2010-02-25 removed double definition 
+//define('TEXT_CLOSE_WINDOW', 'Close window.'); //changed by electronica 2009-09-06
+// EOF - DokuMan - 2010-02-25 removed double definition 
 
 /*
  *
