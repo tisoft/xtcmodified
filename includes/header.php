@@ -113,7 +113,12 @@ function popupImageWindow(url) {
 // require theme based javascript
 //BOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 //require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
-require('templates/'.CURRENT_TEMPLATE.'/javascript/general.css.php');
+if (file_exists('templates/'.CURRENT_TEMPLATE.'/javascript/general.css.php')) {
+  require('templates/'.CURRENT_TEMPLATE.'/javascript/general.css.php');
+//Backwards compatibility for older templates
+} else {
+  require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
+}
 //EOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT)) {
