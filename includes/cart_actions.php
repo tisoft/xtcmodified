@@ -121,15 +121,11 @@ if (isset ($_GET['action'])) {
 				}
 				
         //BOF - Dokuman - 2010-02-25 - fix 'Fatal error: Call to a member function add_cart()'
-
 				//$_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + $cart_quantity, $_POST['id']);
         if (!is_object($_SESSION['cart'])) {
           $_SESSION['cart'] = new shoppingCart();
         }
-        else {
-          $_SESSION['cart']->add_cart((int) $_POST['products_id'],
-          $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty']), $_POST['id']);
-        }
+        $_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty']), $_POST['id']);
         //EOF - Dokuman - 2010-02-25 - fix 'Fatal error: Call to a member function add_cart()'
 				
 			}
