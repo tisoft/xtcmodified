@@ -76,6 +76,24 @@ function shopstat_getSEO(   $page               = '',
         //-- Language
         preg_match("/(?:language)\=([^\&]*)/",$parameters,$lang);
 
+//BOF - DokuMan - 2010-02-25 - set missing variables
+        $link = '';
+        $cPath = '';
+        $prodid = '';
+        $content    = '';
+        $coid       = '';
+        $maid       = '';
+        //$filterid  = '';
+        $pager      = '';
+
+        isset($caterg[1]) ? $cPath = $caterg[1] : "";
+        isset($proderg[1]) ? $prodid = $proderg[1] : "";
+        isset($conterg[1]) ? $content = $conterg[1] : "";
+        isset($coerg[1]) ? $coid = $coerg[1] : "";
+        isset($manuerg[1]) ? $maid = $manuerg[1] : "";
+        //isset($filtererg[1]) ? $filterid = $filtererg[1] : "";
+        isset($pagerg[1]) ? $pager = $pagerg[1] : "";
+/*
         $cPath      = $caterg[1];
         $prodid     = $proderg[1];
         $content    = $conterg[1];
@@ -83,6 +101,8 @@ function shopstat_getSEO(   $page               = '',
         $maid       = $manuerg[1];
         //$filterid   = $filtererg[1];
         $pager      = $pagerg[1];
+*/
+//EOF - DokuMan - 2010-02-25 - set missing variables
 
         if ($go &&
             (   xtc_not_null($maid) ||
@@ -200,7 +220,10 @@ function shopstat_getRealPath($cPath, $delimiter = '/')
 
     foreach($path as $key => $value)
         {
-        $categories[$key] = shopstat_getCategoriesName($value, $language);
+		//BOF - DokuMan - 2010-02-25 - set missing variable $language
+        //$categories[$key] = shopstat_getCategoriesName($value, $language);
+        $categories[$key] = shopstat_getCategoriesName($value, isset($language));
+		//EOF - DokuMan - 2010-02-25 - set missing variables $language
         }
 
     $realpath = implode($delimiter,$categories);
