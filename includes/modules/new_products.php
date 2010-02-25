@@ -29,6 +29,7 @@ $fsk_lock = '';
 if ($_SESSION['customers_status']['customers_fsk18_display'] == '0')
 	$fsk_lock = ' and p.products_fsk18!=1';
 
+$group_check = '';
 if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0')) {
 	if (GROUP_CHECK == 'true')
 		$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
@@ -48,7 +49,7 @@ if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0')) 
 		$group_check = "and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 
 	if (MAX_DISPLAY_NEW_PRODUCTS_DAYS != '0') {
-		$date_new_products = date("Y.m.d", mktime(1, 1, 1, date(m), date(d) - MAX_DISPLAY_NEW_PRODUCTS_DAYS, date(Y)));
+		$date_new_products = date("Y.m.d", mktime(1, 1, 1, date("m"), date("d") - MAX_DISPLAY_NEW_PRODUCTS_DAYS, date("Y")));
 		$days = " and p.products_date_added > '".$date_new_products."' ";
 	}
 	$new_products_query = "SELECT * FROM
