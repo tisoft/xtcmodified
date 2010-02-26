@@ -47,7 +47,7 @@
           $width = $image_size[0];
           $height = $image_size[1];
         }
-      } elseif (IMAGE_REQUIRED == 'false') {
+      } elseif (defined('IMAGE_REQUIRED') && IMAGE_REQUIRED == 'false') { //DokuMan - 2010-02-26 - set undefined constant
         return false;
       }
     }

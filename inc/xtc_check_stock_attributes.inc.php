@@ -17,11 +17,20 @@
    
   function xtc_check_stock_attributes($attribute_id, $products_quantity) {
 
-       $stock_query=xtc_db_query("SELECT
-                                  attributes_stock
-                                  FROM ".TABLE_PRODUCTS_ATTRIBUTES."
-                                  WHERE products_attributes_id='".$attribute_id."'");
-       $stock_data=xtc_db_fetch_array($stock_query);
+    //BOF - DokuMan - 2010-02-26 - security fix for attributes selection
+    /*   
+    $stock_query=xtc_db_query("SELECT
+                             attributes_stock
+                             FROM ".TABLE_PRODUCTS_ATTRIBUTES."
+                             WHERE products_attributes_id='".$attribute_id."'");
+    */
+    $stock_query=xtc_db_query("SELECT
+                             attributes_stock
+                             FROM ".TABLE_PRODUCTS_ATTRIBUTES."
+                             WHERE products_attributes_id=".(int)$attribute_id);
+    //EOF - DokuMan - 2010-02-26 - security fix for attributes selection
+
+    $stock_data=xtc_db_fetch_array($stock_query);
     $stock_left = $stock_data['attributes_stock'] - $products_quantity;
     $out_of_stock = '';
 
@@ -31,4 +40,4 @@
 
     return $out_of_stock;
   }
- ?>
+?>

@@ -16,10 +16,17 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
-
+//BOF - DokuMan - 2010-02-26 - set undefined index
+/*
 $ref_url = parse_url($_SERVER['HTTP_REFERER']);
 if ($_SESSION['tracked'] != true) { // if this visitor has not been tracked
-$_SESSION['tracking']['http_referer']= $ref_url;
+*/
+$ref_url = '';
+if (isset($_SERVER['HTTP_REFERER']))
+$ref_url = parse_url($_SERVER['HTTP_REFERER']);
+if (isset($_SESSION['tracked']) && $_SESSION['tracked'] != true) { // if this visitor has not been tracked
+//EOF - DokuMan - 2010-02-26 - set undefined index
+  $_SESSION['tracking']['http_referer']= $ref_url;
 	$_SESSION['tracked'] = true; // set tracked so they are only logged once
 }
 
@@ -61,7 +68,10 @@ if ($i > 6) {
 	$_SESSION['tracking']['pageview_history'][$i] = $ref_url;
 }
 
-if ($_SESSION['tracking']['pageview_history'][$i] == $_SESSION['tracking']['http_referer'])
+//BOF - DokuMan - 2010-02-26 - set undefined index http_referer
+//if ($_SESSION['tracking']['pageview_history'][$i] == $_SESSION['tracking']['http_referer'])
+if (isset($_SESSION['tracking']['http_referer']) && $_SESSION['tracking']['pageview_history'][$i] == $_SESSION['tracking']['http_referer'])
 	array_shift($_SESSION['tracking']['pageview_history']);
+//EOF - DokuMan - 2010-02-26 - set undefined index http_referer
 
 ?>

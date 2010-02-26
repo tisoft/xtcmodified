@@ -379,21 +379,30 @@ class product {
 
 			$products_price = $xtPrice->xtcGetPrice($array['products_id'], $format = true, 1, $array['products_tax_class_id'], $array['products_price'], 1);
 
+			$buy_now = ''; //DokuMan: Undefined variable: buy_now
+
 			if ($_SESSION['customers_status']['customers_status_show_price'] != '0') {
-			if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
-				if ($array['products_fsk18'] == '0')
-					$buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
-			
-			} else {
-				$buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
-			}
+        if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
+          if (isset($array['products_fsk18']) && $array['products_fsk18'] == '0')
+            $buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
+        
+        } else {
+          $buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
+        }
 			}
 			
 
-		
-			$shipping_status_name = $main->getShippingStatusName($array['products_shippingtime']);
-			$shipping_status_image = $main->getShippingStatusImage($array['products_shippingtime']);
-		
+      //BOF - 2010-02-26 - Set Undefined index: products_shippingtime
+			//$shipping_status_name = $main->getShippingStatusName($array['products_shippingtime']);
+			//$shipping_status_image = $main->getShippingStatusImage($array['products_shippingtime']);
+        if (isset($array['products_shippingtime'])) {
+            $shipping_status_name = $main->getShippingStatusName($array['products_shippingtime']);
+            $shipping_status_image = $main->getShippingStatusImage($array['products_shippingtime']);
+        } else {
+            $shipping_status_name = '';
+            $shipping_status_image = '';
+        }
+      //EOF - 2010-02-26 - Set Undefined index: products_shippingtime
 		
 		return array ('PRODUCTS_NAME' => $array['products_name'], 
 				'COUNT'=>$array['ID'],
@@ -401,7 +410,6 @@ class product {
 				'PRODUCTS_MODEL'=>$array['products_model'],
 				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']), 
 				'PRODUCTS_IMAGE' => $this->productImage($array['products_image'], $image),
-				 
 				'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])), 
 				'PRODUCTS_PRICE' => $products_price['formated'], 
 				'PRODUCTS_TAX_INFO' => $main->getTaxInfo($tax_rate), 
@@ -409,22 +417,22 @@ class product {
 				'PRODUCTS_BUTTON_BUY_NOW' => $buy_now,
 				'PRODUCTS_SHIPPING_NAME'=>$shipping_status_name,
 				'PRODUCTS_SHIPPING_IMAGE'=>$shipping_status_image, 
-				'PRODUCTS_DESCRIPTION' => $array['products_description'],
 				
-				// BOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
-				//'PRODUCTS_DESCRIPTION' => strip_tags($array['products_description']),
-				'PRODUCTS_DESCRIPTION' => $array['products_description'],
-				// EOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
+				//'PRODUCTS_DESCRIPTION' => $array['products_description'],
+        'PRODUCTS_DESCRIPTION' => isset($array['products_description']) ? $array['products_description'] : '', //DokuMan - 2010-02-26 - set Undefined index
 				
-				'PRODUCTS_EXPIRES' => $array['expires_date'],
-				'PRODUCTS_CATEGORY_URL'=>$array['cat_url'],
+				//'PRODUCTS_EXPIRES' => $array['expires_date'],
+        'PRODUCTS_EXPIRES' => isset($array['expires_date']) ? $array['expires_date'] : 0, //DokuMan - 2010-02-26 - set Undefined index
+
+				//'PRODUCTS_CATEGORY_URL'=>$array['cat_url'],
+        'PRODUCTS_CATEGORY_URL' => isset($array['cat_url']) ? $array['cat_url'] : '', //DokuMan - 2010-02-26 - set Undefined index
 				
-				// BOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
-				//'PRODUCTS_SHORT_DESCRIPTION' => strip_tags($array['products_short_description']),
-				'PRODUCTS_SHORT_DESCRIPTION' => $array['products_short_description'],
-				// EOF - Tomcraft - 2010-01-24 - don't strip tags... do not ignore HTML Formating
-				'PRODUCTS_FSK18' => $array['products_fsk18']);
-				
+				//'PRODUCTS_SHORT_DESCRIPTION' => $array['products_short_description'],
+				'PRODUCTS_SHORT_DESCRIPTION' => isset($array['products_short_description']) ? $array['products_short_description'] : '', //DokuMan - 2010-02-26 - set Undefined index
+
+				//'PRODUCTS_FSK18' => $array['products_fsk18']);
+				'PRODUCTS_FSK18' => isset($array['products_fsk18']) ? $array['products_fsk18'] : 0, //DokuMan - 2010-02-26 - set Undefined index
+        );
 
 	}
 	

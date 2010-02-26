@@ -172,7 +172,9 @@ if ($category_depth == 'nested') {
   $smarty->assign('main_content', $main_content);
 
 }
-elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
+//elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
+elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && $_GET['manufacturers_id'] > 0)) { //DokuMan - 2010-02-26 - Undefined index: manufacturers_id
+
   //fsk18 lock
   $fsk_lock = '';
   if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {

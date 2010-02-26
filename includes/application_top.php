@@ -568,7 +568,8 @@ if (isset ($cPath_array)) {
 		}
 	}
 }
-elseif (xtc_not_null($_GET['manufacturers_id'])) {
+//elseif (xtc_not_null($_GET['manufacturers_id'])) {
+elseif (isset($_GET['manufacturers_id']) && xtc_not_null($_GET['manufacturers_id'])) { //DokuMan - 2010-02-26 - set undefined variable manufacturers_id
 	$manufacturers_query = xtDBquery("select manufacturers_name from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
 	$manufacturers = xtc_db_fetch_array($manufacturers_query, true);
 

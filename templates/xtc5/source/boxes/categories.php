@@ -30,6 +30,7 @@ $box_smarty->assign('language', $_SESSION['language']);
 if (!CacheCheck()) {
 	$cache=false;
 	$box_smarty->caching = 0;
+	$cache_id = null; //DokuMan - 2010-02-26 - Undefined variable: cache_id
 } else {
 	$cache=true;
 	$box_smarty->caching = 1;
