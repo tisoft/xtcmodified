@@ -39,6 +39,7 @@ require_once (DIR_FS_INC.'xtc_write_user_info.inc.php');
 if ($session_started == false) {
 	xtc_redirect(xtc_href_link(FILENAME_COOKIE_USAGE));
 }
+$info_message = false; //DokuMan - 2010-02-28 - set undefined variable
 
 if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 	$email_address = xtc_db_prepare_input($_POST['email_address']);
