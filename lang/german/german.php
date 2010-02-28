@@ -351,7 +351,7 @@ define('NAVBAR_TITLE_2_CHECKOUT_SHIPPING_ADDRESS', 'Versandadresse &auml;ndern')
 define('NAVBAR_TITLE_1_CHECKOUT_SUCCESS', 'Kasse');
 define('NAVBAR_TITLE_2_CHECKOUT_SUCCESS', 'Erfolg');
 define('NAVBAR_TITLE_CREATE_ACCOUNT', 'Konto erstellen');
-if ($navigation->snapshot['page'] == FILENAME_CHECKOUT_SHIPPING) {
+if (isset($navigation) && $navigation->snapshot['page'] == FILENAME_CHECKOUT_SHIPPING) {
   define('NAVBAR_TITLE_LOGIN', 'Bestellen');
 } else {
   define('NAVBAR_TITLE_LOGIN', 'Anmelden');
