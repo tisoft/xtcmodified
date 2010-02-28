@@ -1170,7 +1170,10 @@ dd {
 }
 /* EOF - dokuman - 2009-06-06 - Fix new products display in firefox size is 120px by default */
 td.productPreviewContent {
-	width:400px;
+/* BOF - dokuman - 010-02-28 - Fix new products display in firefox */
+/*	width:400px; */
+	width:350px;
+/* EOF - dokuman - 2010-02-28 - Fix new products display in firefox */	
 	text-align:left;
 }
 /* BOF - Tomcraft - 2009-09-22 - FIX DER AUFZÄHLUNGEN IM CONTENT */
