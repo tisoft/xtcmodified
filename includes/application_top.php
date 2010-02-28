@@ -463,7 +463,7 @@ if (TRACKING_ECONDA_ACTIVE=='true') {
 
 require (DIR_WS_INCLUDES.FILENAME_CART_ACTIONS);
 // create the shopping cart & fix the cart if necesary
-if (!is_object($_SESSION['cart'])) {
+if (!isset($_SESSION['cart']) || !is_object($_SESSION['cart'])) { //DokuMan - 2010-02-28 - set undefined variable cart
 	$_SESSION['cart'] = new shoppingCart();
 }
 
