@@ -38,7 +38,12 @@ if ($messageStack->size('account') > 0)
 	$smarty->assign('error_message', $messageStack->output('account'));
 
 $i = 0;
-$max = count($_SESSION['tracking']['products_history']);
+//BOF - DokuMan - 2010-02-28 - set undefined Undefined variables
+//$max = count($_SESSION['tracking']['products_history']);
+$max = isset($_SESSION['tracking']['products_history']) ? count($_SESSION['tracking']['products_history']) : 0;
+$products_history = array();
+$also_purchased_history = array();
+//EOF - DokuMan - 2010-02-28 - set undefined Undefined variables
 
 while ($i < $max) {
 

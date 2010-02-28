@@ -25,6 +25,8 @@ require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
 // include needed functions
 require_once (DIR_FS_INC.'xtc_validate_email.inc.php');
 
+$content_body = ''; //DokuMan - set undefined variable
+$group_check = ''; //DokuMan - set undefined variable
 if (GROUP_CHECK == 'true') {
 	$group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
 }
