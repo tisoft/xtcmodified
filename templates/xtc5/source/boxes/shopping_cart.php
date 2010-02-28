@@ -19,6 +19,8 @@ $box_smarty = new smarty;
 $box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 $box_content = '';
 $box_price_string = '';
+$products_in_cart = array (); //DokuMan - 2010-02-28 - Undefined variable: products_in_cart
+$qty = 0; //DokuMan - 2010-02-28 - Undefined variable: qty
 // include needed files
 require_once (DIR_FS_INC.'xtc_recalculate_price.inc.php');
 
@@ -27,8 +29,8 @@ if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT) or strstr($PHP_SELF, FILENAME_C
 
 if ($_SESSION['cart']->count_contents() > 0) {
 	$products = $_SESSION['cart']->get_products();
-	$products_in_cart = array ();
-	$qty = 0;
+	//$products_in_cart = array (); //DokuMan - 2010-02-28 - Undefined variable: products_in_cart
+	//$qty = 0; //DokuMan - 2010-02-28 - Undefined variable: qty
 	for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 		$qty += $products[$i]['quantity'];
 		$products_in_cart[] = array ('QTY' => $products[$i]['quantity'], 

@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------------------------*/
 $box_smarty = new smarty;
 $content_string = '';
-$rebuild = false;
+//$rebuild = false; //DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 $box_smarty->assign('language', $_SESSION['language']);
 // set cache ID
@@ -34,7 +34,7 @@ if (!CacheCheck()) {
 
 if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_id) || !$cache) {
 	$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
-	$rebuild = true;
+	//$rebuild = true; //DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 	if (GROUP_CHECK == 'true') {
 		$group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
@@ -68,10 +68,15 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_i
 	
 
 }
-
-if ($rebuild) $box_smarty->clear_cache(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_id);
-$box_content = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_content.html',$cache_id);
-
+//BOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
+//if ($rebuild) $box_smarty->clear_cache(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_id);
+//$box_content = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_content.html',$cache_id);
+if (!$cache) {
+    $box_content = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_content.html');
+} else {
+    $box_content = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_id);
+}
+//EOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 $smarty->assign('box_CONTENT', $box_content);
 ?>

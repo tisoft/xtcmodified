@@ -23,7 +23,7 @@
 // reset var
 $box_smarty = new smarty;
 $box_content = '';
-$rebuild = false;
+//$rebuild = false; //DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 $box_smarty->assign('language', $_SESSION['language']);
 // set cache ID
@@ -41,15 +41,15 @@ if (!CacheCheck()) {
 
 if(!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_categories.html', $cache_id) || !$cache){
 $box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
-$rebuild=true;
+//$rebuild=true; //DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 // include needed functions
 require_once (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/inc/xtc_show_category.inc.php');
 require_once (DIR_FS_INC.'xtc_has_category_subcategories.inc.php');
 require_once (DIR_FS_INC.'xtc_count_products_in_category.inc.php');
 
-
 $categories_string = '';
+$group_check = ''; //DokuMan - 2010-02-28 - set undefined variable group_check
 if (GROUP_CHECK == 'true') {
 	$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 }
@@ -119,6 +119,8 @@ xtc_show_category($first_element);
 }
 
 // set cache ID
+//BOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
+/*
 if (!$cache || $rebuild) {
 	$box_smarty->assign('BOX_CONTENT', $categories_string);
 	if ($rebuild) $box_smarty->clear_cache(CURRENT_TEMPLATE.'/boxes/box_categories.html', $cache_id);
@@ -126,6 +128,13 @@ if (!$cache || $rebuild) {
 } else {
 	$box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html', $cache_id);
 }
+*/
+if (!$cache) {
+    $box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html');
+} else {
+    $box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html', $cache_id);
+}
+//EOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 $smarty->assign('box_CATEGORIES', $box_categories);
 ?>

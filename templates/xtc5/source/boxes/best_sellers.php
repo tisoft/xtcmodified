@@ -23,7 +23,7 @@
 // reset var
 $box_smarty = new smarty;
 $box_content = '';
-$rebuild = false;
+//$rebuild = false; //DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 	$box_smarty->assign('language', $_SESSION['language']);
 	// set cache ID
@@ -41,7 +41,7 @@ $rebuild = false;
 
 if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html', $cache_id) || !$cache) {
 	$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
-	$rebuild = true;
+	//$rebuild = true; //DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 // include needed functions
 require_once (DIR_FS_INC.'xtc_row_number_format.inc.php');
@@ -51,6 +51,7 @@ $fsk_lock = '';
 if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 	$fsk_lock = ' and p.products_fsk18!=1';
 }
+$group_check = ''; //DokuMan - 2010-02-28 - set undefined variable group_check
 if (GROUP_CHECK == 'true') {
 	$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 }
@@ -133,9 +134,11 @@ if (xtc_db_num_rows($best_sellers_query, true) >= MIN_DISPLAY_BESTSELLERS) {
 	}
 
 	$box_smarty->assign('box_content', $box_content);
-}
-}
+  }
+	//BOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
+//}
 	// set cache ID
+	/*
 	 if (!$cache || $rebuild) {
 	 	if (count($box_content)>0) {
 			if ($rebuild)  $box_smarty->clear_cache(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html', $cache_id);
@@ -146,4 +149,19 @@ if (xtc_db_num_rows($best_sellers_query, true) >= MIN_DISPLAY_BESTSELLERS) {
 		$box_best_sellers = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html', $cache_id);
 		$smarty->assign('box_BESTSELLERS', $box_best_sellers);
 	}
+	*/
+  if (count($box_content) > 0) {
+    $box_best_sellers = '';
+    
+    if (!$cache) {
+      if ($box_content!='') {
+          $box_best_sellers = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html');
+      }
+    } else {
+      $box_best_sellers = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html', $cache_id);
+    }
+    $smarty->assign('box_BESTSELLERS', $box_best_sellers);
+  }
+}
+//EOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 ?>
