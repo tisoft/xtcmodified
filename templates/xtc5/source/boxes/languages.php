@@ -18,9 +18,10 @@
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_get_all_get_params.inc.php');
 
-
-
-  if (!isset($lng) && !is_object($lng)) {
+  //BOF - 2010-02-28 - Fix Undefined variable: lng
+  //if (!isset($lng) && !is_object($lng)) {
+  if (!isset($lng) || !is_object($lng)) {
+  //EOF - 2010-02-28 - Fix Undefined variable: lng
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language;
   }
