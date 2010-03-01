@@ -894,7 +894,8 @@ CREATE TABLE specials (
   expires_date datetime,
   date_status_change datetime,
   status int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (specials_id)
+  PRIMARY KEY (specials_id),
+  KEY idx_specials_products_id (products_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS tax_class;

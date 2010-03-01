@@ -332,3 +332,7 @@ INSERT INTO countries VALUES(237, 'Yemen', 'YE', 'YEM', 1, 1);
 INSERT INTO countries VALUES(238, 'Zaire', 'ZR', 'ZAR', 1, 1);
 INSERT INTO countries VALUES(239, 'Zambia', 'ZM', 'ZMB', 1, 1);
 INSERT INTO countries VALUES(240, 'Zimbabwe', 'ZW', 'ZWE', 1, 1);
+
+#vr - 2010-03-01 - Additional index on specials, thx to Georg
+alter table specials
+add index idx_specials_products_id (products_id);
