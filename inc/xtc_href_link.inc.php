@@ -146,8 +146,10 @@
         }
       }
     }
-
-    if ($truncate_session_id) $sid=NULL;
+    
+    //BOF - DokuMan - 2010-03-01 - do not remove the session id when admin, unset undefined variable
+    //if ($truncate_session_id) $sid=NULL;
+    //EOF - DokuMan - 2010-03-01 - do not remove the session id when admin, unset undefined variable
 
     if (isset($sid)) {
       $link .= $separator . $sid;
