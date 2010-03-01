@@ -56,24 +56,7 @@ class InputFilter {
 	  */
 	function process($source, $get=false)
 	{
-		if (SEARCH_ENGINE_FRIENDLY_URLS == 'true' && $get == true) {
-			if(sizeof($source) > 0)
-			{
-				$cleaned_source = array();
-				while(list($key, $value) = each($source)) {
-					if((bool) get_magic_quotes_gpc()) $key = addslashes($key);
-
-					if(is_array($value)) {
-						$value = $this->gm_clean_array($value);
-					} else {
-						if((bool) get_magic_quotes_gpc()) $value = addslashes($value);
-					}
-					$cleaned_source[$key] = $value;
-				}
-				$source = $cleaned_source;
-			}
-		}
-
+		// Hetfield - 2010-03-01 - removed wrong placed code
 		// clean all elements in this array
 		if (is_array($source)) {
 			foreach ($source as $key => $value)
@@ -92,13 +75,17 @@ class InputFilter {
 			}
 			return $source;
 			// clean this string
-		} else
+		// BOF Hetfield - 2010-03-01 - Bugfix wrong closed if-else
+		} else {
 			if (is_string($source)) {
 				// filter source for XSS and other 'bad' code etc.
 				return $this->remove($this->decode($source));
 				// return parameter as given
-			} else
+			} else {
 				return $source;
+			}
+		}
+		// EOF Hetfield - 2010-03-01 - Bugfix wrong closed if-else
 	}
 
 	/** 
