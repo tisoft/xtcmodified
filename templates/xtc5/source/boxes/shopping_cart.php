@@ -48,6 +48,7 @@ if ($_SESSION['cart']->count_contents() > 0) {
 if ($_SESSION['cart']->count_contents() > 0) {
 	
 	$total =$_SESSION['cart']->show_total();
+	$discount = 0; //DokuMan - 2010-03-01 - set undefined variable
 if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == '1' && $_SESSION['customers_status']['customers_status_ot_discount'] != '0.00') {
 	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
 		$price = $total-$_SESSION['cart']->show_tax(false);
