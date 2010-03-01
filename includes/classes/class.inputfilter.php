@@ -54,7 +54,7 @@ class InputFilter {
 	  * @param Mixed $source - input string/array-of-string to be 'cleaned'
 	  * @return String $source - 'cleaned' version of input parameter
 	  */
-	function process($source, $get=false)
+	function process($source)
 	{
 		// Hetfield - 2010-03-01 - removed wrong placed code
 		// clean all elements in this array
@@ -70,7 +70,7 @@ class InputFilter {
 				if (is_string($value)) {
 					$source[$key] = $this->remove($this->decode($value));
 				} elseif (is_array($value)) {
-					$source[$key] = $value;
+					$source[$key] = $this->process($value); 
 				}
 			}
 			return $source;
