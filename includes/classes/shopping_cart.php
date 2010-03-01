@@ -308,6 +308,7 @@ class shoppingCart {
 					// price incl tax
 					if ($_SESSION['customers_status']['customers_status_show_price_tax'] == '1') {
 						if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
+            if (!isset($this->tax[$product['products_tax_class_id']])) $this->tax[$product['products_tax_class_id']]['value'] = 0; //DokuMan - 2010-03-01 - set undefined variable
 							$this->tax[$product['products_tax_class_id']]['value'] += ((($products_price_tax+$attribute_price_tax) / (100 + $products_tax)) * $products_tax)*$qty;
 							$this->tax[$product['products_tax_class_id']]['desc'] = TAX_ADD_TAX."$products_tax_description";
 						} else {
@@ -341,6 +342,7 @@ class shoppingCart {
 
 	function attributes_price($products_id) {
 		global $xtPrice;
+    $attributes_price = 0; //DokuMan - 2010-03-01 - set undefined variable
 		if (isset ($this->contents[$products_id]['attributes'])) {
 			reset($this->contents[$products_id]['attributes']);
 			while (list ($option, $value) = each($this->contents[$products_id]['attributes'])) {
