@@ -30,6 +30,12 @@ require_once (DIR_FS_INC.'xtc_get_product_path.inc.php');
 require_once (DIR_FS_INC.'xtc_get_products_name.inc.php');
 require_once (DIR_FS_INC.'xtc_get_products_image.inc.php');
 
+//BOF - DokuMan - 2010-03-02 - redirect not logged in users to login page instead
+if (!isset ($_SESSION['customer_id'])) { 
+  xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
+}
+//EOF - DokuMan - 2010-03-02 - redirect not logged in users to login page instead
+
 $breadcrumb->add(NAVBAR_TITLE_ACCOUNT, xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 
 require (DIR_WS_INCLUDES.'header.php');
