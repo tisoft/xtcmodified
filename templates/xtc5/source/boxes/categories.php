@@ -130,6 +130,7 @@ if (!$cache || $rebuild) {
 }
 */
 if (!$cache) {
+    $box_smarty->assign('BOX_CONTENT', $categories_string);
     $box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html');
 } else {
     $box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html', $cache_id);
