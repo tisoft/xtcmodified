@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofort�isung.de 4.0 - $Date: 2010-02-18 15:14:21 +0100 (Do, 18 Feb 2010) $
+ * @version sofortüberweisung.de 4.0 - $Date: 2010-02-18 15:14:21 +0100 (Do, 18 Feb 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
