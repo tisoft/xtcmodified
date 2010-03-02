@@ -116,6 +116,9 @@ if ($cPath) {
 }
 
 xtc_show_category($first_element);
+
+$box_smarty->assign('BOX_CONTENT', $categories_string); //DokuMan - 2010-03-02 - BOX_CONTENT on wrong position
+
 }
 
 // set cache ID
@@ -130,7 +133,6 @@ if (!$cache || $rebuild) {
 }
 */
 if (!$cache) {
-    $box_smarty->assign('BOX_CONTENT', $categories_string);
     $box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html');
 } else {
     $box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html', $cache_id);
