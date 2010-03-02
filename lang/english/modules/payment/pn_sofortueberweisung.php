@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.1.4 - 16.12.2009
+ * @version sofortüberweisung.de 4.0 - $Date: 2010-02-17 18:37:06 +0100 (Mi, 17 Feb 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,6 +33,8 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
+ * $Id: pn_sofortueberweisung.php 23 2010-02-17 17:37:06Z thoma $
+ *
  */
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE', 'DIRECTebanking.com');
@@ -61,7 +63,11 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID_DESC' , 'Your Customer ID a
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID_TITLE' , 'Project ID');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID_DESC' , 'The responsible project ID at DIRECTebanking.com, to which the payment is affiliate');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD_TITLE' , 'Project password:');
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD_DESC' , 'The project password (at extended settings / project password and input check)');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD_DESC' , 'The project password (at extended settings / passwords and hash algorithms)');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD_TITLE', 'Notification password:');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD_DESC', 'The notification password (extended settings / passwords and hash algorithms)');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM_TITLE', 'Hashing algorithm:');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM_DESC', 'The hashing algorithm (extended settings / passwords and hash algorithms)');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_TITLE' , 'Sequence of display');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_DESC' , 'Sequence of display. Lowest number is shown first.');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE_TITLE' , 'Payment zone');

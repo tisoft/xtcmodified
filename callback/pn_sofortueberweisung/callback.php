@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.1.4 - 16.12.2009
+ * @version sofortüberweisung.de 4.0 - $Date: 2010-02-18 15:14:21 +0100 (Do, 18 Feb 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -32,10 +32,14 @@
  * (c) 2003 - 2006 XT-Commerce
  * Released under the GNU General Public License
  ***********************************************************************************
+ *
+ * $Id: callback.php 24 2010-02-18 14:14:21Z thoma $
+ *
  */
 
 chdir('../../');
 require ('includes/application_top.php');
+require ('includes/modules/payment/pn_sofortueberweisung.php');
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_NO_ORDER_DETAILS', 'Error (SU101): No order-ID or customer-ID' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_ORDER_NOT_FOUND', 'Error (SU102): Order %s not found' . "\n");
@@ -86,9 +90,15 @@ $data = array();
 foreach($fields as $key) {
 	$data[$key] = $_POST[$key];
 }
-$data['project_password'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD;
 
-$validationhash = sha1(implode('|', $data));
+//we use the notification password for responses
+$data['project_password'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD;
+if( empty($data['project_password'])) 
+	$data['project_password'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD;
+
+$msg = implode('|', $data);
+$validationhash = pn_create_hash(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM,$msg);
+
 $x_order_id = $x_customer_id = $amount = '';
 $error = false;
 
@@ -122,7 +132,7 @@ if (xtc_db_num_rows($order_query) < 1) {
 	if ($order['orders_status'] == MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID) {
 		$total_query = xtc_db_query("select value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . (int) $x_order_id . "' and class = 'ot_total' limit 1");
 		$total = xtc_db_fetch_array($total_query);
-		$order_total = number_format($total['value'] / $order['currency_value'], 2, '.', '');
+		$order_total = number_format($total['value'] , 2, '.', '');
 
 		if ($amount == $order_total) {
 			$order_status = (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID > 0 ? (int) MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID : (int) DEFAULT_ORDERS_STATUS_ID);
@@ -138,7 +148,7 @@ if (xtc_db_num_rows($order_query) < 1) {
 			$comment = sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TRANSACTION, $_POST['transaction']);
 			print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_WARNING_CALLBACK);
 		}
-		
+
 		// Update status
 		$sql_data_array = array('orders_id' => (int) $x_order_id , 'orders_status_id' => $order_status , 'date_added' => 'now()' , 'customer_notified' => '0' , 'comments' => $comment);
 		xtc_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);

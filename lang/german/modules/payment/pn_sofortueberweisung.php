@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 3.1.4 - 16.12.2009
+ * @version sofortüberweisung.de 4.0 - $Date: 2010-02-17 18:37:06 +0100 (Mi, 17 Feb 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,6 +33,8 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
+ * $Id: pn_sofortueberweisung.php 23 2010-02-17 17:37:06Z thoma $
+ *
  */
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE', 'sofortüberweisung.de');
@@ -59,7 +61,11 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID_DESC', 'Ihre Kundennummer b
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID_TITLE', 'Projektnummer');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID_DESC', 'Die verantwortliche Projektnummer bei der sofort&uuml;berweisung.de, zu der die Zahlung geh&ouml;rt');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD_TITLE', 'Projekt-Passwort:');
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD_DESC', 'Das Projekt-Passwort (unter Erweiterte Einstellungen / Projekt-Passwort)');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD_DESC', 'Das Projekt-Passwort (unter Erweiterte Einstellungen / Passwörter und Hashfunktionen)');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD_TITLE', 'Benachrichtigungspasswort:');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD_DESC', 'Das Benachrichtigungspasswort (unter Erweiterte Einstellungen / Passwörter und Hashfunktionen)');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM_TITLE', 'Hash-Algorithmus:');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM_DESC', 'Der Hash-Algorithmus (unter Erweiterte Einstellungen / Passwörter und Hashfunktionen)');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE_TITLE', 'Zahlungszone');
