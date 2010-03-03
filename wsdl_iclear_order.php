@@ -42,7 +42,10 @@
     }
   }
   define('PROJECT_VERSION', 'osCommerce 2.2-MS2');
-  $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+  //BOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
+  //$request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+  $request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on' || !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) ? 'SSL' : 'NONSSL';
+  //EOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
 
   if (!isset($PHP_SELF)) $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
   if ($request_type == 'NONSSL') {

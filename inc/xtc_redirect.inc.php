@@ -20,7 +20,11 @@
   require_once(DIR_FS_INC . 'xtc_exit.inc.php');
   
   function xtc_redirect($url) {
-    if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // We are loading an SSL page
+  //BOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
+  //if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // We are loading an SSL page
+  if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1' || !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) ) { // We are loading an SSL page
+  //EOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
+	
 	if (substr($url, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { // NONSSL url
 	    $url = HTTPS_SERVER . substr($url, strlen(HTTP_SERVER)); // Change it to SSL
 	}

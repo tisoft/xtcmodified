@@ -58,7 +58,10 @@ define('TAX_DECIMAL_PLACES', 0);
 // EOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
 
 // set the type of request (secure or not)
-$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+//BOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
+//$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on' || !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) ? 'SSL' : 'NONSSL';
+//EOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
 
 // set php_self in the local scope
 $PHP_SELF = $_SERVER['PHP_SELF'];
