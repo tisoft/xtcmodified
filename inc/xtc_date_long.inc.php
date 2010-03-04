@@ -27,7 +27,9 @@
     $minute = (int)substr($raw_date, 14, 2);
     $second = (int)substr($raw_date, 17, 2);
 
-    return strftime(DATE_FORMAT_LONG, mktime($hour,$minute,$second,$month,$day,$year));
+    //BOF - DokuMan - 2010-03-04 - avoid umlauts, if setlocal of server differs from shop encoding
+    //return strftime(DATE_FORMAT_LONG, mktime($hour,$minute,$second,$month,$day,$year));
+    return htmlentities(strftime(DATE_FORMAT_LONG, mktime($hour,$minute,$second,$month,$day,$year)));
+    //EOF - DokuMan - 2010-03-04 - avoid umlauts, if setlocal of server differs from shop encoding
   }
-
- ?>
+?>
