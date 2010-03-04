@@ -275,7 +275,7 @@ if (CHECK_CLIENT_AGENT=='true') {
    "ultraseek",
    "unlost_web_crawler",
    "urlck",
-   "validator"
+   "validator",
    "valkyrie",
    "victoria",
    "visionsearch",
@@ -320,7 +320,7 @@ if (CHECK_CLIENT_AGENT=='true') {
    "wz101",
    "xget",
    "yahoo",
-   "yandex",
+   "yandex"
    );
 
    $botID = strtolower($_SERVER['HTTP_USER_AGENT']);
