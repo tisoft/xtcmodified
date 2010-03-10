@@ -392,7 +392,7 @@ class product {
 			}
 			
 
-      //BOF - 2010-02-26 - Set Undefined index: products_shippingtime
+      //BOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
 			//$shipping_status_name = $main->getShippingStatusName($array['products_shippingtime']);
 			//$shipping_status_image = $main->getShippingStatusImage($array['products_shippingtime']);
         if (isset($array['products_shippingtime'])) {
@@ -402,7 +402,7 @@ class product {
             $shipping_status_name = '';
             $shipping_status_image = '';
         }
-      //EOF - 2010-02-26 - Set Undefined index: products_shippingtime
+      //EOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
 		
 		return array ('PRODUCTS_NAME' => $array['products_name'], 
 				'COUNT'=>$array['ID'],
