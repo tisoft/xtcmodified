@@ -30,6 +30,7 @@ if (isset ($_SESSION['tracking']['products_history'][0])) {
 	if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 		$fsk_lock = ' and p.products_fsk18!=1';
 	}
+	$group_check = '';  //DokuMan - 2010-03-12 - set undefined variable
 	if (GROUP_CHECK == 'true') {
 		$group_check = " and p.group_permission_" . $_SESSION['customers_status']['customers_status_id'] . "=1 ";
 
@@ -72,9 +73,9 @@ if (isset ($_SESSION['tracking']['products_history'][0])) {
                                            " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
                                            " . TABLE_CATEGORIES_DESCRIPTION . " cd
                                            where p.products_status = '1'                                                                                               
-                                           and p.products_id = '".(int)$_SESSION[tracking][products_history][$random_last_viewed]."'
-                                           and pd.products_id = '".(int)$_SESSION[tracking][products_history][$random_last_viewed]."'
-                                           and p2c.products_id = '".(int)$_SESSION[tracking][products_history][$random_last_viewed]."'
+                                           and p.products_id = '".(int)$_SESSION['tracking']['products_history'][$random_last_viewed]."'
+                                           and pd.products_id = '".(int)$_SESSION['tracking']['products_history'][$random_last_viewed]."'
+                                           and p2c.products_id = '".(int)$_SESSION['tracking']['products_history'][$random_last_viewed]."'
                                            and pd.language_id = '" . $_SESSION['languages_id'] . "'
                                            and cd.categories_id = p2c.categories_id
                                            ".$group_check."

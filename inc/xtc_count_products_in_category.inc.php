@@ -17,6 +17,8 @@
    
   function xtc_count_products_in_category($category_id, $include_inactive = false) {
     
+    $group_check = ''; //DokuMan - 2010-03-12 - set undefined variable
+    
     //BOF - Dokuman - 2009-09-02: do not count products when GROUP_CHECK disabled
 		if(GROUP_CHECK == 'true') {
 			$group_check = " AND p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";

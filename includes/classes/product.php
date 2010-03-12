@@ -29,7 +29,10 @@ class product {
 		$this->useStandardImage=true;
 // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
 		$this->standardImage='noimage.gif';
-		if ($pID = 0) {
+// BOF - DokuMan - 2010-03-12 - bugfix, wrong comparison
+		//if ($pID = 0) {
+		if ($pID == 0) {
+// EOF - DokuMan - 2010-03-12 - bugfix, wrong comparison
 			$this->isProduct = false;
 			return;
 		}
@@ -263,7 +266,7 @@ class product {
 			if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 				$fsk_lock = ' and p.products_fsk18!=1';
 			}
-			$group_check = "";
+			$group_check = '';
 			if (GROUP_CHECK == 'true') {
 				$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 			}
@@ -284,6 +287,7 @@ class product {
 																                                            and p.products_status = '1'
 																                                            order by xp.sort_order asc");
 
+        $cross_sell_data = array(); //DokuMan - 2010-03-12 - set undefined array
 
 			while ($xsell = xtc_db_fetch_array($cross_query, true)) {
 
