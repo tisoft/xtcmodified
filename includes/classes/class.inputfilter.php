@@ -59,20 +59,23 @@ class InputFilter {
 		// Hetfield - 2010-03-01 - removed wrong placed code
 		// clean all elements in this array
 		if (is_array($source)) {
-			foreach ($source as $key => $value)
+			// BOF Hetfield - 2010-03-15 - Bugfix missing brace at foreach
+			foreach ($source as $key => $value) {
 				// filter element for XSS and other 'bad' code etc.
 				$tmp_key = $key;
-			unset ($source[$key]);
-			$key = $this->remove($this->decode($key));
-			if ($key != $tmp_key) {
-				return $source;
-			} else {
-				if (is_string($value)) {
-					$source[$key] = $this->remove($this->decode($value));
-				} elseif (is_array($value)) {
-					$source[$key] = $this->process($value); 
+				unset ($source[$key]);
+				$key = $this->remove($this->decode($key));
+				if ($key != $tmp_key) {
+					return $source;
+				} else {
+					if (is_string($value)) {
+						$source[$key] = $this->remove($this->decode($value));
+					} elseif (is_array($value)) {
+						$source[$key] = $this->process($value); 
+					}
 				}
 			}
+			// EOF Hetfield - 2010-03-15 - Bugfix missing brace at foreach
 			return $source;
 			// clean this string
 		// BOF Hetfield - 2010-03-01 - Bugfix wrong closed if-else
