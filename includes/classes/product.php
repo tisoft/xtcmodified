@@ -304,7 +304,8 @@ class product {
 
 	function getGraduated() {
 		global $xtPrice;
-
+		
+		$discount = $xtPrice->xtcCheckDiscount($this->pID);	// Hetfield - 2010-03-15 - BUGFIX show VPE with discount for graduated prices	
 		$staffel_query = xtDBquery("SELECT
 				                                     quantity,
 				                                     personal_offer
