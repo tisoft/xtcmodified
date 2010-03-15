@@ -199,6 +199,7 @@ define('IMAGE_BUTTON_PRODUCT_EDIT', 'Edit product');
 // BOF - vr - 2010-02-20 removed double definition 
 // define('IMAGE_BUTTON_LOGIN', 'Login');
 // EOF - vr - 2010-02-20 removed double definition 
+define('IMAGE_BUTTON_SEND', 'Send'); //DokuMan - 2010-03-15 - Added button description for contact form
 
 define('SMALL_IMAGE_BUTTON_DELETE', 'Delete');
 define('SMALL_IMAGE_BUTTON_EDIT', 'Edit');
