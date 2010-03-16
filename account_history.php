@@ -46,13 +46,13 @@ if (($orders_total = xtc_count_customer_orders()) > 0) {
                         from ".TABLE_ORDERS." o,
                              ".TABLE_ORDERS_TOTAL." ot,
                              ".TABLE_ORDERS_STATUS." s 
-                        where o.customers_id = '".(int) $_SESSION['customer_id']."'
+                        where o.customers_id = ".(int) $_SESSION['customer_id']."
                         and o.orders_id = ot.orders_id
                         and ot.class = 'ot_total'
                         and o.orders_status = s.orders_status_id
-                        and s.language_id = '".(int) $_SESSION['languages_id']."'
+                        and s.language_id = ".(int) $_SESSION['languages_id']."
                         order by orders_id DESC";
-	$history_split = new splitPageResults($history_query_raw, $_GET['page'], MAX_DISPLAY_ORDER_HISTORY);
+	$history_split = new splitPageResults($history_query_raw, isset($_GET['page']) ? $_GET['page'] : 0, MAX_DISPLAY_ORDER_HISTORY);
 	$history_query = xtc_db_query($history_split->sql_query);
 
 	while ($history = xtc_db_fetch_array($history_query)) {
