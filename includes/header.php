@@ -58,11 +58,18 @@
 <meta name="generator" content="(c) by <?php echo PROJECT_VERSION; ?> , http://www.xtc-modified.org" />
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
 <?php
-/* 
-//BOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
-<link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
-//EOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
+/*
+//BOF - DokuMan - 2010-03-16 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
+//<link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
 */
+if (file_exists('templates/'.CURRENT_TEMPLATE.'/css/general.css.php')) {
+  require('templates/'.CURRENT_TEMPLATE.'/css/general.css.php');
+  }
+  //Maintain backwards compatibility for older templates 
+  else {
+    echo '<link rel="stylesheet" type="text/css" href="templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
+}
+//EOF - DokuMan - 2010-03-16 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 ?>
 
 <script type="text/javascript"><!--
@@ -113,10 +120,6 @@ function popupImageWindow(url) {
 // require theme based javascript
 //BOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 //require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
-if (file_exists('templates/'.CURRENT_TEMPLATE.'/css/general.css.php')) {
-//Backwards compatibility for older templates
-  require('templates/'.CURRENT_TEMPLATE.'/css/general.css.php');
-}
 //EOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT)) {
