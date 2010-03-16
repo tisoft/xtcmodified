@@ -26,13 +26,19 @@ $smarty = new Smarty;
 // include boxes
 require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
 
-if (!isset ($_SESSION['customer_id']))
+if (!isset ($_SESSION['customer_id'])) {
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
+}
+//BOF - DokuMan - 2010-03-16 - do not delete the admin user (ID=1)
+if ($_SESSION['customer_id'] == 1) {
+    xtc_redirect(xtc_href_link(FILENAME_DEFAULT, ''));
+}
+//EOF - DokuMan - 2010-03-16 - do not delete the admin user (ID=1)
 
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 //BOF - 2009-08-25 - Require password to disable account
 		$password = xtc_db_prepare_input($_POST['password']);
-    $check_customer_query = xtc_db_query("select customers_vat_id, customers_firstname,customers_lastname, customers_gender, customers_password, customers_email_address, customers_default_address_id from ".TABLE_CUSTOMERS." where customers_id = '".$_SESSION['customer_id']."' and account_type = '0'");
+		$check_customer_query = xtc_db_query("select customers_password from ".TABLE_CUSTOMERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
 		$check_customer = xtc_db_fetch_array($check_customer_query);
 
 		if (!xtc_validate_password($password, $check_customer['customers_password'])) {
@@ -41,7 +47,10 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 //EOF - 2009-08-25 - Require password to disable account
 		
 	// delete account and logout customer	
-	$delete_customer_query = xtc_db_query("delete from ".TABLE_CUSTOMERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
+	xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int) $_SESSION['customer_id']."'");
+	xtc_db_query("delete from ".TABLE_CUSTOMERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
+	xtc_db_query("delete from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".(int) $_SESSION['customer_id']."'");
+	
 	xtc_session_destroy();
 
 	unset ($_SESSION['customer_id']);
