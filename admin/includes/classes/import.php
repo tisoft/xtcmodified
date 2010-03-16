@@ -356,13 +356,19 @@ class xtcImport {
 		for ($i = 0; $i < count($this->Groups) - 1; $i ++) {
 			// seperate string ::
 			if (isset ($dataArray['p_priceNoTax.'.$this->Groups[$i +1]['id']])) {
-				$truncate_query = "DELETE FROM ".TABLE_PERSONAL_OFFERS_BY.$this->Groups[$i +1]['id']." WHERE products_id='".$prod_data['products_id']."'";
+			// BOF - vr - 2010-03-16 use $products_id instead
+				// $truncate_query = "DELETE FROM ".TABLE_PERSONAL_OFFERS_BY.$this->Groups[$i +1]['id']." WHERE products_id='".$prod_data['products_id']."'";
+				$truncate_query = "DELETE FROM ".TABLE_PERSONAL_OFFERS_BY.$this->Groups[$i +1]['id']." WHERE products_id='".$products_id."'";
+			// EOF - vr - 2010-03-16 use $products_id instead
 				xtc_db_query($truncate_query);
 				$prices = $dataArray['p_priceNoTax.'.$this->Groups[$i +1]['id']];
 				$prices = explode('::', $prices);
 				for ($ii = 0; $ii < count($prices); $ii ++) {
 					$values = explode(':', $prices[$ii]);
-					$group_array = array ('products_id' => $prod_data['products_id'], 'quantity' => $values[0], 'personal_offer' => $values[1]);
+					// BOF - vr - 2010-03-16 use $products_id instead
+					// $group_array = array ('products_id' => $prod_data['products_id'], 'quantity' => $values[0], 'personal_offer' => $values[1]);
+					$group_array = array ('products_id' => $products_id, 'quantity' => $values[0], 'personal_offer' => $values[1]);
+					// EOF - vr - 2010-03-16 use $products_id instead
 
 					xtc_db_perform(TABLE_PERSONAL_OFFERS_BY.$this->Groups[$i +1]['id'], $group_array);
 				}
