@@ -44,8 +44,7 @@ if ($product->getAttributesCount() > 0) {
 		                                                 pa.attributes_model,
 		                                                 pa.options_values_price,
 		                                                 pa.price_prefix,
-		                                                 pa.attributes_stock,
-		                                                 pa.attributes_model
+		                                                 pa.attributes_stock
 		                                                 from ".TABLE_PRODUCTS_ATTRIBUTES." pa,
 		                                                 ".TABLE_PRODUCTS_OPTIONS_VALUES." pov
 		                                                 where pa.products_id = '".$product->data['products_id']."'
