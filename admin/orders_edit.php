@@ -1,6 +1,4 @@
 <?php
-
-
 /* --------------------------------------------------------------
    $Id: orders_edit.php,v 1.1
 
@@ -72,6 +70,11 @@ if ($_GET['action'] == "product_edit") {
 	$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
 	xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array, 'update', 'orders_products_id = \''.xtc_db_input($_POST['opID']).'\'');
 
+    //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+    $new_qty = (double)$_POST['old_qty'] - (double)$_POST['products_quantity'];
+    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity + " . $new_qty . " WHERE products_id = " . xtc_db_input($_POST['old_pID']));
+    //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
 // Artikel bearbeiten Ende:
@@ -98,6 +101,10 @@ if ($_GET['action'] == "product_ins") {
 	$insert_sql_data = array ('products_model' => xtc_db_prepare_input($product['products_model']));
 	$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
 	xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array);
+    
+    //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity - " . (double)$_POST['products_quantity'] . " WHERE products_id = " . (int)$_POST['products_id']);
+    //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
 
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
@@ -283,7 +290,7 @@ if ($_GET['action'] == "lang_edit") {
 	// Daten für Sprache wählen
 	$lang_query = xtc_db_query("select languages_id, name, directory from ".TABLE_LANGUAGES." where languages_id = '".$_POST['lang']."'");
 	$lang = xtc_db_fetch_array($lang_query);
-	// Daten für Sprache wählen Ende	
+	// Daten für Sprache wählen Ende
 
 	// Produkte
 	$order_products_query = xtc_db_query("select orders_products_id , products_id from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".$_POST['oID']."'");
@@ -407,6 +414,10 @@ if ($_GET['action'] == "product_delete") {
 	xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_products_id = '".xtc_db_input($_POST['opID'])."'");
 	xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($_POST['oID'])."' and orders_products_id = '".xtc_db_input($_POST['opID'])."'");
 
+    //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+    xtc_db_query("UPDATE ".TABLE_PRODUCTS." SET products_quantity = products_quantity + ".xtc_db_input($_POST['del_qty'])." WHERE products_id = " . (int)$_POST['del_pID']);
+    //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
 // Löschen eines Artikels aus der Bestellung Ende:
@@ -516,10 +527,12 @@ if ($_GET['action'] == "save_order") {
 	// Produkte Ende
 
 	// Module Anfang
+   	//BOF - Dokuman - 2010-03-17 - read customer status earlier
+    $status_query = xtc_db_query("select customers_status_show_price_tax, customers_status_add_tax_ot from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$order->info['status']."'");
+	$status = xtc_db_fetch_array($status_query);
+   	//EOF - Dokuman - 2010-03-17 - read customer status earlier
 	$module_query = xtc_db_query("select value, class from ".TABLE_ORDERS_TOTAL." where orders_id = '".$_POST['oID']."' and class!='ot_total' and class!='ot_subtotal_no_tax' and class!='ot_tax' and class!='ot_subtotal'");
 	while ($module_value = xtc_db_fetch_array($module_query)) {
-		;
-
 		$module_name = str_replace('ot_', '', $module_value['class']);
 
 		if ($module_name != 'discount') {
@@ -531,7 +544,7 @@ if ($_GET['action'] == "save_order") {
 				if ($module_tmp_name != 'selfpickup') {
 					$module_tax_class = constant(MODULE_SHIPPING_.strtoupper($module_tmp_name)._TAX_CLASS);
 				} else {
-					$module_tax_class = '';
+					$module_tax_class = '0'; //Dokuman set module_tax_class
 				}
 			}
 		} else {
@@ -540,13 +553,17 @@ if ($_GET['action'] == "save_order") {
 
 		$cinfo = xtc_oe_customer_infos($order->customer['ID']);
 		$module_tax_rate = xtc_get_tax_rate($module_tax_class, $cinfo['country_id'], $cinfo['zone_id']);
-
-		$status_query = xtc_db_query("select customers_status_show_price_tax from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$order->info['status']."'");
-		$status = xtc_db_fetch_array($status_query);
+    	//BOF - Dokuman - 2010-03-17 - read customer status earlier
+		//$status_query = xtc_db_query("select customers_status_show_price_tax from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$order->info['status']."'");
+		//$status = xtc_db_fetch_array($status_query);
+    	//EOF - Dokuman - 2010-03-17 - read customer status earlier
 
 		if ($status['customers_status_show_price_tax'] == 1) {
 			$module_b_price = $module_value['value'];
-			if ($module_tax == '0') {
+	    	//BOF - Dokuman - 2010-03-17 - use module_tax_class here
+            if ($module_tax_class == '0') {
+			//if ($module_tax == '0') {
+	    	//EOF - Dokuman - 2010-03-17 - use module_tax_class here
 				$module_n_price = $module_value['value'];
 			} else {
 				$module_n_price = $xtPrice->xtcRemoveTax($module_b_price, $module_tax_rate);
@@ -558,7 +575,13 @@ if ($_GET['action'] == "save_order") {
 			$module_tax = $xtPrice->calcTax($module_n_price, $module_tax_rate);
 		}
 
-		$sql_data_array = array ('orders_id' => xtc_db_prepare_input($_POST['oID']), 'n_price' => xtc_db_prepare_input($module_n_price), 'b_price' => xtc_db_prepare_input($module_b_price), 'tax' => xtc_db_prepare_input($module_tax), 'tax_rate' => xtc_db_prepare_input($module_tax_rate));
+		$sql_data_array = array (
+		'orders_id' => xtc_db_prepare_input($_POST['oID']),
+		'n_price' => xtc_db_prepare_input($module_n_price),
+		'b_price' => xtc_db_prepare_input($module_b_price),
+		'tax' => xtc_db_prepare_input($module_tax),
+		'tax_rate' => xtc_db_prepare_input($module_tax_rate)
+		);
 
 		$insert_sql_data = array ('class' => $module_value['class']);
 		$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
@@ -572,9 +595,14 @@ if ($_GET['action'] == "save_order") {
 
 	// Neue Mwst. zusammenrechnen Anfang
 
-	$ust_query = xtc_db_query("select tax_rate, SUM(tax) as tax_value_new from ".TABLE_ORDERS_RECALCULATE." where orders_id = '".$_POST['oID']."' and tax !='0' GROUP by tax_rate ");
-	while ($ust = xtc_db_fetch_array($ust_query)) {
+    $ust_query = xtc_db_query("
+    SELECT tax_rate, SUM(tax) as tax_value_new
+    FROM ".TABLE_ORDERS_RECALCULATE."
+    WHERE orders_id = '".$_POST['oID']."'
+    AND tax !='0'
+    GROUP BY tax_rate ");
 
+	while ($ust = xtc_db_fetch_array($ust_query)) {
 		$ust_desc_query = xtc_db_query("select tax_description from ".TABLE_TAX_RATES." where tax_rate = '".$ust['tax_rate']."'");
 		$ust_desc = xtc_db_fetch_array($ust_desc_query);
 
@@ -582,16 +610,24 @@ if ($_GET['action'] == "save_order") {
 
 		if ($ust['tax_value_new']) {
 			$text = $xtPrice->xtcFormat($ust['tax_value_new'], true);
+			
+			//BOF - Dokuman - 2010-03-17 - added sort order directly to array
+			$sql_data_array = array (
+			'orders_id' => xtc_db_prepare_input($_POST['oID']),
+			'title' => xtc_db_prepare_input($title),
+			'text' => xtc_db_prepare_input($text),
+			'value' => xtc_db_prepare_input($ust['tax_value_new']),
+			'class' => 'ot_tax',
+            'sort_order' => MODULE_ORDER_TOTAL_TAX_SORT_ORDER
+			);
 
-			$sql_data_array = array ('orders_id' => xtc_db_prepare_input($_POST['oID']), 'title' => xtc_db_prepare_input($title), 'text' => xtc_db_prepare_input($text), 'value' => xtc_db_prepare_input($ust['tax_value_new']), 'class' => 'ot_tax');
-
-			$insert_sql_data = array ('sort_order' => MODULE_ORDER_TOTAL_TAX_SORT_ORDER);
-			$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+			//$insert_sql_data = array ('sort_order' => MODULE_ORDER_TOTAL_TAX_SORT_ORDER);
+			//$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+			//EOF - Dokuman - 2010-03-17 - added sort order directly to array
 			xtc_db_perform(TABLE_ORDERS_TOTAL, $sql_data_array);
+
 		}
-
 	}
-
 	// Neue Mwst. zusammenrechnen Ende
 
 	// Löschen des Zwischenspeichers Anfang
@@ -607,9 +643,9 @@ if ($_GET['action'] == "save_order") {
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" />
 <title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -744,4 +780,3 @@ if ((xtc_not_null($heading)) && (xtc_not_null($contents))) {
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
-
