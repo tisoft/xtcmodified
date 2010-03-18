@@ -20,17 +20,19 @@ include ('includes/application_top.php');
 require_once (DIR_FS_INC.'xtc_get_order_data.inc.php');
 require_once (DIR_FS_INC.'xtc_get_attributes_model.inc.php');
 
-
 $smarty = new Smarty;
-
+$oID = (int) $_GET['oID'];
 // check if custmer is allowed to see this order!
 $order_query_check = xtc_db_query("SELECT
   					customers_id
   					FROM ".TABLE_ORDERS."
-  					WHERE orders_id='".(int) $_GET['oID']."'");
-$oID = (int) $_GET['oID'];
+  					WHERE orders_id=".$oID);
 $order_check = xtc_db_fetch_array($order_query_check);
-if ($_SESSION['customer_id'] == $order_check['customers_id']) {
+//BOF - DokuMan - 2010-03-18 - check for set customer_id
+//if ($_SESSION['customer_id'] == $order_check['customers_id']) {
+if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check['customers_id']) {
+//EOF - DokuMan - 2010-03-18 - check for set customer_id
+
 	// get order data
 
 	include (DIR_WS_CLASSES.'order.php');
@@ -47,6 +49,7 @@ if ($_SESSION['customer_id'] == $order_check['customers_id']) {
 	// assign language to template for caching
 	$smarty->assign('language', $_SESSION['language']);
 	$smarty->assign('oID', (int) $_GET['oID']);
+	$payment_method = false; //DokuMan - 2010-03-18 - set undefined variable	
 	if ($order->info['payment_method'] != '' && $order->info['payment_method'] != 'no_payment') {
 		include (DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
 		$payment_method = constant(strtoupper('MODULE_PAYMENT_'.$order->info['payment_method'].'_TEXT_TITLE'));
