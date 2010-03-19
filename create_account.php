@@ -51,13 +51,19 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	$process = true;
 
 	if (ACCOUNT_GENDER == 'true')
-		$gender = xtc_db_prepare_input($_POST['gender']);
+	//BOF - Dokuman - 2010-03-19 - set undefined variable
+	//$gender = xtc_db_prepare_input($_POST['gender']);
+    $gender = isset($_POST['gender']) ? xtc_db_prepare_input($_POST['gender']) : '';
+	//EOF - Dokuman - 2010-03-19 - set undefined variable
 	$firstname = xtc_db_prepare_input($_POST['firstname']);
 	$lastname = xtc_db_prepare_input($_POST['lastname']);
 	if (ACCOUNT_DOB == 'true')
 		$dob = xtc_db_prepare_input($_POST['dob']);
 	$email_address = xtc_db_prepare_input($_POST['email_address']);	
-	$confirm_email_address = xtc_db_prepare_input($_POST['confirm_email_address']); // Hetfield - 2009-08-15 - confirm e-mail at registration
+	//BOF - Dokuman - 2010-03-19 - set undefined variable
+	//$confirm_email_address = xtc_db_prepare_input($_POST['confirm_email_address']); // Hetfield - 2009-08-15 - confirm e-mail at registration
+	$confirm_email_address = isset($_POST['confirm_email_address']) ? xtc_db_prepare_input($_POST['confirm_email_address']) : 0; // Hetfield - 2009-08-15 - confirm e-mail at registration
+	//EOF - Dokuman - 2010-03-19 - set undefined variable
 	if (ACCOUNT_COMPANY == 'true')
 		$company = xtc_db_prepare_input($_POST['company']);
 	if (ACCOUNT_COMPANY_VAT_CHECK == 'true')
@@ -67,15 +73,20 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		$suburb = xtc_db_prepare_input($_POST['suburb']);
 	$postcode = xtc_db_prepare_input($_POST['postcode']);
 	$city = xtc_db_prepare_input($_POST['city']);
-	$zone_id = xtc_db_prepare_input($_POST['zone_id']);
+	//BOF - Dokuman - 2010-03-19 - set undefined variable
+	//$zone_id = xtc_db_prepare_input($_POST['zone_id']);
+    $zone_id = isset($_POST['zone_id']) ? xtc_db_prepare_input($_POST['zone_id']) : 0;
+	//EOF - Dokuman - 2010-03-19 - set undefined variable
 	if (ACCOUNT_STATE == 'true')
 		$state = xtc_db_prepare_input($_POST['state']);
 	$country = xtc_db_prepare_input($_POST['country']);
 	$telephone = xtc_db_prepare_input($_POST['telephone']);
 	$fax = xtc_db_prepare_input($_POST['fax']);
-	$newsletter = '';
+	//BOF - Dokuman - 2010-03-19 - set undefined variable
+	//$newsletter = xtc_db_input($_POST['newsletter']);
+    $newsletter = isset($_POST['newsletter']) ? xtc_db_prepare_input($_POST['newsletter']) : 0;
+	//EOF - Dokuman - 2010-03-19 - set undefined variable
 	$password = xtc_db_prepare_input($_POST['password']);
-	$newsletter = xtc_db_input($_POST['newsletter']);
 	$confirmation = xtc_db_prepare_input($_POST['confirmation']);
 	$privacy = xtc_db_prepare_input($_POST['privacy']);
 
@@ -231,9 +242,22 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if ($customers_status == 0 || !$customers_status)
 		$customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
 	if (!$newsletter)
-		$newsletter = '';
+		$newsletter = 0;
 	if ($error == false) {
-		$sql_data_array = array ('customers_vat_id' => $vat, 'customers_vat_id_status' => $customers_vat_id_status, 'customers_status' => $customers_status, 'customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_email_address' => $email_address, 'customers_telephone' => $telephone, 'customers_fax' => $fax, 'customers_newsletter' => $newsletter, 'customers_password' => xtc_encrypt_password($password),'customers_date_added' => 'now()','customers_last_modified' => 'now()');
+		$sql_data_array = array (
+		'customers_vat_id' => $vat,
+		'customers_vat_id_status' => $customers_vat_id_status,
+		'customers_status' => $customers_status,
+		'customers_firstname' => $firstname,
+		'customers_lastname' => $lastname,
+		'customers_email_address' => $email_address,
+		'customers_telephone' => $telephone,
+		'customers_fax' => $fax,
+		'customers_newsletter' => $newsletter,
+		'customers_password' => xtc_encrypt_password($password),
+		'customers_date_added' => 'now()',
+		'customers_last_modified' => 'now()',
+		);
 
 		if (ACCOUNT_GENDER == 'true')
 			$sql_data_array['customers_gender'] = $gender;
@@ -355,7 +379,6 @@ if (isset ($_SESSION['tracking']['refID'])){
 		}
 		$smarty->caching = 0;
 		$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/create_account_mail.html');
-		$smarty->caching = 0;
 		$txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/create_account_mail.txt');
 
 		xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, $email_address, $name, EMAIL_SUPPORT_FORWARDING_STRING, EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', EMAIL_SUPPORT_SUBJECT, $html_mail, $txt_mail);
@@ -383,7 +406,6 @@ require (DIR_WS_INCLUDES.'header.php');
 
 if ($messageStack->size('create_account') > 0) {
 	$smarty->assign('error', $messageStack->output('create_account'));
-
 }
 $smarty->assign('FORM_ACTION', xtc_draw_form('create_account', xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form(create_account);"').xtc_draw_hidden_field('action', 'process'));
 
@@ -464,7 +486,7 @@ if (ACCOUNT_STATE == 'true') {
 	$smarty->assign('state', '0');
 }
 
-if ($_POST['country']) {
+if (isset($_POST['country'])) {
 	$selected = $_POST['country'];
 } else {
 	$selected = STORE_COUNTRY;
