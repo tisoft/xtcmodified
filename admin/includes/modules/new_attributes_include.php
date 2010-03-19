@@ -73,12 +73,15 @@ function go_option() {
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change">
 <?php
 echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
-  if ($cPath) echo '<input type="hidden" name="cPathID" value="' . $cPath . '">';
+//BOF - DokuMan - 2010-03-19 - Artikelattribute nach bearbeiten zurück zur Kategorie
+//if ($cPath) echo '<input type="hidden" name="cPathID" value="' . $cPath . '">';
+  if ($_POST['cpath']) echo '<input type="hidden" name="cPathID" value="' . $_POST['cpath'] . '">';
+//EOF - DokuMan - 2010-03-19 - Artikelattribute nach bearbeiten zurück zur Kategorie
 
   require(DIR_WS_MODULES . 'new_attributes_functions.php');
 
   // Temp id for text input contribution.. I'll put them in a seperate array.
-  //$tempTextID = '1999043'; 
+  //$tempTextID = '1999043';
 
   // Lets get all of the possible options
 // BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
