@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 4.0 - $Date: 2010-02-18 15:14:21 +0100 (Do, 18 Feb 2010) $
+ * @version sofort�isung.de 4.0.1 - $Date: 2010-03-05 15:02:07 +0100 (Fr, 05 Mrz 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,7 +33,7 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
- * $Id: pn_sofortueberweisung.php 24 2010-02-18 14:14:21Z thoma $
+ * $Id: pn_sofortueberweisung.php 51 2010-03-05 14:02:07Z thoma $
  *
  */
 
@@ -43,7 +43,7 @@ class pn_sofortueberweisung {
 	function pn_sofortueberweisung () {
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
-		$this->version = 'pn_xtc_v4.0';
+		$this->version = 'pn_xtc_v4.0.1';
 		$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER;
@@ -217,8 +217,8 @@ class pn_sofortueberweisung {
 		// notification url:
 		$parameter['user_variable_4'] = $server . DIR_WS_CATALOG . 'callback/pn_sofortueberweisung/callback.php';
 
-		$parameter['user_variable_5'] = $this->version;//$_SESSION['cart']->cartID;
-
+		$parameter['user_variable_5'] = $_SESSION['cart']->cartID;
+		
 		if (strlen(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD) > 0) {
 			$tmparray = array(
 			$parameter['user_id'],
@@ -245,7 +245,8 @@ class pn_sofortueberweisung {
 
 		$parameter['encoding'] = 'iso-8859-1';
 		$parameter['payment_module'] = sprintf('XTC %s (v%s)', $this->code, $this->version);
-
+		$parameter['interface_version'] = $this->version;
+		
 
 		// Additionally update status
 		$sql_data_array = array('orders_id' => (int) $order_id , 'orders_status_id' => MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID , 'date_added' => 'now()' , 'customer_notified' => '0' , 'comments' => MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE);
@@ -415,7 +416,21 @@ HTML;
 		xtc_db_query("DELETE FROM " . TABLE_CONFIGURATION . " WHERE configuration_key IN ('" . implode("', '", $this->keys()) . "')");
 	}
 	function keys () {
-		return array('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD',  'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1', 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID' , 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER');
+		return array('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD',  
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1', 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID' , 
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER');
 	}
 
 	/**
@@ -427,7 +442,7 @@ HTML;
 		//character classes
 		$numericalCharacters = '0123456789';
 		$alphaCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$specialCharacters = '!$%/()?+*~,.-;:_|}][{§&=#<>';
+		$specialCharacters = '!$%/()?+*~^,.-;:_|}][{=#@';
 		$characters = '';
 				
 		if($type == 'chars')
