@@ -82,7 +82,10 @@ if (xtc_db_num_rows($downloads_query) > 0) {
 			$dl[$jj]['download_link'] = $downloads['products_name'];
 		}
 		//<!-- right box -->
-		$dl[$jj]['date'] = xtc_date_long($download_expiry);
+		// BOF - vr - 2010-03-19 simplify download expiry calculation
+		// $dl[$jj]['date'] = xtc_date_long($download_expiry);
+		$dl[$jj]['date'] = xtc_date_long($downloads['download_expiry']);
+		// EOF - vr - 2010-03-19 simplify download expiry calculation
 		$dl[$jj]['count'] = $downloads['download_count'];
 		$jj ++;
 	}
