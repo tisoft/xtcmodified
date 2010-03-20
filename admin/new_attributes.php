@@ -21,17 +21,25 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/ 
 
-  
-  require('includes/application_top.php');
-  require(DIR_WS_MODULES.'new_attributes_config.php');
-  require(DIR_FS_INC .'xtc_findTitle.inc.php');
-  require_once(DIR_FS_INC . 'xtc_format_filesize.inc.php');
+require('includes/application_top.php');
+require(DIR_WS_MODULES.'new_attributes_config.php');
+require(DIR_FS_INC .'xtc_findTitle.inc.php');
+require_once(DIR_FS_INC . 'xtc_format_filesize.inc.php');
 
+//BOF - DokuMan - 2010-03-20 - Artikelattribute nach bearbeiten zurück zur Kategorie
+/*
   if ( isset($cPathID) && $_POST['action'] == 'change') {
     include(DIR_WS_MODULES.'new_attributes_change.php');
 
     xtc_redirect( './' . FILENAME_CATEGORIES . '?cPath=' . $cPathID . '&pID=' . $_POST['current_product_id'] );
   }
+*/
+if ( isset($_POST['cPathID']) && $_POST['action'] == 'change') {
+   include(DIR_WS_MODULES.'new_attributes_change.php');
+
+   xtc_redirect(xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $_POST['cPathID'] . '&pID=' . $_POST['current_product_id']));
+}
+//EOF - DokuMan - 2010-03-20 - Artikelattribute nach bearbeiten zurück zur Kategorie
 
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
