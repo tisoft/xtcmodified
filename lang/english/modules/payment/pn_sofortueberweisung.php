@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 4.0 - $Date: 2010-02-17 18:37:06 +0100 (Mi, 17 Feb 2010) $
+ * @version sofortüberweisung.de 4.0 - $Date: 2010-03-19 12:54:13 +0100 (Fr, 19 Mrz 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,7 +33,7 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
- * $Id: pn_sofortueberweisung.php 23 2010-02-17 17:37:06Z thoma $
+ * $Id: pn_sofortueberweisung.php 94 2010-03-19 11:54:13Z thoma $
  *
  */
 
@@ -70,6 +70,7 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM_TITLE', 'Hashing alg
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM_DESC', 'The hashing algorithm (extended settings / passwords and hash algorithms)');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_TITLE' , 'Sequence of display');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER_DESC' , 'Sequence of display. Lowest number is shown first.');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE_TITLE', 'Hashing algorithm: '.MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM. '<br /><br />Payment zone');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE_TITLE' , 'Payment zone');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE_DESC' , 'If a zone is selected, the payment method is only valid for this zone.');
 

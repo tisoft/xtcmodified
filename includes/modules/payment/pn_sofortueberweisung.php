@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortï¿½isung.de 4.0.1 - $Date: 2010-03-05 15:02:07 +0100 (Fr, 05 Mrz 2010) $
+ * @version sofortüberweisung.de 4.0.2 - $Date: 2010-03-19 12:07:23 +0100 (Fr, 19 Mrz 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,17 +33,19 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
- * $Id: pn_sofortueberweisung.php 51 2010-03-05 14:02:07Z thoma $
+ * $Id: pn_sofortueberweisung.php 92 2010-03-19 11:07:23Z thoma $
  *
  */
 
+require (DIR_FS_CATALOG.'callback/pn_sofortueberweisung/classPnSofortueberweisung.php');
+
 class pn_sofortueberweisung {
 
-	var $code, $title, $description, $enabled;
+	var $code, $title, $description, $enabled, $pnSofortueberweisung;
 	function pn_sofortueberweisung () {
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
-		$this->version = 'pn_xtc_v4.0.1';
+		$this->version = 'pn_xtc_v4.0.2';
 		$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER;
@@ -55,16 +57,13 @@ class pn_sofortueberweisung {
 			$this->order_status = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID;
 		}
 		if (is_object($order))
-		$this->update_status();
+			$this->update_status();
 
-		$this->form_action_url = 'https://www.sofortueberweisung.de/payment/start';
 
 		$this->defaultCurrency = DEFAULT_CURRENCY;
-
-		//if old installation and notification password not set we need to upgrade the database
-		if (defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS')	&& (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS == 'True')
-		&& !defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD'))
-			$this->_upgrade();
+		$this->pnSofortueberweisung = new classPnSofortueberweisung(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM);
+		$this->form_action_url = $this->pnSofortueberweisung->formActionUrl; 
+		$this->pnSofortueberweisung->version = $this->version; 
 
 	}
 	function update_status ()
@@ -167,105 +166,77 @@ class pn_sofortueberweisung {
 		} else {
 			$total = $order->info['total'];
 		}
-
 		// Fix for XTC Bug
 		// $order->info['total'] is in 'before_process' String without Tax, after email it is TEXT with currency
 		// so it has to be set here
 
+		
 		$amount = round($total, $xtPrice->get_decimal_places($_SESSION['currency']));
 		$amount = number_format($amount, 2, '.', '');
 		
 		$_SESSION['sofortueberweisung_total'] = $amount;
 		$parameter = array();
-		$parameter['user_id'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID;
-		$parameter['project_id'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID;
-		$parameter['amount'] = $amount;
-		$parameter['currency_id'] = $_SESSION['currency'];
+		$currency = $_SESSION['currency'];
 
 		$reason_1 = str_replace('{{order_id}}', $order_id, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1);
-		$reason_2 = str_replace('{{order_id}}', $order_id, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2);
 		$reason_1 = str_replace('{{customer_id}}', $customer_id, $reason_1);
+		$reason_1 = substr($reason_1, 0, 27);
+		
+		$reason_2 = str_replace('{{order_id}}', $order_id, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2);
 		$reason_2 = str_replace('{{customer_id}}', $customer_id, $reason_2);
-
 		$reason_2 = str_replace('{{order_date}}', strftime(DATE_FORMAT_SHORT), $reason_2);
 		$reason_2 = str_replace('{{customer_name}}', $order->customer['firstname'] . ' ' . $order->customer['lastname'], $reason_2);
 		$reason_2 = str_replace('{{customer_company}}', $order->customer['company'], $reason_2);
 		$reason_2 = str_replace('{{customer_email}}', $order->customer['email_address'], $reason_2);
-
-		$reason_1 = substr($reason_1, 0, 27);
 		$reason_2 = substr($reason_2, 0, 27);
 
 
-		$parameter['reason_1'] = $reason_1;
-		$parameter['reason_2'] = $reason_2;
-		$parameter['user_variable_0'] = $order_id;
-		$parameter['user_variable_1'] = $customer_id;
+
+		$user_variable_0 = $order_id;
+		$user_variable_1 = $customer_id;
 
 		$session = '&' . session_name() . '=' . session_id();
 
 		if (ENABLE_SSL == true)
-		$server = str_replace('https://', '', HTTPS_SERVER);
+			$server = HTTPS_SERVER;
 		else
-		$server = str_replace('http://', '', HTTP_SERVER);
+			$server = HTTP_SERVER;
+			
+		$server = str_replace('https://', '', $server);
+		$server = str_replace('http://', '', $server);
+		
 
 		// success return url:
-		$parameter['user_variable_2'] = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?transaction=-TRANSACTION-' . $session;
+		$user_variable_2 = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?transaction=-TRANSACTION-' . $session;
 
 		// cancel return url:
-		$parameter['user_variable_3'] = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PAYMENT . '?payment_error=pn_sofortueberweisung' . $session;
+		$user_variable_3 = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PAYMENT . '?payment_error=pn_sofortueberweisung' . $session;
 
-		// notification url:
-		$parameter['user_variable_4'] = $server . DIR_WS_CATALOG . 'callback/pn_sofortueberweisung/callback.php';
+		// notification url: 
+		$user_variable_4 = $server . DIR_WS_CATALOG . 'callback/pn_sofortueberweisung/callback.php'; //deprecated
 
-		$parameter['user_variable_5'] = $_SESSION['cart']->cartID;
-		
-		if (strlen(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD) > 0) {
-			$tmparray = array(
-			$parameter['user_id'],
-			$parameter['project_id'],
-				'', // sender_holder
-				'', // sender_account_number
-				'', // sender_bank_code
-				'', // sender_country_id|
-			$parameter['amount'],
-			$parameter['currency_id'],
-			$parameter['reason_1'],
-			$parameter['reason_2'],
-			$parameter['user_variable_0'],
-			$parameter['user_variable_1'],
-			$parameter['user_variable_2'],
-			$parameter['user_variable_3'],
-			$parameter['user_variable_4'],
-			$parameter['user_variable_5'],
-			MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD);
-
-			$msg = implode("|", $tmparray);
-			$parameter['hash'] = pn_create_hash(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM, $msg);
-		}
-
-		$parameter['encoding'] = 'iso-8859-1';
-		$parameter['payment_module'] = sprintf('XTC %s (v%s)', $this->code, $this->version);
-		$parameter['interface_version'] = $this->version;
+		$user_variable_5 = $_SESSION['cart']->cartID;
 		
 
 		// Additionally update status
 		$sql_data_array = array('orders_id' => (int) $order_id , 'orders_status_id' => MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID , 'date_added' => 'now()' , 'customer_notified' => '0' , 'comments' => MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE);
 		xtc_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
 
+		$url = $this->pnSofortueberweisung->getPaymentUrl(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID, 
+			MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID, $amount, $currency, $reason_1, $reason_2, 
+			$user_variable_0, $user_variable_1, $user_variable_2, $user_variable_3, $user_variable_4, $user_variable_5);
 
-		$dataString = '';
-		foreach ($parameter as $key => $value) {
-			$dataString .= $key . '=' . urlencode($value) . '&';
-		}
-		xtc_redirect($this->form_action_url . '?' . $dataString);
+		xtc_redirect($url);
 	}
 	function after_process () {
 		/* Clear our session data
 		 * All other session data will be handled in checkout_process.php
 		 */
 		if (isset($_SESSION)) {
-			if (isset($_SESSION['cart_pn_sofortueberweisung_ID'])) unset($_SESSION['cart_pn_sofortueberweisung_ID']);
-			if (isset($_SESSION['sofortueberweisung_total'])) unset($_SESSION['sofortueberweisung_total']);
+			if (isset($_SESSION['cart_pn_sofortueberweisung_ID'])) 
+				unset($_SESSION['cart_pn_sofortueberweisung_ID']);
+			if (isset($_SESSION['sofortueberweisung_total'])) 
+				unset($_SESSION['sofortueberweisung_total']);
 		}
 	}
 	function output_error (){
@@ -275,6 +246,16 @@ class pn_sofortueberweisung {
 		if (! isset($this->_check)) {
 			$check_query = xtc_db_query("SELECT configuration_value FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS'");
 			$this->_check = xtc_db_num_rows($check_query);
+
+			//if old installation and notification password not set we need to upgrade the database
+			if (defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS')	&& (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS == 'True')
+			&& !defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD')) {
+				$check_query = xtc_db_query("SELECT configuration_value FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD'");
+				if(xtc_db_num_rows($check_query) < 1) {
+					xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', '".MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD."',  '6', '4', now())");
+					xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM', 'sha1',  '6', '4', now())");
+				}
+			}
 		}
 		return $this->_check;
 	}
@@ -288,73 +269,32 @@ class pn_sofortueberweisung {
 
 	function autoinstall() {
 
-	if (!isset($_SESSION['pn_sofortueberweisung_pw'])) {
-		$_SESSION['pn_sofortueberweisung_pw'] = $this->_create_random_value(20);
-		$_SESSION['pn_sofortueberweisung_pw2'] = $this->_create_random_value(20);
-	}
+		$backlink = xtc_href_link(FILENAME_MODULES, 'set=payment&module=pn_sofortueberweisung&action=install', 'SSL');
 		
-	$_SESSION['pn_sofortueberweisung_hashAlgorithm'] = 'sha1';
-	//mcrypt installed? use sha256 instead
-	if(function_exists('hash') && in_array('sha256', hash_algos()))
-		$_SESSION['pn_sofortueberweisung_hashAlgorithm'] = 'sha256';		
+		$header_redir_url = 'http://-USER_VARIABLE_2-';
+		if (ENABLE_SSL_CATALOG == 'true' && strpos(HTTPS_CATALOG_SERVER, 'tps://') === 2) {
+			$header_redir_url = 'https://-USER_VARIABLE_2-'; //
+		}
+		$html_abortlink = 'http://-USER_VARIABLE_3-';
+		if (ENABLE_SSL_CATALOG == 'true' && strpos(HTTPS_CATALOG_SERVER, 'tps://') === 2) {
+			$html_abortlink = 'https://-USER_VARIABLE_3-'; //
+		}
+		$alert_http_url = HTTP_SERVER . DIR_WS_CATALOG . 'callback/pn_sofortueberweisung/callback.php';
+		if (ENABLE_SSL_CATALOG == 'true' && strpos(HTTPS_CATALOG_SERVER, 'tps://') === 2) {
+			$alert_http_url = HTTPS_SERVER . DIR_WS_CATALOG . 'callback/pn_sofortueberweisung/callback.php';
+		}
 
-	$backlink = xtc_href_link(FILENAME_MODULES, 'set=payment&module=pn_sofortueberweisung&action=install', 'SSL');
-
-	$header_redir_url = 'http://-USER_VARIABLE_2-';
-	if (ENABLE_SSL_CATALOG == 'true' && strpos(HTTPS_CATALOG_SERVER, 'tps://') === 2) {
-		$header_redir_url = 'https://-USER_VARIABLE_2-'; //
-	}
-	$html_abortlink = 'http://-USER_VARIABLE_3-';
-	if (ENABLE_SSL_CATALOG == 'true' && strpos(HTTPS_CATALOG_SERVER, 'tps://') === 2) {
-		$html_abortlink = 'https://-USER_VARIABLE_3-'; //
-	}
-	$alert_http_url = 'http://-USER_VARIABLE_4-';
-	if (ENABLE_SSL_CATALOG == 'true' && strpos(HTTPS_CATALOG_SERVER, 'tps://') === 2) {
-		$alert_http_url = 'https://-USER_VARIABLE_4-'; //
-	}
-
-		$html = <<<HTML
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-<title>Schnellregistrierung | sofortueberweisung.de</title>
-</head>
-<body onload="document.getElementById('form').submit()">
-<form method="post" action="https://www.sofortueberweisung.de/payment/createNew/" id="form">
-<input type="hidden" name="project_name" value="%s">
-<input type="hidden" name="project_homepage" value="%s">
-<input type="hidden" name="projectsnotification_email_email" value="%s">
-<input type="hidden" name="projectsnotification_email_activated" value="1">
-<input type="hidden" name="projectsnotification_email_language_id" value="%s">
-<input type="hidden" name="projectssetting_interface_cancel_link" value="%s">
-<input type="hidden" name="projectssetting_interface_success_link_redirect" value="1">
-<input type="hidden" name="projectssetting_interface_success_link" value="%s">
-<input type="hidden" name="projectssetting_currency_id" value="%s">
-<input type="hidden" name="projectssetting_locked_amount" value="1">
-<input type="hidden" name="projectssetting_locked_reason_1" value="1">
-<input type="hidden" name="projectssetting_locked_reason_2" value="1">
-<input type="hidden" name="projectssetting_interface_input_hash_check_enabled" value="1">
-<input type="hidden" name="projectssetting_project_password" value="%s">
-<input type="hidden" name="project_notification_password" value="%s">
-<input type="hidden" name="project_shop_system_id" value="208">
-<input type="hidden" name="project_hash_algorithm" value="%s">
-<input type="hidden" name="user_shop_system_id" value="208">
-<input type="hidden" name="projectsnotification_http_activated" value="1">
-<input type="hidden" name="projectsnotification_http_url" value="%s">
-<input type="hidden" name="projectsnotification_http_method" value="1">
-<input type="hidden" name="backlink" value="%s">
-<input type="hidden" name="debug" value="0">
-<noscript><input type="submit"></noscript>
-</form>
-</body>
-</html>
-HTML;
-
-		$html = sprintf($html, STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_ADDRESS, DEFAULT_LANGUAGE, $html_abortlink, $header_redir_url,
-		DEFAULT_CURRENCY, $_SESSION['pn_sofortueberweisung_pw'], $_SESSION['pn_sofortueberweisung_pw2'],$_SESSION['pn_sofortueberweisung_hashAlgorithm'], $alert_http_url, $backlink);
-
+		
+		$html = $this->pnSofortueberweisung->getAutoInstallPage(STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_ADDRESS, DEFAULT_LANGUAGE,
+			DEFAULT_CURRENCY, $html_abortlink, $header_redir_url, $alert_http_url, $backlink, 208);
+			
+		$_SESSION['pn_sofortueberweisung_pw'] = $this->pnSofortueberweisung->password;
+		$_SESSION['pn_sofortueberweisung_pw2'] = $this->pnSofortueberweisung->password2;
+		$_SESSION['pn_sofortueberweisung_hashAlgorithm'] = $this->pnSofortueberweisung->hashfunction;
+		
 		return $html;
 	}
+	
 	function install () {
 
 		if (isset($_GET['autoinstall']) && ($_GET['autoinstall'] == '1')) {
@@ -380,7 +320,7 @@ HTML;
 			if (isset($_SESSION['pn_sofortueberweisung_hashAlgorithm']) && !empty($_SESSION['pn_sofortueberweisung_hashAlgorithm'])) {
 				$hashAlgorithm = $_SESSION['pn_sofortueberweisung_hashAlgorithm'];
 				unset($_SESSION['pn_sofortueberweisung_hashAlgorithm']);
-			} else $hashAlgorithm = 'sha1';
+			} else $hashAlgorithm = $this->pnSofortueberweisung->getSupportedHashAlgorithm();
 
 			
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS', 'True', '6', '3', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
@@ -389,7 +329,7 @@ HTML;
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID', '" . (int) $project_id . "',  '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD', '". $project_password ."',  '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', '". $project_password2 ."',  '6', '4', now())");
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added, set_function) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM', '". $hashAlgorithm ."',  '6', '4', now(), 'xtc_draw_pull_down_menu(\'configuration[MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM]\', array (array (\'id\' => \'md5\', \'text\' => \'md5\'),array (\'id\' => \'sha1\', \'text\' => \'sha1\'),array (\'id\' => \'sha256\', \'text\' => \'sha256\')),')");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM', '". $hashAlgorithm ."',  '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER', '1', '6', '0', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE', '0', '6', '2', 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID', '0',  '6', '0', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
@@ -401,20 +341,11 @@ HTML;
 		}
 	}
 	
-	/**
-	 * if old installation and notification password not set we need to upgrade the database
-	 */
-	function _upgrade() {
-		$check_query = xtc_db_query("SELECT configuration_value FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD'");
-		if(!xtc_db_num_rows($check_query)) {
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', '',  '6', '4', now())");
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added, set_function) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM', 'sha1',  '6', '4', now(), 'xtc_draw_pull_down_menu(\'configuration[MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM]\', array (array (\'id\' => \'md5\', \'text\' => \'md5\'),array (\'id\' => \'sha1\', \'text\' => \'sha1\'),array (\'id\' => \'sha256\', \'text\' => \'sha256\')),')");
-		}
-	}
-	
 	function remove () {
 		xtc_db_query("DELETE FROM " . TABLE_CONFIGURATION . " WHERE configuration_key IN ('" . implode("', '", $this->keys()) . "')");
+		xtc_db_query("DELETE FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM'");
 	}
+	
 	function keys () {
 		return array('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED' , 
@@ -422,7 +353,6 @@ HTML;
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD',  
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', 
-		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1', 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2' , 
@@ -431,38 +361,6 @@ HTML;
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER');
-	}
-
-	/**
-	 * @param int $length length of return value
-	 * @param string $type chars|digit|mixed
-	 * @return string 
-	 */
-	function _create_random_value($length, $type = 'mixed') {
-		//character classes
-		$numericalCharacters = '0123456789';
-		$alphaCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$specialCharacters = '!$%/()?+*~^,.-;:_|}][{=#@';
-		$characters = '';
-				
-		if($type == 'chars')
-			$characters = $alphaCharacters;
-		elseif($type == 'digits')
-			$characters = $numericalCharacters;
-		elseif($type == 'mixed')
-			$characters = $numericalCharacters.$alphaCharacters.$specialCharacters;
-		else
-			return false;
-		
-		$charactersLength = strlen($characters)-1; 
-		$randomValue = '';
-		
-		//select some random characters from all characters
-		for ($i = 0; $i < $length; $i++) {
-			$randomValue .= $characters[mt_rand(0, $charactersLength)];
-		}
-
-		return $randomValue;
 	}
 
 	// xtc_remove_order() in admin/includes/functions/general.php
@@ -516,27 +414,5 @@ HTML;
 		}
 	}
 }
-
-	
-/**
- * @param string $algorithm hashing algorithm md5|sha1|sha256
- * @param unknown_type $data string to be hashed
- * @return string the hash
- */
-function pn_create_hash($algorithm, $data){
-	if($algorithm == 'sha1' && function_exists('sha1'))
-		return sha1($data);
-
-	//md5
-	if($algorithm == 'md5' && function_exists('md5'))
-		return md5($data);
-
-	//mcrypt installed?
-	if(function_exists('hash') && in_array($algorithm, hash_algos()))
-		return hash($algorithm, $data);
-		
-	return false;
-}
-
 
 ?>

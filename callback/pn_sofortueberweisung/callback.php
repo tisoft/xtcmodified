@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 4.0 - $Date: 2010-02-18 15:14:21 +0100 (Do, 18 Feb 2010) $
+ * @version sofortüberweisung.de 4.0 - $Date: 2010-03-19 11:55:49 +0100 (Fr, 19 Mrz 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,18 +33,16 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
- * $Id: callback.php 24 2010-02-18 14:14:21Z thoma $
+ * $Id: callback.php 90 2010-03-19 10:55:49Z thoma $
  *
  */
 
 chdir('../../');
 require ('includes/application_top.php');
-require ('includes/modules/payment/pn_sofortueberweisung.php');
+require ('classPnSofortueberweisung.php');
 
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_NO_ORDER_DETAILS', 'Error (SU101): No order-ID or customer-ID' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_ORDER_NOT_FOUND', 'Error (SU102): Order %s not found' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_PASSWORD', 'Error (SU201): Invalid project password' . "\n");
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_HASH', 'Error (SU202): Hash validation failed' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_TOTALS', "Error (SU203): Totals do not match.\n(%s != %s)\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_UNEXPECTED_STATUS', 'Error (SU204): Order status is not temporary' . "\n");
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TRANSACTION', "Error during HTTP notification\nPlease check transaction and notification\nTransaction-ID: %s\n");
@@ -54,74 +52,19 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SUCCESS_CALLBACK', 'Success (SU000)
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_WARNING_CALLBACK', 'Warning (SU001): Error discovered, but order status updated' . "\n");
 
 
-$fields = array('transaction',
-		'user_id',
-		'project_id',
-		'sender_holder',
-		'sender_account_number',
-		'sender_bank_code',
-		'sender_bank_name',
-		'sender_bank_bic',
-		'sender_iban',
-		'sender_country_id',
-		'recipient_holder',
-		'recipient_account_number',
-		'recipient_bank_code',
-		'recipient_bank_name',
-		'recipient_bank_bic',
-		'recipient_iban',
-		'recipient_country_id',
-		'international_transaction',
-		'amount',
-		'currency_id',
-		'reason_1',
-		'reason_2',
-		'security_criteria',
-		'user_variable_0',
-		'user_variable_1',
-		'user_variable_2',
-		'user_variable_3',
-		'user_variable_4',
-		'user_variable_5',
-		'created'
-		);
+$pnSofortueberweisung = new classPnSofortueberweisung(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM);
+$data = $pnSofortueberweisung->getNotification();
 
-$data = array();
-foreach($fields as $key) {
-	$data[$key] = $_POST[$key];
+//notification corrupted?
+if(!is_array($data)) {
+	echo $data;
+	exit(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TERMINATED);
 }
 
-//we use the notification password for responses
-$data['project_password'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD;
-if( empty($data['project_password'])) 
-	$data['project_password'] = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD;
 
-$msg = implode('|', $data);
-$validationhash = pn_create_hash(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM,$msg);
+$x_order_id = $data['user_variable_0'];
+$x_customer_id = $data['user_variable_1'];
 
-$x_order_id = $x_customer_id = $amount = '';
-$error = false;
-
-if (! empty($_POST['user_variable_0'])) {
-	$x_order_id = $_POST['user_variable_0'];
-}
-if (! empty($_POST['user_variable_1'])) {
-	$x_customer_id = $_POST['user_variable_1'];
-}
-if (! empty($_POST['amount'])) {
-	$amount = number_format($_POST['amount'], 2, '.', '');
-}
-
-if (empty($x_order_id) || empty($x_customer_id)) {
-	print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_NO_ORDER_DETAILS);
-	$error = true;
-}
-if ($validationhash != $_POST['hash']) {
-	print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_HASH);
-	$error = true;
-}
-
-if ($error) exit(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TERMINATED);
 
 $order_query = xtc_db_query("select orders_status, currency_value from " . TABLE_ORDERS . " where orders_id = '" . (int) $x_order_id . "' and customers_id = '" . (int) $x_customer_id . "'");
 if (xtc_db_num_rows($order_query) < 1) {
@@ -134,19 +77,15 @@ if (xtc_db_num_rows($order_query) < 1) {
 		$total = xtc_db_fetch_array($total_query);
 		$order_total = number_format($total['value'] , 2, '.', '');
 
-		if ($amount == $order_total) {
+		if ($data['amount'] == $order_total) {
 			$order_status = (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID > 0 ? (int) MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID : (int) DEFAULT_ORDERS_STATUS_ID);
 			$comment = sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SUCCESS_TRANSACTION, $_POST['transaction']);
-			if (!$error) print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SUCCESS_CALLBACK);
+			echo MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SUCCESS_CALLBACK;
 		} else {
-			printf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_TOTALS, $amount, $order_total);
-			$error = true;
-		}          
-		
-		if ($error) {
+			printf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_WRONG_TOTALS, $data['amount'], $order_total);
 			$order_status = (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID > 0 ? (int) MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID : (int) DEFAULT_ORDERS_STATUS_ID);
 			$comment = sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ERROR_TRANSACTION, $_POST['transaction']);
-			print (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_WARNING_CALLBACK);
+			echo MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_WARNING_CALLBACK;
 		}
 
 		// Update status
