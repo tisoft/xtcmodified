@@ -286,7 +286,7 @@ class pn_sofortueberweisung {
 
 		
 		$html = $this->pnSofortueberweisung->getAutoInstallPage(STORE_NAME, xtc_catalog_href_link(), STORE_OWNER_EMAIL_ADDRESS, DEFAULT_LANGUAGE,
-			DEFAULT_CURRENCY, $html_abortlink, $header_redir_url, $alert_http_url, $backlink, 208);
+			DEFAULT_CURRENCY, $html_abortlink, $header_redir_url, $alert_http_url, $backlink, 4);
 			
 		$_SESSION['pn_sofortueberweisung_pw'] = $this->pnSofortueberweisung->password;
 		$_SESSION['pn_sofortueberweisung_pw2'] = $this->pnSofortueberweisung->password2;

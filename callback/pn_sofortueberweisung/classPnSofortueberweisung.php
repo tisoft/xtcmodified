@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @version sofortüberweisung.de 1.0 - $Date: 2010-03-18 16:45:24 +0100 (Do, 18 Mrz 2010) $
+ * @version sofortï¿½isung.de 1.0 - $Date: 2010-03-22 12:53:09 +0100 (Mo, 22 Mrz 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  * 
  * Copyright (c) 2010 Payment Network AG
  *
- * $Id: classPnSofortueberweisung.php 89 2010-03-18 15:45:24Z thoma $
+ * $Id: classPnSofortueberweisung.php 99 2010-03-22 11:53:09Z thoma $
  * 
  */
 class classPnSofortueberweisung {
@@ -129,7 +129,7 @@ class classPnSofortueberweisung {
 		$data['user_variable_4'] = $userVariable4;
 		$data['user_variable_5'] = $userVariable5;
 		$data['hash'] = $hash;
-		$data['encoding'] = 'UTF-8';
+		$data['encoding'] = 'iso-8859-1';
 		$data['payment_module'] = $this->version;
 		$data['interface_version'] = $this->version;
 		
