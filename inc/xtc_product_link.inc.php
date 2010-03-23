@@ -13,11 +13,13 @@
    ---------------------------------------------------------------------------------------*/
 
 function xtc_product_link($pID, $name='') {
+//-- SHOPSTAT --//
 /*
 	$pName = xtc_cleanName($name);
 	$link = 'info=p'.$pID.'_'.$pName.'.html';
 	return $link;
 */
+//-- SHOPSTAT --//
 	return 'products_id='.$pID;
 }
 ?>

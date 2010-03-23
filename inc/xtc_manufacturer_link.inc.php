@@ -12,11 +12,13 @@
    ---------------------------------------------------------------------------------------*/
 
 function xtc_manufacturer_link($mID,$mName='') {
+//-- SHOPSTAT --//
 /*
 		$mName = xtc_cleanName($mName);
 		$link = 'manu=m'.$mID.'_'.$mName.'.html';
 		return $link;
 */
 		return 'manufacturers_id='.$mID;
+//-- SHOPSTAT --//	
 }
 ?>
