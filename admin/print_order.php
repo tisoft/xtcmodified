@@ -74,7 +74,7 @@
         		'PRODUCTS_QTY' => $order_data_values['products_quantity']);
         }
   	// get order_total data
-  	$oder_total_query=xtc_db_query("SELECT
+  	$order_total_query=xtc_db_query("SELECT
                       title,
                       text,
                       class,
@@ -85,14 +85,14 @@
   					ORDER BY sort_order ASC");
 
   	$order_total=array();
-  	while ($oder_total_values = xtc_db_fetch_array($oder_total_query)) {
+  	while ($order_total_values = xtc_db_fetch_array($order_total_query)) {
 
   	$order_total[]=array(
-              'TITLE' => $oder_total_values['title'],
-              'CLASS'=> $oder_total_values['class'],
-              'VALUE'=> $oder_total_values['value'],
-              'TEXT' => $oder_total_values['text']);
-    if ($oder_total_values['class']='ot_total') $total=$oder_total_values['value'];
+              'TITLE' => $order_total_values['title'],
+              'CLASS'=> $order_total_values['class'],
+              'VALUE'=> $order_total_values['value'],
+              'TEXT' => $order_total_values['text']);
+    if ($order_total_values['class']='ot_total') $total=$order_total_values['value'];
   	}
 
   	// assign language to template for caching

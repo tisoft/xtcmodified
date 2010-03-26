@@ -314,7 +314,7 @@ class xtc_afterbuy_functions {
 		} else {
 
 			// mail to shopowner
-			$mail_content = 'Fehler bei â&Uuml;bertragung der Bestellung: '.$oID.chr(13).chr(10).'Folgende Fehlermeldung wurde vom afterbuy.de zur&uuml;ckgegeben:'.chr(13).chr(10).$result;
+			$mail_content = 'Fehler bei &Uuml;bertragung der Bestellung: '.$oID.chr(13).chr(10).'Folgende Fehlermeldung wurde vom afterbuy.de zur&uuml;ckgegeben:'.chr(13).chr(10).$result;
 
 			mail(EMAIL_BILLING_ADDRESS, "Afterbuy-Fehl&uuml;bertragung", $mail_content);
 

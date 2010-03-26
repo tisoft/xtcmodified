@@ -59,7 +59,10 @@
 
     function query($order_id) {
 
-      $order_id = xtc_db_prepare_input($order_id);
+// BOF - DokuMan - 2010-03-26 - allow int-values only
+//      $order_id = xtc_db_prepare_input($order_id);
+        $order_id = (int)xtc_db_prepare_input($order_id);
+// EOF - DokuMan - 2010-03-26 - allow int-values only
 
       $order_query = xtc_db_query("SELECT
                                    *
@@ -119,11 +122,15 @@
                               'country' => $order['customers_country'],
                               'format_id' => $order['customers_address_format_id'],
                               'telephone' => $order['customers_telephone'],
-                              'email_address' => $order['customers_email_address']);
+                              'email_address' => $order['customers_email_address'],
+// BOF - DokuMan - 2010-03-26 added vat_id in order-array
+                              'vat_id' => $order['customers_vat_id'],
+// EOF - DokuMan - 2010-03-26 added vat_id in order-array
+                              );
 
       $this->delivery = array('name' => $order['delivery_name'],
-      							'firstname' => $order['delivery_firstname'],
-      							'lastname' => $order['delivery_lastname'],
+                              'firstname' => $order['delivery_firstname'],
+                              'lastname' => $order['delivery_lastname'],
                               'company' => $order['delivery_company'],
                               'street_address' => $order['delivery_street_address'],
                               'suburb' => $order['delivery_suburb'],
@@ -226,7 +233,7 @@
     	global $xtPrice,$db;
     	
     		// get order_total data
-	$oder_total_query = "SELECT
+	$order_total_query = "SELECT
 	  					title,
 	  					text,
 	                    class,
@@ -237,16 +244,21 @@
 	  					ORDER BY sort_order ASC";
 
 	$order_total = array ();
-	$oder_total_query = xtc_db_query($oder_total_query);
-	while ($oder_total_values = xtc_db_fetch_array($oder_total_query)) {
+	$order_total_query = xtc_db_query($order_total_query);
+	while ($order_total_values = xtc_db_fetch_array($order_total_query)) {
 
 
-		$order_total[] = array ('TITLE' => $oder_total_values['title'], 'CLASS' => $oder_total_values['class'], 'VALUE' => $oder_total_values['value'], 'TEXT' => $oder_total_values['text']);
-		// BOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class
-		//if ($oder_total_values['class'] = 'ot_total')
-		if ($oder_total_values['class'] == 'ot_total') 
-		// EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class	
-			$total = $oder_total_values['value'];
+		$order_total[] = array (
+		'TITLE' => $order_total_values['title'],
+		'CLASS' => $order_total_values['class'],
+		'VALUE' => $order_total_values['value'],
+		'TEXT' => $order_total_values['text']
+		);
+		// BOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in orders class
+		//if ($order_total_values['class'] = 'ot_total')
+		if ($order_total_values['class'] == 'ot_total') 
+		// EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in orders class	
+			$total = $order_total_values['value'];
 
 	}
 	
@@ -265,7 +277,11 @@
       $shipping_address_query = xtc_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2, c.countries_iso_code_3, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . $_SESSION['sendto'] . "'");
       $shipping_address = xtc_db_fetch_array($shipping_address_query);
       
-      $billing_address_query = xtc_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2, c.countries_iso_code_3, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . $_SESSION['billto'] . "'");
+      //BOF - DokuMan - 2010-03-26 - use sendto-address if billto-address is not set
+      //$billing_address_query = xtc_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2, c.countries_iso_code_3, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . $_SESSION['billto'] . "'");
+      $billing_address_query = xtc_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2, c.countries_iso_code_3, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . (isset($_SESSION['billto']) ? $_SESSION['billto'] : $_SESSION['sendto']) . "'");
+      //EOF - DokuMan - 2010-03-26 - use sendto-address if billto-address is not set
+
       $billing_address = xtc_db_fetch_array($billing_address_query);
 
       $tax_address_query = xtc_db_query("select ab.entry_country_id, ab.entry_zone_id from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . ($this->content_type == 'virtual' ? $_SESSION['billto'] : $_SESSION['sendto']) . "'");
@@ -274,7 +290,7 @@
       $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
                           'currency' => $_SESSION['currency'],
                           'currency_value' => $xtPrice->currencies[$_SESSION['currency']]['value'],
-                          'payment_method' => $_SESSION['payment'],
+                          'payment_method' => isset($_SESSION['payment']) ? $_SESSION['payment'] : '',
                           'cc_type' => (isset($_SESSION['payment'])=='cc' && isset($_SESSION['ccard']['cc_type']) ? $_SESSION['ccard']['cc_type'] : ''),
                           'cc_owner'=>(isset($_SESSION['payment'])=='cc' && isset($_SESSION['ccard']['cc_owner']) ? $_SESSION['ccard']['cc_owner'] : ''),
                           'cc_number' => (isset($_SESSION['payment'])=='cc' && isset($_SESSION['ccard']['cc_number']) ? $_SESSION['ccard']['cc_number'] : ''),
@@ -282,13 +298,13 @@
                           'cc_start' => (isset($_SESSION['payment'])=='cc' && isset($_SESSION['ccard']['cc_start']) ? $_SESSION['ccard']['cc_start'] : ''),
                           'cc_issue' => (isset($_SESSION['payment'])=='cc' && isset($_SESSION['ccard']['cc_issue']) ? $_SESSION['ccard']['cc_issue'] : ''),
                           'cc_cvv' => (isset($_SESSION['payment'])=='cc' && isset($_SESSION['ccard']['cc_cvv']) ? $_SESSION['ccard']['cc_cvv'] : ''),
-                          'shipping_method' => $_SESSION['shipping']['title'],
-                          'shipping_cost' => $_SESSION['shipping']['cost'],
-                          'comments' => $_SESSION['comments'],
-                          'shipping_class'=>$_SESSION['shipping']['id'],
-                          'payment_class' => $_SESSION['payment'],
+                          'shipping_method' => isset($_SESSION['shipping']) ? $_SESSION['shipping']['title'] : '',
+                          'shipping_cost' => isset($_SESSION['shipping']) ? $_SESSION['shipping']['cost'] : '',
+                          'comments' => isset($_SESSION['comments']) ? $_SESSION['comments'] : '',
+                          'shipping_class' => isset($_SESSION['shipping']) ? $_SESSION['shipping']['id'] : '',
+                          'payment_class' => isset($_SESSION['payment']) ? $_SESSION['payment'] : '',
                           );
-
+                          
       if (isset($_SESSION['payment']) && is_object($_SESSION['payment'])) {
         $this->info['payment_method'] = $_SESSION['payment']->title;
         $this->info['payment_class'] = $_SESSION['payment']->title;

@@ -180,10 +180,12 @@ class shoppingCart {
 	}
 
 	function cleanup() {
-
 		reset($this->contents);
 		while (list ($key,) = each($this->contents)) {
-			if ($this->contents[$key]['qty'] < 1) {
+			//BOF - DokuMan - 2010-03-06 - check for defined variable
+			//if ($this->contents[$key]['qty'] < 1) {
+			if (isset($this->contents[$key]['qty']) && $this->contents[$key]['qty'] < 1) {
+			//BOF - DokuMan - 2010-03-06 - check for defined variable
 				unset ($this->contents[$key]);
 				// remove from database
 				if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
@@ -202,12 +204,14 @@ class shoppingCart {
 				$total_items += $this->get_quantity($products_id);
 			}
 		}
-
 		return $total_items;
 	}
 
 	function get_quantity($products_id) {
-		if (isset ($this->contents[$products_id])) {
+		//BOF - DokuMan - 2010-03-06 - check for defined variable
+		//if (isset ($this->contents[$products_id])) {
+		if (isset ($this->contents[$products_id]['qty'])) {
+		//EOF - DokuMan - 2010-03-06 - check for defined variable
 			return $this->contents[$products_id]['qty'];
 		} else {
 			return 0;
@@ -223,8 +227,11 @@ class shoppingCart {
 	}
 
 	function remove($products_id) {
-		
-		$this->contents[$products_id]= NULL;
+		//BOF - DokuMan - 2010-03-06 - unset instead of NULL
+		//$this->contents[$products_id]= NULL;
+		unset($this->contents[$products_id]);
+		//EOF - DokuMan - 2010-03-06 - unset instead of NULL
+
 		// remove from database
 		if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
 			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
@@ -307,8 +314,8 @@ class shoppingCart {
 					
 					// price incl tax
 					if ($_SESSION['customers_status']['customers_status_show_price_tax'] == '1') {
-						if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
-            if (!isset($this->tax[$product['products_tax_class_id']])) $this->tax[$product['products_tax_class_id']]['value'] = 0; //DokuMan - 2010-03-01 - set undefined variable
+						  if (!isset($this->tax[$product['products_tax_class_id']])) $this->tax[$product['products_tax_class_id']]['value'] = 0; //DokuMan - 2010-03-26 - set undefined variable
+							if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
 							$this->tax[$product['products_tax_class_id']]['value'] += ((($products_price_tax+$attribute_price_tax) / (100 + $products_tax)) * $products_tax)*$qty;
 							$this->tax[$product['products_tax_class_id']]['desc'] = TAX_ADD_TAX."$products_tax_description";
 						} else {
@@ -342,7 +349,7 @@ class shoppingCart {
 
 	function attributes_price($products_id) {
 		global $xtPrice;
-    $attributes_price = 0; //DokuMan - 2010-03-01 - set undefined variable
+		$attributes_price = 0; //DokuMan - 2010-03-01 - set undefined variable
 		if (isset ($this->contents[$products_id]['attributes'])) {
 			reset($this->contents[$products_id]['attributes']);
 			while (list ($option, $value) = each($this->contents[$products_id]['attributes'])) {
@@ -370,7 +377,19 @@ class shoppingCart {
 
 				$products_price = $xtPrice->xtcGetPrice($products['products_id'], $format = false, $this->contents[$products_id]['qty'], $products['products_tax_class_id'], $products['products_price']);
 
-				$products_array[] = array ('id' => $products_id, 'name' => $products['products_name'], 'model' => $products['products_model'], 'image' => $products['products_image'], 'price' => $products_price + $this->attributes_price($products_id), 'quantity' => $this->contents[$products_id]['qty'], 'weight' => $products['products_weight'],'shipping_time' => $main->getShippingStatusName($products['products_shippingtime']), 'final_price' => ($products_price + $this->attributes_price($products_id)), 'tax_class_id' => $products['products_tax_class_id'], 'attributes' => $this->contents[$products_id]['attributes']);
+				$products_array[] = array (
+				'id' => $products_id,
+				'name' => $products['products_name'],
+				'model' => $products['products_model'],
+				'image' => $products['products_image'],
+				'price' => $products_price + $this->attributes_price($products_id),
+				'quantity' => $this->contents[$products_id]['qty'],
+				'weight' => $products['products_weight'],
+				'shipping_time' => $main->getShippingStatusName($products['products_shippingtime']),
+				'final_price' => ($products_price + $this->attributes_price($products_id)),
+				'tax_class_id' => $products['products_tax_class_id'],
+				'attributes' => $this->contents[$products_id]['attributes']
+				);
 			}
 			}
 		}
@@ -493,7 +512,10 @@ class shoppingCart {
 				if (preg_match('/^GIFT/', $gv_result['products_model'])) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
 					$no_count = true;
 				}
-				if (NO_COUNT_ZERO_WEIGHT == 1) {
+				//BOF - DokuMan - 2010-03-26 - check for defined variable
+				if (defined('NO_COUNT_ZERO_WEIGHT') && NO_COUNT_ZERO_WEIGHT == 1) {
+				//if (NO_COUNT_ZERO_WEIGHT == 1) {
+				//EOF - DokuMan - 2010-03-26 - check for defined variable
 					$gv_query = xtc_db_query("select products_weight from ".TABLE_PRODUCTS." where products_id = '".xtc_get_prid($products_id)."'");
 					$gv_result = xtc_db_fetch_array($gv_query);
 					if ($gv_result['products_weight'] <= MINIMUM_WEIGHT) {
