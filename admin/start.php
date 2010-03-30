@@ -426,7 +426,8 @@ $ergebnis = xtc_db_query("select
                           customers_dob dob,
                           if(day(customers_dob) = day(current_date), true, false) today
                           from " . TABLE_CUSTOMERS . "
-                          where month(customers_dob) = month(current_date)
+                          where month(customers_dob) = month(current_date) and 
+                          day(customers_dob) >= day(current_date)
                           order by customers_dob");
 
 $this_month = array();
