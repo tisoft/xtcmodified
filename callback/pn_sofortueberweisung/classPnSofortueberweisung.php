@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version sofortüberweisung.de 1.0 - $Date: 2010-03-22 12:53:09 +0100 (Mo, 22 Mrz 2010) $
+ * @version sofortï¿½isung.de 1.0 - $Date: 2010-03-22 12:53:09 +0100 (Mo, 22 Mrz 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  * 
@@ -237,7 +237,7 @@ class classPnSofortueberweisung {
 	 * @return string
 	 */
 	function getAutoInstallPage($projectName, $projectHomepage, $projectEmail, $projectLanguage, $currency,
-	$cancelLink, $successLink, $notificationLink, $backLink, $shopSystemId='4'){
+	$cancelLink, $successLink, $notificationLink, $backLink, $shopSystemId='208'){
 
 		$this->password = $this->generateRandomValue(24);
 		$this->password2 = $this->generateRandomValue(24);
