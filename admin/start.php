@@ -151,7 +151,7 @@ h1 {
 	 <td class="boxCenter" width="100%" valign="top"> 	 
      <table border="0" width="100%" cellspacing="0" cellpadding="0">          
           <tr>
-               <td><h1>Willkommen im Adminbereich</h1></td>
+               <td><h1><?php echo HEADING_TITLE; ?></h1></td>
           </tr>
           <tr>
                <td>
@@ -242,24 +242,19 @@ h1 {
 			  <!--  BOF START INFOS USER ONLINE + NEUE KUNDEN  + LETZTE BESTELLUNGEN +  NEWSFEED-->
 			  <table border="0" width="100%" cellspacing="0">
 	<tr>
-	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><strong>User
-        Online</strong></td>
+	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><strong><?php echo TABLE_CAPTION_USERS_ONLINE; ?></strong></td>
 	  <td width="4%"><p style="margin-left: 3px"></p>
 	  </td>
-	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><font face="Verdana"><strong>Neue
-          Kunden </strong>(letzten 15 neuen Kunden)</font></td>
+	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><font face="Verdana"><strong><?php echo TABLE_CAPTION_NEW_CUSTOMERS; ?> </strong><?php echo TABLE_CAPTION_NEW_CUSTOMERS_COMMENT; ?></font></td>
 	</tr>
 	<tr>
-	  <td style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top">&nbsp;<em><font face="Verdana" color="#7691A2">***für
-          Infos zu dem User - auf Name des Users klicken***</font></em>
+	  <td style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top">&nbsp;<em><font face="Verdana" color="#7691A2"><?php echo TABLE_CAPTION_USERS_ONLINE_HINT; ?></font></em>
         <table border="0" width="98%" cellspacing="0" cellpadding="0">
           <tr class="dataTableHeadingRow">
-            <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="22%"><strong> <font face="Verdana">Online
-                  seit (min.)</font></strong></td>
-            <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="33%"><strong> <font face="Verdana">Name</font></strong></td>
-            <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="33%"><strong> <font face="Verdana">Letzter
-                  Klick</font></strong></td>
-            <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="33%"><strong><font face="Verdana">Infos</font></strong></td>
+            <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="22%"><strong> <font face="Verdana"><?php echo TABLE_HEADING_USERS_ONLINE_SINCE; ?></font></strong></td>
+            <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="33%"><strong> <font face="Verdana"><?php echo TABLE_HEADING_USERS_ONLINE_NAME; ?></font></strong></td>
+            <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="33%"><strong> <font face="Verdana"><?php echo TABLE_HEADING_USERS_ONLINE_LAST_CLICK; ?></font></strong></td>
+            <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="33%"><strong><font face="Verdana"><?php echo TABLE_HEADING_USERS_ONLINE_INFO; ?></font></strong></td>
           </tr>
           <?php
 	
@@ -275,7 +270,7 @@ h1 {
             <td class="dataTableContent" width="22%"><font face="Verdana"> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"><?php echo gmdate('H:i:s', $time_online); ?></a></font></td>
             <td class="dataTableContent" width="33%"><font face="Verdana"> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"><?php echo $whos_online['full_name']; ?></a></font></td>
             <td class="dataTableContent" align="center" width="33%"><font face="Verdana"> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></a></font></td>
-            <td class="dataTableContent" align="center" width="33%"><font face="Verdana" color="#800000"><u><strong> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"> <font color="#800000"><strong>mehr...</strong></font></a></strong></u></font></td>
+            <td class="dataTableContent" align="center" width="33%"><font face="Verdana" color="#800000"><u><strong> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"> <font color="#800000"><strong><?php echo TABLE_CELL_USERS_ONLINE_INFO; ?></strong></font></a></strong></u></font></td>
           </tr>
     <?php	
 	  }	
@@ -286,12 +281,11 @@ h1 {
 	  <td style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top">
       <table border="0" width="98%" cellspacing="0" cellpadding="0">
         <tr class="dataTableHeadingRow">
-          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana">Name</font></strong></td>
-          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana">Vorname</font></strong></td>
-          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana">angemeldet
-                am</font></strong></td>
-          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><strong><font face="Verdana">bearbeiten</font></strong></td>
-          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><strong><font face="Verdana">Bestellungen</font></strong></td>
+          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana"><?php echo TABLE_HEADING_NEW_CUSTOMERS_LASTNAME; ?></font></strong></td>
+          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana"><?php echo TABLE_HEADING_NEW_CUSTOMERS_FIRSTNAME; ?></font></strong></td>
+          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana"><?php echo TABLE_HEADING_NEW_CUSTOMERS_REGISTERED; ?></font></strong></td>
+          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_CUSTOMERS_EDIT; ?></font></strong></td>
+          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_CUSTOMERS_ORDERS; ?></font></strong></td>
         </tr>
         <?php
 	
@@ -310,8 +304,8 @@ h1 {
           </td>
           <td class="dataTableContent" align="center" width="25%"><?php  echo $row-> customers_date_added; ?>
           </td>
-          <td class="dataTableContent" align="center" width="12%"><strong> <a href="customers.php?page=1&cID=<?php  echo $row-> customers_id; ?>&action=edit"> <font face="Verdana" color="#800000"><strong>hier...</strong></font></a></strong></td>
-          <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?cID=<?php  echo $row-> customers_id; ?>"><font color="#7691A2" face="Verdana"><strong>anzeigen...</strong></font></a></strong></td>
+          <td class="dataTableContent" align="center" width="12%"><strong> <a href="customers.php?page=1&cID=<?php  echo $row-> customers_id; ?>&action=edit"> <font face="Verdana" color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_EDIT; ?></strong></font></a></strong></td>
+          <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?cID=<?php  echo $row-> customers_id; ?>"><font color="#7691A2" face="Verdana"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_ORDERS; ?></strong></font></a></strong></td>
         </tr>
         <?php
 	
@@ -327,22 +321,20 @@ h1 {
 	  <td width="48%">&nbsp;</td>
 	</tr>
 	<tr>
-	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><span style="margin-left: 3px"><strong><font face="Verdana"> letzten </font></strong><font face="Verdana"><strong>Bestellungen </strong> (letzten
-          20 Bestellungen)</font></span></td>
+	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><span style="margin-left: 3px"><font face="Verdana"><strong><?php echo TABLE_CAPTION_NEW_ORDERS; ?> <?php echo TABLE_CAPTION_NEW_ORDERS_COMMENT; ?></strong></font></span></td>
 	  <td width="4%"><p style="margin-left: 3px"></p>
 	  </td>
-	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><span style="margin-left: 3px"><font face="Verdana"><strong> Zur
-            Homepage von:</strong> <a href="http://www.xtc-modified.org" target="_blank">xtcModified.org</a></font></span></td>
+	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><span style="margin-left: 3px"><font face="Verdana"><strong><?php echo TABLE_CAPTION_NEWSFEED; ?></strong> <a href="http://www.xtc-modified.org" target="_blank">xtcModified.org</a></font></span></td>
 	</tr>
 	<tr>
 	  <td style="background: #F9F0F1; border: 1px solid #b40076; height: 200px;" valign="top">
       <table border="0" width="98%" cellspacing="0" cellpadding="0">
         <tr class="dataTableHeadingRow">
-          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana">Bestellnummer</font></strong></td>
-          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><p align="center"> <strong><font face="Verdana">Bestelldatum</font></strong></td>
-          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="25%"><p align="center"> <strong><font face="Verdana">Kundenname</font></strong></td>
-          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><p align="center"><strong><font face="Verdana">bearbeiten</font></strong></td>
-          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><p align="center"><strong><font face="Verdana">löschen</font></strong></td>
+          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><strong> <font face="Verdana"><?php echo TABLE_HEADING_NEW_ORDERS_ORDER_NUMBER; ?></font></strong></td>
+          <td class="dataTableHeadingContent" bgcolor="#D9D9D9" height="20" width="25%"><p align="center"> <strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_ORDERS_ORDER_DATE; ?></font></strong></td>
+          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="25%"><p align="center"> <strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_ORDERS_CUSTOMERS_NAME; ?></font></strong></td>
+          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><p align="center"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_ORDERS_EDIT; ?></font></strong></td>
+          <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><p align="center"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_ORDERS_DELETE; ?></font></strong></td>
         </tr>
         <?php
 	
@@ -364,8 +356,8 @@ h1 {
           <td class="dataTableContent" align="center" width="25%"><font face="Verdana">
             <?php  echo $row-> delivery_name; ?>
           </font></td>
-          <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=edit"> <font face="Verdana" color="#7691A2"><strong>hier...</strong></font></a></strong></td>
-          <td class="dataTableContent" align="center" width="12%"><font face="Verdana" color="#800000"> <strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=delete"> <font color="#800000"><strong>löschen...</strong></font></a></strong></font></td>
+          <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=edit"> <font face="Verdana" color="#7691A2"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_EDIT; ?></strong></font></a></strong></td>
+          <td class="dataTableContent" align="center" width="12%"><font face="Verdana" color="#800000"> <strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=delete"> <font color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_DELETE; ?></strong></font></a></strong></font></td>
         </tr>
         <?php
 	
@@ -413,12 +405,12 @@ CarpConf('maxitems',3);
 <!--  BOF START INFOS GEBURTSTAGSLISTE -->
 	  <table cellpadding="5" cellspacing="0" width="100%" id="table1" class="contentTable">
 	<tr>
-		<td class="infoBoxHeading"><span style="margin-left: 3px"></span><font face="Verdana"><strong>Geburtstagsliste</strong></font></span></td>
+		<td class="infoBoxHeading"><span style="margin-left: 3px"></span><font face="Verdana"><strong><?php echo TABLE_CAPTION_BIRTHDAYS; ?></strong></font></span></td>
 	</tr>
 </table>
 <table cellpadding="5" cellspacing="0" style="font-family:Verdana; font-size:11px; border: 1px solid #b40076; border-top:0px;" width="100%" id="AutoNumber1">
 	<tr>
-		<td width="100%" colspan="2" bgcolor="#F1F1F1" style="border-bottom: 1px solid #CCCCCC"><strong>Kunden, die heute Geburtstag haben:</strong></td>
+		<td width="100%" colspan="2" bgcolor="#F1F1F1" style="border-bottom: 1px solid #CCCCCC"><strong><?php echo TABLE_CELL_BIRTHDAYS_TODAY; ?>:</strong></td>
 	</tr>
 <?php
 $ergebnis = xtc_db_query("select
@@ -442,7 +434,7 @@ while($row = xtc_db_fetch_array($ergebnis))
 }
 ?>
   <tr>
-     <td width="100%" colspan="2" style="border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC" bgcolor="#F1F1F1"><strong>Kunden, die noch in diesem Monat Geburtstag haben:</strong></td>
+     <td width="100%" colspan="2" style="border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC" bgcolor="#F1F1F1"><strong><?php echo TABLE_CELL_BIRTHDAYS_THIS_MONTH; ?>:</strong></td>
   </tr>
 <?php
 foreach($this_month as $row) {

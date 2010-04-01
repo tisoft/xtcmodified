@@ -101,4 +101,43 @@ define('TURNOVER_LAST_MONTH', 'last month (all)');
 define('TURNOVER_LAST_MONTH_PAID', 'last month (paid)');
 define('TOTAL_TURNOVER', 'Total turnover');
 // EOF - Tomcraft - 2009-11-30 - Added missing definitions for /admin/start.php/
+
+// BOF - vr 2010-04-01 -  Added missing definitions
+// main heading
+define('HEADING_TITLE', 'Welcome to the Admin Area');
+// users online
+define('TABLE_CAPTION_USERS_ONLINE', 'Users Online');
+define('TABLE_CAPTION_USERS_ONLINE_HINT', '***Please click user name for details***');
+define('TABLE_HEADING_USERS_ONLINE_SINCE', 'Online Since');
+define('TABLE_HEADING_USERS_ONLINE_NAME', 'Name');
+define('TABLE_HEADING_USERS_ONLINE_LAST_CLICK', 'Last Click');
+define('TABLE_HEADING_USERS_ONLINE_INFO', 'Info');
+define('TABLE_CELL_USERS_ONLINE_INFO', 'More...');
+// new customers
+define('TABLE_CAPTION_NEW_CUSTOMERS', 'New Customers');
+define('TABLE_CAPTION_NEW_CUSTOMERS_COMMENT', '(Last 15)');
+define('TABLE_HEADING_NEW_CUSTOMERS_LASTNAME', 'Last Name');
+define('TABLE_HEADING_NEW_CUSTOMERS_FIRSTNAME', 'First Name');
+define('TABLE_HEADING_NEW_CUSTOMERS_REGISTERED', 'Registered');
+define('TABLE_HEADING_NEW_CUSTOMERS_EDIT', 'Edit');
+define('TABLE_HEADING_NEW_CUSTOMERS_ORDERS', 'Orders');
+define('TABLE_CELL_NEW_CUSTOMERS_EDIT', 'Edit...');
+define('TABLE_CELL_NEW_CUSTOMERS_ORDERS', 'Show...');
+// new orders
+define('TABLE_CAPTION_NEW_ORDERS', 'New Orders');
+define('TABLE_CAPTION_NEW_ORDERS_COMMENT', '(Last 20)');
+define('TABLE_HEADING_NEW_ORDERS_ORDER_NUMBER', 'Order #');
+define('TABLE_HEADING_NEW_ORDERS_ORDER_DATE', 'Order Date');
+define('TABLE_HEADING_NEW_ORDERS_CUSTOMERS_NAME', 'Customer\'s Name');
+define('TABLE_HEADING_NEW_ORDERS_EDIT', 'Edit');
+define('TABLE_HEADING_NEW_ORDERS_DELETE', 'Delete');
+define('TABLE_CELL_NEW_CUSTOMERS_EDIT', 'Edit...');
+define('TABLE_CELL_NEW_CUSTOMERS_DELETE', 'Delete...');
+// newsfeed
+define('TABLE_CAPTION_NEWSFEED', 'Website Of');
+// birthdays
+define('TABLE_CAPTION_BIRTHDAYS', 'Birthdays');
+define('TABLE_CELL_BIRTHDAYS_TODAY', 'Customers Whose Birthday is Today');
+define('TABLE_CELL_BIRTHDAYS_THIS_MONTH', 'Upcoming Birthdays Of Customers This Month');
+// EOF - vr 2010-04-01 -  Added missing definitions
 ?>
