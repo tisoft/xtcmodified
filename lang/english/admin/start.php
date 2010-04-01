@@ -56,7 +56,9 @@
     
 // NEU HINZUGEFUEGT 04.12.2008 - Neue Startseite im Admin BOF	
 	
-	define('HEADING_TITLE', 'Orders');
+	// BOF - vr 2010-04-01 -  Added missing definitions, see below
+	// define('HEADING_TITLE', 'Orders');
+	// EOF - vr 2010-04-01 -  Added missing definitions
 	define('HEADING_TITLE_SEARCH', 'Order-Nr.:');
 	define('HEADING_TITLE_STATUS', 'Status:');
 	define('TABLE_HEADING_AFTERBUY', 'Afterbuy'); //Dokuman - 2009-05-27 - added missing definition
