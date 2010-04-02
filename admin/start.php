@@ -324,7 +324,7 @@ h1 {
 	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><span style="margin-left: 3px"><font face="Verdana"><strong><?php echo TABLE_CAPTION_NEW_ORDERS; ?> <?php echo TABLE_CAPTION_NEW_ORDERS_COMMENT; ?></strong></font></span></td>
 	  <td width="4%"><p style="margin-left: 3px"></p>
 	  </td>
-	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><span style="margin-left: 3px"><font face="Verdana"><strong><a href="http://www.xtc-modified.org/blog" target="_blank">xtc-Modified Blog</a></strong></font></span></td>
+	  <td width="48%" class="infoBoxHeading" style="border: 1px solid #b40076; border-bottom: 1px solid #b40076;"><span style="margin-left: 3px"><font face="Verdana"><a href="http://www.xtc-modified.org/blog" target="_blank"><strong>xtc-Modified Blog</strong></a></font></span></td>
 	</tr>
 	<tr>
 	  <td style="background: #F9F0F1; border: 1px solid #b40076; height: 200px;" valign="top">
