@@ -108,8 +108,10 @@ if (ACTIVATE_SHIPPING_STATUS == 'true') {
 		$smarty->assign('SHIPPING_IMAGE', $main->getShippingStatusImage($product_info['products_shippingtime']));
 }
 if (SHOW_SHIPPING == 'true')
-	$smarty->assign('PRODUCTS_SHIPPING_LINK', ' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');	
-		
+//BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
+	//$smarty->assign('PRODUCTS_SHIPPING_LINK', ' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');
+	$smarty->assign('PRODUCTS_SHIPPING_LINK', ' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');
+//EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 
 $discount = 0.00;
 if ($_SESSION['customers_status']['customers_status_public'] == 1 && $_SESSION['customers_status']['customers_status_discount'] != '0.00') {

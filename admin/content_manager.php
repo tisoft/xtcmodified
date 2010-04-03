@@ -419,7 +419,12 @@ for ($ii = 0, $nn = sizeof($content); $ii < $nn; $ii++) {
 <!--
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content[$ii]['CONTENT_ID']); ?>', 'popup', 'toolbar=0, width=640, height=600')"><?php echo xtc_image(DIR_WS_ICONS.'preview.gif','Preview','','','style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?>
 -->
+<!-- BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //-->
+<!--
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content[$ii]['CONTENT_ID']); ?>', 'popup', 'toolbar=0, width=640, height=600')"><?php echo xtc_image(DIR_WS_ICONS.'preview.gif', ICON_PREVIEW,'','','style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?>
+//-->
+ <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content[$ii]['CONTENT_ID']); ?>', 'popup', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600')"><?php echo xtc_image(DIR_WS_ICONS.'preview.gif', ICON_PREVIEW,'','','style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; ?>
+<!-- EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //-->
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
  </td>
  </tr>
@@ -502,8 +507,12 @@ if ($content_1[$a]!='') {
 -->
 <?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif', ICON_EDIT,'','','style="cursor:pointer"').'  '.TEXT_EDIT.'</a>'; ?>
 <!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+<!-- BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //-->
+<!--
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content_1[$a]['CONTENT_ID']); ?>', 'popup', 'toolbar=0, width=640, height=600')">
- 
+//-->
+ <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'coID='.$content_1[$a]['CONTENT_ID']); ?>', 'popup', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600')">
+<!-- EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //--> 
 
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
@@ -1115,8 +1124,13 @@ if ( preg_match('/.gif/i',$content_array[$ii]['file'])
 	) {
 // EOF - Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
 ?>
+
+<!-- BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //-->
+<!--
  <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'pID=media&coID='.$content_array[$ii]['id']); ?>', 'popup', 'toolbar=0, width=640, height=600')">
- 
+//-->
+ <a style="cursor:pointer" onClick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'pID=media&coID='.$content_array[$ii]['id']); ?>', 'popup', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600')">
+<!-- EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //-->
  
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
