@@ -2,12 +2,15 @@
 
 Sehr geehrter Kunde, 
 
-Es wurde ein Account f&uuml;r Sie eingerichtet, Sie k&ouml;nnen mit folgenden Daten in Unseren Shop einloggen.
+Es wurde ein Account für Sie eingerichtet, Sie können mit folgenden Daten in Unseren Shop einloggen.
 
 {if $COMMENTS} Anmerkungen: {$COMMENTS}{/if}
 
-Ihre Logindaten f&uuml;r unseren Shop:
+Ihre Logindaten für unseren Shop:
 
 Email:{$EMAIL}
 
 Ihr Passwort:{$PASSWORD}
+
+
+

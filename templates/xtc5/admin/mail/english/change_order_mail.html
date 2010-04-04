@@ -5,16 +5,19 @@
   <tr> 
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong>Dear customer, </strong><br />
       <br />
-      The status of your order has been changed.<br /> 
-      {if $NOTIFY_COMMENTS}<br />
+      The status of your order {if $ORDER_NR}No. {$ORDER_NR}{/if} {if $ORDER_DATE}from {$ORDER_DATE}{/if} has been changed.<br /><br /> 
+      {if $ORDER_LINK}Link to order:
+      <a href="{$ORDER_LINK}">click here</a>{/if}<br />
+      <br /> 
+	  {if $NOTIFY_COMMENTS}<br />
 Note: 
 {$NOTIFY_COMMENTS}
 <br />
 {/if}
 <br />
 New status: 
-<b>{$ORDER_STATUS}</b>
+<b>{$ORDER_STATUS}</b><br />
 <br />
-If you have any questions, please reply to this mail. </font></td>
+If you have any questions, please reply to this mail. <br /></font></td>
   </tr>
 </table>
