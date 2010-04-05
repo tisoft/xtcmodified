@@ -136,7 +136,7 @@ define('TABLE_HEADING_NEW_ORDERS_DELETE', 'l&ouml;schen');
 define('TABLE_CELL_NEW_CUSTOMERS_EDIT', 'bearbeiten...');
 define('TABLE_CELL_NEW_CUSTOMERS_DELETE', 'l&ouml;schen...');
 // newsfeed
-define('TABLE_CAPTION_NEWSFEED', 'Zur Homepage von');
+define('TABLE_CAPTION_NEWSFEED', 'Besuchen Sie den');
 // birthdays
 define('TABLE_CAPTION_BIRTHDAYS', 'Geburtstagsliste');
 define('TABLE_CELL_BIRTHDAYS_TODAY', 'Kunden, die heute Geburtstag haben');
