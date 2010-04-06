@@ -1156,6 +1156,7 @@ dt img {
 	border:1px solid #ccc;
 	padding:2px;
 	background:#fff;
+	max-width:40px;
 }
 dd {
 	float:right;
