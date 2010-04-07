@@ -181,9 +181,10 @@ define('TXT_SORT','Sort order');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TXT_WEIGHT','Weight');
 define('TXT_QTY','On Stock');
-// BOF - Tomcraft - 2009-09-12 - add option to sort by date
+// BOF - Tomcraft - 2009-09-12 - add option to sort by date and products model
 define('TXT_DATE','Release date');
-// EOF - Tomcraft - 2009-09-12 - add option to sort by date
+define('TXT_MODEL','Products Model');
+// EOF - Tomcraft - 2009-09-12 - add option to sort by date and products model
 
 define('TEXT_MULTICOPY','Multiple');
 define('TEXT_MULTICOPY_DESC','Copy elements into following categories (If one box selected, Single settings will be ignored.)');

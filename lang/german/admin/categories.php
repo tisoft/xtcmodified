@@ -181,9 +181,10 @@ define('TXT_SORT','Sortierreihenfolge');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('TXT_WEIGHT','Gewicht');
 define('TXT_QTY','Auf Lager');
-// BOF - Tomcraft - 2009-09-12 - add option to sort by date
+// BOF - Tomcraft - 2009-09-12 - add option to sort by date and products model
 define('TXT_DATE','Einstelldatum');
-// EOF - Tomcraft - 2009-09-12 - add option to sort by date
+define('TXT_MODEL','Artikelnummer');
+// EOF - Tomcraft - 2009-09-12 - add option to sort by date and products model
 
 define('TEXT_MULTICOPY','Mehrfach');
 define('TEXT_MULTICOPY_DESC','Elemente in folgende Kategorien kopieren:<br />(Falls ausgew&auml;hlt werden Einstellungen von "Einfach" ignoriert.)');
