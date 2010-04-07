@@ -155,7 +155,7 @@
 <!--
                  <td class="dataTableHeadingContent" width="22" align="center">
                  
-                  <?php echo 'Artikelnummer'.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
+                  <?php echo TABLE_HEADING_PRODUCTS_MODEL.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
                  
                  </td>
   
@@ -167,7 +167,7 @@
              <td class="dataTableHeadingContent" align="center" width="12%">
 //-->
              <td class="dataTableHeadingContent" width="10%" align="center">                 
-                <?php echo 'Artikelnummer'.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
+                <?php echo TABLE_HEADING_PRODUCTS_MODEL.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
              </td>              
              <td class="dataTableHeadingContent" align="center" width="10%">
 <!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->

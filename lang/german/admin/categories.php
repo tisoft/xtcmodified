@@ -31,6 +31,9 @@ define('TABLE_HEADING_STARTPAGE', 'TOP');
 define('TABLE_HEADING_STOCK','Lager Warnung');
 define('TABLE_HEADING_SORT','Sort.');
 define('TABLE_HEADING_EDIT','Edit');
+// BOF - Tomcraft - 2010-04-07 - Added definition for products model
+define('TABLE_HEADING_PRODUCTS_MODEL','Artikelnummer');
+// EOF - Tomcraft - 2010-04-07 - Added definition for products model
 
 define('TEXT_ACTIVE_ELEMENT','Aktives Element');
 define('TEXT_MARKED_ELEMENTS','Markierte Elemente');
