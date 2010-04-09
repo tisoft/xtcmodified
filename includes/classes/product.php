@@ -456,7 +456,10 @@ class product {
 				break;
 		}
 
-		if ($name == '') {
+		// BOF - vr - 2010-04-09 no distinction between "name is null" and "name == ''"
+		// if ($name == '')) {
+		if (empty($name)) {
+		// EOF - vr - 2010-04-09 no distinction between "name is null" and "name == ''"
 // BOF - Tomcraft - 2009-11-12 - noimage.gif is displayed, when no image is defined
 			//if ($this->useStandardImage == 'true' && $this->standardImage != '') // comment in when "noimage.gif" should be displayed when there is no image defined in the database
 			//	return $path.$this->standardImage; // comment in when "noimage.gif" should be displayed when there is no image defined in the database
