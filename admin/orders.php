@@ -49,6 +49,22 @@ if ((($_GET['action'] == 'edit') || ($_GET['action'] == 'update_order')) && ($_G
 		$messageStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $oID), 'error');
 	}
 }
+//BOF - web28 - 2010-04-10 added for ADMIN SEARCH BAR
+if ($_GET['action'] == 'search' && $_GET['oID']) {
+	$oID = xtc_db_prepare_input($_GET['oID']);	
+	$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.orders_status = s.orders_status_id and s.language_id = '".$_SESSION['languages_id']."' and o.orders_id LIKE '%".xtc_db_input($oID)."%' and ot.class = 'ot_total' order by o.orders_id DESC";
+	$orders_query = xtc_db_query($orders_query_raw);
+	$order_exists = false;
+	if (xtc_db_num_rows($orders_query) == 1) {
+	   $order_exists = true;
+	   $oID_array = xtc_db_fetch_array($orders_query);
+	   $oID = $oID_array['orders_id'];
+	   $_GET['action'] = 'edit';
+	   $_GET['oID'] = $oID;
+	   //$messageStack->add('1 Treffer: ' . $oID, 'notice');
+    }	
+}
+//EOF  - web28 - 2010-04-10 added for ADMIN SEARCH BAR
 
 require (DIR_WS_CLASSES.'order.php');
 if ((($_GET['action'] == 'edit') || ($_GET['action'] == 'update_order')) && ($order_exists)) {
@@ -785,6 +801,11 @@ elseif ($_GET['action'] == 'custom_action') {
 	elseif ($_GET['status']) {
 			$status = xtc_db_prepare_input($_GET['status']);
 			$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.orders_status = s.orders_status_id and s.language_id = '".$_SESSION['languages_id']."' and s.orders_status_id = '".xtc_db_input($status)."' and ot.class = 'ot_total' order by o.orders_id DESC";
+	}
+	//BOF  - web28 - 2010-04-10 added for ADMIN SEARCH BAR
+	elseif ($_GET['action'] == 'search' && $_GET['oID']) {	      
+		   //$orders_query_raw siehe oben
+	//EOF - web28 - 2010-04-10 added for ADMIN SEARCH BAR
 	} else {
 		$orders_query_raw = "select o.orders_id, o.orders_status, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where (o.orders_status = s.orders_status_id and s.language_id = '".$_SESSION['languages_id']."' and ot.class = 'ot_total') or (o.orders_status = '0' and ot.class = 'ot_total' and  s.orders_status_id = '1' and s.language_id = '".$_SESSION['languages_id']."') order by o.orders_id DESC";
 	}

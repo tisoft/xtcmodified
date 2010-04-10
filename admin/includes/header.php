@@ -55,7 +55,10 @@
 </noscript>
 <!-- EOF - Tomcraft - 2009-11-02 - JavaScript WEICHE //-->
 
-<div id="top1"></div>
+<!-- EOF - web28 - 2010-04-10 - added ADMIN SEARCH BAR//-->
+<!--div id="top1"></div-->
+<div id="top1"><?php include(DIR_WS_INCLUDES . "admin_search_bar.php");?></div>
+<!-- BOF - web28 - 2010-04-10 - added ADMIN SEARCH BAR//-->
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 5px;">  
   <tr>

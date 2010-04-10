@@ -324,8 +324,11 @@
         p.products_startpage_sort,
         p2c.categories_id FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
         WHERE p.products_id = pd.products_id AND pd.language_id = '" . $_SESSION['languages_id'] . "' AND
-        p.products_id = p2c.products_id AND (pd.products_name like '%" . $_GET['search'] . "%' OR
-        p.products_model = '" . $_GET['search'] . "') ORDER BY " . $prodsort);
+        p.products_id = p2c.products_id AND (pd.products_name like '%" . $_GET['search'] . "%' OR "
+		// BOF - web28 - 2010-04-10 - change for ADMIN SEARCH BAR
+        // p.products_model = '" . $_GET['search'] . "') ORDER BY " . $prodsort);
+		. "p.products_model like '%" . $_GET['search'] . "%') ORDER BY " . $prodsort);
+        //EOF - web28 - 2010-04-10 - change for ADMIN SEARCH BAR
     } else {
         $products_query = xtc_db_query("
         SELECT 
