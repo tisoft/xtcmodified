@@ -446,4 +446,10 @@ define('BOX_XSBOOSTER_LISTAUCTIONS','Auktionen anzeigen');
 define('BOX_XSBOOSTER_ADDAUCTIONS','Auktionen erstellen');
 define('BOX_XSBOOSTER_CONFIG','Grundkonfiguration');
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
+
+//BOF - web28 - 2010-04-10 - ADMIN SEARCH BAR
+define('ASB_QUICK_SEARCH_CUSTOMER','Kunde: ');
+define('ASB_QUICK_SEARCH_ORDER_ID','Bestellnummer: ');
+define('ASB_QUICK_SEARCH_ARTICLE','Artikel: ');
+//EOF - web28 - 2010-04-10 - ADMIN SEARCH BAR
 ?>
