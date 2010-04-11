@@ -448,8 +448,8 @@ define('BOX_XSBOOSTER_CONFIG','Base Configuration');
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 //BOF - web28 - 2010-04-10 - ADMIN SEARCH BAR
-define('ASB_QUICK_SEARCH_CUSTOMER','Customers: ');
+define('ASB_QUICK_SEARCH_CUSTOMER','Customer: ');
 define('ASB_QUICK_SEARCH_ORDER_ID','Order: ');
-define('ASB_QUICK_SEARCH_ARTICLE','Article: ');
+define('ASB_QUICK_SEARCH_ARTICLE','Product: ');
 //EOF - web28 - 2010-04-10 - ADMIN SEARCH BAR
 ?>
