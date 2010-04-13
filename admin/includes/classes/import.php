@@ -176,12 +176,18 @@ class xtcImport {
 		$fp = fopen($this->ImportDir.$this->filename, 'r');
 
 		// read the header line
-		$header = fgetcsv($fp, NULL, $this->seperator, $this->TextSign);
+// BOF - Tomcraft - 2010-04-13 - Bugfix for PHP4 (Length cannot be NULL)
+		//$header = fgetcsv($fp, NULL, $this->seperator, $this->TextSign);
+		$header = fgetcsv($fp, 20000, $this->seperator, $this->TextSign);
+// EOF - Tomcraft - 2010-04-13 - Bugfix for PHP4 (Length cannot be NULL)
 		foreach($header as $key=>$name) {
 				$mapping[$name] = $key;
 		}
 
-		while ($line = fgetcsv($fp, NULL, $this->seperator, $this->TextSign)) {
+// BOF - Tomcraft - 2010-04-13 - Bugfix for PHP4 (Length cannot be NULL)
+		//while ($line = fgetcsv($fp, NULL, $this->seperator, $this->TextSign)) {
+		while ($line = fgetcsv($fp, 20000, $this->seperator, $this->TextSign)) {
+// EOF - Tomcraft - 2010-04-13 - Bugfix for PHP4 (Length cannot be NULL)
 			foreach($mapping as $name => $key) {
 				$line_data[$name] = $line[$key];
 			}
