@@ -63,23 +63,29 @@ h3 {
 a, a:link, a:link, a:link, a:hover {
 	background:transparent;
 	text-decoration:none;
+	outline: none;
 	cursor:pointer;
 }
 a:link {
 	color:#893769;
+	outline: none;
 }
 a:visited {
 	color:#893769;
+	outline: none;
 }
 a:hover, a:active {
 	color:#893769;
+	outline: none;
 }
 a:hover {
 	color:#555;
 	text-decoration:underline;
+	outline: none;
 }
 a img {
 	border:none;
+	outline: none;
 }
 /* INPUT ELEMENTS GLOBAL (CSS 1 compatible) */
 input {
@@ -169,6 +175,7 @@ table td {
 #header #search a {
 	color:#fff;
 	font-size:11px;
+	outline: none;
 }
 #header td {
 	padding-top:1px;
@@ -180,6 +187,7 @@ table td {
 	color:#c64934;
 	padding:1px 0px 10px 15px;
 	list-style-type:none;
+	outline: none;
 	height:22px;
 	background: #fff url(img/bg_breadcrumb.gif) repeat-x;
 	font-size:11px;
@@ -187,6 +195,7 @@ table td {
 #breadcrumb a, #breadcrumb a:link, #breadcrumb a:visited, #breadcrumb a:hover, #breadcrumb a:active {
 	line-height:23px;
 	text-decoration:none;
+	outline: none;
 	font-weight:normal;
 	cursor:pointer;
 	color:#333333;
@@ -218,6 +227,7 @@ table td {
 	line-height:36px;
 	vertical-align:middle;
 	text-decoration:none;
+	outline: none;
 	font-weight:bold;
 	cursor:pointer;
 	color:#fff;
@@ -295,11 +305,12 @@ ul#categorymenu li.level1 {
 }
 ul#categorymenu li.level1 a {
 	text-decoration:none;
+	outline: none;
 	color:#333;
 	background:#eee;
 	font-weight:bold;
 	padding:4px 0px 4px 6px;
-	display:block
+	display:block;
 }
 ul#categorymenu li.level1 a:hover {
 	text-decoration:none;
@@ -315,11 +326,12 @@ ul#categorymenu li.level2 {
 }
 ul#categorymenu li.level2 a {
 	text-decoration:none;
+	outline: none;
 	color:#333;
 	background: url(img/dotted1.gif) no-repeat 8px 9px #e1e1e1;
 	font-weight:bold;
 	padding:4px 0px 4px 18px;
-	display:block
+	display:block;
 }
 ul#categorymenu li.level2 a:hover {
 	text-decoration:none;
@@ -335,11 +347,12 @@ ul#categorymenu li.level3 {
 }
 ul#categorymenu li.level3 a {
 	text-decoration:none;
+	outline: none;
 	color:#333;
 	background: url(img/dotted1.gif) no-repeat 16px 9px #c7c7c7;
 	font-weight:bold;
 	padding:4px 0px 4px 26px;
-	display:block
+	display:block;
 }
 ul#categorymenu li.level3 a:hover {
 	text-decoration:none;
@@ -355,11 +368,12 @@ ul#categorymenu li.level4 {
 }
 ul#categorymenu li.level4 a {
 	text-decoration:none;
+	outline: none;
 	color:#333;
 	background: url(img/dotted1.gif) no-repeat 24px 9px #b3b3b3;
 	font-weight:bold;
 	padding:4px 0px 4px 34px;
-	display:block
+	display:block;
 }
 ul#categorymenu li.level4 a:hover {
 	text-decoration:none;
@@ -375,11 +389,12 @@ ul#categorymenu li.level5 {
 }
 ul#categorymenu li.level5 a {
 	text-decoration:none;
+	outline: none;
 	color:#333;
 	background: url(img/dotted1.gif) no-repeat 32px 9px #a2a2a2;
 	font-weight:bold;
 	padding:4px 0px 4px 42px;
-	display:block
+	display:block;
 }
 ul#categorymenu li.level5 a:hover {
 	text-decoration:none;
@@ -406,6 +421,7 @@ h2.boxheader {
 }
 h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a:visited {
 	text-decoration:none;
+	outline: none;
 	color:#fff;
 }
 .boxbody {
@@ -420,7 +436,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 }
 .boxbody h3.center, .boxbody h3.center a {
 	font-size:11px;
-	text-align:center
+	text-align:center;
 }
 .boxbody p {
 	color:#000000;
@@ -450,6 +466,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 }
 .boxbody a {
 	font-size:11px;
+	outline: none;
 }
 .boxbody .productboximage {
 	border: solid 1px #999;
@@ -464,7 +481,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 .boxbody ul.contentlist li {
 	margin-left:0px;
 	padding:0;
-	list-style-type:none
+	list-style-type:none;
 }
 .contentlist a {
 	border-bottom:1px solid #ccc;
@@ -484,7 +501,8 @@ h2.boxcartheader {
 }
 h2.boxcartheader a {
 	text-decoration:none;
-	color:#fff
+	color:#fff;
+	outline: none;
 }
 .boxcartbody {
 	padding:4px 8px 4px 8px;
@@ -511,6 +529,7 @@ h2.boxcartheader a {
 .productPreviewContent h2 a {
 	font-size:14px;
 	font-weight:bold;
+	outline: none;
 }
 .productPreviewImage {
 	vertical-align:top;
@@ -523,28 +542,28 @@ h2.boxcartheader a {
 	font-size:16px;
 	font-weight:bold;
 	padding:0;
-	margin:0
+	margin:0;
 }
 .productPreviewContent .taxandshippinginfo {
 	font-size:11px;
 	font-weight:normal;
 	color:#999;
 	padding:0;
-	margin:0
+	margin:0;
 }
 .productPreviewContent .vpe {
 	font-size:11px;
 	font-weight:normal;
 	color:#999;
 	padding:0;
-	margin:0
+	margin:0;
 }
 .productPreviewContent .shippingtime {
 	font-size:11px;
 	font-weight:normal;
 	color:#999;
 	padding:0;
-	margin:0
+	margin:0;
 }
 .productPreviewContent .stockimage {
 	margin:0;
@@ -571,7 +590,7 @@ h2.boxcartheader a {
 /* PRODUCT INFO / PRODUCT DETAILS */
 #productinfowrap {
 	display:table;
-	width:100%
+	width:100%;
 }
 #productinfoimages {
 	float:left;
@@ -592,16 +611,16 @@ h2.boxcartheader a {
 	float:right;
 }
 #productinfopricewithimages img {
-	cursor:pointer
+	cursor:pointer;
 }
 #productinfopricewithoutimages {
-	width:100%
+	width:100%;
 }
 #productinfopricewithoutimages img {
-	cursor:pointer
+	cursor:pointer;
 }
 #productinfoprice {
-	padding:5px
+	padding:5px;
 }
 #productinfoprice .hrlightgrey {
 	margin: 6px 0px;
@@ -633,6 +652,7 @@ h2.boxcartheader a {
 	font-weight:bold;
 	color:#999;
 	text-decoration:underline;
+	outline: none;
 }
 #productinfoprice .shippingtime {
 	margin:0;
@@ -868,12 +888,12 @@ table.orderdetails tr.contentrow2 td.quantity input {
 	border:solid #ccc 1px;
 }
 table.orderdetails tr.contentrow2 td.productname {
-	text-align:left
+	text-align:left;
 }
 /* ORDER DETAILS SINGLE PRICE */
 table.orderdetails tr td.singleprice {
 	text-align:right;
-	white-space:nowrap
+	white-space:nowrap;
 }
 /* ORDER DETAILS TOTAL PRICE PER ITEM */
 table.orderdetails tr td.totalprice {
@@ -1105,6 +1125,7 @@ ul#checkoutnavigation li.inactive .description {
 .footer a {
 	color:#666;
 	text-decoration:underline;
+	vertical-align:top;
 }
 /* XTC COPYRIGHT */
 .copyright {

@@ -14,6 +14,7 @@
 	width: 100%;
 	padding: 1px 0px 1px 0px;
 	text-decoration: none;
+	outline: none;
 	letter-spacing: normal;		
 }
 
@@ -21,6 +22,7 @@
 .suckertreemenu li a:hover, .buttonmenu li a:active{
 	color: black;
 	background-color: #eeeeee;
+	outline: none;
 }
 
 /* FASTMENÜ */
