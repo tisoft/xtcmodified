@@ -289,6 +289,7 @@ h2.categoryheader {
 }
 h2.categoryheader a {
 	text-decoration:none;
+	outline: none;
 	color:#fff;
 }
 ul#categorymenu {
@@ -437,6 +438,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 .boxbody h3.center, .boxbody h3.center a {
 	font-size:11px;
 	text-align:center;
+	outline: none;
 }
 .boxbody p {
 	color:#000000;
@@ -487,6 +489,7 @@ h2.boxheader a:link, h2.boxheader a:hover, h2.boxheader a:active, h2.boxheader a
 	border-bottom:1px solid #ccc;
 	display:block;
 	padding:5px 0;
+	outline: none;
 }
 /* CART BOX */
 h2.boxcartheader {
@@ -586,6 +589,7 @@ h2.boxcartheader a {
 	font-weight:bold;
 	color:#999;
 	text-decoration:underline;
+	outline: none;
 }
 /* PRODUCT INFO / PRODUCT DETAILS */
 #productinfowrap {
@@ -999,6 +1003,7 @@ table.medialist tr.contentrow2 td {
 .sitemapheader a:link, .sitemapheader a:visited, .sitemapheader a:hover {
 	color:#fff;
 	text-decoration:none;
+	outline: none;
 }
 .sitemapcontent {
 	padding:6px;
@@ -1125,7 +1130,7 @@ ul#checkoutnavigation li.inactive .description {
 .footer a {
 	color:#666;
 	text-decoration:underline;
-	vertical-align:top;
+	outline: none;
 }
 /* XTC COPYRIGHT */
 .copyright {
