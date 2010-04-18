@@ -283,7 +283,10 @@ class xtcImport {
 			return;
 		if (isset ($this->mfn[$manufacturer]['id']))
 			return $this->mfn[$manufacturer]['id'];
-		$man_query = xtc_db_query("SELECT manufacturers_id FROM ".TABLE_MANUFACTURERS." WHERE manufacturers_name = '".$manufacturer."'");
+		// BOF - vr - 18.04.2010 escape manufacturer
+		// $man_query = xtc_db_query("SELECT manufacturers_id FROM ".TABLE_MANUFACTURERS." WHERE manufacturers_name = '".$manufacturer."'");
+		$man_query = xtc_db_query("SELECT manufacturers_id FROM ".TABLE_MANUFACTURERS." WHERE manufacturers_name = '". mysql_real_escape_string($manufacturer) ."'");
+		// EOF - vr - 18.04.2010 escape manufacturer
 		if (!xtc_db_num_rows($man_query)) {
 			$manufacturers_array = array ('manufacturers_name' => $manufacturer);
 			xtc_db_perform(TABLE_MANUFACTURERS, $manufacturers_array);
