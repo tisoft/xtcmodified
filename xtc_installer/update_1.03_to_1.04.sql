@@ -336,3 +336,8 @@ INSERT INTO countries VALUES(240, 'Zimbabwe', 'ZW', 'ZWE', 1, 1);
 #vr - 2010-03-01 - Additional index on specials, thx to Georg
 alter table specials
 add index idx_specials_products_id (products_id);
+
+#vr - 2010-04-21 - Additional indices on orders_products
+alter table orders_products
+add index orders_id (orders_id),
+add index products_id (products_id);

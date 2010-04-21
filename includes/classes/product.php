@@ -163,28 +163,25 @@ class product {
 			$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 		}
 
-		$orders_query = "select
-														                                  p.products_fsk18,
-														                                  p.products_id,
-														                                  p.products_price,
-														                                  p.products_tax_class_id,
-														                                  p.products_image,
-														                                  pd.products_name,
-														                                  p.products_vpe,
-						                           										  p.products_vpe_status,
-						                           										  p.products_vpe_value,
-														                                  pd.products_short_description FROM ".TABLE_ORDERS_PRODUCTS." opa, ".TABLE_ORDERS_PRODUCTS." opb, ".TABLE_ORDERS." o, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
-														                                  where opa.products_id = '".$this->pID."'
-														                                  and opa.orders_id = opb.orders_id
-														                                  and opb.products_id != '".$this->pID."'
-														                                  and opb.products_id = p.products_id
-														                                  and opb.orders_id = o.orders_id
-														                                  and p.products_status = '1'
-														                                  and pd.language_id = '".(int) $_SESSION['languages_id']."'
-														                                  and opb.products_id = pd.products_id
-														                                  ".$group_check."
-														                                  ".$fsk_lock."
-														                                  group by p.products_id order by o.date_purchased desc limit ".MAX_DISPLAY_ALSO_PURCHASED;
+		// BOF - vr - 2010-04-21 make sql human readable, update to SQL-92-Standard
+		$orders_query = "select p.products_fsk18, p.products_id, p.products_price, p.products_tax_class_id,
+							 p.products_image, pd.products_name, p.products_vpe, p.products_vpe_status,
+							 p.products_vpe_value, pd.products_short_description
+						from ".TABLE_ORDERS_PRODUCTS." op1 
+						join ".TABLE_ORDERS_PRODUCTS." op2 on op2.orders_id = op1.orders_id
+						join ".TABLE_ORDERS." o on o.orders_id = op2.orders_id
+						join ".TABLE_PRODUCTS." p on p.products_id = op2.products_id 
+						join ".TABLE_PRODUCTS_DESCRIPTION." pd on pd.products_id = op2.products_id
+						where op1.products_id = '".$this->pID."'
+						and op2.products_id != '".$this->pID."'
+						and p.products_status = '1'
+						and pd.language_id = '".(int) $_SESSION['languages_id']."'
+						".$group_check."
+						".$fsk_lock."
+						group by p.products_id 
+						order by o.date_purchased desc 
+						limit ".MAX_DISPLAY_ALSO_PURCHASED;
+		// EOF - vr - 2010-04-21 make sql human readable
 		$orders_query = xtDBquery($orders_query);
 		while ($orders = xtc_db_fetch_array($orders_query, true)) {
 

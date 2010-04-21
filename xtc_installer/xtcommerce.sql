@@ -628,7 +628,11 @@ CREATE TABLE orders_products (
   products_tax decimal(7,4) NOT NULL,
   products_quantity int(2) NOT NULL,
   allow_tax int(1) NOT NULL,
-  PRIMARY KEY (orders_products_id)
+  PRIMARY KEY (orders_products_id),
+# BOF - vr - 2010-04-21 add indices
+  KEY orders_id (orders_id),
+  KEY products_id (products_id)
+# EOF - vr - 2010-04-21 add indices
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_status;
