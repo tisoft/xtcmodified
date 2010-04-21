@@ -341,3 +341,8 @@ add index idx_specials_products_id (products_id);
 alter table orders_products
 add index orders_id (orders_id),
 add index products_id (products_id);
+
+#vr - 2010-04-21 - Additional indices on products_attributes
+alter table products_attributes
+add index products_id (products_id),
+add index options (options_id, options_values_id);
