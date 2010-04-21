@@ -539,7 +539,7 @@ if ($_GET['action'] == "save_order") {
 			if ($module_name != 'shipping') {
 				$module_tax_class = constant(MODULE_ORDER_TOTAL_.strtoupper($module_name)._TAX_CLASS);
 			} else {
-				$module_tmp_name = explode('_', $order->info['shipping_class']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+				$module_tmp_name = explode('_', $order->info['shipping_class']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 				$module_tmp_name = $module_tmp_name[0];
 				if ($module_tmp_name != 'selfpickup') {
 					$module_tax_class = constant(MODULE_SHIPPING_.strtoupper($module_tmp_name)._TAX_CLASS);

@@ -503,7 +503,7 @@ class nusoap_base {
 			case (is_array($val) || $type):
 				// detect if struct or array
 				$valueType = $this->isArraySimpleOrStruct($val);
-                if($valueType=='arraySimple' || preg_match('/^ArrayOf/',$type)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+                if($valueType=='arraySimple' || preg_match('/^ArrayOf/',$type)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 					$i = 0;
 					if(is_array($val) && count($val)> 0){
 						foreach($val as $v){
@@ -698,7 +698,7 @@ class nusoap_base {
 	*/
 	function expandQname($qname){
 		// get element prefix
-		if(strpos($qname,':') && !preg_match('/^[http://]/',$qname)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		if(strpos($qname,':') && !preg_match('/^[http://]/',$qname)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			// get unqualified name
 			$name = substr(strstr($qname,':'),1);
 			// get ns prefix
@@ -836,7 +836,7 @@ function timestamp_to_iso8601($timestamp,$utc=true){
 		'([0-9]{2})(\.[0-9]*)?'. // seconds ss.ss...
 		'(Z|[+\-][0-9]{2}:?[0-9]{2})?'; // Z to indicate UTC, -/+HH:MM:SS.SS... for local tz's
 
-		if(preg_match('/'.$eregStr.'/',$datestr,$regs)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		if(preg_match('/'.$eregStr.'/',$datestr,$regs)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			return sprintf('%04d-%02d-%02dT%02d:%02d:%02dZ',$regs[1],$regs[2],$regs[3],$regs[4],$regs[5],$regs[6]);
 		}
 		return false;
@@ -861,7 +861,7 @@ function iso8601_to_timestamp($datestr){
 	'([0-9]{2}):'.	// minutes mm:
 	'([0-9]{2})(\.[0-9]+)?'. // seconds ss.ss...
 	'(Z|[+\-][0-9]{2}:?[0-9]{2})?'; // Z to indicate UTC, -/+HH:MM:SS.SS... for local tz's
-	if(preg_match('/'.$eregStr.'/',$datestr,$regs)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+	if(preg_match('/'.$eregStr.'/',$datestr,$regs)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		// not utc
 		if($regs[8] != 'Z'){
 			$op = substr($regs[8],0,1);
@@ -1171,7 +1171,7 @@ class XMLSchema extends nusoap_base  {
         if(count($attrs) > 0){
         	foreach($attrs as $k => $v){
                 // if ns declarations, add to class level array of valid namespaces
-				if(preg_match("/^xmlns/",$k)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+				if(preg_match("/^xmlns/",$k)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
                 	//$this->xdebug("$k: $v");
                 	//$this->xdebug('ns_prefix: '.$this->getPrefix($k));
                 	if($ns_prefix = substr(strrchr($k,':'),1)){
@@ -1281,7 +1281,7 @@ class XMLSchema extends nusoap_base  {
 					//                        minOccurs="0" maxOccurs="unbounded" />
 					//                </sequence>
 					//            </complexType>
-					if(isset($attrs['base']) && preg_match('/:Array$/',$attrs['base'])){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+					if(isset($attrs['base']) && preg_match('/:Array$/',$attrs['base'])){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 						$this->xdebug('complexType is unusual array');
 						$this->complexTypes[$this->currentComplexType]['phpType'] = 'array';
 					} else {
@@ -1300,7 +1300,7 @@ class XMLSchema extends nusoap_base  {
 					//                        minOccurs="0" maxOccurs="unbounded" />
 					//                </sequence>
 					//            </complexType>
-					if(isset($attrs['base']) && preg_match('/:Array$/',$attrs['base'])){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+					if(isset($attrs['base']) && preg_match('/:Array$/',$attrs['base'])){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 						$this->xdebug('complexType is unusual array');
 						$this->complexTypes[$this->currentComplexType]['phpType'] = 'array';
 					} else {
@@ -1698,7 +1698,7 @@ class XMLSchema extends nusoap_base  {
 		} elseif(isset($this->attributes[$type])){
 			$this->xdebug("in getTypeDef, found attribute $type");
 			return $this->attributes[$type];
-		} elseif (preg_match('/_ContainedType$/', $type)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		} elseif (preg_match('/_ContainedType$/', $type)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$this->xdebug("in getTypeDef, have an untyped element $type");
 			$typeDef['typeClass'] = 'simpleType';
 			$typeDef['phpType'] = 'scalar';
@@ -2041,7 +2041,7 @@ class soap_transport_http extends nusoap_base {
 	function soap_transport_http($url){
 		parent::nusoap_base();
 		$this->setURL($url);
-		preg_match('/\$Revisio' . 'n: ([^ ]+)/', $this->revision, $rev); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		preg_match('/\$Revisio' . 'n: ([^ ]+)/', $this->revision, $rev); // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		$this->outgoing_headers['User-Agent'] = $this->title.'/'.$this->version.' ('.$rev[1].')';
 		$this->debug('set User-Agent: ' . $this->outgoing_headers['User-Agent']);
 	}
@@ -2383,7 +2383,7 @@ class soap_transport_http extends nusoap_base {
 				$this->persistentConnection = false;
 				$this->debug('set Connection: ' . $this->outgoing_headers['Connection']);
 			}
-			@set_magic_quotes_runtime(0); // Hetfield - 2009-11-19 - depricated function set_magic_quotes_runtime to be ready for PHP >= 5.3
+			@set_magic_quotes_runtime(0); // Hetfield - 2009-11-19 - deprecated function set_magic_quotes_runtime to be ready for PHP >= 5.3
 			// deprecated
 			$this->encoding = $enc;
 		}
@@ -2580,10 +2580,10 @@ class soap_transport_http extends nusoap_base {
 				}
 			}
 			// remove 100 header
-			// BOF - Hetfield - 2009-11-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+			// BOF - Hetfield - 2009-11-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			// if(isset($lb) && ereg('^HTTP/1.1 100',$data)){
 			if(isset($lb) && preg_match('/^HTTP/1.1 100/',$data)){
-			// EOF - Hetfield - 2009-11-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+			// EOF - Hetfield - 2009-11-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 				unset($lb);
 				$data = '';
 			}//
@@ -2736,7 +2736,7 @@ class soap_transport_http extends nusoap_base {
 		curl_close($this->ch);
 
 		// remove 100 header(s)
-		while (preg_match('/[^HTTP/1.1 100]/',$data)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		while (preg_match('/[^HTTP/1.1 100]/',$data)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			if ($pos = strpos($data,"\r\n\r\n")) {
 				$data = ltrim(substr($data,$pos));
 			} elseif($pos = strpos($data,"\n\n") ) {
@@ -2927,7 +2927,7 @@ class soap_transport_http extends nusoap_base {
 	 */
 	function parseCookie($cookie_str) {
 		$cookie_str = str_replace('; ', ';', $cookie_str) . ';';
-		$data = explode(';', $cookie_str); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+		$data = explode(';', $cookie_str); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 		$value_str = $data[0];
 
 		$cookie_param = 'domain=';
@@ -3270,7 +3270,7 @@ class soap_server extends nusoap_base {
 		}
 		$this->debug("In service, query string=$qs");
 
-		if (preg_match('/wsdl/', $qs) ){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		if (preg_match('/wsdl/', $qs) ){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$this->debug("In service, this is a request for WSDL");
 			if($this->externalWSDLURL){
               if (strpos($this->externalWSDLURL,"://")!==false) { // assume URL
@@ -3341,7 +3341,7 @@ class soap_server extends nusoap_base {
 			// get the character encoding of the incoming request
 			if(isset($this->headers['content-type']) && strpos($this->headers['content-type'],'=')){
 				$enc = str_replace('"','',substr(strstr($this->headers["content-type"],'='),1));
-				if(preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i',$enc)){ // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+				if(preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i',$enc)){ // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 					$this->xml_encoding = strtoupper($enc);
 				} else {
 					$this->xml_encoding = 'US-ASCII';
@@ -3370,7 +3370,7 @@ class soap_server extends nusoap_base {
 						$enc = substr(strstr($v, '='), 1);
 						$enc = str_replace('"', '', $enc);
 						$enc = str_replace('\\', '', $enc);
-						if (preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i', $enc)) { // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+						if (preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i', $enc)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 							$this->xml_encoding = strtoupper($enc);
 						} else {
 							$this->xml_encoding = 'US-ASCII';
@@ -3404,7 +3404,7 @@ class soap_server extends nusoap_base {
 						$enc = substr(strstr($v, '='), 1);
 						$enc = str_replace('"', '', $enc);
 						$enc = str_replace('\\', '', $enc);
-						if (preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i', $enc)) { // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+						if (preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i', $enc)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 							$this->xml_encoding = strtoupper($enc);
 						} else {
 							$this->xml_encoding = 'US-ASCII';
@@ -3733,7 +3733,7 @@ class soap_server extends nusoap_base {
         	$payload .= $this->getDebugAsXMLComment();
         }
 		$this->outgoing_headers[] = "Server: $this->title Server v$this->version";
-		preg_match('/\$Revisio' . 'n: ([^ ]+)/', $this->revision, $rev); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		preg_match('/\$Revisio' . 'n: ([^ ]+)/', $this->revision, $rev); // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		$this->outgoing_headers[] = "X-SOAP-Server: $this->title/$this->version (".$rev[1].")";
 		// Let the Web server decide about this
 		//$this->outgoing_headers[] = "Connection: Close\r\n";
@@ -3821,7 +3821,7 @@ class soap_server extends nusoap_base {
 		if (strpos($headers['content-type'], '=')) {
 			$enc = str_replace('"', '', substr(strstr($headers["content-type"], '='), 1));
 			$this->debug('Got response encoding: ' . $enc);
-			if(preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i',$enc)){ // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+			if(preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i',$enc)){ // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 				$this->xml_encoding = strtoupper($enc);
 			} else {
 				$this->xml_encoding = 'US-ASCII';
@@ -4339,7 +4339,7 @@ class wsdl extends nusoap_base {
             $this->currentSchema->schemaStartElement($parser, $name, $attrs);
             $this->appendDebug($this->currentSchema->getDebug());
             $this->currentSchema->clearDebug();
-        } elseif (preg_match('/schema$/', $name)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+        } elseif (preg_match('/schema$/', $name)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
         	$this->debug('Parsing WSDL schema');
             // $this->debug("startElement for $name ($attrs[name]). status = $this->status (".$this->getLocalPart($name).")");
             $this->status = 'schema';
@@ -4358,7 +4358,7 @@ class wsdl extends nusoap_base {
             if (count($attrs) > 0) {
 				// register namespace declarations
                 foreach($attrs as $k => $v) {
-                    if (preg_match("/^xmlns/", $k)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+                    if (preg_match("/^xmlns/", $k)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
                         if ($ns_prefix = substr(strrchr($k, ':'), 1)) {
                             $this->namespaces[$ns_prefix] = $v;
                         } else {
@@ -4383,7 +4383,7 @@ class wsdl extends nusoap_base {
                 $attrs = array();
             }
             // get element prefix, namespace and name
-            if (preg_match('/:/', $name)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+            if (preg_match('/:/', $name)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
                 // get ns prefix
                 $prefix = substr($name, 0, strpos($name, ':'));
                 // get ns
@@ -4548,7 +4548,7 @@ class wsdl extends nusoap_base {
 	*/
 	function end_element($parser, $name){
 		// unset schema status
-		if (/*preg_match('/types$/', $name) ||*/ preg_match('/schema$/', $name)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		if (/*preg_match('/types$/', $name) ||*/ preg_match('/schema$/', $name)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$this->status = "";
             $this->appendDebug($this->currentSchema->getDebug());
             $this->currentSchema->clearDebug();
@@ -5998,7 +5998,7 @@ class soap_parser extends nusoap_base {
 			$key_localpart = $this->getLocalPart($key);
 			// if ns declarations, add to class level array of valid namespaces
             if($key_prefix == 'xmlns'){
-				if(preg_match('/^[http://www.w3.org/][0-9]{4}[/XMLSchema]$/',$value)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+				if(preg_match('/^[http://www.w3.org/][0-9]{4}[/XMLSchema]$/',$value)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 					$this->XMLSchemaVersion = $value;
 					$this->namespaces['xsd'] = $this->XMLSchemaVersion;
 					$this->namespaces['xsi'] = $this->XMLSchemaVersion.'-instance';
@@ -6035,7 +6035,7 @@ class soap_parser extends nusoap_base {
 				[6]    nextDimension    ::=    Digit+ ','
 				*/
 				$expr = '([A-Za-z0-9_]+):([A-Za-z]+[A-Za-z0-9_]+)\[([0-9]+),?([0-9]*)\]';
-				if(preg_match('/'.$expr.'/',$value,$regs)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+				if(preg_match('/'.$expr.'/',$value,$regs)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 					$this->message[$pos]['typePrefix'] = $regs[1];
 					$this->message[$pos]['arrayTypePrefix'] = $regs[1];
 	                if (isset($this->namespaces[$regs[1]])) {
@@ -6761,7 +6761,7 @@ class nusoapclient extends nusoap_base  {
 		// detect transport
 		switch(true){
 			// http(s)
-			case preg_match('/^http/',$this->endpoint): // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+			case preg_match('/^http/',$this->endpoint): // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 				$this->debug('transporting via HTTP');
 				if($this->persistentConnection == true && is_object($this->persistentConnection)){
 					$http =& $this->persistentConnection;
@@ -6783,10 +6783,10 @@ class nusoapclient extends nusoap_base  {
 					$http->setEncoding($this->http_encoding);
 				}
 				$this->debug('sending message, length='.strlen($msg));
-				if(preg_match('/^http:/',$this->endpoint)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+				if(preg_match('/^http:/',$this->endpoint)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 				//if(strpos($this->endpoint,'http:')){
 					$this->responseData = $http->send($msg,$timeout,$response_timeout,$this->cookies);
-				} elseif(preg_match('/^https/',$this->endpoint)){ // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+				} elseif(preg_match('/^https/',$this->endpoint)){ // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 				//} elseif(strpos($this->endpoint,'https:')){
 					//if(phpversion() == '4.3.0-dev'){
 						//$response = $http->send($msg,$timeout,$response_timeout);
@@ -6844,7 +6844,7 @@ class nusoapclient extends nusoap_base  {
 		if (strpos($headers['content-type'], '=')) {
 			$enc = str_replace('"', '', substr(strstr($headers["content-type"], '='), 1));
 			$this->debug('Got response encoding: ' . $enc);
-			if(preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i',$enc)){ // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+			if(preg_match('/^(ISO-8859-1|US-ASCII|UTF-8)$/i',$enc)){ // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 				$this->xml_encoding = strtoupper($enc);
 			} else {
 				$this->xml_encoding = 'US-ASCII';

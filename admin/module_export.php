@@ -271,7 +271,7 @@
           $keys .= '<b>' . $value['title'] . '</b><br />';
           if ($value['use_function']) {
             $use_function = $value['use_function'];
-            if (preg_match('/->/', $use_function)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+            if (preg_match('/->/', $use_function)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
               $class_method = explode('->', $use_function);
               if (!is_object(${$class_method[0]})) {
                 include(DIR_WS_CLASSES . $class_method[0] . '.php');

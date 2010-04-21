@@ -31,7 +31,7 @@ function xtc_get_customer_status_value($customer_id) {
   }
 
   $customer_status_value = xtc_db_fetch_array($customer_status_query);
-  $_SESSION['customer_status_value'] = $customer_status_value; // Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+  $_SESSION['customer_status_value'] = $customer_status_value; // Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
   
   return $customer_status_value;
 }

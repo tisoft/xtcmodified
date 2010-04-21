@@ -15,7 +15,7 @@
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
    Third Party contributions:
-   swiss_post_1.02       	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers | http://www.themedia.at & http://www.oscommerce.at
+   swiss_post_1.02       	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers | http://www.themedia.at & http://www.oscommerce.at
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -80,7 +80,7 @@
 
       for ($j=1; $j<=$this->num_chp; $j++) {
         $countries_table = constant('MODULE_SHIPPING_CHP_COUNTRIES_' . $j);
-        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $j;
           break;
@@ -98,7 +98,7 @@
         $methods = array();
 
         if ($chp_cost_eco != '') {
-          $chp_table_eco = preg_split("/[:,]/" , $chp_cost_eco); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+          $chp_table_eco = preg_split("/[:,]/" , $chp_cost_eco); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 
           for ($i=0; $i<sizeof($chp_table_eco); $i+=2) {
             if ($shipping_weight <= $chp_table_eco[$i]) {
@@ -122,7 +122,7 @@
         }
 
         if ($chp_cost_pri != '') {
-          $chp_table_pri = preg_split("/[:,]/" , $chp_cost_pri); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+          $chp_table_pri = preg_split("/[:,]/" , $chp_cost_pri); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
           for ($i=0; $i<sizeof($chp_table_pri); $i+=2) {
             if ($shipping_weight <= $chp_table_pri[$i]) {
@@ -146,7 +146,7 @@
         }  
 
         if ($chp_cost_urg != '') {
-          $chp_table_urg = preg_split("/[:,]/" , $chp_cost_urg); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+          $chp_table_urg = preg_split("/[:,]/" , $chp_cost_urg); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
           for ($i=0; $i<sizeof($chp_table_urg); $i+=2) {
             if ($shipping_weight <= $chp_table_urg[$i]) {

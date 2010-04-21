@@ -142,7 +142,7 @@
 
       for ($i=1; $i<=$this->num_zones; $i++) {
         $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
-        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $i;
           break;
@@ -155,7 +155,7 @@
         $shipping = -1;
         $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $dest_zone);
 
-        $zones_table = preg_split("/[:,]/" , $zones_cost); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+        $zones_table = preg_split("/[:,]/" , $zones_cost); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
         $size = sizeof($zones_table);
         for ($i=0; $i<$size; $i+=2) {
           if ($shipping_weight <= $zones_table[$i]) {

@@ -9,7 +9,7 @@
 //	Gunnar Tillmann / http://www.gunnart.de
 //	im Oktober/Dezember 2008
 // 	
-//	Nähere Infos: http://www.gunnart.de?p=379
+//	Nï¿½here Infos: http://www.gunnart.de?p=379
 //	
 //	v 0.13
 // -----------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@
 
 
 // -----------------------------------------------------------------------------------------
-//	Auf den "gewünschten Artikel-Link umleiten
+//	Auf den "gewï¿½nschten Artikel-Link umleiten
 // -----------------------------------------------------------------------------------------
 	function productRedirect() {
 		// Wenn wir auf ner Produkt-Info-Seite sind
@@ -68,7 +68,7 @@
 			// Wenn es den Artikel gibt
 			if($RedirectionLink) { 
 				
-				// Gewünschter Link (OHNE http/https-Zeug, Session-ID und weitere $_GET-Parameter)
+				// Gewï¿½nschter Link (OHNE http/https-Zeug, Session-ID und weitere $_GET-Parameter)
 				$ProductLink = str_replace(array(HTTP_SERVER,HTTPS_SERVER),'',preg_replace("/([^\?]*)(\?.*)/","$1",$RedirectionLink));
 				
 				// Angefragte Adresse (OHNE Session-ID und weitere $_GET-Parameter)
@@ -82,10 +82,10 @@
 						}
 					}
 					header('HTTP/1.1 301 Moved Permanently' );
-					// BOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+					// BOF - Hetfield - 2009-11-19 - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 					// header('Location: '.eregi_replace("[\r\n]+(.*)$","",$RedirectionLink));
 					header('Location: '.preg_replace("/[\r\n]+(.*)$/i","",$RedirectionLink));
-					// EOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+					// EOF - Hetfield - 2009-11-19 - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 				}
 			
 			// Wenn es den Artikel nicht gibt
@@ -99,10 +99,10 @@
 					}
 				}
 				header('HTTP/1.1 404 Not Found' );
-				// BOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+				// BOF - Hetfield - 2009-11-19 - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 				// header('Location: '.eregi_replace("[\r\n]+(.*)$","",$DefaultLink)); 
 				header('Location: '.preg_replace("/[\r\n]+(.*)$/i","",$DefaultLink)); 
-				// EOF - Hetfield - 2009-11-19 - replaced depricated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+				// EOF - Hetfield - 2009-11-19 - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 			}
 		}
 	}

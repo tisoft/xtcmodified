@@ -78,7 +78,7 @@ class cod {
         $cod_country = false;
 
           //process installed shipping modules
-		  // BOF - Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+		  // BOF - Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ($_SESSION['shipping']['id'] == 'flat_flat') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FLAT);
           if ($_SESSION['shipping']['id'] == 'item_item') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ITEM);
           if ($_SESSION['shipping']['id'] == 'table_table') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_TABLE);
@@ -107,7 +107,7 @@ class cod {
  
           if ($_SESSION['shipping']['id'] == 'free_free') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FREE);
           if ($_SESSION['shipping']['id'] == 'freeamount_freeamount') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_FREEAMOUNT_FREE);
-		  // EOF - Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+		  // EOF - Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
             for ($i = 0; $i < count($cod_zones); $i++) {
             if ($cod_zones[$i] == $order->delivery['country']['iso_code_2']) {

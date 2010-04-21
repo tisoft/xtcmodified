@@ -284,7 +284,7 @@
   // verify the ssl_session_id if the feature is enabled
   if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($session_started == true) ) {
     $ssl_session_id = getenv('SSL_SESSION_ID');
-    if (!isset($_SESSION['SESSION_SSL_ID'])) {  // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+    if (!isset($_SESSION['SESSION_SSL_ID'])) {  // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
       $_SESSION['SESSION_SSL_ID'] = $ssl_session_id;
     }
 
@@ -313,7 +313,7 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   // verify the IP address if the feature is enabled
   if (SESSION_CHECK_IP_ADDRESS == 'True') {
     $ip_address = xtc_get_ip_address();
-    if (!isset($_SESSION['SESSION_IP_ADDRESS'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+    if (!isset($_SESSION['SESSION_IP_ADDRESS'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
       $_SESSION['SESSION_IP_ADDRESS'] = $ip_address;
     }
 
@@ -338,7 +338,7 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   // include the language translations
   require(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/'.$_SESSION['language'] . '.php');
   require(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/buttons.php');
-  $current_page = preg_split('/\?/', basename($_SERVER['PHP_SELF'])); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility  // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+  $current_page = preg_split('/\?/', basename($_SERVER['PHP_SELF'])); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility  // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
   if (file_exists(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/'.$current_page)) {
     include(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/'.  $current_page);
   }

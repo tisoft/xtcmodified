@@ -17,7 +17,7 @@
 
   // Get the number of times a word/character is present in a string
   function xtc_word_count($string, $needle) {
-    $temp_array = explode($needle, $string); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+    $temp_array = explode($needle, $string); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 
     return sizeof($temp_array);
   }

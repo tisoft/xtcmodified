@@ -188,7 +188,7 @@ class shoppingCart {
 			//BOF - DokuMan - 2010-03-06 - check for defined variable
 				unset ($this->contents[$key]);
 				// remove from database
-				if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+				if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
 					xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$key."'");
 					xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$key."'");
 				}
@@ -233,7 +233,7 @@ class shoppingCart {
 		//EOF - DokuMan - 2010-03-06 - unset instead of NULL
 
 		// remove from database
-		if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+		if (isset($_SESSION['customer_id'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
 			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
 			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
 		}
@@ -292,8 +292,8 @@ class shoppingCart {
 				}
 			}
 				
-				// $this->total hat netto * Stück in der 1. Runde
-				// Artikel Rabatt berücksichtigt
+				// $this->total hat netto * Stï¿½ck in der 1. Runde
+				// Artikel Rabatt berï¿½cksichtigt
 				// Gesamt Rabatt auf Bestellung nicht
 				// Nur weiterrechnen, falls Product nicht ohne Steuer
 				// $this->total + $this->tax wird berechnet
@@ -301,7 +301,7 @@ class shoppingCart {
 				if ($product['products_tax_class_id'] != 0) {
 					
 					if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
-						// Rabatt für die Steuerberechnung
+						// Rabatt fï¿½r die Steuerberechnung
 						// der eigentliche Rabatt wird im order-details_cart abgezogen
 						$products_price_tax = $products_price - ($products_price / 100 * $_SESSION['customers_status']['customers_status_ot_discount']);
 						$attribute_price_tax = $attribute_price - ($attribute_price / 100 * $_SESSION['customers_status']['customers_status_ot_discount']);
@@ -509,7 +509,7 @@ class shoppingCart {
 				$no_count = false;
 				$gv_query = xtc_db_query("select products_model from ".TABLE_PRODUCTS." where products_id = '".$products_id."'");
 				$gv_result = xtc_db_fetch_array($gv_query);
-				if (preg_match('/^GIFT/', $gv_result['products_model'])) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+				if (preg_match('/^GIFT/', $gv_result['products_model'])) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 					$no_count = true;
 				}
 				//BOF - DokuMan - 2010-03-26 - check for defined variable

@@ -125,7 +125,7 @@
       }
       $shipping = -1;
 //        $dpd_cost = constant('MODULE_SHIPPING_DPD_COST_' . $i);
-      $dpd_table = preg_split("/[-:,]/" , $dpd_cost['dpd_weight_price_string']); // Hetfield - 2009-11-19 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+      $dpd_table = preg_split("/[-:,]/" , $dpd_cost['dpd_weight_price_string']); // Hetfield - 2009-11-19 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
       $n=1;
       $y=2;
       for ($i = 0; $i < count($dpd_table); $i ++) {

@@ -135,7 +135,7 @@ class ot_gv {
 
 	function update_credit_account($i) {
 		global $order, $insert_id, $REMOTE_ADDR;
-		if (preg_match('/^GIFT/', addslashes($order->products[$i]['model']))) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		if (preg_match('/^GIFT/', addslashes($order->products[$i]['model']))) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$gv_order_amount = ($order->products[$i]['final_price']);
 			if ($this->credit_tax == 'true')
 				$gv_order_amount = $gv_order_amount * (100 + $order->products[$i]['tax']) / 100;

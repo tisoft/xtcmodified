@@ -15,7 +15,7 @@
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
    Third Party contributions:
-   dhl_austria_1.02       	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers | http://www.themedia.at & http://www.oscommerce.at
+   dhl_austria_1.02       	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers | http://www.themedia.at & http://www.oscommerce.at
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -83,7 +83,7 @@
 
       for ($j=1; $j<=$this->num_dhl; $j++) {
         $countries_table = constant('MODULE_SHIPPING_DHL_COUNTRIES_' . $j);
-        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $j;
           break;
@@ -104,7 +104,7 @@
         $n == 0;
 
         if ($dhl_cost_ecx != '') {
-          $dhl_table_ecx = preg_split("/[:,]/" , $dhl_cost_ecx); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+          $dhl_table_ecx = preg_split("/[:,]/" , $dhl_cost_ecx); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_ecx = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_ECX_20_' .$j) + $dhl_table_ecx[count ($dhl_table_ecx)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {
@@ -137,7 +137,7 @@
         }
 
         if ($dhl_cost_dox != '') {          
-		  $dhl_table_dox = preg_split("/[:,]/" , $dhl_cost_dox);  // Hetfield - 2009-11-19 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+		  $dhl_table_dox = preg_split("/[:,]/" , $dhl_cost_dox);  // Hetfield - 2009-11-19 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_dox = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_DOX_20_' .$j) + $dhl_table_dox[count ($dhl_table_dox)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {
@@ -170,7 +170,7 @@
         }  
 
         if ($dhl_cost_wpx != '') {
-          $dhl_table_wpx = preg_split("/[:,]/" , $dhl_cost_wpx); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+          $dhl_table_wpx = preg_split("/[:,]/" , $dhl_cost_wpx); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_wpx = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_WPX_20_' .$j) + $dhl_table_wpx[count ($dhl_table_wpx)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {
@@ -203,7 +203,7 @@
         }
 
         if ($dhl_cost_mdx != '') {
-          $dhl_table_mdx = preg_split("/[:,]/" , $dhl_cost_mdx);  // Hetfield - 2009-11-19 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+          $dhl_table_mdx = preg_split("/[:,]/" , $dhl_cost_mdx);  // Hetfield - 2009-11-19 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_mdx = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_MDX_20_' .$j) + $dhl_table_mdx[count ($dhl_table_mdx)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {
@@ -236,7 +236,7 @@
         }
 
         if ($dhl_cost_sdx != '') {
-          $dhl_table_sdx = preg_split("/[:,]/" , $dhl_cost_sdx); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+          $dhl_table_sdx = preg_split("/[:,]/" , $dhl_cost_sdx); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_sdx = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_SDX_20_' .$j) + $dhl_table_sdx[count ($dhl_table_sdx)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 30) ) {

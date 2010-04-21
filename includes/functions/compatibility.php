@@ -115,7 +115,7 @@
 
   if (!function_exists('is_numeric')) {
     function is_numeric($param) {
-      return preg_match('/^[0-9]{1,50}.?[0-9]{0,50}$/', $param); // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+      return preg_match('/^[0-9]{1,50}.?[0-9]{0,50}$/', $param); // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
     }
   }
 
@@ -165,7 +165,7 @@
       if(xtc_not_null($host) && xtc_not_null($type)) {
         @exec("nslookup -type=$type $host", $output);
         while(list($k, $line) = each($output)) {
-          if(preg_match("/^$host/i", $line)) { // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+          if(preg_match("/^$host/i", $line)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
             return true;
           }
         }

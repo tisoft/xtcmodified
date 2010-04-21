@@ -238,10 +238,10 @@ if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')
 if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
 // BOF - Tomcraft - 2009-10-25 - made capable for 1und1
 	$pathinfo=((getenv('PATH_INFO')=='')?$_SERVER['ORIG_PATH_INFO']:getenv('PATH_INFO'));
-// BOF - Tomcraft - 2009-10-25 - replaced depricated function ereg with preg_match
+// BOF - Tomcraft - 2009-10-25 - replaced deprecated function ereg with preg_match
 //	if(ereg('.php',$pathinfo)):
 	if(preg_match('/.php/',$pathinfo)):
-// EOF - Tomcraft - 2009-10-25 - replaced depricated function ereg with preg_match
+// EOF - Tomcraft - 2009-10-25 - replaced deprecated function ereg with preg_match
 		$PATH_INFO = substr(stristr('.php', $pathinfo),1);
 	else:
 		$PATH_INFO=$pathinfo;
@@ -359,7 +359,7 @@ if (CHECK_CLIENT_AGENT) {
 // verify the ssl_session_id if the feature is enabled
 if (($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($session_started == true)) {
 	$ssl_session_id = getenv('SSL_SESSION_ID');
-	if (!isset($_SESSION['SSL_SESSION_ID'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+	if (!isset($_SESSION['SSL_SESSION_ID'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
 		$_SESSION['SESSION_SSL_ID'] = $ssl_session_id;
 	}
 

@@ -16,7 +16,7 @@
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
    Third Party contributions:
-   fedex_europe_1.02         	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers | http://www.themedia.at & http://www.oscommerce.at
+   fedex_europe_1.02         	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers | http://www.themedia.at & http://www.oscommerce.at
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -76,7 +76,7 @@
 
       for ($j=1; $j<=$this->num_fedexeu; $j++) {
         $countries_table = constant('MODULE_SHIPPING_FEDEXEU_COUNTRIES_' . $j);
-        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $j;
           break;
@@ -94,7 +94,7 @@
         $methods = array();
 
         if ($fedexeu_cost_pak != '') {
-          $fedexeu_table_pak = preg_split("/[:,]/" , $fedexeu_cost_pak); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+          $fedexeu_table_pak = preg_split("/[:,]/" , $fedexeu_cost_pak); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
           for ($i=0; $i<sizeof($fedexeu_table_pak); $i+=2) {
             if ($shipping_weight <= $fedexeu_table_pak[$i]) {
@@ -119,7 +119,7 @@
 		
 
 		if ($fedexeu_cost_env != '') {
-          $fedexeu_table_env = preg_split("/[:,]/" , $fedexeu_cost_env); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+          $fedexeu_table_env = preg_split("/[:,]/" , $fedexeu_cost_env); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
           for ($i=0; $i<sizeof($fedexeu_table_env); $i+=2) {
             if ($shipping_weight <= $fedexeu_table_env[$i]) {
@@ -144,7 +144,7 @@
 		
 
         if ($fedexeu_cost_box != '') {
-          $fedexeu_table_box = preg_split("/[:,]/" , $fedexeu_cost_box); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+          $fedexeu_table_box = preg_split("/[:,]/" , $fedexeu_cost_box); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_box = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_FEDEXEU_STEP_BOX_20_' .$j) + $fedexeu_table_box[count ($fedexeu_table_box)-1];
           } elseif ( ($shipping_weight > 20) and ($shipping_weight <= 40) ) {

@@ -81,7 +81,7 @@ while ($categories = xtc_db_fetch_array($categories_query, true)) {
 //------------------------
 if ($cPath) {
 	$new_path = '';
-	$id = explode('_', $cPath); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+	$id = explode('_', $cPath); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 	reset($id);
 	while (list ($key, $value) = each($id)) {
 		unset ($prev_id);

@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 
 ************************************************************************
-  Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers
+  Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers
        http://www.themedia.at & http://www.oscommerce.at
 
   WSDL extensions
@@ -157,7 +157,7 @@
           fclose($fp);
 
         } else {
-          $messageString = 'Ihre Bestellung ist nicht aktiv. Bitte erhöhen Sie zur Aktivierung Ihren iclear Verfügungsrahmen!';
+          $messageString = 'Ihre Bestellung ist nicht aktiv. Bitte erhï¿½hen Sie zur Aktivierung Ihren iclear Verfï¿½gungsrahmen!';
         }
         $messageType = 'success';
 // todo: maybe a redirect goes here
@@ -172,14 +172,14 @@
 
       if($reset) {
         $_SESSION['cart']->reset(true);
-        // BOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+        // BOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
 		unset($_SESSION['iclearWsdlResult']);
         unset($_SESSION['sendto']);
         unset($_SESSION['billto']);
         unset($_SESSION['shipping']);
         unset($_SESSION['payment']);
         unset($_SESSION['comments']);
-		// EOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+		// EOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
         xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', 'SSL'));
       }
       return false;
@@ -190,7 +190,7 @@
       $sql = 'UPDATE orders_iclear SET orders_id = "' . $insert_id . '" WHERE wsdl_id = "' . $this->wsdlOrder['wsdl_id'] . '" LIMIT 1';
       xtc_db_query($sql);
 // remove wsdl session var
-      unset($_SESSION['iclearWsdlResult']);// Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+      unset($_SESSION['iclearWsdlResult']);// Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
 	    return false;
     }
 

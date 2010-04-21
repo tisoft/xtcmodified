@@ -678,8 +678,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 			if ($which_valign == 'top') { 
 				$which_ypos = $which_ypos - ImageFontHeight($which_font);
 			}
-			$which_text = preg_replace("/\r/","",$which_text);  // Hetfield - 2009-08-18 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
-			$str = explode("\n",$which_text); //multiple lines submitted by Remi Ricard // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+			$which_text = preg_replace("/\r/","",$which_text);  // Hetfield - 2009-08-18 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$str = explode("\n",$which_text); //multiple lines submitted by Remi Ricard // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 			$height = ImageFontHeight($which_font);
 			$width = ImageFontWidth($which_font);
 			if ($which_angle == 90) {  //Vertical Code Submitted by Marlin Viss
@@ -783,7 +783,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 	function SetPlotType($which_pt) {
 		$accepted = "bars,lines,linepoints,area,points,pie,thinbarline";
 		$asked = trim($which_pt);
-		if (preg_match('/'.$asked.'/i', $accepted)) {  // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+		if (preg_match('/'.$asked.'/i', $accepted)) {  // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 			$this->plot_type = $which_pt;
 			return true;
 		} else {
@@ -940,7 +940,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 		// It thus depends on the current character size, set by SetCharacterHeight().
 		/////////////////////////////////////////////////////////////////
 
-		$str = explode("\n",$this->title_txt); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+		$str = explode("\n",$this->title_txt); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 		$nbLines = count($str); 
 
 		if ($this->use_ttf == 1) {

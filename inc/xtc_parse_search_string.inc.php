@@ -19,7 +19,7 @@
     $search_str = trim(strtolower($search_str));
 
 // Break up $search_str on whitespace; quoted string will be reconstructed later
-    $pieces = preg_split('/[[:space:]]+/', $search_str); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+    $pieces = preg_split('/[[:space:]]+/', $search_str); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
     $objects = array();
     $tmpstring = '';
     $flag = '';
@@ -60,7 +60,7 @@
 */
 
 // Add this word to the $tmpstring, starting the $tmpstring
-        $tmpstring = trim(preg_replace('/"/', ' ', $pieces[$k]));// Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+        $tmpstring = trim(preg_replace('/"/', ' ', $pieces[$k]));// Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 
 // Check for one possible exception to the rule. That there is a single quoted word.
         if (substr($pieces[$k], -1 ) == '"') {
@@ -110,7 +110,7 @@
    $piece onto the tail of the string, push the $tmpstring onto the $haves,
    kill the $tmpstring, turn the $flag "off", and return.
 */
-            $tmpstring .= ' ' . trim(preg_replace('/"/', ' ', $pieces[$k])); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+            $tmpstring .= ' ' . trim(preg_replace('/"/', ' ', $pieces[$k])); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 
 // Push the $tmpstring onto the array of stuff to search for
             $objects[] = trim($tmpstring);

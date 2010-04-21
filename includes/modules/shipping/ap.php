@@ -15,7 +15,7 @@
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
    Third Party contributions:
-   austrian_post_1.05       	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers | http://www.themedia.at & http://www.oscommerce.at
+   austrian_post_1.05       	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers | http://www.themedia.at & http://www.oscommerce.at
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -75,7 +75,7 @@
 
       for ($i=1; $i<=$this->num_ap; $i++) {
         $countries_table = constant('MODULE_SHIPPING_AP_COUNTRIES_' . $i);
-        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $i;
           break;
@@ -88,7 +88,7 @@
         $shipping = -1;
         $ap_cost = constant('MODULE_SHIPPING_AP_COST_' . $i);
 
-        $ap_table = preg_split("/[:,]/" , $ap_cost); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+        $ap_table = preg_split("/[:,]/" , $ap_cost); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
         for ($i=0; $i<sizeof($ap_table); $i+=2) {
           if ($shipping_weight <= $ap_table[$i]) {
             $shipping = $ap_table[$i+1];

@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ot_cod_fee.php,v 1.02 2003/02/24); www.oscommerce.com
-   (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers ; http://www.themedia.at & http://www.oscommerce.at
+   (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers ; http://www.themedia.at & http://www.oscommerce.at
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@
         //check if payment method is cod. If yes, check if cod is possible.
         if ($_SESSION['payment'] == 'cod') {
           //process installed shipping modules
-		   // BOF - Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+		   // BOF - Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ($_SESSION['shipping']['id'] == 'flat_flat') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FLAT);
           if ($_SESSION['shipping']['id'] == 'item_item') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ITEM);
           if ($_SESSION['shipping']['id'] == 'table_table') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_TABLE);
@@ -84,7 +84,7 @@
           // Free Shipping
           if ($_SESSION['shipping']['id'] == 'free_free') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FREE);
           if ($_SESSION['shipping']['id'] == 'freeamount_freeamount') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_FREEAMOUNT_FREE);
-		  // EOF - Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+		  // EOF - Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
             for ($i = 0; $i < count($cod_zones); $i++) {
             if ($cod_zones[$i] == $order->delivery['country']['iso_code_2']) {

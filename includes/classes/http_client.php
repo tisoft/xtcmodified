@@ -390,7 +390,7 @@
         $str = fgets($this->socket, 1024);
         $finished = ($str == $lastLine);
         if (!$finished) {
-          list($hdr, $value) = explode(': ', $str, 2); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+          list($hdr, $value) = explode(': ', $str, 2); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
           // nasty workaround broken multiple same headers (eg. Set-Cookie headers) @FIXME 
           if (isset($headers[$hdr])) {
             $headers[$hdr] .= '; ' . trim($value);

@@ -27,11 +27,11 @@ function xtc_create_random_value($length, $type = 'mixed') {
         $char = chr(xtc_rand(0,255));
       }
       if ($type == 'mixed') {
-        if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+        if (preg_match('/^[a-z0-9]$/i', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
       } elseif ($type == 'chars') {
-        if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced depricated function eregi with preg_match to be ready for PHP >= 5.3
+        if (preg_match('/^[a-z]$/i', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
       } elseif ($type == 'digits') {
-        if (preg_match('/^[0-9]$/', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+        if (preg_match('/^[0-9]$/', $char)) $rand_value .= $char; // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
       }
     }
 

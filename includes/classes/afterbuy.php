@@ -68,9 +68,9 @@ class xtc_afterbuy_functions {
 		$customer['firma'] = $oData['billing_company'];
 		$customer['vorname'] = $oData['billing_firstname'];
 		$customer['nachname'] = $oData['billing_lastname'];
-		$customer['strasse'] = preg_replace("/ /", "%20", $oData['billing_street_address']); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+		$customer['strasse'] = preg_replace("/ /", "%20", $oData['billing_street_address']); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 		$customer['plz'] = $oData['billing_postcode'];
-		$customer['ort'] = preg_replace("/ /", "%20", $oData['billing_city']); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+		$customer['ort'] = preg_replace("/ /", "%20", $oData['billing_city']); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 		$customer['tel'] = $oData['billing_telephone'];
 		$customer['fax'] = "";
 		$customer['mail'] = $oData['customers_email_address'];
@@ -92,9 +92,9 @@ class xtc_afterbuy_functions {
 		$customer['d_firma'] = $oData['delivery_company'];
 		$customer['d_vorname'] = $oData['delivery_firstname'];
 		$customer['d_nachname'] = $oData['delivery_lastname'];
-		$customer['d_strasse'] = preg_replace("/ /", "%20", $oData['delivery_street_address']); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+		$customer['d_strasse'] = preg_replace("/ /", "%20", $oData['delivery_street_address']); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 		$customer['d_plz'] = $oData['delivery_postcode'];
-		$customer['d_ort'] = preg_replace("/ /", "%20", $oData['delivery_city']); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+		$customer['d_ort'] = preg_replace("/ /", "%20", $oData['delivery_city']); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 		$customer['d_land'] = $oData['delivery_country_iso_code_2'];
 
 		// get products related to order
@@ -138,12 +138,12 @@ class xtc_afterbuy_functions {
 			if ($artnr == '')
 				$artnr = $pDATA['products_id'];
 			$DATAstring .= "Artikelnr_".$nr."=".$artnr."&";
-			$DATAstring .= "Artikelname_".$nr."=".preg_replace("/&/", "%38", preg_replace("/\"/", "", preg_replace("/ /", "%20", $pDATA['products_name'])))."&"; // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$DATAstring .= "Artikelname_".$nr."=".preg_replace("/&/", "%38", preg_replace("/\"/", "", preg_replace("/ /", "%20", $pDATA['products_name'])))."&"; // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 			
 			if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) $pDATA['products_price']+=$pDATA['products_tax'];
 			if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 0) $pDATA['products_tax']=0; 
-			$price = preg_replace("/\./", ",", $pDATA['products_price']); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
-			$tax = preg_replace("/\./", ",", $pDATA['products_tax']); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$price = preg_replace("/\./", ",", $pDATA['products_price']); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$tax = preg_replace("/\./", ",", $pDATA['products_tax']); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 
 			$DATAstring .= "ArtikelEPreis_".$nr."=".$price."&";
 			$DATAstring .= "ArtikelMwst_".$nr."=".$tax."&";
@@ -218,7 +218,7 @@ class xtc_afterbuy_functions {
 			$nr ++;
 			$DATAstring .= "Artikelnr_".$nr."=99999999&";
 			$DATAstring .= "Artikelname_".$nr."=Nachname&";
-			$cod_fee = preg_replace("/\./", ",", $cod_fee); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$cod_fee = preg_replace("/\./", ",", $cod_fee); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 			$DATAstring .= "ArtikelEPreis_".$nr."=".$cod_fee."&";
 			$DATAstring .= "ArtikelMwst_".$nr."=".$tax."&";
 			$DATAstring .= "ArtikelMenge_".$nr."=1&";
@@ -230,7 +230,7 @@ class xtc_afterbuy_functions {
 			$nr ++;
 			$DATAstring .= "Artikelnr_".$nr."=99999998&";
 			$DATAstring .= "Artikelname_".$nr."=Rabatt&";
-			$discount = preg_replace("/\./", ",", $discount); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$discount = preg_replace("/\./", ",", $discount); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 			$DATAstring .= "ArtikelEPreis_".$nr."=".$discount."&";
 			$DATAstring .= "ArtikelMwst_".$nr."=".$tax."&";
 			$DATAstring .= "ArtikelMenge_".$nr."=1&";
@@ -241,7 +241,7 @@ class xtc_afterbuy_functions {
 			$nr ++;
 			$DATAstring .= "Artikelnr_".$nr."=99999997&";
 			$DATAstring .= "Artikelname_".$nr."=Gutschein&";
-			$gv = preg_replace("/\./", ",", ($gv * (-1))); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$gv = preg_replace("/\./", ",", ($gv * (-1))); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 			$DATAstring .= "ArtikelEPreis_".$nr."=".$gv."&";
 			$DATAstring .= "ArtikelMwst_".$nr."=0&";
 			$DATAstring .= "ArtikelMenge_".$nr."=1&";
@@ -252,7 +252,7 @@ class xtc_afterbuy_functions {
 			$nr ++;
 			$DATAstring .= "Artikelnr_".$nr."=99999996&";
 			$DATAstring .= "Artikelname_".$nr."=Kupon&";
-			$coupon = preg_replace("/\./", ",", ($coupon * (-1))); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+			$coupon = preg_replace("/\./", ",", ($coupon * (-1))); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 			$DATAstring .= "ArtikelEPreis_".$nr."=".$coupon."&";
 			$DATAstring .= "ArtikelMwst_".$nr."=0&";
 			$DATAstring .= "ArtikelMenge_".$nr."=1&";
@@ -261,7 +261,7 @@ class xtc_afterbuy_functions {
 
 		$DATAstring .= "PosAnz=".$p_count."&";
 
-		$vK = preg_replace("/\./", ",", $shipping); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+		$vK = preg_replace("/\./", ",", $shipping); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 
 		if ($oData['payment_method'] == 'cod')
 			$oData['payment_method'] = 'Nachnahme';
@@ -296,8 +296,8 @@ class xtc_afterbuy_functions {
 		$result = curl_exec($ch);
     
     //BOF - Dokuman - 2010-01-27 - added missing escape Character to preg_match
-		//if (preg_match("/<success>1</success>/", $result)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
-		if (preg_match("/<success>1<\/success>/", $result)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+		//if (preg_match("/<success>1</success>/", $result)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+		if (preg_match("/<success>1<\/success>/", $result)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
     //EOF - Dokuman - 2010-01-27 - added missing escape Character to preg_match
 		
 			// result ok, mark order

@@ -26,7 +26,7 @@ $box_content = '';
 require_once (DIR_FS_INC.'xtc_image_submit.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_password_field.inc.php');
 
-if (!isset($_SESSION['customer_id'])) {// Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+if (!isset($_SESSION['customer_id'])) {// Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
 
 	$box_smarty->assign('FORM_ACTION', '<form id="loginbox" method="post" action="'.xtc_href_link(FILENAME_LOGIN, 'action=process', 'SSL').'">');
 	$box_smarty->assign('FIELD_EMAIL', xtc_draw_input_field('email_address', '', 'maxlength="50" style="width:170px;"'));

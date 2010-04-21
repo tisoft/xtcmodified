@@ -60,11 +60,11 @@
 		}
 
 		if($order->delivery['country']['iso_code_2'] == 'DE')
-			$preise = preg_split("/;/", MODULE_SHIPPING_HERMES_NATIONAL); // Hetfield - 2009-11-19 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+			$preise = preg_split("/;/", MODULE_SHIPPING_HERMES_NATIONAL); // Hetfield - 2009-11-19 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 		else
-			$preise = preg_split("/;/", MODULE_SHIPPING_HERMES_INTERNATIONAL); // Hetfield - 2009-11-19 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+			$preise = preg_split("/;/", MODULE_SHIPPING_HERMES_INTERNATIONAL); // Hetfield - 2009-11-19 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
-		$gewichte = preg_split("/;/", MODULE_SHIPPING_HERMES_GEWICHT); // Hetfield - 2009-11-19 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+		$gewichte = preg_split("/;/", MODULE_SHIPPING_HERMES_GEWICHT); // Hetfield - 2009-11-19 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
 
 		$price_id = 0;
 

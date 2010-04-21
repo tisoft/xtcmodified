@@ -61,7 +61,7 @@
         $order_total = $shipping_weight;
       }
 
-      $table_cost = preg_split("/[:,]/" , MODULE_SHIPPING_TABLE_COST); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+      $table_cost = preg_split("/[:,]/" , MODULE_SHIPPING_TABLE_COST); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
       $size = sizeof($table_cost);
       for ($i=0, $n=$size; $i<$n; $i+=2) {
         if ($order_total <= $table_cost[$i]) {

@@ -14,7 +14,7 @@
    (c) 2003 XT-Commerce
    (c) 2004 - 2006 discus24.de
    (c) 2004 - 2009 FMCE Software Ltd. & Co. KG, Frank Maroke - frank@maroke.de
-   (c) 2009 - 2009 ECB Shop-Software, Jörg Wedekind <yogi@ecb-shop.de>
+   (c) 2009 - 2009 ECB Shop-Software, Jï¿½rg Wedekind <yogi@ecb-shop.de>
    (c) 2010 xtc-Modified
 
    Check the german bank account numbers.
@@ -27,25 +27,25 @@
 
 class AccountCheck {
 
-/* Folgende Returncodes werden übergeben                                      */
+/* Folgende Returncodes werden ï¿½bergeben                                      */
 /*                                                                            */
 /* 0 -> Kontonummer & BLZ OK                                                  */
 /* 1 -> Kontonummer & BLZ passen nicht                                        */
-/* 2 -> Für diese Kontonummer ist kein Prüfziffernverfahren definiert         */
-/* 3 -> Dieses Prüfziffernverfahren ist noch nicht implementiert              */
-/* 4 -> Diese Kontonummer ist technisch nicht prüfbar                         */
+/* 2 -> Fï¿½r diese Kontonummer ist kein Prï¿½fziffernverfahren definiert         */
+/* 3 -> Dieses Prï¿½fziffernverfahren ist noch nicht implementiert              */
+/* 4 -> Diese Kontonummer ist technisch nicht prï¿½fbar                         */
 /* 5 -> BLZ nicht gefunden                                                    */
-/* 8 -> Keine BLZ übergeben                                                   */
-/* 9 -> Keine Kontonummer übergeben                                           */
-/* 10 -> Kein Kontoinhaber übergeben                                          */
+/* 8 -> Keine BLZ ï¿½bergeben                                                   */
+/* 9 -> Keine Kontonummer ï¿½bergeben                                           */
+/* 10 -> Kein Kontoinhaber ï¿½bergeben                                          */
 /* 128 -> interner Fehler,der zeigt, das eine Methode nicht implementiert ist */
 /*                                                                            */
 
-var $Bankname; // Enthält den Namen der Bank bei der Suche nach BLZ
-var $PRZ; //Enthält die Prüfziffer
+var $Bankname; // Enthï¿½lt den Namen der Bank bei der Suche nach BLZ
+var $PRZ; //Enthï¿½lt die Prï¿½fziffer
 
 ////
-// Diese function gibt die Bankinformationen aus der csv-Datei zurück*/
+// Diese function gibt die Bankinformationen aus der csv-Datei zurï¿½ck*/
   function csv_query($blz) {
     $cdata = -1;
     $fp = fopen(DIR_WS_INCLUDES . 'data/blz.csv', 'r');
@@ -60,7 +60,7 @@ var $PRZ; //Enthält die Prüfziffer
   }
 
 ////
-// Diese function gibt die Bankinformationen aus der Datenbank zurück*/
+// Diese function gibt die Bankinformationen aus der Datenbank zurï¿½ck*/
   function db_query($blz) {
     $blz_query = xtc_db_query("SELECT * from banktransfer_blz WHERE blz = '" . $blz . "'");
     if (xtc_db_num_rows($blz_query)){
@@ -71,7 +71,7 @@ var $PRZ; //Enthält die Prüfziffer
   }
 
 ////
-// Diese function gibt die Bankinformationen aus der Datenbank zurück*/
+// Diese function gibt die Bankinformationen aus der Datenbank zurï¿½ck*/
   function query($blz) {
     if (defined('MODULE_PAYMENT_BANKTRANSFER_DATABASE_BLZ') and MODULE_PAYMENT_BANKTRANSFER_DATABASE_BLZ == 'true')
       $data = $this->db_query($blz);
@@ -99,7 +99,7 @@ var $PRZ; //Enthält die Prüfziffer
   }  /* End of Quersumme */
 
 ///
-// Auffüllen der Konto-Nr. mit '0' auf 10 Stellen
+// Auffï¿½llen der Konto-Nr. mit '0' auf 10 Stellen
   function ExpandAccount($AccountNo) {
     return str_pad($AccountNo, 10, '0', STR_PAD_LEFT);
   }  /* End of EpxandKonto */
@@ -459,7 +459,7 @@ var $PRZ; //Enthält die Prüfziffer
       case 4 :
       case 5 :
       case 6 :
-        // deaktivert, da die Postbank diese Definition nicht einhält
+        // deaktivert, da die Postbank diese Definition nicht einhï¿½lt
         //$AccountNo = substr($AccountNo,1);
         break;
       case 9 :
@@ -1006,7 +1006,7 @@ var $PRZ; //Enthält die Prüfziffer
   }  /* End of Mark65 */
 
   function Mark66($AccountNo) {
-    $Significance = '070065432'; //@author Jörg Wedekind <yogi@ecb-shop.de>
+    $Significance = '070065432'; //@author Jï¿½rg Wedekind <yogi@ecb-shop.de>
     $Help = 0;
     $Mark66 = 1;
     $AccountNo = $this->ExpandAccount($AccountNo);
@@ -1943,7 +1943,7 @@ var $PRZ; //Enthält die Prüfziffer
     $AccountNo = $this->ExpandAccount($AccountNo);
     $RetVal = 1;
 
-    // Variante 1 - Zwei führende Nullen
+    // Variante 1 - Zwei fï¿½hrende Nullen
     if ((substr($AccountNo,0,2) == "00")And (substr($AccountNo,2,1) != "0")){
       $Significance = '1231231';
       $Step3 = 0;
@@ -1965,7 +1965,7 @@ var $PRZ; //Enthält die Prüfziffer
         }
       }
 
-    // Variante 2 - Drei führende Nullen
+    // Variante 2 - Drei fï¿½hrende Nullen
     } elseif ((substr($AccountNo,0,3) == "000") and (substr($AccountNo,3,1) != "0")){
       $Significance = '654321';
       $Step1 = 0;
@@ -2219,15 +2219,15 @@ var $PRZ; //Enthält die Prüfziffer
 
 /* -------- Dies ist die wichtigste function ---------- */
   function CheckAccount($banktransfer_number, $banktransfer_blz) {
-    $KontoNR = preg_replace('/[^0-9]/', '', $banktransfer_number); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
-    $BLZ = preg_replace('/[^0-9]/', '', $banktransfer_blz); // Hetfield - 2009-08-19 - replaced depricated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+    $KontoNR = preg_replace('/[^0-9]/', '', $banktransfer_number); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+    $BLZ = preg_replace('/[^0-9]/', '', $banktransfer_blz); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 
     $Result = 0;
     if ($BLZ == '' || strlen($BLZ) < 8) {
-      return 8;  /* Keine BLZ übergeben */
+      return 8;  /* Keine BLZ ï¿½bergeben */
     }
     if ($KontoNR == '') {
-      return 9;  /* Keine Kontonummer übergeben */
+      return 9;  /* Keine Kontonummer ï¿½bergeben */
     }
 
     /*     Beginn Implementierung */
@@ -2283,7 +2283,7 @@ var $PRZ; //Enthält die Prüfziffer
     } /* end if num_rows */
 
 //BOF - Dokuman - 2009-11-25 - return 0 if bank account could not be checked
-//Result 2 und 4 (Bankdaten nicht prüfbar) als OK zurückgeben
+//Result 2 und 4 (Bankdaten nicht prï¿½fbar) als OK zurï¿½ckgeben
     if ($Result == 2 || $Result == 4) {
       $Result = 0;
 	  }

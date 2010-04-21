@@ -467,7 +467,7 @@ class PHPMailer {
       $to .= $this->AddrFormat($this->to[$i]);
     }
 
-    $toArr = explode(',', $to); // Dokuman - 2010-02-15 - replaced depricated function split with explode to be ready for PHP >= 5.3
+    $toArr = explode(',', $to); // Dokuman - 2010-02-15 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 
     $params = sprintf("-oi -f %s", $this->Sender);
     if ($this->Sender != '' && strlen(ini_get('safe_mode')) < 1) {
@@ -1215,11 +1215,11 @@ class PHPMailer {
       return '';
     }
     $magic_quotes = get_magic_quotes_runtime();
-    @set_magic_quotes_runtime(0);  // Hetfield - 2009-11-19 - depricated function set_magic_quotes_runtime to be ready for PHP >= 5.3 
+    @set_magic_quotes_runtime(0);  // Hetfield - 2009-11-19 - deprecated function set_magic_quotes_runtime to be ready for PHP >= 5.3 
     $file_buffer = fread($fd, filesize($path));
     $file_buffer = $this->EncodeString($file_buffer, $encoding);
     fclose($fd);
-    @set_magic_quotes_runtime($magic_quotes);  // Hetfield - 2009-11-19 - depricated function set_magic_quotes_runtime to be ready for PHP >= 5.3 
+    @set_magic_quotes_runtime($magic_quotes);  // Hetfield - 2009-11-19 - deprecated function set_magic_quotes_runtime to be ready for PHP >= 5.3 
 
     return $file_buffer;
   }
@@ -1720,7 +1720,7 @@ class PHPMailer {
           $directory = dirname($url);
           ($directory == '.')?$directory='':'';
           $cid = 'cid:' . md5($filename);
-          $fileParts = explode(".", $filename); // Dokuman - 2010-02-15 - replaced depricated function split with explode to be ready for PHP >= 5.3
+          $fileParts = explode(".", $filename); // Dokuman - 2010-02-15 - replaced deprecated function split with explode to be ready for PHP >= 5.3
           $ext = $fileParts[1];
           $mimeType = $this->_mime_types($ext);
           if ( strlen($basedir) > 1 && substr($basedir,-1) != '/') { $basedir .= '/'; }

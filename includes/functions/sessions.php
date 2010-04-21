@@ -75,7 +75,7 @@
   function xtc_session_start() {
     return session_start();
   }
-// BOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+// BOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
 /*
   function xtc_session_register($variable) {
     global $session_started;
@@ -85,24 +85,24 @@
     }
   }
 */
-// EOF - Hetfield - 2009-08-19 - removed depricated function session_register to be ready for PHP >= 5.3
+// EOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
 
-// BOF -Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+// BOF -Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
   //BOF NEEDED FOR NON MODIFIED TEMPLATES 
   function xtc_session_is_registered($variable) {
     //return session_is_registered($variable);
     return isset($_SESSION[$variable]); 
   }
   //EOF NEEDED FOR NON MODIFIED TEMPLATES 
-// EOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+// EOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
 
-// BOF - Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+// BOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
 /*
   function xtc_session_unregister($variable) {
     return session_unregister($variable);
   }
 */
-// EOF -Hetfield - 2009-08-19 - removed depricated function session_unregister to be ready for PHP >= 5.3
+// EOF -Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
   function xtc_session_id($sessid = '') {
     if (!empty($sessid)) {
       return session_id($sessid);

@@ -55,7 +55,7 @@ class ot_coupon {
 
 		//BOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
 		// BRC World Barnim
-		// Änderung der Ust Berechnung
+		// ï¿½nderung der Ust Berechnung
 		/*	
 		if ($this->calculate_tax != 'None') { //Fred - changed from 'none' to 'None'!
 		   $tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
@@ -195,7 +195,7 @@ class ot_coupon {
 						
 						for ($i = 0; $i < sizeof($order->products); $i ++) {
 							if ($get_result['restrict_to_products']) {
-								$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+								$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 								
 								//BOF - 09.04.2009 - Christian - ot_coupon Bugfixes
 								//for ($ii = 0; $p < count($pr_ids); $ii ++) {
@@ -216,10 +216,10 @@ class ot_coupon {
 									}
 								}
 							} else {
-								$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+								$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 								for ($i = 0; $i < sizeof($order->products); $i ++) {
 									$my_path = xtc_get_product_path(xtc_get_prid($order->products[$i]['id']));
-									$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+									$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 									for ($iii = 0; $iii < count($sub_cat_ids); $iii ++) {
 										for ($ii = 0; $ii < count($cat_ids); $ii ++) {
 											if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
@@ -286,7 +286,7 @@ class ot_coupon {
 						$cc_result = xtc_db_fetch_array($cc_query);
 						
 						if ($get_result['restrict_to_products']) {
-							$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+							$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 							for ($p = 0; $p < sizeof($pr_ids); $p ++) {
 								if ($pr_ids[$p] == $t_prid)
 									$valid_product = true;
@@ -295,9 +295,9 @@ class ot_coupon {
 						                                          
 						if ($get_result['restrict_to_categories']) {
 	                        // v5.13a Tanaka 2005-4-30:  New code, this correctly identifies valid products in subcategories
-	                        $cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+	                        $cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 	                        $my_path = xtc_get_product_path($t_prid);
-	                        $sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+	                        $sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 	                        for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
 	                            for ($ii = 0; $ii < count($cat_ids); $ii++) {
 	                                if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
@@ -425,7 +425,7 @@ $order->info['tax'] -= $tod_amount;
 			$t_prid = xtc_get_prid($products[$i]['id']);
 			$gv_query = xtc_db_query("select products_price, products_tax_class_id, products_model from ".TABLE_PRODUCTS." where products_id = '".$t_prid."'");
 			$gv_result = xtc_db_fetch_array($gv_query);
-			if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+			if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 				$qty = $_SESSION['cart']->get_quantity($t_prid);
 				$products_tax = $xtPrice->TAX[$gv_result['products_tax_class_id']];
 				if ($this->include_tax == 'false') {
@@ -452,7 +452,7 @@ $order->info['tax'] -= $tod_amount;
 			$get_result = xtc_db_fetch_array($coupon_get);
 			$in_cat = true;
 			if ($get_result['restrict_to_categories']) {
-				$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+				$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 				$in_cat = false;
 				for ($i = 0; $i < count($cat_ids); $i ++) {
 					if (is_array($this->contents)) {
@@ -468,10 +468,10 @@ $order->info['tax'] -= $tod_amount;
 				}
 			}
 			$in_cart = true;
-			// HIER MUSS DAS ÜBEL SEIN!!!
+			// HIER MUSS DAS ï¿½BEL SEIN!!!
 			if ($get_result['restrict_to_products']) {
 				// Falls mehr Produkte einen Rabatt haben, werden diese durch ein Komma getrennt und hier gesplittet
-				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 				$in_cart = false;
 				// Hier werden die Produkte aus dem Einkaufswagen geholt
 				$products_array = $_SESSION['cart']->get_products();

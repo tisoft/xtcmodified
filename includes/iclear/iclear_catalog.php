@@ -224,11 +224,11 @@
             $this->addError('sendOrder: Error while sending WSDL order!');
           } else {
             $iclearWsdlResult = $this->wsdlResult;
-            // BOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered and session_register to be ready for PHP >= 5.3
+            // BOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered and session_register to be ready for PHP >= 5.3
 			if(!isset($_SESSION['iclearWsdlResult'])) {
               $_SESSION['iclearWsdlResult'] = '';
             }
-			// EOF - Hetfield - 2009-08-19 - removed depricated function session_is_registered and session_register to be ready for PHP >= 5.3
+			// EOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered and session_register to be ready for PHP >= 5.3
             $this->storeWsdlOrder();
 // order sended, check result;
           }

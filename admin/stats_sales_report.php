@@ -315,7 +315,7 @@
                       <option value="0"><?php echo REPORT_ALL; ?></option>
 <?php
 
-  $payments = explode(';', MODULE_PAYMENT_INSTALLED); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+  $payments = explode(';', MODULE_PAYMENT_INSTALLED); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
   for ($i=0; $i<count($payments); $i++){
   
   require(DIR_FS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $payments[$i]);	

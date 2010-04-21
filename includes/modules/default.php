@@ -6,18 +6,18 @@
   XT-Commerce - community made shopping
   http://www.xt-commerce.com
 
-  Copyright © 2003 XT-Commerce
+  Copyright ï¿½ 2003 XT-Commerce
   -----------------------------------------------------------------------------------------
   based on:
-  © 2000-2001 The Exchange Project  (earlier name of osCommerce)
-  © 2002-2003 osCommerce(default.php,v 1.84 2003/05/07); www.oscommerce.com
-  © 2003  nextcommerce (default.php,v 1.11 2003/08/22); www.nextcommerce.org
+  ï¿½ 2000-2001 The Exchange Project  (earlier name of osCommerce)
+  ï¿½ 2002-2003 osCommerce(default.php,v 1.84 2003/05/07); www.oscommerce.com
+  ï¿½ 2003  nextcommerce (default.php,v 1.11 2003/08/22); www.nextcommerce.org
 
   Released under the GNU General Public License
   -----------------------------------------------------------------------------------------
   Third Party contributions:
   Enable_Disable_Categories 1.3        Autor: Mikel Williams | mikel@ladykatcostumes.com
-  Customers Status v3.x  © 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs...by=date#dirlist
+  Customers Status v3.x  ï¿½ 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs...by=date#dirlist
 
   Released under the GNU General Public License
   ---------------------------------------------------------------------------------------*/
@@ -59,7 +59,7 @@ if ($category_depth == 'nested') {
 
   $category = xtc_db_fetch_array($category_query, true);
 
-  if (isset ($cPath) && preg_match('/_/', $cPath)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
+  if (isset ($cPath) && preg_match('/_/', $cPath)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
   // check to see if there are deeper categories within the current category
   $category_links = array_reverse($cPath_array);
   for ($i = 0, $n = sizeof($category_links); $i < $n; $i ++) {

@@ -49,7 +49,7 @@ if (!isset ($_SESSION['customer_id'])) {
   }
 
  // avoid hack attempts during the checkout procedure by checking the internal cartID
-  if (isset($cart->cartID) && isset($_SESSION['cartID'])) { // Hetfield - 2009-08-19 - removed depricated function session_is_registered to be ready for PHP >= 5.3
+  if (isset($cart->cartID) && isset($_SESSION['cartID'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
     if ($cart->cartID != $cartID) {
       xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
     }

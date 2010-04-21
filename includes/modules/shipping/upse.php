@@ -15,7 +15,7 @@
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
    Third Party contributions:
-   German Post (Deutsche Post WorldNet)         	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers | http://www.themedia.at & http://www.oscommerce.at
+   German Post (Deutsche Post WorldNet)         	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers | http://www.themedia.at & http://www.oscommerce.at
 
    Released under the GNU General Public License 
    UPS - Modul
@@ -75,7 +75,7 @@
 
       for ($i=1; $i<=$this->num_upse; $i++) {
         $countries_table = constant('MODULE_SHIPPING_UPSE_COUNTRIES_' . $i);
-        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+        $country_zones = explode(",", $countries_table); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $i;
           break;
@@ -88,7 +88,7 @@
         $shipping = -1;
         $upse_cost = constant('MODULE_SHIPPING_UPSE_COST_' . $i);
 
-        $upse_table = preg_split("/[:,]/" , $upse_cost); // Hetfield - 2009-08-18 - replaced depricated function split with preg_split to be ready for PHP >= 5.3
+        $upse_table = preg_split("/[:,]/" , $upse_cost); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
         for ($i=0; $i<sizeof($upse_table); $i+=2) {
           if ($shipping_weight <= $upse_table[$i]) {
             $shipping = $upse_table[$i+1];
