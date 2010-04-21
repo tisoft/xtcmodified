@@ -765,7 +765,7 @@ CREATE TABLE products_attributes (
   sortorder int(11) NULL,
   PRIMARY KEY (products_attributes_id),
   KEY products_id (products_id),
-  KEY options (options_id, options_values_id);
+  KEY options (options_id, options_values_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_attributes_download;
