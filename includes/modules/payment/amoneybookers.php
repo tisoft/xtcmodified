@@ -273,7 +273,7 @@ class amoneybookers {
 		
 		$data = '';
         foreach ($params as $key => $value) {
-          $value = strtr($value, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "aeiooouuuAEIOOOUUU");
+          $value = strtr($value, "áéíóöõúüûÁÉÍÓÖÕÚÜÛ", "aeiooouuuAEIOOOUUU");
           if ($key!='status_url') {
           	$value=urlencode($value);
           } 
@@ -282,7 +282,7 @@ class amoneybookers {
 
 		// moneyboocers.com payment gateway does not accept accented characters!
 		// Please feel free to add any other accented characters to the list.
-//		return strtr($process_button_string, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "aeiooouuuAEIOOOUUU");
+//		return strtr($process_button_string, "áéíóöõúüûÁÉÍÓÖÕÚÜÛ", "aeiooouuuAEIOOOUUU");
 
 		// insert data
 		xtc_db_query("UPDATE payment_moneybookers SET mb_ORDERID = '" . $insert_id . "' WHERE mb_TRID = '" . $this->transaction_id . "'");

@@ -9,7 +9,7 @@
 //	Gunnar Tillmann / http://www.gunnart.de
 //	im Oktober/Dezember 2008
 // 	
-//	Nï¿½here Infos: http://www.gunnart.de?p=379
+//	Nähere Infos: http://www.gunnart.de?p=379
 //	
 //	v 0.13
 // -----------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@
 
 
 // -----------------------------------------------------------------------------------------
-//	Auf den "gewï¿½nschten Artikel-Link umleiten
+//	Auf den "gewünschten Artikel-Link umleiten
 // -----------------------------------------------------------------------------------------
 	function productRedirect() {
 		// Wenn wir auf ner Produkt-Info-Seite sind
@@ -68,7 +68,7 @@
 			// Wenn es den Artikel gibt
 			if($RedirectionLink) { 
 				
-				// Gewï¿½nschter Link (OHNE http/https-Zeug, Session-ID und weitere $_GET-Parameter)
+				// Gewünschter Link (OHNE http/https-Zeug, Session-ID und weitere $_GET-Parameter)
 				$ProductLink = str_replace(array(HTTP_SERVER,HTTPS_SERVER),'',preg_replace("/([^\?]*)(\?.*)/","$1",$RedirectionLink));
 				
 				// Angefragte Adresse (OHNE Session-ID und weitere $_GET-Parameter)

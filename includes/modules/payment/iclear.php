@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 
 ************************************************************************
-  Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers
+  Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers
        http://www.themedia.at & http://www.oscommerce.at
 
   WSDL extensions
@@ -157,7 +157,7 @@
           fclose($fp);
 
         } else {
-          $messageString = 'Ihre Bestellung ist nicht aktiv. Bitte erhï¿½hen Sie zur Aktivierung Ihren iclear Verfï¿½gungsrahmen!';
+          $messageString = 'Ihre Bestellung ist nicht aktiv. Bitte erhöhen Sie zur Aktivierung Ihren iclear Verfügungsrahmen!';
         }
         $messageType = 'success';
 // todo: maybe a redirect goes here

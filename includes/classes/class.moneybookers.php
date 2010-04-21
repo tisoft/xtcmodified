@@ -167,7 +167,7 @@ class fcnt_moneybookers {
 		
 		$data = '';
         foreach ($params as $key => $value) {
-          $value = strtr($value, "οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½", "aeiooouuuAEIOOOUUU");
+          $value = strtr($value, "αινσφυϊόϋΑΙΝΣΦΥΪάΫ", "aeiooouuuAEIOOOUUU");
           if ($key!='status_url') {
           	$value=urlencode($value);
           } 

@@ -55,7 +55,7 @@ class ot_coupon {
 
 		//BOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
 		// BRC World Barnim
-		// ï¿½nderung der Ust Berechnung
+		// Änderung der Ust Berechnung
 		/*	
 		if ($this->calculate_tax != 'None') { //Fred - changed from 'none' to 'None'!
 		   $tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
@@ -468,7 +468,7 @@ $order->info['tax'] -= $tod_amount;
 				}
 			}
 			$in_cart = true;
-			// HIER MUSS DAS ï¿½BEL SEIN!!!
+			// HIER MUSS DAS ÜBEL SEIN!!!
 			if ($get_result['restrict_to_products']) {
 				// Falls mehr Produkte einen Rabatt haben, werden diese durch ein Komma getrennt und hier gesplittet
 				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3

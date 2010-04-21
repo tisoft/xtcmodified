@@ -19,7 +19,7 @@
 
   // include needed functions (for modules)
 
-	//Eingefï¿½gt um Fehler in CC Modul zu unterdrï¿½cken. 
+	//Eingefügt um Fehler in CC Modul zu unterdrücken. 
    require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
    $xtPrice = new xtcPrice($_SESSION['currency'],''); 
  
