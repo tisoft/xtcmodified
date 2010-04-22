@@ -887,7 +887,10 @@ elseif ($_GET['action'] == 'custom_action') {
 				$contents[] = array ('text' => '<br />'.TEXT_INFO_PAYMENT_METHOD.' '.$oInfo->payment_method);
 				// elari added to display product list for selected order
 				$order = new order($oInfo->orders_id);
-				$contents[] = array ('text' => '<br /><br />'.sizeof($order->products).' Products ');
+// BOF - Tomcraft - 2010-04-22 - Added a missing language definition
+				//$contents[] = array ('text' => '<br /><br />'.sizeof($order->products).' Products ');
+								$contents[] = array ('text' => '<br /><br />'.sizeof($order->products).'&nbsp;'.TEXT_PRODUCTS);
+// EOF - Tomcraft - 2010-04-22 - Added a missing language definition
 				for ($i = 0; $i < sizeof($order->products); $i ++) {
 					$contents[] = array ('text' => $order->products[$i]['qty'].'&nbsp;x'.$order->products[$i]['name']);
 

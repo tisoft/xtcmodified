@@ -115,4 +115,8 @@ define('TABLE_HEADING_DISCOUNT','Rabatt');
 define('ENTRY_CUSTOMERS_GROUP','Kundengruppe:');
 define('ENTRY_CUSTOMERS_VAT_ID','UST-ID:');
 define('TEXT_VALIDATING','Nicht best&auml;tigt');
+
+// BOF - Tomcraft - 2010-04-22 - Added a missing language definition
+define('TEXT_PRODUCTS', 'Artikel');
+// EOF - Tomcraft - 2010-04-22 - Added a missing language definition
 ?>
