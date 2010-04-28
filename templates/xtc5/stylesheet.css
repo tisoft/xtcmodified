@@ -611,20 +611,11 @@ h2.boxcartheader a {
 #productinfoimages .hrlightgrey {
 	margin: 6px 0px;
 }
-#productinfopricewithimages {
-	float:right;
-}
-#productinfopricewithimages img {
-	cursor:pointer;
-}
-#productinfopricewithoutimages {
-	width:100%;
-}
-#productinfopricewithoutimages img {
-	cursor:pointer;
-}
 #productinfoprice {
 	padding:5px;
+}
+#productinfoprice img {
+	cursor:pointer;
 }
 #productinfoprice .hrlightgrey {
 	margin: 6px 0px;
