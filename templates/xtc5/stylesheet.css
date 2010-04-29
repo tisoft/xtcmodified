@@ -1225,3 +1225,8 @@ div.agbframe {
 	border:1px solid #666;
 }
 /* EOF - Hetfield - 2010-01-20 - Remove agb-textarea from checkout_payment */
+/* BOF - web28 - 2010-04-29 - fix ol and ul Tag  in checkout_payment agbframe */
+div.agbframe ol, div.agbframe ul  {
+	margin-left:30px;	
+}
+/* EOF - web28 - 2010-04-29 - fix ol and ul Tag  in checkout_payment agbframe */
