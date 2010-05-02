@@ -17,8 +17,11 @@
    --------------------------------------------------------------*/
   
   require('includes/application.php');
-
-  include('language/'.$_SESSION['language'].'.php');
+  
+  //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  //include('language/'.$_SESSION['language'].'.php');
+  include('language/'.$lang.'.php');
+  //EOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
   
   if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
     $script_filename = getenv('SCRIPT_FILENAME');
@@ -46,6 +49,19 @@
     $dir_ws_www_root[] = $dir_ws_www_root_array[$i];
   }
   $dir_ws_www_root = implode('/', $dir_ws_www_root);
+  
+  //BOF - web28 - 2010-03-18 - RESTORE POST  & GET DATA
+  $inst_db = true;
+  $config = true;
+  if(isset($_POST['DB_SERVER'])){
+    ECHO 'TEST' . $_POST['install_db'];
+	if($_POST['install_db'] == 1) $inst_db = true; else $inst_db = false;
+	if($_POST['install_cfg'] == 1) $config = true; else $config = false;
+  }
+  if(isset($_GET['insdb']) && $_GET['insdb'] !=1 ) $inst_db = false;
+  if(isset($_GET['cfg']) && $_GET['cfg'] !=1 ) $config = false;
+  //EOF - web28 - 2010-03-18 - RESTORE POST  & GET DATA
+  
   
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -90,6 +106,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
       <br />
 
       <form name="install" method="post" action="install_step2.php">
+            <?php echo $input_lang; ?>
             <table width="95%" border="0" cellpadding="0" cellspacing="0">
           <tr>
     <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -99,10 +116,12 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                 </tr>
               </table>
              <div style="border:1px solid #ccc; background:#fff; padding:10px;">
-              <p><?php echo xtc_draw_checkbox_field_installer('install[]', 'database', true); ?>
+			 <?php //BOF - web28 - 2010-03-18 - change install[]  to install_db and install_cfg - restore data?>
+              <p><?php echo xtc_draw_checkbox_field_installer('install_db', '1', $inst_db); ?>
                 <b><?php echo TEXT_IMPORT_DB; ?></b><br />
                 <?php echo TEXT_IMPORT_DB_LONG; ?></p>
-              <p><?php echo xtc_draw_checkbox_field_installer('install[]', 'configure', true); ?> 
+              <p><?php echo xtc_draw_checkbox_field_installer('install_cfg', '1', $config); ?> 
+			  <?php //BOF - web28 - 2010-03-18 - change install[]  to install_db and install_cfg - restore data?>
                 <b><?php echo TEXT_AUTOMATIC; ?></b><br />
                 <?php echo TEXT_AUTOMATIC_LONG; ?></p>
                 </div>
@@ -130,7 +149,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                 <?php echo xtc_draw_input_field_installer('DB_SERVER_USERNAME'); ?><br />
                 <?php echo TEXT_USERNAME_LONG; ?></p>
               <p><b><?php echo TEXT_PASSWORD; ?></b><br />
-                <?php echo xtc_draw_input_field_installer('DB_SERVER_PASSWORD'); ?><br />
+                <?php echo xtc_draw_password_field_installer('DB_SERVER_PASSWORD'); ?><br />
                 <?php echo TEXT_PASSWORD_LONG; ?></p>
               <p><b><?php echo TEXT_DATABASE; ?></b><br />
                 <?php echo xtc_draw_input_field_installer('DB_DATABASE'); ?><br />
@@ -146,27 +165,32 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
           <tr> 
             <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr> 
-                  <td><h1>
-                    <?php echo TITLE_WEBSERVER_SETTINGS; ?> </h1></td>
-                  
+                  <td><h1><?php echo TITLE_WEBSERVER_SETTINGS; ?> </h1></td>                  
                 </tr>
               </table>
              <div style="border:1px solid #ccc; background:#fff; padding:10px;">
-              <p><b><?php echo TEXT_WS_ROOT; ?></b><br />
-                <?php echo xtc_draw_input_field_installer('DIR_FS_DOCUMENT_ROOT', $dir_fs_www_root,'','size=60'); ?><br />
-                <?php echo TEXT_WS_ROOT_LONG; ?></p>
-              <p><b><?php echo TEXT_WS_XTC; ?></b><br />
-                <?php echo xtc_draw_input_field_installer('DIR_FS_CATALOG', $local_install_path,'','size=60'); ?><br />
-                <?php echo TEXT_WS_XTC_LONG; ?></p>
-              <p><b><?php echo TEXT_WS_ADMIN; ?></b><br />
-                <?php echo xtc_draw_input_field_installer('DIR_FS_ADMIN', $local_install_path.'admin/','','size=60'); ?><br />
-               <?php echo TEXT_WS_ADMIN_LONG; ?></p>
-              <p><b> <?php echo TEXT_WS_CATALOG; ?></b><br />
-                <?php echo xtc_draw_input_field_installer('DIR_WS_CATALOG', $dir_ws_www_root . '/','','size=60'); ?><br />
-                 <?php echo TEXT_WS_CATALOG_LONG; ?></p>
-              <p><b> <?php echo TEXT_WS_ADMINTOOL; ?></b><br />
-                <?php echo xtc_draw_input_field_installer('DIR_WS_ADMIN', $dir_ws_www_root . '/admin/','','size=60'); ?><br />
-                 <?php echo TEXT_WS_ADMINTOOL_LONG; ?></p>
+			 <?php //BOF - web28 - 2010.02.20 -  NEW ROOT INFO ?>
+			  <p><b><?php echo TEXT_WS_ROOT; ?></b></p>
+			    <?php echo xtc_draw_hidden_field_installer('DIR_FS_DOCUMENT_ROOT', DIR_FS_DOCUMENT_ROOT); ?>				
+                <span style="border: #a3a3a3 1px solid; padding: 3px; background-color: #f4f4f4;"><?php echo DIR_FS_DOCUMENT_ROOT; ?></span>
+                <p><?php echo TEXT_WS_ROOT_INFO; ?></p>
+			  <p><b><?php echo TEXT_WS_CATALOG; ?></b></p>			    
+				<?php echo xtc_draw_hidden_field_installer('DIR_WS_CATALOG', $dir_ws_www_root . '/'); ?>
+                <span style="border: #a3a3a3 1px solid; padding: 3px; background-color: #f4f4f4;"><?php echo $dir_ws_www_root . '/'; ?></span>
+                <p><?php echo TEXT_WS_ROOT_INFO; ?></p>
+	        <?php //EOF - web28 - 2010.02.20 -  NEW ROOT INFO ?>
+			
+              <!--p><b><?php //echo TEXT_WS_ROOT; ?></b><br />
+                <?php //echo xtc_draw_input_field_installer('DIR_FS_DOCUMENT_ROOT', DIR_FS_DOCUMENT_ROOT,'','size=60'); ?><br />
+                <?php //echo TEXT_WS_ROOT_LONG; ?></p>
+              <p><b><?php //echo TEXT_WS_XTC; ?></b><br />
+                <?php //echo xtc_draw_input_field_installer('DIR_FS_CATALOG', $local_install_path,'','size=60'); ?><br />
+                <?php //echo TEXT_WS_XTC_LONG; ?></p>
+              
+              <p><b> <?php //echo TEXT_WS_CATALOG; ?></b><br />
+                <?php //echo xtc_draw_input_field_installer('DIR_WS_CATALOG', $dir_ws_www_root . '/','','size=60'); ?><br />
+                 <?php //echo TEXT_WS_CATALOG_LONG; ?></p-->
+              
               </div>
               </td>
           </tr>

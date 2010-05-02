@@ -30,7 +30,7 @@ define('PULL_DOWN_DEFAULT','Please select a Country!');
 
 // Error messages
  	// index.php
-	define('SELECT_LANGUAGE_ERROR','Please select a language!');
+	define('SELECT_LANGUAGE_ERROR','Please select a language! / Bitte w&auml;hlen Sie eine Sprache!');
 	// install_step2,5.php
 	define('TEXT_CONNECTION_ERROR','The test connect to the database was NOT successful.');
 	define('TEXT_CONNECTION_SUCCESS','The test connect to the database was successful.');
@@ -41,6 +41,15 @@ define('PULL_DOWN_DEFAULT','Please select a Country!');
 	define('TEXT_DB_SERVER_VERSION_ERROR','Your MySQL version is too old. The shop requires at least version: ');
 	define('TEXT_DB_SERVER_VERSION','Your MySQL version: ');
 	// EOF - vr - 2010-01-14 - check MySQL *server* version
+	// BOF - vr - 2010-01-14 - check MySQL *client* version
+	define('TEXT_DB_CLIENT_VERSION_WARNING','Your MySQL version is too old. The shop requires at least version: 4.1.2 </br></br>You can continue the installation.</br>If the installation can not be correctly carried out, ask your provider for an update!');
+	define('TEXT_DB_CLIENT_VERSION','Your MySQL version: ');
+	// EOF - vr - 2010-01-14 - check MySQL *client* version
+	// BOF - web28 - 2010-02-1014 - check FILE PATH
+	define('TEXT_PATH_ERROR','<h1>Invalid path</h1>');
+	define('TEXT_PATH_ERROR2','Regard! You have entered an invalid file path!');
+	define('TEXT_PATH_ERROR3','Please check your settings!');
+	// EOF - web28 - 2010-02-1014 - check FILE PATH
 	
 	// install_step6.php
 	define('ENTRY_FIRST_NAME_ERROR','Firstname to short');
@@ -79,12 +88,15 @@ define('PULL_DOWN_DEFAULT','Please select a Country!');
 	
 	
 // index.php
-define('TITLE_SELECT_LANGUAGE','Select your language!');
+define('TITLE_SELECT_LANGUAGE','Select your language! / Bitte w&auml;hlen Sie eine Sprache!');
 
 define('TEXT_WELCOME_INDEX','<b>Welcome to xtcModified</b><br /><br />xtcModified is an open source e-commerce solution under on going development by the xtcModified Team and its community.<br /> Its feature packed out-of-the-box installation allows store owners to setup, run, and maintain their online stores with minimum effort and with no costs involved.<br /> xtcModified combines open source solutions to provide a free and open development platform, which includes the powerful PHP web scripting language, the stable Apache web server, and the fast MySQL database server.<br /><br />With no restrictions or special requirements, xtcModified can be installed on any PHP4 enabled web server, on any environment that PHP and MySQL supports, which includes Linux, Solaris, BSD, and Microsoft Windows environments.<br /><br />xtcModified is an open source project, yet a lot of work and spare time go into this project. Therefore we would be grateful if you show your appreciation by <b>donating</b> to the project.<br /><br /><b>Willkommen zu xtcModified</b><br /><br />xtcModified ist eine Open-Source e-commerce Lösung, die ständig vom xtcModified Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />xtcModified ist auf jedem System lauffähig, welches eine PHP Umgebung (ab PHP 4.1) und mySQL zur Verfügung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.<br /><br />xtcModified ist ein OpenSource-Projekt &ndash; wir stecken jede Menge Arbeit und Freizeit in dieses Projekt und würden uns daher über eine <b>Spende</b> als kleine Anerkennung freuen.');
 define('TEXT_INFO_DONATIONS_IMG_ALT', 'Please support this project with your donation.');
 define('TEXT_WELCOME_STEP1','<b>Main database and webserver settings</b><br /><br />Please enter your Database and webserver settings.<br />');
 define('TEXT_WELCOME_STEP2','<b>Install database</b><br /><br />The xtcModified installer will automatically install the xtcModified database.');
+// BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+define('TEXT_WELCOME_STEP2A','<b>Database installation has been disabled</b><br /><br />The installation of the xtcModified database in Step3 is skipped.');
+// EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
 define('TEXT_WELCOME_STEP3','<b>Database import.</b><br /><br />');
 define('TEXT_WELCOME_STEP4','<b>Configure xtcModified main files</b><br /><br /><b>If there are old configure files from a further installation, xtcModified wiill delete them</b><br /><br />The installer will set up the configuration files with the main parameters for database and file structur.<br /><br />You can choose between different session handling systems.');
 define('TEXT_WELCOME_STEP5','<b>Webserver Configuration</b><br /><br />');
@@ -108,8 +120,8 @@ define('TEXT_WELCOME_FINISHED','<b>xtcModified installation successful!</b>');
 // install_step1.php
 
 define('TITLE_CUSTOM_SETTINGS','Custom Settings');
-define('TEXT_IMPORT_DB','Import xtcModified Database');
-define('TEXT_IMPORT_DB_LONG','Import the xtcModified database structure which includes tables and sample data. <b>(Mandatory on initial setup!</b>');
+define('TEXT_IMPORT_DB','Install xtcModified Database');
+define('TEXT_IMPORT_DB_LONG','Install the xtcModified database structure which includes tables and sample data. <b>(Mandatory on initial setup!</b>');
 define('TEXT_AUTOMATIC','Automatic Configuration');
 define('TEXT_AUTOMATIC_LONG','The information you submit regarding the web server and database server will be automatically saved into both xtcModified Shop and Administration Tool configuration files.');
 define('TITLE_DATABASE_SETTINGS','Database Settings');
@@ -132,6 +144,10 @@ define('TEXT_WS_CATALOG','WWW Catalog Directory');
 define('TEXT_WS_CATALOG_LONG','The virtual directory where the xtcModified Catalog module resides, usually <i>/xtcModified/</i>.');
 define('TEXT_WS_ADMINTOOL','WWW Administration Tool Directory');
 define('TEXT_WS_ADMINTOOL_LONG','The virtual directory where the xtcModified Administration Tool resides, usually <i>/xtcModified/admin/</i>');
+//BOF WEBSERVER INFO
+define('TITLE_WEBSERVER_INFO','The default paths should be altered only in exceptional cases!');
+define('TEXT_WS_ROOT_INFO','The path is automatically determined');
+//EOF WEBSERVER INFO
 
 // install_step2.php
 
@@ -165,6 +181,11 @@ define('TEXT_PERSIST_LONG','Enable persistent database connections. Please disab
 define('TEXT_SESS_FILE','Store Sessions as Files');
 define('TEXT_SESS_DB','Store Sessions in the Database');
 define('TEXT_SESS_LONG','The location to store PHPs sessions files.');
+define('TITLE_CHECK_FILES','Please check your file information');
+//BOF - web28 - 2010-03-02 - New SSL-PROXY info
+define('TEXT_SSL_PROXY_LONG','<b>* SSL Proxy: </b><br />When using a SSL Proxy adjust the path to <b>HTTPS server</b>!');
+define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy examples of some providers: </b><br /><span class="prov">Hosteurope: </span><span class="proxy">https://ssl.webpack.de/nureinbeispiel.de</span><br /><span class="prov">ALL-INKL.COM: </span><span class="proxy">https://ssl-account.com/nureinbeispiel.de</span><br /><span class="prov">1und1: </span><span class="proxy">https://ssl.kundenserver.de/nureinbeispiel.de</span><br /><span class="prov">Strato: </span><span class="proxy">https://www.ssl-id.de/nureinbeispiel.de</span>');
+//EOF - web28 - 2010-03-02 - New SSL-PROXY info
 
 // install_step5.php
 
@@ -220,6 +241,12 @@ define('TEXT_STATUS_SHOW_PRICE','Show price');
 define('TEXT_STATUS_SHOW_PRICE_LONG','allow user to see product-price in shop');
 define('TEXT_STATUS_SHOW_TAX','Show tax');
 define('TEXT_STATUS_SHOW_TAX_LONG','Display prices with tax included (Yes) or without any tax (No)');
+define('TEXT_STATUS_COD_PERMISSION','Cash on Delivery');
+define('TEXT_STATUS_COD_PERMISSION_LONG','Allows the customer to order by cash on delivery.');
+define('TEXT_STATUS_CC_PERMISSION','Credit cards');
+define('TEXT_STATUS_CC_PERMISSION_LONG','Allows the customer to order their credit card number systems.');
+define('TEXT_STATUS_BT_PERMISSION','Debit');
+define('TEXT_STATUS_BT_PERMISSION_LONG','Allows the customer to order by bank move.');
 
 
 define('TITLE_CHMOD','Setting rights on files');

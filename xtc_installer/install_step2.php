@@ -23,7 +23,10 @@
   require_once(DIR_FS_INC.'xtc_href_link.inc.php');
   require_once(DIR_FS_INC.'xtc_not_null.inc.php');
 
-  include('language/'.$_SESSION['language'].'.php');
+  //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  //include('language/'.$_SESSION['language'].'.php');
+  include('language/'.$lang.'.php');
+  //EOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
   
   if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
     $script_filename = getenv('SCRIPT_FILENAME');
@@ -52,11 +55,13 @@
   }
   $dir_ws_www_root = implode('/', $dir_ws_www_root);
   
-  if (xtc_in_array('database', $_POST['install'])) {
-   // do nothin  
+  // BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+  if($_POST['install_db'] == 1) {
+   $test_welcome_step2 = TEXT_WELCOME_STEP2;
   } else {
-   xtc_redirect('install_step4.php');
+   $test_welcome_step2 = TEXT_WELCOME_STEP2A;
   }
+  // EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
   
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -94,7 +99,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
           <td> <img src="images/step2.gif" width="705" height="180" border="0"><br />
             <br />
             <br />
-            <div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo TEXT_WELCOME_STEP2; ?></div></td>
+            <div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo $test_welcome_step2; ?></div></td>
         </tr>
       </table>
 
@@ -104,7 +109,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
       <tr>
     <td> 
       <?php
-  if (xtc_in_array('database', $_POST['install'])) {
+  // BOF - web28 - 2010.02.20 - NEW STEP4 Handling
+  //if (xtc_in_array('database', $_POST['install'])) {
+  // EOF - web28 - 2010.02.20 - NEW STEP4 Handling
     $db = array();
     $db['DB_SERVER'] = trim(stripslashes($_POST['DB_SERVER']));
     $db['DB_SERVER_USERNAME'] = trim(stripslashes($_POST['DB_SERVER_USERNAME']));
@@ -117,18 +124,35 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 	// BOF - vr - 2010-01-14 - check MySQL *server* version
 	if (!$db_error) {
 		if (function_exists('version_compare')) {
-			if(version_compare(mysql_get_server_info(), "4.1.2", "<")){
+		    //BOF - web28 - 2010-02-10 - check for 'native'
+			if(version_compare(mysql_get_server_info(), "4.1.2", "<") && strpos(strtolower(mysql_get_server_info()), 'native')=== false){
+			//EOF - web28 - 2010-02-10 - check for 'native'
 				$db_error = '<br /><strong>' . TEXT_DB_SERVER_VERSION_ERROR .  ' 4.1.2. <br /><br />' . TEXT_DB_SERVER_VERSION . mysql_get_server_info() . '</strong>.';
 			}
 		}
 	}
 	// EOF - vr - 2010-01-14 - check MySQL *server* version
+	
+	// BOF - web28 - 2010-02-10 - check MySQL *client* version
+	$db_warning = '';
+	if (!$db_error) {
+		if (function_exists('version_compare')) {
+		    //BOF - web28 - 2010-02-10 - check for 'native'
+			if(version_compare(mysql_get_client_info(), "4.1.2", "<") && strpos(strtolower(mysql_get_client_info()), 'native')=== false){
+			//EOF - web28 - 2010-02-10 - check for 'native'
+				$db_warning = '<strong>' . TEXT_DB_CLIENT_VERSION_WARNING .  '<br /><br />' . TEXT_DB_CLIENT_VERSION . mysql_get_client_info() . '</strong>.';
+			}
+		}
+	}
+	// EOF - web28 - 2010-02-10 - check MySQL *client* version
 
     if (!$db_error) {
       xtc_db_test_create_db_permission($db['DB_DATABASE']);
     }
 
     if ($db_error) {
+	
+	
 ?>
       <br />
       <table width="95%" border="0" cellpadding="0" cellspacing="0">
@@ -186,13 +210,37 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     
   </tr>
 </table>
+<?php // BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+  if($_POST['install_db'] == 1) {
+?>
 <div style="border:1px solid #ccc; background:#fff; padding:10px;">
 <p><?php echo TEXT_PROCESS_1; ?></p>
       <p><?php echo TEXT_PROCESS_2; ?></p>
       <p><?php echo TEXT_PROCESS_3; ?> <b><?php echo DIR_FS_CATALOG . 'xtc_installer/xtcommerce.sql'; ?></b>.</p>
 </div>
-<form name="install" action="install_step3.php" method="post">
+<?php // EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+  }
+?>
+<?php //BOF - web28 - 2010-02-10 - DB CLIENT WARNING 
+if ($db_warning != '') {
+?>
+<div style="border:1px solid #ccc; background:#ff0000; color:#fff; padding:10px;"><?php echo $db_warning; ?></div>
+<?php
+} 
+//EOF - web28 - 2010-02-10 - DB CLIENT WARNING ?>
 
+<?php
+// BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+if($_POST['install_db'] == 1) {
+   echo '<form name="install" action="install_step3.php" method="post">';
+   $install_db = 1;
+  } else {
+   echo '<form name="install" action="install_step4.php" method="post">';
+  }
+if($_POST['install_cfg'] == 1) {$create_config = 1;};
+//<form name="install" action="install_step3.php" method="post">
+// EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+?>
 <?php
       reset($_POST);
       while (list($key, $value) = each($_POST)) {
@@ -210,7 +258,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 <br />
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="right"><a href="install_step1.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="images/button_continue.gif"></td>
+    <?php// BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
+    <td align="right"><a href="install_step1.php?db=<?php echo $install_db;?>&cfg=<?php echo $create_config;?>"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="images/button_continue.gif"></td>
+    <?php// EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
   </tr>
 </table>
 
@@ -219,7 +269,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 
 <?php
     }
-  }
+  // BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+  //} 
+  //EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
 ?>
               </td>
   </tr>

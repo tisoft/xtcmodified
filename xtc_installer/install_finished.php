@@ -16,8 +16,12 @@
   
   require('includes/application.php');
   require('../admin/includes/configure.php'); 
+    
+  //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  //include('language/'.$_SESSION['language'].'.php');
+  include('language/'.$lang.'.php');
+  //EOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
   
-  include('language/'.$_SESSION['language'].'.php');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>

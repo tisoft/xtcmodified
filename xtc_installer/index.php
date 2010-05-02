@@ -22,8 +22,11 @@
   require_once(DIR_FS_INC.'xtc_redirect.inc.php');
   require_once(DIR_FS_INC.'xtc_href_link.inc.php');
   
-  include('language/english.php');
-
+  //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  //include('language/english.php');
+  include('language/'.$lang.'.php');
+  //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  
   // Include Developer - standard settings for installer
   //  require('developer_settings.php');  
   
@@ -51,7 +54,7 @@
         
 
                     if ($error == false) {
-                        xtc_redirect(xtc_href_link('install_step1.php', '', 'NONSSL'));
+                        xtc_redirect(xtc_href_link('install_step1.php?lg='. xtc_db_prepare_input($_POST['LANGUAGE']), '', 'NONSSL'));
                 }
         }
 
@@ -217,6 +220,10 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     $error_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'import/<br />';
  }
+ if (!is_writeable(DIR_FS_CATALOG . 'images/manufacturers')) {
+    $error_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/manufacturers/<br />';
+ }
 
  $status='OK';
  if ($folder_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
@@ -257,6 +264,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
  
  $ok_message.='PHP VERSION .............................. '.phpversion(). '&nbsp;&nbsp;&nbsp;'.$status.'<br /><hr noshade>';
  
+ /*
  // BOF - Tomcraft - 2009-11-22 - Check MySQL version
  if (function_exists('version_compare')) {
 	// vr - 2010-02-06 don't check mysql native driver php extension
@@ -271,6 +279,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 	$ok_message.='MySQL-VERSION .............................. '.mysql_get_client_info() . ' '. $status.'<br /><hr noshade>'; 
  }
  // EOF - Tomcraft - 2009-11-22 - Check MySQL version   
+ */
  
  $gd=gd_info();
 

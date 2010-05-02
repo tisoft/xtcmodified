@@ -17,7 +17,10 @@
 
    require('includes/application.php');
 
-   include('language/'.$_SESSION['language'].'.php'); 
+   //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  //include('language/'.$_SESSION['language'].'.php');
+  include('language/'.$lang.'.php');
+  //EOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -62,7 +65,10 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
         <tr>
           <td> 
             <?php
-  if (xtc_in_array('database', $_POST['install'])) {
+  //BOF - web28 - 2010-03-18 - change install[]  to install_cfg
+  //if (xtc_in_array('database', $_POST['install'])) {
+  if($_POST['install_db'] == 1) {
+  //EOF - web28 - 2010-03-18 - change install[]  to install_cfg
     $db = array();
     $db['DB_SERVER'] = trim(stripslashes($_POST['DB_SERVER']));
     $db['DB_SERVER_USERNAME'] = trim(stripslashes($_POST['DB_SERVER_USERNAME']));
@@ -149,7 +155,10 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
 <?php
-      if (xtc_in_array('configure', $_POST['install'])) {
+      //BOF - web28 - 2010-03-18 - change install[]  to install_cfg
+	  //if (xtc_in_array('configure', $_POST['install'])) {
+      if($_POST['install_cfg'] == 1) {
+	  //EOF - web28 - 2010-03-18 - change install[]  to install_cfg
 ?>
 
     <td align="right"><input type="image" src="images/button_continue.gif"></td>

@@ -16,7 +16,13 @@
    --------------------------------------------------------------*/
 // Some FileSystem Directories
   if (!defined('DIR_FS_DOCUMENT_ROOT')) {
-      define('DIR_FS_DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
+      //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+	  if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {	    
+		define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));		
+	  } else {	    
+		define('DIR_FS_DOCUMENT_ROOT', rtrim($_SERVER['DOCUMENT_ROOT'],'/'));		
+	  }
+	  //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
       $local_install_path=str_replace('/xtc_installer','',$_SERVER['PHP_SELF']);
       $local_install_path=str_replace('index.php','',$local_install_path);
       $local_install_path=str_replace('install_step1.php','',$local_install_path);
@@ -26,7 +32,7 @@
       $local_install_path=str_replace('install_step5.php','',$local_install_path);
       $local_install_path=str_replace('install_step6.php','',$local_install_path);
       $local_install_path=str_replace('install_step7.php','',$local_install_path);
-      $local_install_path=str_replace('install_finished.php','',$local_install_path);
+      $local_install_path=str_replace('install_finished.php','',$local_install_path);	  
       define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . $local_install_path);
   }
   if (!defined('DIR_FS_INC')) define('DIR_FS_INC', DIR_FS_CATALOG.'inc/');
@@ -120,6 +126,23 @@
    }
    return(0);
 }
+
+   //BOF - web28 - 2010.02.09 - FIX LOST SESSION  
+    if (isset($_SESSION['language']) && $_SESSION['language'] != '') {
+		$lang = $_SESSION['language'];
+    } else {
+        $lang = 'english'; //Set standard language
+        if(isset($_GET['lg']) && $_GET['lg'] != '') {
+            $lang = $_GET['lg'];			
+		}
+		if(isset($_POST['lg']) && $_POST['lg'] != '') {	
+            $lang = $_POST['lg'];			
+		}	
+    }	
+        
+	//include('language/'.$lang.'.php');
+	$input_lang = '<input type="hidden" name="lg" value="'. $lang .'">';   
+    //EOF - web28 - 2010.02.09 - FIX LOST SESSION   
 
 
 ?>

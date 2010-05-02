@@ -33,7 +33,10 @@
   require_once(DIR_FS_INC . 'xtc_draw_input_field.inc.php');
   require_once(DIR_FS_INC . 'xtc_get_country_list.inc.php');
 
-  include('language/'.$_SESSION['language'].'.php');
+  //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  //include('language/'.$_SESSION['language'].'.php');
+  include('language/'.$lang.'.php');
+  //EOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
   
   // connect do database
   xtc_db_connect() or die('Unable to connect to database server!'); 
@@ -197,6 +200,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
              
 
              <form name="install" action="install_step7.php" method="post" onSubmit="return check_form(install_step6);">
+              <?php echo $input_lang; ?>
               <input name="action" type="hidden" value="process">
               <table width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr> 

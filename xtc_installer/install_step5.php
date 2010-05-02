@@ -16,7 +16,83 @@
 
    require('includes/application.php');
 
-   include('language/'.$_SESSION['language'].'.php');
+   //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  //include('language/'.$_SESSION['language'].'.php');
+  include('language/'.$lang.'.php');
+  //EOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
+  
+function phpLinkCheck($url, $r = FALSE)
+{
+  /*  Purpose: Check HTTP Links
+   *  Usage:   $var = phpLinkCheck(absoluteURI)
+   *           $var["Status-Code"] will return the HTTP status code
+   *           (e.g. 200 or 404). In case of a 3xx code (redirection)
+   *           $var["Location-Status-Code"] will contain the status
+   *           code of the new loaction.
+   *           See print_r($var) for the complete result
+   *
+   *  Author:  Johannes Froemter <j-f@gmx.net>
+   *  Date:    2001-04-14
+   *  Version: 0.1 (currently requires PHP4)
+   */
+
+  $url = trim($url);
+  
+  //http oder https entfernen
+  $http = array('http://', 'https://');
+  $urltest = str_replace($http,'',$url);
+  //Auf // testen
+  if (strpos($urltest, '//') !== false) return false;
+  //Auf falsches Installer Verzeichnis testen
+  if (strpos($urltest, 'xtc_installer') !== false) return false;  
+  
+  if (!preg_match("=://=", $url)) $url = "http://$url";
+  $url = parse_url($url);
+  $http["Parsed_URL"] = $url;
+  if (strtolower($url["scheme"]) != "http") return FALSE;
+
+  if (!isset($url["port"])) $url["port"] = 80;
+  if (!isset($url["path"])) $url["path"] = "/";
+  
+  $fp = @fsockopen($url["host"], $url["port"], $errno, $errstr, 30);
+
+  if (!$fp)
+  {
+    $http["Status-Code"] = '550';  // unknown host // FALSE;
+    return $http;
+  }
+  else
+  {
+    $head = "";
+    $httpRequest = "HEAD ". $url["path"] ." HTTP/1.1\r\n"
+                  ."Host: ". $url["host"] ."\r\n"
+                  ."Connection: close\r\n\r\n";
+    fputs($fp, $httpRequest);
+    while(!feof($fp)) $head .= fgets($fp, 1024);
+    fclose($fp);
+
+    preg_match("=^(HTTP/\d+\.\d+) (\d{3}) ([^\r\n]*)=", $head, $matches);
+    $http["Status-Line"] = $matches[0];
+    $http["HTTP-Version"] = $matches[1];
+    $http["Status-Code"] = $matches[2];
+    $http["Reason-Phrase"] = $matches[3];
+
+    if ($r) return $http["Status-Code"];
+
+    $rclass = array("Informational", "Success",
+                    "Redirection", "Client Error",
+                    "Server Error");
+    $http["Response-Class"] = $rclass[$http["Status-Code"][0] - 1];
+
+    preg_match_all("=^(.+): ([^\r\n]*)=m", $head, $matches, PREG_SET_ORDER);
+    foreach($matches as $line) $http[$line[1]] = $line[2];
+
+    if ($http["Status-Code"][0] == 3)
+      $http["Location-Status-Code"] = phpLinkCheck($http["Location"], TRUE);
+
+    return $http;
+  }
+}   
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -113,6 +189,60 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 </form>
 <?php
   } else {
+    
+	//Testpfad
+	$url = $_POST['HTTP_SERVER'] . $_POST['DIR_WS_CATALOG'] . 'robots.txt';
+	$link_status = phpLinkCheck($url);
+	
+	if ($link_status['Status-Code'] == 550) {
+		$errmsg = 'HTTP Server: ' . $link_status['Parsed_URL']['host'] . ' unbekannt/unknown' . '   [ERROR: 550]';
+	} else if ($link_status['Status-Code'] == 404) {
+		$errmsg = $link_status['Parsed_URL']['host'] . $link_status['Parsed_URL']['path'] . '   [ERROR: 404]';
+	}
+	
+    if ($link_status['Status-Code'] != 200) {
+    //Fehleranzeige
+		if (trim($errmsg) =='') $errmsg = $url . '   [ERROR: '. $link_status['Status-Code'] .']';
+	?>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr> 
+          <td><img src="images/icons/error.gif" width="16" height="16"><strong><div style="color:#FC0000;"><?php echo TEXT_PATH_ERROR; ?></strong></div></td>
+         
+        </tr>
+      </table>
+<p><strong><div style="color:#FC0000;"><?php echo TEXT_PATH_ERROR2; ?></div></strong></p>
+<table border="0" cellpadding="0" cellspacing="0" bgcolor="f3f3f3">
+            <tr>
+              <td><b><?php echo $errmsg;?></b></td>
+  </tr>
+</table>
+<p><?php echo TEXT_PATH_ERROR3;?></p>
+
+<form name="install" action="install_step4.php" method="post">
+<?php
+    reset($_POST);
+    while (list($key, $value) = each($_POST)) {
+      if ($key != 'x' && $key != 'y') {
+        if (is_array($value)) {
+          for ($i=0; $i<sizeof($value); $i++) {
+            echo xtc_draw_hidden_field_installer($key . '[]', $value[$i]);
+          }
+        } else {
+          echo xtc_draw_hidden_field_installer($key, $value);
+        }
+      }
+    }
+?>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
+    <td align="center"><input type="image" src="images/button_back.gif" border="0" alt="Back"></td>
+  </tr>
+</table>
+</form>
+<?php
+	} else { 
+  
     $file_contents = '<?php' . "\n" .
                      '/* --------------------------------------------------------------' . "\n" .
                      '' . "\n" .
@@ -132,11 +262,13 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
                      '  define(\'HTTP_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
+					 '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
+                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .					 
                      '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\');' . "\n" .
-                     '  define(\'DIR_FS_CATALOG\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\');' . "\n" .
+                     //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+					 '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\');' . "\n" .
+                     '  define(\'DIR_FS_CATALOG\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\');' . "\n" .
+					 //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                      '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
                      '  define(\'DIR_WS_ORIGINAL_IMAGES\', DIR_WS_IMAGES .\'product_images/original_images/\');' . "\n" .
                      '  define(\'DIR_WS_THUMBNAIL_IMAGES\', DIR_WS_IMAGES .\'product_images/thumbnail_images/\');' . "\n" .
@@ -185,11 +317,13 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
                      '  define(\'HTTP_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
+					 '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
+                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .					 
                      '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\');' . "\n" .
-                     '  define(\'DIR_FS_CATALOG\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\');' . "\n" .
+					 //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\');' . "\n" .
+                     '  define(\'DIR_FS_CATALOG\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\');' . "\n" .
+					 //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                      '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
                      '  define(\'DIR_WS_ORIGINAL_IMAGES\', DIR_WS_IMAGES .\'product_images/original_images/\');' . "\n" .
                      '  define(\'DIR_WS_THUMBNAIL_IMAGES\', DIR_WS_IMAGES .\'product_images/thumbnail_images/\');' . "\n" .
@@ -242,13 +376,15 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
                      '  define(\'HTTP_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\'); // eg, http://localhost or - https://localhost should not be empty for productive servers' . "\n" .
                      '  define(\'HTTP_CATALOG_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\');' . "\n" .
-                     '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
+					 '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
                      '  define(\'ENABLE_SSL_CATALOG\', \'' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
-                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
+                     //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+					 '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', \'' . $_POST['DIR_WS_CATALOG'] .'admin/' . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_ADMIN\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path .'admin/' . '\'); // absolute pate required' . "\n" .
+                     '  define(\'DIR_FS_ADMIN\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path .'admin/' . '\'); // absolute pate required' . "\n" .
                      '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_CATALOG\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\'); // absolute path required' . "\n" .
+                     '  define(\'DIR_FS_CATALOG\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // absolute path required' . "\n" .
+					 //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                      '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG_IMAGES\', DIR_FS_CATALOG . \'images/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG_ORIGINAL_IMAGES\', DIR_FS_CATALOG_IMAGES .\'product_images/original_images/\');' . "\n" .
@@ -309,13 +445,15 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
                      '  define(\'HTTP_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\'); // eg, http://localhost or - https://localhost should not be empty for productive servers' . "\n" .
                      '  define(\'HTTP_CATALOG_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\');' . "\n" .
-                     '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
+					 '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
                      '  define(\'ENABLE_SSL_CATALOG\', \'' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
-                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
+					 //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', \'' . $_POST['DIR_WS_CATALOG'] .'admin/' . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_ADMIN\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path .'admin/' . '\'); // absolute pate required' . "\n" .
+                     '  define(\'DIR_FS_ADMIN\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path .'admin/' . '\'); // absolute pate required' . "\n" .
                      '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_CATALOG\', \'' . $_SERVER['DOCUMENT_ROOT'].$local_install_path  . '\'); // absolute path required' . "\n" .
+                     '  define(\'DIR_FS_CATALOG\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // absolute path required' . "\n" .
+					 //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                      '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG_IMAGES\', DIR_FS_CATALOG . \'images/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG_ORIGINAL_IMAGES\', DIR_FS_CATALOG_IMAGES .\'product_images/original_images/\');' . "\n" .
@@ -354,18 +492,24 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     $fp = fopen(DIR_FS_CATALOG . 'admin/includes/configure.org.php', 'w');
     fputs($fp, $file_contents);
     fclose($fp);
+	// BOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL
+	if($_POST['install_db'] == 1) $step= 'install_step6'; else $step = 'install_finished';
+	//EOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL
 
 ?>
 <center>
 <font color="#000000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><br /><br />
             <?php echo TEXT_WS_CONFIGURATION_SUCCESS; ?> </center><br /><br />
             <table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr> 
-                <td align="center"><a href="install_step6.php"><img src="images/button_continue.gif" width="77" height="23" border="0"></a></td>
-              </tr>
+              <tr>
+<?php //// BOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL?>			  
+                <td align="center"><a href="<?php echo $step;?>.php?lg=<?php echo $lang; ?>"><img src="images/button_continue.gif" width="77" height="23" border="0"></a></td>
+<?php //// BOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL?>	
+				</tr>
             </table><br /><br />
 </form>
 <?php
+    }
   }
 ?>
   

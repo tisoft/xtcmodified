@@ -38,9 +38,19 @@ define('PULL_DOWN_DEFAULT','Bitte W&auml;hlen Sie ein Land');
 	define('TEXT_DB_ERROR_1','Bitte klicken Sie auf <i>Back</i> um Ihre Datenbankeinstellungen zu &uuml;berpr&uuml;fen.');
 	define('TEXT_DB_ERROR_2','Wenn Sie Hilfe zu Ihrer Datenbank ben&ouml;tigen, wenden Sie sich bitte an Ihren Provider.');
 	// BOF - vr - 2010-01-14 - check MySQL *server* version
-	define('TEXT_DB_SERVER_VERSION_ERROR','Ihre MySQL-Version ist zu alt. Der Shop benötigt mindestens die Version: ');
+	define('TEXT_DB_SERVER_VERSION_ERROR','Ihre MySQL-Version ist zu alt. Der Shop ben&ouml;tigt mindestens die Version: ');
 	define('TEXT_DB_SERVER_VERSION','Ihre MySQL-Version: ');
 	// EOF - vr - 2010-01-14 - check MySQL *server* version
+	// BOF - vr - 2010-01-14 - check MySQL *client* version
+	define('TEXT_DB_CLIENT_VERSION_WARNING','Ihre MySQL-Client-Version ist zu alt. Der Shop ben&ouml;tigt mindestens die Version: 4.1.2 </br></br>Sie können die Installation aber fortf&uuml;hren.</br>Wenn sich die Installation nicht fehlerfrei durchf&uuml;hren l&auml;sst, bitten Sie Ihren Provider um ein Update!');
+	define('TEXT_DB_CLIENT_VERSION','Ihre MySQL-Client-Version: ');
+	// EOF - vr - 2010-01-14 - check MySQL *client* version
+	// BOF - web28 - 2010-02-1014 - check FILE PATH
+	define('TEXT_PATH_ERROR','<h1>URL oder Dateipfad ung&uuml;ltig</h1>');
+	define('TEXT_PATH_ERROR2','Achtung! Sie haben eine ung&uuml;ltige URL oder einen ung&uuml;ltigen Dateipfad eingegeben!');
+	define('TEXT_PATH_ERROR3','Bitte &uuml;berpr&uuml;fen Sie Ihre Einstellungen!');
+	// EOF - web28 - 2010-02-1014 - check FILE PATH
+	
 	
 	// install_step6.php
 	define('ENTRY_FIRST_NAME_ERROR','Vorname ist zu kurz');
@@ -85,10 +95,15 @@ define('TEXT_WELCOME_INDEX','<b>Willkommen zu xtcModified</b><br /><br />xtcModi
 define('TEXT_INFO_DONATIONS_IMG_ALT','Unterstützen Sie dieses Projekt mit Ihrer Spende');
 define('TEXT_WELCOME_STEP1','<b>Datenbank- und Webservereinstellungen</b><br /><br />Der Installer ben&ouml;tigt hier einige Informationen bez&uuml;glich Ihrer Datenbank und Ihrer Verzeichnisstruktur.');
 define('TEXT_WELCOME_STEP2','<b>Datenbank Installation</b><br /><br />Der xtcModified Installer installiert automatisch die xtcModified-Datenbank.');
+// BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
+define('TEXT_WELCOME_STEP2A','<b>Datenbank Installation wurde deaktiviert</b><br /><br />Die Installation der xtcModified-Datenbank in Step3 wird übersprungen!.');
+// BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
 define('TEXT_WELCOME_STEP3','<b>Datenbank Import.</b><br /><br />Die Daten der xtcModified Datenbank werden automatisch in die Datenbank importiert.');
-define('TEXT_WELCOME_STEP4','<b>Konfiguration der xtcModified Konfig-Dateien</b><br /><br /><b>Wenn bereits configure Dateien aus einer fr&uuml;heren Installation vorhanden sind, wird xtcModified diese L&ouml;schen.</b><br /><br />Der Installer schreibt die automatisch die Konfigurationsdateien f&uuml;r die Dateistruktur und die Datenbankanbindung.<br /><br />Sie k&ouml;nnen zwischen verschiedenen Session-Handling_systemen w&auml;hlen.');
+define('TEXT_WELCOME_STEP4','<b>Erstellen der xtcModified Konfiguration-Dateien</b><br /><br /><b>Wenn bereits configure Dateien aus einer fr&uuml;heren Installation vorhanden sind, wird xtcModified diese L&ouml;schen.</b><br /><br />Der Installer schreibt automatisch die Konfigurationsdateien f&uuml;r die Dateistruktur und die Datenbankanbindung.<br /><br />Sie k&ouml;nnen zwischen verschiedenen Session-Handling_systemen w&auml;hlen.');
 define('TEXT_WELCOME_STEP5','<b>Webserver Konfiguration</b><br /><br />');
-define('TEXT_WELCOME_STEP6','<b>Grunds&auml;tzliche Shopkonfiguration</b><br /><br />Der Installer richtet den Admin-Account ein und schreibt noch diverse Daten in die Datenbank.<br />Die angegebenen Daten f&uuml;r <b>Country</b> und <b>Post Code</b> werden f&uuml;r die Versand und Steuerberechnungen genutzt.<br /><br />Wenn Sie w&uuml;nschen, kann xtcModified automatisch die Zonen, Steuers&auml;tze und Steuerklassen f&uuml;r Versand und Verkauf innerhalb der EU einrichten.<br />Markieren Sie nur <b>automatisches Einstellen der Steuerzonen</b> - <b>YES</b>.');
+// BOF - web28 - 2010-02-1014 - CORRECT TO GERMAN
+define('TEXT_WELCOME_STEP6','<b>Grunds&auml;tzliche Shopkonfiguration</b><br /><br />Der Installer richtet den Admin-Account ein und schreibt noch diverse Daten in die Datenbank.<br />Die angegebenen Daten f&uuml;r <b>Land</b> und <b>PLZ</b> werden f&uuml;r die Versand und Steuerberechnungen genutzt.<br /><br />Wenn Sie w&uuml;nschen, kann xtcModified automatisch die Zonen, Steuers&auml;tze und Steuerklassen f&uuml;r Versand und Verkauf innerhalb der EU einrichten.<br />Markieren Sie nur <b>automatisches Einstellen der Steuerzonen</b> - <b>Ja</b>.');
+// EOF - web28 - 2010-02-1014 - CORRECT TO GERMAN
 define('TEXT_WELCOME_STEP7','<b>Setup f&uuml;r G&auml;ste und Standardkunden</b><br /><br />Das xtcModified Gruppen und Preissystem bietet Ihnen unbegrenzte M&ouml;glichkeiten der Preisgebung.<br /><br />
 <b>% Rabatt auf ein einzelnes Produkt</b><br />
 %max kann f&uuml;r jedes einzelne Produkt und f&uuml;r jede einzelne Kundengruppe gesetzt werden.<br />
@@ -109,10 +124,12 @@ define('TEXT_WELCOME_FINISHED','<b>xtcModified Installation erfolgreich!</b><br 
 // install_step1.php
 
 define('TITLE_CUSTOM_SETTINGS','Installations Optionen');
-define('TEXT_IMPORT_DB','Importiere die xtcModified Datenbank');
-define('TEXT_IMPORT_DB_LONG','Importiere die xtcModified Datenbankstruktur, welche die Einstellungstabellen enth&auml;lt. <b>(Zwingend bei Erstinstallation!)</b>');
-define('TEXT_AUTOMATIC','Automatische Konfiguration');
-define('TEXT_AUTOMATIC_LONG','Ihre Informationen bez&uuml;glich Webserver und Datenbank werden automatisch in die ben&ouml;tigten Catalog und Admin Konfigurations-Dateien geschrieben..');
+// BOF - web28 - 2010.03.18 - NEW TEXT
+define('TEXT_IMPORT_DB','xtcModified Datenbank Installation');
+define('TEXT_IMPORT_DB_LONG','Installiert die xtcModified Datenbankstruktur mit den ben&ouml;tigten Tabellen. <b>(Zwingend bei Erstinstallation! Bestehende Tabellen werden dabei geleert!)</b>');
+define('TEXT_AUTOMATIC','Konfigurations-Dateien erstellen');
+define('TEXT_AUTOMATIC_LONG','Ihre Informationen bez&uuml;glich Webserver und Datenbank werden automatisch in die ben&ouml;tigten Catalog und Admin Konfigurations-Dateien geschrieben, bestehende Dateien werden dabei &uuml;berschrieben!');
+// BOF - web28 - 2010.03.18 - NEW TEXT
 define('TITLE_DATABASE_SETTINGS','Datenbank Informationen');
 define('TEXT_DATABASE_SERVER','Datenbankserver');
 define('TEXT_DATABASE_SERVER_LONG','Der Datenbankserver kann entweder in Form eines Hostnamens, wie zum Beispiel <i>db1.myserver.com</i> oder <i>localhost</i>, oder als IP-Adresse, wie <i>192.168.0.1</i> angegeben werden.');
@@ -124,15 +141,21 @@ define('TEXT_DATABASE','Datenbank');
 define('TEXT_DATABASE_LONG','Der Name der Datenbank, in die die Tabellen eingef&uuml;gt werden sollen.<br /><b>ACHTUNG:</b> Es muss bereits eine leere Datenbank vorhanden sein, falls nicht -> leere Datenbank mit phpMyAdmin erstellen!');
 define('TITLE_WEBSERVER_SETTINGS','Webserver Informationen');
 define('TEXT_WS_ROOT','Webserver Root Verzeichnis');
-define('TEXT_WS_ROOT_LONG','Das Verzeichnis, in das die Webseiten gespeichert werden, zum Beispiel <i>/home/myname/public_html</i>.');
+define('TEXT_WS_ROOT_LONG','Das Verzeichnis, in das die Webseiten gespeichert werden, zum Beispiel <b>/home/myname/htdocs</b>.');
 define('TEXT_WS_XTC','Webserver "xtcModified" Verzeichnis');
-define('TEXT_WS_XTC_LONG','Das Verzeichnis, in welches die Shopdateien des Catalogs geladen wurden (vom Webserver root Verzeichnis), beispielsweise <i>/home/myname/public_html<b>/xtcModified/</b></i>.');
+define('TEXT_WS_XTC_LONG','Das Verzeichnis, in das der Shop geladen wurde, relativ zum Webserver Root Verzeichnis, bspw. <b>/xtcModified/</b>.
+<br /><br />Webserver Root Verzeichnis + Webserver "xtcModified" Verzeichnis ergeben den vollständigen Pfad zum Shop.');
 define('TEXT_WS_ADMIN','Webserver Admin Verzeichnis');
 define('TEXT_WS_ADMIN_LONG','Das Verzeichnis, in welchem sich die Admin-Werkzeuge Ihres Shops befinden (vom Webserver root Verzeichnis), beispielsweise <i>/home/myname/public_html<b>/xtcModified/admin/</b></i>.');
 define('TEXT_WS_CATALOG','WWW Catalog Verzeichnis');
-define('TEXT_WS_CATALOG_LONG','Das virtuelle Verzeichnis, in dem sich die xtcModified Catalog-Module befinden, beispielsweise <i>http://www.Ihre-Domain.de<b>/xtcModified/</b></i>.');
+define('TEXT_WS_CATALOG_LONG','Das virtuelle Verzeichnis, in dem sich der xtcModified Shop befindet, relativ zum HTTP Server, bspw. <b>/</b> oder <b>/xtcModified/</b>.
+<br /><br />HTTP Server + WWW Catalog Verzeichnis ergeben die Shop-URL.');
 define('TEXT_WS_ADMINTOOL','WWW Admin Verzeichnis');
 define('TEXT_WS_ADMINTOOL_LONG','Das virtuelle Verzeichnis, in dem sich die xtcModified Admin-Module befinden, beispielsweise <i>http://www.Ihre-Domain.de<b>/xtcModified/admin/</b></i>');
+//BOF WEBSERVER INFO
+define('TITLE_WEBSERVER_INFO','Die vorgegebenen Pfade sind nur in Ausnahmef&auml;llen zu &auml;ndern!');
+define('TEXT_WS_ROOT_INFO','Der Pfad wird automatisch ermittelt!');
+//EOF WEBSERVER INFO
 
 // install_step2.php
 
@@ -152,20 +175,26 @@ define('TITLE_STEP4_ERROR','Der folgende Fehler ist aufgetreten:');
 define('TEXT_STEP4_ERROR','<b>Die Konfigurationsdateien existieren nicht, oder deren Rechte sind nicht richtig gesetzt.</b><br /><br />Bitte f&uuml;hren Sie folgende Aktionen durch: ');
 define('TEXT_STEP4_ERROR_1','Wenn <i>chmod 706</i> nicht funktioniert, versuchen Sie <i>chmod 777</i>.');
 define('TEXT_STEP4_ERROR_2','Wenn Sie diese Installationsroutine in einer Windows Umgebung ausf&uuml;hren, versuchen Sie das Umbenennen der entsprechenden Dateien.');
-define('TEXT_VALUES','Die folgenden Konfigurations-Werte werden nun in die Dateien geschrieben:');
+define('TEXT_VALUES','Die Konfigurations-Werte werden nun in die folgenden Dateien geschrieben:');
 define('TITLE_CHECK_CONFIGURATION','Bitte pr&uuml;fen Sie Ihre Webserver Informationen');
 define('TEXT_HTTP','HTTP Server');
-define('TEXT_HTTP_LONG','Der Webserver kann als Hostnamen, wie zum Beispiel <i>http://www.myserver.com</i>, oder als IP-Adresse <i>http://192.168.0.1</i> angegeben werden.');
+define('TEXT_HTTP_LONG','Der Webserver kann als Hostname, bspw. <b>http://myshop.com</b>, oder als IP-Adresse angegeben werden.');
 define('TEXT_HTTPS','HTTPS Server');
-define('TEXT_HTTPS_LONG','Der gesicherte Webserver kann als Hostnamen, wie zum Beispiel <i>https://www.myserver.com</i>, oder als IP-Adresse <i>https://192.168.0.1</i> angegeben werden.');
+define('TEXT_HTTPS_LONG','Der gesicherte Webserver kann als Hostname, 
+        bspw. <b>https://myshop.com</b>, oder als IP-Adresse angegeben werden.');
 define('TEXT_SSL','Benutze SSL-Verbindung');
 define('TEXT_SSL_LONG','Erm&ouml;glicht die Nutzung einer gesicherten Verbindung mittels SSL (HTTPS)');
-define('TITLE_CHECK_DATABASE','Bitte &uuml;berpr&uuml;fen Sie Ihre Datenbank Informationen');
+define('TITLE_CHECK_DATABASE','Bitte pr&uuml;fen Sie Ihre Datenbank Informationen');
 define('TEXT_PERSIST','Benutze Persistente Verbindung');
 define('TEXT_PERSIST_LONG','H&auml;lt eine Verbindung zur Datenbank f&uuml;r l&auml;ngere Zeit aufrecht. Auf den meisten geteilten Servern ist diese Funktion nicht m&ouml;glich.');
 define('TEXT_SESS_FILE','Speichere Sessions in Dateien.');
 define('TEXT_SESS_DB','Speichere Sessions in der Datenbank');
 define('TEXT_SESS_LONG','Das Verzeichnis, in welches PHP die Session-Dateien speichert.');
+define('TITLE_CHECK_FILES','Bitte pr&uuml;fen Sie Ihre Datei Informationen');
+//BOF - web28 - 2010-03-02 - New SSL-PROXY info
+define('TEXT_SSL_PROXY_LONG','<b>* SSL Proxy: </b><br />Bei Verwendung eines SLL Proxys ist der Pfad bei <b>HTTPS Server</b> anzupassen!');
+define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy Beispiele für einige Provider: </b><br /><span class="prov">Hosteurope: </span><span class="proxy">https://ssl.webpack.de/nureinbeispiel.de</span><br /><span class="prov">ALL-INKL.COM: </span><span class="proxy">https://ssl-account.com/nureinbeispiel.de</span><br /><span class="prov">1und1: </span><span class="proxy">https://ssl.kundenserver.de/nureinbeispiel.de</span><br /><span class="prov">Strato: </span><span class="proxy">https://www.ssl-id.de/nureinbeispiel.de</span>');
+//EOF - web28 - 2010-03-02 - New SSL-PROXY info
 
 // install_step5.php
 
