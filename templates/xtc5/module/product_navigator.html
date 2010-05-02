@@ -4,5 +4,5 @@
 {if $PREVIOUS!=''}<a href="{$PREVIOUS}">{#back#}</a>&nbsp;|&nbsp;{/if}
 {if $NEXT!=''}<a href="{$NEXT}">{#next#}</a>&nbsp;|&nbsp;{/if}
 {if $LAST!=''}<a href="{$LAST}">{#last#}</a>&nbsp;|&nbsp;{/if}
-<strong>{$PRODUCTS_COUNT}</strong>&nbsp;{#total#}
+{#product#}&nbsp;<strong>{$ACTUAL_PRODUCT}&nbsp;{#of#}&nbsp;{$PRODUCTS_COUNT}</strong>&nbsp;{#total#}
 </div>

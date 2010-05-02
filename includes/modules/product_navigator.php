@@ -85,6 +85,9 @@ $module_smarty->assign('FIRST', $first_link);
 $module_smarty->assign('PREVIOUS', $prev_link);
 $module_smarty->assign('NEXT', $next_link);
 $module_smarty->assign('LAST', $last_link);
+// BOF - Tomcraft - 2010-05-02 - Show actual product count in product_navigator
+$module_smarty->assign('ACTUAL_PRODUCT', $actual_key +1);
+// EOF - Tomcraft - 2010-05-02 - Show actual product count in product_navigator
 $module_smarty->assign('PRODUCTS_COUNT', count($p_data));
 $module_smarty->assign('language', $_SESSION['language']);
 $module_smarty->caching = 0;
