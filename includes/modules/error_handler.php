@@ -17,7 +17,10 @@
 
   $module_smarty->assign('language', $_SESSION['language']);
   $module_smarty->assign('ERROR',$error);
-  $module_smarty->assign('BUTTON','<a href="javascript:history.back(1)">'. xtc_image_button('button_back.gif', IMAGE_BUTTON_CONTINUE).'</a>');
+// BOF - Tomcraft - 2010-05-04 - Changed alternative text for the button
+  //$module_smarty->assign('BUTTON','<a href="javascript:history.back(1)">'. xtc_image_button('button_back.gif', IMAGE_BUTTON_CONTINUE).'</a>');
+  $module_smarty->assign('BUTTON','<a href="javascript:history.back(1)">'. xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
+// EOF - Tomcraft - 2010-05-04 - Changed alternative text for the button
   $module_smarty->assign('language', $_SESSION['language']);
 
   // search field
