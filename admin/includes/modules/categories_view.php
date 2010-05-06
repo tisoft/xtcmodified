@@ -241,9 +241,9 @@
         }
       
         if ( (is_object($cInfo)) && ($categories['categories_id'] == $cInfo->categories_id) ) {
-            echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'">' . "\n";
+            echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'">' . "\n";
         } else {
-            echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
+            echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
         }
 			
     ?>           
@@ -371,9 +371,9 @@
       }
 
       if ( (is_object($pInfo)) && ($products['products_id'] == $pInfo->products_id) ) {
-        echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" >' . "\n";
+        echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" >' . "\n";
       } else {
-        echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" >' . "\n";
+        echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" >' . "\n";
       }
 
       //checkbox again after submit and before final submit 

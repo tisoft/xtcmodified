@@ -431,7 +431,7 @@ while ($sr->actDate < $sr->endDate) {
   $last = sizeof($info) - 1;
   if ($srExp < 2) {
 ?>
-                    <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'">
+                    <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='pointer'" onMouseOut="this.className='dataTableRow'">
 <?php
     switch ($srView) {
       case '3':
@@ -469,7 +469,7 @@ while ($sr->actDate < $sr->endDate) {
       if ($srMax == 0 or $i < $srMax) {
         if ($srExp < 2) {
 ?>
-                    <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'">
+                    <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='pointer'" onMouseOut="this.className='dataTableRow'">
                     <td class="dataTableContent">&nbsp;</td>
                     <td class="dataTableContent" align="left"><a href="<?php echo xtc_catalog_href_link("product_info.php?products_id=" . $info[$i]['pid']) ?>" target="_blank"><?php echo $info[$i]['pmodel'].' : '.$info[$i]['pname']; ?></a>
 <?php
