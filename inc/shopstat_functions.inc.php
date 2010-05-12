@@ -215,15 +215,19 @@ function shopstat_getRealPath($cPath, $delimiter = '/')
 {
     if(empty($cPath)) return;
 
+	//BOF - web28 - 2010-05-12 - set missing variable $languages_id
+	global $languages_id; 
+	//EOF  - web28 - 2010-05-12 - set missing variable $languages_id
+	
     $path       = explode("_",$cPath);
     $categories = array();
 
     foreach($path as $key => $value)
         {
-		//BOF - DokuMan - 2010-02-25 - set missing variable $language
-        //$categories[$key] = shopstat_getCategoriesName($value, $language);
-        $categories[$key] = shopstat_getCategoriesName($value, isset($language));
-		//EOF - DokuMan - 2010-02-25 - set missing variables $language
+		//BOF - web28 - 2010-05-12 - set missing variable $languages_id
+        //$categories[$key] = shopstat_getCategoriesName($value, $language);		
+        $categories[$key] = shopstat_getCategoriesName($value, $languages_id));
+		//EOF - web28 - 2010-05-12 - set missing variable $languages_id
         }
 
     $realpath = implode($delimiter,$categories);
@@ -379,15 +383,28 @@ function shopstat_getRegExps(&$search, &$replace)
     $search     = array(
                         "'\s&\s'",          //--Kaufmännisches Und mit Blanks muss raus
 						"'[\r\n\s]+'",	    // strip out white space
-						"'&(quote|#34);'i",	// replace html entities
-						"'&(amp|#38);'i",
-						"'&(lt|#60);'i",
-						"'&(gt|#62);'i",
-						"'&(nbsp|#160);'i",
-						"'&(iexcl|#161);'i",
-						"'&(cent|#162);'i",
-						"'&(pound|#163);'i",
-						"'&(copy|#169);'i",
+						"'&(quote|#34);'i",	//--Anführungszeichen oben replace html entities
+						"'&(amp|#38);'i",   //--Ampersand-Zeichen, kaufmännisches Und
+						"'&(lt|#60);'i",	//--öffnende spitze Klammer
+						"'&(gt|#62);'i",	//--schließende spitze Klammer
+						"'&(nbsp|#160);'i",	//--Erzwungenes Leerzeichen					
+						//BOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
+						"'&(iexcl|#161);|¡'i", 		//umgekehrtes Ausrufezeichen
+						"'&(cent|#162);|¢'i", 		//Cent-Zeichen
+						"'&(pound|#163);|£'i", 		//Pfund-Zeichen
+						"'&(curren|#164);|¤'i",   	//Währungszeichen--currency wird zu '-'
+						"'&(yen|#165);|¥'i",   		//Yen  wird zu Yen
+						"'&(brvbar|#166);|¦'i",		//durchbrochener Strich
+						"'&(sect|#167);|§'i",		//Paragraph-Zeichen
+						"'&(copy|#169);|©'i",		//Copyright-Zeichen 					
+						"'&(reg|#174);|®'i",		//Eingetragene Marke wird zu -R-
+						"'&(deg|#176);|°'i",		//Grad-Zeichen -- degree wird zu -Grad-
+						"'&(plusmn|#177);|±'i",		//Plusminus-Zeichen
+						"'&(trade|#8482);|™'i",   	//--Trademark wird zu -TM-
+						"'&(euro|#8364);|€'i",   	//--Eurozeichen wird zu EUR
+						"'&(laquo|#171);|«'i", 	 	//-- Left angle quotes Left Winkel Zitate
+						"'&(raquo|#187);|»'i", 		//--Right angle quotes Winkelgetriebe Zitate						
+						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
                         "'&'",              //--Kaufmännisches Und wird +
                         "'%'",              //--Prozent muss weg
                         "/[\[\({]/",        //--öffnende Klammern nach Bindestriche
@@ -399,6 +416,36 @@ function shopstat_getRegExps(&$search, &$replace)
                         "/Ä/",              //--Umlaute etc.
                         "/Ü/",              //--Umlaute etc.
                         "/Ö/",              //--Umlaute etc.
+						//BOF  - web28 - 2010-05-12 - Französisch
+						"'&(Agrave|#192);|À'i",		// Capital A-grave Capital A-Grab
+						"'&(agrave|#224);|à'i",		//Lowercase a-grave Kleinbuchstaben a-Grab
+						"'&(Acirc|#194);|Â'i",		//Capital A-circumflex Capital A-Zirkumflex
+						"'&(acirc|#226);|â'i",		//Lowercase a-circumflex Kleinbuchstaben a-Zirkumflex
+						"'&(AElig|#198);|Æ'i",		//Capital AE Ligature Capital AE Ligature
+						"'&(aelig|#230);|æ'i",		//Lowercase AE Ligature Kleinbuchstabe ae
+						"'&(Ccedil|#199);|Ç'i",		//Capital C-cedilla Capital-C Cedille
+						"'&(ccedil|#231);|ç'i",		//Lowercase c-cedilla Kleinbuchstaben c-Cedille
+						"'&(Egrave|#200);|È'i",		//Capital E-grave Capital E-Grab
+						"'&(egrave|#232);|è'i",		//Lowercase e-grave Kleinbuchstaben e-Grab
+						"'&(Eacute|#201);|É'i",		//Capital E-acute E-Capital akuten
+						"'&(eacute|#233);|é'i",		//Lowercase e-acute Kleinbuchstaben e-acute
+						"'&(Ecirc|#202);|Ê'i",		//Capital E-circumflex E-Capital circumflexa
+						"'&(ecirc|#234);|ê'i",		//Lowercase e-circumflex Kleinbuchstaben e-Zirkumflex
+						"'&(Euml|#203);|Ë'i",		//Capital E-umlaut Capital E-Umlaut
+						"'&(euml|#235);|ë'i",		//Lowercase e-umlaut Kleinbuchstaben e-Umlaut
+						"'&(Icirc|#206);|Î'i",		//Capital I-circumflex Capital I-Zirkumflex
+						"'&(icirc|#238);|î'i",		//Lowercase i-circumflex Kleinbuchstaben i-Zirkumflex
+						"'&(Iuml|#207);|Ï'i",		//Capital I-umlaut Capital I-Umlaut
+						"'&(iuml|#239);|ï'i",		//Lowercase i-umlaut Kleinbuchstaben i-Umlaut
+						"'&(Ocirc|#212);|Ô'i",		//Capital O-circumflex O-Capital circumflexa
+						"'&(ocirc|#244);|ô'i",		//Lowercase o-circumflex Kleinbuchstabe o-Zirkumflex
+						"'&(OElig|#140);|Œ'i",		//Capital OE ligature Capital OE Ligatur
+						"'&(oelig|#156);|œ'i",		//Lowercase oe ligature Kleinbuchstaben oe Ligatur
+						"'&(Ugrave|#217);|Ù'i",		//Capital U-grave Capital U-Grab
+						"'&(ugrave|#249);|ù'i",		//Lowercase u-grave Kleinbuchstaben u-Grab
+						"'&(Ucirc|#219);|Û'i",		//Capital U-circumflex Capital U-Zirkumflex
+						"'&(ucirc|#251);|û'i",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
+						//EOF  - web28 - 2010-05-12 - Französisch
                         "/'|\"|´|`/",       //--Anführungszeichen weg.
                         "/[:,\.!?\*\+]/",   //--Doppelpunkte, Komma, Punkt etc. weg.
                         );
@@ -410,12 +457,25 @@ function shopstat_getRegExps(&$search, &$replace)
 						"<",
 						">",
 						"",
-						chr(161),
-						chr(162),
-						chr(163),
-						chr(169),
-                        "-",
-						"+",
+						//BOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
+						"-", 	//chr(161),
+						"-", 	//chr(162),
+						"-", 	//chr(163),
+						"-", 	//chr(164),
+						"Yen", 	//chr(165),
+						"-",	//durchbrochener Strich
+						"-",	//Paragraph-Zeichen
+						"-",	//Copyright-Zeichen											
+						"-R-", 	//chr(174),
+						"-GRAD-", 	//chr(176),
+						"+-",
+						"-TM-",
+						"EUR",
+						"<<",
+						">>",
+						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
+                        "+",
+						"-",
                         "-",
                         "",
                         "ss",
@@ -425,6 +485,36 @@ function shopstat_getRegExps(&$search, &$replace)
                         "Ae",
                         "Ue",
                         "Oe",
+						//BOF  - web28 - 2010-05-12 - Französisch
+						"A",		// Capital A-grave Capital A-Grab
+						"a",		//Lowercase a-grave Kleinbuchstaben a-Grab
+						"A",		//Capital A-circumflex Capital A-Zirkumflex
+						"a",		//Lowercase a-circumflex Kleinbuchstaben a-Zirkumflex
+						"AE",		//Capital AE Ligature Capital AE Ligature
+						"ae",		//Lowercase AE Ligature Kleinbuchstabe ae
+						"C",		//Capital C-cedilla Capital-C Cedille
+						"c",		//Lowercase c-cedilla Kleinbuchstaben c-Cedille
+						"E",		//Capital E-grave Capital E-Grab
+						"e",		//Lowercase e-grave Kleinbuchstaben e-Grab
+						"E",		//Capital E-acute E-Capital akuten
+						"e",		//Lowercase e-acute Kleinbuchstaben e-acute
+						"E",		//Capital E-circumflex E-Capital circumflexa
+						"e",		//Lowercase e-circumflex Kleinbuchstaben e-Zirkumflex
+						"E",		//Capital E-umlaut Capital E-Umlaut
+						"e",		//Lowercase e-umlaut Kleinbuchstaben e-Umlaut
+						"I",		//Capital I-circumflex Capital I-Zirkumflex
+						"i",		//Lowercase i-circumflex Kleinbuchstaben i-Zirkumflex
+						"I",		//Capital I-umlaut Capital I-Umlaut
+						"i",		//Lowercase i-umlaut Kleinbuchstaben i-Umlaut
+						"O",		//Capital O-circumflex O-Capital circumflexa
+						"o",		//Lowercase o-circumflex Kleinbuchstabe o-Zirkumflex
+						"OE",		//Capital OE ligature Capital OE Ligatur
+						"oe",		//Lowercase oe ligature Kleinbuchstaben oe Ligatur
+						"U",		//Capital U-grave Capital U-Grab
+						"u",		//Lowercase u-grave Kleinbuchstaben u-Grab
+						"U",		//Capital U-circumflex Capital U-Zirkumflex
+						"u",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
+						//EOF  - web28 - 2010-05-12 - Französisch
                         "",
                         ""
                         );
