@@ -392,7 +392,7 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(iexcl|#161);|¡'i", 		//umgekehrtes Ausrufezeichen
 						"'&(cent|#162);|¢'i", 		//Cent-Zeichen
 						"'&(pound|#163);|£'i", 		//Pfund-Zeichen
-						"'&(curren|#164);|¤'i",   	//Währungszeichen--currency wird zu '-'
+						"'&(curren|#164);|¤'i",   	//Währungszeichen--currency 
 						"'&(yen|#165);|¥'i",   		//Yen  wird zu Yen
 						"'&(brvbar|#166);|¦'i",		//durchbrochener Strich
 						"'&(sect|#167);|§'i",		//Paragraph-Zeichen
@@ -403,7 +403,17 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(trade|#8482);|™'i",   	//--Trademark wird zu -TM-
 						"'&(euro|#8364);|€'i",   	//--Eurozeichen wird zu EUR
 						"'&(laquo|#171);|«'i", 	 	//-- Left angle quotes Left Winkel Zitate
-						"'&(raquo|#187);|»'i", 		//--Right angle quotes Winkelgetriebe Zitate						
+						"'&(raquo|#187);|»'i", 		//--Right angle quotes Winkelgetriebe Zitate
+						//BOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion
+						"'&(ndash|#8211);|–'i", 	//-- Gedankenstrich Breite n 	
+						"'&(mdash|#8212);|—'i", 	//-- Gedankenstrich Breite m 	
+						"'&(lsquo|#8216);|‘'i", 	//-- einfaches Anführungszeichen links 	
+						"'&(rsquo|#8217);|’'i", 	//-- einfaches Anführungszeichen rechts 	
+						"'&(sbquo|#8218);|‚'i", 	//-- einfaches low-9-Zeichen 	
+						"'&(ldquo|#8220);|“'i", 	//-- doppeltes Anführungszeichen links 
+						"'&(rdquo|#8221);|”'i", 	//-- doppeltes Anführungszeichen rechts 
+						"'&(bdquo|#8222);|„'i", 	//-- doppeltes low-9-Zeichen rechts 
+						//EOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion
 						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
                         "'&'",              //--Kaufmännisches Und 
                         "'%'",              //--Prozent muss weg
@@ -446,45 +456,55 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(Ucirc|#219);|Û'i",		//Capital U-circumflex Capital U-Zirkumflex
 						"'&(ucirc|#251);|û'i",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
 						//EOF  - web28 - 2010-05-12 - Französisch
-                        "/'|\"|´|`/",       //--Anführungszeichen weg.
-                        "/[:,\.!?\*\+]/",   //--Doppelpunkte, Komma, Punkt etc. weg.
+                        "/'|\"|´|`/",       //--Anführungszeichen weg.						
+                        "/[:,\.!?\*\+]/",   //--Doppelpunkte, Komma, Punkt etc. weg. 
                         );
     $replace    = array(
-                        "-",
-						"-",
-					    "\"",
-						"-", 	//--Ampersand-Zeichen, kaufmännisches Und
-						"<",
-						">",
-						"",
+                        "-",		//--Kaufmännisches Und mit Blanks
+						"-",		// strip out white space
+					    "\"",		//--Anführungszeichen oben 
+						"-",		//--Ampersand-Zeichen, kaufmännisches Und
+						"<",		//--öffnende spitze Klammer
+						">",		//--schließende spitze Klammer
+						"",			//--Erzwungenes Leerzeichen
 						//BOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
-						"-", 	//chr(161),
-						"-", 	//chr(162),
-						"-", 	//chr(163),
-						"-", 	//chr(164),
-						"Yen", 	//chr(165),
-						"-",	//durchbrochener Strich
-						"-",	//Paragraph-Zeichen
-						"-",	//Copyright-Zeichen											
-						"-R-", 	//chr(174),
-						"-GRAD-", 	//chr(176),
-						"",		//Plusminus-Zeichen
-						"-TM-",
-						"EUR",
-						"<<",
-						">>",
+						"", 		//chr(161), //umgekehrtes Ausrufezeichen
+						"ct", 		//chr(162), //Cent-Zeichen
+						"GBP", 		//chr(163), //Pfund-Zeichen
+						"", 		//chr(164), //Währungszeichen--currency 
+						"Yen", 		//chr(165), //Yen-Zeichen
+						"",			//durchbrochener Strich
+						"",			//Paragraph-Zeichen
+						"",			//Copyright-Zeichen											
+						"", 		//chr(174), //Eingetragene Marke
+						"~GRAD~", 	//chr(176), //Grad-Zeichen
+						"~",		//Plusminus-Zeichen
+						"~TM~",		//--Trademark wird zu -TM-
+						"EUR",		//--Eurozeichen wird zu EUR
+						"<<",		//-- Left angle quotes Left Winkel Zitate
+						">>",		//-- Right angle quotes Right Winkel Zitate
+						//BOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion
+						"-", 		//-- Gedankenstrich Breite n 	
+						"-", 		//-- Gedankenstrich Breite m 	
+						"", 		//-- einfaches Anführungszeichen links 	
+						"", 		//-- einfaches Anführungszeichen rechts 	
+						"", 		//-- einfaches low-9-Zeichen 	
+						"", 		//-- doppeltes Anführungszeichen links 
+						"", 		//-- doppeltes Anführungszeichen rechts 
+						"", 		//-- doppeltes low-9-Zeichen rechts
+						//EOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion	
 						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
-                        "-",  	//--Kaufmännisches Und 
-						"-",
-                        "-",
-                        "",
-                        "ss",
-                        "ae",
-                        "ue",
-                        "oe",
-                        "Ae",
-                        "Ue",
-                        "Oe",
+                        "-",		//--Kaufmännisches Und 
+						"-",		//--Prozent 
+                        "-",		//--öffnende Klammern
+                        "",			//--schliessende Klammern 
+                        "ss",		//--Umlaute etc.
+                        "ae",		//--Umlaute etc.
+                        "ue",		//--Umlaute etc.
+                        "oe",		//--Umlaute etc.
+                        "Ae",		//--Umlaute etc.
+                        "Ue",		//--Umlaute etc.
+                        "Oe",		//--Umlaute etc.
 						//BOF  - web28 - 2010-05-12 - Französisch
 						"A",		// Capital A-grave Capital A-Grab
 						"a",		//Lowercase a-grave Kleinbuchstaben a-Grab
@@ -515,8 +535,8 @@ function shopstat_getRegExps(&$search, &$replace)
 						"U",		//Capital U-circumflex Capital U-Zirkumflex
 						"u",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
 						//EOF  - web28 - 2010-05-12 - Französisch
-                        "",
-                        ""
+                        "",			//--Anführungszeichen 			
+                        "-"			//--Doppelpunkte, Komma, Punkt etc. 
                         );
 
 }
