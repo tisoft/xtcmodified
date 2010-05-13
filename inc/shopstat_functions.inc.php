@@ -405,7 +405,7 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(laquo|#171);|«'i", 	 	//-- Left angle quotes Left Winkel Zitate
 						"'&(raquo|#187);|»'i", 		//--Right angle quotes Winkelgetriebe Zitate						
 						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
-                        "'&'",              //--Kaufmännisches Und wird +
+                        "'&'",              //--Kaufmännisches Und 
                         "'%'",              //--Prozent muss weg
                         "/[\[\({]/",        //--öffnende Klammern nach Bindestriche
                         "/[\)\]\}]/",       //--schliessende Klammern weg
@@ -453,7 +453,7 @@ function shopstat_getRegExps(&$search, &$replace)
                         "-",
 						"-",
 					    "\"",
-						"-",
+						"-", 	//--Ampersand-Zeichen, kaufmännisches Und
 						"<",
 						">",
 						"",
@@ -468,13 +468,13 @@ function shopstat_getRegExps(&$search, &$replace)
 						"-",	//Copyright-Zeichen											
 						"-R-", 	//chr(174),
 						"-GRAD-", 	//chr(176),
-						"+-",
+						"",		//Plusminus-Zeichen
 						"-TM-",
 						"EUR",
 						"<<",
 						">>",
 						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
-                        "+",
+                        "-",  	//--Kaufmännisches Und 
 						"-",
                         "-",
                         "",
