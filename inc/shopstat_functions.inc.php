@@ -226,7 +226,7 @@ function shopstat_getRealPath($cPath, $delimiter = '/')
         {
 		//BOF - web28 - 2010-05-12 - set missing variable $languages_id
         //$categories[$key] = shopstat_getCategoriesName($value, $language);		
-        $categories[$key] = shopstat_getCategoriesName($value, $languages_id));
+        $categories[$key] = shopstat_getCategoriesName($value, $languages_id);
 		//EOF - web28 - 2010-05-12 - set missing variable $languages_id
         }
 
