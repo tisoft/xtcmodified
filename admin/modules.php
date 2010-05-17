@@ -241,7 +241,10 @@
         if ($value['set_function']) {
           eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
         } else {
-          $keys .= xtc_draw_input_field('configuration[' . $key . ']', $value['value']);
+		  //BOF -web28- 2010-05-17 - set css definition
+          //$keys .= xtc_draw_input_field('configuration[' . $key . ']', $value['value']);
+		  $keys .= xtc_draw_input_field('configuration[' . $key . ']', $value['value'], 'class="inputModule"');
+		  //EOF -web28- 2010-05-17 - set css definition
         }
         $keys .= '<br /><br />';
       }

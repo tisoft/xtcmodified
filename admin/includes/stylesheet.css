@@ -249,3 +249,12 @@ FORM { display: inline; }
 .smallText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
 .main { font-family: Verdana, Arial, sans-serif; font-size: 12px; }
 .errorText { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
+
+/*Eingabefelder Zahlungs- u. Versandmodule*/
+.inputModule{
+width: 280px;
+}
+.textareaModule{
+width: 280px;
+height: 60px;
+}
