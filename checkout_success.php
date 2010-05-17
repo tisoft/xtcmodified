@@ -60,6 +60,13 @@ $orders = xtc_db_fetch_array($orders_query);
 $last_order = $orders['orders_id'];
 $order_status = $orders['orders_status'];
 
+//BOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+if (isset($_SESSION['paypal_link']) && MODULE_PAYMENT_PAYPAL_IPN_USE_CHECKOUT == 'True') {
+	$smarty->assign('PAYPAL_LINK',$_SESSION['paypal_link']);
+    unset ($_SESSION['paypal_link']);    	
+}    
+//EOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+
 $smarty->assign('FORM_ACTION', xtc_draw_form('order', xtc_href_link(FILENAME_CHECKOUT_SUCCESS, 'action=update', 'SSL')));
 //BOF - Dokuman - 2009-11-23 - Make the print preview clickable, i.e. change mouse cursor to hand symbol
 $smarty->assign('BUTTON_CONTINUE', xtc_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE));

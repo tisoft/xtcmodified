@@ -138,6 +138,9 @@
                               'postcode' => $order['delivery_postcode'],
                               'state' => $order['delivery_state'],
                               'country' => $order['delivery_country'],
+							  //BOF - web28 - 2010-03-26 - PayPal Link
+							  'country_iso_2' => $order['billing_country_iso_code_2'],
+							  //EOF - web28 - 2010-03-26 - PayPal Link
                               'format_id' => $order['delivery_address_format_id']);
 
 
@@ -146,15 +149,15 @@
       }
 
       $this->billing = array('name' => $order['billing_name'],
-      							'firstname' => $order['billing_firstname'],
-      							'lastname' => $order['billing_lastname'],
+      						 'firstname' => $order['billing_firstname'],
+      						 'lastname' => $order['billing_lastname'],
                              'company' => $order['billing_company'],
                              'street_address' => $order['billing_street_address'],
                              'suburb' => $order['billing_suburb'],
                              'city' => $order['billing_city'],
                              'postcode' => $order['billing_postcode'],
                              'state' => $order['billing_state'],
-                             'country' => $order['billing_country'],
+                             'country' => $order['billing_country'],													 
                              'format_id' => $order['billing_address_format_id']);
 
       $index = 0;
@@ -260,10 +263,17 @@
 		// EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in orders class	
 			$total = $order_total_values['value'];
 
+	//BOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount	
+		if ($order_total_values['class'] == 'ot_shipping')				
+			$shipping = $order_total_values['value'];
+    //EOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount	
 	}
-	
-	return array('data'=>$order_total,'total'=>$total);
-	
+	//BOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount
+
+	//return array('data'=>$order_total,'total'=>$total);
+	return array('data'=>$order_total,'total'=>$total, 'shipping'=>$shipping); 
+	//EOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount	
+
     }
 
     function cart() {

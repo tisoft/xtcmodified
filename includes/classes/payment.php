@@ -269,5 +269,14 @@
     }
 //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
 
-  }
-?>
+//BOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+  function create_paypal_link() {
+      if (is_array($this->modules)) {
+        if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
+          return $GLOBALS[$this->selected_module]->create_paypal_link();
+        }
+      }
+    }
+//EOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+ } 
+ ?>

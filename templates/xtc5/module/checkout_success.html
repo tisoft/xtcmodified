@@ -16,6 +16,12 @@
 {if $GV_SEND_LINK}
 <p>{#gv_has_vouchera#} {$GV_SEND_LINK} {#gv_has_voucherb#}</p>
 {/if}
+<!-- BOF - web28 - 2010-03-27 PayPal Bezahl-Link -->
+{if $PAYPAL_LINK}
+<p><div style="background: #f2f2f2; color: #ffffff; padding:5px; border: 2px solid #496686">{$PAYPAL_LINK}</div></p>
+{/if}
+<!-- EOF - web28 - 2010-03-27 PayPal Bezahl-Link -->
+
 <p>{$BUTTON_PRINT}&nbsp;{$BUTTON_CONTINUE}</p>
 {if $downloads_content neq ''}
 {if $title_downloadfiles!=''}

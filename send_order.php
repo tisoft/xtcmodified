@@ -56,6 +56,20 @@ if ($_SESSION['customer_id'] == $order_check['customers_id']) {
 	$smarty->assign('EMAIL', $order->customer['email_address']);
 	$smarty->assign('PHONE',$order->customer['telephone']);
 
+	//BOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+	unset ($_SESSION['paypal_link']);
+    if ($order->info['payment_method'] == 'paypal_ipn') {
+	
+	    $order_id= $insert_id;		
+		$paypal_link = array();		
+        $payment_modules->create_paypal_link();		
+		$smarty->assign('PAYMENT_INFO_HTML', $paypal_link['html']);
+		$smarty->assign('PAYMENT_INFO_TXT',  MODULE_PAYMENT_PAYPAL_IPN_TXT_EMAIL . $paypal_link['text']);
+        $_SESSION['paypal_link']= $paypal_link['checkout'];			
+		
+    }
+    //EOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+	
 	// PAYMENT MODUL TEXTS
 	// EU Bank Transfer
 	if ($order->info['payment_method'] == 'eustandardtransfer') {
