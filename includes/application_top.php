@@ -133,7 +133,6 @@ require_once (DIR_FS_INC.'xtc_get_top_level_domain.inc.php');
 
 // html basics
 require_once (DIR_FS_INC.'xtc_href_link.inc.php');
-require_once (DIR_FS_INC.'xtc_draw_separator.inc.php');
 require_once (DIR_FS_INC.'xtc_php_mail.inc.php');
 
 require_once (DIR_FS_INC.'xtc_product_link.inc.php');
@@ -396,6 +395,22 @@ if (SESSION_CHECK_IP_ADDRESS == 'True') {
 		xtc_redirect(xtc_href_link(FILENAME_LOGIN));
 	}
 }
+
+//BOF - DokuMan - 2010-05-20
+// Redirect search engines with session id to the same url without session id to prevent indexing session id urls
+if ( $truncate_session_id == true ) {
+    if (preg_match('/' . xtc_session_name() . '/i', $_SERVER['REQUEST_URI']) ){
+        $location = xtc_href_link(basename($_SERVER['SCRIPT_NAME']), xtc_get_all_get_params(array(xtc_session_name())), 'NONSSL', false);
+        header("HTTP/1.0 301 Moved Permanently");
+        header("Location: $location");
+    }
+}
+
+if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
+    // Thanks to HHGAG ;-)
+    session_regenerate_id(true);
+}
+//EOF - DokuMan - 2010-05-20
 
 // set the language
 if (!isset ($_SESSION['language']) || isset ($_GET['language'])) {
