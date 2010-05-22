@@ -400,6 +400,9 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(reg|#174);|®'i",		//Eingetragene Marke wird zu -R-
 						"'&(deg|#176);|°'i",		//Grad-Zeichen -- degree wird zu -Grad-
 						"'&(plusmn|#177);|±'i",		//Plusminus-Zeichen
+						"'&(sup2|#178);|²'i",		//Hoch-2-Zeichen 
+						"'&(sup3|#179);|³'i", 		//Hoch-3-Zeichen 
+						"'&(micro|#181);|µ'i",		//Mikro-Zeichen
 						"'&(trade|#8482);|™'i",   	//--Trademark wird zu -TM-
 						"'&(euro|#8364);|€'i",   	//--Eurozeichen wird zu EUR
 						"'&(laquo|#171);|«'i", 	 	//-- Left angle quotes Left Winkel Zitate
@@ -473,16 +476,19 @@ function shopstat_getRegExps(&$search, &$replace)
 						"GBP", 		//chr(163), //Pfund-Zeichen
 						"", 		//chr(164), //Währungszeichen--currency 
 						"Yen", 		//chr(165), //Yen-Zeichen
-						"",			//durchbrochener Strich
-						"",			//Paragraph-Zeichen
-						"",			//Copyright-Zeichen											
+						"",			//chr(166),durchbrochener Strich
+						"",			//chr(167),Paragraph-Zeichen
+						"",			//chr(169),Copyright-Zeichen											
 						"", 		//chr(174), //Eingetragene Marke
 						"~GRAD~", 	//chr(176), //Grad-Zeichen
-						"~",		//Plusminus-Zeichen
+						"~",		//chr(177) Plusminus-Zeichen
+						"", 		//chr(178) Hoch-2-Zeichen 
+						"", 		//chr(179) Hoch-3-Zeichen
+						"", 		//chr(181) Mikro-Zeichen
 						"~TM~",		//--Trademark wird zu -TM-
 						"EUR",		//--Eurozeichen wird zu EUR
-						"<<",		//-- Left angle quotes Left Winkel Zitate
-						">>",		//-- Right angle quotes Right Winkel Zitate
+						"<<",		//chr(171) -- Left angle quotes Left Winkel Zitate
+						">>",		//chr(187) -- Right angle quotes Right Winkel Zitate
 						//BOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion
 						"-", 		//-- Gedankenstrich Breite n 	
 						"-", 		//-- Gedankenstrich Breite m 	
