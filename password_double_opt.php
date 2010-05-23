@@ -154,6 +154,9 @@ switch ($case) {
 		// EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type
 		$smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
+		// BOF - web28 - 2010-05-23 - FIX missing form end
+		$smarty->assign('FORM_END', '</form>');
+		//EOF - web28 - 2010-05-23 - FIX missing form end
 		$smarty->assign('language', $_SESSION['language']);
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
@@ -180,6 +183,9 @@ switch ($case) {
 		// EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type	
 		$smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
+		// BOF - web28 - 2010-05-23 - FIX missing form end
+		$smarty->assign('FORM_END', '</form>');
+		//EOF - web28 - 2010-05-23 - FIX missing form end
 		$smarty->assign('language', $_SESSION['language']);
 		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
