@@ -1,10 +1,10 @@
 {config_load file="$language/lang_$language.conf" section="create_account"}
-<h1>{#heading_create_account#}</h1>
+<h1>{#heading_create_guest_account#}</h1>
 {$FORM_ACTION}
 {if $error!=''}<div class="errormessage">{$error}</div>{/if}
 <h2>{#title_personal#} ({#text_must#})</h2>
 <div class="highlightbox">
-<table width="100%"  cellspacing="0" cellpadding="4">
+<table width="100%" cellspacing="0" cellpadding="4">
 {if $gender=='1'}
   <tr> 
     <td width="120">{#text_gender#}</td>
@@ -63,7 +63,7 @@
 <div class="highlightbox">
 <table width="100%" border="0" cellspacing="0" cellpadding="4">
   <tr> 
-     <td width="120">{#text_street#}</td>
+    <td width="120">{#text_street#}</td>
     <td>{$INPUT_STREET}</td>
   </tr>
   {if $suburb=='1'}
@@ -94,7 +94,7 @@
 </div>
 <h2>{#title_contact#}</h2>
 <div class="highlightbox">
-<table width="100%" border="0" cellspacing="2" cellpadding="0">
+<table width="100%" border="0" cellspacing="0" cellpadding="4">
   <tr> 
     <td width="120">{#text_tel#}</td>
     <td>{$INPUT_TEL}</td>
