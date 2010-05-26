@@ -366,7 +366,7 @@ define('NAVBAR_TITLE_PRODUCT_REVIEWS', 'Bewertungen');
 define('NAVBAR_TITLE_REVIEWS_WRITE', 'Bewertungen');
 define('NAVBAR_TITLE_REVIEWS','Bewertungen');
 define('NAVBAR_TITLE_SSL_CHECK', 'Sicherheitshinweis');
-define('NAVBAR_TITLE_CREATE_GUEST_ACCOUNT','Ihre Rechnungsadresse');
+define('NAVBAR_TITLE_CREATE_GUEST_ACCOUNT','Ihre Kundenadresse');
 define('NAVBAR_TITLE_PASSWORD_DOUBLE_OPT','Passwort vergessen?');
 define('NAVBAR_TITLE_NEWSLETTER','Newsletter');
 define('NAVBAR_GV_REDEEM', 'Gutschein einl&ouml;sen');
