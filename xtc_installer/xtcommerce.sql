@@ -945,7 +945,8 @@ CREATE TABLE whos_online (
   ip_address varchar(15) NOT NULL,
   time_entry varchar(14) NOT NULL,
   time_last_click varchar(14) NOT NULL,
-  last_page_url varchar(255) NOT NULL
+  last_page_url varchar(255) NOT NULL,
+  http_referer varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS zones;

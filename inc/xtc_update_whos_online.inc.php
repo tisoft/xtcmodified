@@ -22,19 +22,20 @@
       $customer_query = xtc_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $_SESSION['customer_id'] . "'");
       $customer = xtc_db_fetch_array($customer_query);
 
-      $wo_full_name = addslashes($customer['customers_firstname'] . ' ' . $customer['customers_lastname']);
+      $wo_full_name = xtc_db_input($customer['customers_firstname'] . ' ' . $customer['customers_lastname']);
     } else {
       $wo_customer_id = '';
       $wo_full_name = 'Guest';
     }
 
     $wo_session_id = xtc_session_id();
-    //BOF - Dokuman - 2009-10-05 - Who is online doesn't show any IP addresses and URLs
+    //BOF - Dokuman - 2009-10-28 - Who is online doesn't show any IP addresses and URLs (added http_referer)
     //$wo_ip_address = getenv('REMOTE_ADDR');
     //$wo_last_page_url = addslashes(getenv('REQUEST_URI'));
-    $wo_ip_address = $_SERVER['REMOTE_ADDR'];
-    $wo_last_page_url = addslashes($_SERVER['REQUEST_URI']);
-    //EOF - Dokuman - 2009-10-05 - Who is online doesn't show any IP addresses and URLs
+    $wo_ip_address = xtc_db_input($_SERVER['REMOTE_ADDR']);
+    $wo_last_page_url = xtc_db_input($_SERVER['REQUEST_URI']);
+    $wo_referer = xtc_db_input(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Keiner/None');
+    //EOF - Dokuman - 2009-10-28 - Who is online doesn't show any IP addresses and URLs (added http_referer)
 
     $current_time = time();
     $xx_mins_ago = ($current_time - 900);
@@ -46,9 +47,19 @@
     $stored_customer = xtc_db_fetch_array($stored_customer_query);
 
     if ($stored_customer['count'] > 0) {
-      xtc_db_query("update " . TABLE_WHOS_ONLINE . " set customer_id = '" . $wo_customer_id . "', full_name = '" . $wo_full_name . "', ip_address = '" . $wo_ip_address . "', time_last_click = '" . $current_time . "', last_page_url = '" . $wo_last_page_url . "' where session_id = '" . $wo_session_id . "'");
+        xtc_db_query("
+        update " . TABLE_WHOS_ONLINE . "
+        set customer_id = '" . $wo_customer_id . "',
+        full_name = '" . $wo_full_name . "',
+        ip_address = '" . $wo_ip_address . "',
+        time_last_click = '" . time() . "',
+        last_page_url = '" . $wo_last_page_url . "'
+        where session_id = '" . $wo_session_id . "'");
     } else {
-      xtc_db_query("insert into " . TABLE_WHOS_ONLINE . " (customer_id, full_name, session_id, ip_address, time_entry, time_last_click, last_page_url) values ('" . $wo_customer_id . "', '" . $wo_full_name . "', '" . $wo_session_id . "', '" . $wo_ip_address . "', '" . $current_time . "', '" . $current_time . "', '" . $wo_last_page_url . "')");
+    //BOF - Dokuman - 2009-10-28 - Who is online: added http_referer
+    //xtc_db_query("insert into " . TABLE_WHOS_ONLINE . " (customer_id, full_name, session_id, ip_address, time_entry, time_last_click, last_page_url) values ('" . $wo_customer_id . "', '" . $wo_full_name . "', '" . $wo_session_id . "', '" . $wo_ip_address . "', '" . $current_time . "', '" . $current_time . "', '" . $wo_last_page_url . "')");
+      xtc_db_query("insert into " . TABLE_WHOS_ONLINE . " (customer_id, full_name, session_id, ip_address, time_entry, time_last_click, last_page_url, http_referer) values ('" . $wo_customer_id . "', '" . $wo_full_name . "', '" . $wo_session_id . "', '" . $wo_ip_address . "', '" . $current_time . "', '" . $current_time . "', '" . $wo_last_page_url . "', '" . $wo_referer . "')");
+    //BOF - Dokuman - 2009-10-28 - Who is online: added http_referer
     }
   }
 ?>

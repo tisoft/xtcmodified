@@ -346,3 +346,7 @@ add index products_id (products_id);
 alter table products_attributes
 add index products_id (products_id),
 add index options (options_id, options_values_id);
+
+#DokuMan - 2010-06-28 - Added http_referer to table whos_online 
+ALTER TABLE whos_online
+ADD http_referer varchar(255) NOT NULL DEFAULT '' AFTER last_page_url;

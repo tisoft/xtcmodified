@@ -64,10 +64,15 @@
                 <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_IP_ADDRESS; ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ENTRY_TIME; ?></td>
                 <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LAST_CLICK; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LAST_PAGE_URL; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LAST_PAGE_URL; ?></td>
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_HTTP_REFERER; ?></td>
               </tr>
 <?php
-  $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
+    //BOF - DokuMan - 2010-06-28 - Added http_referer to whois online
+    $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id, http_referer from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
+    //$whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
+    //EOF - DokuMan - 2010-06-28 - Added http_referer to whois online
+
   while ($whos_online = xtc_db_fetch_array($whos_online_query)) {
     $time_online = (time() - $whos_online['time_entry']);
     if ( ((!$_GET['info']) || (@$_GET['info'] == $whos_online['session_id'])) && (!$info) ) {
@@ -86,10 +91,11 @@
                 <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
                 <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
                 <td class="dataTableContent"><?php 
-				if (preg_match('/^(.*)' . xtc_session_name() . '=[a-f,0-9]+[&]*(.*)/i', $whos_online['last_page_url'], $array)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
-					echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; 
-				} 
-				?>&nbsp;</td>
+                if (preg_match('/^(.*)' . xtc_session_name() . '=[a-f,0-9]+[&]*(.*)/i', $whos_online['last_page_url'], $array)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+                echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; 
+                } 
+                ?>&nbsp;</td>
+                <td class="dataTableContent"><?php echo $whos_online['http_referer']; ?></td>
               </tr>
 <?php
   }
