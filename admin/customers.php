@@ -1123,7 +1123,18 @@ if ($error == true) {
 	if (($_GET['search']) && (xtc_not_null($_GET['search']))) {
 		$keywords = xtc_db_input(xtc_db_prepare_input($_GET['search']));
 		$search = "and (c.customers_lastname like '%".$keywords."%' or c.customers_firstname like '%".$keywords."%' or c.customers_email_address like '%".$keywords."%')";
+		//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
+		if(	$_GET['asb'] == 'asb') {
+			$search = "and (c.customers_lastname like '%".$keywords."%' or c.customers_firstname like '%".$keywords."%')";
+		}
+		//EOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
 	}
+	//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR	
+	if (($_GET['search_email']) && (xtc_not_null($_GET['search_email']))) {
+		$keywords = xtc_db_input(xtc_db_prepare_input($_GET['search_email']));
+		$search = "and (c.customers_email_address like '%".$keywords."%')";	
+	}
+	//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
 
 	if ($_GET['status'] && $_GET['status'] != '100' or $_GET['status'] == '0') {
 		$status = xtc_db_prepare_input($_GET['status']);

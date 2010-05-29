@@ -451,5 +451,6 @@ define('BOX_XSBOOSTER_CONFIG','Base Configuration');
 define('ASB_QUICK_SEARCH_CUSTOMER','Customer: ');
 define('ASB_QUICK_SEARCH_ORDER_ID','Order: ');
 define('ASB_QUICK_SEARCH_ARTICLE','Product: ');
+define('ASB_QUICK_SEARCH_EMAIL', 'E-Mail Address:');
 //EOF - web28 - 2010-04-10 - ADMIN SEARCH BAR
 ?>
