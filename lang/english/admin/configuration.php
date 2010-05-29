@@ -665,4 +665,4 @@ define('USE_CONTACT_EMAIL_ADDRESS_DESC' , 'Use "Contact Us" e-mail address for s
 define('DELETE_CACHE_SUCCESSFUL', 'Cache deleted successfully.');
 define('DELETE_TEMP_CACHE_SUCCESSFUL', 'Templatecache deleted successfully.');
 // EOF - Dokuman - 2010-02-04 - delete cache files in admin section
-?
+?>

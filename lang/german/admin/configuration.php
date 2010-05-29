@@ -667,4 +667,4 @@ define('DELETE_CACHE_SUCCESSFUL', 'Cache erfolgreich geleert.');
 define('DELETE_TEMP_CACHE_SUCCESSFUL', 'Templatecache erfolgreich geleert.');
 // EOF - Dokuman - 2010-02-04 - delete cache files in admin section
 
-?
+?>
