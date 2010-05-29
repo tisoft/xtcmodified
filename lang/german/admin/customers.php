@@ -58,4 +58,7 @@ define('ENTRY_NEW_PASSWORD','Neues Passwort:');
 // NEU HINZUGEFUEGT 04.12.2008 - UMSATZANZEIGE BEI KUNDEN 03.12.2008
 define('TABLE_HEADING_UMSATZ','Umsatz');
 
+// BOF - web28 - 2010-05-28 - added  customers_email_address
+define('TABLE_HEADING_EMAIL','Email');
+// EOF - web28 - 2010-05-28 - added  customers_email_address
 ?>

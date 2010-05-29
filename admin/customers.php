@@ -131,7 +131,10 @@ if ($_GET['action']) {
                               'shipping_method' => 'Pauschale Versandkosten',
                               'shipping_class' => 'flat_flat',
                               'customers_ip' => '',
-                              'language' => 'german',
+							  // BOF - web28- Fix  comma
+                              //'language' => 'german',
+							  'language' => 'german'
+							  //EOF - web28- Fix  comma
                               );
       // EOF - DokuMan - 2009-05-22 - BUGFIX: first and last name were not saved when creating manual orders
 
@@ -1103,6 +1106,9 @@ if ($error == true) {
                 <td class="dataTableHeadingContent" width="40"><?php echo TABLE_HEADING_ACCOUNT_TYPE; ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LASTNAME.xtc_sorting(FILENAME_CUSTOMERS,'customers_lastname'); ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FIRSTNAME.xtc_sorting(FILENAME_CUSTOMERS,'customers_firstname'); ?></td>
+				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address ?>
+				<td class="dataTableHeadingContent"><?php echo TABLE_HEADING_EMAIL.xtc_sorting(FILENAME_CUSTOMERS,'customers_email_address'); ?></td>
+				<?php// EOF - web28 - 2010-05-28 - added  customers_email_address ?>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_UMSATZ; ?></td>
                 <td class="dataTableHeadingContent" align="left"><?php echo HEADING_TITLE_STATUS; ?></td>
                 <?php if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {?>
@@ -1167,6 +1173,16 @@ if ($error == true) {
 				$sort = 'order by ci.customers_info_date_account_created DESC';
 				break;
 // EOF - Tomcraft - 2009-10-22 - fixed sorting, replaced ASC with DESC
+
+// BOF - web28 - 2010-05-28 - added  customers_email_address			
+			case 'customers_email_address-desc' :
+				$sort = 'order by c.customers_email_address DESC';
+				break;
+
+			case 'customers_email_address' :
+				$sort = 'order by c.customers_email_address';
+				break;
+// EOF - web28 - 2010-05-28 - added  customers_email_address
 		}
 
 	}
@@ -1268,6 +1284,9 @@ if ($error == true) {
 </td>
                 <td class="dataTableContent"><b><?php echo $customers['customers_lastname']; ?></b></td>
                 <td class="dataTableContent"><?php echo $customers['customers_firstname']; ?></td>
+				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address ?>
+				<td class="dataTableContent"><?php echo $customers['customers_email_address']; ?></td>
+				<?php// EOF - web28 - 2010-05-28 - added  customers_email_address ?>
                 <?php if ($umsatz['ordersum'] !='') { ?>
                 <td class="dataTableContent"><?php if ($umsatz['ordersum']>0) { echo $currencies->format($umsatz['ordersum']);} ?></td>
                 <?php } else { ?>
@@ -1297,7 +1316,11 @@ if ($error == true) {
 	}
 ?>
               <tr>
-                <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address 
+			   //<td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+			   ?>
+                <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address ?>
                   <tr>
                     <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_query_numrows, '100', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
                     <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_query_numrows, '100', MAX_DISPLAY_PAGE_LINKS, $_GET['page'], xtc_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
