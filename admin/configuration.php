@@ -161,6 +161,9 @@
          		case 21:
          			echo AFTERBUY_URL;
          		case 19:
+            // BOF - web28 - 2010-05-07 - PayPal API Modul
+         		case 25:
+            // EOF - web28 - 2010-05-07 - PayPal API Modul
             //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
          		case 31:
             //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
@@ -181,6 +184,11 @@
                 			<td width="1">|
                 			</td>
                 			<td width="150" align="center">
+                			<a class="button" class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=25', 'NONSSL').'">PayPal</a>
+                			</td>
+                			<td width="1">|
+                			</td>
+                			<td width="150" align="center">
                 			<a class="button" href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=31', 'NONSSL').'">Moneybookers.com</a>
                 			</td>
                 			<td width="1">|
@@ -190,7 +198,7 @@
             				</tr>
         					</table>';
 						if ($_GET['gID']=='31') echo MB_INFO;
-//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4        		
+//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers & paypal payment module version 2.4        		
          			break;
          	}
          	?> 
@@ -235,7 +243,7 @@
     }
     if (xtc_not_null($configuration['use_function'])) {
       $use_function = $configuration['use_function'];
-      if (preg_match('/->/', $use_function)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+      if (preg_match('/->/', $use_function)) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
         $class_method = explode('->', $use_function);
         if (!is_object(${$class_method[0]})) {
           include(DIR_WS_CLASSES . $class_method[0] . '.php');
@@ -312,4 +320,4 @@
 <br />
 </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?

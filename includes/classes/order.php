@@ -77,12 +77,54 @@
                                 'text' =>$totals['text'],
                                 'value'=>$totals['value']);
       }
-
-      $order_total_query = xtc_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
+      
+	  // BOF - web28 - 2010-05-06 - PayPal API Modul
+	  //$order_total_query = xtc_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
+	  $order_total_query = xtc_db_query("select text, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
+      // EOF - web28 - 2010-05-06 - PayPal API Modul
       $order_total = xtc_db_fetch_array($order_total_query);
+	  
+	  // BOF - web28 - 2010-05-06 - PayPal API Modul
+		$order_tax_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_tax'");
+		$order_tax = xtc_db_fetch_array($order_tax_query);
+		$pp_order_tax=$order_tax['SUM(value)'];
+		$pp_order_disc=0;
+		$order_disc_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_discount'");
+		$order_disc = xtc_db_fetch_array($order_disc_query);
+		$pp_order_disc+=$order_disc['SUM(value)'];
+		$pp_order_gs=0;
+		$order_gs_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_coupon'");
+		$order_gs = xtc_db_fetch_array($order_gs_query);
+		$pp_order_gs-=$order_gs['SUM(value)'];
+		$order_gs_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_gv'");
+		$order_gs = xtc_db_fetch_array($order_gs_query);
+		$pp_order_gs-=$order_gs['SUM(value)'];
+		///  customers bonus
+		$order_gs_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_bonus_fee'");
+		$order_gs = xtc_db_fetch_array($order_gs_query);
+		$pp_order_gs-=$order_gs['SUM(value)'];
+		$pp_order_fee=0;
+		$order_fee_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_payment'");
+		$order_fee = xtc_db_fetch_array($order_fee_query);
+		// Rabatt aus Fremd Modul
+		if($order_fee['SUM(value)'] < 0):
+			$pp_order_disc+=$order_fee['SUM(value)'];
+		else:
+			$pp_order_fee+=$order_fee['SUM(value)'];
+		endif;
+		$order_fee_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_cod_fee'");
+		$order_fee = xtc_db_fetch_array($order_fee_query);
+		$pp_order_fee+=$order_fee['SUM(value)'];
+		$order_fee_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_ps_fee'");
+		$order_fee = xtc_db_fetch_array($order_fee_query);
+		$pp_order_fee+=$order_fee['SUM(value)'];
+		$order_fee_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_loworderfee'");
+		$order_fee = xtc_db_fetch_array($order_fee_query);
+		$pp_order_fee+=$order_fee['SUM(value)'];  
 
-      $shipping_method_query = xtc_db_query("select title from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
-
+      //$shipping_method_query = xtc_db_query("select title from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
+	  $shipping_method_query = xtc_db_query("select title, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
+	  // EOF - web28 - 2010-05-06 - PayPal API Modul  
       $shipping_method = xtc_db_fetch_array($shipping_method_query);
 
       $order_status_query = xtc_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $order['orders_status'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
@@ -104,6 +146,14 @@
                           'orders_status' => $order_status['orders_status_name'],
                           'last_modified' => $order['last_modified'],
                           'total' => strip_tags($order_total['text']),
+// BOF - web28 - 2010-05-06 - PayPal API Modul
+						  'pp_total' => $order_total['value'], 
+                          'pp_shipping' => $shipping_method['value'], 
+						  'pp_tax' => $pp_order_tax, 
+						  'pp_disc' => $pp_order_disc, 
+						  'pp_gs' => $pp_order_gs, 
+						  'pp_fee' => $pp_order_fee, 
+// EOF - web28 - 2010-05-06 - PayPal API Modul
                           'shipping_method' => ((substr($shipping_method['title'], -1) == ':') ? substr(strip_tags($shipping_method['title']), 0, -1) : strip_tags($shipping_method['title'])),
                           'comments' => $order['comments']
                           );
@@ -138,9 +188,9 @@
                               'postcode' => $order['delivery_postcode'],
                               'state' => $order['delivery_state'],
                               'country' => $order['delivery_country'],
-							  //BOF - web28 - 2010-03-26 - PayPal Link
+							  //BOF - web28 - 2010-03-26 - PayPal IPN Link
 							  'country_iso_2' => $order['billing_country_iso_code_2'],
-							  //EOF - web28 - 2010-03-26 - PayPal Link
+							  //EOF - web28 - 2010-03-26 - PayPal IPN Link
                               'format_id' => $order['delivery_address_format_id']);
 
 
@@ -157,7 +207,8 @@
                              'city' => $order['billing_city'],
                              'postcode' => $order['billing_postcode'],
                              'state' => $order['billing_state'],
-                             'country' => $order['billing_country'],													 
+                             'country' => $order['billing_country'],							 
+							 'country_iso_2' => $order['delivery_country_iso_code_2'], //ADD - web28 - 2010-05-06 - PAYPAL
                              'format_id' => $order['billing_address_format_id']);
 
       $index = 0;
@@ -263,16 +314,16 @@
 		// EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in orders class	
 			$total = $order_total_values['value'];
 
-	//BOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount	
+	//BOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount	
 		if ($order_total_values['class'] == 'ot_shipping')				
 			$shipping = $order_total_values['value'];
-    //EOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount	
+    //EOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount	
 	}
-	//BOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount
+	//BOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount
 
 	//return array('data'=>$order_total,'total'=>$total);
 	return array('data'=>$order_total,'total'=>$total, 'shipping'=>$shipping); 
-	//EOF - web28 - 2010-03-26 - PayPal Link in Kundenaccount	
+	//EOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount	
 
     }
 
@@ -368,6 +419,9 @@
                              'format_id' => $billing_address['address_format_id']);
 
       $index = 0;
+// BOF - web28 - 2010-05-06 - PayPal API Modul
+      $this->tax_discount = array ();
+// EOF - web28 - 2010-05-06 - PayPal API Modul
       $products = $_SESSION['cart']->get_products();
       for ($i=0, $n=sizeof($products); $i<$n; $i++) {
 
@@ -383,9 +437,11 @@
                                         'tax_class_id'=> $products[$i]['tax_class_id'],
                                         'tax' => xtc_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'tax_description' => xtc_get_tax_description($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
-                                        'price' =>  $products_price ,
-                            		    'final_price' => $products_price*$products[$i]['quantity'],
-                            		    'shipping_time'=>$products[$i]['shipping_time'],
+                                        'price' =>  $products_price ,										
+										'price_formated' => $xtPrice->xtcFormat($products_price,true), // ADD - web28 - 2010-05-06 - PayPal API Modul
+										'final_price' => $products_price*$products[$i]['quantity'],
+										'final_price_formated' => $xtPrice->xtcFormat($products_price*$products[$i]['quantity'],true), // ADD - web28 - 2010-05-06 - PayPal API Modul
+										'shipping_time'=>$products[$i]['shipping_time'],
 					                    'weight' => $products[$i]['weight'],
                                         'id' => $products[$i]['id']);
         if ($products[$i]['attributes']) {
@@ -424,7 +480,10 @@
           }
         } else {
           if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
-            $this->info['tax'] += ($shown_price_tax/100) * ($products_tax);
+// BOF - web28 - 2010-05-06 - PayPal API Modul
+//            $this->info['tax'] += ($shown_price_tax/100) * ($products_tax);
+            $this->tax_discount[$products[$i]['tax_class_id']]+=($shown_price_tax/100) * $products_tax;
+// EOF - web28 - 2010-05-06 - PayPal API Modul
             $this->info['tax_groups'][TAX_NO_TAX . "$products_tax_description"] += ($shown_price_tax/100) * ($products_tax);
           } else {
             $this->info['tax'] += ($shown_price/100) * ($products_tax);
@@ -433,6 +492,11 @@
         }
         $index++;
       }
+// BOF - web28 - 2010-05-06 - PayPal API Modul
+      foreach ($this->tax_discount as $value) {
+        $this->info['tax']+=round($value, $xtPrice->get_decimal_places($order->info['currency']));
+      }
+// EOF - web28 - 2010-05-06 - PayPal API Modul
  //$this->info['shipping_cost']=0;
       if ($_SESSION['customers_status']['customers_status_show_price_tax'] == '0') {
         $this->info['total'] = $this->info['subtotal']  + $xtPrice->xtcFormat($this->info['shipping_cost'], false,0,true);

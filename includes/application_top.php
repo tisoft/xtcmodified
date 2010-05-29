@@ -479,6 +479,11 @@ if (TRACKING_ECONDA_ACTIVE=='true') {
 	$econda = new econda();
 }
 
+// BOF - web28 - 2010-05-06 - PayPal API Modul
+require_once (DIR_WS_CLASSES.'paypal_checkout.php');
+$o_paypal = new paypal_checkout();
+// EOF -  web28 - 2010-05-06 - PayPal API Modul
+
 require (DIR_WS_INCLUDES.FILENAME_CART_ACTIONS);
 // create the shopping cart & fix the cart if necesary
 if (!isset($_SESSION['cart']) || !is_object($_SESSION['cart'])) { //DokuMan - 2010-02-28 - set undefined variable cart

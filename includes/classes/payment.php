@@ -250,7 +250,17 @@
         }
       }
     }
+// BOF - web28 - 2010-05-07 - PayPal API Modul
+		// PayPal Express Giropay
+    function giropay_process() {
+      if (is_array($this->modules)) {
+        if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
 
+          return $GLOBALS[$this->selected_module]->giropay_process();
+        }
+      }
+    }
+// EOF - web28 - 2010-05-07 - PayPal API Modul
     function get_error() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
@@ -269,7 +279,7 @@
     }
 //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
 
-//BOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+//BOF  - web28 - 2010-03-27 PayPal IPN Bezahl-Link
   function create_paypal_link() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
@@ -277,6 +287,6 @@
         }
       }
     }
-//EOF  - web28 - 2010-03-27 PayPal Bezahl-Link
+//EOF  - web28 - 2010-03-27 PayPal IPN Bezahl-Link
  } 
- ?>
+?>

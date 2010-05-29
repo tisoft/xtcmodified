@@ -408,6 +408,10 @@ define('TEXT_REFERER','Referer: ');
 define('BOX_GOOGLE_SITEMAP', 'Google Sitemap');
 // EOF - Tomcraft - 2009-06-17 Google Sitemap
 
+// BOF - web28 - 2010-05-07 - PayPal API Modul
+define('BOX_PAYPAL','PayPal');
+// EOF  - web28 - 2010-05-07 - PayPal API Modul
+
 // BOF - Dokuman - 2009-10-02 - added moneybookers payment module version 2.4
 define('_PAYMENT_MONEYBOOKERS_EMAILID_TITLE','Moneybookers email address');
 define('_PAYMENT_MONEYBOOKERS_EMAILID_DESC','Email address you have registered with Moneybookers.<br />If not having a Moneybookers account you may get one for free at <a href="https://www.moneybookers.com/app/register.pl" target="_blank">Moneybookers.com</a>.');

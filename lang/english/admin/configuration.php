@@ -605,6 +605,47 @@ define('REVOCATION_ID_DESC','Content ID of revocation content');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_TITLE','Display right of revocation?');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_DESC','Display right of revocation on checkout_confirmation?');
 
+// BOF - web28 - 2010-05-07 - PayPal API Modul
+define('PAYPAL_MODE_TITLE','PayPal Mode:');
+define('PAYPAL_MODE_DESC','Live (Default) or Test (Sandbox)');
+define('PAYPAL_API_USER_TITLE','PayPal API-User (Live)');
+define('PAYPAL_API_USER_DESC','Enter user name (live)');
+define('PAYPAL_API_PWD_TITLE','PayPal API-Password (Live)');
+define('PAYPAL_API_PWD_DESC','Enter password (live)');
+define('PAYPAL_API_SIGNATURE_TITLE','PayPal API-Signature (Live)');
+define('PAYPAL_API_SIGNATURE_DESC','Enter API signature (live)');
+define('PAYPAL_API_SANDBOX_USER_TITLE','PayPal-API-User (Sandbox)');
+define('PAYPAL_API_SANDBOX_USER_DESC','Enter user name (sandbox)');
+define('PAYPAL_API_SANDBOX_PWD_TITLE','PayPal API-Password (Sandbox)');
+define('PAYPAL_API_SANDBOX_PWD_DESC','Enter password (sandbox)');
+define('PAYPAL_API_SANDBOX_SIGNATURE_TITLE','PayPal API-Signature (Sandbox)');
+define('PAYPAL_API_SANDBOX_SIGNATURE_DESC','Enter API signature (sandbox)');
+define('PAYPAL_API_VERSION_TITLE','PayPal API-Version');
+define('PAYPAL_API_VERSION_DESC','Enter PayPal API version, e.g. 62.0');
+define('PAYPAL_API_IMAGE_TITLE','PayPal Shop Logo');
+define('PAYPAL_API_IMAGE_DESC','Please enter the name of the logo file to be displayed with PayPal.<br />Note: Only displayed if the shop uses SSL.<br />Max. width: 750px, max. height: 90px.<br />The logo file is called from: '.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
+define('PAYPAL_API_CO_BACK_TITLE','PayPal Background Colour');
+define('PAYPAL_API_CO_BACK_DESC','Enter a background colour to be displayed with PayPal. e.g. FEE8B9');
+define('PAYPAL_API_CO_BORD_TITLE','PayPal Border Colour');
+define('PAYPAL_API_CO_BORD_DESC','Enter a border colour to be displayed with PayPal. e.g. E4C558');
+define('PAYPAL_ERROR_DEBUG_TITLE','PayPal Error Message');
+define('PAYPAL_ERROR_DEBUG_DESC','Display PayPal error message? default=false');
+define('PAYPAL_ORDER_STATUS_TMP_ID_TITLE','Order Status "cancel"');
+define('PAYPAL_ORDER_STATUS_TMP_ID_DESC','Select the order status for aborted transaction (e.g. PayPal abort)');
+define('PAYPAL_ORDER_STATUS_SUCCESS_ID_TITLE','Order Status OK');
+define('PAYPAL_ORDER_STATUS_SUCCESS_ID_DESC','Select the order status for a successful transaction (e.g. open PP paid)');
+define('PAYPAL_ORDER_STATUS_PENDING_ID_TITLE','Order Status "pending"');
+define('PAYPAL_ORDER_STATUS_PENDING_ID_DESC','Select the order status for a transaction which hasn\'t been fully processed by PayPal (e.g. open PP waiting)');
+define('PAYPAL_ORDER_STATUS_REJECTED_ID_TITLE','Order Status "rejected"');
+define('PAYPAL_ORDER_STATUS_REJECTED_ID_DESC','Select the order status for a rejected transaction (e.g. PayPal rejected)');
+define('PAYPAL_COUNTRY_MODE_TITLE','PayPal Country Mode');
+define('PAYPAL_COUNTRY_MODE_DESC','Select a country mode. Some PayPal functions are available only in the UK (e.g. DirectPayment)');
+define('PAYPAL_EXPRESS_ADDRESS_CHANGE_TITLE','PayPal-Express Address Data');
+define('PAYPAL_EXPRESS_ADDRESS_CHANGE_DESC','Permits changing address data transferred by PayPal.');
+define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_TITLE','Ship-To-Address Overwrite');
+define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Permits changing address data transferred by PayPal (existing account)');
+// EOF - web28 - 2010-05-07 - PayPal API Modul
+
 // BOF - Tomcraft - 2009-11-02 - New admin top menu
 define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Top Navigation');
 define('USE_ADMIN_TOP_MENU_DESC' , 'Activate Admin Top Navigation?');
@@ -624,4 +665,4 @@ define('USE_CONTACT_EMAIL_ADDRESS_DESC' , 'Use "Contact Us" e-mail address for s
 define('DELETE_CACHE_SUCCESSFUL', 'Cache deleted successfully.');
 define('DELETE_TEMP_CACHE_SUCCESSFUL', 'Templatecache deleted successfully.');
 // EOF - Dokuman - 2010-02-04 - delete cache files in admin section
-?>
+?

@@ -27,4 +27,8 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_MODULE_DIRECTORY', 'Modul Verzeichnis:');
 
 define('TABLE_HEADING_FILENAME','Modulname (f&uuml;r internen Gebrauch)');
+
+// BOF - web28 - 2010-05-07 PayPal API Modul
+define('TEXT_INFO_DELETE_PAYPAL', 'Wenn Sie dieses Modul jetzt deinstallieren werden die PayPal Transaktions-Daten gelöscht!<br /> Wollen Sie diese Daten erhalten, drücken Sie jetzt auf Abbruch und de-aktivieren Sie das Modul (Modul aktivieren = False) nur.');
+// EOF  - web28 - 2010-05-07 PayPal API Modul
 ?>

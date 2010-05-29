@@ -113,4 +113,10 @@
   define('TABLE_PAYMENT_IPAYMENT', 'payment_ipayment');
   define('TABLE_PAYMENT_IPAYMENT_LOG', 'payment_ipayment_log');
   // EOF - 2010-01-20 vr - revised unified version based on database_tables.php and admin/incudes/application_top.php
+  
+  // BOF - web28 - 2010-05-06 - PayPal API Modul
+  define('TABLE_PAYPAL', 'paypal');
+  define('TABLE_PAYPAL_STATUS_HISTORY', 'paypal_status_history');
+  // EOF - web28 - 2010-05-06 - PayPal API Modul
+
 ?>

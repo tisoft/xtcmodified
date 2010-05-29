@@ -10,13 +10,13 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
-   (c) 2003	 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org 
+   (c) 2003	 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contribution:
    Add A Quickie v1.0 Autor  Harald Ponce de Leon
-    
+
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
@@ -81,7 +81,7 @@
   require_once(DIR_FS_INC . 'xtc_db_output.inc.php');
   require_once(DIR_FS_INC . 'xtc_db_input.inc.php');
   require_once(DIR_FS_INC . 'xtc_db_prepare_input.inc.php');
-  
+
   require_once (DIR_FS_INC.'xtc_href_link.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_separator.inc.php');
 require_once (DIR_FS_INC.'xtc_php_mail.inc.php');
@@ -140,7 +140,6 @@ require_once (DIR_FS_INC.'xtc_input_validation.inc.php');
 
   // modification for new graduated system
 
-
   // make a connection to the database... now
   xtc_db_connect() or die('Unable to connect to database server!');
 
@@ -158,8 +157,10 @@ require_once (DIR_FS_INC.'xtc_input_validation.inc.php');
       ini_set('zlib.output_compression_level', GZIP_LEVEL);
     }
   }
-
-    // Include Template Engine
+// Paypal API Modul Änderungen:
+  require (DIR_WS_FUNCTIONS.'sessions.php');
+   
+// Include Template Engine
 // BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
 ////  require(DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');
 //  require(DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');

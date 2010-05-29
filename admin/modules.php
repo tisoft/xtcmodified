@@ -231,6 +231,15 @@
   $heading = array();
   $contents = array();
   switch ($_GET['action']) {
+// BOF - web28 - 2010-05-06 - PayPal API Modul
+		case 'removepaypal':
+			$heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
+			$contents = array ('form' => xtc_draw_form('modules', FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=remove'));
+			$contents[] = array ('text' => '<br />'.TEXT_INFO_DELETE_PAYPAL.'<br /><br />'.$mInfo->description);
+			$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.BUTTON_MODULE_REMOVE);
+			$contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" onClick="this.blur();" value="'. BUTTON_START .'"><a class="button" onClick="this.blur();" href="'.xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module']).'">' . BUTTON_CANCEL . '</a>');
+			break;
+// EOF  - web28 - 2010-05-06 - PayPal API Modul
     case 'edit':
       $keys = '';
       reset($mInfo->keys);
