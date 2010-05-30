@@ -49,7 +49,15 @@
         $status = xtc_db_prepare_input($_GET['flag']);      
         xtc_db_query("update " . TABLE_COUNTRIES . " set status = '" . xtc_db_input($status) . "' where countries_id = '" . xtc_db_input($countries_id) . "'");
         xtc_redirect(xtc_href_link(FILENAME_COUNTRIES, 'page=' . $_GET['page'] . '&cID=' . $countries_id));      
-      break;  
+      break;
+	  //BOF - web28 - 2010.05.30 - set/unset all flags
+	  case 'setallflags':
+        $countries_id = xtc_db_prepare_input($_GET['cID']);
+        $status = xtc_db_prepare_input($_GET['flag']);      
+        xtc_db_query("update " . TABLE_COUNTRIES . " set status = '" . xtc_db_input($status) . "'");
+        xtc_redirect(xtc_href_link(FILENAME_COUNTRIES, 'page=' . $_GET['page']));      
+      break;
+	  //EOF - web28 - 2010.05.30 - set/unset all flags	  
     }
   }
 ?>
@@ -83,7 +91,15 @@
     <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
   </tr>
   <tr>
-    <td class="main" valign="top">XT Configuration</td>
+    <td class="main" valign="top">XT Configuration
+	<?php //BOF - web28 - 2010.05.30 - set/unset all flags ?>
+	<?php 
+		echo '<a class="button" style="margin-left:150px;" href="' . xtc_href_link(FILENAME_COUNTRIES, xtc_get_all_get_params(array('page', 'action', 'cID')) . 'action=setallflags&flag=1&page='.$_GET['page']) . '">'.BUTTON_SET.'</a>';
+		echo '&nbsp;&nbsp;&nbsp;';
+		echo '<a class="button" href="' . xtc_href_link(FILENAME_COUNTRIES, xtc_get_all_get_params(array('page', 'action', 'cID')) . 'action=setallflags&flag=0&page='.$_GET['page']) . '">'.BUTTON_UNSET.'</a>';
+	 ?>
+	 <?php //EOF - web28 - 2010.05.30 - set/unset all flags ?>
+	</td>
   </tr>
 </table></td>
       </tr>

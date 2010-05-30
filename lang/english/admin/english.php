@@ -457,4 +457,9 @@ define('ASB_QUICK_SEARCH_ORDER_ID','Order: ');
 define('ASB_QUICK_SEARCH_ARTICLE','Product: ');
 define('ASB_QUICK_SEARCH_EMAIL', 'E-Mail Address:');
 //EOF - web28 - 2010-04-10 - ADMIN SEARCH BAR
+
+//BOF - web28 - 2010.05.30 - accounting - set all checkboxes , countries - set all flags
+define('BUTTON_SET','Check All');
+define('BUTTON_UNSET','Uncheck All');
+//EOF - web28 - 2010.05.30 - accounting - set all checkboxes 
 ?>

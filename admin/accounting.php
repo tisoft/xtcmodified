@@ -69,6 +69,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+
+<!-- BOF - web28 - 2010.05.30 - set all checkboxes -->
+<script type="text/javascript">
+function set_checkbox (set) {
+  if (set == 1) {
+    for (var i = 0; i < document.getElementsByName("access[]").length; ++i)
+		document.getElementsByName("access[]")[i].checked = true;    
+  }
+  if (set == 0) {
+    for (var i = 0; i < document.getElementsByName("access[]").length; ++i)
+		document.getElementsByName("access[]")[i].checked = false; 
+  }
+  
+}
+</script>
+<!-- EOF - web28 - 2010.05.30 - set all checkboxes -->
+
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -119,6 +136,10 @@
       </tr>
       </table>
       <br />
+	   <!-- BOF - web28 - 2010.05.30 - set all checkboxes -->
+	  <a class="button" href="#" onclick="set_checkbox(1);"><?php echo BUTTON_SET; ?></a>&nbsp;&nbsp;&nbsp;<a class="button" href="#" onclick="set_checkbox(0);"><?php echo BUTTON_UNSET; ?></a>
+	  <br /><br />
+	  <!-- EOF - web28 - 2010.05.30 - set all checkboxes -->
       </td>
       </tr>
       <tr>
