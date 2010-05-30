@@ -82,10 +82,10 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	$country = xtc_db_prepare_input($_POST['country']);
 	$telephone = xtc_db_prepare_input($_POST['telephone']);
 	$fax = xtc_db_prepare_input($_POST['fax']);
-	//BOF - Dokuman - 2010-03-19 - set undefined variable
+	//BOF - web28 - 2010-05-30 - set undefined variable
 	//$newsletter = xtc_db_input($_POST['newsletter']);
-    $newsletter = isset($_POST['newsletter']) ? xtc_db_prepare_input($_POST['newsletter']) : 0;
-	//EOF - Dokuman - 2010-03-19 - set undefined variable
+    $newsletter = isset($_POST['newsletter']) ? xtc_db_prepare_input($_POST['newsletter']) : '';
+	//EOF -  web28 - 2010-05-30 - set undefined variable
 	$password = xtc_db_prepare_input($_POST['password']);
 	$confirmation = xtc_db_prepare_input($_POST['confirmation']);
 	$privacy = xtc_db_prepare_input($_POST['privacy']);
@@ -248,7 +248,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	if ($customers_status == 0 || !$customers_status)
 		$customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
 	if (!$newsletter)
-		$newsletter = 0;
+		$newsletter = '';
 	if ($error == false) {
 		$sql_data_array = array (
 		'customers_vat_id' => $vat,
@@ -522,7 +522,7 @@ $smarty->assign('SELECT_COUNTRY', xtc_get_country_list(array ('name' => 'country
 $smarty->assign('INPUT_TEL', xtc_draw_input_fieldNote(array ('name' => 'telephone', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="inputRequirement">'.ENTRY_TELEPHONE_NUMBER_TEXT.'</span>' : ''))));
 $smarty->assign('INPUT_FAX', xtc_draw_input_fieldNote(array ('name' => 'fax', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="inputRequirement">'.ENTRY_FAX_NUMBER_TEXT.'</span>' : ''))));
 $smarty->assign('INPUT_PASSWORD', xtc_draw_password_fieldNote(array ('name' => 'password', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="inputRequirement">'.ENTRY_PASSWORD_TEXT.'</span>' : ''))));
-$smarty->assign('CHECKBOX_NEWSLETTER', xtc_draw_checkbox_field('newsletter', '1', true).'&nbsp;'. (xtc_not_null(ENTRY_NEWSLETTER_TEXT) ? '<span class="inputRequirement">'.ENTRY_NEWSLETTER_TEXT.'</span>' : '')); //DokuMan - 2010-05-27 - set true or false to uncheck or check newsletter checkbox
+$smarty->assign('CHECKBOX_NEWSLETTER', xtc_draw_checkbox_field('newsletter', '1').'&nbsp;'. (xtc_not_null(ENTRY_NEWSLETTER_TEXT) ? '<span class="inputRequirement">'.ENTRY_NEWSLETTER_TEXT.'</span>' : ''));
 $smarty->assign('INPUT_CONFIRMATION', xtc_draw_password_fieldNote(array ('name' => 'confirmation', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="inputRequirement">'.ENTRY_PASSWORD_CONFIRMATION_TEXT.'</span>' : ''))));
 if (DISPLAY_PRIVACY_CHECK == 'true') {
 $smarty->assign('PRIVACY_CHECKBOX', '<input type="checkbox" value="privacy" name="privacy" />');
