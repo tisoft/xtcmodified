@@ -113,7 +113,7 @@ define('WARNING_ORDER_NOT_UPDATED', 'Hinweis: Es wurde nichts ge&auml;ndert. Dah
 
 define('TABLE_HEADING_DISCOUNT','Rabatt');
 define('ENTRY_CUSTOMERS_GROUP','Kundengruppe:');
-define('ENTRY_CUSTOMERS_VAT_ID','UST-ID:');
+define('ENTRY_CUSTOMERS_VAT_ID','USt-IdNr.:');
 define('TEXT_VALIDATING','Nicht best&auml;tigt');
 
 // BOF - Tomcraft - 2010-04-22 - Added a missing language definition

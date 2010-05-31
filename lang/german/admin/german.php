@@ -389,10 +389,10 @@ define('NEW_SIGNUP_DISCOUNT_COUPON_DESC', 'Willkommens-Rabatt Kupon Code: Wenn S
 define('TXT_ALL','Alle');
 
 // UST ID
-define('HEADING_TITLE_VAT','Ust-ID');
-define('HEADING_TITLE_VAT','Ust-ID');
-define('ENTRY_VAT_ID','Ust-ID:');
-define('ENTRY_CUSTOMERS_VAT_ID', 'UstID:');
+define('HEADING_TITLE_VAT','USt-IdNr.');
+define('HEADING_TITLE_VAT','USt-IdNr.');
+define('ENTRY_VAT_ID','USt-IdNr.:');
+define('ENTRY_CUSTOMERS_VAT_ID', 'USt-IdNr.:');
 define('TEXT_VAT_FALSE','<font color="#ff0000">Gepr&uuml;ft/Falsch!</font>');
 define('TEXT_VAT_TRUE','<font color="#ff0000">Gepr&uuml;ft/OK!</font>');
 define('TEXT_VAT_UNKNOWN_COUNTRY','<font color="#ff0000">Nicht Gepr&uuml;ft/Land unbekannt!</font>');
@@ -463,4 +463,4 @@ define('ASB_QUICK_SEARCH_EMAIL', 'E-Mail Adresse: ');
 define('BUTTON_SET','Alle aktivieren');
 define('BUTTON_UNSET','Alle deaktivieren');
 //EOF - web28 - 2010.05.30 - accounting - set all checkboxes 
-?>
+?

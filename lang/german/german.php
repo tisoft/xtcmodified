@@ -445,9 +445,9 @@ define('TEXT_COUPON_HELP_RESTRICT', '<br /><br />Artikel / Kategorie Einschr&aum
 define('TEXT_COUPON_HELP_CATEGORIES', 'Kategorie');
 define('TEXT_COUPON_HELP_PRODUCTS', 'Artikel');
 
-// VAT ID
+// VAT Reg No
 define('ENTRY_VAT_TEXT', 'Nur f&uuml;r Deutschland und EU!');
-define('ENTRY_VAT_ERROR', 'Die eingegebene UstID ist ung&uuml;ltig oder kann derzeit nicht &uuml;berpr&uuml;ft werden! Bitte geben Sie eine g&uuml;ltige ID ein oder lassen Sie das Feld zun&auml;chst leer.');
+define('ENTRY_VAT_ERROR', 'Die eingegebene USt-IdNr. ist ung&uuml;ltig oder kann derzeit nicht &uuml;berpr&uuml;ft werden! Bitte geben Sie eine g&uuml;ltige ID ein oder lassen Sie das Feld zun&auml;chst leer.');
 define('MSRP','UVP');
 define('YOUR_PRICE','Ihr Preis ');
 // BOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
@@ -499,4 +499,4 @@ define('PAYPAL_EXP_VORL','Vorl&auml;ufige Versandkosten');
 define('PAYPAL_EXP_VERS','6.90');
 // EOF - web28 - 2010-05-07 - PayPal API Modul
 define('BASICPRICE_VPE_TEXT','bei dieser Menge nur '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
-?>
+?

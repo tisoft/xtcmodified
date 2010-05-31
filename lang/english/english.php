@@ -445,9 +445,9 @@ define('TEXT_COUPON_HELP_RESTRICT', '<br /><br />Product / Category Restrictions
 define('TEXT_COUPON_HELP_CATEGORIES', 'Category'); //changed by electronica 2009-09-06
 define('TEXT_COUPON_HELP_PRODUCTS', 'Product'); //changed by electronica 2009-09-06
 
-// VAT ID
+// VAT Reg No
 define('ENTRY_VAT_TEXT','* for EU-Countries only'); //changed by electronica 2009-09-06 anmerkung: besser wenn laden im EU ausland ist
-define('ENTRY_VAT_ERROR', 'The chosen VAT-ID is not valid or cannot be verified at the moment! Please enter a valid VAT-ID or leave this field empty.'); //changed by electronica 2009-09-06
+define('ENTRY_VAT_ERROR', 'The chosen VAT Reg No is not valid or cannot be verified at the moment! Please enter a valid VAT Reg No or leave this field empty.'); //changed by electronica 2009-09-06
 define('MSRP','MSRP');
 define('YOUR_PRICE','your price ');
 // BOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
@@ -500,4 +500,4 @@ define('PAYPAL_EXP_VERS','12.90');
 // EOF - web28 - 2010-05-07 - PayPal API Modul
 
 define('BASICPRICE_VPE_TEXT','in this volume only '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
-?>
+?

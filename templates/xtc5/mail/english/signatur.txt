@@ -8,4 +8,4 @@ Email
 Phone:
 Fax:
 CEO:
-VAT-ID:
+VAT Reg No

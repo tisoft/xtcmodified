@@ -557,20 +557,20 @@ define('DOWNLOAD_MIN_ORDERS_STATUS_TITLE', 'Min. Order Status');
 define('DOWNLOAD_MIN_ORDERS_STATUS_DESC', 'Min. order status to allow download of files.');
 
 // Vat Check
-define('STORE_OWNER_VAT_ID_TITLE' , 'VAT ID of Shop Owner');
-define('STORE_OWNER_VAT_ID_DESC' , 'The VAT ID of the Shop Owner');
-define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_TITLE' , 'Customers Group Approved VAT ID (Foreign Country)');
-define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_DESC' , 'Customers group for customers whose VAT ID has been checked and approved, shop country <> customer\'s country');
-define('ACCOUNT_COMPANY_VAT_CHECK_TITLE' , 'Validate VAT ID');
-define('ACCOUNT_COMPANY_VAT_CHECK_DESC' , 'Validate VAT ID (check correct syntax)');
-define('ACCOUNT_COMPANY_VAT_LIVE_CHECK_TITLE' , 'Validate VAT ID Live');
-define('ACCOUNT_COMPANY_VAT_LIVE_CHECK_DESC' , 'Validate VAT ID live (if no syntax check available for country), live check will use validation gateway of German "Bundesamt f&uuml;r Finanzen"');
+define('STORE_OWNER_VAT_ID_TITLE' , 'VAT Reg No of Shop Owner');
+define('STORE_OWNER_VAT_ID_DESC' , 'The VAT Reg No of the Shop Owner');
+define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_TITLE' , 'Customers Group Approved VAT Reg No (Foreign Country)');
+define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_DESC' , 'Customers group for customers whose VAT Reg No has been checked and approved, shop country <> customer\'s country');
+define('ACCOUNT_COMPANY_VAT_CHECK_TITLE' , 'Validate VAT Reg No');
+define('ACCOUNT_COMPANY_VAT_CHECK_DESC' , 'Validate VAT Reg No (check correct syntax)');
+define('ACCOUNT_COMPANY_VAT_LIVE_CHECK_TITLE' , 'Validate VAT Reg No Live');
+define('ACCOUNT_COMPANY_VAT_LIVE_CHECK_DESC' , 'Validate VAT Reg No live (if no syntax check available for country), live check will use validation gateway of German "Bundesamt f&uuml;r Finanzen"');
 define('ACCOUNT_COMPANY_VAT_GROUP_TITLE' , 'Automatic Pruning?');
-define('ACCOUNT_COMPANY_VAT_GROUP_DESC' , 'Set to true, the customers group will be changed automatically if a valid VAT ID is used');
-define('ACCOUNT_VAT_BLOCK_ERROR_TITLE' , 'Allow Invalid VAT ID?');
-define('ACCOUNT_VAT_BLOCK_ERROR_DESC' , 'Set to true, only validated VAT IDs are accepted');
-define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_TITLE','Customers Group - Approved VAT ID (Shop country)');
-define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_DESC','Customers group for customers whose VAT ID has been checked and approved, shop country = customers country');
+define('ACCOUNT_COMPANY_VAT_GROUP_DESC' , 'Set to true, the customers group will be changed automatically if a valid VAT Reg No is used');
+define('ACCOUNT_VAT_BLOCK_ERROR_TITLE' , 'Allow Invalid VAT Reg No?');
+define('ACCOUNT_VAT_BLOCK_ERROR_DESC' , 'Set to true, only validated VAT Reg No are accepted');
+define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_TITLE','Customers Group - Approved VAT Reg No (Shop country)');
+define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL_DESC','Customers group for customers whose VAT Reg No has been checked and approved, shop country = customers country');
 
 // Google Conversion
 define('GOOGLE_CONVERSION_TITLE','Google Conversion Tracking');

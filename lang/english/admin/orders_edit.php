@@ -44,7 +44,7 @@ define('TEXT_COUNTRY', 'Country:');
 define('TEXT_CUSTOMER_GROUP', 'Customer Group from Order');
 define('TEXT_CUSTOMER_EMAIL', 'E-mail:');
 define('TEXT_CUSTOMER_TELEPHONE', 'Phone:');
-define('TEXT_CUSTOMER_UST', 'VAT-ID:');
+define('TEXT_CUSTOMER_UST', 'VAT Reg No:');
 
 // Artikelbearbeitung
 
