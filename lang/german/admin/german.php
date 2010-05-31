@@ -463,4 +463,4 @@ define('ASB_QUICK_SEARCH_EMAIL', 'E-Mail Adresse: ');
 define('BUTTON_SET','Alle aktivieren');
 define('BUTTON_UNSET','Alle deaktivieren');
 //EOF - web28 - 2010.05.30 - accounting - set all checkboxes 
-?
+?>

@@ -500,4 +500,4 @@ define('PAYPAL_EXP_VERS','12.90');
 // EOF - web28 - 2010-05-07 - PayPal API Modul
 
 define('BASICPRICE_VPE_TEXT','in this volume only '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
-?
+?>
