@@ -70,11 +70,6 @@ if ($_GET['action'] == "product_edit") {
 	$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
 	xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array, 'update', 'orders_products_id = \''.xtc_db_input($_POST['opID']).'\'');
 
-    //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
-    $new_qty = (double)$_POST['old_qty'] - (double)$_POST['products_quantity'];
-    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity + " . $new_qty . " WHERE products_id = " . xtc_db_input($_POST['old_pID']));
-    //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
-
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
 // Artikel bearbeiten Ende:
@@ -102,9 +97,11 @@ if ($_GET['action'] == "product_ins") {
 	$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
 	xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array);
     
-    //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
-    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity - " . (double)$_POST['products_quantity'] . " WHERE products_id = " . (int)$_POST['products_id']);
-    //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+  //BOF - Dokuman - 2010-06-02 - calculate stock correctly when editing orders
+  if ($_POST['products_quantity'] != 0) {
+    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity - " . xtc_db_prepare_input($_POST['products_quantity']) . " WHERE products_id= " . xtc_db_prepare_input($_POST['products_id']));
+  }
+  //EOF - Dokuman - 2010-06-02 - calculate stock correctly when editing orders
 
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
