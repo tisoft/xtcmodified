@@ -538,7 +538,10 @@ if ($_GET['action'] == "save_order") {
 			} else {
 				$module_tmp_name = explode('_', $order->info['shipping_class']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
 				$module_tmp_name = $module_tmp_name[0];
-				if ($module_tmp_name != 'selfpickup') {
+				//BOF - Dokuman - 2010-06-07 - fix error "MODULE SHIPPING FREE TAX CLASS"
+				//if ($module_tmp_name != 'selfpickup') {
+				if ($module_tmp_name != 'selfpickup' && $module_tmp_name != 'free') {
+				//EOF - Dokuman - 2010-06-07 - fix error "MODULE SHIPPING FREE TAX CLASS"
 					$module_tax_class = constant(MODULE_SHIPPING_.strtoupper($module_tmp_name)._TAX_CLASS);
 				} else {
 					$module_tax_class = '0'; //Dokuman set module_tax_class
