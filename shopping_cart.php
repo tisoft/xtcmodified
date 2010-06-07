@@ -100,6 +100,8 @@ $_SESSION['allow_checkout'] = 'true';
 // minimum/maximum order value
 $checkout = true;
 if ($_SESSION['cart']->show_total() > 0 ) {
+ //BOF - Dokuman - 2010-06-07 - fix minimum order value with 2 currencies
+ /*
  if ($_SESSION['cart']->show_total() < $_SESSION['customers_status']['customers_status_min_order'] ) {
   $_SESSION['allow_checkout'] = 'false';
   $more_to_buy = $_SESSION['customers_status']['customers_status_min_order'] - $_SESSION['cart']->show_total();
@@ -110,6 +112,22 @@ if ($_SESSION['cart']->show_total() > 0 ) {
   $smarty->assign('order_amount', $order_amount);
   $smarty->assign('min_order', $min_order);
  }
+ */
+ if ( $xtPrice->xtcRemoveCurr($_SESSION['cart']->show_total()) < $_SESSION['customers_status']['customers_status_min_order'] ) {
+  $_SESSION['allow_checkout'] = 'false';
+  $more_to_buy = $_SESSION['customers_status']['customers_status_min_order'] - $xtPrice->xtcRemoveCurr($_SESSION['cart']->show_total());
+  $more_to_buy *= $xtPrice->currencies[$xtPrice->actualCurr]['value']; 
+  $order_amount=$xtPrice->xtcFormat($more_to_buy, true);
+  $min_order = $_SESSION['customers_status']['customers_status_min_order'];
+  $min_order *= $xtPrice->currencies[$xtPrice->actualCurr]['value']; 
+  $min_order=$xtPrice->xtcFormat($min_order, true);
+  $smarty->assign('info_message_1', MINIMUM_ORDER_VALUE_NOT_REACHED_1);
+  $smarty->assign('info_message_2', MINIMUM_ORDER_VALUE_NOT_REACHED_2);
+  $smarty->assign('order_amount', $order_amount);
+  $smarty->assign('min_order', $min_order);
+ } 
+ //EOF - Dokuman - 2010-06-07 - fix minimum order value with 2 currencies
+ 
  if  ($_SESSION['customers_status']['customers_status_max_order'] != 0) {
   if ($_SESSION['cart']->show_total() > $_SESSION['customers_status']['customers_status_max_order'] ) {
   $_SESSION['allow_checkout'] = 'false';
