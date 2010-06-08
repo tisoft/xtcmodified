@@ -1,7 +1,7 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: ot_coupon.php 1322 2005-10-27 13:58:22Z mz $
+   $Id: ot_coupon.php 1322 2010-05-23 13:58:22Z web28 $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -31,6 +31,7 @@ class ot_coupon {
 
 	function ot_coupon() {
 		global $xtPrice;
+
 		$this->code = 'ot_coupon';
 		$this->header = MODULE_ORDER_TOTAL_COUPON_HEADER;
 		$this->title = MODULE_ORDER_TOTAL_COUPON_TITLE;
@@ -44,48 +45,48 @@ class ot_coupon {
 		$this->tax_class = MODULE_ORDER_TOTAL_COUPON_TAX_CLASS;
 		$this->credit_class = true;
 		$this->output = array ();
+
 	}
 
+	//BOF -web28- 2010-05-23 - BUGFIX - tax_deduction, $order->info['subtotal']
+	/*
 	function process() {
 		global $order, $xtPrice;
+
 		$order_total = $this->get_order_total();
 		$od_amount = $this->calculate_credit($order_total);
 		$tod_amount = 0.0; //Fred
 		$this->deduction = $od_amount;
-
-		//BOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
-		// BRC World Barnim
-		// Änderung der Ust Berechnung
-		/*	
+	
 		if ($this->calculate_tax != 'None') { //Fred - changed from 'none' to 'None'!
 		   $tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
-		*/
+		}
 
 		if ($od_amount > 0) {
-			// korrigierte Ust Berechnung
-			if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
-				reset($order->info['tax_groups']);
-				while (list ($key, $value) = each($order->info['tax_groups'])) {
-					$tax_rate = xtc_get_tax_rate($this->tax_class);
-					//print_r($tax_rate);
-					if ($this->include_tax == 'false') {
-						$od_amount = $od_amount + ($od_amount * $tax_rate / 100);
-						$od_amount = $od_amount;
-					}
-					$tax_betrag = $od_amount * $tax_rate / (100 + $tax_rate);
-					$order->info['tax_groups'][$key] = $order->info['tax_groups'][$key] - $tax_betrag;
-				}
-				$order->info['tax'] = $order->info['tax'] - $tax_betrag;
-		}
-		// BRC World Barnim Ende
-		//if ($od_amount > 0) {
-		//EOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
-
 			$order->info['total'] = $order->info['total'] - $od_amount;
 			$order->info['deduction'] = $od_amount;
 			$this->output[] = array ('title' => $this->title.':'.$this->coupon_code.':', 'text' => '<strong><font color="#ff0000">-'.$xtPrice->xtcFormat($od_amount, true).'</font></strong>', 'value' => $od_amount); //Fred added hyphen
 		}
 	}
+	*/
+	function process() {
+		global $order, $xtPrice;
+
+		$order_total = $this->get_order_total(); //Betrag,  der für die Kuponberechnung verwendet wird
+		$od_amount = $this->calculate_credit($order_total);	//Kuponbetrag berechnen	
+		$this->deduction = $od_amount;		
+
+		if ($od_amount > 0) {
+			if ($this->calculate_tax != 'None') { 		   
+				$od_amount = $this->new_calculate_tax_deduction($od_amount,$order_total);
+			}
+			$order->info['total'] = $order->info['total'] - $od_amount;
+			$order->info['deduction'] = $od_amount;			
+			$order->info['subtotal'] = $order->info['subtotal'] - $od_amount;					
+			$this->output[] = array ('title' => $this->title.':'.$this->coupon_code.':', 'text' => '<strong><font color="#ff0000">-'.$xtPrice->xtcFormat($od_amount, true).'</font></strong>', 'value' => $od_amount); //Fred added hyphen
+		}
+	}
+	//EOF -web28- 2010-05-23 - BUGFIX - tax_deduction, $order->info['subtotal']
 
 	function selection_test() {
 		return false;
@@ -185,26 +186,32 @@ class ot_coupon {
 				
 				if ($get_result['coupon_type'] == 'S')
 					$c_deduct = $order->info['shipping_cost'];
-				
-				if ($get_result['coupon_type']=='S' && $get_result['coupon_amount'] > 0 ) 
-					$c_deduct = $order->info['shipping_cost'] + $get_result['coupon_amount'];
+					
+				if ($get_result['coupon_type']=='S' && $get_result['coupon_amount'] > 0 ) $c_deduct = $order->info['shipping_cost'] + $get_result['coupon_amount'];
 				
 				if ($get_result['coupon_minimum_order'] <= $this->get_order_total()) {
 
 					if ($get_result['restrict_to_products'] || $get_result['restrict_to_categories']) {
-						
+						//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
+						$pr_c = 0;
+						//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
 						for ($i = 0; $i < sizeof($order->products); $i ++) {
 							if ($get_result['restrict_to_products']) {
-								$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+								$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 								
-								//BOF - 09.04.2009 - Christian - ot_coupon Bugfixes
+								
+								//BUG FOUND 09.04.2009
 								//for ($ii = 0; $p < count($pr_ids); $ii ++) {
+								
+								//FIXT 09.04.2009
 								for ($ii = 0; $ii < count($pr_ids); $ii ++) {
-								//EOF - 09.04.2009 - Christian - ot_coupon Bugfixes
-
+								// FIX END	
+								
+									
+									
 									if ($pr_ids[$ii] == xtc_get_prid($order->products[$i]['id'])) {
 										if ($get_result['coupon_type'] == 'P') {
-										
+											
 											$od_amount = $amount * $get_result['coupon_amount'] / 100;
 											$pr_c = $this->product_price($pr_ids[$ii]); //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
 											$pod_amount = round($pr_c*10)/10*$c_deduct/100;
@@ -212,14 +219,17 @@ class ot_coupon {
 										
 										} else {
 											$od_amount = $c_deduct;
+											//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
+											$pr_c += $this->product_price($pr_ids[$ii]);
+											//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
 										}
 									}
 								}
 							} else {
-								$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+								$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 								for ($i = 0; $i < sizeof($order->products); $i ++) {
 									$my_path = xtc_get_product_path(xtc_get_prid($order->products[$i]['id']));
-									$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+									$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 									for ($iii = 0; $iii < count($sub_cat_ids); $iii ++) {
 										for ($ii = 0; $ii < count($cat_ids); $ii ++) {
 											if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
@@ -230,14 +240,21 @@ class ot_coupon {
                                                        continue 3;      // v5.13a Tanaka 2005-4-30: to prevent double counting of a product discount
 												} else {
 													$od_amount = $c_deduct;
+													//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
+													$pr_c += $this->product_price(xtc_get_prid($order->products[$i]['id']));
+													//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
 													continue 3;
      											}
 											}
 										}
 									}
 								}
+								
 							}
 						}
+						//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
+						if ($get_result['coupon_type'] == 'F' && $od_amount > $pr_c )  {$od_amount = $pr_c;}
+						//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
 					} else {
 						if ($get_result['coupon_type'] != 'P') {
 							$od_amount = $c_deduct;
@@ -252,7 +269,9 @@ class ot_coupon {
 		}
 		return $od_amount;
 	}
-
+	
+	//BOF -web28- 2010-05-23 - BUGFIX - tax_deduction
+	/*
 	function calculate_tax_deduction($amount, $od_amount, $method) {
 		global $order;
 
@@ -401,6 +420,64 @@ $order->info['tax'] -= $tod_amount;
 		}
 		return $tod_amount;
 	}
+	*/	
+	
+	function new_calculate_tax_deduction($od_amount, $order_total) {
+		global $order;
+		if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
+		    
+			//Wenn der Kupon ohne Steuer definiert wurde, muss die Bestellsumme korrigiert werden
+			if ($this->include_tax == 'false'){
+				$order_total = $order_total + $order->info['tax'];
+			}
+			//Gutscheinwert in % berechnen, vereinheitlicht die Berechnungen
+			$od_amount_pro = $od_amount/$order_total * 100;			
+			reset($order->info['tax_groups']);
+			$tax_betrag = 0;
+			$tod_amount = 0;
+			$tax_rate_amount = xtc_get_tax_rate($this->tax_class); //Steuersatz von Kupon festgelegt - Standard ist 0 !
+			// bei $tax_rate = 0 wurde kein Steuersatz definiert		
+			while (list ($key, $value) = each($order->info['tax_groups'])) {				
+				
+				//Steuersumme aus Bestellung ermitteln - ACHTUNG - Unterscheidung mit TAX_ADD_TAX und  TAX_NO_TAX
+				$tax_rate_order = xtc_get_tax_rate_from_desc( str_replace(TAX_ADD_TAX, "", $key) );  //inkl. UST
+                if ($_SESSION['customers_status']['customers_status_show_price_tax'] != '1') {
+					$tax_rate_order = xtc_get_tax_rate_from_desc( str_replace(TAX_NO_TAX, "", $key) );  //exkl. UST
+				}
+				
+				//Steuer neu berechnen							
+				$t_flag = false;
+				//Wenn ein Kupon Steuersatz definiert ist, dann nur mit diesem Steuersatz die Steuer neu berechnen (DEAKTIVIERT)
+				//Testen ob Steuersätze übereinstimmen
+				//if ($tax_rate_amount > 0 && ($tax_rate_amount - $tax_rate_order < 0.0001)) $t_flag = true;
+				//Wenn kein Kupon Steuersatz definiert ist, dann Steuersatz automatisch zuordnen
+				if ($tax_rate_amount == 0) $t_flag = true;
+				$net = $tax_rate_order * $order->info['tax_groups'][$key];	
+				if ($net > 0 && $t_flag) {					
+                    //Bei Anzeige von Netto Preisen muss anders gerechnet werden					
+					if ($_SESSION['customers_status']['customers_status_show_price_tax'] != '1') { //NETTO Preise
+						$god_amount = $order->info['tax_groups'][$key] - $order->info['tax_groups'][$key] * $od_amount_pro / 100;
+						$order->info['tax_groups'][$key] = $god_amount; //bei NETTO Preisen ersetzen
+					} else { //BRUTTO Preise
+						$god_amount = $order->info['tax_groups'][$key] * $od_amount_pro / 100;
+						$order->info['tax_groups'][$key] = $order->info['tax_groups'][$key] - $god_amount; //bei BRUTTO Preisen abziehen
+					}
+					//echo $god_amount . '<br>';
+					$tod_amount += $god_amount; //hier wird die Steuer aufaddiert					
+				}
+				
+			}			
+			
+			//Gesamtsteuer neu berechnen
+			$order->info['tax'] -= $tod_amount; //bei BRUTTO Preisen abziehen
+			if ($_SESSION['customers_status']['customers_status_show_price_tax'] != '1') {
+				$order->info['tax'] = $tod_amount; //bei NETTO Preisen ersetzen
+			}
+			
+			return $od_amount;
+		}
+	}
+	//EOF -web28- 2010-05-23 - BUGFIX - tax_deduction
 
 	function update_credit_account($i) {
 		return false;
@@ -425,7 +502,7 @@ $order->info['tax'] -= $tod_amount;
 			$t_prid = xtc_get_prid($products[$i]['id']);
 			$gv_query = xtc_db_query("select products_price, products_tax_class_id, products_model from ".TABLE_PRODUCTS." where products_id = '".$t_prid."'");
 			$gv_result = xtc_db_fetch_array($gv_query);
-			if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+			if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
 				$qty = $_SESSION['cart']->get_quantity($t_prid);
 				$products_tax = $xtPrice->TAX[$gv_result['products_tax_class_id']];
 				if ($this->include_tax == 'false') {
@@ -440,19 +517,20 @@ $order->info['tax'] -= $tod_amount;
 			$order_total = $order_total - $order->info['tax'];
 		if ($this->include_shipping == 'false')
 			$order_total = $order_total - $order->info['shipping_cost'];
+		
+		//BOF -web28- 2010-05-23 - FIX - unnecessary 
+		/*
 		// OK thats fine for global coupons but what about restricted coupons
 		// where you can only redeem against certain products/categories.
 		// and I though this was going to be easy !!!
-		// Hier holt er sich den Coupon Code
 		$coupon_query = xtc_db_query("select coupon_code from ".TABLE_COUPONS." where coupon_id='".$_SESSION['cc_id']."'");
 		if (xtc_db_num_rows($coupon_query) != 0) {
 			$coupon_result = xtc_db_fetch_array($coupon_query);
-			// Holt den Kupon-Wert, -Mindestbestellwert, Gueltige Artikel, Gueltige Kategorie 
 			$coupon_get = xtc_db_query("select coupon_amount, coupon_minimum_order,restrict_to_products,restrict_to_categories, coupon_type from ".TABLE_COUPONS." where coupon_code='".$coupon_result['coupon_code']."'");
 			$get_result = xtc_db_fetch_array($coupon_get);
 			$in_cat = true;
 			if ($get_result['restrict_to_categories']) {
-				$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+				$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 				$in_cat = false;
 				for ($i = 0; $i < count($cat_ids); $i ++) {
 					if (is_array($this->contents)) {
@@ -468,12 +546,11 @@ $order->info['tax'] -= $tod_amount;
 				}
 			}
 			$in_cart = true;
-			// HIER MUSS DAS ÜBEL SEIN!!!
 			if ($get_result['restrict_to_products']) {
-				// Falls mehr Produkte einen Rabatt haben, werden diese durch ein Komma getrennt und hier gesplittet
-				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+
+				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+
 				$in_cart = false;
-				// Hier werden die Produkte aus dem Einkaufswagen geholt
 				$products_array = $_SESSION['cart']->get_products();
 
 				for ($i = 0; $i < sizeof($pr_ids); $i ++) {
@@ -487,6 +564,9 @@ $order->info['tax'] -= $tod_amount;
 				$order_total = $total_price;
 			}
 		}
+		*/
+		//EOF -web28- 2010-05-23 - FIX - unnecessary 
+		
 		return $order_total;
 	}
 
@@ -498,10 +578,12 @@ $order->info['tax'] -= $tod_amount;
 		//$qty = $_SESSION['cart']->contents[$products_id]['qty'];
 		$qty = $_SESSION['cart']->contents[$product_id]['qty'];
 		//EOF - 2010-01-19 - Dokuman - ot_coupon Bugfixes
-
-		$product_query = xtc_db_query("select products_id, products_price, products_tax_class_id, products_weight from ".TABLE_PRODUCTS." where products_id='".$product_id."'");
+		
+		//$product_query = xtc_db_query("select products_id, products_price, products_tax_class_id, products_weight from ".TABLE_PRODUCTS." where products_id='".$product_id."'");
+		$product_query = xtc_db_query("select products_id, products_price, products_tax_class_id, products_weight from ".TABLE_PRODUCTS." where products_id='".$products_id."'");		
 		if ($product = xtc_db_fetch_array($product_query)) {
 			$prid = $product['products_id'];
+
 
 			if ($this->include_tax == 'true') {
 $total_price += $qty * $xtPrice->xtcGetPrice($product['products_id'], $format = false, 1, $product['products_tax_class_id'], $product['products_price'], 1);
@@ -556,15 +638,25 @@ $total_price += $qty * $xtPrice->xtcGetPrice($product['products_id'], $format = 
 	}
 
 	function keys() {
-		return array ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', 'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'MODULE_ORDER_TOTAL_COUPON_INC_TAX', 'MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'MODULE_ORDER_TOTAL_COUPON_TAX_CLASS');
+		return array ('MODULE_ORDER_TOTAL_COUPON_STATUS', 
+					  'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', 
+					  'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 
+					  'MODULE_ORDER_TOTAL_COUPON_INC_TAX',
+//BOF -web28- 2010-05-23 - FIX - unnecessary  COUPON_TAX_CLASS					  
+					  'MODULE_ORDER_TOTAL_COUPON_CALC_TAX'); 
+					  //'MODULE_ORDER_TOTAL_COUPON_TAX_CLASS');
+//EOF -web28- 2010-05-23 - FIX - unnecessary  COUPON_TAX_CLASS	
 	}
 
 	function install() {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_STATUS', 'true', '6', '1','xtc_cfg_select_option(array(\'true\', \'false\'), ', now())");
-		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '70', '6', '2', now())");
-		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'true', '6', '5', 'xtc_cfg_select_option(array(\'true\', \'false\'), ', now())");
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '25', '6', '2', now())");
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'false', '6', '5', 'xtc_cfg_select_option(array(\'true\', \'false\'), ', now())");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_INC_TAX', 'true', '6', '6','xtc_cfg_select_option(array(\'true\', \'false\'), ', now())");
-		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'None', '6', '7','xtc_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
+		//BOF -web28- 2010-05-23 - FIX - unnecessary  Credit Note
+		//xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'Standard', '6', '7','xtc_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'Standard', '6', '7','xtc_cfg_select_option(array(\'None\', \'Standard\'), ', now())");
+		//EOF -web28- 2010-05-23 - FIX - unnecessary  unnecessary  Credit Note
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_TAX_CLASS', '0', '6', '0', 'xtc_get_tax_class_title', 'xtc_cfg_pull_down_tax_classes(', now())");
 	}
 
