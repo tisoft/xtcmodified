@@ -51,4 +51,8 @@ define('SUCCESS_LAST_RESTORE_CLEARED', 'Success: The last restoration date has b
 define('SUCCESS_DATABASE_SAVED', 'Success: The database has been saved.');
 define('SUCCESS_DATABASE_RESTORED', 'Success: The database has been restored.');
 define('SUCCESS_BACKUP_DELETED', 'Success: The backup has been removed.');
+
+//TEXT_COMPLETE_INSERTS
+define('TEXT_COMPLETE_INSERTS', "<b>Complete 'INSERT's</b><br> - field names are entered into each row INSERT (increased backup)");
+
 ?>

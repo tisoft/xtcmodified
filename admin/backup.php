@@ -13,261 +13,53 @@
    (c) 2003	 nextcommerce (backup.php,v 1.11 2003/08/2); www.nextcommerce.org
 
    Released under the GNU General Public License 
+   Datenbank Backup Ver. 1.91b
+   modified by web28 - www.rpa-com.de 05.06.2010
+   //Rechte automatisch setzen für Unteradmin
+   
+   Datenbank Backup Ver. 1.91a
+   modified by web28 - www.rpa-com.de 28.04.2010
+   New Restore Method:  like MySqlDumper
+   New Backup Method:  single tables with reload site 
+   Backup includes - depends on database version - engine, auto_increment, default charset, collate
+   no exec needed
+   used upzip.lib.php , zip.lib.php for zip compress/uncompress
    --------------------------------------------------------------*/
-
+  define('BK_FILENAME', 'backup_db.php'); 
+  
+  define ('VERSION', 'Database Backup Ver. 1.91b');
+  
   require('includes/application_top.php');
+  
+  //Adminrechte automatisch für backup_db setzen
+	$result = xtc_db_query("select * from ".TABLE_ADMIN_ACCESS."");
+	if ($result_array = xtc_db_fetch_array($result)) {
+		if (!isset($result_array['backup_db'])) {	
+			xtc_db_query("ALTER TABLE `". TABLE_ADMIN_ACCESS."` ADD `backup_db` INT( 1 ) DEFAULT '0' NOT NULL") ;
+			xtc_db_query("UPDATE `".TABLE_ADMIN_ACCESS."` SET `backup_db` = '1' WHERE `customers_id` = '1' LIMIT 1") ;
+			//Rechte automatisch setzen für Unteradmin
+			if ($_SESSION['customer_id'] > 1) {
+				xtc_db_query("UPDATE `".TABLE_ADMIN_ACCESS."` SET `backup_db` = '1' WHERE `customers_id` = '".$_SESSION['customer_id']."' LIMIT 1") ;
+			}
+		}
+	}  
+  
+  if (!function_exists(xtc_copy_uploaded_file)){
+	  function xtc_copy_uploaded_file($filename, $target) {
+		if (substr($target, -1) != '/') $target .= '/';
+		$target .= $filename['name'];
+		move_uploaded_file($filename['tmp_name'], $target);
+	  }
+  }	  
 
   if ($_GET['action']) {
     switch ($_GET['action']) {
       case 'forget':
-        xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
+        mysql_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
         $messageStack->add_session(SUCCESS_LAST_RESTORE_CLEARED, 'success');
         xtc_redirect(xtc_href_link(FILENAME_BACKUP));
         break;
-      case 'backupnow':
-        @xtc_set_time_limit(0);
-        $schema = '# XT-Commerce' . "\n" .
-                  '# http://www.xt-commerce.com' . "\n" .
-                  '#' . "\n" .
-                  '# Database Backup For ' . STORE_NAME . "\n" . 
-                  '# Copyright (c) ' . date('Y') . ' ' . STORE_OWNER . "\n" .
-                  '#' . "\n" .
-                  '# Database: ' . DB_DATABASE . "\n" .
-                  '# Database Server: ' . DB_SERVER . "\n" . 
-                  '#' . "\n" .
-                  '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n\n";
-        $tables_query = xtc_db_query('show tables');
-        while ($tables = xtc_db_fetch_array($tables_query)) {
-          list(,$table) = each($tables);
-          $schema .= 'drop table if exists ' . $table . ';' . "\n" .
-                     'create table ' . $table . ' (' . "\n";
-          $table_list = array();
-          $fields_query = xtc_db_query("show fields from " . $table);
-          while ($fields = xtc_db_fetch_array($fields_query)) {
-            $table_list[] = $fields['Field'];
-            $schema .= '  ' . $fields['Field'] . ' ' . $fields['Type'];
-            if (strlen($fields['Default']) > 0) $schema .= ' default \'' . $fields['Default'] . '\'';
-            if ($fields['Null'] != 'YES') $schema .= ' not null';
-            if (isset($fields['Extra'])) $schema .= ' ' . $fields['Extra'];
-            $schema .= ',' . "\n";
-          }
-          $schema = preg_replace("/,\n$/", '', $schema); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
-
-          // Add the keys
-          $index = array();
-          $keys_query = xtc_db_query("show keys from " . $table);
-          while ($keys = xtc_db_fetch_array($keys_query)) {
-            $kname = $keys['Key_name'];
-            if (!isset($index[$kname])) {
-              $index[$kname] = array('unique' => !$keys['Non_unique'],
-                                     'columns' => array());
-            }
-            $index[$kname]['columns'][] = $keys['Column_name'];
-          }
-          while (list($kname, $info) = each($index)) {
-            $schema .= ',' . "\n";
-            $columns = implode($info['columns'], ', ');
-            if ($kname == 'PRIMARY') {
-              $schema .= '  PRIMARY KEY (' . $columns . ')';
-// BOF - Tomcraft - 2009-06-28 - Update backup.php to resolve backup issue for new index of type FULLTEXT created on update r93
-            } elseif ($kname == 'content_meta_title') {
-              $schema .= '  FULLTEXT ' . $kname . ' (' . $columns . ')';
-// EOF - Tomcraft - 2009-06-28 - Update backup.php to resolve backup issue for new index of type FULLTEXT created on update r93
-            } elseif ($info['unique']) {
-              $schema .= '  UNIQUE ' . $kname . ' (' . $columns . ')';
-            } else {
-              $schema .= '  KEY ' . $kname . ' (' . $columns . ')';
-            }
-          }
-          $schema .= "\n" . ');' . "\n\n";
-
-          // Dump the data
-          $rows_query = xtc_db_query("select " . implode(',', $table_list) . " from " . $table);
-          while ($rows = xtc_db_fetch_array($rows_query)) {
-            $schema_insert = 'insert into ' . $table . ' (' . implode(', ', $table_list) . ') values (';
-            reset($table_list);
-            while (list(,$i) = each($table_list)) {
-              if (!isset($rows[$i])) {
-                $schema_insert .= 'NULL, ';
-              } elseif ($rows[$i] != '') {
-                $row = addslashes($rows[$i]);
-                $row = preg_replace("/\n#/", "\n".'\#', $row); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
-                $schema_insert .= '\'' . $row . '\', ';
-              } else {
-                $schema_insert .= '\'\', ';
-              }
-            }
-            $schema_insert = preg_replace('/, $/', '', $schema_insert) . ');' . "\n"; // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
-            $schema .= $schema_insert;
-          }
-          $schema .= "\n";
-        }
-
-        if ($_POST['download'] == 'yes') {
-          $backup_file = 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
-          switch ($_POST['compress']) {
-            case 'no':
-              header('Content-type: application/x-octet-stream');
-              header('Content-disposition: attachment; filename=' . $backup_file);
-              echo $schema;
-              exit;
-              break;
-            case 'gzip':
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'w')) {
-                fputs($fp, $schema);
-                fclose($fp);
-                exec(LOCAL_EXE_GZIP . ' ' . DIR_FS_BACKUP . $backup_file);
-                $backup_file .= '.gz';
-              }
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'rb')) {
-                $buffer = fread($fp, filesize(DIR_FS_BACKUP . $backup_file));
-                fclose($fp);
-                unlink(DIR_FS_BACKUP . $backup_file);
-                header('Content-type: application/x-octet-stream');
-                header('Content-disposition: attachment; filename=' . $backup_file);
-                echo $buffer;
-                exit;
-              }
-              break;
-            case 'zip':
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'w')) {
-                fputs($fp, $schema);
-                fclose($fp);
-                exec(LOCAL_EXE_ZIP . ' -j ' . DIR_FS_BACKUP . $backup_file . '.zip ' . DIR_FS_BACKUP . $backup_file);
-                unlink(DIR_FS_BACKUP . $backup_file);
-                $backup_file .= '.zip';
-              }
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'rb')) {
-                $buffer = fread($fp, filesize(DIR_FS_BACKUP . $backup_file));
-                fclose($fp);
-                unlink(DIR_FS_BACKUP . $backup_file);
-                header('Content-type: application/x-octet-stream');
-                header('Content-disposition: attachment; filename=' . $backup_file);
-                echo $buffer;
-                exit;
-              }
-          }
-        } else {
-          $backup_file = DIR_FS_BACKUP . 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
-          if ($fp = fopen($backup_file, 'w')) {
-            fputs($fp, $schema);
-            fclose($fp);
-            switch ($_POST['compress']) {
-              case 'gzip':
-                exec(LOCAL_EXE_GZIP . ' ' . $backup_file);
-                break;
-              case 'zip':
-                exec(LOCAL_EXE_ZIP . ' -j ' . $backup_file . '.zip ' . $backup_file);
-                unlink($backup_file);
-            }
-          }
-          $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
-        }
-        xtc_redirect(xtc_href_link(FILENAME_BACKUP));
-        break;
-      case 'restorenow':
-      case 'restorelocalnow':
-        @xtc_set_time_limit(0);
-
-        if ($_GET['action'] == 'restorenow') {
-          $read_from = $_GET['file'];
-          if (file_exists(DIR_FS_BACKUP . $_GET['file'])) {
-            $restore_file = DIR_FS_BACKUP . $_GET['file'];
-            $extension = substr($_GET['file'], -3);
-            if ( ($extension == 'sql') || ($extension == '.gz') || ($extension == 'zip') ) {
-              switch ($extension) {
-                case 'sql':
-                  $restore_from = $restore_file;
-                  $remove_raw = false;
-                  break;
-                case '.gz':
-                  $restore_from = substr($restore_file, 0, -3);
-                  exec(LOCAL_EXE_GUNZIP . ' ' . $restore_file . ' -c > ' . $restore_from);
-                  $remove_raw = true;
-                  break;
-                case 'zip':
-                  $restore_from = substr($restore_file, 0, -4);
-                  exec(LOCAL_EXE_UNZIP . ' ' . $restore_file . ' -d ' . DIR_FS_BACKUP);
-                  $remove_raw = true;
-              }
-
-              if ( ($restore_from) && (file_exists($restore_from)) && (filesize($restore_from) > 15000) ) {
-                $fd = fopen($restore_from, 'rb');
-                $restore_query = fread($fd, filesize($restore_from));
-                fclose($fd);
-              }
-            }
-          }
-        } elseif ($_GET['action'] == 'restorelocalnow') {
-          $sql_file = new upload('sql_file');
-
-          if ($sql_file->parse() == true) {
-            $restore_query = fread(fopen($sql_file->tmp_filename, 'r'), filesize($sql_file->tmp_filename));
-            $read_from = $sql_file->filename;
-          }
-        }
-
-        if ($restore_query) {
-          $sql_array = array();
-          $sql_length = strlen($restore_query);
-          $pos = strpos($restore_query, ';');
-          for ($i=$pos; $i<$sql_length; $i++) {
-            if ($restore_query[0] == '#') {
-              $restore_query = ltrim(substr($restore_query, strpos($restore_query, "\n")));
-              $sql_length = strlen($restore_query);
-              $i = strpos($restore_query, ';')-1;
-              continue;
-            }
-            if ($restore_query[($i+1)] == "\n") {
-              for ($j=($i+2); $j<$sql_length; $j++) {
-                if (trim($restore_query[$j]) != '') {
-                  $next = substr($restore_query, $j, 6);
-                  if ($next[0] == '#') {
-// find out where the break position is so we can remove this line (#comment line)
-                    for ($k=$j; $k<$sql_length; $k++) {
-                      if ($restore_query[$k] == "\n") break;
-                    }
-                    $query = substr($restore_query, 0, $i+1);
-                    $restore_query = substr($restore_query, $k);
-// join the query before the comment appeared, with the rest of the dump
-                    $restore_query = $query . $restore_query;
-                    $sql_length = strlen($restore_query);
-                    $i = strpos($restore_query, ';')-1;
-                    continue 2;
-                  }
-                  break;
-                }
-              }
-              if ($next == '') { // get the last insert query
-                $next = 'insert';
-              }
-              if ( (preg_match('/create/i', $next)) || (preg_match('/insert/i', $next)) || (preg_match('/drop t/i', $next)) ) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
-                $next = '';
-                $sql_array[] = substr($restore_query, 0, $i);
-                $restore_query = ltrim(substr($restore_query, $i+1));
-                $sql_length = strlen($restore_query);
-                $i = strpos($restore_query, ';')-1;
-              }
-            }
-          }
-
-          xtc_db_query("drop table if exists address_book, admin_access,banktransfer,content_manager,address_format, banners, banners_history, categories, categories_description, configuration, configuration_group, counter, counter_history, countries, currencies, customers, customers_basket, customers_basket_attributes, customers_info, languages, manufacturers, manufacturers_info, orders, orders_products, orders_status, orders_status_history, orders_products_attributes, orders_products_download, products, products_attributes, products_attributes_download, prodcts_description, products_options, products_options_values, products_options_values_to_products_options, products_to_categories, reviews, reviews_description, sessions, specials, tax_class, tax_rates, geo_zones, whos_online, zones, zones_to_geo_zones");
-          for ($i = 0, $n = sizeof($sql_array); $i < $n; $i++) {
-            xtc_db_query($sql_array[$i]);
-          }
-
-          xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
-	  xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key,configuration_value,configuration_group_id) values ('DB_LAST_RESTORE', '" . $read_from . "','6')");
-
-          if ($remove_raw) {
-            unlink($restore_from);
-          }
-        }
-
-        $messageStack->add_session(SUCCESS_DATABASE_RESTORED, 'success');
-        xtc_redirect(xtc_href_link(FILENAME_BACKUP));
-        break;
-      case 'download':
+	  case 'download':
         $extension = substr($_GET['file'], -3);
         if ( ($extension == 'zip') || ($extension == '.gz') || ($extension == 'sql') ) {
           if ($fp = fopen(DIR_FS_BACKUP . $_GET['file'], 'rb')) {
@@ -281,7 +73,7 @@
         } else {
           $messageStack->add(ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE, 'error');
         }
-        break;
+        break;     
       case 'deleteconfirm':
         if (strstr($_GET['file'], '..')) xtc_redirect(xtc_href_link(FILENAME_BACKUP));
 
@@ -291,6 +83,14 @@
           xtc_redirect(xtc_href_link(FILENAME_BACKUP));
         }
         break;
+	  case 'restorelocalnow':          
+		  $file = xtc_get_uploaded_file('sql_file');
+		  if (is_uploaded_file($file['tmp_name'])) {
+            xtc_copy_uploaded_file($file, DIR_FS_BACKUP);
+			$messageStack->add_session(SUCCESS_BACKUP_UPLOAD, 'success');
+			xtc_redirect(xtc_href_link(FILENAME_BACKUP));
+		  }
+	    break; 	
     }
   }
 
@@ -328,7 +128,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?><span class="smallText"> [<?php echo VERSION; ?>]</span></td>
             <td class="pageHeading" align="right"><?php echo xtc_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
@@ -347,7 +147,7 @@
   if ($dir_ok) {
     $dir = dir(DIR_FS_BACKUP);
     $contents = array();
-	 $exts = array("sql","sql.zip","sql.gz");
+	$exts = array("sql","sql.zip","sql.gz");
     while ($file = $dir->read()) {
       if (!is_dir(DIR_FS_BACKUP . $file)) {
 	  foreach ($exts as $value) {
@@ -371,7 +171,7 @@
         $file_array['size'] = number_format(filesize(DIR_FS_BACKUP . $entry)) . ' bytes';
         switch (substr($entry, -3)) {
           case 'zip': $file_array['compression'] = 'ZIP'; break;
-          case '.gz': $file_array['compression'] = 'GZIP'; break;
+          case '.gz': $file_array['compression'] = 'GZIP'; break;		  
           default: $file_array['compression'] = TEXT_NO_EXTENSION; break;
         }
 
@@ -379,10 +179,10 @@
       }
 
       if (is_object($buInfo) && ($entry == $buInfo->file)) {
-        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'">' . "\n";
+        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'">' . "\n";
         $onclick_link = 'file=' . $buInfo->file . '&action=restore';
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
         $onclick_link = 'file=' . $entry;
       }
 ?>
@@ -403,7 +203,7 @@
 ?>
               <tr>
                 <td class="smallText" colspan="3"><?php echo TEXT_BACKUP_DIRECTORY . ' ' . DIR_FS_BACKUP; ?></td>
-                <td align="right" class="smallText"><?php if ( ($_GET['action'] != 'backup') && ($dir) ) echo '<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'action=backup') . '">' . BUTTON_BACKUP . '</a>'; if ( ($_GET['action'] != 'restorelocal') && ($dir) ) echo '&nbsp;&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'action=restorelocal') . '">' . BUTTON_RESTORE . '</a>'; ?></td>
+                <td align="right" class="smallText"><?php if ( ($_GET['action'] != 'backup') && (isset($dir))) echo '<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'action=backup') . '">' . BUTTON_BACKUP . '</a>'; if ( ($_GET['action'] != 'restorelocal') && ($dir) ) echo '&nbsp;&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'action=restorelocal') . '">' . BUTTON_RESTORE . '</a>'; ?></td>
               </tr>
 <?php
   if (defined('DB_LAST_RESTORE')) {
@@ -422,17 +222,21 @@
     case 'backup':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_BACKUP . '</b>');
 
-      $contents = array('form' => xtc_draw_form('backup', FILENAME_BACKUP, 'action=backupnow'));
+      //$contents = array('form' => xtc_draw_form('backup', FILENAME_BACKUP, 'action=backupnow'));
+	  $contents = array('form' => xtc_draw_form('backup', BK_FILENAME, 'action=backupnow'));
+	  
       $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
 
       if ($messageStack->size > 0) {
         $contents[] = array('text' => '<br />' . xtc_draw_radio_field('compress', 'no', true) . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
-        $contents[] = array('text' => '<br />' . xtc_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
+        //$contents[] = array('text' => '<br />' . xtc_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       } else {
-        $contents[] = array('text' => '<br />' . xtc_draw_radio_field('compress', 'gzip', true) . ' ' . TEXT_INFO_USE_GZIP);
-        $contents[] = array('text' => xtc_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
+		if(function_exists('gzopen')) {
+          $contents[] = array('text' => '<br />' . xtc_draw_radio_field('compress', 'gzip', true) . ' ' . TEXT_INFO_USE_GZIP);
+		}        	
         $contents[] = array('text' => xtc_draw_radio_field('compress', 'no') . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
-        $contents[] = array('text' => '<br />' . xtc_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
+		$contents[] = array('text' => '<br />' . xtc_draw_checkbox_field('complete_inserts', 'yes', true) . ' ' . TEXT_COMPLETE_INSERTS);
+        //$contents[] = array('text' => '<br />' . xtc_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br /><br />*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       }
 
       $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_BACKUP . '"/>&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP) . '">' . BUTTON_CANCEL . '</a>');
@@ -441,8 +245,9 @@
       $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
       $contents[] = array('text' => xtc_break_string(sprintf(TEXT_INFO_RESTORE, DIR_FS_BACKUP . (($buInfo->compression != TEXT_NO_EXTENSION) ? substr($buInfo->file, 0, strrpos($buInfo->file, '.')) : $buInfo->file), ($buInfo->compression != TEXT_NO_EXTENSION) ? TEXT_INFO_UNPACK : ''), 35, ' '));
-      $contents[] = array('align' => 'center', 'text' => '<br /><a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=restorenow') . '">' . BUTTON_RESTORE . '</a>&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file) . '">' . BUTTON_CANCEL . '</a>');
-      break;
+      //$contents[] = array('align' => 'center', 'text' => '<br /><a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=restorenow') . '">' . BUTTON_RESTORE . '</a>&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file) . '">' . BUTTON_CANCEL . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br /><a class="button" onClick="this.blur();" href="' . xtc_href_link(BK_FILENAME, 'file=' . $buInfo->file . '&action=restorenow') . '">' . BUTTON_RESTORE . '</a>&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file) . '">' . BUTTON_CANCEL . '</a>');      
+	  break;
     case 'restorelocal':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_RESTORE_LOCAL . '</b>');
 
@@ -450,7 +255,8 @@
       $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL . '<br /><br />' . TEXT_INFO_BEST_THROUGH_HTTPS);
       $contents[] = array('text' => '<br />' . xtc_draw_file_field('sql_file'));
       $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL_RAW_FILE);
-      $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_RESTORE . '"/>&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP) . '">' . BUTTON_CANCEL . '</a>');
+      //$contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_RESTORE . '"/>&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP) . '">' . BUTTON_CANCEL . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_UPLOAD . '"/>&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP) . '">' . BUTTON_CANCEL . '</a>');
       break;
     case 'delete':
       $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
@@ -464,7 +270,8 @@
       if (is_object($buInfo)) {
         $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=restore') . '">' . BUTTON_RESTORE . '</a> <a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=delete') . '">' . BUTTON_DELETE . '</a>');
+        //$contents[] = array('align' => 'center', 'text' => '<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=restore') . '">' . BUTTON_RESTORE . '</a> <a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=delete') . '">' . BUTTON_DELETE . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=restore') . '">' . BUTTON_RESTORE . '</a> <a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=delete') . '">' . BUTTON_DELETE . '</a>'. '&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=download') . '">' . 'Download' . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE . ' ' . $buInfo->date);
         $contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
         $contents[] = array('text' => '<br />' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);
