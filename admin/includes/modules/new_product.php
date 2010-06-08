@@ -154,8 +154,11 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_VPE ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe, 'style="width: 135px"'); ?></span></td>
-            </tr>
+			  <?php //BOF - web28 - 2010-06-08 - FIX default products_vpe ?>
+              <!--td><span class="main"><?php echo xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe, 'style="width: 135px"'); ?></span></td-->
+              <td><span class="main"><?php echo xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe=='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe, 'style="width: 135px"'); ?></span></td>
+              <?php //EOF - web28 - 2010-06-08 - FIX default products_vpe ?>
+			</tr>
             <tr>
               <td><span class="main"><?php echo TEXT_FSK18; ?></span></td>
               <td><span class="main"><?php echo xtc_draw_pull_down_menu('fsk18', $fsk18_array, $pInfo->products_fsk18, 'style="width: 135px"'); ?></span></td>
@@ -187,8 +190,11 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
             <?php if (ACTIVATE_SHIPPING_STATUS=='true') { ?>
             <tr>
               <td><span class="main"><?php echo BOX_SHIPPING_STATUS.':'; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_pull_down_menu('shipping_status', $shipping_statuses, $pInfo->products_shippingtime, 'style="width: 135px"'); ?></span></td>
-            </tr>
+			  <?php //BOF - web28 - 2010-06-08 - FIX default shipping status ?>
+              <!--td><span class="main"><?php echo xtc_draw_pull_down_menu('shipping_status', $shipping_statuses, $pInfo->products_shippingtime, 'style="width: 135px"'); ?></span></td-->
+			  <td><span class="main"><?php echo xtc_draw_pull_down_menu('shipping_status', $shipping_statuses, $pInfo->products_shippingtime=='' ? intval(DEFAULT_SHIPPING_STATUS_ID) : $pInfo->products_shippingtime, 'style="width: 135px"'); ?></span></td>
+              <?php //EOF - web28 - 2010-06-08 - FIX default shipping status ?>
+			</tr>
             <?php } ?>
             <tr>
               <td><span class="main">&nbsp;</span></td>
