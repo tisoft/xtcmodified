@@ -1,3 +1,3 @@
 ____________________________________________________
 
-Hier kommt der Wideruftext hin (Textformat)
+Add your revocation here (plain text only)
