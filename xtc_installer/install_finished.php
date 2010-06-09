@@ -89,7 +89,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 </table>
 
 <br />
-<div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo TEXT_FOOTER; ?><br /><img src='http://images.xtc-modified.org/xtcmodified.gif' border='0' alt='xtcModified eCommerce Shopsoftware'></div>
+<div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo TEXT_FOOTER; ?><br /><img src='http://images.xtc-modified.org/xtcmodified104.gif' border='0' alt='xtcModified eCommerce Shopsoftware'></div>
 
 </body>
 </html>
