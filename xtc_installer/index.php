@@ -132,50 +132,49 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
  $ok_message.='DATEIRECHTE .............................. '.$status.'<br /><hr noshade>';
 
  // smarty folders
- $folder_flag==false;
- 
-    if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/xt-news.cache')) {
-    $error_flag=true;
-    $folder_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
- }
- 
-   if (!is_writeable(DIR_FS_CATALOG . 'templates_c/')) {
-    $error_flag=true;
-    $folder_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'templates_c/<br />';
- }
-    if (!is_writeable(DIR_FS_CATALOG . 'cache/')) {
-    $error_flag=true;
-    $folder_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'cache/<br />';
- }
-
-     if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/')) {
-    $error_flag=true;
-    $folder_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/<br />';
- }
-
-      if (!is_writeable(DIR_FS_CATALOG . 'admin/images/graphs')) {
-    $error_flag=true;
-    $folder_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/images/graphs<br />';
- }
+ $folder_flag==false;    
 
     if (!is_writeable(DIR_FS_CATALOG . 'admin/backups/')) {
     $error_flag=true;
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/backups/<br />';
  }
+ 
+	if (!is_writeable(DIR_FS_CATALOG . 'admin/images/graphs')) {
+    $error_flag=true;
+    $folder_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/images/graphs<br />';
+ }
+ 
+    if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/')) {
+    $error_flag=true;
+    $folder_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/<br />';
+ }
+ 
+	if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/xt-news.cache')) {
+    $error_flag=true;
+    $folder_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
+ } 	
+    if (!is_writeable(DIR_FS_CATALOG . 'cache/')) {
+    $error_flag=true;
+    $folder_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'cache/<br />';
+ } 
+
+	if (!is_writeable(DIR_FS_CATALOG . 'export/')) {
+    $error_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'export/<br />';
+ } 
 
  // image folders
-      if (!is_writeable(DIR_FS_CATALOG . 'images/')) {
+    if (!is_writeable(DIR_FS_CATALOG . 'images/')) {
     $error_flag=true;
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/<br />';
  }
-     if (!is_writeable(DIR_FS_CATALOG . 'images/categories/')) {
+    if (!is_writeable(DIR_FS_CATALOG . 'images/categories/')) {
     $error_flag=true;
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/categories/<br />';
@@ -185,45 +184,62 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/banner/<br />';
  }
-     if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/info_images/')) {
+    if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/info_images/')) {
     $error_flag=true;
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/info_images/<br />';
  }
-     if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/original_images/')) {
+    if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/original_images/')) {
     $error_flag=true;
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/original_images/<br />';
  }
-     if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/popup_images/')) {
+    if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/popup_images/')) {
     $error_flag=true;
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/popup_images/<br />';
  }
-      if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/thumbnail_images/')) {
+    if (!is_writeable(DIR_FS_CATALOG . 'images/product_images/thumbnail_images/')) {
     $error_flag=true;
     $folder_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/product_images/thumbnail_images/<br />';
  }
  
-   if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/xt-news.cache')) {
-    $error_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
- }
-
- if (!is_writeable(DIR_FS_CATALOG . 'sitemap.xml')) {
-    $error_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'sitemap.xml<br />';
- }
- 
-  if (!is_writeable(DIR_FS_CATALOG . 'import/')) {
-    $error_flag=true;
-    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'import/<br />';
- }
- if (!is_writeable(DIR_FS_CATALOG . 'images/manufacturers')) {
+	if (!is_writeable(DIR_FS_CATALOG . 'images/manufacturers/')) {
     $error_flag=true;
     $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'images/manufacturers/<br />';
  }
+ 
+	if (!is_writeable(DIR_FS_CATALOG . 'import/')) {
+    $error_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'import/<br />';
+ }
+ 
+	if (!is_writeable(DIR_FS_CATALOG . 'media/content/')) {
+    $error_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'media/content/<br />';
+ }
+ 
+	if (!is_writeable(DIR_FS_CATALOG . 'media/products/')) {
+    $error_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'media/products/<br />';
+ }
+ 
+	if (!is_writeable(DIR_FS_CATALOG . 'media/products/backup/')) {
+    $error_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'media/products/backup/<br />';
+ }	
+ 
+	if (!is_writeable(DIR_FS_CATALOG . 'sitemap.xml')) {
+    $error_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'sitemap.xml<br />';
+ }
+
+	if (!is_writeable(DIR_FS_CATALOG . 'templates_c/')) {
+    $error_flag=true;
+    $folder_flag=true;
+    $message .= 'FALSCHE ORDNERRECHTE '.DIR_FS_CATALOG . 'templates_c/<br />';
+ }   
 
  $status='OK';
  if ($folder_flag==true) $status='<strong><font color="#ff0000">FEHLER</font></strong>';
@@ -367,12 +383,14 @@ if ($ok_message!='') {
                 
               
             </form>
-
+			
           </td>
         </tr>
-      </table></td>
+      </table>
+	  
   </tr>
 </table><br />
 <div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo '<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>'; ?></div>
+<div align="center" style="padding-top:5px; font-size:11px;">Installer 104 rev09</div></td>
 </body>
 </html>
