@@ -51,7 +51,7 @@ if (file_exists('includes/local/configure.php')) {
 $php4_3_10 = (0 == version_compare(phpversion(), "4.3.10"));
 define('PHP4_3_10', $php4_3_10);
 // define the project version
-define('PROJECT_VERSION', 'xtcModified v1.03 dated: 2010-01-04');
+define('PROJECT_VERSION', 'xtcModified v1.04 dated: 2010-06-09');
 
 // BOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
 define('TAX_DECIMAL_PLACES', 0);
