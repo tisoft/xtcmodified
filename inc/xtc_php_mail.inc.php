@@ -39,6 +39,36 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
         $txt_signatur = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
   }
 //EOF - Dokuman - 20091030 - Check for existing signature files
+
+  //BOF - web28 - 2010-06-05 - Widerruf in Email
+  $html_widerruf = '';
+  $txt_widerruf = '';
+  if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.html')) {
+        $html_widerruf = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.html');
+  }
+  if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.txt')) {
+        $txt_widerruf = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.txt');
+  }
+  
+  //Platzhalter [WIDERRUF] durch Widerruf Text ersetzen
+  if (strpos($message_body_html,'[WIDERRUF]') !== false) {
+	$message_body_html = str_replace('[WIDERRUF]', $html_widerruf, $message_body_html);
+  }
+  if (strpos($message_body_plain,'[WIDERRUF]') !== false) {
+	$message_body_plain = str_replace('[WIDERRUF]', $txt_widerruf, $message_body_plain);
+  }
+  
+  //Platzhalter [SIGNATUR] durch Signatur Text ersetzen
+  if (strpos($message_body_html,'[SIGNATUR]') !== false) {
+	$message_body_html = str_replace('[SIGNATUR]', $html_signatur, $message_body_html);
+	$html_signatur = '';
+  }
+  if (strpos($message_body_plain,'[SIGNATUR]') !== false) {
+	$message_body_plain = str_replace('[SIGNATUR]', $txt_signatur, $message_body_plain);
+	$txt_signatur = '';
+  }
+  //EOF - web28 - 2010-06-05 - Widerruf in Email
+
 //**********************************************************************************************
 
 	$mail = new PHPMailer();
@@ -50,13 +80,23 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 		$lang_query = "SELECT * FROM ".TABLE_LANGUAGES." WHERE code = '".DEFAULT_LANGUAGE."'";
 		$lang_query = xtc_db_query($lang_query);
 		$lang_data = xtc_db_fetch_array($lang_query);
-		$mail->CharSet = $lang_data['language_charset'];
+		$mail->CharSet = $lang_data['language_charset'];		
 	}
+	//BOF  - web28 - 2010-06-05 - SetLanguage Multilanguage
+	/*
 	if ($_SESSION['language'] == 'german') {
 		$mail->SetLanguage("de", DIR_WS_CLASSES);
 	} else {
 		$mail->SetLanguage("en", DIR_WS_CLASSES);
 	}
+	*/
+    if (isset (	$_SESSION['language_code'])) {		
+		$lang_code = $_SESSION['language_code'];
+	} else $lang_code = DEFAULT_LANGUAGE;	
+	
+	$mail->SetLanguage($lang_code, DIR_WS_CLASSES);	
+	//EOF - web28 - 2010-06-05 - SetLanguage Multilanguage
+	
 	if (EMAIL_TRANSPORT == 'smtp') {
 		$mail->IsSMTP();
 		$mail->SMTPKeepAlive = true; // set mailer to use SMTP

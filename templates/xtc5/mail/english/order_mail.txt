@@ -15,6 +15,10 @@ thank you for your order.
 
 {$PAYMENT_INFO_TXT}
 
+{if $NEW_PASSWORD}
+        Your Account Password: {$NEW_PASSWORD}
+{/if}
+
 {if $COMMENTS}
 Your Comments:
 {$COMMENTS}

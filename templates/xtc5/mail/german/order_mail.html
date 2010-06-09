@@ -8,7 +8,7 @@
             <strong>Bestellung Nr:</strong> {$oID}<br />
             <strong>Bestelldatum:</strong> {$DATE}<br />
 			{if $csID}<strong>Kundennummer:</strong> {$csID}<br />{/if}
-            <strong>Ihre E-Mail-Adresse:</strong> {$EMAIL}<br />
+            <strong>Ihre E-Mail Adresse:</strong> {$EMAIL}<br />
             </font></td>
           <td width="1"><img src="{$logo_path}logo.gif"></td>
         </tr>
@@ -33,6 +33,12 @@
         <strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Ihre Anmerkungen:</font></strong><br />
         <font size="1" face="Verdana, Arial, Helvetica, sans-serif">{$COMMENTS}</font><br />
 {/if}<br />
+
+{if $NEW_PASSWORD}
+        <br /><br />
+        <strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Ihr Account Passwort:</font></strong><br />
+        <font size="1" face="Verdana, Arial, Helvetica, sans-serif">{$NEW_PASSWORD}</font><br /><br />
+{/if}
       </p></td>
   </tr>
 </table>
@@ -70,3 +76,7 @@
 {foreach name=aussen item=order_total_values from=$order_total}
 <div align="right"><font size="1" face="Arial, Helvetica, sans-serif">{$order_total_values.TITLE}{$order_total_values.TEXT}</font></div>
 {/foreach}
+
+[SIGNATUR]
+
+[WIDERRUF]
