@@ -46,3 +46,7 @@ Paymentaddress
 Shippingaddress 
 ----------------------------------------------------------------------
 {$address_label_shipping}
+
+[SIGNATUR]
+
+[WIDERRUF]
