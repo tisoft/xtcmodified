@@ -350,3 +350,13 @@ add index options (options_id, options_values_id);
 #DokuMan - 2010-06-28 - Added http_referer to table whos_online 
 ALTER TABLE whos_online
 ADD http_referer varchar(255) NOT NULL DEFAULT '' AFTER last_page_url;
+
+# BOF - Tomcraft - 2010-06-09 - Added right of revocation
+UPDATE content_manager SET content_id = 117 WHERE content_id = 17;
+UPDATE content_manager SET content_group = 999 WHERE content_id = 117;
+UPDATE content_manager SET content_id = 118 WHERE content_id = 18;
+UPDATE content_manager SET content_group = 999 WHERE content_id = 118;
+INSERT INTO content_manager VALUES (17, 0, 0, '', 1, 'Right of revocation', 'Right of revocation', '<p><strong>Right of revocation<br /></strong><br />Add your right of revocation here.</p>', 0, 1, '', 1, 9, 0, '', '', '');
+INSERT INTO content_manager VALUES (18, 0, 0, '', 2, 'Widerrufsrecht', 'Widerrufsrecht', '<p><strong>Widerrufsrecht<br /></strong><br />F&uuml;gen Sie hier das Widerrufsrecht ein.</p>', 0, 1, '', 1, 9, 0, '', '', '');
+UPDATE configuration SET configuration_value = 9 WHERE configuration_key = 'REVOCATION_ID';
+# EOF - Tomcraft - 2010-06-09 - Added right of revocation
