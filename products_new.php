@@ -46,6 +46,7 @@ if (MAX_DISPLAY_NEW_PRODUCTS_DAYS != '0') {
 	$date_new_products = date("Y.m.d", mktime(1, 1, 1, date("m"), date("d") - MAX_DISPLAY_NEW_PRODUCTS_DAYS, date("Y")));
 	$days = " and p.products_date_added > '".$date_new_products."' ";
 }
+//BOF - web28 - 2010.06.09 - added p.products_shippingtime
 $products_new_query_raw = "select distinct
                                     p.products_id,
                                     p.products_fsk18,
@@ -57,6 +58,7 @@ $products_new_query_raw = "select distinct
                                	    p.products_vpe_status,
                                	    p.products_vpe_value,
                                     p.products_tax_class_id,
+									p.products_shippingtime,
                                     p.products_date_added,
                                     m.manufacturers_name
                            from ".TABLE_PRODUCTS." p
@@ -75,6 +77,8 @@ $products_new_query_raw = "select distinct
                                     ".$fsk_lock."                                    
                                     ".$days."
                            order by p.products_date_added DESC ";
+
+//EOF - web28 - 2010.06.09 - added p.products_shippingtime
 
 $products_new_split = new splitPageResults($products_new_query_raw, $_GET['page'], MAX_DISPLAY_PRODUCTS_NEW, 'p.products_id');
 //BOF - Hetfield - 2009-08-11 - no longer empty site products_new.php
@@ -96,6 +100,7 @@ $module_content = '';
 		//EOF - Hetfield - 2009-08-11 - products_new uses now the product class
 	}
 } else {
+    //BOF - web28 - 2010.06.09 - added p.products_shippingtime
 	$new_products_query = "select distinct
                                     p.products_id,
                                     p.products_fsk18,
@@ -107,6 +112,7 @@ $module_content = '';
                                	    p.products_vpe_status,
                                	    p.products_vpe_value,
                                     p.products_tax_class_id,
+									p.products_shippingtime,
                                     p.products_date_added,
 									m.manufacturers_name
                            from ".TABLE_PRODUCTS." p
@@ -124,7 +130,9 @@ $module_content = '';
                                     ".$group_check."
                                     ".$fsk_lock."
 	                       order by p.products_date_added DESC limit 10";
-						   
+	
+	//EOF - web28 - 2010.06.09 - added p.products_shippingtime
+	
 	$module_content = array ();
 	$new_products_query = xtDBquery($new_products_query);
 	while ($new_products = xtc_db_fetch_array($new_products_query, true)) {
