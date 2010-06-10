@@ -15,10 +15,6 @@ vielen Dank für Ihre Bestellung.
 
 {$PAYMENT_INFO_TXT}
 
-{if $NEW_PASSWORD}
-        Ihr Account Passwort: {$NEW_PASSWORD}
-{/if}
-
 {if $COMMENTS}
 Ihre Anmerkungen:
 {$COMMENTS}
