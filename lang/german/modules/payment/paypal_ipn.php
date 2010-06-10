@@ -81,7 +81,7 @@ define('MODULE_PAYMENT_PAYPAL_IPN_TEXT_INFO','Zahlen Sie bequem und sicher mit P
 
 //Paypal Linktexte
 define('MODULE_PAYMENT_PAYPAL_IPN_TXT_CHECKOUT','Jetzt mit PayPal bezahlen');
-define('MODULE_PAYMENT_PAYPAL_IPN_TXT_CHECKOUT2','Sie erhalten den PayPal Zahlungs-Link auch automatisch mit Ihrer Auftragsbest&auml;tigungs-eMail! Sie k&ouml;nnen damit die Zahlung auch sp&auml;ter vornehmen');
+define('MODULE_PAYMENT_PAYPAL_IPN_TXT_CHECKOUT2','Sie erhalten den PayPal Zahlungs-Link auch automatisch mit Ihrer Auftragsbest&auml;tigungs E-Mail! Sie k&ouml;nnen damit die Zahlung auch sp&auml;ter vornehmen');
 define('MODULE_PAYMENT_PAYPAL_IPN_TXT_EMAIL', "Jetzt mit PayPal bezahlen. Klicken Sie bitte auf den folgenden Link:\n");
 define('MODULE_PAYMENT_PAYPAL_IPN_TXT_ORDER', " - Bestellnummer: ");
 
