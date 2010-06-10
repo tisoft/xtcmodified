@@ -4,7 +4,7 @@
 {if $PAYMENT_METHOD}Paymentmethod: {$PAYMENT_METHOD}{/if}
 Order Nr.: {$oID}
 Date: {$DATE}
-{if $csID}Customer ID :{$csID}{/if}
+{if $csID}Customer ID: {$csID}{/if}
 Your email address: {$EMAIL}
 ----------------------------------------------------------------------
 
