@@ -196,7 +196,7 @@
 
       if ( (is_object($mInfo)) && ($class == $mInfo->code) ) {
         if ($module->check() > 0) {
-          echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointe\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
+          echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
         } else {
           echo '              <tr class="dataTableRowSelected">' . "\n";
         }
