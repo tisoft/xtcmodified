@@ -189,7 +189,7 @@
                               'state' => $order['delivery_state'],
                               'country' => $order['delivery_country'],
 							  //BOF - web28 - 2010-03-26 - PayPal IPN Link
-							  'country_iso_2' => $order['billing_country_iso_code_2'],
+							  'country_iso_2' => $order['delivery_country_iso_code_2'], //FIX - web28 - 2010-06-11 billing -> delivery
 							  //EOF - web28 - 2010-03-26 - PayPal IPN Link
                               'format_id' => $order['delivery_address_format_id']);
 
@@ -208,7 +208,7 @@
                              'postcode' => $order['billing_postcode'],
                              'state' => $order['billing_state'],
                              'country' => $order['billing_country'],							 
-							 'country_iso_2' => $order['delivery_country_iso_code_2'], //ADD - web28 - 2010-05-06 - PAYPAL
+							 'country_iso_2' => $order['billing_country_iso_code_2'], //ADD - web28 - 2010-05-06 - PAYPAL  //FIX - web28 - 2010-06-11 delivery -> billing
                              'format_id' => $order['billing_address_format_id']);
 
       $index = 0;
@@ -224,7 +224,10 @@
                                         'final_price' => $orders_products['final_price']);
 
         $subindex = 0;
-        $attributes_query = xtc_db_query("SELECT * FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . xtc_db_input($order_id) . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
+        $attributes_query = xtc_db_query("SELECT * FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " 
+												where orders_id = '" . xtc_db_input($order_id) . "' 
+												and orders_products_id = '" . $orders_products['orders_products_id'] . "'
+												order by orders_products_attributes_id"); //ADD - web28 - 2010-06-11 - order by orders_products_attributes_id
         if (xtc_db_num_rows($attributes_query)) {
           while ($attributes = xtc_db_fetch_array($attributes_query)) {
             $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options'],
@@ -266,7 +269,8 @@
 		        				price_prefix,
 		        				options_values_price
 		        				FROM ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES."
-		        				WHERE orders_products_id='".$order_data_values['orders_products_id']."'";
+		        				WHERE orders_products_id='".$order_data_values['orders_products_id']."'
+								order by orders_products_attributes_id"; //ADD - web28 - 2010-06-11 - order by orders_products_attributes_id
 		$attributes_data = '';
 		$attributes_model = '';
 		$attributes_query = xtc_db_query($attributes_query);
@@ -320,7 +324,6 @@
     //EOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount	
 	}
 	//BOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount
-
 	//return array('data'=>$order_total,'total'=>$total);
 	return array('data'=>$order_total,'total'=>$total, 'shipping'=>$shipping); 
 	//EOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount	
