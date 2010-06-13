@@ -8,9 +8,9 @@ Es wurde ein Account für Sie eingerichtet, Sie können mit folgenden Daten in Uns
 
 Ihre Logindaten für unseren Shop:
 
-Email:{$EMAIL}
+E-Mail: {$EMAIL}
 
-Ihr Passwort:{$PASSWORD}
+Ihr Passwort: {$PASSWORD}
 
 
 

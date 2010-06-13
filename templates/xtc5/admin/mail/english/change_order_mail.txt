@@ -10,6 +10,6 @@ The status of your order {if $ORDER_NR}No. {$ORDER_NR}{/if} {if $ORDER_DATE}from
 
 New status: {$ORDER_STATUS}
 
-If you have any questions, please reply to this mail.
+If you have any questions, please reply to this e-mail.
 
 
