@@ -722,6 +722,9 @@ echo '<input type="checkbox" name="groups[]" value="'.$customers_statuses_array[
         }//if
         } // while
         closedir($dir);
+// BOF - Tomcraft - 2010-06-17 - Sort files for media-content alphabetically in content manager
+        sort($files);
+// EOF - Tomcraft - 2010-06-17 - Sort files for media-content alphabetically in content manager
  }
  // set default value in dropdown!
 if ($content['content_file']=='') {
