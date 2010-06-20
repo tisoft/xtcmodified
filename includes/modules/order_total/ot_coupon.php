@@ -171,7 +171,7 @@ class ot_coupon {
 	}
 
 	function calculate_credit($amount) {
-		global $order;
+		global $order; $xtPrice;
 
 		$od_amount = 0;
 		if (isset ($_SESSION['cc_id'])) {
@@ -191,70 +191,69 @@ class ot_coupon {
 				
 				if ($get_result['coupon_minimum_order'] <= $this->get_order_total()) {
 
-					if ($get_result['restrict_to_products'] || $get_result['restrict_to_categories']) {
-						//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
-						$pr_c = 0;
-						//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
-						for ($i = 0; $i < sizeof($order->products); $i ++) {
-							if ($get_result['restrict_to_products']) {
-								$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+					if ($get_result['restrict_to_products'] || $get_result['restrict_to_categories']) {											
+						
+						//BOF -web28- 2010-06-19 - FIX - new calculate coupon amount
+						
+						$pr_c = 0; //web28- 2010-05-21 - FIX - restrict  max coupon amount
+						
+						//allowed products
+						if ($get_result['restrict_to_products']) {							    
+							$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3								
+							for ($i = 0; $i < sizeof($order->products); $i ++) {
 								
-								
-								//BUG FOUND 09.04.2009
-								//for ($ii = 0; $p < count($pr_ids); $ii ++) {
-								
-								//FIXT 09.04.2009
-								for ($ii = 0; $ii < count($pr_ids); $ii ++) {
-								// FIX END	
-								
+								for ($ii = 0; $ii < count($pr_ids); $ii ++) {								
 									
-									
-									if ($pr_ids[$ii] == xtc_get_prid($order->products[$i]['id'])) {
-										if ($get_result['coupon_type'] == 'P') {
-											
-											$od_amount = $amount * $get_result['coupon_amount'] / 100;
+									if ($pr_ids[$ii] == xtc_get_prid($order->products[$i]['id'])) {										
+										if ($get_result['coupon_type'] == 'P') {											
 											$pr_c = $this->product_price($pr_ids[$ii]); //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
 											$pod_amount = round($pr_c*10)/10*$c_deduct/100;
 											$od_amount = $od_amount + $pod_amount;
 										
 										} else {
-											$od_amount = $c_deduct;
-											//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
-											$pr_c += $this->product_price($pr_ids[$ii]);
-											//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
+											$od_amount = $c_deduct;											
+											$pr_c += $this->product_price($pr_ids[$ii]); //web28- 2010-05-21 - FIX - restrict  max coupon amount											
 										}
 									}
 								}
-							} else {
-								$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
-								for ($i = 0; $i < sizeof($order->products); $i ++) {
-									$my_path = xtc_get_product_path(xtc_get_prid($order->products[$i]['id']));
-									$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
-									for ($iii = 0; $iii < count($sub_cat_ids); $iii ++) {
-										for ($ii = 0; $ii < count($cat_ids); $ii ++) {
-											if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
-												if ($get_result['coupon_type'] == 'P') {
-													$pr_c = $this->product_price(xtc_get_prid($order->products[$i]['id'])); //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
-													$pod_amount = round($pr_c*10)/10*$c_deduct/100;
-													$od_amount = $od_amount + $pod_amount;
-                                                       continue 3;      // v5.13a Tanaka 2005-4-30: to prevent double counting of a product discount
-												} else {
-													$od_amount = $c_deduct;
-													//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
-													$pr_c += $this->product_price(xtc_get_prid($order->products[$i]['id']));
-													//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
-													continue 3;
-     											}
+							}
+						}
+						
+						//allowed categories						
+						if ($get_result['restrict_to_categories']) {						
+							$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+							for ($i = 0; $i < sizeof($order->products); $i ++) {
+								$my_path = xtc_get_product_path(xtc_get_prid($order->products[$i]['id']));
+								$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+								
+								//BOF - web28 - 2010-06-19 - test for product_id to prevent double counting
+								if ($get_result['restrict_to_products']  && in_array(xtc_get_prid($order->products[$i]['id']) ,$pr_ids) ) {
+									$p_flag = true;
+								} else $p_flag = false;
+								//EOF - web28 - 2010-06-19 - test for product_id to prevent double counting
+								
+								for ($iii = 0; $iii < count($sub_cat_ids); $iii ++) {
+									for ($ii = 0; $ii < count($cat_ids); $ii ++) {
+										if ($sub_cat_ids[$iii] == $cat_ids[$ii] && !$p_flag) {										    
+											if ($get_result['coupon_type'] == 'P') {												
+												$pr_c = $this->product_price(xtc_get_prid($order->products[$i]['id'])); //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
+												$pod_amount = round($pr_c*10)/10*$c_deduct/100;
+												$od_amount = $od_amount + $pod_amount;												
+												continue 3;      // v5.13a Tanaka 2005-4-30: to prevent double counting of a product discount
+											} else {
+												$od_amount = $c_deduct;												
+												$pr_c += $this->product_price(xtc_get_prid($order->products[$i]['id'])); //web28- 2010-05-21 - FIX - restrict  max coupon amount												
+												continue 3;
 											}
 										}
 									}
 								}
-								
-							}
+							}							
 						}
-						//BOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
-						if ($get_result['coupon_type'] == 'F' && $od_amount > $pr_c )  {$od_amount = $pr_c;}
-						//EOF -web28- 2010-05-21 - FIX - restrict  max coupon amount
+						
+						if ($get_result['coupon_type'] == 'F' && $od_amount > $pr_c )  {$od_amount = $pr_c;} //web28- 2010-05-21 - FIX - restrict  max coupon amount
+						
+						//EOF -web28- 2010-06-19 - FIX - new calculate coupon amount						
 					} else {
 						if ($get_result['coupon_type'] != 'P') {
 							$od_amount = $c_deduct;
@@ -262,6 +261,29 @@ class ot_coupon {
 							$od_amount = $amount * $get_result['coupon_amount'] / 100;
 						}
 					}
+					
+					//BOF  - web28- 2010-06-19 - ADD no discount for special offers					
+					if (MODULE_ORDER_TOTAL_COUPON_SPECIAL_PRICES != 'true'){
+						$pr_c = 0;
+						for ($i = 0; $i < sizeof($order->products); $i ++) {					    
+							$product_query = "select specials_new_products_price from ".TABLE_SPECIALS." where products_id = '".xtc_get_prid($order->products[$i]['id'])."' and status=1";
+							$product_query = xtDBquery($product_query);
+							$product = xtc_db_fetch_array($product_query, true);					    
+							if($product['specials_new_products_price']) {							
+								if ($get_result['coupon_type'] == 'P') {
+									$pr_c = $this->product_price(xtc_get_prid($order->products[$i]['id']));
+									$pod_amount = round($pr_c*10)/10*$c_deduct/100;
+									$od_amount -= $pod_amount;								
+								} else {
+									$pr_c += $this->product_price(xtc_get_prid($order->products[$i]['id']));								
+								}
+							}
+						}
+						if ($od_amount < 0) $od_amount = 0;
+						if ($amount  <= $pr_c) $od_amount = 0;
+					}
+					//EOF  - web28- 2010-06-19 - ADD no discount for special offers
+					
 				}
 			}
 			if ($od_amount > $amount)
@@ -502,7 +524,7 @@ $order->info['tax'] -= $tod_amount;
 			$t_prid = xtc_get_prid($products[$i]['id']);
 			$gv_query = xtc_db_query("select products_price, products_tax_class_id, products_model from ".TABLE_PRODUCTS." where products_id = '".$t_prid."'");
 			$gv_result = xtc_db_fetch_array($gv_query);
-			if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+			if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) { // Hetfield - 2009-08-19 - replaced depricated function ereg with preg_match to be ready for PHP >= 5.3
 				$qty = $_SESSION['cart']->get_quantity($t_prid);
 				$products_tax = $xtPrice->TAX[$gv_result['products_tax_class_id']];
 				if ($this->include_tax == 'false') {
@@ -530,7 +552,7 @@ $order->info['tax'] -= $tod_amount;
 			$get_result = xtc_db_fetch_array($coupon_get);
 			$in_cat = true;
 			if ($get_result['restrict_to_categories']) {
-				$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+				$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 				$in_cat = false;
 				for ($i = 0; $i < count($cat_ids); $i ++) {
 					if (is_array($this->contents)) {
@@ -548,7 +570,7 @@ $order->info['tax'] -= $tod_amount;
 			$in_cart = true;
 			if ($get_result['restrict_to_products']) {
 
-				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+				$pr_ids = explode(",", $get_result['restrict_to_products']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
 
 				$in_cart = false;
 				$products_array = $_SESSION['cart']->get_products();
@@ -641,9 +663,13 @@ $total_price += $qty * $xtPrice->xtcGetPrice($product['products_id'], $format = 
 		return array ('MODULE_ORDER_TOTAL_COUPON_STATUS', 
 					  'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', 
 					  'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 
-					  'MODULE_ORDER_TOTAL_COUPON_INC_TAX',
-//BOF -web28- 2010-05-23 - FIX - unnecessary  COUPON_TAX_CLASS					  
-					  'MODULE_ORDER_TOTAL_COUPON_CALC_TAX'); 
+					  'MODULE_ORDER_TOTAL_COUPON_INC_TAX',				  
+					  'MODULE_ORDER_TOTAL_COUPON_CALC_TAX',
+//BOF  - web28- 2010-06-19 - ADD no discount for special offers
+					  'MODULE_ORDER_TOTAL_COUPON_SPECIAL_PRICES'
+//EOF  - web28- 2010-06-19 - ADD no discount for special offers
+					  );
+//BOF -web28- 2010-05-23 - FIX - unnecessary  COUPON_TAX_CLASS						  
 					  //'MODULE_ORDER_TOTAL_COUPON_TAX_CLASS');
 //EOF -web28- 2010-05-23 - FIX - unnecessary  COUPON_TAX_CLASS	
 	}
@@ -658,6 +684,9 @@ $total_price += $qty * $xtPrice->xtcGetPrice($product['products_id'], $format = 
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'Standard', '6', '7','xtc_cfg_select_option(array(\'None\', \'Standard\'), ', now())");
 		//EOF -web28- 2010-05-23 - FIX - unnecessary  unnecessary  Credit Note
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_TAX_CLASS', '0', '6', '0', 'xtc_get_tax_class_title', 'xtc_cfg_pull_down_tax_classes(', now())");
+		//BOF  - web28- 2010-06-19 - ADD no discount for special offers
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('', 'MODULE_ORDER_TOTAL_COUPON_SPECIAL_PRICES', 'false', '6', '5', 'xtc_cfg_select_option(array(\'true\', \'false\'), ', now())");
+		//EOF  - web28- 2010-06-19 - ADD no discount for special offers
 	}
 
 	function remove() {
