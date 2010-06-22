@@ -102,7 +102,7 @@ if ($mo_images != false) {
 
 }
 ?>
-<a href="#" onClick='window.close();'><?php echo TEXT_CLOSE_WINDOW ?></a>
+<a href="#" onclick='window.close();'><?php echo TEXT_CLOSE_WINDOW ?></a>
 </center>
 </body>
 </html>

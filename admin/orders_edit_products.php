@@ -56,7 +56,7 @@ echo xtc_draw_hidden_field('opID', $order->products[$i]['opid']);
 <td class="dataTableContent">
 <?php
 echo xtc_draw_hidden_field('allow_tax', $order->products[$i]['allow_tax']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>';
 ?>
 </form>
 </td>
@@ -66,7 +66,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 echo xtc_draw_form('product_delete', FILENAME_ORDERS_EDIT, 'action=product_delete', 'post');
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
 echo xtc_draw_hidden_field('opID', $order->products[$i]['opid']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE . '"/>';
 ?>
 </form>
 </td>
@@ -82,7 +82,7 @@ echo xtc_draw_hidden_field('edit_action', 'options');
 echo xtc_draw_hidden_field('pID', $order->products[$i]['id']);
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
 echo xtc_draw_hidden_field('opID', $order->products[$i]['opid']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_PRODUCT_OPTIONS . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_PRODUCT_OPTIONS . '"/>';
 ?>
 </form>
 </td>
@@ -113,7 +113,7 @@ echo xtc_draw_hidden_field('cID', $_POST['cID']);
 <td class="dataTableContent" width="40"><?php echo xtc_draw_input_field('search', '', 'size="30"');?></td>
 <td class="dataTableContent">
 <?php
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SEARCH . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SEARCH . '"/>';
 ?>
 </td>
 </form>
@@ -164,7 +164,7 @@ echo xtc_draw_hidden_field('products_id', $products[products_id]);
 <td class="dataTableContent"><?php echo $products[products_model];?></td>
 <td class="dataTableContent">
 <?php
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_INSERT . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_INSERT . '"/>';
 ?>
 </form>
 </td>

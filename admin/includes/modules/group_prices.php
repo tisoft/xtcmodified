@@ -102,7 +102,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 
 		if ($_GET['pID'] != '') {
 			echo ' '.TXT_STAFFELPREIS;
-?> <img onMouseOver="javascript:this.style.cursor='pointer';" src="images/arrow_down.gif" height="12" width="12" onClick="javascript:toggleBox('staffel_<?php echo $group_data[$col]['STATUS_ID']; ?>');"><?php
+?> <img onMouseOver="javascript:this.style.cursor='pointer';" src="images/arrow_down.gif" height="12" width="12" onclick="javascript:toggleBox('staffel_<?php echo $group_data[$col]['STATUS_ID']; ?>');"><?php
 
 
 		}
@@ -164,7 +164,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		echo TXT_PRICE;
 		echo xtc_draw_input_field('products_price_staffel_'.$group_data[$col]['STATUS_ID'], 0);
 		echo xtc_draw_separator('pixel_trans.gif', '10', '10');
-		echo '<input type="submit" class="button" onClick="return confirm(\''.SAVE_ENTRY.'\')" value="' . BUTTON_INSERT . '"/>';
+		echo '<input type="submit" class="button" onclick="return confirm(\''.SAVE_ENTRY.'\')" value="' . BUTTON_INSERT . '"/>';
 ?><br /></td>
           </tr>
 <?php

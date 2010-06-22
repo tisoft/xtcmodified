@@ -206,7 +206,7 @@ for ($i = 0; $i < $columns; $i++) {
 }
 ?>
     </table>
-<input type="submit" class="button" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')" value="<?php echo BUTTON_SAVE; ?>">
+<input type="submit" class="button" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')" value="<?php echo BUTTON_SAVE; ?>">
 </td>
 
 <!-- body_text_eof //-->

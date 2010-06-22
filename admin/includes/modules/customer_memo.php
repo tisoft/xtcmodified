@@ -38,7 +38,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
         <td width="142" class="main" style="border: 1px solid; border-color: #cccccc;"><?php echo $memo_values['memo_text']; ?></td>
       </tr>
       <tr>
-        <td><a href="<?php echo xtc_href_link(FILENAME_CUSTOMERS, 'cID=' . $_GET['cID'] . '&action=edit&special=remove_memo&mID=' . $memo_values['memo_id']); ?>" onClick="return confirm('<?php echo DELETE_ENTRY; ?>')"><input type="submit" class="button" value="<?php echo BUTTON_DELETE; ?>"></a></td>
+        <td><a href="<?php echo xtc_href_link(FILENAME_CUSTOMERS, 'cID=' . $_GET['cID'] . '&action=edit&special=remove_memo&mID=' . $memo_values['memo_id']); ?>" onclick="return confirm('<?php echo DELETE_ENTRY; ?>')"><input type="submit" class="button" value="<?php echo BUTTON_DELETE; ?>"></a></td>
       </tr>
     </table>
 <?php

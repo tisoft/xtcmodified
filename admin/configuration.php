@@ -137,9 +137,9 @@
 					    <?PHP				          
 							if ($_GET['gID']==11) {
 								echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=delcache');
-								echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE_CACHE . '"/></form> ';
+								echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE_CACHE . '"/></form> ';
 								echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=deltempcache');
-								echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE_TEMP_CACHE . '"/></form>';
+								echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE_TEMP_CACHE . '"/></form>';
 							}						
 
 
@@ -299,7 +299,7 @@
   }
 ?>
             </table>
-			<?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?>
+			<?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?>
 			</form>
             </td>
 

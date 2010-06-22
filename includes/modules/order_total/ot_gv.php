@@ -46,8 +46,8 @@ class ot_gv {
 		$this->show_redeem_box = MODULE_ORDER_TOTAL_GV_REDEEM_BOX;
 		$this->credit_class = true;
 		// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
-		//$this->checkbox = $this->user_prompt.'<input type="checkbox" onClick="submitFunction()" name="'.'c'.$this->code.'">';
-		$this->checkbox = '<input type="checkbox" onClick="submitFunction()" name="'.'c'.$this->code.'"> '.$this->user_prompt;
+		//$this->checkbox = $this->user_prompt.'<input type="checkbox" onclick="submitFunction()" name="'.'c'.$this->code.'">';
+		$this->checkbox = '<input type="checkbox" onclick="submitFunction()" name="'.'c'.$this->code.'"> '.$this->user_prompt;
 		// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
 		$this->output = array ();
 

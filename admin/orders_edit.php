@@ -722,7 +722,7 @@ echo xtc_draw_form('save_order', FILENAME_ORDERS_EDIT, 'action=save_order', 'pos
 echo xtc_draw_hidden_field('customers_status_id', $address[customers_status]);
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
 echo xtc_draw_hidden_field('cID', $_GET[cID]);
-echo '<input type="submit" class="button" onClick="this.blur();" value="'.BUTTON_SAVE.'"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="'.BUTTON_SAVE.'"/>';
 ?>
 </form>
 </td>
@@ -746,9 +746,9 @@ switch ($_GET['action']) {
 		if (is_object($order)) {
 			$heading[] = array ('text' => '<b>'.TABLE_HEADING_ORDER.$_GET['oID'].'</b>');
 
-			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_ADDRESS.'<br /><a class="button" onClick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=address&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
-			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_PRODUCTS.'<br /><a class="button" onClick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
-			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_OTHER.'<br /><a class="button" onClick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=other&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
+			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_ADDRESS.'<br /><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=address&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
+			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_PRODUCTS.'<br /><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
+			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_OTHER.'<br /><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=other&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
 
 		}
 		break;

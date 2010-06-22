@@ -1235,7 +1235,7 @@ function sendTestMail()
 			<br />
 			<br />
 			<br />
-			<input type="BUTTON" value="<?php echo TXT_TESTMAIL?>" id="BUTTON_SEND_TESTMAIL" onClick="sendTestMail();" /><br />
+			<input type="BUTTON" value="<?php echo TXT_TESTMAIL?>" id="BUTTON_SEND_TESTMAIL" onclick="sendTestMail();" /><br />
 			<br />
 			<div id="TEXT_TESTMAIL_SENT" style="display:none"><?php echo TXT_TESTMAIL_SENT ?></div>
 			</div>&nbsp;
@@ -2814,7 +2814,7 @@ if (($xtb_module=='list') && ($filter==3))	{
 
 <div style="width:100%; text-align:right; font-size:11px; color:black; font-family:Arial;">
 	<?php echo TXT_CHECKED?> &nbsp;<input type="submit" name="ACTION_Relist" value="<?php echo TXT_RELIST?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<?php echo TXT_CHECK_ALL?> <input type="checkbox" name="CheckAll" id="CheckAll" value="1" onClick="ChangeCheckboxes(<?php echo $CheckboxIndex?>);" />&nbsp;&nbsp;<br />
+	<?php echo TXT_CHECK_ALL?> <input type="checkbox" name="CheckAll" id="CheckAll" value="1" onclick="ChangeCheckboxes(<?php echo $CheckboxIndex?>);" />&nbsp;&nbsp;<br />
         <?php echo TXT_WARN_RELIST_COSTS?>
 </div>
 <input type="hidden" name="filter" value="<?php echo $filter?>" />

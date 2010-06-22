@@ -189,7 +189,7 @@ echo xtc_wysiwyg('mail',$data['code']);
 ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
-                    <td><input type="submit" class="button" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')" value="<?php echo BUTTON_BACK; ?>" name="back"></td>
+                    <td><input type="submit" class="button" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')" value="<?php echo BUTTON_BACK; ?>" name="back"></td>
                     <td align="right"><?php echo '<a class="button" href="' . xtc_href_link(FILENAME_MAIL) . '">' . BUTTON_CANCEL . '</a> <input type="submit" class="button" value="'.BUTTON_SEND_EMAIL.'">' ?></td>
                   </tr>
                 </table></td>

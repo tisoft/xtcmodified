@@ -1685,11 +1685,11 @@ function xtc_try_upload($file = '', $destination = '', $permissions = '777', $ex
 }
 
 function xtc_button($value, $type='submit', $parameter='') {
-   return '<input type="'.$type.'" class="button" onClick="this.blur();" value="' . $value . '" ' . $parameter . ' >';
+   return '<input type="'.$type.'" class="button" onclick="this.blur();" value="' . $value . '" ' . $parameter . ' >';
 }
 
 function xtc_button_link($value, $href='javascript:void(null)', $parameter='') {
-   return '<a href="'.$href.'" class="button" onClick="this.blur()" '.$parameter.' >'.$value.'</a>';
+   return '<a href="'.$href.'" class="button" onclick="this.blur()" '.$parameter.' >'.$value.'</a>';
 }
 
 

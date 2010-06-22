@@ -96,7 +96,7 @@
         <table class="infoBoxHeading" width="100%">
             <tr>
                 <td width="150" align="center">
-                <a href="#" onClick="toggleBox('config');"><?php echo CSV_SETUP; ?></a>
+                <a href="#" onclick="toggleBox('config');"><?php echo CSV_SETUP; ?></a>
                 </td>
                 <td width="1">|
                 </td>
@@ -189,7 +189,7 @@
   }
 ?>
             </table>
-<?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?></form>
+<?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?></form>
 </div>
 <?php
 
@@ -253,7 +253,7 @@
 <?php
 echo xtc_draw_form('upload',FILENAME_CSV_BACKEND,'action=upload','POST','enctype="multipart/form-data"');
 echo xtc_draw_file_field('file_upload');
-echo '<br/><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_UPLOAD . '"/>';
+echo '<br/><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_UPLOAD . '"/>';
 ?>
 </form>
           </td>
@@ -281,7 +281,7 @@ echo '<br/><input type="submit" class="button" onClick="this.blur();" value="' .
              closedir($dir);
             }
           echo xtc_draw_pull_down_menu('select_file',$files,'');
-          echo '<br/><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_IMPORT . '"/>';
+          echo '<br/><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_IMPORT . '"/>';
 
           ?></form>
 </td>
@@ -310,7 +310,7 @@ echo xtc_draw_form('export',FILENAME_CSV_BACKEND,'action=export','POST','enctype
 $content=array();
 $content[]=array('id'=>'products','text'=>TEXT_PRODUCTS);
 echo xtc_draw_pull_down_menu('select_content',$content,'products');
-echo '<br/><input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_EXPORT . '"/>';
+echo '<br/><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_EXPORT . '"/>';
 ?>
 </form>
           </td>

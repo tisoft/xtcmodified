@@ -55,7 +55,7 @@ if ($lang['directory']==$order->info['language']){
 <td class="dataTableContent" align="left" colspan="3">
 <?php
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>';
 ?></td>
 </tr>
 
@@ -102,7 +102,7 @@ if ($curr['code']==$order->info['currency']){
 <?php
 echo xtc_draw_hidden_field('old_currency', $order->info['currency']);
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>';
 ?></td>
 </tr>
 
@@ -154,7 +154,7 @@ echo TEXT_NEW . xtc_draw_pull_down_menu('payment', $payment_array);
 <td class="dataTableContent" align="left">
 <?php
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>';
 ?></td>
 </tr>
 
@@ -218,7 +218,7 @@ echo TEXT_PRICE . xtc_draw_input_field('value', $order_total['value']);
 <td class="dataTableContent" align="left">
 <?php
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>';
 ?></td>
 </tr>
 
@@ -267,7 +267,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 echo xtc_draw_hidden_field('class', $total);
 echo xtc_draw_hidden_field('sort_order', constant(MODULE_ORDER_TOTAL_.strtoupper($total_name)._SORT_ORDER));
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>';
 ?>
 </form>
 </td>
@@ -276,7 +276,7 @@ echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTT
 echo xtc_draw_form('ot_delete', FILENAME_ORDERS_EDIT, 'action=ot_delete', 'post');
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
 echo xtc_draw_hidden_field('otID', $ototal['orders_total_id']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE . '"/>';
 ?>
 </form>
 </td>

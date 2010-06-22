@@ -305,7 +305,7 @@ if ($content['content_file'] == '') {
 	  <?php } ?>
   <!-- EOF - Tomcraft - 2009-11-06 - Included specials //-->
       <td class="main" align="right">      	
-      	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+      	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
       	&nbsp;&nbsp;
       	<?php echo '<a class="button" href="' . xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . BUTTON_CANCEL . '</a>'; ?>
   	 </td>
@@ -505,7 +505,7 @@ if (GROUP_CHECK == 'true') {
 echo xtc_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d')));
 echo xtc_draw_hidden_field('products_id', $pInfo->products_id);
 ?>
-      	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+      	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
       	&nbsp;&nbsp;
       	<?php echo '<a class="button" href="' . xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . BUTTON_CANCEL . '</a>'; ?>
   	 </td>

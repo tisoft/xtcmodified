@@ -372,7 +372,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
 		   <table><tr><td align="right" width="850">
         	<?php echo xtc_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d'))) . xtc_draw_hidden_field('parent_id', $cInfo->parent_id); ?> 
         	<?php echo xtc_draw_hidden_field('categories_id', $cInfo->categories_id); ?> 
-        	<INPUT type="submit" class="button" name="update_category" value="<?php echo BUTTON_SAVE; ?>" style="cursor:hand" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">&nbsp;&nbsp;<a class="button" onClick="this.blur()" href="<?php echo xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $_GET['cID']); ?>"><?php echo BUTTON_CANCEL ; ?></a>
+        	<INPUT type="submit" class="button" name="update_category" value="<?php echo BUTTON_SAVE; ?>" style="cursor:hand" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">&nbsp;&nbsp;<a class="button" onclick="this.blur()" href="<?php echo xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $_GET['cID']); ?>"><?php echo BUTTON_CANCEL ; ?></a>
 		</td></tr></table>
 		</td>
       </form>

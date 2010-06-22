@@ -401,7 +401,7 @@ date("Y") - $i; ?></option><?php
                 </tr>
                 <tr>
                   <td colspan="5" class="menuBoxHeading" align="right">
-                  <?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_UPDATE . '"/>'; ?>
+                  <?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_UPDATE . '"/>'; ?>
                   </td>
               </table>
             </form>

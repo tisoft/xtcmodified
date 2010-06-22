@@ -117,7 +117,7 @@ while ($cross_data = xtc_db_fetch_array($cross_query)) {
 
 <?php } ?>
 </table>
-<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
 </form>
 </td>
 </tr>
@@ -141,7 +141,7 @@ while ($cross_data = xtc_db_fetch_array($cross_query)) {
 <?php
 
 
-	echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SEARCH . '"/>';
+	echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SEARCH . '"/>';
 ?>
 </td>
 </form>
@@ -200,7 +200,7 @@ while ($cross_data = xtc_db_fetch_array($cross_query)) {
 ?>
 
 </table>
-<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
 </form>
 <?php } ?>
 

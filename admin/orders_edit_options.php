@@ -65,7 +65,7 @@ echo xtc_draw_hidden_field('opAID', $attributes['orders_products_attributes_id']
 </td>
 <td class="dataTableContent">
 <?php
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>';
 ?>
 </form>
 </td>
@@ -76,7 +76,7 @@ echo xtc_draw_form('product_option_delete', FILENAME_ORDERS_EDIT, 'action=produc
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
 echo xtc_draw_hidden_field('opID', $_GET['opID']);
 echo xtc_draw_hidden_field('opAID', $attributes['orders_products_attributes_id']);
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_DELETE . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE . '"/>';
 ?>
 </form>
 </td>
@@ -147,7 +147,7 @@ $options_values_price = xtc_round($products['options_values_price'], PRICE_PRECI
 </td>
 <td class="dataTableContent">
 <?php
-echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_EDIT . '"/>';
+echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_EDIT . '"/>';
 ?>
 </form>
 </td>
