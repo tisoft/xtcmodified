@@ -254,7 +254,7 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
 	$memo_query = xtc_db_query("SELECT count(*) as count FROM ".TABLE_CUSTOMERS_MEMO." where customers_id='".$order->customer['ID']."'");
 	$memo_count = xtc_db_fetch_array($memo_query);
 ?>
-                <td class="main"><b><?php echo $memo_count['count'].'</b>'; ?>  <a style="cursor:hand" onclick="javascript:window.open('<?php echo xtc_href_link(FILENAME_POPUP_MEMO,'ID='.$order->customer['ID']); ?>', 'popup', 'scrollbars=yes, width=500, height=500')">(<?php echo DISPLAY_MEMOS; ?>)</a></td>
+                <td class="main"><b><?php echo $memo_count['count'].'</b>'; ?>  <a style="cursor:pointer" onclick="javascript:window.open('<?php echo xtc_href_link(FILENAME_POPUP_MEMO,'ID='.$order->customer['ID']); ?>', 'popup', 'scrollbars=yes, width=500, height=500')">(<?php echo DISPLAY_MEMOS; ?>)</a></td>
               </tr>
               <tr>
                 <td class="main"><b><?php echo ENTRY_TELEPHONE; ?></b></td>

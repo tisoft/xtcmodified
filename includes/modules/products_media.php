@@ -74,8 +74,8 @@ if (xtc_in_array($product->data['products_id'], $check_data)) {
 			if (preg_match('/.html/i', $content_data['content_file']) or preg_match('/.htm/i', $content_data['content_file']) or preg_match('/.txt/i', $content_data['content_file']) or preg_match('/.bmp/i', $content_data['content_file']) or preg_match('/.jpg/i', $content_data['content_file']) or preg_match('/.gif/i', $content_data['content_file']) or preg_match('/.png/i', $content_data['content_file']) or preg_match('/.tif/i', $content_data['content_file'])) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 
 //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
-				//$button = '<a style="cursor:hand" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_MEDIA_CONTENT, 'coID='.$content_data['content_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')">'.xtc_image_button('button_view.gif', TEXT_VIEW).'</a>';
-				$button = '<a style="cursor:hand" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_MEDIA_CONTENT, 'coID='.$content_data['content_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')">'.xtc_image_button('button_view.gif', TEXT_VIEW).'</a>';
+				//$button = '<a style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_MEDIA_CONTENT, 'coID='.$content_data['content_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')">'.xtc_image_button('button_view.gif', TEXT_VIEW).'</a>';
+				$button = '<a style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_MEDIA_CONTENT, 'coID='.$content_data['content_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')">'.xtc_image_button('button_view.gif', TEXT_VIEW).'</a>';
 //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 
 			} else {

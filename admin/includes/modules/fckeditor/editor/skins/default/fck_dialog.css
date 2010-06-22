@@ -131,7 +131,7 @@ body, .BackColor
 	margin-top: 1px;
 	border-bottom: #d5d59d 1px solid;
 	cursor: pointer;
-	cursor: hand;
+	cursor: pointer;
 }
 
 .PopupTabSelected
@@ -148,7 +148,7 @@ body, .BackColor
 	border: #ff9933 1px solid !important;
 	background-color: #fffacd !important;
 	cursor: pointer;
-	cursor: hand;
+	cursor: pointer;
 }
 
 #tdBrowse
@@ -340,7 +340,7 @@ body, .BackColor
 
 * html #closeButton
 {
-	cursor: hand;
+	cursor: pointer;
 	background-image: url(images/sprites.gif);
 }
 

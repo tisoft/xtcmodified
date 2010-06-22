@@ -515,7 +515,7 @@ if ($news_data[$i]['id']!='') {
 <!--
   <a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=delete&ID='.$news_data[$i]['id']); ?>" onclick="return confirm('<?php echo CONFIRM_DELETE; ?>')">
   <?php
-  echo xtc_image(DIR_WS_ICONS.'delete.gif','Delete','','','style="cursor:hand" onclick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
+  echo xtc_image(DIR_WS_ICONS.'delete.gif','Delete','','','style="cursor:pointer" onclick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
   ?>
 <a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=edit&ID='.$news_data[$i]['id']); ?>">
 <?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif','Edit','','').'  '.TEXT_EDIT.'</a>'; ?>
@@ -524,7 +524,7 @@ if ($news_data[$i]['id']!='') {
 	<?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif', ICON_EDIT,'','').'  '.TEXT_EDIT.'</a>'; ?>
   <a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=delete&ID='.$news_data[$i]['id']); ?>" onclick="return confirm('<?php echo CONFIRM_DELETE; ?>')">
   <?php
-  echo xtc_image(DIR_WS_ICONS.'delete.gif', ICON_DELETE,'','','style="cursor:hand" onclick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
+  echo xtc_image(DIR_WS_ICONS.'delete.gif', ICON_DELETE,'','','style="cursor:pointer" onclick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
   ?>
 <!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 
