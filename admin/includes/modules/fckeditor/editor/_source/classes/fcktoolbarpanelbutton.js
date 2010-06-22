@@ -36,7 +36,7 @@ var FCKToolbarPanelButton = function( commandName, label, tooltip, style, icon )
 	var oUIButton = this._UIButton = new FCKToolbarButtonUI( commandName, label, tooltip, oIcon, style ) ;
 	oUIButton._FCKToolbarPanelButton = this ;
 	oUIButton.ShowArrow = true ;
-	oUIButton.OnClick = FCKToolbarPanelButton_OnButtonclick ;
+	oUIButton.OnClick = FCKToolbarPanelButton_OnButtonClick ;
 }
 
 FCKToolbarPanelButton.prototype.TypeName = 'FCKToolbarPanelButton' ;
@@ -75,7 +75,7 @@ FCKToolbarPanelButton.prototype.RegisterPanel = function( oPanel )
 	Events
 */
 
-function FCKToolbarPanelButton_OnButtonclick( toolbarButton )
+function FCKToolbarPanelButton_OnButtonClick( toolbarButton )
 {
 	var oButton = this._FCKToolbarPanelButton ;
 	var e = oButton._UIButton.MainElement ;
