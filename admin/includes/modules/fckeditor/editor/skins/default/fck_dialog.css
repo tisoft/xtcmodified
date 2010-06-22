@@ -131,7 +131,7 @@ body, .BackColor
 	margin-top: 1px;
 	border-bottom: #d5d59d 1px solid;
 	cursor: pointer;
-	cursor: pointer;
+	cursor: hand;
 }
 
 .PopupTabSelected
@@ -148,7 +148,7 @@ body, .BackColor
 	border: #ff9933 1px solid !important;
 	background-color: #fffacd !important;
 	cursor: pointer;
-	cursor: pointer;
+	cursor: hand;
 }
 
 #tdBrowse
