@@ -38,6 +38,11 @@
 #  php_value register_globals 1
 #</IfModule>
 
+#-- set expire header for image, pdf, js and css files for 30 days
+#<FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif|js|css)$" >
+#  Header set Cache-Control "max-age=2592000, public"
+#</FilesMatch>
+
 #-- Turn off ETags in HTTP-header
 #FileETag None
 
