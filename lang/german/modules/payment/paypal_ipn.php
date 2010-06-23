@@ -89,7 +89,7 @@ define('MODULE_PAYMENT_PAYPAL_IPN_TXT_ORDER', " - Bestellnummer: ");
 define('MODULE_PAYMENT_PAYPAL_IPN_VAR_CBT', "zurück zum Shop"); //cbt
 
 //Style Schaltfläche
-define('MODULE_PAYMENT_PAYPAL_IPN_STYLE_LINK', 'style="padding:5px; background: #f8f8f8; border: 1px solid #8c8c8c; text-decoration: none; cursor: pointer;"');
+define('MODULE_PAYMENT_PAYPAL_IPN_STYLE_LINK', 'style="padding:5px; color:#555555; background: #f8f8f8; border: 1px solid #8c8c8c; text-decoration: none; cursor: pointer;"'); //web28 2010-06-23 define link color
 define('MODULE_PAYMENT_PAYPAL_IPN_STYLE_TOP', '<div style="margin-top:25px;">');
 define('MODULE_PAYMENT_PAYPAL_IPN_STYLE_LOGO', '<div style="margin-top: 5px; float: left;">' . MODULE_PAYMENT_PAYPAL_IPN_LOGO . '</div>');
 define('MODULE_PAYMENT_PAYPAL_IPN_STYLE_TEXT', '<div style="clear: both; color:#496686; font-weight: bold; padding:10px;">' . MODULE_PAYMENT_PAYPAL_IPN_TXT_CHECKOUT2.'</div>');
