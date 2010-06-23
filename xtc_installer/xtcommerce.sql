@@ -1182,7 +1182,7 @@ DROP TABLE if EXISTS personal_offers_by_customers_status_3;
 
 
 #database Version
-INSERT INTO database_version(version) VALUES ('xtcM_1.0.3.0');
+INSERT INTO database_version(version) VALUES ('xtcM_1.0.4.0');
 
 INSERT INTO cm_file_flags (file_flag, file_flag_name) VALUES ('0', 'information');
 INSERT INTO cm_file_flags (file_flag, file_flag_name) VALUES ('1', 'content');
