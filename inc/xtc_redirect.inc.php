@@ -20,14 +20,14 @@
   require_once(DIR_FS_INC . 'xtc_exit.inc.php');
   
   function xtc_redirect($url) {
-  //BOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
-  //if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // We are loading an SSL page
-  if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1' || !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) ) { // We are loading an SSL page
-  //EOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
-	
-	if (substr($url, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { // NONSSL url
-	    $url = HTTPS_SERVER . substr($url, strlen(HTTP_SERVER)); // Change it to SSL
-	}
+	//BOF - web28 - 2010-06-22 - New SSL  handling  defined by $request_type
+    //if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // We are loading an SSL page	
+	global $request_type;    
+    if ( (ENABLE_SSL == true) && ($request_type == 'SSL') ) { // We are loading an SSL page
+	//BOF - web28 - 2010-06-22 - New SSL  handling  defined by $request_type	
+		if (substr($url, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { // NONSSL url
+		    $url = HTTPS_SERVER . substr($url, strlen(HTTP_SERVER)); // Change it to SSL
+		}
     }
     
     // BOF - Hetfield - 2009-08-11 - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
