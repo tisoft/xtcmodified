@@ -145,6 +145,7 @@ div.hrproductpreview {
 /* TABLE GLOBAL */
 table td {
 	padding:2px;
+	vertical-align: top;
 }
 /* WHOLE SITE WRAPPER */
 #wrap {
