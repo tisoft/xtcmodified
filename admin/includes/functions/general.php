@@ -867,7 +867,10 @@ function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
 
 ////
 // Function to read in text area in admin
-function xtc_cfg_textarea($text) {
+//BOF - web28- 2010-07-06 - added missing $key
+//function xtc_cfg_textarea($text) {
+function xtc_cfg_textarea($text, $key = '') {
+//EOF - web28- 2010-07-06 - added missing $key
 	//BOF - web28- 2010-05-13 - added missing code
 	//return xtc_draw_textarea_field('configuration_value', false, 35, 5, $text);
 	$name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
