@@ -867,16 +867,15 @@ function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
 
 ////
 // Function to read in text area in admin
-//BOF - web28- 2010-07-06 - added missing $key
+//BOF - web28- 2010-07-06 - added missing code
 //function xtc_cfg_textarea($text) {
-function xtc_cfg_textarea($text, $key = '') {
-//EOF - web28- 2010-07-06 - added missing $key
-	//BOF - web28- 2010-05-13 - added missing code
 	//return xtc_draw_textarea_field('configuration_value', false, 35, 5, $text);
-	$name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
-    return xtc_draw_textarea_field($name, false, 35, 3, $text, 'class="textareaModule"');
-	//EOF - web28- 2010-05-13 - added missing code
+//}
+function xtc_cfg_textarea($text, $key = '') {	
+    $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+    return xtc_draw_textarea_field($name, false, 35, 3, $text, 'class="textareaModule"');	
 }
+//EOF - web28- 2010-07-06 - added missing code
 
 function xtc_cfg_get_zone_name($zone_id) {
 	$zone_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_id = '".$zone_id."'");
