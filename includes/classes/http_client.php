@@ -48,6 +48,7 @@
     // proxy stuff
     var $useProxy = false;
     var $proxyHost, $proxyPort;
+    var $timeout = 8; // DokuMan - 2010-07-06 - added 8-second default timeout
 
 /**
  * httpClient constructor
@@ -331,9 +332,16 @@
 
         if (!xtc_not_null($port)) $port = 80;
 
+        //BOF - DokuMan - 2010-07-06 - added timeout value
+        /*
         if (!$this->socket = fsockopen($host, $port, $this->reply, $this->replyString)) {
           return false;
         }
+        */
+        if (!$this->socket = @fsockopen($host, $port, $this->reply, $this->replyString, $this->timeout)) {
+          return false;
+        }
+        //EOF - DokuMan - 2010-07-06 - added timeout value
 
         if (xtc_not_null($this->requestBody)) {
           $this->addHeader('Content-Length', strlen($this->requestBody));
