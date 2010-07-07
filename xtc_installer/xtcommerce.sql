@@ -891,18 +891,22 @@ CREATE TABLE sessions (
   value text NOT NULL ,  
   PRIMARY KEY (sesskey) 
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
+
 # BOF - web28 - 2010-07-07 - set shop offline
-DROP TABLE IF EXISTS `shop_configuration` (
-  `configuration_id` int(11) NOT NULL AUTO_INCREMENT,
-  `configuration_key` varchar(255) NOT NULL DEFAULT '',
-  `configuration_value` text NOT NULL,  
-  PRIMARY KEY (`configuration_id`),
-  KEY `configuration_key` (`configuration_key`)
+DROP TABLE IF EXISTS shop_configuration (
+  configuration_id int(11) NOT NULL AUTO_INCREMENT,
+  configuration_key varchar(255) NOT NULL DEFAULT '',
+  configuration_value text NOT NULL,  
+  PRIMARY KEY (configuration_id),
+  KEY configuration_key (configuration_key)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-INSERT INTO `shop_configuration` (`configuration_id`, `configuration_key`, `configuration_value`) VALUES(NULL, 'SHOP_OFFLINE', '');
-INSERT INTO `shop_configuration` (`configuration_id`, `configuration_key`, `configuration_value`) VALUES(NULL, 'SHOP_OFFLINE_MSG', '<p style="text-align: center;"><span style="font-size: large;"><font face="Arial">Unser Shop ist  aufgrund von Wartungsarbeiten  im Moment nicht erreichbar.<br />\r\n</font><font face="Arial">Bitte besuchen Sie uns zu einem   sp&auml;teren Zeitpunkt noch einmal.<br />\r\n<br />\r\n<br />\r\n<br />\r\n</font></span><font><font><a href="login_admin.php"><font color="#808080">Login</font></a></font></font><span style="font-size: large;"><font face="Arial"><br />\r\n</font></span></p>');
+INSERT INTO shop_configuration (configuration_id, configuration_key, configuration_value) VALUES(NULL, 'SHOP_OFFLINE', '');
+INSERT INTO shop_configuration (configuration_id, configuration_key, configuration_value) VALUES(NULL, 'SHOP_OFFLINE_MSG', '<p style="text-align: center;"><span style="font-size: large;"><font face="Arial">Unser Shop ist  aufgrund von Wartungsarbeiten  im Moment nicht erreichbar.<br />\r\n</font><font face="Arial">Bitte besuchen Sie uns zu einem   sp&auml;teren Zeitpunkt noch einmal.<br />\r\n<br />\r\n<br />\r\n<br />\r\n</font></span><font><font><a href="login_admin.php"><font color="#808080">Login</font></a></font></font><span style="font-size: large;"><font face="Arial"><br />\r\n</font></span></p>');
 # EOF - web28 - 2010-07-07 - set shop offline
+
+
 DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
   specials_id int NOT NULL auto_increment,
@@ -2150,6 +2154,7 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',47
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',47,'VIC','Vichada');
 
 #France
+# BOF - web28 - 2010-07-07 - FIX special character
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'Et','Etranger');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'01','Ain');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'02','Aisne');
@@ -2157,39 +2162,39 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'04','Alpes de Haute Provence');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'05','Hautes-Alpes');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'06','Alpes Maritimes');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'07','Ard?che');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'07','Ardèche');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'08','Ardennes');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'09','Ari?ge');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'09','Ariège');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'10','Aube');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'11','Aude');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'12','Aveyron');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'13','Bouches du RhÃ´ne');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'13','Bouches-du-Rhône');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'14','Calvados');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'15','Cantal');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'16','Charente');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'17','Charente Maritime');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'18','Cher');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'19','Corr?ze');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'19','Corrèze');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'2A','Corse du Sud');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'2B','Haute Corse');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'21','C™te d\'or');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'22','C™tes d\'Armor');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'21','Côte-d\'Or');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'22','Côtes-d\'Armor');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'23','Creuse');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'24','Dordogne');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'25','Doubs');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'26','Dr™me');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'26','Drôme');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'27','Eure');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'28','Eure et Loir');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'29','Finist?re');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'29','Finistère');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'30','Gard');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'31','Haute Garonne');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'32','Gers');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'33','Gironde');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'34','HŽrault');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'34','Hérault');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'35','Ille et Vilaine');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'36','Indre');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'37','Indre et Loire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'38','Is?re');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'38','Isère');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'39','Jura');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'40','Landes');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'41','Loir et Cher');
@@ -2199,7 +2204,7 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'45','Loiret');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'46','Lot');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'47','Lot et Garonne');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'48','Loz?re');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'48','Lozère');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'49','Maine et Loire');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'50','Manche');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'51','Marne');
@@ -2209,20 +2214,20 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'55','Meuse');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'56','Morbihan');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'57','Moselle');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'58','Ni?vre');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'58','Nièvre');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'59','Nord');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'60','Oise');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'61','Orne');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'62','Pas de Calais');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'63','Puy de D™me');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'64','PyrŽnŽes Atlantiques');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'65','Hautes PyrŽnŽes');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'66','PyrŽnŽes Orientales');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'63','Puy-de-Dôme');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'64','Pyrénées-Atlantiques');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'65','Hautes-Pyrénées');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'66','Pyrénées-Orientales');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'67','Bas Rhin');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'68','Haut Rhin');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'69','Rh™ne');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'70','Haute Sa™ne');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'71','Sa™ne et Loire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'69','Rhône');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'70','Haute-Saône');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'71','Saône-et-Loire');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'72','Sarthe');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'73','Savoie');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'74','Haute Savoie');
@@ -2230,13 +2235,13 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'76','Seine Maritime');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'77','Seine et Marne');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'78','Yvelines');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'79','Deux S?vres');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'79','Deux-Sèvres');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'80','Somme');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'81','Tarn');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'82','Tarn et Garonne');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'83','Var');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'84','Vaucluse');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'85','VendŽe');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'85','Vendée');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'86','Vienne');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'87','Haute Vienne');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'88','Vosges');
@@ -2253,10 +2258,11 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'974 (DOM)','Saint Denis');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'975 (DOM)','St-Pierre de Miquelon');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'976 (TOM)','Mayotte');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'984 (TOM)','Terres australes et Antartiques fran?aises');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'985 (TOM)','Nouvelle CalŽdonie');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'984 (TOM)','Terres australes et Antartiques françaises');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'985 (TOM)','Nouvelle Calédonie');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'986 (TOM)','Wallis et Futuna');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'987 (TOM)','PolynŽsie fran?aise');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'987 (TOM)','Polynésie française');
+# EOF - web28 - 2010-07-07 - FIX special character
 
 #India
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 99, 'DL', 'Delhi');
