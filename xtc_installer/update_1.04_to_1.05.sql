@@ -13,7 +13,7 @@ INSERT INTO countries VALUES (10,'Argentina','AR','ARG','1','1');
 INSERT INTO countries VALUES (11,'Armenia','AM','ARM','1','1');
 INSERT INTO countries VALUES (12,'Aruba','AW','ABW','1','1');
 INSERT INTO countries VALUES (13,'Australia','AU','AUS','1','1');
-INSERT INTO countries VALUES (14,'Austria','AT','AUT','5','1');
+INSERT INTO countries VALUES (14,'Österreich','AT','AUT','5','1');
 INSERT INTO countries VALUES (15,'Azerbaijan','AZ','AZE','1','1');
 INSERT INTO countries VALUES (16,'Bahamas','BS','BHS','1','1');
 INSERT INTO countries VALUES (17,'Bahrain','BH','BHR','1','1');
@@ -80,7 +80,7 @@ INSERT INTO countries VALUES (77,'French Southern Territories','TF','ATF','1','1
 INSERT INTO countries VALUES (78,'Gabon','GA','GAB','1','1');
 INSERT INTO countries VALUES (79,'Gambia','GM','GMB','1','1');
 INSERT INTO countries VALUES (80,'Georgia','GE','GEO','1','1');
-INSERT INTO countries VALUES (81,'Germany','DE','DEU','5','1');
+INSERT INTO countries VALUES (81,'Deutschland','DE','DEU','5','1');
 INSERT INTO countries VALUES (82,'Ghana','GH','GHA','1','1');
 INSERT INTO countries VALUES (83,'Gibraltar','GI','GIB','1','1');
 INSERT INTO countries VALUES (84,'Greece','GR','GRC','1','1');
@@ -203,7 +203,7 @@ INSERT INTO countries VALUES (200,'Suriname','SR','SUR','1','1');
 INSERT INTO countries VALUES (201,'Svalbard and Jan Mayen Islands','SJ','SJM','1','1');
 INSERT INTO countries VALUES (202,'Swaziland','SZ','SWZ','1','1');
 INSERT INTO countries VALUES (203,'Sweden','SE','SWE','1','1');
-INSERT INTO countries VALUES (204,'Switzerland','CH','CHE','1','1');
+INSERT INTO countries VALUES (204,'Schweiz','CH','CHE','1','1');
 INSERT INTO countries VALUES (205,'Syrian Arab Republic','SY','SYR','1','1');
 INSERT INTO countries VALUES (206,'Taiwan','TW','TWN','1','1');
 INSERT INTO countries VALUES (207,'Tajikistan','TJ','TJK','1','1');
@@ -262,11 +262,6 @@ ALTER TABLE whos_online MODIFY customer_id INT( 11 ) DEFAULT NULL;
 ALTER TABLE whos_online MODIFY session_id VARCHAR( 32 ) NOT NULL;
 # EOF - DokuMan - 2010-07-07 - whos_online table too short customer_id, session_id too long
 
-# BOF - DokuMan - 2010-07-07 - update German speaking countries with German names
-UPDATE countries SET countries_name = 'Österreich' WHERE countries_id = '14';
-UPDATE countries SET countries_name = 'Deutschland' WHERE countries_id = '81';
-UPDATE countries SET countries_name = 'Schweiz' WHERE countries_id = '204';
-# EOF - DokuMan - 2010-07-07 - update German speaking countries with German names
 # BOF - web28 - 2010-07-07 - set shop offline
 ALTER TABLE `admin_access` ADD `shop_offline` INT(1) DEFAULT '0' NOT NULL ;
 UPDATE `admin_access` SET `shop_offline` = '1' WHERE `customers_id` = '1' LIMIT 1 ;
