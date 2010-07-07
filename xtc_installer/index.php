@@ -391,6 +391,6 @@ if ($ok_message!='') {
   </tr>
 </table><br />
 <div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo '<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>'; ?></div>
-<div align="center" style="padding-top:5px; font-size:11px;">Installer 104 rev09</div></td>
+<div align="center" style="padding-top:5px; font-size:11px;">Installer 104 rev09a</div></td>
 </body>
 </html>

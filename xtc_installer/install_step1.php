@@ -116,12 +116,12 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                 </tr>
               </table>
              <div style="border:1px solid #ccc; background:#fff; padding:10px;">
-			 <?php //BOF - web28 - 2010-03-18 - change install[]  to install_db and install_cfg - restore data?>
-              <p><?php echo xtc_draw_checkbox_field_installer('install_db', '1', $inst_db); ?>
+			 <?php //BOF - web28 - 2010-03-18 - change install[]  to install_db and install_cfg - restore data - 2010-07-07 FIX for PHP5.3?>
+              <p><?php echo xtc_draw_checkbox_field_installer('install_db', 1, $inst_db); ?>
                 <b><?php echo TEXT_IMPORT_DB; ?></b><br />
                 <?php echo TEXT_IMPORT_DB_LONG; ?></p>
-              <p><?php echo xtc_draw_checkbox_field_installer('install_cfg', '1', $config); ?> 
-			  <?php //BOF - web28 - 2010-03-18 - change install[]  to install_db and install_cfg - restore data?>
+              <p><?php echo xtc_draw_checkbox_field_installer('install_cfg', 1, $config); ?> 
+			  <?php //BOF - web28 - 2010-03-18 - change install[]  to install_db and install_cfg - restore data - 2010-07-07 FIX for PHP5.3?>
                 <b><?php echo TEXT_AUTOMATIC; ?></b><br />
                 <?php echo TEXT_AUTOMATIC_LONG; ?></p>
                 </div>
