@@ -35,6 +35,7 @@ if (!isset ($_GET['order']) || !is_numeric($_GET['order']) || !isset ($_GET['id'
 
 // Check that order_id, customer_id and filename match
 //BOF - DokuMan - 2010-03-19 - call everything in SQL
+//BOF - web28 - 2010-07-07 - BUGFIX o.orders_status >
 //$downloads_query = xtc_db_query("select date_format(o.date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, opd.download_count, opd.download_maxdays, opd.orders_products_filename from ".TABLE_ORDERS." o, ".TABLE_ORDERS_PRODUCTS." op, ".TABLE_ORDERS_PRODUCTS_DOWNLOAD." opd where o.customers_id = '".$_SESSION['customer_id']."' and o.orders_id = '".(int) $_GET['order']."' and o.orders_id = op.orders_id and op.orders_products_id = opd.orders_products_id and opd.orders_products_download_id = '".(int) $_GET['id']."' and opd.orders_products_filename != ''");
 $downloads_query = xtc_db_query("
 SELECT opd.orders_products_filename
@@ -49,8 +50,9 @@ AND opd.orders_products_download_id = ".(int) $_GET['id']."
 AND opd.orders_products_filename != ''
 AND DATE_SUB(CURDATE(), INTERVAL opd.download_maxdays DAY) <= o.date_purchased
 AND opd.download_count > 0
-AND o.orders_status > " . DOWNLOAD_MIN_ORDERS_STATUS
+AND o.orders_status >= " . DOWNLOAD_MIN_ORDERS_STATUS
 );
+//EOF - web28 - 2010-07-07 - BUGFIX o.orders_status >
 //EOF - DokuMan - 2010-03-19 - call everything in SQL
 if (!xtc_db_num_rows($downloads_query))
 	die;
