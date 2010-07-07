@@ -195,6 +195,9 @@ CREATE TABLE admin_access (
   econda int(1) NOT NULL default '0',
   cleverreach int(1) NOT NULL default '0',
   sofortueberweisung_install int(1) NOT NULL default '0',
+# BOF - web28 - 2010-07-07 - set shop offline
+  shop_offline int(1) NOT NULL default '0',
+# EOF - web28 - 2010-07-07 - set shop offline
   PRIMARY KEY  (customers_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
@@ -888,7 +891,18 @@ CREATE TABLE sessions (
   value text NOT NULL ,  
   PRIMARY KEY (sesskey) 
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+# BOF - web28 - 2010-07-07 - set shop offline
+DROP TABLE IF EXISTS `shop_configuration` (
+  `configuration_id` int(11) NOT NULL AUTO_INCREMENT,
+  `configuration_key` varchar(255) NOT NULL DEFAULT '',
+  `configuration_value` text NOT NULL,  
+  PRIMARY KEY (`configuration_id`),
+  KEY `configuration_key` (`configuration_key`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
+INSERT INTO `shop_configuration` (`configuration_id`, `configuration_key`, `configuration_value`) VALUES(NULL, 'SHOP_OFFLINE', '');
+INSERT INTO `shop_configuration` (`configuration_id`, `configuration_key`, `configuration_value`) VALUES(NULL, 'SHOP_OFFLINE_MSG', '<p style="text-align: center;"><span style="font-size: large;"><font face="Arial">Unser Shop ist  aufgrund von Wartungsarbeiten  im Moment nicht erreichbar.<br />\r\n</font><font face="Arial">Bitte besuchen Sie uns zu einem   sp&auml;teren Zeitpunkt noch einmal.<br />\r\n<br />\r\n<br />\r\n<br />\r\n</font></span><font><font><a href="login_admin.php"><font color="#808080">Login</font></a></font></font><span style="font-size: large;"><font face="Arial"><br />\r\n</font></span></p>');
+# EOF - web28 - 2010-07-07 - set shop offline
 DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
   specials_id int NOT NULL auto_increment,
@@ -1224,8 +1238,8 @@ INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$c
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
 
-INSERT  INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1);
-INSERT  INTO admin_access VALUES ( 'groups', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,1,1,1);
+INSERT  INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1);
+INSERT  INTO admin_access VALUES ( 'groups', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,1,1,1,0);
 
 # configuration_group_id 1
 INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_NAME', 'xtc:Modified',  1, 1, NULL, '', NULL, NULL);

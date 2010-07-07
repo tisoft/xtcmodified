@@ -267,3 +267,18 @@ UPDATE countries SET countries_name = 'Österreich' WHERE countries_id = '14';
 UPDATE countries SET countries_name = 'Deutschland' WHERE countries_id = '81';
 UPDATE countries SET countries_name = 'Schweiz' WHERE countries_id = '204';
 # EOF - DokuMan - 2010-07-07 - update German speaking countries with German names
+# BOF - web28 - 2010-07-07 - set shop offline
+ALTER TABLE `admin_access` ADD `shop_offline` INT(1) DEFAULT '0' NOT NULL ;
+UPDATE `admin_access` SET `shop_offline` = '1' WHERE `customers_id` = '1' LIMIT 1 ;
+
+DORP TABLE IF EXISTS `shop_configuration` (
+  `configuration_id` int(11) NOT NULL AUTO_INCREMENT,
+  `configuration_key` varchar(255) NOT NULL DEFAULT '',
+  `configuration_value` text NOT NULL,  
+  PRIMARY KEY (`configuration_id`),
+  KEY `configuration_key` (`configuration_key`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+
+INSERT INTO `shop_configuration` (`configuration_id`, `configuration_key`, `configuration_value`) VALUES(NULL, 'SHOP_OFFLINE', '');
+INSERT INTO `shop_configuration` (`configuration_id`, `configuration_key`, `configuration_value`) VALUES(NULL, 'SHOP_OFFLINE_MSG', '<p style="text-align: center;"><span style="font-size: large;"><font face="Arial">Unser Shop ist  aufgrund von Wartungsarbeiten  im Moment nicht erreichbar.<br />\r\n</font><font face="Arial">Bitte besuchen Sie uns zu einem   sp&auml;teren Zeitpunkt noch einmal.<br />\r\n<br />\r\n<br />\r\n<br />\r\n</font></span><font><font><a href="login_admin.php"><font color="#808080">Login</font></a></font></font><span style="font-size: large;"><font face="Arial"><br />\r\n</font></span></p>');
+# BOF - web28 - 2010-07-07 - set shop offline
