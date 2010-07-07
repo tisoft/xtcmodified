@@ -491,7 +491,10 @@ elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && $_
   }
   }
   // optional Product List Filter
-  if (PRODUCT_LIST_FILTER > 0) {
+  // BOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
+  //if (PRODUCT_LIST_FILTER > 0) {
+  if (PRODUCT_LIST_FILTER == 'true') {
+  // EOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
   if (isset ($_GET['manufacturers_id'])) {
     $filterlist_sql = "select distinct c.categories_id as id,
                                        cd.categories_name as name from ".TABLE_PRODUCTS." p,

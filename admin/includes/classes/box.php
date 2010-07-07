@@ -50,7 +50,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
     function menuBox($heading, $contents) {
       $this->table_data_parameters = 'class="menuBoxHeading"';
-      if ($heading[0]['link']) {
+      if (isset($heading[0]['link'])) {
         $this->table_data_parameters .= ' onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . $heading[0]['link'] . '\'"';
         $heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="menuBoxHeadingLink">' . $heading[0]['text'] . '</a>&nbsp;';
       } else {

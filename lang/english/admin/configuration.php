@@ -229,8 +229,8 @@ define('PRODUCT_IMAGE_THUMBNAIL_MERGE_DESC' , 'Product Thumbnails:Merge<br /><br
 define('PRODUCT_IMAGE_THUMBNAIL_FRAME_TITLE' , 'Product Thumbnails:Frame<br /><img src="images/config_frame.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_FRAME_DESC' , 'Product Thumbnails:Frame<br /><br />Default-values: (FFFFFF,000000,3,EEEEEE)<br /><br />plain raised border<br />Usage:<br />(hex light colour,hex dark colour,int width of mid bit,hex frame colour [optional - defaults to half way between light and dark edges])');
 
-define('PRODUCT_IMAGE_THUMBNAIL_DROP_SHADDOW_TITLE' , 'Product Thumbnails:Drop-Shadow<br /><img src="images/config_shadow.gif">');
-define('PRODUCT_IMAGE_THUMBNAIL_DROP_SHADDOW_DESC' , 'Product Thumbnails:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
+define('PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW_TITLE' , 'Product Thumbnails:Drop-Shadow<br /><img src="images/config_shadow.gif">');
+define('PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW_DESC' , 'Product Thumbnails:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
 
 define('PRODUCT_IMAGE_THUMBNAIL_MOTION_BLUR_TITLE' , 'Product Thumbnails:Motion-Blur<br /><img src="images/config_motion.gif">');
 define('PRODUCT_IMAGE_THUMBNAIL_MOTION_BLUR_DESC' , 'Product Thumbnails:Motion-Blur<br /><br />Default-values: (4,FFFFFF)<br /><br />fading parallel lines<br />Usage:<br />(int number of lines,hex background colour)');
@@ -255,8 +255,8 @@ define('PRODUCT_IMAGE_INFO_MERGE_DESC' , 'Product Images:Merge<br /><br />Defaul
 define('PRODUCT_IMAGE_INFO_FRAME_TITLE' , 'Product Images:Frame');
 define('PRODUCT_IMAGE_INFO_FRAME_DESC' , 'Product Images:Frame<br /><br />Default-values: (FFFFFF,000000,3,EEEEEE)<br /><br />plain raised border<br />Usage:<br />(hex light colour,hex dark colour,int width of mid bit,hex frame colour [optional - defaults to half way between light and dark edges])');
 
-define('PRODUCT_IMAGE_INFO_DROP_SHADDOW_TITLE' , 'Product Images:Drop-Shadow');
-define('PRODUCT_IMAGE_INFO_DROP_SHADDOW_DESC' , 'Product Images:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
+define('PRODUCT_IMAGE_INFO_DROP_SHADOW_TITLE' , 'Product Images:Drop-Shadow');
+define('PRODUCT_IMAGE_INFO_DROP_SHADOW_DESC' , 'Product Images:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
 
 define('PRODUCT_IMAGE_INFO_MOTION_BLUR_TITLE' , 'Product Images:Motion-Blur');
 define('PRODUCT_IMAGE_INFO_MOTION_BLUR_DESC' , 'Product Images:Motion-Blur<br /><br />Default-values: (4,FFFFFF)<br /><br />fading parallel lines<br />Usage:<br />(int number of lines,hex background colour)');
@@ -281,8 +281,8 @@ define('PRODUCT_IMAGE_POPUP_MERGE_DESC' , 'Product Popup Images:Merge<br /><br /
 define('PRODUCT_IMAGE_POPUP_FRAME_TITLE' , 'Product Popup Images:Frame');
 define('PRODUCT_IMAGE_POPUP_FRAME_DESC' , 'Product Popup Images:Frame<br /><br />Default-values: (FFFFFF,000000,3,EEEEEE)<br /><br />plain raised border<br />Usage:<br />(hex light colour,hex dark colour,int width of mid bit,hex frame colour [optional - defaults to half way between light and dark edges])');
 
-define('PRODUCT_IMAGE_POPUP_DROP_SHADDOW_TITLE' , 'Product Popup Images:Drop-Shadow');
-define('PRODUCT_IMAGE_POPUP_DROP_SHADDOW_DESC' , 'Product Popup Images:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
+define('PRODUCT_IMAGE_POPUP_DROP_SHADOW_TITLE' , 'Product Popup Images:Drop-Shadow');
+define('PRODUCT_IMAGE_POPUP_DROP_SHADOW_DESC' , 'Product Popup Images:Drop-Shadow<br /><br />Default-values: (3,333333,FFFFFF)<br /><br />more like a dodgy motion blur [semi buggy]<br />Usage:<br />(shadow width,hex shadow colour,hex background colour)');
 
 define('PRODUCT_IMAGE_POPUP_MOTION_BLUR_TITLE' , 'Product Popup Images:Motion-Blur');
 define('PRODUCT_IMAGE_POPUP_MOTION_BLUR_DESC' , 'Product Popup Images:Motion-Blur<br /><br />Default-values: (4,FFFFFF)<br /><br />fading parallel lines<br />Usage:<br />(int number of lines,hex background colour)');
