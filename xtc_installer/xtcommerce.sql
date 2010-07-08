@@ -894,7 +894,8 @@ CREATE TABLE sessions (
 
 
 # BOF - web28 - 2010-07-07 - set shop offline
-DROP TABLE IF EXISTS shop_configuration (
+DROP TABLE IF EXISTS shop_configuration;
+CREATE TABLE shop_configuration (
   configuration_id int(11) NOT NULL AUTO_INCREMENT,
   configuration_key varchar(255) NOT NULL DEFAULT '',
   configuration_value text NOT NULL,  

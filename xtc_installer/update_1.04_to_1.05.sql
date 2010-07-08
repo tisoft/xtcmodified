@@ -1,5 +1,5 @@
 # BOF - Tomcraft - 2010-07-02 - Bugfix on r763 (Update Countries (delete Yugoslavia, add Serbia and Monetegro))
-delete from countries;
+DELETE FROM countries;
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1','1');
 INSERT INTO countries VALUES (3,'Algeria','DZ','DZA','1','1');
@@ -254,7 +254,8 @@ UPDATE configuration SET configuration_key = 'PRODUCT_IMAGE_POPUP_DROP_SHADOW' W
 # EOF - DokuMan - 2010-07-07 - PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW, PRODUCT_IMAGE_INFO_DROP_SHADOW, PRODUCT_IMAGE_POPUP_DROP_SHADOW
 
 # BOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
-UPDATE configuration SET set_function = 'xtc_cfg_select_option(array(\'true\', \'false\'),' , SET configuration_value = 'true' WHERE configuration_key = 'PRODUCT_LIST_FILTER';
+UPDATE configuration SET set_function = 'xtc_cfg_select_option(array(\'true\', \'false\'),' WHERE configuration_key = 'PRODUCT_LIST_FILTER';
+UPDATE configuration SET configuration_value = 'true' WHERE configuration_key = 'PRODUCT_LIST_FILTER';
 # EOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
 
 # BOF - DokuMan - 2010-07-07 - whos_online table too short customer_id, session_id too long
@@ -263,11 +264,12 @@ ALTER TABLE whos_online MODIFY session_id VARCHAR( 32 ) NOT NULL;
 # EOF - DokuMan - 2010-07-07 - whos_online table too short customer_id, session_id too long
 
 # BOF - web28 - 2010-07-07 - set shop offline
-ALTER TABLE `admin_access` ADD `shop_offline` INT(1) DEFAULT '0' NOT NULL ;
-UPDATE `admin_access` SET `shop_offline` = '1' WHERE `customers_id` = '1' LIMIT 1 ;
+ALTER TABLE admin_access ADD shop_offline INT(1) DEFAULT '0' NOT NULL ;
+UPDATE admin_access SET shop_offline = '1' WHERE customers_id = '1' LIMIT 1 ;
 
 # BOF - web28 - 2010-07-07 - set shop offline
-DROP TABLE IF EXISTS shop_configuration (
+DROP TABLE IF EXISTS shop_configuration;
+CREATE TABLE shop_configuration (
   configuration_id int(11) NOT NULL AUTO_INCREMENT,
   configuration_key varchar(255) NOT NULL DEFAULT '',
   configuration_value text NOT NULL,  
@@ -281,7 +283,7 @@ INSERT INTO shop_configuration (configuration_id, configuration_key, configurati
 
 # BOF - web28 - 2010-07-07 - FIX special character
 #France
-delete from zones where zone_country_id ='73'
+DELETE FROM zones WHERE zone_country_id ='73';
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'Et','Etranger');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'01','Ain');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',73,'02','Aisne');
