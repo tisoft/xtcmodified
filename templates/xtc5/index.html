@@ -34,6 +34,11 @@
 			id="contentfull"
 		{/if}
 		 >
+        {if strstr ($smarty.server.PHP_SELF, 'index')}
+            {if $smarty.get.cPath==null and $smarty.get.manufacturers_id==''}
+                 {if $BANNER}{$BANNER}{/if}
+           {/if}
+        {/if}
         {$main_content}</div>
     {if !strstr ($smarty.server.PHP_SELF, 'checkout')}
     <div id="rightcol">{$box_CART}{$box_LOGIN}{$box_ADMIN}{$box_NEWSLETTER}{$box_BESTSELLERS}{$box_INFOBOX}{$box_CURRENCIES}{$box_MANUFACTURERS_INFO}{$box_MANUFACTURERS}</div>
