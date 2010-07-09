@@ -1230,3 +1230,12 @@ div.agbframe ol, div.agbframe ul  {
 	margin-left:30px;	
 }
 /* EOF - web28 - 2010-04-29 - fix ol and ul Tag  in checkout_payment agbframe */
+
+/* BOF - web28 - 2010-07-09 - fix für TABS in product_info */
+#tabbed_product_info ul{
+	margin:0px 0px 0px 0px;
+}
+#tabbed_product_info{
+	margin-top: 10px;
+}
+/* EOF - web28 - 2010-07-09 - fix für TABS in product_info */
