@@ -23,6 +23,9 @@ require_once (DIR_FS_INC.'xtc_get_products_mo_images.inc.php');
 require_once (DIR_FS_INC.'xtc_get_vpe_name.inc.php');
 
 $smarty = new Smarty;
+//BOF - web28 - 2010-07-09 - define smarty template path
+$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - web28 - 2010-07-09 - define smarty template path
 
 $product_info_query = xtc_db_query("select * FROM ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_status = '1' and p.products_id = '".(int) $_GET['products_id']."' and pd.products_id = p.products_id and pd.language_id = '".(int) $_SESSION['languages_id']."'");
 $product_info = xtc_db_fetch_array($product_info_query);
@@ -75,7 +78,10 @@ if ($product_info['products_image'] != '') {
 	$image = DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$product_info['products_image'];
 }
 */
-$image = DIR_WS_CATALOG.$product->productImage($product_info['products_image'], 'thumbnail');
+//BOF - web28 - 2010-07-09 - image path corection
+//$image = DIR_WS_CATALOG.$product->productImage($product_info['products_image'], 'thumbnail');
+$image = $product->productImage($product_info['products_image'], 'thumbnail');
+//EOF - web28 - 2010-07-09 - image path corection
 // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
 if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
 	$tax_rate = $xtPrice->TAX[$product_info['products_tax_class_id']];
@@ -132,9 +138,13 @@ if (is_array($mo_images)) {
   //BOF MORE IMAGES ARRAY
 	$more_images_data = array();
 	foreach ($mo_images as $img) {
-		$mo_img = DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$img['image_name'];
+	    //BOF - web28 - 2010-07-09 - image path corection
+		//$mo_img = DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$img['image_name'];
+		$mo_img = DIR_WS_THUMBNAIL_IMAGES.$img['image_name'];		
 		$smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);
-		$more_images_data[] = array ('PRODUCTS_IMAGE' => DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$img['image_name']);
+		//$more_images_data[] = array ('PRODUCTS_IMAGE' => DIR_WS_CATALOG.DIR_WS_THUMBNAIL_IMAGES.$img['image_name']);
+		$more_images_data[] = array ('PRODUCTS_IMAGE' => DIR_WS_THUMBNAIL_IMAGES.$img['image_name']);
+		//EOF - web28 - 2010-07-09 - image path corection
 	}
 	$smarty->assign('more_images', $more_images_data);
 	//EOF MORE IMAGES ARRAY
