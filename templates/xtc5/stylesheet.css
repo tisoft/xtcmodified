@@ -1238,4 +1238,20 @@ div.agbframe ol, div.agbframe ul  {
 #tabbed_product_info{
 	margin-top: 10px;
 }
+.morepics_tabs {	
+	text-align:right;	
+	display:block;
+	height:auto;
+	width:500px;
+	float:left;	
+}
+.morepics_tabs img {
+	border: #999 1px solid;
+	padding:4px;
+	margin-right:8px;
+	background:#fff;
+	height:100px;
+	width:auto;
+	float:left;
+}
 /* EOF - web28 - 2010-07-09 - fix für TABS in product_info */
