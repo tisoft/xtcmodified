@@ -1253,5 +1253,6 @@ div.agbframe ol, div.agbframe ul  {
 	height:100px;
 	width:auto;
 	float:left;
+	margin-bottom:8px;
 }
 /* EOF - web28 - 2010-07-09 - fix für TABS in product_info */
