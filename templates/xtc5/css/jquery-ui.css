@@ -359,3 +359,7 @@ jquery-ui-1.8.2.custom.css
     width: 200px; /*must have*/
     height: 200px; /*must have*/
 }
+/* only for xtcModfied >= 1.04 */
+#tabbed_description_part ul{
+	margin:0px 0px 0px 0px;
+}
