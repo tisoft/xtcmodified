@@ -14,3 +14,11 @@
 ?>
 <link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/stylesheet.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/css/thickbox.css" type="text/css" media="screen" />
+
+<?php
+if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
+?>
+<link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/css/jquery-ui.css" type="text/css" media="screen" />
+<?php
+}
+?>

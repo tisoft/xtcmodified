@@ -17,3 +17,22 @@
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery.js" type="text/javascript"></script>
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/thickbox.js" type="text/javascript"></script>
 
+<?php
+if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
+?>
+<script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery-ui.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#tabbed_product_info").tabs();
+	});
+	
+	$(function() {
+		$("#accordion_product_info").accordion();
+	});
+</script>
+<noscript> 
+	<style type="text/css">#tabbed_product_info ul {display: none;}</style>
+</noscript>
+<?php
+}
+?>
