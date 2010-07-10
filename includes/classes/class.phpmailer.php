@@ -589,7 +589,7 @@ class PHPMailer {
     /* Retry while there is no connection */
     while($index < count($hosts) && $connection == false) {
       $hostinfo = array();
-      if(eregi('^(.+):([0-9]+)$', $hosts[$index], $hostinfo)) {
+      if (preg_match('/^(.+):([0-9]+)$/', $hosts[$index], $hostinfo)) { // web28 - 2010-07-10 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
         $host = $hostinfo[1];
         $port = $hostinfo[2];
       } else {
