@@ -25,14 +25,11 @@ if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 <script type="text/javascript">
 	$(function() {
 		$("#tabbed_product_info").tabs();
-	});
-	
-	$(function() {
 		$("#accordion_product_info").accordion();
-	});
+	});	
 </script>
 <noscript> 
-	<style type="text/css">#tabbed_product_info ul {display: none;}</style>
+	<link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/css/tabs_no_js.css" type="text/css" media="screen" />
 </noscript>
 <?php
 }
