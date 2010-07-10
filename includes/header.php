@@ -55,7 +55,7 @@
 	created by Mario Zanier & Guido Winger and licensed under GNU/GPL.
 	Information and contribution at http://www.xt-commerce.com
 -->
-<meta name="generator" content="(c) by <?php echo PROJECT_VERSION; ?> , http://www.xtc-modified.org" />
+<meta name="generator" content="(c) by <?php echo PROJECT_VERSION; ?> ----- http://www.xtc-modified.org" />
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
 <?php
 /*
