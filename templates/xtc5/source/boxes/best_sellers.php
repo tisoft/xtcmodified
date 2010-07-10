@@ -135,7 +135,6 @@ if (xtc_db_num_rows($best_sellers_query, true) >= MIN_DISPLAY_BESTSELLERS) {
 
 	$box_smarty->assign('box_content', $box_content);
   }
-}
 	//BOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 	// set cache ID
 	/*
