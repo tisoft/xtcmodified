@@ -174,7 +174,11 @@
         if ($_GET['oldaction']=='voucheredit') {
           xtc_db_perform(TABLE_COUPONS, $sql_data_array, 'update', "coupon_id='" . $_GET['cid']."'");
           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
+			$language_id = $languages[$i]['id'];
+			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			$coupon_query = xtc_db_query("select * from ".TABLE_COUPONS_DESCRIPTION." where language_id = '".$language_id."' and coupon_id = '".xtc_db_input($coupon_id)."'");
+			if (xtc_db_num_rows($coupon_query) == 0) xtc_db_perform(TABLE_COUPONS_DESCRIPTION, array ('coupon_id' => xtc_db_input($coupon_id), 'language_id' => $language_id));
+			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
             $update = xtc_db_query("update " . TABLE_COUPONS_DESCRIPTION . " set coupon_name = '" . xtc_db_prepare_input($_POST['coupon_name'][$language_id]) . "', coupon_description = '" . xtc_db_prepare_input($_POST['coupon_desc'][$language_id]) . "' where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $language_id . "'");
 //            tep_db_perform(TABLE_COUPONS_DESCRIPTION, $sql_data_marray[$i], 'update', "coupon_id='" . $_GET['cid']."'");
           }

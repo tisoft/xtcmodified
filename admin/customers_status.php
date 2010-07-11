@@ -99,11 +99,15 @@
           xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array);
  
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and language_id = '" . $language_id . "'");
+			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			$customers_status_query = xtc_db_query("select * from ".TABLE_CUSTOMERS_STATUS." where language_id = '".$language_id."' and customers_status_id = '".xtc_db_input($customers_status_id)."'");
+			if (xtc_db_num_rows($customers_status_query) == 0) xtc_db_perform(TABLE_CUSTOMERS_STATUS, array ('customers_status_id' => xtc_db_input($customers_status_id), 'language_id' => $language_id));
+			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and language_id = '" . $language_id . "'");
         }
       }
        
-      if ($customers_status_image = &xtc_try_upload('customers_status_image', DIR_WS_ICONS)) {
+      if ($customers_status_image = &xtc_try_upload('customers_status_image', DIR_WS_ICONS)) {		
         xtc_db_query("update " . TABLE_CUSTOMERS_STATUS . " set customers_status_image = '" . $customers_status_image->filename . "' where customers_status_id = '" . xtc_db_input($customers_status_id) . "'");
       }
 
