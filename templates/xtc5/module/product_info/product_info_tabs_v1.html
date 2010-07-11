@@ -62,10 +62,6 @@
 </ul>
 
 {if $PRODUCTS_DESCRIPTION !=''}<div id="tab_description">{$PRODUCTS_DESCRIPTION}</div>{/if}
-{if $MODULE_cross_selling != '' || $MODULE_reverse_cross_selling != ''}<div id="tab_cross_selling">{$MODULE_cross_selling}{if $MODULE_reverse_cross_selling != ''}{$MODULE_reverse_cross_selling}{/if}</div>{/if}
-{if $MODULE_also_purchased != ''}<div id="tab_also_purchased">{$MODULE_also_purchased}</div>{/if}
-{if $MODULE_products_reviews != ''}<div id="tab_reviews">{$MODULE_products_reviews}</div>{/if}
-{if $MODULE_products_media != ''}<div id="tab_media">{$MODULE_products_media}</div>{/if}
 {if $more_images|@count > 0}<div id="tab_more_images">
 	<!-- More Pictures -->
 	<div class="morepics">
@@ -76,6 +72,10 @@
 	<div style="clear:both;"></div>
 	</div>
 {/if}
+{if $MODULE_products_media != ''}<div id="tab_media">{$MODULE_products_media}</div>{/if}
+{if $MODULE_products_reviews != ''}<div id="tab_reviews">{$MODULE_products_reviews}</div>{/if}
+{if $MODULE_cross_selling != '' || $MODULE_reverse_cross_selling != ''}<div id="tab_cross_selling">{$MODULE_cross_selling}{if $MODULE_reverse_cross_selling != ''}{$MODULE_reverse_cross_selling}{/if}</div>{/if}
+{if $MODULE_also_purchased != ''}<div id="tab_also_purchased">{$MODULE_also_purchased}</div>{/if}
 
 </div>
 {*END TABS*}
