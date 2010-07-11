@@ -189,6 +189,10 @@ class categories {
 				xtc_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array);
 			}
 			elseif ($action == 'update') {
+				//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			    $category_query = xtc_db_query("select * from ".TABLE_CATEGORIES_DESCRIPTION." where language_id = '".$lang['id']."' and categories_id = '".$categories_id."'");
+				if (xtc_db_num_rows($category_query) == 0) xtc_db_perform(TABLE_CATEGORIES_DESCRIPTION, array ('categories_id' => $categories_id, 'language_id' => $lang['id']));
+				//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
 				xtc_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array, 'update', 'categories_id = \''.$categories_id.'\' and language_id = \''.$lang['id'].'\'');
 			}
 		}
@@ -735,6 +739,10 @@ class categories {
 				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array);
 			}
 			elseif ($action == 'update') {
+				//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			    $product_query = xtc_db_query("select * from ".TABLE_PRODUCTS_DESCRIPTION." where language_id = '".$lang['id']."' and products_id = '".$products_id."'");
+				if (xtc_db_num_rows($product_query) == 0) xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, array ('products_id' => $products_id, 'language_id' => $lang['id']));
+				//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
 				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\' and language_id = \''.$language_id.'\'');
 			}
 		}
