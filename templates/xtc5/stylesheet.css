@@ -1153,7 +1153,7 @@ ul#checkoutnavigation li.inactive .description {
 	height:auto;
 	width:512px;
 	float:left;
-	margin-bottom:10px;
+	margin-bottom:2px;
 }
 .morepics img {
 	border: #999 1px solid;
@@ -1163,6 +1163,7 @@ ul#checkoutnavigation li.inactive .description {
 	height:100px;
 	width:auto;
 	float:left;
+	margin-bottom:8px;
 }
 /* BESTELLER BOX mit Bilder in DL DT Liste -- JUNG GESTALTEN.com */
 dt {
