@@ -318,12 +318,15 @@ class product {
 		}
 		$staffel_data = array ();
 		for ($i = 0, $n = sizeof($staffel); $i < $n; $i ++) {
-			if ($staffel[$i]['stk'] == 1) {
-				$quantity = $staffel[$i]['stk'];
+			if ($staffel[$i]['stk'] == 1) {			    
+				$quantity = $staffel[$i]['stk'];				
 				if ($staffel[$i +1]['stk'] != '')
 					$quantity = $staffel[$i]['stk'].'-'. ($staffel[$i +1]['stk'] - 1);
 			} else {
-				$quantity = ' > '.$staffel[$i]['stk'];
+			    //BOF - web28 - 2010-07-11 - FIX max value info for graduated prices
+				//$quantity = ' > '.$staffel[$i]['stk'];
+				$quantity = GRADUATED_PRICE_MAX_VALUE.' '.$staffel[$i]['stk'];
+				//EOF - web28 - 2010-07-11 - FIX max value info for graduated prices
 				if ($staffel[$i +1]['stk'] != '')
 					$quantity = $staffel[$i]['stk'].'-'. ($staffel[$i +1]['stk'] - 1);
 			}
