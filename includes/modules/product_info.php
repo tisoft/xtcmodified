@@ -217,9 +217,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			} // while
 			closedir($dir);
 		}		
-		sort($files);
-        echo print_r($files);
-		echo $files[0];		
+		sort($files);        	
 		//$product->data['product_template'] = $files[0]['id'];
 		$product->data['product_template'] = $files[0];
 // BOF - web28 - 2010-07-12 - sort templates array
