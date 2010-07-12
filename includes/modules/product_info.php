@@ -210,18 +210,17 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 				//if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
 				if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
 // EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+// BOF - web28 - 2010-07-12 - sort templates array
 					//$files[] = array ('id' => $file, 'text' => $file);
 					$files[] = $file;
 				} //if
 			} // while
 			closedir($dir);
-		}
-		// BOF - web28 - 2010-07-12 - sort templates array
-		sort($files);
-		echo print_r($files);
-		// BOF - web28 - 2010-07-12 - sort templates array
+		}		
+		sort($files);			
 		//$product->data['product_template'] = $files[0]['id'];
 		$product->data['product_template'] = $files[0];
+// BOF - web28 - 2010-07-12 - sort templates array
 	}
 
 $i = count($_SESSION['tracking']['products_history']);
