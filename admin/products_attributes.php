@@ -62,7 +62,11 @@
 */
 	    $option_name = $_POST['option_name'];
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-		  xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_sortorder = '" . $_POST['products_options_sortorder'] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");          
+			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			$products_options_query = xtc_db_query("select * from ".TABLE_PRODUCTS_OPTIONS." where language_id = '".$languages[$i]['id']."' and products_options_id = '".$_POST['option_id']."'");
+			if (xtc_db_num_rows($products_options_query) == 0) xtc_db_perform(TABLE_PRODUCTS_OPTIONS, array ('products_options_id' => $_POST['option_id'], 'language_id' => $languages[$i]['id']));
+			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_sortorder = '" . $_POST['products_options_sortorder'] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");          
 		}
 // EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
@@ -70,7 +74,11 @@
       case 'update_value':
        $value_name = $_POST['value_name'];
        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-         xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES . " set products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' where products_options_values_id = '" . $_POST['value_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			$products_options_values_query = xtc_db_query("select * from ".TABLE_PRODUCTS_OPTIONS_VALUES." where language_id = '".$languages[$i]['id']."' and products_options_values_id = '".$_POST['value_id']."'");
+			if (xtc_db_num_rows($products_options_values_query) == 0) xtc_db_perform(TABLE_PRODUCTS_OPTIONS_VALUES, array ('products_options_values_id' => $_POST['value_id'], 'language_id' => $languages[$i]['id']));
+			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+			xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES . " set products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' where products_options_values_id = '" . $_POST['value_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
        }
        xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " set products_options_id = '" . $_POST['option_id'] . "' where products_options_values_id = '" . $_POST['value_id'] . "'");
        xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
