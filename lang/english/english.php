@@ -456,7 +456,7 @@ define('UNIT_PRICE','unit price ');
 define('ONLY',' only ');
 define('FROM','from ');
 define('YOU_SAVE','you save ');
-define('INSTEAD','instead ');
+define('INSTEAD','instead of ');
 define('TXT_PER',' per ');
 define('TAX_INFO_INCL','%s VAT incl.');
 define('TAX_INFO_EXCL','%s VAT excl.');
