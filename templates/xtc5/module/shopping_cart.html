@@ -27,6 +27,6 @@ $this->assign('BUTTON_CONTINUE_SHOPPING', xtc_image_button('button_continue_shop
 {$HIDDEN_OPTIONS}
 <p>{$MODULE_order_details}</p>
 {if $info_message_1!=''}<div class="errormessage">{$info_message_1}{$min_order}{$info_message_2}{$order_amount}</div>{/if}
-<p>{if $CONTINUE_LINK}<a href="{$CONTINUE_LINK}">{$BUTTON_CONTINUE_SHOPPING}</a>&nbsp;&nbsp;&nbsp;{/if}{$BUTTON_RELOAD}&nbsp;{$BUTTON_CHECKOUT}</p>
+<p>{if $CONTINUE_LINK}<a href="{$CONTINUE_LINK}">{$BUTTON_CONTINUE_SHOPPING}</a>&nbsp;{/if}{$BUTTON_RELOAD}&nbsp;{$BUTTON_CHECKOUT}</p>
 <p>{$FORM_END}{/if}
 {$MODULE_gift_cart}
