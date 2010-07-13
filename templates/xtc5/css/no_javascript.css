@@ -7,3 +7,5 @@
 	width: 512px;
     margin-bottom:17px;	
 }
+
+#accordion_product_info h3  a{display: none;}

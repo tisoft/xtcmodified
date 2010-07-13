@@ -1232,11 +1232,11 @@ div.agbframe ol, div.agbframe ul  {
 }
 /* EOF - web28 - 2010-04-29 - fix ol and ul Tag  in checkout_payment agbframe */
 
-/* BOF - web28 - 2010-07-09 - fix für TABS in product_info */
+/* BOF - web28 - 2010-07-09 - fix für TABS/ACCORDION in product_info */
 #tabbed_product_info ul{
 	margin:0px 0px 0px 0px;
 }
-#tabbed_product_info{
+#tabbed_product_info, #accordion_product_info{
 	margin-top: 10px;
 }
 #tabbed_product_info .morepics {	
@@ -1244,4 +1244,10 @@ div.agbframe ol, div.agbframe ul  {
 	border-width: 0px 0px 0px 0px;	
 	width: 506px;	
 }
-/* EOF - web28 - 2010-07-09 - fix für TABS in product_info */
+
+#accordion_product_info .morepics {	
+	background-color: transparent;	
+	border-width: 0px 0px 0px 0px;	
+	width: 460px;	
+}
+/* EOF - web28 - 2010-07-09 - fix für TABS/ACCORDION in product_info */
