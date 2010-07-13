@@ -29,7 +29,7 @@ if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 	});	
 </script>
 <noscript> 
-	<link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/css/tabs_no_js.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/css/no_javascript.css" type="text/css" media="screen" />
 </noscript>
 <?php
 }
