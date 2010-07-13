@@ -25,7 +25,7 @@ if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 <script type="text/javascript">
 	$(function() {
 		$("#tabbed_product_info").tabs();
-		$("#accordion_product_info").accordion();
+		$("#accordion_product_info").accordion({ autoHeight: false });
 	});	
 </script>
 <noscript> 
