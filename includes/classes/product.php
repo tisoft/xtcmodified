@@ -316,20 +316,44 @@ class product {
 		while ($staffel_values = xtc_db_fetch_array($staffel_query, true)) {
 			$staffel[] = array ('stk' => $staffel_values['quantity'], 'price' => $staffel_values['personal_offer']);
 		}
+		
+		$staffel_data = array ();
+        for ($i = 0, $n = sizeof($staffel); $i < $n; $i ++) {
+            //BOF - Rubs - 2010-07-13 - BUGFIX display same quantity only once for graduated prices
+            if ($staffel[$i]['stk'] == 1 OR $staffel[$i +1]['stk'] != ''){
+                $quantity = $staffel[$i]['stk'];
+                if ($staffel[$i +1]['stk'] != '' && $staffel[$i +1]['stk'] != $staffel[$i]['stk'] + 1)
+                    $quantity .= ' - '. ($staffel[$i +1]['stk'] - 1);
+            } else {
+                $quantity = ' > '.$staffel[$i]['stk'];
+            }
+            //EOF - Rubs - 2010-07-13 - BUGFIX display same quantity only once for graduated prices
+            $vpe = '';
+            // BOF - Hetfield - 2009-08-24 - BUGFIX show VPE for graduated prices
+		
+		
 		$staffel_data = array ();
 		for ($i = 0, $n = sizeof($staffel); $i < $n; $i ++) {
+			//BOF - web28 - 2010-07-13 - BUGFIX display same quantity only once for graduated prices / FIX max value info for graduated prices
+			/*
 			if ($staffel[$i]['stk'] == 1) {			    
 				$quantity = $staffel[$i]['stk'];				
 				if ($staffel[$i +1]['stk'] != '')
 					$quantity = $staffel[$i]['stk'].'-'. ($staffel[$i +1]['stk'] - 1);
-			} else {
-			    //BOF - web28 - 2010-07-11 - FIX max value info for graduated prices
-				//$quantity = ' > '.$staffel[$i]['stk'];
-				$quantity = GRADUATED_PRICE_MAX_VALUE.' '.$staffel[$i]['stk'];
-				//EOF - web28 - 2010-07-11 - FIX max value info for graduated prices
+			} else {			    
+				$quantity = ' > '.$staffel[$i]['stk'];				
 				if ($staffel[$i +1]['stk'] != '')
 					$quantity = $staffel[$i]['stk'].'-'. ($staffel[$i +1]['stk'] - 1);
 			}
+			*/
+            if ($staffel[$i]['stk'] == 1 || $staffel[$i +1]['stk'] != ''){
+                $quantity = $staffel[$i]['stk'];
+                if ($staffel[$i +1]['stk'] != '' && $staffel[$i +1]['stk'] != $staffel[$i]['stk'] + 1)
+                    $quantity .= ' - '. ($staffel[$i +1]['stk'] - 1);
+            } else {
+                $quantity = GRADUATED_PRICE_MAX_VALUE.' '.$staffel[$i]['stk'];
+            }
+            //EOF - web28 - 2010-07-13 - BUGFIX display same quantity only once for graduated prices	/FIX max value info for graduated prices		
 			$vpe = '';
 			// BOF - Hetfield - 2009-08-24 - BUGFIX show VPE for graduated prices
 			if ($this->data['products_vpe_status'] == 1 && $this->data['products_vpe_value'] != 0.0 && $staffel[$i]['price'] > 0) {
