@@ -622,8 +622,11 @@ $payment->admin_order($_GET['oID']);
 				}
 			}
 		}
-
-		echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top">'.format_price($order->products[$i]['final_price'] / $order->products[$i]['qty'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</td>'."\n";
+		
+    //BOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
+		//echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top">'.format_price($order->products[$i]['final_price'] / $order->products[$i]['qty'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</td>'."\n";
+		echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top">'.format_price($order->products[$i]['price'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</td>'."\n";
+    //EOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
 
 		if ($order->products[$i]['allow_tax'] == 1) {
 			echo '<td class="dataTableContent" align="right" valign="top">';
@@ -631,7 +634,10 @@ $payment->admin_order($_GET['oID']);
 			echo '</td>'."\n";
 			echo '<td class="dataTableContent" align="right" valign="top"><b>';
 
-			echo format_price($order->products[$i]['final_price'] / $order->products[$i]['qty'], 1, $order->info['currency'], 0, 0);
+      //BOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
+			//echo format_price($order->products[$i]['final_price'] / $order->products[$i]['qty'], 1, $order->info['currency'], 0, 0);
+			echo format_price($order->products[$i]['price'], 1, $order->info['currency'], 0, 0);
+      //EOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
 
 			echo '</b></td>'."\n";
 		}
