@@ -152,19 +152,24 @@ if ($category_depth == 'nested') {
 
   // get default template
   if ($category['categories_template'] == '' || $category['categories_template'] == 'default') {
-  $files = array ();
-  if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/')) {
-    while (($file = readdir($dir)) !== false) {
+	$files = array ();
+	if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/')) {
+		while (($file = readdir($dir)) !== false) {
 // BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
-    //if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
-    if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+			//if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
+			if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
 // EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
-      $files[] = array ('id' => $file, 'text' => $file);
-    } //if
-    } // while
-    closedir($dir);
-  }
-  $category['categories_template'] = $files[0]['id'];
+// BOF - web28 - 2010-07-12 - sort templates array
+				//$files[] = array ('id' => $file, 'text' => $file);
+				$files[] = $file;
+			} //if
+		} // while
+		closedir($dir);
+	}		
+	sort($files);      
+	//$category['categories_template'] = $files[0]['id'];
+	$category['categories_template'] = $files[0];
+// EOF - web28 - 2010-07-12 - sort templates array
   }
 
   $default_smarty->caching = 0;

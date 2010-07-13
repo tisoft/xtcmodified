@@ -93,12 +93,17 @@ if ($product->data['options_template'] == '' or $product->data['options_template
 			//if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
 			if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
 // EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
-				$files[] = array ('id' => $file, 'text' => $file);
-			} //if
-		} // while
-		closedir($dir);
-	}
-	$product->data['options_template'] = $files[0]['id'];
+// BOF - web28 - 2010-07-12 - sort templates array
+					//$files[] = array ('id' => $file, 'text' => $file);
+					$files[] = $file;
+				} //if
+			} // while
+			closedir($dir);
+	}		
+	sort($files);
+	//$product->data['options_template'] = $files[0]['id'];
+	$product->data['options_template'] = $files[0];
+//EOF - web28 - 2010-07-12 - sort templates array
 }
 
 $module_smarty->assign('language', $_SESSION['language']);

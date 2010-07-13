@@ -220,7 +220,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		sort($files);        	
 		//$product->data['product_template'] = $files[0]['id'];
 		$product->data['product_template'] = $files[0];
-// BOF - web28 - 2010-07-12 - sort templates array
+//EOF - web28 - 2010-07-12 - sort templates array
 	}
 
 $i = count($_SESSION['tracking']['products_history']);
