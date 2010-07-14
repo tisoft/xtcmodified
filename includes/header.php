@@ -119,7 +119,9 @@ function popupImageWindow(url) {
 <?php
 // require theme based javascript
 //BOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
+//BOF - web28 - 2010-07-14 - change to TOP of page again because jquery view problems
 require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
+//EOF - web28 - 2010-07-14 - change to TOP of page again because jquery view problems
 //EOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT)) {
