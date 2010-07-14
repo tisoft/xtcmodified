@@ -123,9 +123,15 @@
 
 		// BOF - Tomcraft - 2009-11-05 - Advanced contact form (product question)
 		$products_info = '';
-		if (trim($_GET['products_name'] != '')) {$products_info= trim($_GET['products_name']);}
-		if (trim($_GET['products_model'] != '')) {$products_info= trim($products_info . ' - ' . trim($_GET['products_model']));}
-		if ($products_info != '') {$products_info = trim($_GET['question'])."\n" . $products_info . "\n"; }
+		// BOF - web28 - 2010-07-14 -  false clamp fixing
+		//if (trim($_GET['products_name'] != '')) {$products_info= trim($_GET['products_name']);}
+		//if (trim($_GET['products_model'] != '')) {$products_info= trim($products_info . ' - ' . trim($_GET['products_model']));}		
+		//if ($products_info != '') {$products_info = trim($_GET['question'])."\n" . $products_info . "\n"; }
+		if (trim($_GET['products_name']) != '') {$products_info= trim($_GET['products_name']);}
+		if (trim($_GET['products_model']) != '') {$products_info= trim($products_info . ' - ' . trim($_GET['products_model']));}
+		if (trim($_GET['question']) != '') {$products_question= trim($_GET['products_name'])."\n";}
+		if ($products_info != '') {$products_info = $products_question . $products_info . "\n"; }
+		// EOF - web28 - 2010-07-14 -  false clamp fixing
 		if (!$error) $message_body = $products_info . "\n";
 		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (product question)
 		
