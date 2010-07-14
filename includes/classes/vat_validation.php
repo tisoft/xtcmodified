@@ -571,9 +571,12 @@ class vat_validation {
 
 	// litauen
 	function checkVatID_lt($vat_id) {
-
-		if ((strlen($vat_id) != 13) || (strlen($vat_id) != 11))
-			return 0;
+		
+	  //BOF - web28 . 2010-07-14 - BUGFIX checkVatID_lt
+		//if ((strlen($vat_id) != 13) || (strlen($vat_id) != 11))
+			//return 0;
+	  if ((strlen($vat_id) == 14) || (strlen($vat_id) == 11)){
+	  //EOF - web28 . 2010-07-14 - BUGFIX checkVatID_lt
 		if (!is_numeric(substr($vat_id, 2)))
 			return 0;
 
@@ -584,6 +587,10 @@ class vat_validation {
 		} else {
 			return 9; // es gibt keinen algorithmus
 		}
+	  //BOF - web28 . 2010-07-14 - BUGFIX checkVatID_lt
+	  }	 
+	  return 0;
+	  //EOF - web28 . 2010-07-14 - BUGFIX checkVatID_lt
 	} // end litauen
 
 	// luxemburg
