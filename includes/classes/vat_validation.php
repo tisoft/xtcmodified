@@ -824,9 +824,11 @@ class vat_validation {
 
 	// tschechien
 	function checkVatID_cz($vat_id) {
-
-		if ((strlen($vat_id) != 10) || (strlen($vat_id) != 11) || (strlen($vat_id) != 12))
-			return 0;
+	  //BOF - web28 . 2010-07-14 - BUGFIX checkVatID_cz
+		//if ((strlen($vat_id) != 10) || (strlen($vat_id) != 11) || (strlen($vat_id) != 12))
+			//return 0;
+	  if ((strlen($vat_id) == 10) || (strlen($vat_id) == 11) || (strlen($vat_id) == 12)){
+	  //EOF - web28 . 2010-07-14 - BUGFIX checkVatID_cz
 		if (!is_numeric(substr($vat_id, 2)))
 			return 0;
 
@@ -837,6 +839,10 @@ class vat_validation {
 		} else {
 			return 9; // es gibt keinen algorithmus
 		}
+	  //BOF - web28 . 2010-07-14 - BUGFIX checkVatID_cz
+	  }
+	  return 0;
+	  //EOF - web28 . 2010-07-14 - BUGFIX checkVatID_cz
 	} // end tschechien
 
 	// ungarn
