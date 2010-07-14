@@ -40,7 +40,7 @@ if (TRACKING_ECONDA_ACTIVE == 'true') {
 }
 
 //BOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
-require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
+//require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
 //EOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 
 echo '</body></html>';
