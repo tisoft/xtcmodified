@@ -434,6 +434,10 @@ class product {
 				
 				//'PRODUCTS_DESCRIPTION' => $array['products_description'],
         'PRODUCTS_DESCRIPTION' => isset($array['products_description']) ? $array['products_description'] : '', //DokuMan - 2010-02-26 - set Undefined index
+        
+        //BOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
+        'PRODUCTS_QUANTITY' => $array['products_quantity'],
+        //EOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
 				
 				//'PRODUCTS_EXPIRES' => $array['expires_date'],
         'PRODUCTS_EXPIRES' => isset($array['expires_date']) ? $array['expires_date'] : 0, //DokuMan - 2010-02-26 - set Undefined index
