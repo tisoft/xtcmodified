@@ -46,7 +46,10 @@ if(isset($_GET['reverse']))
 
 if(isset($_GET['item'])&&isset($_GET['key']))
 {
-	if(eregi("xtbooster\.php",$_SERVER['HTTP_REFERER']))
+// BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+//	if(eregi("xtbooster\.php",$_SERVER['HTTP_REFERER']))
+	if(preg_match("/xtbooster\.php/i",$_SERVER['HTTP_REFERER']))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 	{
 		if(!function_exists("_sess_open")&&STORE_SESSIONS=='mysql')
 			require(DIR_WS_FUNCTIONS.'sessions.php');

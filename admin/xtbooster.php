@@ -282,9 +282,15 @@ elseif($xtb_module=='add_ajx') {
 	
 	if(isset($item['DESCRIPTION']))
 	{ $desc = $item['DESCRIPTION'];
-	  if(ereg("#ARTICLE_PRICE#", $desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//	  if(ereg("#ARTICLE_PRICE#", $desc))
+	  if(preg_match("/#ARTICLE_PRICE#/", $desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 	     $desc = str_replace("#ARTICLE_PRICE#", $xtPrice->xtcFormat($item['STARTPRICE'],true), $desc);
-	  if(ereg("#ARTICLE_VPE#",$desc)) {
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//	  if(ereg("#ARTICLE_VPE#",$desc)) {
+	  if(preg_match("/#ARTICLE_VPE#/",$desc)) {
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		if($x['products_vpe_value']==0) $x['products_vpe_value'] = 1;
 	  $desc = str_replace("#ARTICLE_VPE#", $xtPrice->xtcFormat($item['STARTPRICE'] * (1.0 / $x['products_vpe_value']), true)."/".xtc_get_vpe_name($x['products_vpe']), $desc);
 	  }
@@ -341,17 +347,35 @@ elseif($xtb_module=='add_ajx') {
 		reset($images);
 
 		$desc = $tradetemplate;
-		if(ereg("#ARTICLE_DESCRIPTION#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		if(ereg("#ARTICLE_DESCRIPTION#",$desc))
+		if(preg_match("/#ARTICLE_DESCRIPTION#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$desc = str_replace("#ARTICLE_DESCRIPTION#", $x['products_description'], $desc);
-		if(ereg("#ARTICLE_TITLE#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		if(ereg("#ARTICLE_TITLE#",$desc))
+		if(preg_match(""#ARTICLE_TITLE#"",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$desc = str_replace("#ARTICLE_TITLE#", $x['products_name'], $desc);
-		if(ereg("#ARTICLE_SUBTITLE#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		if(ereg("#ARTICLE_SUBTITLE#",$desc))
+		if(preg_match("/#ARTICLE_SUBTITLE#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$desc = str_replace("#ARTICLE_SUBTITLE#", $x['products_short_description'], $desc);
-		if(ereg("#ARTICLE_PRICE#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		if(ereg("#ARTICLE_PRICE#",$desc))
+		if(preg_match("/#ARTICLE_PRICE#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$desc = str_replace("#ARTICLE_PRICE#", $xtPrice->xtcFormat($item['STARTPRICE'],true), $desc);
-		if(ereg("#ARTICLE_NUMBER#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		if(ereg("#ARTICLE_NUMBER#",$desc))
+		if(preg_match("/#ARTICLE_NUMBER#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$desc = str_replace("#ARTICLE_NUMBER#", $x['products_model'], $desc);
-		if(ereg("#ARTICLE_VPE#",$desc)) {
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		if(ereg("#ARTICLE_VPE#",$desc)) {
+		if(preg_match("/#ARTICLE_VPE#/",$desc)) {
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			if($x['products_vpe_value']==0) $x['products_vpe_value'] = 1;
 		$desc = str_replace("#ARTICLE_VPE#", $xtPrice->xtcFormat($item['STARTPRICE'] * (1.0 / $x['products_vpe_value']), true)."/".xtc_get_vpe_name($x['products_vpe']), $desc);
 		}
@@ -361,9 +385,15 @@ elseif($xtb_module=='add_ajx') {
 	foreach($images as $pi=>$image) { $pi++;
 			if((0 === strpos($image,'http://'))||(0 === strpos($image,'https://')))
 			{
-		  if(ereg("src=\"*#PICTURE_".$pi."#\"*", $desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		  if(ereg("src=\"*#PICTURE_".$pi."#\"*", $desc))
+		  if(preg_match("/src=\"*#PICTURE_".$pi."#\"*/", $desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			  $desc = str_replace("#PICTURE_".$pi."#", $image, $desc);
-		  elseif(ereg("#PICTURE_".$pi."#", $desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		  elseif(ereg("#PICTURE_".$pi."#", $desc))
+		  elseif(preg_match("/#PICTURE_".$pi."#/", $desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			  $desc = str_replace("#PICTURE_".$pi."#", "<img src=\"".$image."\" style=\"border:0;\" alt=\"\" title=\"\" />", $desc);
 			}
 			else
@@ -372,17 +402,32 @@ elseif($xtb_module=='add_ajx') {
 			  $images[$pi-1] = "/".$image; 
 		  if(ereg("src=\"*#PICTURE_".$pi."#\"*", $desc))
 			  $desc = str_replace("#PICTURE_".$pi."#", HTTP_CATALOG_SERVER.DIR_WS_CATALOG_POPUP_IMAGES.$image, $desc);
-		  elseif(ereg("#PICTURE_".$pi."#", $desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		  elseif(ereg("#PICTURE_".$pi."#", $desc))
+		  elseif(preg_match("/#PICTURE_".$pi."#/", $desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			  $desc = str_replace("#PICTURE_".$pi."#", "<img src=\"".HTTP_CATALOG_SERVER.DIR_WS_CATALOG_POPUP_IMAGES.$image."\" style=\"border:0;\" alt=\"\" title=\"\" />", $desc);
 			}
 	}
-	for($pi=0;$pi<30;$pi++) $desc = eregi_replace("<img [^<>]*src *= *\"*#PICTURE_".$pi."#\"* [^>]*>", "", $desc);
+// BOF - Tomcraft - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+//	for($pi=0;$pi<30;$pi++) $desc = eregi_replace("<img [^<>]*src *= *\"*#PICTURE_".$pi."#\"* [^>]*>", "", $desc);
+	for($pi=0;$pi<30;$pi++) $desc = preg_replace("/<img [^<>]*src *= *\"*#PICTURE_".$pi."#\"* [^>]*>/i", "", $desc);
+// EOF - Tomcraft - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 	for($pi=0;$pi<30;$pi++)	$desc = str_replace("#PICTURE_".$pi."#", "", $desc);
 	# Relative Bildnamen aus der Produktbescheibung oder Template mit der Shop-URL versehen
-	if(eregi("src=['\"]([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])",$desc))
+// BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+//	if(eregi("src=['\"]([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])",$desc))
+	if(preg_match("/src=['\"]([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])/i",$desc))
+// EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 	{
+// BOF - Tomcraft - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+/*
 	  $desc=eregi_replace("src=(['\"])/([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])", "src=\\1".HTTP_CATALOG_SERVER."/\\2",$desc); 
 	  $desc=eregi_replace("src=(['\"])([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])", "src=\\1".HTTP_CATALOG_SERVER.DIR_WS_CATALOG."\\2",$desc); 
+*/
+	  $desc=preg_replace("/src=(['\"])/([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])/i", "/src=\\1".HTTP_CATALOG_SERVER."/\\2/",$desc); 
+	  $desc=preg_replace("/src=(['\"])([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])/i", "/src=\\1".HTTP_CATALOG_SERVER.DIR_WS_CATALOG."\\2/",$desc); 
+// EOF - Tomcraft - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 	}
 	$item['DESCRIPTION'] = $desc;
 	reset($images);
@@ -871,7 +916,11 @@ else
 
 <?php
 $nowysiwyg=true;
-if(!eregi("safari",$_SERVER['HTTP_USER_AGENT'])):
+
+// BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+//if(!eregi("safari",$_SERVER['HTTP_USER_AGENT'])):
+if(!preg_match("/safari/i",$_SERVER['HTTP_USER_AGENT'])):
+// EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 	$nowysiwyg=false;
 if($xtb_config['MODULE_XTBOOSTER_SHOPKEY']!='')
 {
@@ -1937,7 +1986,10 @@ $rowi=0;
 
 <?php
 $nowysiwyg=true;
-if(!eregi("safari",$_SERVER['HTTP_USER_AGENT'])):
+// BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+//if(!eregi("safari",$_SERVER['HTTP_USER_AGENT'])):
+if(!preg_match("/safari/i",$_SERVER['HTTP_USER_AGENT'])):
+// EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 	$nowysiwyg=false;
 if($xtb_config['MODULE_XTBOOSTER_SHOPKEY']!='')
 {
@@ -1984,16 +2036,31 @@ echo $out = str_replace("cont", "add[DESCRIPTION]", $out);
 <?php
 
 	$desc = $tradetemplate;
-	if(ereg("#ARTICLE_DESCRIPTION#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//	if(ereg("#ARTICLE_DESCRIPTION#",$desc))
+	if(preg_match("/#ARTICLE_DESCRIPTION#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		$desc = str_replace("#ARTICLE_DESCRIPTION#", $x['products_description'], $desc);
-	if(ereg("#ARTICLE_TITLE#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//	if(ereg("#ARTICLE_TITLE#",$desc))
+	if(preg_match("/#ARTICLE_TITLE#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		$desc = str_replace("#ARTICLE_TITLE#", $x['products_name'], $desc);
-	if(ereg("#ARTICLE_SUBTITLE#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//	if(ereg("#ARTICLE_SUBTITLE#",$desc))
+	if(preg_match("/#ARTICLE_SUBTITLE#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		$desc = str_replace("#ARTICLE_SUBTITLE#", $x['products_short_description'], $desc);
-	if(ereg("#ARTICLE_NUMBER#",$desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//	if(ereg("#ARTICLE_NUMBER#",$desc))
+	if(preg_match("/#ARTICLE_NUMBER#/",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 		$desc = str_replace("#ARTICLE_NUMBER#", $x['products_model'], $desc);
 	foreach($images as $pi=>$image) { $pi++;
-		if(ereg("src *= *\"*#PICTURE_".$pi."#\"*", $desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		if(ereg("src *= *\"*#PICTURE_".$pi."#\"*", $desc))
+		if(preg_match("/src *= *\"*#PICTURE_".$pi."#\"*/", $desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
                 { if((0 === strpos($image,'http://'))||(0 === strpos($image,'https://')))
                   {
 		        $desc = str_replace("#PICTURE_".$pi."#", $image, $desc);
@@ -2003,7 +2070,10 @@ echo $out = str_replace("cont", "add[DESCRIPTION]", $out);
 			$desc = str_replace("#PICTURE_".$pi."#", HTTP_CATALOG_SERVER.DIR_WS_CATALOG_POPUP_IMAGES."$image" , $desc);
                   }
                 }
-		elseif(ereg("#PICTURE_".$pi."#", $desc))
+// BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+//		elseif(ereg("#PICTURE_".$pi."#", $desc))
+		elseif(preg_match("/#PICTURE_".$pi."#/", $desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
                 { if((0 === strpos($image,'http://'))||(0 === strpos($image,'https://')))
                   {
 		            $desc = str_replace("#PICTURE_".$pi."#", "<img src=\"".$image."\" style=\"border:0;\" alt=\"\" title=\"\" />", $desc);
@@ -2015,10 +2085,19 @@ echo $out = str_replace("cont", "add[DESCRIPTION]", $out);
                 }
 	}
 	# Relative Bildnamen aus der Produktbescheibung oder Template mit der Shop-URL versehen
-	if(eregi("src=['\"]([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])",$desc))
+// BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+//	if(eregi("src=['\"]([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])",$desc))
+	if(preg_match("/src=['\"]([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])/i",$desc))
+// EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 	{
+// BOF - Tomcraft - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
+/*
 	  $desc=eregi_replace("src=(['\"])/([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])", "src=\\1".HTTP_CATALOG_SERVER."/\\2",$desc); 
 	  $desc=eregi_replace("src=(['\"])([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])", "src=\\1".HTTP_CATALOG_SERVER.DIR_WS_CATALOG."\\2",$desc); 
+*/
+	  $desc=preg_replace("/src=(['\"])/([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])/i", "/src=\\1".HTTP_CATALOG_SERVER."/\\2/",$desc); 
+	  $desc=preg_replace("/src=(['\"])([^h].....|h[^t]....|ht[^t]...|htt[^p]..|http[^s:].|http[s:][^/:])/i", "/src=\\1".HTTP_CATALOG_SERVER.DIR_WS_CATALOG."\\2/",$desc);
+// EOF - Tomcraft - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
 	}
 
 	#$desc = htmlspecialchars($desc);
@@ -2296,7 +2375,12 @@ foreach($images as $image) {
 </tr>
 
 <tr class="attributes<?php echo $rowi++%2==0?'-even':'-odd'; ?>">
+<!-- BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
+<!--
 	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (eregi("Gallery",$request['GALLERYTYPE']))?' checked="checked"':''; ?> type="checkbox" name="add[GALLERYTYPE]" id="GALLERYTYPE" value="Gallery"></td>
+//-->
+	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (preg_match("/Gallery/i",$request['GALLERYTYPE']))?' checked="checked"':''; ?> type="checkbox" name="add[GALLERYTYPE]" id="GALLERYTYPE" value="Gallery"></td>
+<!-- EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
 	<td class="smallText"><strong>Gallery</strong><div style='font-size:9px;color:gray;'><?php echo TXT_GALLERY_DESCR?></div></td>
 </tr>
 <?php if(!$multi_xtb): ?>
@@ -2313,19 +2397,39 @@ foreach($images as $image) {
 </tr>
 
 <tr class="attributes<?php echo $rowi++%2==0?'-even':'-odd'; ?>">
+<!-- BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
+<!--
 	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (eregi("BoldTitle",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="BoldTitle"></td>
+//-->
+	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (preg_match("/BoldTitle/i",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="BoldTitle"></td>
+<!-- EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
 	<td class="smallText"><strong>BoldTitle</strong><div style='font-size:9px;color:gray;'><?php echo TXT_BOLD_DESCR?></div></td>
 </tr>
 <tr class="attributes<?php echo $rowi++%2==0?'-even':'-odd'; ?>">
+<!-- BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
+<!--
 	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (eregi("Border",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="Border"></td>
+//-->
+	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (preg_match("/Border/i",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="Border"></td>
+<!-- EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
 	<td class="smallText"><strong>Border</strong><div style='font-size:9px;color:gray;'><?php echo TXT_BORDER_DESCR?></div></td>
 </tr>
 <tr class="attributes<?php echo $rowi++%2==0?'-even':'-odd'; ?>">
+<!-- BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
+<!--
 	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (eregi("Highlight",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="Highlight"></td>
+//-->
+	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (preg_match("/Highlight/i",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="Highlight"></td>
+<!-- EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
 	<td class="smallText"><strong>Highlight</strong><div style='font-size:9px;color:gray;'><?php echo TXT_HIGHLIGHT_DESCR?></div></td>
 </tr>
 <tr class="attributes<?php echo $rowi++%2==0?'-even':'-odd'; ?>">
+<!-- BOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
+<!--
 	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (eregi("Featured",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="Featured"></td>
+//-->
+	<td class="smallText" style="font-weight:bold;" align="right" valign="top"><input<?php echo (preg_match("/Featured/i",$request['LISTINGENHANCEMENTS']))?' checked="checked"':''; ?> type="checkbox" name="add[LISTINGENHANCEMENTS]" id="LISTINGENHANCEMENTS" value="Featured"></td>
+<!-- EOF - Tomcraft - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3 //-->
 	<td class="smallText"><strong>Featured</strong><div style='font-size:9px;color:gray;'><?php echo TXT_FEATURED_DESCR?></div></td>
 </tr>
 
