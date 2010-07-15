@@ -168,8 +168,11 @@ class paypal_ipn {
 		$data_string .= MODULE_PAYMENT_PAYPAL_IPN_STYLE_TOP . '<a '. $style . ' href="';		
 				
 		$store_name = urlencode(STORE_NAME . MODULE_PAYMENT_PAYPAL_IPN_TXT_ORDER); 
-		$data_link = $href .'&business='.$business.'&item_name='. $store_name. $item_number .'&item_number='.$item_number.'&amount='. ($amount - $shipping).'&shipping='.$shipping.'&currency_code='.$currency_code.'&return='. $return .'&no_shipping='. $no_shipping .'&cbt='. $cbt .'&cancel_return='. $cancel_return. '&cpp_headerback_color='. $cpp_headerback_color.'&cpp_headerborder_color='.$cpp_headerborder_color.'&cpp_payflow_color='.$cpp_payflow_color.'&cpp_header_image='.$cpp_header_image.'&cbt='.$cbt.'&lc='.$lc;     
-        //$data_link .= '&notify_url='.$notify_url.'&first_name='.$first_name.'&last_name='.$last_name.'&address1='.$address1.'&zip='.$zip.'&city='.$city.'&country='.$country;  //only for PayPal IPN Advanced
+		//BOF - web28 - 2010-07-14 - change & to &amp;		
+		//$data_link = $href .'&business='.$business.'&item_name='. $store_name. $item_number .'&item_number='.$item_number.'&amount='. ($amount - $shipping).'&shipping='.$shipping.'&currency_code='.$currency_code.'&return='. $return .'&no_shipping='. $no_shipping .'&cbt='. $cbt .'&cancel_return='. $cancel_return. '&cpp_headerback_color='. $cpp_headerback_color.'&cpp_headerborder_color='.$cpp_headerborder_color.'&cpp_payflow_color='.$cpp_payflow_color.'&cpp_header_image='.$cpp_header_image.'&cbt='.$cbt.'&lc='.$lc;     
+        $data_link = $href .'&amp;business='.$business.'&amp;item_name='. $store_name. $item_number .'&amp;item_number='.$item_number.'&amp;amount='. ($amount - $shipping).'&amp;shipping='.$shipping.'&amp;currency_code='.$currency_code.'&amp;return='. $return .'&amp;no_shipping='. $no_shipping .'&amp;cbt='. $cbt .'&amp;cancel_return='. $cancel_return. '&amp;cpp_headerback_color='. $cpp_headerback_color.'&amp;cpp_headerborder_color='.$cpp_headerborder_color.'&amp;cpp_payflow_color='.$cpp_payflow_color.'&amp;cpp_header_image='.$cpp_header_image.'&amp;cbt='.$cbt.'&amp;lc='.$lc;     
+        //$data_link .= '&amp;notify_url='.$notify_url.'&amp;first_name='.$first_name.'&amp;last_name='.$last_name.'&amp;address1='.$address1.'&amp;zip='.$zip.'&amp;city='.$city.'&amp;country='.$country;  //only for PayPal IPN Advanced
+		//EOF - web28 - 2010-07-14 - change & to &amp;
 		
 		$data_string .= $data_link .'">'.MODULE_PAYMENT_PAYPAL_IPN_TXT_CHECKOUT.'</a>'.'</div>';
 		$data_string2 = MODULE_PAYMENT_PAYPAL_IPN_STYLE_TEXT;
