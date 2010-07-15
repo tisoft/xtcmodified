@@ -76,11 +76,17 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 
 	if (isset ($_SESSION['language_charset'])) {
 		$mail->CharSet = $_SESSION['language_charset'];
+		//BOF  - web28 - 2010-07-15 - needed for html_entity_decode
+		$charset = $_SESSION['language_charset'];
+		//EOF  - web28 - 2010-07-15 - needed for html_entity_decode
 	} else {
 		$lang_query = "SELECT * FROM ".TABLE_LANGUAGES." WHERE code = '".DEFAULT_LANGUAGE."'";
 		$lang_query = xtc_db_query($lang_query);
 		$lang_data = xtc_db_fetch_array($lang_query);
-		$mail->CharSet = $lang_data['language_charset'];		
+		$mail->CharSet = $lang_data['language_charset'];
+		//BOF  - web28 - 2010-07-15 - needed for html_entity_decode
+		$charset = $lang_data['language_charset'];
+		//EOF  - web28 - 2010-07-15 - needed for html_entity_decode		
 	}
 	//BOF  - web28 - 2010-06-05 - SetLanguage Multilanguage
 	/*
@@ -121,12 +127,18 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 		// remove html tags
 		$message_body_plain = str_replace('<br />', " \n", $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
 		$message_body_plain = strip_tags($message_body_plain);
+		//BOF  - web28 - 2010-07-15 -  html_entity_decode
+		$message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);
+		//EOF  - web28 - 2010-07-15 -  html_entity_decode
 		$mail->AltBody = $message_body_plain;
 	} else {
 		$mail->IsHTML(false);
 		//remove html tags
 		$message_body_plain = str_replace('<br />', " \n", $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
 		$message_body_plain = strip_tags($message_body_plain);
+		//BOF  - web28 - 2010-07-15 -  html_entity_decode
+		$message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);
+		//EOF  - web28 - 2010-07-15 -  html_entity_decode
 		$mail->Body = $message_body_plain;
 	}
 
