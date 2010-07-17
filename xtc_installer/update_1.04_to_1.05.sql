@@ -1,3 +1,6 @@
+#Tomcraft - 2010-02-03 - changed database_version
+UPDATE database_version SET version = 'xtcM_1.0.5.0';
+
 # BOF - Tomcraft - 2010-07-02 - Bugfix on r763 (Update Countries (delete Yugoslavia, add Serbia and Monetegro))
 DELETE FROM countries;
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1','1');
