@@ -1,10 +1,16 @@
 <?php
 //include by shop_content.php
+	
+	//BOF - web28 - 2010-07-17 - move language definition on top
+    require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');
+	//EOF - web28 - 2010-07-17 - move language definition on top
     
 	$error = false;
 	if (isset ($_GET['action']) && ($_GET['action'] == 'send')) {
-	
-		require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');	
+		
+		//BOF - web28 - 2010-07-17 - move language definition on top
+		//require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');
+		//EOF - web28 - 2010-07-17 - move language definition on top		
 	
 		//BOF - web28 - 2010-04-03 - New error handling for required fileds
 		//jedes Feld kann hier auf die gewünschte Bedingung getestet und eine Fehlermeldung zugeordnet werden
