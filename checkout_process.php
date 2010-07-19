@@ -45,8 +45,10 @@ if (!isset ($_SESSION['customer_id'])) {
 }
 
 if ($_SESSION['customers_status']['customers_status_show_price'] != '1') {
+// BOF - 2010-07-19 - Fixed invalid function call xtc_href_link in checkout_process.php
     //xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', ''));
-	xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', 'NONSSL'));    // hen 19.07.2010
+	xtc_redirect(xtc_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
+// EOF - 2010-07-19 - Fixed invalid function call xtc_href_link in checkout_process.php
 }
 
 if (!isset ($_SESSION['sendto'])) {
