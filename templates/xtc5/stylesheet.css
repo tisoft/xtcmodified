@@ -1250,4 +1250,9 @@ div.agbframe ol, div.agbframe ul  {
 	border-width: 0px 0px 0px 0px;	
 	width: 460px;	
 }
+/* BOF - Tomcraft - 2010-07-20 - FIX DER AUFZÄHLUNGEN IM CONTENT */
+#tab_description ol, #tab_description ul {
+	margin:10px 0 10px 14px;
+}
+/* EOF - Tomcraft - 2010-07-20 - FIX DER AUFZÄHLUNGEN IM CONTENT */
 /* EOF - web28 - 2010-07-09 - fix für TABS/ACCORDION in product_info */
