@@ -41,7 +41,10 @@ if (!isset ($_SESSION['customer_id'])) {
 if (isset ($_GET['action']) && ($_GET['action'] == 'update')) {
 
 	if ($_SESSION['account_type'] != 1) {
-		xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
+		//BOF - web28.de - FIX redirect to NONSSL
+		//xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
+		xtc_redirect(xtc_href_link(FILENAME_DEFAULT),'NONSSL');
+		//EOF - web28.de - FIX redirect to NONSSL
 	} else {
 		xtc_redirect(xtc_href_link(FILENAME_LOGOFF));
 	}

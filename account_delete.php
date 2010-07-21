@@ -31,7 +31,10 @@ if (!isset ($_SESSION['customer_id'])) {
 }
 //BOF - DokuMan - 2010-03-16 - do not delete the admin user (ID=1)
 if ($_SESSION['customer_id'] == 1) {
-    xtc_redirect(xtc_href_link(FILENAME_DEFAULT, ''));
+    //BOF - web28.de - FIX switch to NONSSL
+	//xtc_redirect(xtc_href_link(FILENAME_DEFAULT, ''));
+	xtc_redirect(xtc_href_link(FILENAME_DEFAULT),'NONSSL');
+	//EOF - web28.de - FIX switch to NONSSL
 }
 //EOF - DokuMan - 2010-03-16 - do not delete the admin user (ID=1)
 
