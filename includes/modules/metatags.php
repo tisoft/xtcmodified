@@ -127,7 +127,7 @@
 				content_meta_keywords 
 		from 	".TABLE_CONTENT_MANAGER." 
 		where 	".$ml_meta_where." 
-		and 	languages_id = '".$_SESSION['languages_id']."'
+		and 	languages_id = '".intval($_SESSION['languages_id'])."'
 	");
 	$ml_meta = xtc_db_fetch_array($ml_meta_query,true); 
 
@@ -387,7 +387,7 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 					content_file  
 			from 	".TABLE_CONTENT_MANAGER." 
 			where 	content_group = '".intval($_GET['coID'])."' 
-			and 	languages_id = '".$_SESSION['languages_id']."'
+			and 	languages_id = '".intval($_SESSION['languages_id'])."'
 		");
 		$contents_meta = xtc_db_fetch_array($contents_meta_query,true); 
 
