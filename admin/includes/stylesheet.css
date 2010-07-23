@@ -258,3 +258,25 @@ width: 280px;
 width: 280px;
 height: 60px;
 }
+
+/* - web28 - 2010-07-22 - td styles coupon_admin.php */
+.td_left{
+	border: 1px solid #a3a3a3;
+	padding: 5px;
+	min-width: 20%;
+	vertical-align: top;
+}
+
+.td_middle{
+	border:1px solid #a3a3a3;	
+	padding:5px;
+	min-width: 20%;
+	vertical-align: top;
+}
+
+.td_right{
+   border:1px solid #a3a3a3;	
+	padding:5px;
+	min-width: 60%;
+	vertical-align: top;
+}

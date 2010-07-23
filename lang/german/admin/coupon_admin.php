@@ -40,7 +40,7 @@ define('TEXT_MESSAGE', 'Nachricht:');
 define('TEXT_SELECT_CUSTOMER', 'Kunde ausw&auml;hlen');
 define('TEXT_ALL_CUSTOMERS', 'Alle Kunden');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'Alle Newsletter Abonnenten');
-define('TEXT_CONFIRM_DELETE', 'Soll dieser Kupon wirklich gel&ouml;scht werden?');
+define('TEXT_CONFIRM_DELETE', 'Mit dieser Funktion erh&auml;lt der selektierte Koupon den Status <strong>inaktiv</strong>. Eine Re-Aktivierung ist zu einem späteren Zeitpunkt nicht mehr möglich.<br /><br />Soll dieser Kupon wirklich gel&ouml;scht (den Status inaktiv) erhalten?');
 
 define('TEXT_TO_REDEEM', 'Sie k&ouml;nnen den Gutschein bei Ihrer Bestellung einl&ouml;sen. Dazu geben Sie Ihren Gutschein-Code in das daf&uuml;r vorgesehene Feld ein, und klicken Sie den "Einl&ouml;sen"-Button.');
 define('TEXT_IN_CASE', ' Falls es wider Erwarten zu Problemen beim verbuchen kommen sollte.');
@@ -95,4 +95,16 @@ define('COUPON_USES_COUPON_HELP', 'Tragen Sie hier ein wie oft dieser Kupon eing
 define('COUPON_USES_USER_HELP', 'Tragen Sie hier ein wie oft ein Kunde diesen Kupon einl&ouml;sen darf. Lassen Sie das Feld frei, dann ist die Benutzung unlimitiert.');
 define('COUPON_PRODUCTS_HELP', 'Eine durch Komma getrennte Liste von product_ids f&uuml;r die dieser Kupon g&uuml;ltig ist. Ein leeres Feld bedeutet keine Einschr&auml;nkung.');
 define('COUPON_CATEGORIES_HELP', 'Eine durch Komma getrennte Liste von Kategorien (cpaths) f&uuml;r die dieser Kupon g&uuml;ltig ist. Ein leeres Feld bedeutet keine Einschr&auml;nkung.');
+define('COUPON_ID', 'cID');
+define('BUTTON_DELETE_NO_CONFIRM', 'ohne Abfrage l&ouml;schen');
+define('TEXT_NONE', 'keine Einschr&auml;nkung');
+define('TEXT_COUPON_DELETE', 'L&ouml;schen');
+define('TEXT_COUPON_STATUS', 'Status');
+define('TEXT_COUPON_DETAILS', 'Koupon Daten');
+define('TEXT_COUPON_EMAIL', 'Email Versand');
+define('TEXT_COUPON_OVERVIEW', '&Uuml;bersicht');
+define('TEXT_COUPON_EMAIL_PREVIEW', 'Best&auml;tigung');
+define('TEXT_COUPON_MINORDER', 'Mindestbestellwert');
+define('TEXT_VIEW', 'Listenansicht');
+define('TEXT_VIEW_SHORT', 'Anzeige');
 ?>

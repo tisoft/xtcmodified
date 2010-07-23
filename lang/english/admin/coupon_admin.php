@@ -40,7 +40,7 @@ define('TEXT_MESSAGE', 'Message:');
 define('TEXT_SELECT_CUSTOMER', 'Select Customer');
 define('TEXT_ALL_CUSTOMERS', 'All Customers');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'To All Newsletter Subscribers');
-define('TEXT_CONFIRM_DELETE', 'Are you sure you want to delete this Coupon?');
+define('TEXT_CONFIRM_DELETE', 'This function gets the selected coupons <strong> inactive status </ strong>. A re-activation is no longer possible at a later date. <br /> <br /> If this coupon really deleted (inactive status) to receive?');
 
 define('TEXT_TO_REDEEM', 'You can redeem this coupon during checkout. Just enter the code in the box provided, and click on the redeem button.');
 define('TEXT_IN_CASE', ' in case you have any problems. ');
@@ -95,4 +95,16 @@ define('COUPON_USES_COUPON_HELP', 'The maximum number of times the coupon can be
 define('COUPON_USES_USER_HELP', 'Number of times a user can use the coupon, leave blank for no limit.');
 define('COUPON_PRODUCTS_HELP', 'A comma separated list of product_ids that this coupon can be used with. Leave blank for no restrictions.');
 define('COUPON_CATEGORIES_HELP', 'A comma separated list of cpaths that this coupon can be used with, leave blank for no restrictions.');
+define('COUPON_ID', 'cID');
+define('BUTTON_DELETE_NO_CONFIRM', 'Delete without confirm');
+define('TEXT_NONE', 'no restrictions');
+define('TEXT_COUPON_DELETE', 'Delete');
+define('TEXT_COUPON_STATUS', 'Statuses');
+define('TEXT_COUPON_DETAILS', 'Coupon details');
+define('TEXT_COUPON_EMAIL', 'Email delivery');
+define('TEXT_COUPON_OVERVIEW', 'Overview');
+define('TEXT_COUPON_EMAIL_PREVIEW', 'Confirm');
+define('TEXT_COUPON_MINORDER', 'Coupon Minimum Order');
+define('TEXT_VIEW', 'List view');
+define('TEXT_VIEW_SHORT', 'View');
 ?>

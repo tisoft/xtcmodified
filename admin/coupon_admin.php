@@ -109,6 +109,13 @@
     case 'confirmdelete':
       $delete_query=xtc_db_query("update " . TABLE_COUPONS . " set coupon_active = 'N' where coupon_id='".$_GET['cid']."'");
       break;
+	//BOF - web28 - 2010-07-23 - new coupon actions  
+	case 'noconfirmdelete':
+		// WM Koupon wird aus der DB gelöscht
+		$delete_query = xtc_db_query("delete from ".TABLE_COUPONS." where coupon_id = '".$_GET['cID']."'");
+		$delete_query = xtc_db_query("delete from ".TABLE_COUPONS_DESCRIPTION." where coupon_id = '".$_GET['cID']."'");
+	break;
+	//EOF - web28 - 2010-07-23 - new coupon actions  
     case 'update':
       // get all _POST and validate
       $_POST['coupon_code'] = trim($_POST['coupon_code']);
@@ -174,7 +181,7 @@
         if ($_GET['oldaction']=='voucheredit') {
           xtc_db_perform(TABLE_COUPONS, $sql_data_array, 'update', "coupon_id='" . $_GET['cid']."'");
           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-			$language_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
 			$coupon_query = xtc_db_query("select * from ".TABLE_COUPONS_DESCRIPTION." where language_id = '".$language_id."' and coupon_id = '".xtc_db_input($coupon_id)."'");
 			if (xtc_db_num_rows($coupon_query) == 0) xtc_db_perform(TABLE_COUPONS_DESCRIPTION, array ('coupon_id' => xtc_db_input($coupon_id), 'language_id' => $language_id));
@@ -206,11 +213,13 @@
 <script type="text/javascript" src="includes/general.js"></script>
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
+
 <script type="text/javascript">
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
 </script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+
 <div id="spiffycalendar" class="text"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
@@ -241,12 +250,14 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo CUSTOMER_ID; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo CUSTOMER_NAME; ?></td>	
-                <td class="dataTableHeadingContent" align="center"><?php echo IP_ADDRESS; ?></td>	
-                <td class="dataTableHeadingContent" align="center"><?php echo REDEEM_DATE; ?></td>	
+            <td valign="top">
+			 <table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr class="dataTableHeadingRow">			    
+				<td class="dataTableHeadingContent" align="left"><?php echo COUPON_ID; ?></td> <?php// web28 - 2010-07-23 - new table design ?>				
+                <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_ID; ?></td> 
+                <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_NAME; ?></td>	
+                <td class="dataTableHeadingContent" align="left"><?php echo IP_ADDRESS; ?></td>	
+                <td class="dataTableHeadingContent" align="left"><?php echo REDEEM_DATE; ?></td>	
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
@@ -262,18 +273,19 @@
         $cInfo = new objectInfo($cc_list);
       }
       if ( (is_object($cInfo)) && ($cc_list['unique_id'] == $cInfo->unique_id) ) {
-        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action', 'uid')) . 'cid=' . $cInfo->coupon_id . '&action=voucherreport&uid=' . $cinfo->unique_id) . '\'">' . "\n";
+        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action', 'uid')) . 'cid=' . $cInfo->coupon_id . '&action=voucherreport&uid=' . $cinfo->unique_id) . '\'">' . "\n";
       } else {
-        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action', 'uid')) . 'cid=' . $cc_list['coupon_id'] . '&action=voucherreport&uid=' . $cc_list['unique_id']) . '\'">' . "\n";
+        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action', 'uid')) . 'cid=' . $cc_list['coupon_id'] . '&action=voucherreport&uid=' . $cc_list['unique_id']) . '\'">' . "\n";
       }
 $customer_query = xtc_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $cc_list['customer_id'] . "'");
 $customer = xtc_db_fetch_array($customer_query);
 
 ?>
-                <td class="dataTableContent"><?php echo $cc_list['customer_id']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $cc_list['redeem_ip']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo xtc_date_short($cc_list['redeem_date']); ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $_GET['cid']; ?></td><?php// web28 - 2010-07-23 - new table design ?>
+				<td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['customer_id']; ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['redeem_ip']; ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo xtc_date_short($cc_list['redeem_date']); ?></td>
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_COUPON_ADMIN, 'page=' . $_GET['page'] . '&cid=' . $cc_list['coupon_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
@@ -299,7 +311,9 @@ $customer = xtc_db_fetch_array($customer_query);
       $contents[] = array('text' => '<b>' . TEXT_REDEMPTIONS . '</b>');
       $contents[] = array('text' => TEXT_REDEMPTIONS_TOTAL . '=' . xtc_db_num_rows($cc_query));
       $contents[] = array('text' => TEXT_REDEMPTIONS_CUSTOMER . '=' . xtc_db_num_rows($count_customers));
-      $contents[] = array('text' => '');
+	  // WM - und wie kommt man zurück? zurück Button fehlt
+      $contents[] = array('text' => '<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_COUPON_ADMIN) . '">' . BUTTON_BACK . '</a>');
+                              
 ?>
     <td width="25%" valign="top">
 <?php
@@ -384,7 +398,7 @@ $customer = xtc_db_fetch_array($customer_query);
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php ?>&nbsp;</td>
-                    <td align="right"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_COUPON_ADMIN) . '">' . BUTTON_CANCEL . '</a> <input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SEND_EMAIL . '"/>'; ?></td>
+                    <td align="right"><?php echo '<a class="button" onClick="this.blur();" href="' . xtc_href_link(FILENAME_COUPON_ADMIN) . '">' . BUTTON_CANCEL . '</a> <input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SEND_EMAIL . '"/>'; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -410,7 +424,7 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
 
           <tr><?php echo xtc_draw_form('mail', FILENAME_COUPON_ADMIN, 'action=preview_email&cid='. $_GET['cid']); ?>
-            <td><table border="0" cellpadding="0" cellspacing="2">
+            <td><table class="main" border="0" cellpadding="0" cellspacing="2"><?php// web28 - 2010-07-23 - new table design ?>
               <tr>
                 <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
@@ -475,7 +489,7 @@ $customer = xtc_db_fetch_array($customer_query);
                 <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td colspan="2" align="right"><?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_SEND_EMAIL . '"/>'; ?></td>
+                <td colspan="2" align="right"><?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_SEND_EMAIL . '"/>'; ?></td>
               </tr>
             </table></td>
           </form></tr>
@@ -484,6 +498,9 @@ $customer = xtc_db_fetch_array($customer_query);
       </td>
 <?php      
     break;
+	
+//##########################
+
   case 'update_preview':
 ?>
       <td  class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -498,19 +515,17 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
       <td>
 <?php echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cid=' . $_GET['cid']); ?>
-      <!--// BOF - Dokuman - 2009-05-27 - cosmetic fix
-      <table border="0" width="100%" cellspacing="0" cellpadding="6">
-      //-->
-      <table class="dataTableContent" border="1" width="100%" cellspacing="0" cellpadding="6">  
-      <!--// EOF - Dokuman - 2009-05-27 - cosmetic fix -->
+ <?php// BOF - web28 - 2010-07-23 - new table design ?>        
+	  <table class="main" border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">  
+ 
 <?php
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
 ?>
-      <tr>
-        <td align="left"><?php echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo $_POST['coupon_name'][$language_id]; ?></td>
+      <tr>	    
+        <td class="td_left"><?php echo COUPON_NAME . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+        <td class="td_right"><?php echo $_POST['coupon_name'][$language_id]; ?>&nbsp;</td>		
       </tr>
 <?php
 }
@@ -519,39 +534,39 @@ $customer = xtc_db_fetch_array($customer_query);
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
 ?>
-      <tr>
-        <td align="left"><?php echo COUPON_DESC; ?></td>
-        <td align="left"><?php echo $_POST['coupon_desc'][$language_id]; ?></td>
+      <tr>	    
+        <td class="td_left"><?php echo COUPON_DESC . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+        <td class="td_right"><?php echo $_POST['coupon_desc'][$language_id]; ?>&nbsp;</td>		
       </tr>
 <?php
 }
 ?>
-      <tr>
-        <td align="left"><?php echo COUPON_AMOUNT; ?></td>
-        <td align="left"><?php echo $_POST['coupon_amount']; ?></td>
+      <tr> 		
+		<td class="td_left"><?php echo COUPON_AMOUNT; ?></td>
+        <td class="td_right"><?php echo $_POST['coupon_amount']; ?>&nbsp;</td>		
       </tr>
  
-      <tr>
-        <td align="left"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td align="left"><?php echo $_POST['coupon_min_order']; ?></td>
+      <tr>		
+		<td class="td_left"><?php echo COUPON_MIN_ORDER; ?></td>
+        <td class="td_right"><?php echo $_POST['coupon_min_order']; ?>&nbsp;</td>		
       </tr>
 
       <tr>
-        <td align="left"><?php echo COUPON_FREE_SHIP; ?></td>
+        <td class="td_left"><?php echo COUPON_FREE_SHIP; ?></td>
 <?php
     if ($_POST['coupon_free_ship']) {
 ?>
-        <td align="left"><?php echo TEXT_FREE_SHIPPING; ?></td>
+        <td class="td_right"><?php echo TEXT_FREE_SHIPPING; ?></td>
 <?php
     } else { 
 ?>
-        <td align="left"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
+        <td class="td_right"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
 <?php
     }
 ?>
       </tr>
       <tr>
-        <td align="left"><?php echo COUPON_CODE; ?></td>
+        <td class="td_left"><?php echo COUPON_CODE; ?></td>
 <?php
     if ($_POST['coupon_code']) {
       $c_code = $_POST['coupon_code'];
@@ -559,44 +574,44 @@ $customer = xtc_db_fetch_array($customer_query);
       $c_code = $coupon_code;
     }
 ?>
-        <td align="left"><?php echo $coupon_code; ?></td>
+        <td class="td_right"><?php echo $coupon_code; ?>&nbsp;</td>
       </tr>
       
-      <tr>
-        <td align="left"><?php echo COUPON_USES_COUPON; ?></td>
-        <td align="left"><?php echo $_POST['coupon_uses_coupon']; ?></td>
+      <tr>	    
+        <td class="td_left"><?php echo COUPON_USES_COUPON; ?></td>		
+        <td class="td_right"><?php echo $_POST['coupon_uses_coupon']; ?>&nbsp;</td>		
       </tr>
 
       <tr>
-        <td align="left"><?php echo COUPON_USES_USER; ?></td>
-        <td align="left"><?php echo $_POST['coupon_uses_user']; ?></td>
+        <td class="td_left"><?php echo COUPON_USES_USER; ?></td>		
+        <td class="td_right"><?php echo $_POST['coupon_uses_user']; ?>&nbsp;</td>		
       </tr>
       
        <tr>
-        <td align="left"><?php echo COUPON_PRODUCTS; ?></td>
-        <td align="left"><?php echo $_POST['coupon_products']; ?></td>
+        <td class="td_left"><?php echo COUPON_PRODUCTS; ?></td>		
+        <td class="td_right"><?php echo $_POST['coupon_products']; ?>&nbsp;</td>		
       </tr>
 
 
       <tr>
-        <td align="left"><?php echo COUPON_CATEGORIES; ?></td>
-        <td align="left"><?php echo $_POST['coupon_categories']; ?></td>
+        <td class="td_left"><?php echo COUPON_CATEGORIES; ?></td>		
+        <td class="td_right"><?php echo $_POST['coupon_categories']; ?>&nbsp;</td>
+		
       </tr>
       <tr>
-        <td align="left"><?php echo COUPON_STARTDATE; ?></td>
+        <td class="td_left"><?php echo COUPON_STARTDATE; ?></td>
 <?php
     $start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
 ?>
-        <td align="left"><?php echo $start_date; ?></td>
+        <td class="td_right"><?php echo $start_date; ?>&nbsp;</td>
       </tr>
       
       <tr>
-        <td align="left"><?php echo COUPON_FINISHDATE; ?></td>
+        <td class="td_left"><?php echo COUPON_FINISHDATE; ?></td>
 <?php
     $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] ));
-    echo date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
 ?>
-        <td align="left"><?php echo $finish_date; ?></td>
+        <td class="td_right"><?php echo $finish_date; ?>&nbsp;</td>
       </tr>
 <?php
         $languages = xtc_get_languages();
@@ -617,18 +632,23 @@ $customer = xtc_db_fetch_array($customer_query);
     echo xtc_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
 ?>
      <tr>
-        <td align="left"><?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_CONFIRM . '"/>'; ?></td>
-        <td align="left"><?php echo '<input type="submit" name="back" class="button" onclick="this.blur();" value="' . BUTTON_BACK . '"/>'; ?></td>
+        <td align="left"><?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_CONFIRM . '"/>'; ?></td>
+        <td align="left"><?php echo '<input type="submit" name="back" class="button" onClick="this.blur();" value="' . BUTTON_BACK . '"/>'; ?></td>
       </td>
       </tr>
       
-      </td></table></form>
+      </td></table>
+<?php// EOF - web28 - 2010-07-23 - new table design?>
+	  </form>
       </tr>
 
       </table></td>
 <?php      
    
     break;
+	
+//##########################
+
   case 'voucheredit':
     $languages = xtc_get_languages();
     for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
@@ -671,16 +691,17 @@ $customer = xtc_db_fetch_array($customer_query);
 <?php 
     echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update&oldaction='.$_GET['action'] . '&cid=' . $_GET['cid'],'post', 'enctype="multipart/form-data"');
 ?>
-      <table border="0" width="100%" cellspacing="0" cellpadding="6">
+<?php// BOF - web28 - 2010-07-23 - new table design?>
+      <table class="main" border="0" width="100%" cellspacing="0" cellpadding="6" style="border-collapse:collapse">
 <?php
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $language_id = $languages[$i]['id'];
 ?>
       <tr>
-        <td align="left" class="main"><?php if ($i==0) echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id]) . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
-        <td align="left" class="main" width="40%"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
+        <td class="td_left"><?php if ($i==0) echo COUPON_NAME; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id], 'style="width: 150px"') . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+        <td class="td_right"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
       </tr>
 <?php
 }
@@ -691,82 +712,86 @@ $customer = xtc_db_fetch_array($customer_query);
 ?>
 
       <tr>
-        <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC; ?></td>
-        <td align="left" valign="top"><?php echo xtc_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id]) . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
-        <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
+        <td class="td_left"><?php if ($i==0) echo COUPON_DESC; ?></td>
+        <td class="td_middle"><nobr><?php echo xtc_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id], 'style="width: 250px"') . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?><nobr></td>
+        <td class="td_right"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
       </tr>
 <?php
 }
 ?>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_AMOUNT; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_amount', $coupon_amount); ?></td>
-        <td align="left" class="main"><?php echo COUPON_AMOUNT_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_AMOUNT; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_amount', $coupon_amount, 'style="width: 150px"'); ?></td>
+        <td class="td_right"><?php echo COUPON_AMOUNT_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_min_order', $coupon_min_order); ?></td>
-        <td align="left" class="main"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_MIN_ORDER; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_min_order', $coupon_min_order, 'style="width: 150px"'); ?></td>
+        <td class="td_right"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_FREE_SHIP; ?></td>
-        <td align="left"><?php echo xtc_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
-        <td align="left" class="main"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_FREE_SHIP; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
+        <td class="td_right"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_CODE; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_code', $coupon_code); ?></td>
-        <td align="left" class="main"><?php echo COUPON_CODE_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_CODE; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_code', $coupon_code, 'style="width: 150px"'); ?></td>
+        <td class="td_right"><?php echo COUPON_CODE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_USES_COUPON; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon); ?></td>
-        <td align="left" class="main"><?php echo COUPON_USES_COUPON_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_USES_COUPON; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon, 'style="width: 150px"'); ?></td>
+        <td class="td_right"><?php echo COUPON_USES_COUPON_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_USES_USER; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_uses_user', $coupon_uses_user); ?></td>
-        <td align="left" class="main"><?php echo COUPON_USES_USER_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_USES_USER; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_uses_user', $coupon_uses_user, 'style="width: 150px"'); ?></td>
+        <td class="td_right"><?php echo COUPON_USES_USER_HELP; ?></td>
       </tr>
        <tr>
-        <td align="left" class="main"><?php echo COUPON_PRODUCTS; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_products', $coupon_products); ?> <A HREF="validproducts.php" TARGET="_blank" ONCLICK="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
-        <td align="left" class="main"><?php echo COUPON_PRODUCTS_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_PRODUCTS; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <A HREF="validproducts.php" TARGET="_blank" ONCLICK="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td class="td_right"><?php echo COUPON_PRODUCTS_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_CATEGORIES; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_categories', $coupon_categories); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
-        <td align="left" class="main"><?php echo COUPON_CATEGORIES_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_CATEGORIES; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td class="td_right"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
 <?php
     if (!$_POST['coupon_startdate']) {
-      $coupon_startdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+      $coupon_startdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
     } else {
-      $coupon_startdate = explode("-", $_POST['coupon_startdate']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+      $coupon_startdate = explode("-", $_POST['coupon_startdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
     }
     if (!$_POST['coupon_finishdate']) {
-      $coupon_finishdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+      $coupon_finishdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
       $coupon_finishdate[0] = $coupon_finishdate[0] + 1;
     } else {
-      $coupon_finishdate = explode("-", $_POST['coupon_finishdate']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+      $coupon_finishdate = explode("-", $_POST['coupon_finishdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
     }
 ?>
-        <td align="left" class="main"><?php echo COUPON_STARTDATE; ?></td>
-        <td align="left"><?php echo xtc_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0], 0)); ?></td>
-        <td align="left" class="main"><?php echo COUPON_STARTDATE_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_STARTDATE; ?></td>
+        <td class="td_middle"><?php echo xtc_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0], 0)); ?></td>
+        <td class="td_right"><?php echo COUPON_STARTDATE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main"><?php echo COUPON_FINISHDATE; ?></td>
-        <td align="left"><?php echo xtc_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0], 0)); ?></td>
-        <td align="left" class="main"><?php echo COUPON_FINISHDATE_HELP; ?></td>
+        <td class="td_left"><?php echo COUPON_FINISHDATE; ?></td>
+        <td class="td_middle">		
+		<?php echo xtc_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0], 0)); ?>
+		</td>
+        <td class="td_right"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left"><?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_PREVIEW . '"/>'; ?></td>
-        <td align="left"><?php echo '&nbsp;&nbsp;<a class="button" onclick="this.blur();" href="' . xtc_href_link('coupon_admin.php', ''); ?>"><?php echo BUTTON_CANCEL; ?></a>
-      </td>
-      </tr>
-      </td></table></form>
+        <td align="left"><?php echo '<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_PREVIEW . '"/>'; ?></td>
+        <td align="left"><?php echo '&nbsp;&nbsp;<a class="button" onClick="this.blur();" href="' . xtc_href_link('coupon_admin.php', ''); ?>"><?php echo BUTTON_CANCEL; ?></a></td>
+		<td align="left">&nbsp;</td>
+	  </tr>
+      </td></table>	  
+<?php// EOF - web28 - 2010-07-23 - new table design?>
+	  </form>
       </tr>
 
       </table></td>
@@ -798,21 +823,27 @@ $customer = xtc_db_fetch_array($customer_query);
         </table></td>
       </tr>
       <tr>
-        <td><a class="button" onclick="this.blur();" href="<?php echo xtc_href_link('coupon_admin.php', 'action=new'); ?>"><?php echo BUTTON_INSERT; ?></a><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><a class="button" onClick="this.blur();" href="<?php echo xtc_href_link('coupon_admin.php', 'action=new'); ?>"><?php echo BUTTON_INSERT; ?></a><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td valign="top">
+<?php// BOF - web28 - 2010-07-23 - new table design?>
+			<table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo COUPON_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_AMOUNT; ?></td>	
-                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_CODE; ?></td>	
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+                <td class="dataTableHeadingContent" align="left" width="25"><?php echo COUPON_ID; ?></td>
+				<td class="dataTableHeadingContent" align="left"><?php echo COUPON_NAME; ?></td>
+				<td class="dataTableHeadingContent" align="left" width="110"><?php echo COUPON_AMOUNT; ?></td>
+				<td class="dataTableHeadingContent" align="left" width="110"><?php echo TEXT_COUPON_MINORDER; ?></td>
+				<td class="dataTableHeadingContent" align="left" width="80"><?php echo COUPON_CODE; ?></td>
+				<td class="dataTableHeadingContent" align="center" width="70"><?php echo TEXT_COUPON_STATUS; ?></td>
+				<td class="dataTableHeadingContent" align="center" width="70"><?php echo TEXT_COUPON_DELETE; ?></td>
+				<td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+			  </tr>
 <?php
     if ($_GET['page'] > 1) $rows = $_GET['page'] * 20 - 20;
     if ($status != '*') {
-      $cc_query_raw = "select coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,coupon_expire_date,uses_per_user,uses_per_coupon,restrict_to_products, restrict_to_categories, date_created,date_modified from " . TABLE_COUPONS ." where coupon_active='" . xtc_db_input($status) . "' and coupon_type != 'G'";
+      $cc_query_raw = "select coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,coupon_expire_date,uses_per_user,uses_per_coupon,restrict_to_products, restrict_to_categories, coupon_active, date_created,date_modified from " . TABLE_COUPONS ." where coupon_active='" . xtc_db_input($status) . "' and coupon_type != 'G'";
     } else {
-      $cc_query_raw = "select coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,coupon_expire_date,uses_per_user,uses_per_coupon,restrict_to_products, restrict_to_categories, date_created,date_modified from " . TABLE_COUPONS . " where coupon_type != 'G'";
+      $cc_query_raw = "select coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,coupon_expire_date,uses_per_user,uses_per_coupon,restrict_to_products, restrict_to_categories, coupon_active, date_created,date_modified from " . TABLE_COUPONS . " where coupon_type != 'G'";
     }
     $cc_split = new splitPageResults($_GET['page'], '20', $cc_query_raw, $cc_query_numrows);
     $cc_query = xtc_db_query($cc_query_raw);
@@ -825,15 +856,16 @@ $customer = xtc_db_fetch_array($customer_query);
         $cInfo = new objectInfo($cc_list);
       }
       if ( (is_object($cInfo)) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) {
-        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action')) . 'cid=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action')) . 'cid=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action')) . 'cid=' . $cc_list['coupon_id']) . '\'">' . "\n";
+        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action')) . 'cid=' . $cc_list['coupon_id']) . '\'">' . "\n";
       }
       $coupon_description_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cc_list['coupon_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
       $coupon_desc = xtc_db_fetch_array($coupon_description_query);
 ?>
-                <td class="dataTableContent"><?php echo $coupon_desc['coupon_name']; ?></td>
-                <td class="dataTableContent" align="center">
+		<td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['coupon_id']; ?></td>
+		<td class="dataTableContent" align="left">&nbsp;<?php echo $coupon_desc['coupon_name']; ?></td>
+		<td class="dataTableContent" align="left" style="padding-left: 5px">
 <?php  
       if ($cc_list['coupon_type'] == 'P') {
         echo $cc_list['coupon_amount'] . '%';
@@ -844,11 +876,14 @@ $customer = xtc_db_fetch_array($customer_query);
       }
 ?>
             &nbsp;</td>
-                <td class="dataTableContent" align="center"><?php echo $cc_list['coupon_code']; ?></td>
+				<td class="dataTableContent" align="left">&nbsp;<?php echo $currencies->format($cc_list['coupon_minimum_order']); ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['coupon_code']; ?></td>                
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_COUPON_ADMIN, 'page=' . $_GET['page'] . '&cid=' . $cc_list['coupon_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
+-->     
+				<td class="dataTableContent" align="center"><?php if ($cc_list['coupon_active'] == 'N') { echo xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10); } else { echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10); } ?></td>
+                <td class="dataTableContent" align="center">&nbsp;<?php if ($cc_list['coupon_active'] == 'N') { echo '<a href="' . xtc_href_link('coupon_admin.php',  '&action=noconfirmdelete' . '&cID=' . $cc_list['coupon_id']) . '">' . xtc_image(DIR_WS_ICONS . 'delete.gif', BUTTON_DELETE_NO_CONFIRM) . '</a>'; } ?></td>
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_COUPON_ADMIN, 'page=' . $_GET['page'] . '&cid=' . $cc_list['coupon_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 <!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
               </tr>
@@ -856,7 +891,7 @@ $customer = xtc_db_fetch_array($customer_query);
     }
 ?>
           <tr>
-            <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="8"><table border="0" width="100%" cellspacing="0" cellpadding="2">
             <?php if (is_object($cc_split)) { ?>
               <tr>
                 <td class="smallText">&nbsp;<?php echo $cc_split->display_count($cc_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_COUPONS); ?>&nbsp;</td>
@@ -864,9 +899,11 @@ $customer = xtc_db_fetch_array($customer_query);
               </tr>
             <?php } ?>
               <tr>
-                <td align="right" colspan="2" class="smallText"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link('coupon_admin.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
+                <td align="right" colspan="2" class="smallText"><?php echo '<a class="button" onClick="this.blur();" href="' . xtc_href_link('coupon_admin.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
               </tr>
-            </table></td>
+            </table>
+<?php// EOF - web28 - 2010-07-23 - new table design?>			
+			</td>
           </tr>
         </table></td>
 
@@ -892,45 +929,65 @@ $customer = xtc_db_fetch_array($customer_query);
       break;
     default:
       $heading[] = array('text'=>'['.$cInfo->coupon_id.']  '.$cInfo->coupon_code);
+	  
+	  
       $amount = $cInfo->coupon_amount;
       if ($cInfo->coupon_type == 'P') {
         $amount .= '%';
+	  // BOF - web28 - 2010-07-22 - FIX coupon_amount
+	  } elseif ($cInfo->coupon_type == 'S') {
+        $amount = TEXT_FREE_SHIPPING;
+	  // EOF - web28 - 2010-07-22 - FIX coupon_amount
       } else {
         $amount = $currencies->format($amount);
-      }
+      }	  
+	  
       if ($_GET['action'] == 'voucherdelete') {
         $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' . 
-                '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=confirmdelete&cid='.$_GET['cid'],'NONSSL').'">'.BUTTON_CONFIRM.'</a>' .
-                '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_CANCEL.'</a>'
+                '<a class="button" onClick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=confirmdelete&cid='.$_GET['cid'],'NONSSL').'">'.BUTTON_CONFIRM.'</a>' .
+                '<a class="button" onClick="this.blur();" href="'.xtc_href_link('coupon_admin.php','cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_CANCEL.'</a>'
                 );
       } else { 
         $prod_details = NONE;
         if ($cInfo->restrict_to_products) {
-          $prod_details = '<A HREF="listproducts.php?cid=' . $cInfo->coupon_id . '" TARGET="_blank" ONCLICK="window.open(\'listproducts.php?cid=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
-        }     
+          $prod_details = '<a href="listproducts.php?cid=' . $cInfo->coupon_id . '" target="_blank" onClick="window.open(\'listproducts.php?cid=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false"><strong>' . TEXT_VIEW_SHORT .'</strong></a>';
+        }   
         $cat_details = NONE;
         if ($cInfo->restrict_to_categories) {
-          $cat_details = '<A HREF="listcategories.php?cid=' . $cInfo->coupon_id . '" TARGET="_blank" ONCLICK="window.open(\'listcategories.php?cid=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
+          $cat_details = '<a href="listcategories.php?cid=' . $cInfo->coupon_id . '" target="_blank" onClick="window.open(\'listcategories.php?cid=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false"><strong>' . TEXT_VIEW_SHORT .'</strong></a>';
         }
         $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cInfo->coupon_id . "' and language_id = '" . $_SESSION['languages_id'] . "'");
         $coupon_name = xtc_db_fetch_array($coupon_name_query);
-        $contents[] = array('text'=>COUPON_NAME . '&nbsp;::&nbsp; ' . $coupon_name['coupon_name'] . '<br />' .
-                     COUPON_AMOUNT . '&nbsp;::&nbsp; ' . $amount . '<br />' .
-                     COUPON_STARTDATE . '&nbsp;::&nbsp; ' . xtc_date_short($cInfo->coupon_start_date) . '<br />' .
-                     COUPON_FINISHDATE . '&nbsp;::&nbsp; ' . xtc_date_short($cInfo->coupon_expire_date) . '<br />' .
-                     COUPON_USES_COUPON . '&nbsp;::&nbsp; ' . $cInfo->uses_per_coupon . '<br />' .
-                     COUPON_USES_USER . '&nbsp;::&nbsp; ' . $cInfo->uses_per_user . '<br />' .
-                     COUPON_PRODUCTS . '&nbsp;::&nbsp; ' . $prod_details . '<br />' .
-                     COUPON_CATEGORIES . '&nbsp;::&nbsp; ' . $cat_details . '<br />' .
-                     DATE_CREATED . '&nbsp;::&nbsp; ' . xtc_date_short($cInfo->date_created) . '<br />' .
-                     DATE_MODIFIED . '&nbsp;::&nbsp; ' . xtc_date_short($cInfo->date_modified) . '<br /><br />' .
-                     '<center><a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=email&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EMAIL.'</a>' .
-                     '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucheredit&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EDIT.'</a>' .
-                     '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherdelete&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_DELETE.'</a>' .
-                     '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherreport&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_REPORT.'</a></center>'
-                     );
-        }
-        break;
+									  // BOF - web28 - 2010-07-23 - new table design / Abfrage ob Coupon aktiv ist
+                                      $coupon_active_query = xtc_db_query("select coupon_active from " . TABLE_COUPONS . " where coupon_id = '" . $cInfo->coupon_id . "'");
+                                      $coupon_active = xtc_db_fetch_array($coupon_active_query);
+                                      
+                                      $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
+                                      COUPON_AMOUNT . ':&nbsp;<strong><font color="red">' . $amount . '</font></strong><br /><br />' .
+
+                                      COUPON_STARTDATE . ':&nbsp;' . xtc_date_short($cInfo->coupon_start_date) . '<br />' .
+                                      COUPON_FINISHDATE . ':&nbsp;' . xtc_date_short($cInfo->coupon_expire_date) . '<br /><br />' .
+                                      COUPON_USES_COUPON . ':&nbsp;<strong>' . $cInfo->uses_per_coupon . '</strong><br />' .
+                                      COUPON_USES_USER . ':&nbsp;<strong>' . $cInfo->uses_per_user . '</strong><br /><br />' .
+                                      COUPON_PRODUCTS . ':&nbsp;' . $prod_details . '<br />' .
+                                      COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br /><br />' .
+                                      DATE_CREATED . ':&nbsp;' . xtc_date_short($cInfo->date_created) . '<br />' .
+                                      DATE_MODIFIED . ':&nbsp;' . xtc_date_short($cInfo->date_modified) . '<br /><br />');
+
+                                      // WM Buttons ausgeblendet, wenn kein Coupon vorhanden oder der Coupon inaktiv ist. Dann sind die
+                                      // Buttons unnütz oder verwirren nur
+                                      //if ($coupon_desc['coupon_name'] != '') {
+                                      //  if ($coupon_active['coupon_active'] != 'N') {
+                                      $contents[] = array('text'=>'<a class="button" onClick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=email&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EMAIL.'</a>' .
+                                      '<a class="button" onClick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucheredit&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EDIT.'</a>' .
+                                      '<a class="button" onClick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherdelete&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_STATUS_OFF.'</a>' .
+                                      '<a class="button" onClick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherreport&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_REPORT.'</a>');
+                                      //}
+                                     //}
+									 // EOF - web28 - 2010-07-23 - new table design / Abfrage ob Coupon aktiv ist
+
+                                    }
+                                    break;
       }
 ?>                       
     <td width="25%" valign="top">
