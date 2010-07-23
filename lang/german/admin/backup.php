@@ -51,6 +51,7 @@ define('SUCCESS_LAST_RESTORE_CLEARED', 'Erfolg: Das letzte Wiederherstellungdatu
 define('SUCCESS_DATABASE_SAVED', 'Erfolg: Die Datenbank wurde gesichert.');
 define('SUCCESS_DATABASE_RESTORED', 'Erfolg: Die Datenbank wurde wiederhergestellt.');
 define('SUCCESS_BACKUP_DELETED', 'Erfolg: Die Sicherungsdatei wurde gel&ouml;scht.');
+define('SUCCESS_BACKUP_UPLOAD', 'Erfolgreich: Die Backupdatei wurde erfolgreich hochgeladen.');
 
 //TEXT_COMPLETE_INSERTS
 define('TEXT_COMPLETE_INSERTS', "<b>Vollst&auml;ndige 'INSERT's</b><br> - Feldnamen werden in jede INSERT-Zeile eingetragen (vergr&ouml;ssert das Backup)");
