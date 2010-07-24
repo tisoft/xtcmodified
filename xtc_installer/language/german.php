@@ -24,73 +24,33 @@ define('BOX_DB_IMPORT','DB Import');
 define('BOX_WRITE_CONFIG','Schreiben der Konfigurationsdatei');
 define('BOX_ADMIN_CONFIG','Administrator Konfiguration');
 define('BOX_USERS_CONFIG','User Konfiguration');
-
 define('PULL_DOWN_DEFAULT','Bitte W&auml;hlen Sie ein Land');
 
-
 // Error messages
- 	// index.php
-	define('SELECT_LANGUAGE_ERROR','Bitte w&auml;hlen Sie eine Sprache!');
-	// install_step2,5.php
-	define('TEXT_CONNECTION_ERROR','Eine Testverbindung zur Datenbank war nicht erfolgreich.');
-	define('TEXT_CONNECTION_SUCCESS','Eine Testverbindung zur Datenbank war erfolgreich.');
-	define('TEXT_DB_ERROR','Folgender Fehler wurde zur&uuml;ckgegeben:');
-	define('TEXT_DB_ERROR_1','Bitte klicken Sie auf <i>Back</i> um Ihre Datenbankeinstellungen zu &uuml;berpr&uuml;fen.');
-	define('TEXT_DB_ERROR_2','Wenn Sie Hilfe zu Ihrer Datenbank ben&ouml;tigen, wenden Sie sich bitte an Ihren Provider.');
-	// BOF - vr - 2010-01-14 - check MySQL *server* version
-	define('TEXT_DB_SERVER_VERSION_ERROR','Ihre MySQL-Version ist zu alt. Der Shop ben&ouml;tigt mindestens die Version: ');
-	define('TEXT_DB_SERVER_VERSION','Ihre MySQL-Version: ');
-	// EOF - vr - 2010-01-14 - check MySQL *server* version
-	// BOF - vr - 2010-01-14 - check MySQL *client* version
-	define('TEXT_DB_CLIENT_VERSION_WARNING','Ihre MySQL-Client-Version ist zu alt. Der Shop ben&ouml;tigt mindestens die Version: 4.1.2 </br></br>Sie können die Installation aber fortf&uuml;hren.</br>Wenn sich die Installation nicht fehlerfrei durchf&uuml;hren l&auml;sst, bitten Sie Ihren Provider um ein Update!');
-	define('TEXT_DB_CLIENT_VERSION','Ihre MySQL-Client-Version: ');
-	// EOF - vr - 2010-01-14 - check MySQL *client* version
-	// BOF - web28 - 2010-02-1014 - check FILE PATH
-	define('TEXT_PATH_ERROR','<h1>URL oder Dateipfad ung&uuml;ltig</h1>');
-	define('TEXT_PATH_ERROR2','Achtung! Sie haben eine ung&uuml;ltige URL oder einen ung&uuml;ltigen Dateipfad eingegeben!');
-	define('TEXT_PATH_ERROR3','Bitte &uuml;berpr&uuml;fen Sie Ihre Einstellungen!');
-	// EOF - web28 - 2010-02-1014 - check FILE PATH
-	
-	
-	// install_step6.php
-	define('ENTRY_FIRST_NAME_ERROR','Vorname ist zu kurz');
-	define('ENTRY_LAST_NAME_ERROR','Nachname ist zu kurz');
-	define('ENTRY_EMAIL_ADDRESS_ERROR','E-Mail Adresse ist zu kurz');
-	define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR','Bitte &uuml;berpr&uuml;fen Sie Ihre E-Mail Adresse');
-	define('ENTRY_STREET_ADDRESS_ERROR','Straße ist zu kurz');
-	define('ENTRY_POST_CODE_ERROR','Postleitzahl ist zu kurz');
-	define('ENTRY_CITY_ERROR','Stadt ist zu kurz');
-	define('ENTRY_COUNTRY_ERROR','Bitte &uuml;berpr&uuml;fen Sie das Bundesland');
-	define('ENTRY_STATE_ERROR','Bitte &uuml;berpr&uuml;fen Sie das Land');
-	define('ENTRY_TELEPHONE_NUMBER_ERROR','Telefonnummer ist zu kurz');
-	define('ENTRY_PASSWORD_ERROR','Bitte &uuml;berpr&uuml;fen Sie das Passwort');
-	define('ENTRY_STORE_NAME_ERROR','Shop-Name ist zu kurz');
-	define('ENTRY_COMPANY_NAME_ERROR','Firmenname ist zu kurz');
-	define('ENTRY_EMAIL_ADDRESS_FROM_ERROR','E-Mail-From ist zu kurz');
-	define('ENTRY_EMAIL_ADDRESS_FROM_CHECK_ERROR','Bitte &uuml;berpr&uuml;fen Sie den E-Mail-From');
-	define('SELECT_ZONE_SETUP_ERROR','W&auml;hlen Sie Zone-Setup');
-	// install_step7.php
-	define('ENTRY_DISCOUNT_ERROR','Product discount -Guest');
-	define('ENTRY_OT_DISCOUNT_ERROR','Discount on ot -Guest');
-	define('SELECT_OT_DISCOUNT_ERROR','Discount on ot -Guest');
-	define('SELECT_GRADUATED_ERROR','Graduated Prices -Guest');
-	define('SELECT_PRICE_ERROR','Show Price -Guest');
-	define('SELECT_TAX_ERROR','Show Tax -Guest');
-	define('ENTRY_DISCOUNT_ERROR2','Product discount -Default');
-	define('ENTRY_OT_DISCOUNT_ERROR2','Discount on ot -Default');
-	define('SELECT_OT_DISCOUNT_ERROR2','Discount on ot -Default');
-	define('SELECT_GRADUATED_ERROR2','Graduated Prices -Default');
-	define('SELECT_PRICE_ERROR2','Show Price -Default');
-	define('SELECT_TAX_ERROR2','Show Tax -Default');
-	
-	
+// index.php
+define('SELECT_LANGUAGE_ERROR','Bitte w&auml;hlen Sie eine Sprache!');
+// install_step2,5.php
+define('TEXT_CONNECTION_ERROR','Eine Testverbindung zur Datenbank war nicht erfolgreich.');
+define('TEXT_CONNECTION_SUCCESS','Eine Testverbindung zur Datenbank war erfolgreich.');
+define('TEXT_DB_ERROR','Folgender Fehler wurde zur&uuml;ckgegeben:');
+define('TEXT_DB_ERROR_1','Bitte klicken Sie auf <i>Back</i> um Ihre Datenbankeinstellungen zu &uuml;berpr&uuml;fen.');
+define('TEXT_DB_ERROR_2','Wenn Sie Hilfe zu Ihrer Datenbank ben&ouml;tigen, wenden Sie sich bitte an Ihren Provider.');
+// BOF - vr - 2010-01-14 - check MySQL *server* version
+define('TEXT_DB_SERVER_VERSION_ERROR','Ihre MySQL-Version ist zu alt. Der Shop ben&ouml;tigt mindestens die Version: ');
+define('TEXT_DB_SERVER_VERSION','Ihre MySQL-Version: ');
+// EOF - vr - 2010-01-14 - check MySQL *server* version
+// BOF - vr - 2010-01-14 - check MySQL *client* version
+define('TEXT_DB_CLIENT_VERSION_WARNING','Ihre MySQL-Client-Version ist zu alt. Der Shop ben&ouml;tigt mindestens die Version: 4.1.2 </br></br>Sie können die Installation aber fortf&uuml;hren.</br>Wenn sich die Installation nicht fehlerfrei durchf&uuml;hren l&auml;sst, bitten Sie Ihren Provider um ein Update!');
+define('TEXT_DB_CLIENT_VERSION','Ihre MySQL-Client-Version: ');
+// EOF - vr - 2010-01-14 - check MySQL *client* version
+// BOF - web28 - 2010-02-1014 - check FILE PATH
+define('TEXT_PATH_ERROR','<h1>URL oder Dateipfad ung&uuml;ltig</h1>');
+define('TEXT_PATH_ERROR2','Achtung! Sie haben eine ung&uuml;ltige URL oder einen ung&uuml;ltigen Dateipfad eingegeben!');
+define('TEXT_PATH_ERROR3','Bitte &uuml;berpr&uuml;fen Sie Ihre Einstellungen!');
+// EOF - web28 - 2010-02-1014 - check FILE PATH
 
-
-	
-	
 // index.php
 define('TITLE_SELECT_LANGUAGE','W&auml;hlen Sie eine Sprache!');
-
 define('TEXT_WELCOME_INDEX','<b>Willkommen zu xtcModified</b><br /><br />xtcModified ist eine Open-Source e-commerce L&ouml;sung, die st&auml;ndig vom xtcModified Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />xtcModified ist auf jedem System lauff&auml;hig, welches eine PHP Umgebung (ab PHP 4.1) und mySQL zur Verf&uuml;gung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.<br /><br />xtcModified ist ein OpenSource-Projekt &ndash; wir stecken jede Menge Arbeit und Freizeit in dieses Projekt und würden uns daher über eine Spende als kleine Anerkennung freuen.');
 define('TEXT_INFO_DONATIONS_IMG_ALT','Unterstützen Sie dieses Projekt mit Ihrer Spende');
 define('TEXT_WELCOME_STEP1','<b>Datenbank- und Webservereinstellungen</b><br /><br />Der Installer ben&ouml;tigt hier einige Informationen bez&uuml;glich Ihrer Datenbank und Ihrer Verzeichnisstruktur.');
@@ -122,14 +82,11 @@ Kundengruppe 4 -> Nettopreis f&uuml;r Produkt Y<br />
 define('TEXT_WELCOME_FINISHED','<b>xtcModified Installation erfolgreich!</b><br /><br />Der Installer hat nun die Grundfunktionen Ihres Shops eingerichtet. Melden Sie sich im Catalog mit Ihrem Admin-Account an und wechseln in den Adminbereich, um die komplette Konfiguration Ihres Shops vorzunehmen.');
 
 // install_step1.php
-
 define('TITLE_CUSTOM_SETTINGS','Installations Optionen');
-// BOF - web28 - 2010.03.18 - NEW TEXT
 define('TEXT_IMPORT_DB','xtcModified Datenbank Installation');
 define('TEXT_IMPORT_DB_LONG','Installiert die xtcModified Datenbankstruktur mit den ben&ouml;tigten Tabellen. <b>(Zwingend bei Erstinstallation! Bestehende Tabellen werden dabei geleert!)</b>');
 define('TEXT_AUTOMATIC','Konfigurations-Dateien erstellen');
 define('TEXT_AUTOMATIC_LONG','Ihre Informationen bez&uuml;glich Webserver und Datenbank werden automatisch in die ben&ouml;tigten Catalog und Admin Konfigurations-Dateien geschrieben, bestehende Dateien werden dabei &uuml;berschrieben!');
-// BOF - web28 - 2010.03.18 - NEW TEXT
 define('TITLE_DATABASE_SETTINGS','Datenbank Informationen');
 define('TEXT_DATABASE_SERVER','Datenbankserver');
 define('TEXT_DATABASE_SERVER_LONG','Der Datenbankserver kann entweder in Form eines Hostnamens, wie zum Beispiel <i>db1.myserver.com</i> oder <i>localhost</i>, oder als IP-Adresse, wie <i>192.168.0.1</i> angegeben werden.');
@@ -143,13 +100,11 @@ define('TITLE_WEBSERVER_SETTINGS','Webserver Informationen');
 define('TEXT_WS_ROOT','Webserver Root Verzeichnis');
 define('TEXT_WS_ROOT_LONG','Das Verzeichnis, in das die Webseiten gespeichert werden, zum Beispiel <b>/home/myname/htdocs</b>.');
 define('TEXT_WS_XTC','Webserver "xtcModified" Verzeichnis');
-define('TEXT_WS_XTC_LONG','Das Verzeichnis, in das der Shop geladen wurde, relativ zum Webserver Root Verzeichnis, bspw. <b>/xtcModified/</b>.
-<br /><br />Webserver Root Verzeichnis + Webserver "xtcModified" Verzeichnis ergeben den vollständigen Pfad zum Shop.');
+define('TEXT_WS_XTC_LONG','Das Verzeichnis, in das der Shop geladen wurde, relativ zum Webserver Root Verzeichnis, bspw. <b>/xtcModified/</b>.<br /><br />Webserver Root Verzeichnis + Webserver "xtcModified" Verzeichnis ergeben den vollständigen Pfad zum Shop.');
 define('TEXT_WS_ADMIN','Webserver Admin Verzeichnis');
 define('TEXT_WS_ADMIN_LONG','Das Verzeichnis, in welchem sich die Admin-Werkzeuge Ihres Shops befinden (vom Webserver root Verzeichnis), beispielsweise <i>/home/myname/public_html<b>/xtcModified/admin/</b></i>.');
 define('TEXT_WS_CATALOG','WWW Catalog Verzeichnis');
-define('TEXT_WS_CATALOG_LONG','Das virtuelle Verzeichnis, in dem sich der xtcModified Shop befindet, relativ zum HTTP Server, bspw. <b>/</b> oder <b>/xtcModified/</b>.
-<br /><br />HTTP Server + WWW Catalog Verzeichnis ergeben die Shop-URL.');
+define('TEXT_WS_CATALOG_LONG','Das virtuelle Verzeichnis, in dem sich der xtcModified Shop befindet, relativ zum HTTP Server, bspw. <b>/</b> oder <b>/xtcModified/</b>.<br /><br />HTTP Server + WWW Catalog Verzeichnis ergeben die Shop-URL.');
 define('TEXT_WS_ADMINTOOL','WWW Admin Verzeichnis');
 define('TEXT_WS_ADMINTOOL_LONG','Das virtuelle Verzeichnis, in dem sich die xtcModified Admin-Module befinden, beispielsweise <i>http://www.Ihre-Domain.de<b>/xtcModified/admin/</b></i>');
 //BOF WEBSERVER INFO
@@ -158,14 +113,11 @@ define('TEXT_WS_ROOT_INFO','Der Pfad wird automatisch ermittelt!');
 //EOF WEBSERVER INFO
 
 // install_step2.php
-
 define('TEXT_PROCESS_1','Bitte setzten Sie die Installation nun fort, um die Datenbank zu Importieren.');
 define('TEXT_PROCESS_2','Dieser Vorgang nimmt einige Zeit in Anspruch. Es ist wichtig, dass Sie den Vorgang nun nicht unterbrechen, weil sonst die Datenbank m&ouml;glicherweise nicht korrekt installiert wird.');
 define('TEXT_PROCESS_3','Die zu importierende Datei muss sich an folgendem Ort befinden. Diese befindet sich bei einem Standard-Upload dort.');
 
-
 // install_step3.php
-
 define('TEXT_TITLE_ERROR','Der folgende Fehler ist aufgetreten:');
 define('TEXT_TITLE_SUCCESS','Der Datenbank-Import war erfolgreich.');
 
@@ -180,8 +132,7 @@ define('TITLE_CHECK_CONFIGURATION','Bitte pr&uuml;fen Sie Ihre Webserver Informa
 define('TEXT_HTTP','HTTP Server');
 define('TEXT_HTTP_LONG','Der Webserver kann als Hostname, bspw. <b>http://myshop.com</b>, oder als IP-Adresse angegeben werden.');
 define('TEXT_HTTPS','HTTPS Server');
-define('TEXT_HTTPS_LONG','Der gesicherte Webserver kann als Hostname, 
-        bspw. <b>https://myshop.com</b>, oder als IP-Adresse angegeben werden.');
+define('TEXT_HTTPS_LONG','Der gesicherte Webserver kann als Hostname, bspw. <b>https://myshop.com</b>, oder als IP-Adresse angegeben werden.');
 define('TEXT_SSL','Benutze SSL-Verbindung');
 define('TEXT_SSL_LONG','Erm&ouml;glicht die Nutzung einer gesicherten Verbindung mittels SSL (HTTPS)');
 define('TITLE_CHECK_DATABASE','Bitte pr&uuml;fen Sie Ihre Datenbank Informationen');
@@ -197,11 +148,9 @@ define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy Beispiele für einige Provider: </b><br
 //EOF - web28 - 2010-03-02 - New SSL-PROXY info
 
 // install_step5.php
-
 define('TEXT_WS_CONFIGURATION_SUCCESS','<strong>xtcModified</strong> Webserver Konfiguration war erfolgreich');
 
 // install_step6.php
-
 define('TITLE_ADMIN_CONFIG','Administrator Konfiguration');
 define('TEXT_REQU_INFORMATION','* erforderliche Information');
 define('TEXT_FIRSTNAME','Vorname:');
@@ -215,7 +164,6 @@ define('TEXT_STATE','Bundesland/Province:');
 define('TEXT_COUNTRY','Land:');
 define('TEXT_COUNTRY_LONG','Wird benutzt f&uuml;r Versand und Steuern.');
 define('TEXT_TEL','Telefonnummer:');
-define('TEXT_PASSWORD','Passwort:');
 define('TEXT_PASSWORD_CONF','Passwort Best&auml;tigung:');
 define('TITLE_SHOP_CONFIG','Shop Konfiguration');
 define('TEXT_STORE','Shop Name:');
@@ -224,20 +172,34 @@ define('TEXT_EMAIL_FROM','E-Mail From');
 define('TEXT_EMAIL_FROM_LONG','Die E-Mail Adresse, die in den Bestellungen als From benutzt wird.');
 define('TITLE_ZONE_CONFIG','Zonen Konfiguration');
 define('TEXT_ZONE','automatisches Einstellen der Steuerzonen?');
-define('TITLE_ZONE_CONFIG_NOTE','*Note; xtcModified kann die Zonen automatisch aufsetzten, sofern Sich Ihr Shop in der EU befindet.');
-define('TITLE_SHOP_CONFIG_NOTE','*Note; Information for grundlegende Shopeinstellungen');
-define('TITLE_ADMIN_CONFIG_NOTE','*Note; Informationen f&uuml;r Admin/Superuser');
+define('TITLE_ZONE_CONFIG_NOTE','*Hinweis; xtcModified kann die Zonen automatisch aufsetzten, sofern Sich Ihr Shop in der EU befindet.');
+define('TITLE_SHOP_CONFIG_NOTE','*Hinweis; Information for grundlegende Shopeinstellungen');
+define('TITLE_ADMIN_CONFIG_NOTE','*Hinweis; Informationen f&uuml;r Admin/Superuser');
 define('TEXT_ZONE_NO','Nein');
 define('TEXT_ZONE_YES','Ja');
 define('TEXT_COMPANY','Firmenname');
-
-
+define('ENTRY_FIRST_NAME_ERROR','Vorname ist zu kurz');
+define('ENTRY_LAST_NAME_ERROR','Nachname ist zu kurz');
+define('ENTRY_EMAIL_ADDRESS_ERROR','E-Mail Adresse ist zu kurz');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR','Bitte &uuml;berpr&uuml;fen Sie Ihre E-Mail Adresse');
+define('ENTRY_STREET_ADDRESS_ERROR','Straße ist zu kurz');
+define('ENTRY_POST_CODE_ERROR','Postleitzahl ist zu kurz');
+define('ENTRY_CITY_ERROR','Stadt ist zu kurz');
+define('ENTRY_COUNTRY_ERROR','Bitte &uuml;berpr&uuml;fen Sie das Bundesland');
+define('ENTRY_STATE_ERROR','Bitte &uuml;berpr&uuml;fen Sie das Land');
+define('ENTRY_TELEPHONE_NUMBER_ERROR','Telefonnummer ist zu kurz');
+define('ENTRY_PASSWORD_ERROR','Bitte &uuml;berpr&uuml;fen Sie das Passwort');
+define('ENTRY_STORE_NAME_ERROR','Shop-Name ist zu kurz');
+define('ENTRY_COMPANY_NAME_ERROR','Firmenname ist zu kurz');
+define('ENTRY_EMAIL_ADDRESS_FROM_ERROR','E-Mail-From ist zu kurz');
+define('ENTRY_EMAIL_ADDRESS_FROM_CHECK_ERROR','Bitte &uuml;berpr&uuml;fen Sie den E-Mail-From');
+define('SELECT_ZONE_SETUP_ERROR','W&auml;hlen Sie Zone-Setup');
 
 // install_step7
 define('TITLE_GUEST_CONFIG','Gast Konfiguration');
-define('TITLE_GUEST_CONFIG_NOTE','*Note; Gast-User Einstellungen (nicht-registrierter Benutzer)');
+define('TITLE_GUEST_CONFIG_NOTE','*Hinweis; Gast-User Einstellungen (nicht-registrierter Benutzer)');
 define('TITLE_CUSTOMERS_CONFIG','Standard-Kunde Konfiguration');
-define('TITLE_CUSTOMERS_CONFIG_NOTE','*Note; Standard-Kunde Einstellungen (registrierter Kunde)');
+define('TITLE_CUSTOMERS_CONFIG_NOTE','*Hinweis; Standard-Kunde Einstellungen (registrierter Kunde)');
 define('TEXT_STATUS_DISCOUNT','Rabatt auf Produkte');
 define('TEXT_STATUS_DISCOUNT_LONG','Rabatt auf Produkte <i>(in Prozent, z.B. 10.00 , 20.00)</i>');
 define('TEXT_STATUS_OT_DISCOUNT_FLAG','Rabatt auf Bestellung');
@@ -256,9 +218,20 @@ define('TEXT_STATUS_CC_PERMISSION','Kreditkarten.');
 define('TEXT_STATUS_CC_PERMISSION_LONG','Erlaubt dem Kunden &uuml;ber ihre Kreditkartenzahlsysteme zu bestellen.');
 define('TEXT_STATUS_BT_PERMISSION','Bankeinzug');
 define('TEXT_STATUS_BT_PERMISSION_LONG','Erlaubt dem Kunden per Bankeinzug zu bestellen.');
-// install_fnished.php
+define('ENTRY_DISCOUNT_ERROR','Product discount -Guest');
+define('ENTRY_OT_DISCOUNT_ERROR','Discount on ot -Guest');
+define('SELECT_OT_DISCOUNT_ERROR','Discount on ot -Guest');
+define('SELECT_GRADUATED_ERROR','Graduated Prices -Guest');
+define('SELECT_PRICE_ERROR','Show Price -Guest');
+define('SELECT_TAX_ERROR','Show Tax -Guest');
+define('ENTRY_DISCOUNT_ERROR2','Product discount -Default');
+define('ENTRY_OT_DISCOUNT_ERROR2','Discount on ot -Default');
+define('SELECT_OT_DISCOUNT_ERROR2','Discount on ot -Default');
+define('SELECT_GRADUATED_ERROR2','Graduated Prices -Default');
+define('SELECT_PRICE_ERROR2','Show Price -Default');
+define('SELECT_TAX_ERROR2','Show Tax -Default');
 
+// install_fnished.php
 define('TEXT_SHOP_CONFIG_SUCCESS','<strong>xtcModified</strong> Shop Konfiguration war erfolgreich');
 define('TEXT_TEAM','Vielen Dank, dass Sie sich f&uuml;r die xtcModified eCommerce Shopsoftware entschieden haben. Besuchen Sie uns auf der <a href="http://www.xtc-modified.org">xtcModified Supportseite</a>.<br /><br />Alles Gute und viel Erfolg w&uuml;nscht Ihnen das gesamte xtcModified Team.<br /><br />Wenn Sie uns unterst&uuml;tzen wollen, würden wir uns über eine kleine Spende freuen.<br />');
-   
- ?>
+?>

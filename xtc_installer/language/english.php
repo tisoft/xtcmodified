@@ -2,7 +2,7 @@
 /* --------------------------------------------------------------
    $Id: english.php 1213 2005-09-14 11:34:50Z mz $   
 
-    XT-Commerce - community made shopping
+   XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2003 XT-Commerce
@@ -24,72 +24,33 @@ define('BOX_DB_IMPORT','DB Import');
 define('BOX_WRITE_CONFIG','Write config files');
 define('BOX_ADMIN_CONFIG','Administrator config');
 define('BOX_USERS_CONFIG','User config');
-
 define('PULL_DOWN_DEFAULT','Please select a Country!');
 
-
 // Error messages
- 	// index.php
-	define('SELECT_LANGUAGE_ERROR','Please select a language! / Bitte w&auml;hlen Sie eine Sprache!');
-	// install_step2,5.php
-	define('TEXT_CONNECTION_ERROR','The test connect to the database was NOT successful.');
-	define('TEXT_CONNECTION_SUCCESS','The test connect to the database was successful.');
-	define('TEXT_DB_ERROR','The error message returned is:');
-	define('TEXT_DB_ERROR_1','Please click on the <i>Back</i> graphic to review your database server settings.');
-	define('TEXT_DB_ERROR_2','If you require help with your database server settings, please consult your hosting company.');
-	// BOF - vr - 2010-01-14 - check MySQL *server* version
-	define('TEXT_DB_SERVER_VERSION_ERROR','Your MySQL version is too old. The shop requires at least version: ');
-	define('TEXT_DB_SERVER_VERSION','Your MySQL version: ');
-	// EOF - vr - 2010-01-14 - check MySQL *server* version
-	// BOF - vr - 2010-01-14 - check MySQL *client* version
-	define('TEXT_DB_CLIENT_VERSION_WARNING','Your MySQL version is too old. The shop requires at least version: 4.1.2 </br></br>You can continue the installation.</br>If the installation can not be correctly carried out, ask your provider for an update!');
-	define('TEXT_DB_CLIENT_VERSION','Your MySQL version: ');
-	// EOF - vr - 2010-01-14 - check MySQL *client* version
-	// BOF - web28 - 2010-02-1014 - check FILE PATH
-	define('TEXT_PATH_ERROR','<h1>Invalid path</h1>');
-	define('TEXT_PATH_ERROR2','Regard! You have entered an invalid file path!');
-	define('TEXT_PATH_ERROR3','Please check your settings!');
-	// EOF - web28 - 2010-02-1014 - check FILE PATH
-	
-	// install_step6.php
-	define('ENTRY_FIRST_NAME_ERROR','Firstname to short');
-	define('ENTRY_LAST_NAME_ERROR','Lastname to short');
-	define('ENTRY_EMAIL_ADDRESS_ERROR','Email to short');
-	define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR','Check Email Format');
-	define('ENTRY_STREET_ADDRESS_ERROR','Street to short');
-	define('ENTRY_POST_CODE_ERROR','Post Code to short');
-	define('ENTRY_CITY_ERROR','City to short');
-	define('ENTRY_COUNTRY_ERROR','Check Country');
-	define('ENTRY_STATE_ERROR','Check State');
-	define('ENTRY_TELEPHONE_NUMBER_ERROR','Telephone number to short');
-	define('ENTRY_PASSWORD_ERROR','Check Password');
-	define('ENTRY_STORE_NAME_ERROR','Store name to short');
-	define('ENTRY_COMPANY_NAME_ERROR','Company name to short');
-	define('ENTRY_EMAIL_ADDRESS_FROM_ERROR','Email-From to short');
-	define('ENTRY_EMAIL_ADDRESS_FROM_CHECK_ERROR','Check Email-From Format');
-	define('SELECT_ZONE_SETUP_ERROR','Select Zone setup');
-	// install_step7.php
-	define('ENTRY_DISCOUNT_ERROR','Product discount -Guest');
-	define('ENTRY_OT_DISCOUNT_ERROR','Discount on ot -Guest');
-	define('SELECT_OT_DISCOUNT_ERROR','Discount on ot -Guest');
-	define('SELECT_GRADUATED_ERROR','Graduated Prices -Guest');
-	define('SELECT_PRICE_ERROR','Show Price -Guest');
-	define('SELECT_TAX_ERROR','Show Tax -Guest');
-	define('ENTRY_DISCOUNT_ERROR2','Product discount -Default');
-	define('ENTRY_OT_DISCOUNT_ERROR2','Discount on ot -Default');
-	define('SELECT_OT_DISCOUNT_ERROR2','Discount on ot -Default');
-	define('SELECT_GRADUATED_ERROR2','Graduated Prices -Default');
-	define('SELECT_PRICE_ERROR2','Show Price -Default');
-	define('SELECT_TAX_ERROR2','Show Tax -Default');
-	
-	
-
-
-	
+// index.php
+define('SELECT_LANGUAGE_ERROR','Please select a language! / Bitte w&auml;hlen Sie eine Sprache!');
+// install_step2,5.php
+define('TEXT_CONNECTION_ERROR','The test connect to the database was NOT successful.');
+define('TEXT_CONNECTION_SUCCESS','The test connect to the database was successful.');
+define('TEXT_DB_ERROR','The error message returned is:');
+define('TEXT_DB_ERROR_1','Please click on the <i>Back</i> graphic to review your database server settings.');
+define('TEXT_DB_ERROR_2','If you require help with your database server settings, please consult your hosting company.');
+// BOF - vr - 2010-01-14 - check MySQL *server* version
+define('TEXT_DB_SERVER_VERSION_ERROR','Your MySQL version is too old. The shop requires at least version: ');
+define('TEXT_DB_SERVER_VERSION','Your MySQL version: ');
+// EOF - vr - 2010-01-14 - check MySQL *server* version
+// BOF - vr - 2010-01-14 - check MySQL *client* version
+define('TEXT_DB_CLIENT_VERSION_WARNING','Your MySQL version is too old. The shop requires at least version: 4.1.2 </br></br>You can continue the installation.</br>If the installation can not be correctly carried out, ask your provider for an update!');
+define('TEXT_DB_CLIENT_VERSION','Your MySQL version: ');
+// EOF - vr - 2010-01-14 - check MySQL *client* version
+// BOF - web28 - 2010-02-1014 - check FILE PATH
+define('TEXT_PATH_ERROR','<h1>Invalid path</h1>');
+define('TEXT_PATH_ERROR2','Regard! You have entered an invalid file path!');
+define('TEXT_PATH_ERROR3','Please check your settings!');
+// EOF - web28 - 2010-02-1014 - check FILE PATH
 	
 // index.php
 define('TITLE_SELECT_LANGUAGE','Select your language! / Bitte w&auml;hlen Sie eine Sprache!');
-
 define('TEXT_WELCOME_INDEX','<b>Welcome to xtcModified</b><br /><br />xtcModified is an open source e-commerce solution under on going development by the xtcModified Team and its community.<br /> Its feature packed out-of-the-box installation allows store owners to setup, run, and maintain their online stores with minimum effort and with no costs involved.<br /> xtcModified combines open source solutions to provide a free and open development platform, which includes the powerful PHP web scripting language, the stable Apache web server, and the fast MySQL database server.<br /><br />With no restrictions or special requirements, xtcModified can be installed on any PHP4 enabled web server, on any environment that PHP and MySQL supports, which includes Linux, Solaris, BSD, and Microsoft Windows environments.<br /><br />xtcModified is an open source project, yet a lot of work and spare time go into this project. Therefore we would be grateful if you show your appreciation by <b>donating</b> to the project.<br /><br /><b>Willkommen zu xtcModified</b><br /><br />xtcModified ist eine Open-Source e-commerce Lösung, die ständig vom xtcModified Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />xtcModified ist auf jedem System lauffähig, welches eine PHP Umgebung (ab PHP 4.1) und mySQL zur Verfügung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.<br /><br />xtcModified ist ein OpenSource-Projekt &ndash; wir stecken jede Menge Arbeit und Freizeit in dieses Projekt und würden uns daher über eine <b>Spende</b> als kleine Anerkennung freuen.');
 define('TEXT_INFO_DONATIONS_IMG_ALT', 'Please support this project with your donation.');
 define('TEXT_WELCOME_STEP1','<b>Main database and webserver settings</b><br /><br />Please enter your Database and webserver settings.<br />');
@@ -117,8 +78,8 @@ user group 3 -> a special group price on product Y<br />
 user group 4 -> netto price on product Y<br />
 ');
 define('TEXT_WELCOME_FINISHED','<b>xtcModified installation successful!</b>');
-// install_step1.php
 
+// install_step1.php
 define('TITLE_CUSTOM_SETTINGS','Custom Settings');
 define('TEXT_IMPORT_DB','Install xtcModified Database');
 define('TEXT_IMPORT_DB_LONG','Install the xtcModified database structure which includes tables and sample data. <b>(Mandatory on initial setup!</b>');
@@ -150,14 +111,11 @@ define('TEXT_WS_ROOT_INFO','The path is automatically determined');
 //EOF WEBSERVER INFO
 
 // install_step2.php
-
 define('TEXT_PROCESS_1','Please continue the installation process to execute the database import procedure.');
 define('TEXT_PROCESS_2','It is important this procedure is not interrupted, otherwise the database may end up corrupt.');
 define('TEXT_PROCESS_3','The file to import must be located and named at: ');
 
-
 // install_step3.php
-
 define('TEXT_TITLE_ERROR','The following error has occurred:');
 define('TEXT_TITLE_SUCCESS','The database import was successful!');
 
@@ -188,11 +146,9 @@ define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy examples of some providers: </b><br />
 //EOF - web28 - 2010-03-02 - New SSL-PROXY info
 
 // install_step5.php
-
 define('TEXT_WS_CONFIGURATION_SUCCESS','<strong>xtcModified</strong> Webserver configuration was successful');
 
 // install_step6.php
-
 define('TITLE_ADMIN_CONFIG','Administrator configuration');
 define('TEXT_REQU_INFORMATION','* required information');
 define('TEXT_FIRSTNAME','First Name:');
@@ -206,7 +162,6 @@ define('TEXT_STATE','State/Province:');
 define('TEXT_COUNTRY','Country:');
 define('TEXT_COUNTRY_LONG','Will be used for shipping and tax');
 define('TEXT_TEL','Telephone  Number:');
-define('TEXT_PASSWORD','Password:');
 define('TEXT_PASSWORD_CONF','Password Confirmation:');
 define('TITLE_SHOP_CONFIG','Shop configuration');
 define('TEXT_STORE','Store Name:');
@@ -221,8 +176,22 @@ define('TITLE_ADMIN_CONFIG_NOTE','*Note; Information for Admin/Superuser');
 define('TEXT_ZONE_NO','No');
 define('TEXT_ZONE_YES','Yes');
 define('TEXT_COMPANY','Company name');
-
-
+define('ENTRY_FIRST_NAME_ERROR','Firstname to short');
+define('ENTRY_LAST_NAME_ERROR','Lastname to short');
+define('ENTRY_EMAIL_ADDRESS_ERROR','Email to short');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR','Check Email Format');
+define('ENTRY_STREET_ADDRESS_ERROR','Street to short');
+define('ENTRY_POST_CODE_ERROR','Post Code to short');
+define('ENTRY_CITY_ERROR','City to short');
+define('ENTRY_COUNTRY_ERROR','Check Country');
+define('ENTRY_STATE_ERROR','Check State');
+define('ENTRY_TELEPHONE_NUMBER_ERROR','Telephone number to short');
+define('ENTRY_PASSWORD_ERROR','Check Password');
+define('ENTRY_STORE_NAME_ERROR','Store name to short');
+define('ENTRY_COMPANY_NAME_ERROR','Company name to short');
+define('ENTRY_EMAIL_ADDRESS_FROM_ERROR','Email-From to short');
+define('ENTRY_EMAIL_ADDRESS_FROM_CHECK_ERROR','Check Email-From Format');
+define('SELECT_ZONE_SETUP_ERROR','Select Zone setup');
 
 // install_step7
 define('TITLE_GUEST_CONFIG','Guest configuration');
@@ -247,12 +216,20 @@ define('TEXT_STATUS_CC_PERMISSION','Credit cards');
 define('TEXT_STATUS_CC_PERMISSION_LONG','Allows the customer to order their credit card number systems.');
 define('TEXT_STATUS_BT_PERMISSION','Debit');
 define('TEXT_STATUS_BT_PERMISSION_LONG','Allows the customer to order by bank move.');
+define('ENTRY_DISCOUNT_ERROR','Product discount -Guest');
+define('ENTRY_OT_DISCOUNT_ERROR','Discount on ot -Guest');
+define('SELECT_OT_DISCOUNT_ERROR','Discount on ot -Guest');
+define('SELECT_GRADUATED_ERROR','Graduated Prices -Guest');
+define('SELECT_PRICE_ERROR','Show Price -Guest');
+define('SELECT_TAX_ERROR','Show Tax -Guest');
+define('ENTRY_DISCOUNT_ERROR2','Product discount -Default');
+define('ENTRY_OT_DISCOUNT_ERROR2','Discount on ot -Default');
+define('SELECT_OT_DISCOUNT_ERROR2','Discount on ot -Default');
+define('SELECT_GRADUATED_ERROR2','Graduated Prices -Default');
+define('SELECT_PRICE_ERROR2','Show Price -Default');
+define('SELECT_TAX_ERROR2','Show Tax -Default');
 
-
-define('TITLE_CHMOD','Setting rights on files');
 // install_fnished.php
-
 define('TEXT_SHOP_CONFIG_SUCCESS','<strong>xtcModified</strong> Shop configuration was successful.');
 define('TEXT_TEAM','Thank you for chosing the xtcModified eCommerce Shopsoftware. Please viti the xtcModified developer team at <a href="http://www.xtc-modified.org">xtcModified support site</a>.<br /><br />If you like xtcModified, we would appreciate a small donation.<br />');
-   
- ?>
+?>
