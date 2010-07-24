@@ -57,8 +57,8 @@
           xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
 			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
-			$manufacturers_query = xtc_db_query("select * from ".TABLE_MANUFACTURERS_INFO." where language_id = '".$language_id."' and manufacturers_id = '".xtc_db_input($manufacturers_id)."'");
-			if (xtc_db_num_rows($manufacturers_query) == 0) xtc_db_perform(TABLE_MANUFACTURERS_INFO, array ('manufacturers_id' => xtc_db_input($manufacturers_id), 'language_id' => $language_id));
+			$manufacturers_query = xtc_db_query("select * from ".TABLE_MANUFACTURERS_INFO." where languages_id = '".$language_id."' and manufacturers_id = '".xtc_db_input($manufacturers_id)."'");
+			if (xtc_db_num_rows($manufacturers_query) == 0) xtc_db_perform(TABLE_MANUFACTURERS_INFO, array ('manufacturers_id' => xtc_db_input($manufacturers_id), 'languages_id' => $language_id));
 			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
 			xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . xtc_db_input($manufacturers_id) . "' and languages_id = '" . $language_id . "'");
         }
