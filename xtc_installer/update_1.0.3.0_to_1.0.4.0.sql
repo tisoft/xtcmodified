@@ -2,7 +2,7 @@
 UPDATE database_version SET version = 'xtcM_1.0.4.0';
 
 #vr - 2010-02-02 - Revised English Counties, thx to Chris
-delete from zones where zone_country_id = '222';
+DELETE FROM zones WHERE zone_country_id = '222';
 
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BAS','Bath and North East Somerset');
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BDF','Bedfordshire');
@@ -91,7 +91,7 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '
 UPDATE configuration SET configuration_value = ';' WHERE configuration_key = 'CSV_SEPERATOR';
 
 # BOF - Tomcraft - 2010-02-16 - Update Countries (delete Yugoslavia, add Serbia and Monetegro)
-delete from countries;
+DELETE FROM countries;
 INSERT INTO countries VALUES(1, 'Afghanistan', 'AF', 'AFG', 1, 1);
 INSERT INTO countries VALUES(2, 'Albania', 'AL', 'ALB', 1, 1);
 INSERT INTO countries VALUES(3, 'Algeria', 'DZ', 'DZA', 1, 1);
@@ -334,18 +334,18 @@ INSERT INTO countries VALUES(239, 'Zambia', 'ZM', 'ZMB', 1, 1);
 INSERT INTO countries VALUES(240, 'Zimbabwe', 'ZW', 'ZWE', 1, 1);
 
 #vr - 2010-03-01 - Additional index on specials, thx to Georg
-alter table specials
-add index idx_specials_products_id (products_id);
+ALTER TABLE specials
+ADD INDEX idx_specials_products_id (products_id);
 
 #vr - 2010-04-21 - Additional indices on orders_products
-alter table orders_products
-add index orders_id (orders_id),
-add index products_id (products_id);
+ALTER TABLE orders_products
+ADD INDEX orders_id (orders_id),
+ADD INDEX products_id (products_id);
 
 #vr - 2010-04-21 - Additional indices on products_attributes
-alter table products_attributes
-add index products_id (products_id),
-add index options (options_id, options_values_id);
+ALTER TABLE products_attributes
+ADD INDEX products_id (products_id),
+ADD INDEX options (options_id, options_values_id);
 
 #DokuMan - 2010-06-28 - Added http_referer to table whos_online 
 ALTER TABLE whos_online
