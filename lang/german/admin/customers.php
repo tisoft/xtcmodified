@@ -59,6 +59,6 @@ define('ENTRY_NEW_PASSWORD','Neues Passwort:');
 define('TABLE_HEADING_UMSATZ','Umsatz');
 
 // BOF - web28 - 2010-05-28 - added  customers_email_address
-define('TABLE_HEADING_EMAIL','Email');
+define('TABLE_HEADING_EMAIL','E-Mail');
 // EOF - web28 - 2010-05-28 - added  customers_email_address
 ?>

@@ -23,7 +23,7 @@ define('TXT_EMAIL_TEMPLATE', 'E-Mail Template');
 define('TXT_SEND', 'Verschicke');
 define('TXT_HTML_EMAIL', 'HTML-Nachricht');
 define('TXT_TEXT_EMAIL', 'Textnachricht');
-define('TXT_NO_EMAIL', 'keine e-mail');
+define('TXT_NO_EMAIL', 'keine E-mail');
 define('TXT_STANDORTPLZ', 'Artikelstandort, Postleitzahl');
 define('TXT_STANDORT', 'Artikelstandort, Stadt');
 define('TXT_STANDORTCOUNTRY', 'Artikelstandort, Land');
