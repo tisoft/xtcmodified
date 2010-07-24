@@ -116,7 +116,7 @@ if (USE_WYSIWYG == 'true') {
 
 										<br>
 										<br>
-										<?php echo '<input type="submit" name="go" class="button" onClick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?>
+										<?php echo '<input type="submit" name="go" class="button" onclick="this.blur();" value="' . BUTTON_SAVE . '"/>'; ?>
 										</form>
 
 									</td>
