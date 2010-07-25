@@ -52,7 +52,7 @@
 		$metaGoWords 	=	('tracht,dirndl,kleid,mode,modern,bluse,trachten,hose,leder,schmuck,t-shirt,t-shirts,schuh,schuhe'); // Hier rein, was nicht gefiltert werden soll
 		$metaMinLength 	=	9;		// Mindestlänge eines Keywords
 		$metaMaxLength 	=	18;		// Maximallänge eines Keywords
-		$metaDesLength 	=	364;	// maximale Länge der "description" (in Buchstaben)
+		$metaDesLength 	=	150;	// maximale Länge der "description" (in Buchstaben)
 // ---------------------------------------------------------------------------------------
 	$addPagination 			= 	true; 	// Seiten-Nummern anzeigen, ja/nein?
 // ---------------------------------------------------------------------------------------
