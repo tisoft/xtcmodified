@@ -101,7 +101,7 @@ define('TEXT_NONE', 'no restrictions');
 define('TEXT_COUPON_DELETE', 'Delete');
 define('TEXT_COUPON_STATUS', 'Statuses');
 define('TEXT_COUPON_DETAILS', 'Coupon details');
-define('TEXT_COUPON_EMAIL', 'Email delivery');
+define('TEXT_COUPON_EMAIL', 'E-mail delivery');
 define('TEXT_COUPON_OVERVIEW', 'Overview');
 define('TEXT_COUPON_EMAIL_PREVIEW', 'Confirm');
 define('TEXT_COUPON_MINORDER', 'Coupon Minimum Order');
