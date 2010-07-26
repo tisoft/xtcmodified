@@ -169,7 +169,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
               echo htmlentities($stmt).'<br />';
             }
             echo '</div>';
-            echo FINAL_TEXT . htmlentities($_SERVER['PHP_SELF']);
+            echo FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']);
 
           }
           else {         
@@ -186,7 +186,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
             echo '</div>';
           } 
           if (!isset($_POST['submit']) && $used_files_display != '') { 
-            echo '<br /><form method="post" action="'.htmlentities($_SERVER['PHP_SELF']) .'">
+            echo '<br /><form method="post" action="'.basename($_SERVER['SCRIPT_FILENAME']) .'">
             <input type="submit" name="submit" value="'.SUBMIT_VALUE.'"><br />
             </form>';
           } 

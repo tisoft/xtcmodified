@@ -1,7 +1,6 @@
-
 <!-- #### Admin Search Bar (ASB) #### -->
 <?php
-$page = $_SERVER['PHP_SELF'];
+$page = basename($_SERVER['SCRIPT_FILENAME']);
 if (strpos($page, 'customers.php') !== false) {
 	$search_cus= $_GET['search'];
 	$search_email= $_GET['search_email'];
@@ -24,4 +23,3 @@ if (strpos($page, 'categories.php') !== false) $search_cat= $_GET['search'];
     </ul>    
     </div>
 <!-- #### Ende #### -->
-
