@@ -354,7 +354,7 @@ elseif($xtb_module=='add_ajx') {
 			$desc = str_replace("#ARTICLE_DESCRIPTION#", $x['products_description'], $desc);
 // BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 //		if(ereg("#ARTICLE_TITLE#",$desc))
-		if(preg_match(""#ARTICLE_TITLE#"",$desc))
+		if(preg_match("/#ARTICLE_TITLE#/",$desc))
 // EOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 			$desc = str_replace("#ARTICLE_TITLE#", $x['products_name'], $desc);
 // BOF - Tomcraft - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
