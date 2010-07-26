@@ -1,6 +1,5 @@
 {config_load file="$language/lang_$language.conf" section="cross_selling"} 
 <h2>{#heading_text#}</h2>
-<p>
 {foreach name=aussen item=module_data from=$module_content}
 	{foreach item=products_data from=$module_data.PRODUCTS}
 		<table class="productPreview" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -20,4 +19,4 @@
 <div class="hrproductpreview"></div>
 	{/foreach}
 {/foreach}
-</p>
+

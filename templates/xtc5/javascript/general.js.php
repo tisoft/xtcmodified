@@ -17,21 +17,25 @@
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery.js" type="text/javascript"></script>
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/thickbox.js" type="text/javascript"></script>
 
-<?php// BOF - web28 - 2010-07-09 - TABS/ACCORDION in product_info ?>
+<?php// BOF - web28 - 2010-07-26 - TABS/ACCORDION in product_info ?>
 <?php
 if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 ?>
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery-ui.js" type="text/javascript"></script>
 <script type="text/javascript">
-	$(function() {
+<!--
+	//Laden einer CSS Datei mit jquery	
+    $.get("<?php echo 'templates/'.CURRENT_TEMPLATE; ?>"+"/css/javascript.css", function(css) {
+		$("head").append("<style type='text/css'>"+css+"</style>");
+	});
+	
+	$(function() {	    
 		$("#tabbed_product_info").tabs();
 		$("#accordion_product_info").accordion({ autoHeight: false });
-	});	
+	});
+//-->    
 </script>
-<noscript> 
-	<link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/css/no_javascript.css" type="text/css" media="screen" />
-</noscript>
 <?php
 }
 ?>
-<?php// EOF - web28 - 2010-07-09 - TABS/ACCORDION in product_info ?>
+<?php// EOF - web28 - 2010-07-26 - TABS/ACCORDION in product_info ?>

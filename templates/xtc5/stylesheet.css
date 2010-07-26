@@ -1232,27 +1232,24 @@ div.agbframe ol, div.agbframe ul  {
 }
 /* EOF - web28 - 2010-04-29 - fix ol and ul Tag  in checkout_payment agbframe */
 
-/* BOF - web28 - 2010-07-09 - fix für TABS/ACCORDION in product_info */
-#tabbed_product_info ul{
-	margin:0px 0px 0px 0px;
-}
-#tabbed_product_info, #accordion_product_info{
-	margin-top: 10px;
-}
-#tabbed_product_info .morepics {	
-	background-color: transparent;		
-	border-width: 0px 0px 0px 0px;	
-	width: 506px;	
+/* BOF - web28 - 2010-07-25 - NO JAVASCRIPT FALLBACK für TABS/ACCORDION in product_info */
+#tabbed_product_info ul {display: none;}
+
+#tabbed_product_info .morepics {
+	background-color:#EDEDED;
+	padding:6px;	
+	border-width: 1px 0px 0px 0px;	
+	width: 512px;
+    margin-bottom:17px;	
 }
 
-#accordion_product_info .morepics {	
-	background-color: transparent;	
-	border-width: 0px 0px 0px 0px;	
-	width: 460px;	
+#accordion_product_info h3  a{display: none;}
+
+/* EOF - web28 - 2010-07-25 - NO JAVASCRIPT FALLBACK für TABS/ACCORDION in product_info */
+
+/* BOF - web28 - 2010-07-25 - FIX DER AUFZÄHLUNGEN IM CONTENT  für TABS/ACCORDION in product_info */
+#tab_description ol, #tab_description ul, #accordion_product_info ul, #accordion_product_info ul{
+	margin:10px 0px 10px 22px;
+	display: block;
 }
-/* BOF - Tomcraft - 2010-07-20 - FIX DER AUFZÄHLUNGEN IM CONTENT */
-#tab_description ol, #tab_description ul {
-	margin:10px 0 10px 14px;
-}
-/* EOF - Tomcraft - 2010-07-20 - FIX DER AUFZÄHLUNGEN IM CONTENT */
-/* EOF - web28 - 2010-07-09 - fix für TABS/ACCORDION in product_info */
+/* EOF - web28 - 2010-07-25 - FIX DER AUFZÄHLUNGEN IM CONTENT  für TABS/ACCORDION in product_info */
