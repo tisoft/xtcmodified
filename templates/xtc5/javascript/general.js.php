@@ -26,7 +26,7 @@ if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 <!--
 	//Laden einer CSS Datei mit jquery	
     $.get("<?php echo 'templates/'.CURRENT_TEMPLATE; ?>"+"/css/javascript.css", function(css) {
-		$("head").append("<style type='text/css'>"+css+"</style>");
+		$("head").append("<style type='text/css'>"+css+"<\/style>");
 	});
 	
 	$(function() {	    
