@@ -49,17 +49,18 @@ function xtc_db_install($database, $sql_file) {
           continue;
         }
         if ($restore_query[($i+1)] == "\n") {
+          $next = ''; //added missing variable initialization
           for ($j=($i+2); $j<$sql_length; $j++) {
             if (trim($restore_query[$j]) != '') {
               $next = substr($restore_query, $j, 6);
               if ($next[0] == '#') {
-// find out where the break position is so we can remove this line (#comment line)
+                // find out where the break position is so we can remove this line (#comment line)
                 for ($k=$j; $k<$sql_length; $k++) {
                   if ($restore_query[$k] == "\n") break;
                 }
                 $query = substr($restore_query, 0, $i+1);
                 $restore_query = substr($restore_query, $k);
-// join the query before the comment appeared, with the rest of the dump
+                // join the query before the comment appeared, with the rest of the dump
                 $restore_query = $query . $restore_query;
                 $sql_length = strlen($restore_query);
                 $i = strpos($restore_query, ';')-1;
@@ -68,12 +69,25 @@ function xtc_db_install($database, $sql_file) {
               break;
             }
           }
-          if ($next == '') { // get the last insert query
+          if (empty($next)) { // get the last insert query
             $next = 'insert';
           }
-          if ( (preg_match('/create/i', $next)) || (preg_match('/insert/i', $next)) || (preg_match('/drop t/i', $next)) ) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+          //BOF - DokuMan - 2010-07-26 - replace preg_match by strtoupper to be more accurate
+          //if ( (preg_match('/create/i', $next)) || (preg_match('/insert/i', $next)) || (preg_match('/drop t/i', $next)) ) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+          // compare first 6 letters, if it fits an SQL statement to start a new line
+          if ((strtoupper($next) == 'DROP T') 
+          || (strtoupper($next) == 'CREATE') 
+          || (strtoupper($next) == 'INSERT')
+          || (strtoupper($next) == 'DELETE')
+          || (strtoupper($next) == 'ALTER ')
+          || (strtoupper($next) == 'UPDATE')) {
+          //EOF - DokuMan - 2010-07-26 - replace preg_match by strtoupper to be more accurate
             $next = '';
-            $sql_array[] = substr($restore_query, 0, $i);
+            //BOF - DokuMan - 2010-07-26 - trim SQL-statement first
+            //$sql_array[] = substr($restore_query, 0, $i);
+            $sql_query = substr($restore_query, 0, $i);       
+            $sql_array[] = trim($sql_query);
+            //EOF - DokuMan - 2010-07-26 - trim SQL-statement first
             $restore_query = ltrim(substr($restore_query, $i+1));
             $sql_length = strlen($restore_query);
             $i = strpos($restore_query, ';')-1;

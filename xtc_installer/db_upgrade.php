@@ -85,6 +85,7 @@
       continue;
     }
     if ($restore_query[($i+1)] == "\n") {
+      $next = '';    
       for ($j=($i+2); $j<$sql_length; $j++) {
         if (trim($restore_query[$j]) != '') {
           $next = substr($restore_query, $j, 6);
@@ -104,24 +105,27 @@
           break;
         }
       }
-      if ($next == '') { // get the last insert query
+      if (empty($next)) { // get the last insert query
         $next = 'insert';
       }
-      if ( (preg_match('/create/i', $next)) 
-        || (preg_match('/insert/i', $next)) 
-        || (preg_match('/drop t/i', $next)) 
-        || (preg_match('/delete/i', $next)) 
-        || (preg_match('/alter/i',  $next)) 
-        || (preg_match('/update/i', $next)) ) {
+
+      // compare first 6 letters, if it fits an SQL statement to start a new line
+      if ((strtoupper($next) == 'DROP T') 
+      || (strtoupper($next) == 'CREATE') 
+      || (strtoupper($next) == 'INSERT')
+      || (strtoupper($next) == 'DELETE')
+      || (strtoupper($next) == 'ALTER ')
+      || (strtoupper($next) == 'UPDATE')) {
         $next = '';
-        $sql_array[] = substr($restore_query, 0, $i);
+        $sql_query = substr($restore_query, 0, $i);       
+        $sql_array[] = trim($sql_query);
         $restore_query = ltrim(substr($restore_query, $i+1));
         $sql_length = strlen($restore_query);
         $i = strpos($restore_query, ';')-1;
       }
     }
   }
-  
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
