@@ -6,9 +6,20 @@
 defined("_VALID_XTC") or die("Direct access to this location isn't allowed.");
 
 function showSpecialsBox() {
+		global $pInfo; //web28 - 2010-07-27 - show products_price
 			// include localized categories specials strings
 			  require_once(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/categories_specials.php');
 
+			//BOF web28 - 2010-07-27 - show products_price
+			if (PRICE_IS_BRUTTO == 'true') {
+				$products_price_sp = xtc_round($pInfo->products_price * ((100 + xtc_get_tax_rate($pInfo->products_tax_class_id)) / 100), PRICE_PRECISION);
+				$products_price_netto_sp = TEXT_NETTO.'<strong>'.($pInfo->products_price*(xtc_get_tax_rate($sInfo->products_tax_class_id)+100)/100).'</strong>  ';
+
+			} else {
+				$products_price_sp = xtc_round($pInfo->products_price, PRICE_PRECISION);
+				$products_price_netto_sp = '';
+			}
+			//EOF web28 - 2010-07-27 - show products_price
 
 			// if editing an existing product
 
@@ -46,10 +57,12 @@ function showSpecialsBox() {
 			$price=$sInfo->products_price;
 			$new_price=$sInfo->specials_new_products_price;
 
+            $new_price_netto = ''; //web28 - 2010-07-27 - show special_price netto
+			
 			if (PRICE_IS_BRUTTO=='true') {
 
  				$price_netto=xtc_round($price,PRICE_PRECISION);
-				$new_price_netto=xtc_round($new_price,PRICE_PRECISION);
+				if ($price > 0) $new_price_netto= TEXT_NETTO.'<strong>'.xtc_round($new_price,PRICE_PRECISION).'</strong>'; //web28 - 2010-07-27 - show special_price netto
 				$price= ($price*(xtc_get_tax_rate($sInfo->products_tax_class_id)+100)/100);
 				$new_price= ($new_price*(xtc_get_tax_rate($sInfo->products_tax_class_id)+100)/100);
 			}
@@ -78,6 +91,9 @@ function showSpecialsBox() {
 					)
 				);
 
+			echo xtc_draw_hidden_field('tax_rate', xtc_get_tax_rate($pInfo->products_tax_class_id)); //web28 - 2010-07-27 - add hidden field
+			echo xtc_draw_hidden_field('products_price_hidden', $pInfo->products_price); //web28 - 2010-07-27 - FIX wrong specials price
+			
 			if(isset($_GET['pID']) and xtc_db_num_rows($specials_query, true) > 0)
 				echo xtc_draw_hidden_field('specials_id', $sInfo->specials_id);
 
@@ -115,9 +131,16 @@ function showSpecialsBox() {
 		<tr>
 		<td>
       <table width="100%" border="0" cellpadding="3" cellspacing="0" style="border: 0px dotted black;">
+		  <?php //BOF - web28 - 2010-07-27 - show products_price ?>
+	      <tr>
+            <td class="main"><?php echo TEXT_PRODUCTS_PRICE; ?>&nbsp;</td>
+            <td class="main"><?php echo $products_price_sp; ?>&nbsp;&nbsp;&nbsp;<?php echo $products_price_netto_sp; ?></td>
+            <td class="main">&nbsp;</td>
+          </tr>         
+		  <?php //EOF - web28 - 2010-07-27 - show products_price ?>
           <tr>
             <td class="main" style="width:270px;"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
-            <td class="main" style="width:250px;"><?php echo xtc_draw_input_field('specials_price', $new_price, 'style="width: 135px"');?> </td>
+            <td class="main" style="width:250px;"><?php echo xtc_draw_input_field('specials_price', $new_price, 'style="width: 135px"'). '&nbsp;&nbsp;&nbsp;' . $new_price_netto;?></td><?php //web28 - 2010-07-27 - show special_price netto ?>
             <td class="main" style="width:340px;">&nbsp;<?php if(isset($_GET['pID']) and xtc_db_num_rows($specials_query, true) > 0) { ?>
 			<input type="checkbox" name="specials_delete" value="true"
 				id="input_specials_delete"
@@ -177,20 +200,14 @@ function saveSpecialsData($products_id) {
 	 if(!isset($_POST['specials_quantity']) or empty($_POST['specials_quantity']))
 		$_POST['specials_quantity'] = 0;
 
-     if (PRICE_IS_BRUTTO=='true' && substr($_POST['specials_price'], -1) != '%'){
-        $sql="select tr.tax_rate from " . TABLE_TAX_RATES . " tr, " . TABLE_PRODUCTS . " p  where tr.tax_class_id = p. products_tax_class_id  and p.products_id = '". $products_id . "' ";
-        $tax_query = xtc_db_query($sql);
-        $tax = xtc_db_fetch_array($tax_query);
-        $_POST['specials_price'] = ($_POST['specials_price']/($tax['tax_rate']+100)*100);
+     if (PRICE_IS_BRUTTO=='true' && substr($_POST['specials_price'], -1) != '%'){        
+        $_POST['specials_price'] = ($_POST['specials_price']/($_POST['tax_rate']+100)*100); //web28 - 2010-07-27 - tax_rate from  hidden field
      }
      
      
-     if (substr($_POST['specials_price'], -1) == '%')  {
-     	$new_special_insert_query = xtc_db_query("select products_id,products_tax_class_id, products_price from " . TABLE_PRODUCTS . " where products_id = '" . $products_id . "'");
-        $new_special_insert = xtc_db_fetch_array($new_special_insert_query);
-        $_POST['products_price'] = $new_special_insert['products_price'];
-      $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
-      }
+     if (substr($_POST['specials_price'], -1) == '%')  {     	
+		$_POST['specials_price'] = ($_POST['products_price_hidden'] - (($_POST['specials_price'] / 100) * $_POST['products_price_hidden'])); //web28 - 2010-07-27 - products_price_hidden from  hidden field
+     }
      
      
       $expires_date = '';
@@ -211,11 +228,11 @@ function saveSpecialsData($products_id) {
         $sql="select tr.tax_rate from " . TABLE_TAX_RATES . " tr, " . TABLE_PRODUCTS . " p  where tr.tax_class_id = p. products_tax_class_id  and p.products_id = '". $products_id . "' ";
         $tax_query = xtc_db_query($sql);
         $tax = xtc_db_fetch_array($tax_query);
-        $_POST['specials_price'] = ($_POST['specials_price']/($tax[tax_rate]+100)*100);
+        $_POST['specials_price'] = ($_POST['specials_price']/($_POST['tax_rate']+100)*100); //web28 - 2010-07-27 - tax_rate from  hidden field
      }
 
       if (substr($_POST['specials_price'], -1) == '%')  {
-      $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
+      $_POST['specials_price'] = ($_POST['products_price_hidden'] - (($_POST['specials_price'] / 100) * $_POST['products_price_hidden'])); //web28 - 2010-07-27 - products_price_hidden from  hidden field
       }
       $expires_date = '';
       if ($_POST['specials_expires']) {
