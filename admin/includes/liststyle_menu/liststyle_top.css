@@ -26,6 +26,7 @@
 	display: inline;
 	float: left;
 	background: #d3d3d3 url(../../images/liststyle_menu/menu-bg-li.gif) repeat-x bottom; /*overall menu background color*/
+	z-index: 100;  /*web28 2010-07-30 fix overlay
 }
 
 /*Top level menu link items style*/
