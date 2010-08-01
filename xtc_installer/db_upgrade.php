@@ -115,6 +115,7 @@
       || (strtoupper($next) == 'INSERT')
       || (strtoupper($next) == 'DELETE')
       || (strtoupper($next) == 'ALTER ')
+      || (strtoupper($next) == 'TRUNCA')      
       || (strtoupper($next) == 'UPDATE')) {
         $next = '';
         $sql_query = substr($restore_query, 0, $i);       

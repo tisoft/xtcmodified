@@ -1,3 +1,6 @@
+#Tomcraft - 2009-09-08 - changed database_version
+UPDATE database_version SET version = 'xtcM_1.0.3.0';
+
 #Dokuman - 2009-08-20 - Added Bulgaria and Romania to EU Zones (since 01.01.2007)
 UPDATE zones_to_geo_zones SET geo_zone_id= 5 WHERE zone_country_id IN (33,175);
 
@@ -57,9 +60,6 @@ CREATE TABLE gls_weight (
   PRIMARY KEY  (gls_weight_ref)
 ) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-#Tomcraft - 2009-09-08 - changed database_version
-UPDATE database_version SET version = 'xtcM_1.0.3.0';
-
 #Dokuman - 2009-10-09 - added "erwartete Produkte" in "Artikelkatalog"
 ALTER TABLE admin_access ADD products_expected INT( 1 ) NOT NULL DEFAULT '0' AFTER specials;
 UPDATE admin_access SET products_expected = '1' WHERE customers_id = '1';
@@ -83,8 +83,8 @@ INSERT INTO configuration (configuration_id,  configuration_key, configuration_v
 ALTER TABLE products_options ADD products_options_sortorder INT( 11 ) NOT NULL AFTER products_options_name;
 
 #Tomcraft - 2009-11-08 - Added option to deactivate languages 
-ALTER TABLE `languages` ADD `status` INT( 1 ) NOT NULL AFTER language_charset;
-UPDATE `languages` SET `status` = '1' WHERE `status` = '0';
+ALTER TABLE languages ADD status INT( 1 ) NOT NULL AFTER language_charset;
+UPDATE languages SET status = '1' WHERE status = '0';
 
 #Dokuman - 2009-11-12 - corrected refferers_id-field from int(5) to varchar(32), see TABLE orders
 ALTER TABLE customers MODIFY refferers_id VARCHAR( 32 ) NOT NULL DEFAULT '0';
