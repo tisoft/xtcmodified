@@ -96,7 +96,8 @@
         <td class="fastmenu" align="center"><a href="<?php echo xtc_href_link('credits.php', '', 'NONSSL') ; ?>"><img src="images/icons/fastnav/icon_credits.jpg" width="40" height="40" border="0"></a><br>
 		Credits
 		</td>
-<!-- EOF - web28 - 2010-06-20 - added xtc_href_link to fastmenu //-->			
+<!-- EOF - web28 - 2010-06-20 - added xtc_href_link to fastmenu //-->
+      </tr>
     </table>
     </td>
   </tr>
