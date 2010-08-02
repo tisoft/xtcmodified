@@ -49,7 +49,7 @@ define('HTML_PARAMS','dir="ltr" xml:lang="de"');
 
 
 // page title
-define('TITLE', 'XT-Commerce');
+define('TITLE', PROJECT_VERSION);
 
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
