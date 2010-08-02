@@ -116,6 +116,8 @@ CREATE TABLE database_version (
   version varchar(32) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
+# Tomcraft - 2009-11-02 - set global customers-group-permissions (customers_group)
+# web28 - 2010-07-07 - set shop_offline parameter
 DROP TABLE IF EXISTS admin_access;
 CREATE TABLE admin_access (
   customers_id varchar(32) NOT NULL default '0',
@@ -142,9 +144,7 @@ CREATE TABLE admin_access (
   customers int(1) NOT NULL default '0',
   create_account int(1) NOT NULL default '0',
   customers_status int(1) NOT NULL default '0',
-# BOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
   customers_group int(1) NOT NULL default '0',
-# EOF - Tomcraft - 2009-11-02 - set global customers-group-permissions
   orders int(1) NOT NULL default '0',
   campaigns int(1) NOT NULL default '0',
   print_packingslip int(1) NOT NULL default '0',
@@ -195,9 +195,7 @@ CREATE TABLE admin_access (
   econda int(1) NOT NULL default '0',
   cleverreach int(1) NOT NULL default '0',
   sofortueberweisung_install int(1) NOT NULL default '0',
-# BOF - web28 - 2010-07-07 - set shop offline
   shop_offline int(1) NOT NULL default '0',
-# EOF - web28 - 2010-07-07 - set shop offline
   PRIMARY KEY  (customers_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
@@ -456,6 +454,7 @@ CREATE TABLE customers_status_history (
   PRIMARY KEY  (customers_status_history_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
+# Tomcraft - 2009-11-08 - Added option to deactivate languages (status)
 DROP TABLE IF EXISTS languages;
 CREATE TABLE languages (
   languages_id int NOT NULL auto_increment,
@@ -465,9 +464,7 @@ CREATE TABLE languages (
   directory varchar(32),
   sort_order int(3),
   language_charset text NOT NULL,
-# BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
   status int(1) NOT NULL default '1',
-# EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages  
   PRIMARY KEY (languages_id),
   KEY IDX_LANGUAGES_NAME (name)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
@@ -617,6 +614,7 @@ CREATE TABLE card_blacklist (
   KEY blacklist_id (blacklist_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
+# vr - 2010-04-21 add indices orders_id, products_id
 DROP TABLE IF EXISTS orders_products;
 CREATE TABLE orders_products (
   orders_products_id int NOT NULL auto_increment,
@@ -632,10 +630,8 @@ CREATE TABLE orders_products (
   products_quantity int(2) NOT NULL,
   allow_tax int(1) NOT NULL,
   PRIMARY KEY (orders_products_id),
-# BOF - vr - 2010-04-21 add indices
   KEY orders_id (orders_id),
   KEY products_id (products_id)
-# EOF - vr - 2010-04-21 add indices
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_status;
@@ -814,14 +810,13 @@ CREATE TABLE products_notifications (
   PRIMARY KEY (products_id, customers_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
+# Tomcraft - 2009-11-07 - Added sortorder to products_options
 DROP TABLE IF EXISTS products_options;
 CREATE TABLE products_options (
   products_options_id int NOT NULL default '0',
   language_id int NOT NULL default '1',
   products_options_name varchar(32) NOT NULL default '',
-# BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
   products_options_sortorder INT( 11 ) NOT NULL,
-# EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
   PRIMARY KEY  (products_options_id,language_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
