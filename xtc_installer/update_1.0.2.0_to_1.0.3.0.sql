@@ -26,65 +26,65 @@ UPDATE zones SET zone_code = 'TH' WHERE zone_id = 94;
 UPDATE configuration SET configuration_group_id = 1 WHERE configuration_id = 17;
 
 #Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '',  31, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PWD','',  31, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','',  31, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0',  31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '',  31, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PWD','',  31, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','',  31, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0',  31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 
 #Dokuman - 2009-10-02 - added entries for GLS shipping module version 1.1
 DROP TABLE IF EXISTS gls_country_to_postal;
 CREATE TABLE gls_country_to_postal (
-  gls_country char(2) NOT NULL default '',
-  gls_postal_reference int(11) NOT NULL default '0',
-  PRIMARY KEY  (gls_country)
-) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  gls_country CHAR(2) NOT NULL DEFAULT '',
+  gls_postal_reference INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (gls_country)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS gls_postal_to_weight;
 CREATE TABLE gls_postal_to_weight (
-  gls_postal_reference int(11) NOT NULL default '0',
-  gls_from_postal varchar(10) NOT NULL default '',
-  gls_to_postal varchar(10) NOT NULL default '',
-  gls_weight_ref char(3) NOT NULL default '',
-  PRIMARY KEY  (gls_postal_reference,gls_from_postal)
-) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  gls_postal_reference INT(11) NOT NULL DEFAULT 0,
+  gls_from_postal VARCHAR(10) NOT NULL DEFAULT '',
+  gls_to_postal VARCHAR(10) NOT NULL DEFAULT '',
+  gls_weight_ref CHAR(3) NOT NULL DEFAULT '',
+  PRIMARY KEY (gls_postal_reference,gls_from_postal)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS gls_weight;
 CREATE TABLE gls_weight (
-  gls_weight_ref char(3) NOT NULL default '',
-  gls_weight_price_string text NOT NULL,
-  gls_free_shipping_over decimal(15,4) NOT NULL default '-1.0000',
-  gls_shipping_subsidized decimal(15,4) NOT NULL default '-1.0000',
-  PRIMARY KEY  (gls_weight_ref)
-) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  gls_weight_ref CHAR(3) NOT NULL DEFAULT '',
+  gls_weight_price_string TEXT NOT NULL,
+  gls_free_shipping_over DECIMAL(15,4) NOT NULL DEFAULT -1.0000,
+  gls_shipping_subsidized DECIMAL(15,4) NOT NULL DEFAULT -1.0000,
+  PRIMARY KEY (gls_weight_ref)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 #Dokuman - 2009-10-09 - added "erwartete Produkte" in "Artikelkatalog"
-ALTER TABLE admin_access ADD products_expected INT( 1 ) NOT NULL DEFAULT '0' AFTER specials;
-UPDATE admin_access SET products_expected = '1' WHERE customers_id = '1';
-UPDATE admin_access SET products_expected = '5' WHERE customers_id = 'groups';
+ALTER TABLE admin_access ADD products_expected INT(1) NOT NULL DEFAULT 0 AFTER specials;
+UPDATE admin_access SET products_expected = 1 WHERE customers_id = '1';
+UPDATE admin_access SET products_expected = 5 WHERE customers_id = 'groups';
 
 #Tomcraft - 2009-11-02 - set global customers-group-permissions
-ALTER TABLE admin_access ADD customers_group INT( 1 ) NOT NULL DEFAULT '0' AFTER customers_status;
-UPDATE admin_access SET customers_group = '1' WHERE customers_id = '1';
-UPDATE admin_access SET customers_group = '2' WHERE customers_id = 'groups';
+ALTER TABLE admin_access ADD customers_group INT(1) NOT NULL DEFAULT 0 AFTER customers_status;
+UPDATE admin_access SET customers_group = 1 WHERE customers_id = '1';
+UPDATE admin_access SET customers_group = 2 WHERE customers_id = 'groups';
 
 #Tomcraft - 2009-11-02 - New admin top menu
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_TOP_MENU', 'true', 1, 30, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_TOP_MENU', 'true', 1, 30, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #Tomcraft - 2009-11-02 - Admin language tabs
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_LANG_TABS', 'true', 1, 31, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_LANG_TABS', 'true', 1, 31, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #Tomcraft - 2009-11-05 - Advanced contact form
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_CONTACT_EMAIL_ADDRESS', 'false', 12, 13, NULL,  NOW( ), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_CONTACT_EMAIL_ADDRESS', 'false', 12, 13, NULL,  NOW( ), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #Tomcraft - 2009-11-07 - Added sortorder to products_options
-ALTER TABLE products_options ADD products_options_sortorder INT( 11 ) NOT NULL AFTER products_options_name;
+ALTER TABLE products_options ADD products_options_sortorder INT(11) NOT NULL AFTER products_options_name;
 
 #Tomcraft - 2009-11-08 - Added option to deactivate languages 
-ALTER TABLE languages ADD status INT( 1 ) NOT NULL AFTER language_charset;
-UPDATE languages SET status = '1' WHERE status = '0';
+ALTER TABLE languages ADD status INT(1) NOT NULL AFTER language_charset;
+UPDATE languages SET status = 1 WHERE status = 0;
 
 #Dokuman - 2009-11-12 - corrected refferers_id-field from int(5) to varchar(32), see TABLE orders
-ALTER TABLE customers MODIFY refferers_id VARCHAR( 32 ) NOT NULL DEFAULT '0';
+ALTER TABLE customers MODIFY refferers_id VARCHAR(32) NOT NULL DEFAULT 0;

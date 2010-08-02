@@ -32,1168 +32,1158 @@
 #         (don't use inline comments)
 #  --------------------------------------------------------------
 
-
 DROP TABLE IF EXISTS address_book;
 CREATE TABLE address_book (
-  address_book_id int NOT NULL auto_increment,
-  customers_id int NOT NULL,
-  entry_gender char(1) NOT NULL,
-  entry_company varchar(32),
-  entry_firstname varchar(32) NOT NULL,
-  entry_lastname varchar(32) NOT NULL,
-  entry_street_address varchar(64) NOT NULL,
-  entry_suburb varchar(32),
-  entry_postcode varchar(10) NOT NULL,
-  entry_city varchar(32) NOT NULL,
-  entry_state varchar(32),
-  entry_country_id int DEFAULT '0' NOT NULL,
-  entry_zone_id int DEFAULT '0' NOT NULL,
-  address_date_added datetime DEFAULT '0000-00-00 00:00:00',
-  address_last_modified datetime DEFAULT '0000-00-00 00:00:00',
+  address_book_id INT NOT NULL AUTO_INCREMENT,
+  customers_id INT NOT NULL,
+  entry_gender CHAR(1) NOT NULL,
+  entry_company VARCHAR(32),
+  entry_firstname VARCHAR(32) NOT NULL,
+  entry_lastname VARCHAR(32) NOT NULL,
+  entry_street_address VARCHAR(64) NOT NULL,
+  entry_suburb VARCHAR(32),
+  entry_postcode VARCHAR(10) NOT NULL,
+  entry_city VARCHAR(32) NOT NULL,
+  entry_state VARCHAR(32),
+  entry_country_id INT DEFAULT 0 NOT NULL,
+  entry_zone_id INT DEFAULT 0 NOT NULL,
+  address_date_added DATETIME DEFAULT '0000-00-00 00:00:00',
+  address_last_modified DATETIME DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (address_book_id),
   KEY idx_address_book_customers_id (customers_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers_memo;
 CREATE TABLE customers_memo (
-  memo_id int(11) NOT NULL auto_increment,
-  customers_id int(11) NOT NULL default '0',
-  memo_date date NOT NULL default '0000-00-00',
-  memo_title text NOT NULL,
-  memo_text text NOT NULL,
-  poster_id int(11) NOT NULL default '0',
-  PRIMARY KEY  (memo_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  memo_id INT(11) NOT NULL AUTO_INCREMENT,
+  customers_id INT(11) NOT NULL DEFAULT 0,
+  memo_date DATE NOT NULL DEFAULT '0000-00-00',
+  memo_title TEXT NOT NULL,
+  memo_text TEXT NOT NULL,
+  poster_id INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (memo_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_xsell;
 CREATE TABLE products_xsell (
-  ID int(10) NOT NULL auto_increment,
-  products_id int(10) unsigned NOT NULL default '1',
-  products_xsell_grp_name_id int(10) unsigned NOT NULL default '1',
-  xsell_id int(10) unsigned NOT NULL default '1',
-  sort_order int(10) unsigned NOT NULL default '1',
-  PRIMARY KEY  (ID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  id INT(10) NOT NULL AUTO_INCREMENT,
+  products_id INT(10) UNSIGNED NOT NULL DEFAULT 1,
+  products_xsell_grp_name_id INT(10) UNSIGNED NOT NULL DEFAULT 1,
+  xsell_id INT(10) UNSIGNED NOT NULL DEFAULT 1,
+  sort_order INT(10) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_xsell_grp_name;
 CREATE TABLE products_xsell_grp_name (
-  products_xsell_grp_name_id int(10) NOT NULL,
-  xsell_sort_order int(10) NOT NULL default '0',
-  language_id smallint(6) NOT NULL default '0',
-  groupname varchar(255) NOT NULL default ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  products_xsell_grp_name_id INT(10) NOT NULL,
+  xsell_sort_order INT(10) NOT NULL DEFAULT 0,
+  language_id SMALLINT(6) NOT NULL DEFAULT 0,
+  groupname VARCHAR(255) NOT NULL DEFAULT ''
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS campaigns;
 CREATE TABLE campaigns (
-  campaigns_id int(11) NOT NULL auto_increment,
-  campaigns_name varchar(32) NOT NULL default '',
-  campaigns_refID varchar(64) default NULL,
-  campaigns_leads int(11) NOT NULL default '0',
-  date_added datetime default NULL,
-  last_modified datetime default NULL,
-  PRIMARY KEY  (campaigns_id),
-  KEY IDX_CAMPAIGNS_NAME (campaigns_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  campaigns_id INT(11) NOT NULL AUTO_INCREMENT,
+  campaigns_name VARCHAR(32) NOT NULL DEFAULT '',
+  campaigns_refid VARCHAR(64) DEFAULT NULL,
+  campaigns_leads INT(11) NOT NULL DEFAULT 0,
+  date_added DATETIME DEFAULT NULL,
+  last_modified DATETIME DEFAULT NULL,
+  PRIMARY KEY (campaigns_id),
+  KEY idx_campaigns_name (campaigns_name)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS campaigns_ip;
 CREATE TABLE  campaigns_ip (
- user_ip VARCHAR( 15 ) NOT NULL ,
- time DATETIME NOT NULL ,
- campaign VARCHAR( 32 ) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  user_ip VARCHAR(15) NOT NULL,
+  TIME DATETIME NOT NULL,
+  campaign VARCHAR(32) NOT NULL
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS address_format;
 CREATE TABLE address_format (
-  address_format_id int NOT NULL auto_increment,
-  address_format varchar(128) NOT NULL,
-  address_summary varchar(48) NOT NULL,
+  address_format_id INT NOT NULL AUTO_INCREMENT,
+  address_format VARCHAR(128) NOT NULL,
+  address_summary VARCHAR(48) NOT NULL,
   PRIMARY KEY (address_format_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS database_version;
 CREATE TABLE database_version (
-  version varchar(32) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  version VARCHAR(32) NOT NULL
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 # Tomcraft - 2009-11-02 - set global customers-group-permissions (customers_group)
 # web28 - 2010-07-07 - set shop_offline parameter
 DROP TABLE IF EXISTS admin_access;
 CREATE TABLE admin_access (
-  customers_id varchar(32) NOT NULL default '0',
+  customers_id VARCHAR(32) NOT NULL DEFAULT '0',
 
-  configuration int(1) NOT NULL default '0',
-  modules int(1) NOT NULL default '0',
-  countries int(1) NOT NULL default '0',
-  currencies int(1) NOT NULL default '0',
-  zones int(1) NOT NULL default '0',
-  geo_zones int(1) NOT NULL default '0',
-  tax_classes int(1) NOT NULL default '0',
-  tax_rates int(1) NOT NULL default '0',
-  accounting int(1) NOT NULL default '0',
-  backup int(1) NOT NULL default '0',
-  cache int(1) NOT NULL default '0',
-  server_info int(1) NOT NULL default '0',
-  whos_online int(1) NOT NULL default '0',
-  languages int(1) NOT NULL default '0',
-  define_language int(1) NOT NULL default '0',
-  orders_status int(1) NOT NULL default '0',
-  shipping_status int(1) NOT NULL default '0',
-  module_export int(1) NOT NULL default '0',
+  configuration INT(1) NOT NULL DEFAULT 0,
+  modules INT(1) NOT NULL DEFAULT 0,
+  countries INT(1) NOT NULL DEFAULT 0,
+  currencies INT(1) NOT NULL DEFAULT 0,
+  zones INT(1) NOT NULL DEFAULT 0,
+  geo_zones INT(1) NOT NULL DEFAULT 0,
+  tax_classes INT(1) NOT NULL DEFAULT 0,
+  tax_rates INT(1) NOT NULL DEFAULT 0,
+  accounting INT(1) NOT NULL DEFAULT 0,
+  backup INT(1) NOT NULL DEFAULT 0,
+  cache INT(1) NOT NULL DEFAULT 0,
+  server_info INT(1) NOT NULL DEFAULT 0,
+  whos_online INT(1) NOT NULL DEFAULT 0,
+  languages INT(1) NOT NULL DEFAULT 0,
+  define_language INT(1) NOT NULL DEFAULT 0,
+  orders_status INT(1) NOT NULL DEFAULT 0,
+  shipping_status INT(1) NOT NULL DEFAULT 0,
+  module_export INT(1) NOT NULL DEFAULT 0,
 
-  customers int(1) NOT NULL default '0',
-  create_account int(1) NOT NULL default '0',
-  customers_status int(1) NOT NULL default '0',
-  customers_group int(1) NOT NULL default '0',
-  orders int(1) NOT NULL default '0',
-  campaigns int(1) NOT NULL default '0',
-  print_packingslip int(1) NOT NULL default '0',
-  print_order int(1) NOT NULL default '0',
-  popup_memo int(1) NOT NULL default '0',
-  coupon_admin int(1) NOT NULL default '0',
-  listcategories int(1) NOT NULL default '0',
-  gv_queue int(1) NOT NULL default '0',
-  gv_mail int(1) NOT NULL default '0',
-  gv_sent int(1) NOT NULL default '0',
-  validproducts int(1) NOT NULL default '0',
-  validcategories int(1) NOT NULL default '0',
-  mail int(1) NOT NULL default '0',
+  customers INT(1) NOT NULL DEFAULT 0,
+  create_account INT(1) NOT NULL DEFAULT 0,
+  customers_status INT(1) NOT NULL DEFAULT 0,
+  customers_group INT(1) NOT NULL DEFAULT 0,
+  orders INT(1) NOT NULL DEFAULT 0,
+  campaigns INT(1) NOT NULL DEFAULT 0,
+  print_packingslip INT(1) NOT NULL DEFAULT 0,
+  print_order INT(1) NOT NULL DEFAULT 0,
+  popup_memo INT(1) NOT NULL DEFAULT 0,
+  coupon_admin INT(1) NOT NULL DEFAULT 0,
+  listcategories INT(1) NOT NULL DEFAULT 0,
+  gv_queue INT(1) NOT NULL DEFAULT 0,
+  gv_mail INT(1) NOT NULL DEFAULT 0,
+  gv_sent INT(1) NOT NULL DEFAULT 0,
+  validproducts INT(1) NOT NULL DEFAULT 0,
+  validcategories INT(1) NOT NULL DEFAULT 0,
+  mail INT(1) NOT NULL DEFAULT 0,
 
-  categories int(1) NOT NULL default '0',
-  new_attributes int(1) NOT NULL default '0',
-  products_attributes int(1) NOT NULL default '0',
-  manufacturers int(1) NOT NULL default '0',
-  reviews int(1) NOT NULL default '0',
-  specials int(1) NOT NULL default '0',
-  products_expected int(1) NOT NULL default '0',
+  categories INT(1) NOT NULL DEFAULT 0,
+  new_attributes INT(1) NOT NULL DEFAULT 0,
+  products_attributes INT(1) NOT NULL DEFAULT 0,
+  manufacturers INT(1) NOT NULL DEFAULT 0,
+  reviews INT(1) NOT NULL DEFAULT 0,
+  specials INT(1) NOT NULL DEFAULT 0,
+  products_expected INT(1) NOT NULL DEFAULT 0,
 
-  stats_products_expected int(1) NOT NULL default '0',
-  stats_products_viewed int(1) NOT NULL default '0',
-  stats_products_purchased int(1) NOT NULL default '0',
-  stats_customers int(1) NOT NULL default '0',
-  stats_sales_report int(1) NOT NULL default '0',
-  stats_campaigns int(1) NOT NULL default '0',
+  stats_products_expected INT(1) NOT NULL DEFAULT 0,
+  stats_products_viewed INT(1) NOT NULL DEFAULT 0,
+  stats_products_purchased INT(1) NOT NULL DEFAULT 0,
+  stats_customers INT(1) NOT NULL DEFAULT 0,
+  stats_sales_report INT(1) NOT NULL DEFAULT 0,
+  stats_campaigns INT(1) NOT NULL DEFAULT 0,
 
-  banner_manager int(1) NOT NULL default '0',
-  banner_statistics int(1) NOT NULL default '0',
+  banner_manager INT(1) NOT NULL DEFAULT 0,
+  banner_statistics INT(1) NOT NULL DEFAULT 0,
 
-  module_newsletter int(1) NOT NULL default '0',
-  start int(1) NOT NULL default '0',
+  module_newsletter INT(1) NOT NULL DEFAULT 0,
+  start INT(1) NOT NULL DEFAULT 0,
 
-  content_manager int(1) NOT NULL default '0',
-  content_preview int(1) NOT NULL default '0',
-  credits int(1) NOT NULL default '0',
-  blacklist int(1) NOT NULL default '0',
+  content_manager INT(1) NOT NULL DEFAULT 0,
+  content_preview INT(1) NOT NULL DEFAULT 0,
+  credits INT(1) NOT NULL DEFAULT 0,
+  blacklist INT(1) NOT NULL DEFAULT 0,
 
-  orders_edit int(1) NOT NULL default '0',
-  popup_image int(1) NOT NULL default '0',
-  csv_backend int(1) NOT NULL default '0',
-  products_vpe int(1) NOT NULL default '0',
-  cross_sell_groups int(1) NOT NULL default '0',
+  orders_edit INT(1) NOT NULL DEFAULT 0,
+  popup_image INT(1) NOT NULL DEFAULT 0,
+  csv_backend INT(1) NOT NULL DEFAULT 0,
+  products_vpe INT(1) NOT NULL DEFAULT 0,
+  cross_sell_groups INT(1) NOT NULL DEFAULT 0,
   
-  fck_wrapper int(1) NOT NULL default '0',
-  econda int(1) NOT NULL default '0',
-  cleverreach int(1) NOT NULL default '0',
-  sofortueberweisung_install int(1) NOT NULL default '0',
-  shop_offline int(1) NOT NULL default '0',
-  PRIMARY KEY  (customers_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  fck_wrapper INT(1) NOT NULL DEFAULT 0,
+  econda INT(1) NOT NULL DEFAULT 0,
+  cleverreach INT(1) NOT NULL DEFAULT 0,
+  sofortueberweisung_install INT(1) NOT NULL DEFAULT 0,
+  shop_offline INT(1) NOT NULL DEFAULT 0,
+
+  PRIMARY KEY (customers_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 
 DROP TABLE IF EXISTS banktransfer;
 CREATE TABLE banktransfer (
-  orders_id int(11) NOT NULL default '0',
-  banktransfer_owner varchar(64) default NULL,
-  banktransfer_number varchar(24) default NULL,
-  banktransfer_bankname varchar(255) default NULL,
-  banktransfer_blz varchar(8) default NULL,
-  banktransfer_status int(11) default NULL,
-  banktransfer_prz char(2) default NULL,
-  banktransfer_fax char(2) default NULL,
-  KEY orders_id(orders_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  orders_id INT(11) NOT NULL DEFAULT 0,
+  banktransfer_owner VARCHAR(64) DEFAULT NULL,
+  banktransfer_number VARCHAR(24) DEFAULT NULL,
+  banktransfer_bankname VARCHAR(255) DEFAULT NULL,
+  banktransfer_blz VARCHAR(8) DEFAULT NULL,
+  banktransfer_status INT(11) DEFAULT NULL,
+  banktransfer_prz CHAR(2) DEFAULT NULL,
+  banktransfer_fax CHAR(2) DEFAULT NULL,
+  KEY orders_id (orders_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 
 DROP TABLE IF EXISTS banners;
 CREATE TABLE banners (
-  banners_id int NOT NULL auto_increment,
-  banners_title varchar(64) NOT NULL,
-  banners_url varchar(255) NOT NULL,
-  banners_image varchar(64) NOT NULL,
-  banners_group varchar(10) NOT NULL,
-  banners_html_text text,
-  expires_impressions int(7) DEFAULT '0',
-  expires_date datetime DEFAULT NULL,
-  date_scheduled datetime DEFAULT NULL,
-  date_added datetime NOT NULL,
-  date_status_change datetime DEFAULT NULL,
-  status int(1) DEFAULT '1' NOT NULL,
-  PRIMARY KEY  (banners_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  banners_id INT NOT NULL AUTO_INCREMENT,
+  banners_title VARCHAR(64) NOT NULL,
+  banners_url VARCHAR(255) NOT NULL,
+  banners_image VARCHAR(64) NOT NULL,
+  banners_group VARCHAR(10) NOT NULL,
+  banners_html_text TEXT,
+  expires_impressions INT(7) DEFAULT 0,
+  expires_date DATETIME DEFAULT NULL,
+  date_scheduled DATETIME DEFAULT NULL,
+  date_added DATETIME NOT NULL,
+  date_status_change DATETIME DEFAULT NULL,
+  status INT(1) DEFAULT 1 NOT NULL,
+  PRIMARY KEY (banners_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS banners_history;
 CREATE TABLE banners_history (
-  banners_history_id int NOT NULL auto_increment,
-  banners_id int NOT NULL,
-  banners_shown int(5) NOT NULL DEFAULT '0',
-  banners_clicked int(5) NOT NULL DEFAULT '0',
-  banners_history_date datetime NOT NULL,
-  PRIMARY KEY  (banners_history_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  banners_history_id INT NOT NULL AUTO_INCREMENT,
+  banners_id INT NOT NULL,
+  banners_shown INT(5) NOT NULL DEFAULT 0,
+  banners_clicked INT(5) NOT NULL DEFAULT 0,
+  banners_history_date DATETIME NOT NULL,
+  PRIMARY KEY (banners_history_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
-  categories_id int NOT NULL auto_increment,
-  categories_image varchar(64),
-  parent_id int DEFAULT '0' NOT NULL,
-  categories_status TINYint (1)  UNSIGNED DEFAULT "1" NOT NULL,
-  categories_template varchar(64),
-  group_permission_0 tinyint(1) NOT NULL,
-  group_permission_1 tinyint(1) NOT NULL,
-  group_permission_2 tinyint(1) NOT NULL,
-  group_permission_3 tinyint(1) NOT NULL,
-  listing_template varchar(64),
-  sort_order int(3) DEFAULT "0" NOT NULL,
-  products_sorting varchar(32),
-  products_sorting2 varchar(32),
-  date_added datetime,
-  last_modified datetime,
+  categories_id INT NOT NULL AUTO_INCREMENT,
+  categories_image VARCHAR(64),
+  parent_id INT DEFAULT 0 NOT NULL,
+  categories_status TINYINT (1)  UNSIGNED DEFAULT 1 NOT NULL,
+  categories_template VARCHAR(64),
+  group_permission_0 TINYINT(1) NOT NULL,
+  group_permission_1 TINYINT(1) NOT NULL,
+  group_permission_2 TINYINT(1) NOT NULL,
+  group_permission_3 TINYINT(1) NOT NULL,
+  listing_template VARCHAR(64),
+  sort_order INT(3) DEFAULT 0 NOT NULL,
+  products_sorting VARCHAR(32),
+  products_sorting2 VARCHAR(32),
+  date_added DATETIME,
+  last_modified DATETIME,
   PRIMARY KEY (categories_id),
   KEY idx_categories_parent_id (parent_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS categories_description;
 CREATE TABLE categories_description (
-  categories_id int DEFAULT '0' NOT NULL,
-  language_id int DEFAULT '1' NOT NULL,
-  categories_name varchar(32) NOT NULL,
-  categories_heading_title varchar(255) NOT NULL,
+  categories_id INT DEFAULT 0 NOT NULL,
+  language_id INT DEFAULT 1 NOT NULL,
+  categories_name VARCHAR(32) NOT NULL,
+  categories_heading_title VARCHAR(255) NOT NULL,
   categories_description text NOT NULL,
-  categories_meta_title varchar(100) NOT NULL,
-  categories_meta_description varchar(255) NOT NULL,
-  categories_meta_keywords varchar(255) NOT NULL,
+  categories_meta_title VARCHAR(100) NOT NULL,
+  categories_meta_description VARCHAR(255) NOT NULL,
+  categories_meta_keywords VARCHAR(255) NOT NULL,
   PRIMARY KEY (categories_id, language_id),
   KEY idx_categories_name (categories_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS configuration;
 CREATE TABLE configuration (
-  configuration_id int NOT NULL auto_increment,
-  configuration_key varchar(64) NOT NULL,
-  configuration_value varchar(255) NOT NULL,
-  configuration_group_id int NOT NULL,
-  sort_order int(5) NULL,
-  last_modified datetime NULL,
-  date_added datetime NOT NULL,
-  use_function varchar(255) NULL,
-  set_function varchar(255) NULL,
+  configuration_id INT NOT NULL AUTO_INCREMENT,
+  configuration_key VARCHAR(64) NOT NULL,
+  configuration_value VARCHAR(255) NOT NULL,
+  configuration_group_id INT NOT NULL,
+  sort_order INT(5) NULL,
+  last_modified DATETIME NULL,
+  date_added DATETIME NOT NULL,
+  use_function VARCHAR(255) NULL,
+  set_function VARCHAR(255) NULL,
   PRIMARY KEY (configuration_id),
   KEY idx_configuration_group_id (configuration_group_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS configuration_group;
 CREATE TABLE configuration_group (
-  configuration_group_id int NOT NULL auto_increment,
-  configuration_group_title varchar(64) NOT NULL,
-  configuration_group_description varchar(255) NOT NULL,
-  sort_order int(5) NULL,
-  visible int(1) DEFAULT '1' NULL,
+  configuration_group_id INT NOT NULL AUTO_INCREMENT,
+  configuration_group_title VARCHAR(64) NOT NULL,
+  configuration_group_description VARCHAR(255) NOT NULL,
+  sort_order INT(5) NULL,
+  visible INT(1) DEFAULT 1 NULL,
   PRIMARY KEY (configuration_group_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS counter;
 CREATE TABLE counter (
-  startdate char(8),
-  counter int(12)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  startdate CHAR(8),
+  counter INT(12)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS counter_history;
 CREATE TABLE counter_history (
-  month char(8),
-  counter int(12)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  month CHAR(8),
+  counter INT(12)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS countries;
 CREATE TABLE countries (
-  countries_id int NOT NULL auto_increment,
-  countries_name varchar(64) NOT NULL,
-  countries_iso_code_2 char(2) NOT NULL,
-  countries_iso_code_3 char(3) NOT NULL,
-  address_format_id int NOT NULL,
-  status int(1) DEFAULT '1' NULL,  
+  countries_id INT NOT NULL AUTO_INCREMENT,
+  countries_name VARCHAR(64) NOT NULL,
+  countries_iso_code_2 CHAR(2) NOT NULL,
+  countries_iso_code_3 CHAR(3) NOT NULL,
+  address_format_id INT NOT NULL,
+  status INT(1) DEFAULT 1 NULL,  
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS currencies;
 CREATE TABLE currencies (
-  currencies_id int NOT NULL auto_increment,
-  title varchar(32) NOT NULL,
-  code char(3) NOT NULL,
-  symbol_left varchar(12),
-  symbol_right varchar(12),
-  decimal_point char(1),
-  thousands_point char(1),
-  decimal_places char(1),
-  value float(13,8),
-  last_updated datetime NULL,
+  currencies_id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(32) NOT NULL,
+  code CHAR(3) NOT NULL,
+  symbol_left VARCHAR(12),
+  symbol_right VARCHAR(12),
+  decimal_point CHAR(1),
+  thousands_point CHAR(1),
+  decimal_places CHAR(1),
+  value FLOAT(13,8),
+  last_updated DATETIME NULL,
   PRIMARY KEY (currencies_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers;
 CREATE TABLE customers (
-  customers_id int NOT NULL auto_increment,
-  customers_cid varchar(32),
-  customers_vat_id varchar (20),
-  customers_vat_id_status int(2) DEFAULT '0' NOT NULL,
-  customers_warning varchar(32),
-  customers_status int(5) DEFAULT '1' NOT NULL,
-  customers_gender char(1) NOT NULL,
-  customers_firstname varchar(32) NOT NULL,
-  customers_lastname varchar(32) NOT NULL,
-  customers_dob datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-  customers_email_address varchar(96) NOT NULL,
-  customers_default_address_id int NOT NULL,
-  customers_telephone varchar(32) NOT NULL,
-  customers_fax varchar(32),
-  customers_password varchar(40) NOT NULL,
-  customers_newsletter char(1),
-  customers_newsletter_mode char( 1 ) DEFAULT '0' NOT NULL,
-  member_flag char(1) DEFAULT '0' NOT NULL,
-  delete_user char(1) DEFAULT '1' NOT NULL,
-  account_type int(1) NOT NULL default '0',
-  password_request_key varchar(32) NOT NULL,
-  payment_unallowed varchar(255) NOT NULL,
-  shipping_unallowed varchar(255) NOT NULL,
+  customers_id INT NOT NULL AUTO_INCREMENT,
+  customers_cid VARCHAR(32),
+  customers_vat_id VARCHAR(20),
+  customers_vat_id_status INT(2) DEFAULT 0 NOT NULL,
+  customers_warning VARCHAR(32),
+  customers_status INT(5) DEFAULT 1 NOT NULL,
+  customers_gender CHAR(1) NOT NULL,
+  customers_firstname VARCHAR(32) NOT NULL,
+  customers_lastname VARCHAR(32) NOT NULL,
+  customers_dob DATETIME DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  customers_email_address VARCHAR(96) NOT NULL,
+  customers_default_address_id INT NOT NULL,
+  customers_telephone VARCHAR(32) NOT NULL,
+  customers_fax VARCHAR(32),
+  customers_password VARCHAR(40) NOT NULL,
+  customers_newsletter CHAR(1),
+  customers_newsletter_mode CHAR(1) DEFAULT '0' NOT NULL,
+  member_flag CHAR(1) DEFAULT '0' NOT NULL,
+  delete_user CHAR(1) DEFAULT '1' NOT NULL,
+  account_type INT(1) NOT NULL DEFAULT 0,
+  password_request_key VARCHAR(32) NOT NULL,
+  payment_unallowed VARCHAR(255) NOT NULL,
+  shipping_unallowed VARCHAR(255) NOT NULL,
   refferers_id VARCHAR(32) DEFAULT '0' NOT NULL,
-  customers_date_added datetime DEFAULT '0000-00-00 00:00:00',
-  customers_last_modified datetime DEFAULT '0000-00-00 00:00:00',
+  customers_date_added DATETIME DEFAULT '0000-00-00 00:00:00',
+  customers_last_modified DATETIME DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (customers_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers_basket;
 CREATE TABLE customers_basket (
-  customers_basket_id int NOT NULL auto_increment,
-  customers_id int NOT NULL,
-  products_id tinytext NOT NULL,
-  customers_basket_quantity int(2) NOT NULL,
-  final_price decimal(15,4) NOT NULL,
-  customers_basket_date_added char(8),
+  customers_basket_id INT NOT NULL AUTO_INCREMENT,
+  customers_id INT NOT NULL,
+  products_id TINYTEXT NOT NULL,
+  customers_basket_quantity INT(2) NOT NULL,
+  final_price DECIMAL(15,4) NOT NULL,
+  customers_basket_date_added CHAR(8),
   PRIMARY KEY (customers_basket_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers_basket_attributes;
 CREATE TABLE customers_basket_attributes (
-  customers_basket_attributes_id int NOT NULL auto_increment,
-  customers_id int NOT NULL,
-  products_id tinytext NOT NULL,
-  products_options_id int NOT NULL,
-  products_options_value_id int NOT NULL,
+  customers_basket_attributes_id INT NOT NULL AUTO_INCREMENT,
+  customers_id INT NOT NULL,
+  products_id TINYTEXT NOT NULL,
+  products_options_id INT NOT NULL,
+  products_options_value_id INT NOT NULL,
   PRIMARY KEY (customers_basket_attributes_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers_info;
 CREATE TABLE customers_info (
-  customers_info_id int NOT NULL,
-  customers_info_date_of_last_logon datetime,
-  customers_info_number_of_logons int(5),
-  customers_info_date_account_created datetime,
-  customers_info_date_account_last_modified datetime,
-  global_product_notifications int(1) DEFAULT '0',
+  customers_info_id INT NOT NULL,
+  customers_info_date_of_last_logon DATETIME,
+  customers_info_number_of_logons INT(5),
+  customers_info_date_account_created DATETIME,
+  customers_info_date_account_last_modified DATETIME,
+  global_product_notifications INT(1) DEFAULT 0,
   PRIMARY KEY (customers_info_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers_ip;
 CREATE TABLE customers_ip (
-  customers_ip_id int(11) NOT NULL auto_increment,
-  customers_id int(11) NOT NULL default '0',
-  customers_ip varchar(15) NOT NULL default '',
-  customers_ip_date datetime NOT NULL default '0000-00-00 00:00:00',
-  customers_host varchar(255) NOT NULL default '',
-  customers_advertiser varchar(30) default NULL,
-  customers_referer_url varchar(255) default NULL,
-  PRIMARY KEY  (customers_ip_id),
+  customers_ip_id INT(11) NOT NULL AUTO_INCREMENT,
+  customers_id INT(11) NOT NULL DEFAULT 0,
+  customers_ip VARCHAR(15) NOT NULL DEFAULT '',
+  customers_ip_date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  customers_host VARCHAR(255) NOT NULL DEFAULT '',
+  customers_advertiser VARCHAR(30) DEFAULT NULL,
+  customers_referer_url VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (customers_ip_id),
   KEY customers_id (customers_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers_status;
 CREATE TABLE customers_status (
-  customers_status_id int(11) NOT NULL default '0',
-  language_id int(11) NOT NULL DEFAULT '1',
+  customers_status_id INT(11) NOT NULL DEFAULT 0,
+  language_id INT(11) NOT NULL DEFAULT 1,
   customers_status_name VARCHAR(32) NOT NULL DEFAULT '',
-  customers_status_public int(1) NOT NULL DEFAULT '1',
-  customers_status_min_order int(7) DEFAULT NULL,
-  customers_status_max_order int(7) DEFAULT NULL,
-  customers_status_image varchar(64) DEFAULT NULL,
-  customers_status_discount decimal(4,2) DEFAULT '0',
-  customers_status_ot_discount_flag char(1) NOT NULL DEFAULT '0',
-  customers_status_ot_discount decimal(4,2) DEFAULT '0',
-  customers_status_graduated_prices varchar(1) NOT NULL DEFAULT '0',
-  customers_status_show_price int(1) NOT NULL DEFAULT '1',
-  customers_status_show_price_tax int(1) NOT NULL DEFAULT '1',
-  customers_status_add_tax_ot  int(1) NOT NULL DEFAULT '0',
-  customers_status_payment_unallowed varchar(255) NOT NULL,
-  customers_status_shipping_unallowed varchar(255) NOT NULL,
-  customers_status_discount_attributes  int(1) NOT NULL DEFAULT '0',
-  customers_fsk18 int(1) NOT NULL DEFAULT '1',
-  customers_fsk18_display int(1) NOT NULL DEFAULT '1',
-  customers_status_write_reviews int(1) NOT NULL DEFAULT '1',
-  customers_status_read_reviews int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY  (customers_status_id,language_id),
+  customers_status_public INT(1) NOT NULL DEFAULT 1,
+  customers_status_min_order INT(7) DEFAULT NULL,
+  customers_status_max_order INT(7) DEFAULT NULL,
+  customers_status_image VARCHAR(64) DEFAULT NULL,
+  customers_status_discount DECIMAL(4,2) DEFAULT 0.00,
+  customers_status_ot_discount_flag CHAR(1) NOT NULL DEFAULT '0',
+  customers_status_ot_discount DECIMAL(4,2) DEFAULT 0.00,
+  customers_status_graduated_prices VARCHAR(1) NOT NULL DEFAULT '0',
+  customers_status_show_price INT(1) NOT NULL DEFAULT 1,
+  customers_status_show_price_tax INT(1) NOT NULL DEFAULT 1,
+  customers_status_add_tax_ot INT(1) NOT NULL DEFAULT 0,
+  customers_status_payment_unallowed VARCHAR(255) NOT NULL,
+  customers_status_shipping_unallowed VARCHAR(255) NOT NULL,
+  customers_status_discount_attributes  INT(1) NOT NULL DEFAULT 0,
+  customers_fsk18 INT(1) NOT NULL DEFAULT 1,
+  customers_fsk18_display INT(1) NOT NULL DEFAULT 1,
+  customers_status_write_reviews INT(1) NOT NULL DEFAULT 1,
+  customers_status_read_reviews INT(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (customers_status_id,language_id),
   KEY idx_orders_status_name (customers_status_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS customers_status_history;
 CREATE TABLE customers_status_history (
-  customers_status_history_id int(11) NOT NULL auto_increment,
-  customers_id int(11) NOT NULL default '0',
-  new_value int(5) NOT NULL default '0',
-  old_value int(5) default NULL,
-  date_added datetime NOT NULL default '0000-00-00 00:00:00',
-  customer_notified int(1) default '0',
-  PRIMARY KEY  (customers_status_history_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  customers_status_history_id INT(11) NOT NULL AUTO_INCREMENT,
+  customers_id INT(11) NOT NULL DEFAULT 0,
+  new_value INT(5) NOT NULL DEFAULT 0,
+  old_value INT(5) DEFAULT NULL,
+  date_added DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  customer_notified INT(1) DEFAULT 0,
+  PRIMARY KEY (customers_status_history_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 # Tomcraft - 2009-11-08 - Added option to deactivate languages (status)
 DROP TABLE IF EXISTS languages;
 CREATE TABLE languages (
-  languages_id int NOT NULL auto_increment,
-  name varchar(32)  NOT NULL,
-  code char(2) NOT NULL,
-  image varchar(64),
-  directory varchar(32),
-  sort_order int(3),
+  languages_id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(32) NOT NULL,
+  code CHAR(2) NOT NULL,
+  image VARCHAR(64),
+  directory VARCHAR(32),
+  sort_order INT(3),
   language_charset text NOT NULL,
-  status int(1) NOT NULL default '1',
+  status INT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (languages_id),
-  KEY IDX_LANGUAGES_NAME (name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
+  KEY idx_languages_name (name)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS manufacturers;
 CREATE TABLE manufacturers (
-  manufacturers_id int NOT NULL auto_increment,
-  manufacturers_name varchar(32) NOT NULL,
-  manufacturers_image varchar(64),
-  date_added datetime NULL,
-  last_modified datetime NULL,
+  manufacturers_id INT NOT NULL AUTO_INCREMENT,
+  manufacturers_name VARCHAR(32) NOT NULL,
+  manufacturers_image VARCHAR(64),
+  date_added DATETIME NULL,
+  last_modified DATETIME NULL,
   PRIMARY KEY (manufacturers_id),
-  KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  KEY idx_manufacturers_name (manufacturers_name)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS manufacturers_info;
 CREATE TABLE manufacturers_info (
-  manufacturers_id int NOT NULL,
-  languages_id int NOT NULL,
-  manufacturers_meta_title varchar(100) NOT NULL,
-  manufacturers_meta_description varchar(255) NOT NULL,
-  manufacturers_meta_keywords varchar(255) NOT NULL,
-  manufacturers_url varchar(255) NOT NULL,
-  url_clicked int(5) NOT NULL default '0',
-  date_last_click datetime NULL,
+  manufacturers_id INT NOT NULL,
+  languages_id INT NOT NULL,
+  manufacturers_meta_title VARCHAR(100) NOT NULL,
+  manufacturers_meta_description VARCHAR(255) NOT NULL,
+  manufacturers_meta_keywords VARCHAR(255) NOT NULL,
+  manufacturers_url VARCHAR(255) NOT NULL,
+  url_clicked INT(5) NOT NULL DEFAULT 0,
+  date_last_click DATETIME NULL,
   PRIMARY KEY (manufacturers_id, languages_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS newsletters;
 CREATE TABLE newsletters (
-  newsletters_id int NOT NULL auto_increment,
-  title varchar(255) NOT NULL,
+  newsletters_id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
   content text NOT NULL,
-  module varchar(255) NOT NULL,
-  date_added datetime NOT NULL,
-  date_sent datetime,
-  status int(1),
-  locked int(1) DEFAULT '0',
+  module VARCHAR(255) NOT NULL,
+  date_added DATETIME NOT NULL,
+  date_sent DATETIME,
+  status INT(1),
+  locked INT(1) DEFAULT 0,
   PRIMARY KEY (newsletters_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS newsletter_recipients;
 CREATE TABLE newsletter_recipients (
-  mail_id int(11) NOT NULL auto_increment,
-  customers_email_address varchar(96) NOT NULL default '',
-  customers_id int(11) NOT NULL default '0',
-  customers_status int(5) NOT NULL default '0',
-  customers_firstname varchar(32) NOT NULL default '',
-  customers_lastname varchar(32) NOT NULL default '',
-  mail_status int(1) NOT NULL default '0',
-  mail_key varchar(32) NOT NULL default '',
-  date_added datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (mail_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  mail_id INT(11) NOT NULL AUTO_INCREMENT,
+  customers_email_address VARCHAR(96) NOT NULL DEFAULT '',
+  customers_id INT(11) NOT NULL DEFAULT 0,
+  customers_status INT(5) NOT NULL DEFAULT 0,
+  customers_firstname VARCHAR(32) NOT NULL DEFAULT '',
+  customers_lastname VARCHAR(32) NOT NULL DEFAULT '',
+  mail_status INT(1) NOT NULL DEFAULT 0,
+  mail_key VARCHAR(32) NOT NULL DEFAULT '',
+  date_added DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (mail_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS newsletters_history;
 CREATE TABLE newsletters_history (
-  news_hist_id int(11) NOT NULL default '0',
-  news_hist_cs int(11) NOT NULL default '0',
-  news_hist_cs_date_sent date default NULL,
-  PRIMARY KEY  (news_hist_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  news_hist_id INT(11) NOT NULL DEFAULT 0,
+  news_hist_cs INT(11) NOT NULL DEFAULT 0,
+  news_hist_cs_date_sent date DEFAULT NULL,
+  PRIMARY KEY (news_hist_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
-  orders_id int NOT NULL auto_increment,
-  customers_id int NOT NULL,
-  customers_cid varchar(32),
-  customers_vat_id varchar (20),
-  customers_status int(11),
-  customers_status_name varchar(32) NOT NULL,
-  customers_status_image varchar (64),
-  customers_status_discount decimal (4,2),
-  customers_name varchar(64) NOT NULL,
-  customers_firstname varchar(64) NOT NULL,
-  customers_lastname varchar(64) NOT NULL,
-  customers_company varchar(32),
-  customers_street_address varchar(64) NOT NULL,
-  customers_suburb varchar(32),
-  customers_city varchar(32) NOT NULL,
-  customers_postcode varchar(10) NOT NULL,
-  customers_state varchar(32),
-  customers_country varchar(32) NOT NULL,
-  customers_telephone varchar(32) NOT NULL,
-  customers_email_address varchar(96) NOT NULL,
-  customers_address_format_id int(5) NOT NULL,
-  delivery_name varchar(64) NOT NULL,
-  delivery_firstname varchar(64) NOT NULL,
-  delivery_lastname varchar(64) NOT NULL,
-  delivery_company varchar(32),
-  delivery_street_address varchar(64) NOT NULL,
-  delivery_suburb varchar(32),
-  delivery_city varchar(32) NOT NULL,
-  delivery_postcode varchar(10) NOT NULL,
-  delivery_state varchar(32),
-  delivery_country varchar(32) NOT NULL,
-  delivery_country_iso_code_2 char(2) NOT NULL,
-  delivery_address_format_id int(5) NOT NULL,
-  billing_name varchar(64) NOT NULL,
-  billing_firstname varchar(64) NOT NULL,
-  billing_lastname varchar(64) NOT NULL,
-  billing_company varchar(32),
-  billing_street_address varchar(64) NOT NULL,
-  billing_suburb varchar(32),
-  billing_city varchar(32) NOT NULL,
-  billing_postcode varchar(10) NOT NULL,
-  billing_state varchar(32),
-  billing_country varchar(32) NOT NULL,
-  billing_country_iso_code_2 char(2) NOT NULL,
-  billing_address_format_id int(5) NOT NULL,
-  payment_method varchar(32) NOT NULL,
-  cc_type varchar(20),
-  cc_owner varchar(64),
-  cc_number varchar(64),
-  cc_expires varchar(4),
-  cc_start varchar(4) default NULL,
-  cc_issue varchar(3) default NULL,
-  cc_cvv varchar(4) default NULL,
-  comments varchar (255),
-  last_modified datetime,
-  date_purchased datetime,
-  orders_status int(5) NOT NULL,
-  orders_date_finished datetime,
-  currency char(3),
-  currency_value decimal(14,6),
-  account_type int(1) DEFAULT '0' NOT NULL,
+  orders_id INT NOT NULL AUTO_INCREMENT,
+  customers_id INT NOT NULL,
+  customers_cid VARCHAR(32),
+  customers_vat_id VARCHAR(20),
+  customers_status INT(11),
+  customers_status_name VARCHAR(32) NOT NULL,
+  customers_status_image VARCHAR(64),
+  customers_status_discount DECIMAL(4,2),
+  customers_name VARCHAR(64) NOT NULL,
+  customers_firstname VARCHAR(64) NOT NULL,
+  customers_lastname VARCHAR(64) NOT NULL,
+  customers_company VARCHAR(32),
+  customers_street_address VARCHAR(64) NOT NULL,
+  customers_suburb VARCHAR(32),
+  customers_city VARCHAR(32) NOT NULL,
+  customers_postcode VARCHAR(10) NOT NULL,
+  customers_state VARCHAR(32),
+  customers_country VARCHAR(32) NOT NULL,
+  customers_telephone VARCHAR(32) NOT NULL,
+  customers_email_address VARCHAR(96) NOT NULL,
+  customers_address_format_id INT(5) NOT NULL,
+  delivery_name VARCHAR(64) NOT NULL,
+  delivery_firstname VARCHAR(64) NOT NULL,
+  delivery_lastname VARCHAR(64) NOT NULL,
+  delivery_company VARCHAR(32),
+  delivery_street_address VARCHAR(64) NOT NULL,
+  delivery_suburb VARCHAR(32),
+  delivery_city VARCHAR(32) NOT NULL,
+  delivery_postcode VARCHAR(10) NOT NULL,
+  delivery_state VARCHAR(32),
+  delivery_country VARCHAR(32) NOT NULL,
+  delivery_country_iso_code_2 CHAR(2) NOT NULL,
+  delivery_address_format_id INT(5) NOT NULL,
+  billing_name VARCHAR(64) NOT NULL,
+  billing_firstname VARCHAR(64) NOT NULL,
+  billing_lastname VARCHAR(64) NOT NULL,
+  billing_company VARCHAR(32),
+  billing_street_address VARCHAR(64) NOT NULL,
+  billing_suburb VARCHAR(32),
+  billing_city VARCHAR(32) NOT NULL,
+  billing_postcode VARCHAR(10) NOT NULL,
+  billing_state VARCHAR(32),
+  billing_country VARCHAR(32) NOT NULL,
+  billing_country_iso_code_2 CHAR(2) NOT NULL,
+  billing_address_format_id INT(5) NOT NULL,
+  payment_method VARCHAR(32) NOT NULL,
+  cc_type VARCHAR(20),
+  cc_owner VARCHAR(64),
+  cc_number VARCHAR(64),
+  cc_expires VARCHAR(4),
+  cc_start VARCHAR(4) DEFAULT NULL,
+  cc_issue VARCHAR(3) DEFAULT NULL,
+  cc_cvv VARCHAR(4) DEFAULT NULL,
+  comments VARCHAR(255),
+  last_modified DATETIME,
+  date_purchased DATETIME,
+  orders_status INT(5) NOT NULL,
+  orders_date_finished DATETIME,
+  currency CHAR(3),
+  currency_value DECIMAL(14,6),
+  account_type INT(1) DEFAULT 0 NOT NULL,
   payment_class VARCHAR(32) NOT NULL,
   shipping_method VARCHAR(32) NOT NULL,
   shipping_class VARCHAR(32) NOT NULL,
   customers_ip VARCHAR(32) NOT NULL,
   language VARCHAR(32) NOT NULL,
-  afterbuy_success INT(1) DEFAULT'0' NOT NULL,
-  afterbuy_id INT(32) DEFAULT '0' NOT NULL,
+  afterbuy_success INT(1) DEFAULT 0 NOT NULL,
+  afterbuy_id INT(32) DEFAULT 0 NOT NULL,
   refferers_id VARCHAR(32) NOT NULL,
-  conversion_type INT(1) DEFAULT '0' NOT NULL,
-  orders_ident_key varchar(128),
+  conversion_type INT(1) DEFAULT 0 NOT NULL,
+  orders_ident_key VARCHAR(128),
   PRIMARY KEY (orders_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS card_blacklist;
 CREATE TABLE card_blacklist (
-  blacklist_id int(5) NOT NULL auto_increment,
-  blacklist_card_number varchar(20) NOT NULL default '',
-  date_added datetime default NULL,
-  last_modified datetime default NULL,
+  blacklist_id INT(5) NOT NULL AUTO_INCREMENT,
+  blacklist_card_number VARCHAR(20) NOT NULL DEFAULT '',
+  date_added DATETIME DEFAULT NULL,
+  last_modified DATETIME DEFAULT NULL,
   KEY blacklist_id (blacklist_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 # vr - 2010-04-21 add indices orders_id, products_id
 DROP TABLE IF EXISTS orders_products;
 CREATE TABLE orders_products (
-  orders_products_id int NOT NULL auto_increment,
-  orders_id int NOT NULL,
-  products_id int NOT NULL,
-  products_model varchar(64),
-  products_name varchar(64) NOT NULL,
-  products_price decimal(15,4) NOT NULL,
-  products_discount_made decimal(4,2) DEFAULT NULL,
-  products_shipping_time varchar(255) DEFAULT NULL,
-  final_price decimal(15,4) NOT NULL,
-  products_tax decimal(7,4) NOT NULL,
-  products_quantity int(2) NOT NULL,
-  allow_tax int(1) NOT NULL,
+  orders_products_id INT NOT NULL AUTO_INCREMENT,
+  orders_id INT NOT NULL,
+  products_id INT NOT NULL,
+  products_model VARCHAR(64),
+  products_name VARCHAR(64) NOT NULL,
+  products_price DECIMAL(15,4) NOT NULL,
+  products_discount_made DECIMAL(4,2) DEFAULT NULL,
+  products_shipping_time VARCHAR(255) DEFAULT NULL,
+  final_price DECIMAL(15,4) NOT NULL,
+  products_tax DECIMAL(7,4) NOT NULL,
+  products_quantity INT(2) NOT NULL,
+  allow_tax INT(1) NOT NULL,
   PRIMARY KEY (orders_products_id),
   KEY orders_id (orders_id),
   KEY products_id (products_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_status;
 CREATE TABLE orders_status (
-  orders_status_id int DEFAULT '0' NOT NULL,
-  language_id int DEFAULT '1' NOT NULL,
-  orders_status_name varchar(32) NOT NULL,
+  orders_status_id INT DEFAULT 0 NOT NULL,
+  language_id INT DEFAULT 1 NOT NULL,
+  orders_status_name VARCHAR(32) NOT NULL,
   PRIMARY KEY (orders_status_id, language_id),
   KEY idx_orders_status_name (orders_status_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS shipping_status;
 CREATE TABLE shipping_status (
-  shipping_status_id int DEFAULT '0' NOT NULL,
-  language_id int DEFAULT '1' NOT NULL,
-  shipping_status_name varchar(32) NOT NULL,
-  shipping_status_image varchar(32) NOT NULL,
+  shipping_status_id INT DEFAULT 0 NOT NULL,
+  language_id INT DEFAULT 1 NOT NULL,
+  shipping_status_name VARCHAR(32) NOT NULL,
+  shipping_status_image VARCHAR(32) NOT NULL,
   PRIMARY KEY (shipping_status_id, language_id),
   KEY idx_shipping_status_name (shipping_status_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_status_history;
 CREATE TABLE orders_status_history (
-  orders_status_history_id int NOT NULL auto_increment,
-  orders_id int NOT NULL,
-  orders_status_id int(5) NOT NULL,
-  date_added datetime NOT NULL,
-  customer_notified int(1) DEFAULT '0',
+  orders_status_history_id INT NOT NULL AUTO_INCREMENT,
+  orders_id INT NOT NULL,
+  orders_status_id INT(5) NOT NULL,
+  date_added DATETIME NOT NULL,
+  customer_notified INT(1) DEFAULT 0,
   comments text,
   PRIMARY KEY (orders_status_history_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_products_attributes;
 CREATE TABLE orders_products_attributes (
-  orders_products_attributes_id int NOT NULL auto_increment,
-  orders_id int NOT NULL,
-  orders_products_id int NOT NULL,
-  products_options varchar(32) NOT NULL,
-  products_options_values varchar(64) NOT NULL,
-  options_values_price decimal(15,4) NOT NULL,
-  price_prefix char(1) NOT NULL,
+  orders_products_attributes_id INT NOT NULL AUTO_INCREMENT,
+  orders_id INT NOT NULL,
+  orders_products_id INT NOT NULL,
+  products_options VARCHAR(32) NOT NULL,
+  products_options_values VARCHAR(64) NOT NULL,
+  options_values_price DECIMAL(15,4) NOT NULL,
+  price_prefix CHAR(1) NOT NULL,
   PRIMARY KEY (orders_products_attributes_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_products_download;
 CREATE TABLE orders_products_download (
-  orders_products_download_id int NOT NULL auto_increment,
-  orders_id int NOT NULL default '0',
-  orders_products_id int NOT NULL default '0',
-  orders_products_filename varchar(255) NOT NULL default '',
-  download_maxdays int(2) NOT NULL default '0',
-  download_count int(2) NOT NULL default '0',
-  PRIMARY KEY  (orders_products_download_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  orders_products_download_id INT NOT NULL AUTO_INCREMENT,
+  orders_id INT NOT NULL DEFAULT 0,
+  orders_products_id INT NOT NULL DEFAULT 0,
+  orders_products_filename VARCHAR(255) NOT NULL DEFAULT '',
+  download_maxdays INT(2) NOT NULL DEFAULT 0,
+  download_count INT(2) NOT NULL DEFAULT 0,
+  PRIMARY KEY (orders_products_download_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_total;
 CREATE TABLE orders_total (
-  orders_total_id int unsigned NOT NULL auto_increment,
-  orders_id int NOT NULL,
-  title varchar(255) NOT NULL,
-  text varchar(255) NOT NULL,
-  value decimal(15,4) NOT NULL,
-  class varchar(32) NOT NULL,
-  sort_order int NOT NULL,
+  orders_total_id INT unsigned NOT NULL AUTO_INCREMENT,
+  orders_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  text VARCHAR(255) NOT NULL,
+  value DECIMAL(15,4) NOT NULL,
+  class VARCHAR(32) NOT NULL,
+  sort_order INT NOT NULL,
   PRIMARY KEY (orders_total_id),
   KEY idx_orders_total_orders_id (orders_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_recalculate;
 CREATE TABLE orders_recalculate (
-  orders_recalculate_id int(11) NOT NULL auto_increment,
-  orders_id int(11) NOT NULL default '0',
-  n_price decimal(15,4) NOT NULL default '0.0000',
-  b_price decimal(15,4) NOT NULL default '0.0000',
-  tax decimal(15,4) NOT NULL default '0.0000',
-  tax_rate decimal(7,4) NOT NULL default '0.0000',
-  class varchar(32) NOT NULL default '',
-  PRIMARY KEY  (orders_recalculate_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  orders_recalculate_id INT(11) NOT NULL AUTO_INCREMENT,
+  orders_id INT(11) NOT NULL DEFAULT 0,
+  n_price DECIMAL(15,4) NOT NULL DEFAULT '0.0000',
+  b_price DECIMAL(15,4) NOT NULL DEFAULT '0.0000',
+  tax DECIMAL(15,4) NOT NULL DEFAULT '0.0000',
+  tax_rate DECIMAL(7,4) NOT NULL DEFAULT '0.0000',
+  class VARCHAR(32) NOT NULL DEFAULT '',
+  PRIMARY KEY (orders_recalculate_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
-  products_id int NOT NULL auto_increment,
-  products_ean varchar(128),
-  products_quantity int(4) NOT NULL,
-  products_shippingtime int(4) NOT NULL,
-  products_model varchar(64),
-  group_permission_0 tinyint(1) NOT NULL,
-  group_permission_1 tinyint(1) NOT NULL,
-  group_permission_2 tinyint(1) NOT NULL,
-  group_permission_3 tinyint(1) NOT NULL,
-  products_sort int(4) NOT NULL DEFAULT '0',
-  products_image varchar(64),
-  products_price decimal(15,4) NOT NULL,
-  products_discount_allowed decimal(4,2) DEFAULT '0' NOT NULL,
-  products_date_added datetime NOT NULL,
-  products_last_modified datetime,
-  products_date_available datetime,
-  products_weight decimal(5,2) NOT NULL,
-  products_status tinyint(1) NOT NULL,
-  products_tax_class_id int NOT NULL,
-  product_template varchar (64),
-  options_template varchar (64),
-  manufacturers_id int NULL,
-  products_ordered int NOT NULL default '0',
-  products_fsk18 int(1) NOT NULL DEFAULT '0',
-  products_vpe int(11) NOT NULL,
-  products_vpe_status int(1) NOT NULL DEFAULT '0',
-  products_vpe_value decimal(15,4) NOT NULL,
-  products_startpage int(1) NOT NULL DEFAULT '0',
-  products_startpage_sort int(4) NOT NULL DEFAULT '0',
+  products_id INT NOT NULL AUTO_INCREMENT,
+  products_ean VARCHAR(128),
+  products_quantity INT(4) NOT NULL,
+  products_shippingtime INT(4) NOT NULL,
+  products_model VARCHAR(64),
+  group_permission_0 TINYINT(1) NOT NULL,
+  group_permission_1 TINYINT(1) NOT NULL,
+  group_permission_2 TINYINT(1) NOT NULL,
+  group_permission_3 TINYINT(1) NOT NULL,
+  products_sort INT(4) NOT NULL DEFAULT 0,
+  products_image VARCHAR(64),
+  products_price DECIMAL(15,4) NOT NULL,
+  products_discount_allowed DECIMAL(4,2) DEFAULT 0.00 NOT NULL,
+  products_date_added DATETIME NOT NULL,
+  products_last_modified DATETIME,
+  products_date_available DATETIME,
+  products_weight DECIMAL(5,2) NOT NULL,
+  products_status TINYINT(1) NOT NULL,
+  products_tax_class_id INT NOT NULL,
+  product_template VARCHAR(64),
+  options_template VARCHAR(64),
+  manufacturers_id INT NULL,
+  products_ordered INT NOT NULL DEFAULT 0,
+  products_fsk18 INT(1) NOT NULL DEFAULT 0,
+  products_vpe INT(11) NOT NULL,
+  products_vpe_status INT(1) NOT NULL DEFAULT 0,
+  products_vpe_value DECIMAL(15,4) NOT NULL,
+  products_startpage INT(1) NOT NULL DEFAULT 0,
+  products_startpage_sort INT(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (products_id),
   KEY idx_products_date_added (products_date_added)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
-
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_attributes;
 CREATE TABLE products_attributes (
-  products_attributes_id int NOT NULL auto_increment,
-  products_id int NOT NULL,
-  options_id int NOT NULL,
-  options_values_id int NOT NULL,
-  options_values_price decimal(15,4) NOT NULL,
-  price_prefix char(1) NOT NULL,
-  attributes_model varchar(64) NULL,
-  attributes_stock int(4) NULL,
-  options_values_weight decimal(15,4) NOT NULL,
-  weight_prefix char(1) NOT NULL,
-  sortorder int(11) NULL,
+  products_attributes_id INT NOT NULL AUTO_INCREMENT,
+  products_id INT NOT NULL,
+  options_id INT NOT NULL,
+  options_values_id INT NOT NULL,
+  options_values_price DECIMAL(15,4) NOT NULL,
+  price_prefix CHAR(1) NOT NULL,
+  attributes_model VARCHAR(64) NULL,
+  attributes_stock INT(4) NULL,
+  options_values_weight DECIMAL(15,4) NOT NULL,
+  weight_prefix CHAR(1) NOT NULL,
+  sortorder INT(11) NULL,
   PRIMARY KEY (products_attributes_id),
   KEY products_id (products_id),
   KEY options (options_id, options_values_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_attributes_download;
 CREATE TABLE products_attributes_download (
-  products_attributes_id int NOT NULL,
-  products_attributes_filename varchar(255) NOT NULL default '',
-  products_attributes_maxdays int(2) default '0',
-  products_attributes_maxcount int(2) default '0',
-  PRIMARY KEY  (products_attributes_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  products_attributes_id INT NOT NULL,
+  products_attributes_filename VARCHAR(255) NOT NULL DEFAULT '',
+  products_attributes_maxdays INT(2) DEFAULT 0,
+  products_attributes_maxcount INT(2) DEFAULT 0,
+  PRIMARY KEY (products_attributes_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_description;
 CREATE TABLE products_description (
-  products_id int NOT NULL auto_increment,
-  language_id int NOT NULL default '1',
-  products_name varchar(64) NOT NULL default '',
+  products_id INT NOT NULL AUTO_INCREMENT,
+  language_id INT NOT NULL DEFAULT 1,
+  products_name VARCHAR(64) NOT NULL DEFAULT '',
   products_description text,
   products_short_description text,
   products_keywords VARCHAR(255) DEFAULT NULL,
   products_meta_title text NOT NULL,
   products_meta_description text NOT NULL,
   products_meta_keywords text NOT NULL,
-  products_url varchar(255) default NULL,
-  products_viewed int(5) default '0',
-  PRIMARY KEY  (products_id,language_id),
+  products_url VARCHAR(255) DEFAULT NULL,
+  products_viewed INT(5) DEFAULT 0,
+  PRIMARY KEY (products_id,language_id),
   KEY products_name (products_name)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_images;
 CREATE TABLE products_images (
-  image_id INT NOT NULL auto_increment,
+  image_id INT NOT NULL AUTO_INCREMENT,
   products_id INT NOT NULL ,
   image_nr SMALLINT NOT NULL ,
-  image_name VARCHAR( 254 ) NOT NULL ,
-  PRIMARY KEY ( image_id )
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  image_name VARCHAR(254) NOT NULL ,
+  PRIMARY KEY (image_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_notifications;
 CREATE TABLE products_notifications (
-  products_id int NOT NULL,
-  customers_id int NOT NULL,
-  date_added datetime NOT NULL,
+  products_id INT NOT NULL,
+  customers_id INT NOT NULL,
+  date_added DATETIME NOT NULL,
   PRIMARY KEY (products_id, customers_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 # Tomcraft - 2009-11-07 - Added sortorder to products_options
 DROP TABLE IF EXISTS products_options;
 CREATE TABLE products_options (
-  products_options_id int NOT NULL default '0',
-  language_id int NOT NULL default '1',
-  products_options_name varchar(32) NOT NULL default '',
-  products_options_sortorder INT( 11 ) NOT NULL,
-  PRIMARY KEY  (products_options_id,language_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  products_options_id INT NOT NULL DEFAULT 0,
+  language_id INT NOT NULL DEFAULT 1,
+  products_options_name VARCHAR(32) NOT NULL DEFAULT '',
+  products_options_sortorder INT(11) NOT NULL,
+  PRIMARY KEY (products_options_id,language_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_options_values;
 CREATE TABLE products_options_values (
-  products_options_values_id int NOT NULL default '0',
-  language_id int NOT NULL default '1',
-  products_options_values_name varchar(64) NOT NULL default '',
-  PRIMARY KEY  (products_options_values_id,language_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  products_options_values_id INT NOT NULL DEFAULT 0,
+  language_id INT NOT NULL DEFAULT 1,
+  products_options_values_name VARCHAR(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (products_options_values_id,language_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_options_values_to_products_options;
 CREATE TABLE products_options_values_to_products_options (
-  products_options_values_to_products_options_id int NOT NULL auto_increment,
-  products_options_id int NOT NULL,
-  products_options_values_id int NOT NULL,
+  products_options_values_to_products_options_id INT NOT NULL AUTO_INCREMENT,
+  products_options_id INT NOT NULL,
+  products_options_values_id INT NOT NULL,
   PRIMARY KEY (products_options_values_to_products_options_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_graduated_prices;
 CREATE TABLE products_graduated_prices (
-  products_id int(11) NOT NULL default '0',
-  quantity int(11) NOT NULL default '0',
-  unitprice decimal(15,4) NOT NULL default '0.0000',
+  products_id INT(11) NOT NULL DEFAULT 0,
+  quantity INT(11) NOT NULL DEFAULT 0,
+  unitprice DECIMAL(15,4) NOT NULL DEFAULT 0.0000,
   KEY products_id (products_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_to_categories;
 CREATE TABLE products_to_categories (
-  products_id int NOT NULL,
-  categories_id int NOT NULL,
+  products_id INT NOT NULL,
+  categories_id INT NOT NULL,
   PRIMARY KEY (products_id,categories_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_vpe;
 CREATE TABLE products_vpe (
-  products_vpe_id int(11) NOT NULL default '0',
-  language_id int(11) NOT NULL default '0',
-  products_vpe_name varchar(32) NOT NULL default ''
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  products_vpe_id INT(11) NOT NULL DEFAULT 0,
+  language_id INT(11) NOT NULL DEFAULT 0,
+  products_vpe_name VARCHAR(32) NOT NULL DEFAULT ''
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews (
-  reviews_id int NOT NULL auto_increment,
-  products_id int NOT NULL,
+  reviews_id INT NOT NULL AUTO_INCREMENT,
+  products_id INT NOT NULL,
   customers_id int,
-  customers_name varchar(64) NOT NULL,
-  reviews_rating int(1),
-  date_added datetime,
-  last_modified datetime,
-  reviews_read int(5) NOT NULL default '0',
+  customers_name VARCHAR(64) NOT NULL,
+  reviews_rating INT(1),
+  date_added DATETIME,
+  last_modified DATETIME,
+  reviews_read INT(5) NOT NULL DEFAULT 0,
   PRIMARY KEY (reviews_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS reviews_description;
 CREATE TABLE reviews_description (
-  reviews_id int NOT NULL,
-  languages_id int NOT NULL,
+  reviews_id INT NOT NULL,
+  languages_id INT NOT NULL,
   reviews_text text NOT NULL,
   PRIMARY KEY (reviews_id, languages_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS sessions;
 CREATE TABLE sessions (
-  sesskey varchar(32) NOT NULL ,  
-  expiry int(11) unsigned NOT NULL ,  
+  sesskey VARCHAR(32) NOT NULL ,  
+  expiry INT(11) unsigned NOT NULL ,  
   value text NOT NULL ,  
   PRIMARY KEY (sesskey) 
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 
 # BOF - web28 - 2010-07-07 - set shop offline
 DROP TABLE IF EXISTS shop_configuration;
 CREATE TABLE shop_configuration (
-  configuration_id int(11) NOT NULL AUTO_INCREMENT,
-  configuration_key varchar(255) NOT NULL DEFAULT '',
-  configuration_value text NOT NULL,  
+  configuration_id INT(11) NOT NULL AUTO_INCREMENT,
+  configuration_key VARCHAR(255) NOT NULL DEFAULT '',
+  configuration_value TEXT NOT NULL,  
   PRIMARY KEY (configuration_id),
   KEY configuration_key (configuration_key)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 INSERT INTO shop_configuration (configuration_id, configuration_key, configuration_value) VALUES(NULL, 'SHOP_OFFLINE', '');
-INSERT INTO shop_configuration (configuration_id, configuration_key, configuration_value) VALUES(NULL, 'SHOP_OFFLINE_MSG', '<p style="text-align: center;"><span style="font-size: large;"><font face="Arial">Unser Shop ist  aufgrund von Wartungsarbeiten  im Moment nicht erreichbar.<br />\r\n</font><font face="Arial">Bitte besuchen Sie uns zu einem   sp&auml;teren Zeitpunkt noch einmal.<br />\r\n<br />\r\n<br />\r\n<br />\r\n</font></span><font><font><a href="login_admin.php"><font color="#808080">Login</font></a></font></font><span style="font-size: large;"><font face="Arial"><br />\r\n</font></span></p>');
+INSERT INTO shop_configuration (configuration_id, configuration_key, configuration_value) VALUES(NULL, 'SHOP_OFFLINE_MSG', '<p style="text-align: center;"><span style="font-size: large;"><font face="Arial">Unser Shop ist aufgrund von Wartungsarbeiten im Moment nicht erreichbar.<br /></font><font face="Arial">Bitte besuchen Sie uns zu einem sp&auml;teren Zeitpunkt noch einmal.<br /><br /><br /><br /></font></span><font><font><a href="login_admin.php"><font color="#808080">Login</font></a></font></font><span style="font-size: large;"><font face="Arial"><br /></font></span></p>');
 # EOF - web28 - 2010-07-07 - set shop offline
 
 
 DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
-  specials_id int NOT NULL auto_increment,
-  products_id int NOT NULL,
-  specials_quantity int(4) NOT NULL,
-  specials_new_products_price decimal(15,4) NOT NULL,
-  specials_date_added datetime,
-  specials_last_modified datetime,
-  expires_date datetime,
-  date_status_change datetime,
-  status int(1) NOT NULL DEFAULT '1',
+  specials_id INT NOT NULL AUTO_INCREMENT,
+  products_id INT NOT NULL,
+  specials_quantity INT(4) NOT NULL,
+  specials_new_products_price DECIMAL(15,4) NOT NULL,
+  specials_date_added DATETIME,
+  specials_last_modified DATETIME,
+  expires_date DATETIME,
+  date_status_change DATETIME,
+  status INT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (specials_id),
   KEY idx_specials_products_id (products_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS tax_class;
 CREATE TABLE tax_class (
-  tax_class_id int NOT NULL auto_increment,
-  tax_class_title varchar(32) NOT NULL,
-  tax_class_description varchar(255) NOT NULL,
-  last_modified datetime NULL,
-  date_added datetime NOT NULL,
+  tax_class_id INT NOT NULL AUTO_INCREMENT,
+  tax_class_title VARCHAR(32) NOT NULL,
+  tax_class_description VARCHAR(255) NOT NULL,
+  last_modified DATETIME NULL,
+  date_added DATETIME NOT NULL,
   PRIMARY KEY (tax_class_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS tax_rates;
 CREATE TABLE tax_rates (
-  tax_rates_id int NOT NULL auto_increment,
-  tax_zone_id int NOT NULL,
-  tax_class_id int NOT NULL,
-  tax_priority int(5) DEFAULT 1,
-  tax_rate decimal(7,4) NOT NULL,
-  tax_description varchar(255) NOT NULL,
-  last_modified datetime NULL,
-  date_added datetime NOT NULL,
+  tax_rates_id INT NOT NULL AUTO_INCREMENT,
+  tax_zone_id INT NOT NULL,
+  tax_class_id INT NOT NULL,
+  tax_priority INT(5) DEFAULT 1,
+  tax_rate DECIMAL(7,4) NOT NULL,
+  tax_description VARCHAR(255) NOT NULL,
+  last_modified DATETIME NULL,
+  date_added DATETIME NOT NULL,
   PRIMARY KEY (tax_rates_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS geo_zones;
 CREATE TABLE geo_zones (
-  geo_zone_id int NOT NULL auto_increment,
-  geo_zone_name varchar(32) NOT NULL,
-  geo_zone_description varchar(255) NOT NULL,
-  last_modified datetime NULL,
-  date_added datetime NOT NULL,
+  geo_zone_id INT NOT NULL AUTO_INCREMENT,
+  geo_zone_name VARCHAR(32) NOT NULL,
+  geo_zone_description VARCHAR(255) NOT NULL,
+  last_modified DATETIME NULL,
+  date_added DATETIME NOT NULL,
   PRIMARY KEY (geo_zone_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS whos_online;
 CREATE TABLE whos_online (
-  customer_id int(11) default NULL,
-  full_name varchar(64) NOT NULL,
-  session_id varchar(32) NOT NULL,
-  ip_address varchar(15) NOT NULL,
-  time_entry varchar(14) NOT NULL,
-  time_last_click varchar(14) NOT NULL,
-  last_page_url varchar(255) NOT NULL,
-  http_referer varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  customer_id INT(11) DEFAULT NULL,
+  full_name VARCHAR(64) NOT NULL,
+  session_id VARCHAR(32) NOT NULL,
+  ip_address VARCHAR(15) NOT NULL,
+  time_entry VARCHAR(14) NOT NULL,
+  time_last_click VARCHAR(14) NOT NULL,
+  last_page_url VARCHAR(255) NOT NULL,
+  http_referer VARCHAR(255) NOT NULL
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS zones;
 CREATE TABLE zones (
-  zone_id int NOT NULL auto_increment,
-  zone_country_id int NOT NULL,
-  zone_code varchar(32) NOT NULL,
-  zone_name varchar(32) NOT NULL,
+  zone_id INT NOT NULL AUTO_INCREMENT,
+  zone_country_id INT NOT NULL,
+  zone_code VARCHAR(32) NOT NULL,
+  zone_name VARCHAR(32) NOT NULL,
   PRIMARY KEY (zone_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS zones_to_geo_zones;
 CREATE TABLE zones_to_geo_zones (
-   association_id int NOT NULL auto_increment,
-   zone_country_id int NOT NULL,
-   zone_id int NULL,
-   geo_zone_id int NULL,
-   last_modified datetime NULL,
-   date_added datetime NOT NULL,
+   association_id INT NOT NULL AUTO_INCREMENT,
+   zone_country_id INT NOT NULL,
+   zone_id INT NULL,
+   geo_zone_id INT NULL,
+   last_modified DATETIME NULL,
+   date_added DATETIME NOT NULL,
    PRIMARY KEY (association_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS content_manager;
 CREATE TABLE content_manager (
-  content_id int(11) NOT NULL auto_increment,
-  categories_id int(11) NOT NULL default '0',
-  parent_id int(11) NOT NULL default '0',
+  content_id INT(11) NOT NULL AUTO_INCREMENT,
+  categories_id INT(11) NOT NULL DEFAULT 0,
+  parent_id INT(11) NOT NULL DEFAULT 0,
   group_ids TEXT,
-  languages_id int(11) NOT NULL default '0',
-  content_title text NOT NULL,
-  content_heading text NOT NULL,
-  content_text text NOT NULL,
-  sort_order int(4) NOT NULL default '0',
-  file_flag int(1) NOT NULL default '0',
-  content_file varchar(64) NOT NULL default '',
-  content_status int(1) NOT NULL default '0',
-  content_group int(11) NOT NULL,
-  content_delete int(1) NOT NULL default '1',
+  languages_id INT(11) NOT NULL DEFAULT 0,
+  content_title TEXT NOT NULL,
+  content_heading TEXT NOT NULL,
+  content_text TEXT NOT NULL,
+  sort_order INT(4) NOT NULL DEFAULT 0,
+  file_flag INT(1) NOT NULL DEFAULT 0,
+  content_file VARCHAR(64) NOT NULL DEFAULT '',
+  content_status INT(1) NOT NULL DEFAULT 0,
+  content_group INT(11) NOT NULL,
+  content_delete INT(1) NOT NULL DEFAULT 1,
   content_meta_title TEXT,
   content_meta_description TEXT,
   content_meta_keywords TEXT,
-  PRIMARY KEY  (content_id),
+  PRIMARY KEY (content_id),
   FULLTEXT (content_meta_title,content_meta_description,content_meta_keywords)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS media_content;
 CREATE TABLE media_content (
-  file_id int(11) NOT NULL auto_increment,
-  old_filename text NOT NULL,
-  new_filename text NOT NULL,
-  file_comment text NOT NULL,
-  PRIMARY KEY  (file_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  file_id INT(11) NOT NULL AUTO_INCREMENT,
+  old_filename TEXT NOT NULL,
+  new_filename TEXT NOT NULL,
+  file_comment TEXT NOT NULL,
+  PRIMARY KEY (file_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_content;
 CREATE TABLE products_content (
-  content_id int(11) NOT NULL auto_increment,
-  products_id int(11) NOT NULL default '0',
+  content_id INT(11) NOT NULL AUTO_INCREMENT,
+  products_id INT(11) NOT NULL DEFAULT 0,
   group_ids TEXT,
-  content_name varchar(32) NOT NULL default '',
-  content_file varchar(64) NOT NULL,
-  content_link text NOT NULL,
-  languages_id int(11) NOT NULL default '0',
-  content_read int(11) NOT NULL default '0',
-  file_comment text NOT NULL,
-  PRIMARY KEY  (content_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  content_name VARCHAR(32) NOT NULL DEFAULT '',
+  content_file VARCHAR(64) NOT NULL,
+  content_link TEXT NOT NULL,
+  languages_id INT(11) NOT NULL DEFAULT 0,
+  content_read INT(11) NOT NULL DEFAULT 0,
+  file_comment TEXT NOT NULL,
+  PRIMARY KEY (content_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS module_newsletter;
 CREATE TABLE module_newsletter (
-  newsletter_id int(11) NOT NULL auto_increment,
-  title text NOT NULL,
-  bc text NOT NULL,
-  cc text NOT NULL,
-  date datetime default NULL,
-  status int(1) NOT NULL default '0',
-  body text NOT NULL,
-  PRIMARY KEY  (newsletter_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  newsletter_id INT(11) NOT NULL AUTO_INCREMENT,
+  title TEXT NOT NULL,
+  bc TEXT NOT NULL,
+  cc TEXT NOT NULL,
+  DATE DATETIME DEFAULT NULL,
+  status INT(1) NOT NULL DEFAULT 0,
+  body TEXT NOT NULL,
+  PRIMARY KEY (newsletter_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if exists cm_file_flags;
+DROP TABLE IF EXISTS cm_file_flags;
 CREATE TABLE cm_file_flags (
-  file_flag int(11) NOT NULL,
-  file_flag_name varchar(32) NOT NULL,
+  file_flag INT(11) NOT NULL,
+  file_flag_name VARCHAR(32) NOT NULL,
   PRIMARY KEY (file_flag)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-
-
-DROP TABLE if EXISTS payment_moneybookers_currencies;
+DROP TABLE IF EXISTS payment_moneybookers_currencies;
 CREATE TABLE payment_moneybookers_currencies (
-  mb_currID char(3) NOT NULL default '',
-  mb_currName varchar(255) NOT NULL default '',
-  PRIMARY KEY  (mb_currID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  mb_currID CHAR(3) NOT NULL DEFAULT '',
+  mb_currName VARCHAR(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (mb_currID)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-
-DROP TABLE if EXISTS payment_moneybookers;
+DROP TABLE IF EXISTS payment_moneybookers;
 CREATE TABLE payment_moneybookers (
-  mb_TRID varchar(255) NOT NULL default '',
-  mb_ERRNO smallint(3) unsigned NOT NULL default '0',
-  mb_ERRTXT varchar(255) NOT NULL default '',
-  mb_DATE datetime NOT NULL default '0000-00-00 00:00:00',
-  mb_MBTID bigint(18) unsigned NOT NULL default '0',
-  mb_STATUS tinyint(1) NOT NULL default '0',
-  mb_ORDERID int(11) unsigned NOT NULL default '0',
-  PRIMARY KEY  (mb_TRID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  mb_TRID VARCHAR(255) NOT NULL DEFAULT '',
+  mb_ERRNO SMALLINT(3) unsigned NOT NULL DEFAULT 0,
+  mb_ERRTXT VARCHAR(255) NOT NULL DEFAULT '',
+  mb_DATE DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  mb_MBTID BIGINT(18) unsigned NOT NULL DEFAULT 0,
+  mb_STATUS TINYINT(1) NOT NULL DEFAULT 0,
+  mb_ORDERID INT(11) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (mb_TRID)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-
-DROP TABLE if EXISTS payment_moneybookers_countries;
+DROP TABLE IF EXISTS payment_moneybookers_countries;
 CREATE TABLE payment_moneybookers_countries (
-  osc_cID int(11) NOT NULL default '0',
-  mb_cID char(3) NOT NULL default '',
-  PRIMARY KEY  (osc_cID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  osc_cID INT(11) NOT NULL DEFAULT 0,
+  mb_cID CHAR(3) NOT NULL DEFAULT '',
+  PRIMARY KEY (osc_cID)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if EXISTS coupon_email_track;
+DROP TABLE IF EXISTS coupon_email_track;
 CREATE TABLE coupon_email_track (
-  unique_id int(11) NOT NULL auto_increment,
-  coupon_id int(11) NOT NULL default '0',
-  customer_id_sent int(11) NOT NULL default '0',
-  sent_firstname varchar(32) default NULL,
-  sent_lastname varchar(32) default NULL,
-  emailed_to varchar(32) default NULL,
-  date_sent datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (unique_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  unique_id INT(11) NOT NULL AUTO_INCREMENT,
+  coupon_id INT(11) NOT NULL DEFAULT 0,
+  customer_id_sent INT(11) NOT NULL DEFAULT 0,
+  sent_firstname VARCHAR(32) DEFAULT NULL,
+  sent_lastname VARCHAR(32) DEFAULT NULL,
+  emailed_to VARCHAR(32) DEFAULT NULL,
+  date_sent DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (unique_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if EXISTS coupon_gv_customer;
+DROP TABLE IF EXISTS coupon_gv_customer;
 CREATE TABLE coupon_gv_customer (
-  customer_id int(5) NOT NULL default '0',
-  amount decimal(8,4) NOT NULL default '0.0000',
-  PRIMARY KEY  (customer_id),
+  customer_id INT(5) NOT NULL DEFAULT 0,
+  amount DECIMAL(8,4) NOT NULL DEFAULT 0.0000,
+  PRIMARY KEY (customer_id),
   KEY customer_id (customer_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if EXISTS coupon_gv_queue;
+DROP TABLE IF EXISTS coupon_gv_queue;
 CREATE TABLE coupon_gv_queue (
-  unique_id int(5) NOT NULL auto_increment,
-  customer_id int(5) NOT NULL default '0',
-  order_id int(5) NOT NULL default '0',
-  amount decimal(8,4) NOT NULL default '0.0000',
-  date_created datetime NOT NULL default '0000-00-00 00:00:00',
-  ipaddr varchar(32) NOT NULL default '',
-  release_flag char(1) NOT NULL default 'N',
-  PRIMARY KEY  (unique_id),
+  unique_id INT(5) NOT NULL AUTO_INCREMENT,
+  customer_id INT(5) NOT NULL DEFAULT 0,
+  order_id INT(5) NOT NULL DEFAULT 0,
+  amount DECIMAL(8,4) NOT NULL DEFAULT '0.0000',
+  date_created DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  ipaddr VARCHAR(32) NOT NULL DEFAULT '',
+  release_flag CHAR(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (unique_id),
   KEY uid (unique_id,customer_id,order_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if EXISTS coupon_redeem_track;
+DROP TABLE IF EXISTS coupon_redeem_track;
 CREATE TABLE coupon_redeem_track (
-  unique_id int(11) NOT NULL auto_increment,
-  coupon_id int(11) NOT NULL default '0',
-  customer_id int(11) NOT NULL default '0',
-  redeem_date datetime NOT NULL default '0000-00-00 00:00:00',
-  redeem_ip varchar(32) NOT NULL default '',
-  order_id int(11) NOT NULL default '0',
-  PRIMARY KEY  (unique_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  unique_id INT(11) NOT NULL AUTO_INCREMENT,
+  coupon_id INT(11) NOT NULL DEFAULT 0,
+  customer_id INT(11) NOT NULL DEFAULT 0,
+  redeem_date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  redeem_ip VARCHAR(32) NOT NULL DEFAULT '',
+  order_id INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (unique_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if EXISTS coupons;
+DROP TABLE IF EXISTS coupons;
 CREATE TABLE coupons (
-  coupon_id int(11) NOT NULL auto_increment,
-  coupon_type char(1) NOT NULL default 'F',
-  coupon_code varchar(32) NOT NULL default '',
-  coupon_amount decimal(8,4) NOT NULL default '0.0000',
-  coupon_minimum_order decimal(8,4) NOT NULL default '0.0000',
-  coupon_start_date datetime NOT NULL default '0000-00-00 00:00:00',
-  coupon_expire_date datetime NOT NULL default '0000-00-00 00:00:00',
-  uses_per_coupon int(5) NOT NULL default '1',
-  uses_per_user int(5) NOT NULL default '0',
-  restrict_to_products varchar(255) default NULL,
-  restrict_to_categories varchar(255) default NULL,
-  restrict_to_customers text,
-  coupon_active char(1) NOT NULL default 'Y',
-  date_created datetime NOT NULL default '0000-00-00 00:00:00',
-  date_modified datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (coupon_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  coupon_id INT(11) NOT NULL AUTO_INCREMENT,
+  coupon_type CHAR(1) NOT NULL DEFAULT 'F',
+  coupon_code VARCHAR(32) NOT NULL DEFAULT '',
+  coupon_amount DECIMAL(8,4) NOT NULL DEFAULT 0.0000,
+  coupon_minimum_order DECIMAL(8,4) NOT NULL DEFAULT 0.0000,
+  coupon_start_date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  coupon_expire_date DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  uses_per_coupon INT(5) NOT NULL DEFAULT 1,
+  uses_per_user INT(5) NOT NULL DEFAULT 0,
+  restrict_to_products VARCHAR(255) DEFAULT NULL,
+  restrict_to_categories VARCHAR(255) DEFAULT NULL,
+  restrict_to_customers TEXT,
+  coupon_active CHAR(1) NOT NULL DEFAULT 'Y',
+  date_created DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  date_modified DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (coupon_id)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if EXISTS coupons_description;
+DROP TABLE IF EXISTS coupons_description;
 CREATE TABLE coupons_description (
-  coupon_id int(11) NOT NULL default '0',
-  language_id int(11) NOT NULL default '0',
-  coupon_name varchar(32) NOT NULL default '',
+  coupon_id INT(11) NOT NULL DEFAULT 0,
+  language_id INT(11) NOT NULL DEFAULT 0,
+  coupon_name VARCHAR(32) NOT NULL DEFAULT '',
   coupon_description text,
   KEY coupon_id (coupon_id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if exists payment_qenta;
+DROP TABLE IF EXISTS payment_qenta;
 CREATE TABLE payment_qenta (
-  q_TRID varchar(255) NOT NULL default '',
-  q_DATE datetime NOT NULL default '0000-00-00 00:00:00',
-  q_QTID bigint(18) unsigned NOT NULL default '0',
-  q_ORDERDESC varchar(255) NOT NULL default '',
-  q_STATUS tinyint(1) NOT NULL default '0',
-  q_ORDERID int(11) unsigned NOT NULL default '0',
-  PRIMARY KEY  (q_TRID)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  q_TRID VARCHAR(255) NOT NULL DEFAULT '',
+  q_DATE DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  q_QTID BIGINT(18) unsigned NOT NULL DEFAULT 0,
+  q_ORDERDESC VARCHAR(255) NOT NULL DEFAULT '',
+  q_STATUS TINYINT(1) NOT NULL DEFAULT 0,
+  q_ORDERID INT(11) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (q_TRID)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 #Dokuman - 2009-10-02 - added entries for GLS shipping module version 1.1
 DROP TABLE IF EXISTS gls_country_to_postal;
 CREATE TABLE gls_country_to_postal (
-  gls_country char(2) NOT NULL default '',
-  gls_postal_reference int(11) NOT NULL default '0',
-  PRIMARY KEY  (gls_country)
-) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  gls_country CHAR(2) NOT NULL DEFAULT '',
+  gls_postal_reference INT(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (gls_country)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS gls_postal_to_weight;
 CREATE TABLE gls_postal_to_weight (
-  gls_postal_reference int(11) NOT NULL default '0',
-  gls_from_postal varchar(10) NOT NULL default '',
-  gls_to_postal varchar(10) NOT NULL default '',
-  gls_weight_ref char(3) NOT NULL default '',
-  PRIMARY KEY  (gls_postal_reference,gls_from_postal)
-) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  gls_postal_reference INT(11) NOT NULL DEFAULT 0,
+  gls_from_postal VARCHAR(10) NOT NULL DEFAULT '',
+  gls_to_postal VARCHAR(10) NOT NULL DEFAULT '',
+  gls_weight_ref CHAR(3) NOT NULL DEFAULT '',
+  PRIMARY KEY (gls_postal_reference,gls_from_postal)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS gls_weight;
 CREATE TABLE gls_weight (
-  gls_weight_ref char(3) NOT NULL default '',
+  gls_weight_ref CHAR(3) NOT NULL DEFAULT '',
   gls_weight_price_string text NOT NULL,
-  gls_free_shipping_over decimal(15,4) NOT NULL default '-1.0000',
-  gls_shipping_subsidized decimal(15,4) NOT NULL default '-1.0000',
-  PRIMARY KEY  (gls_weight_ref)
-) TYPE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
+  gls_free_shipping_over DECIMAL(15,4) NOT NULL DEFAULT -1.0000,
+  gls_shipping_subsidized DECIMAL(15,4) NOT NULL DEFAULT -1.0000,
+  PRIMARY KEY (gls_weight_ref)
+) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-DROP TABLE if EXISTS personal_offers_by_customers_status_0;
-DROP TABLE if EXISTS personal_offers_by_customers_status_1;
-DROP TABLE if EXISTS personal_offers_by_customers_status_2;
-DROP TABLE if EXISTS personal_offers_by_customers_status_3;
-
+DROP TABLE IF EXISTS personal_offers_by_customers_status_0;
+DROP TABLE IF EXISTS personal_offers_by_customers_status_1;
+DROP TABLE IF EXISTS personal_offers_by_customers_status_2;
+DROP TABLE IF EXISTS personal_offers_by_customers_status_3;
 
 #database Version
 INSERT INTO database_version(version) VALUES ('xtcM_1.0.6.0');
@@ -1242,612 +1232,608 @@ INSERT  INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
 INSERT  INTO admin_access VALUES ( 'groups', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,1,1,1,1);
 
 # configuration_group_id 1
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_NAME', 'xtc:Modified',  1, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_OWNER', 'xtc:Modified', 1, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_OWNER_EMAIL_ADDRESS', 'owner@your-shop.com', 1, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_FROM', 'xtc:Modified owner@your-shop.com',  1, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_COUNTRY', '81',  1, 6, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_ZONE', '', 1, 7, NULL, '', 'xtc_cfg_get_zone_name', 'xtc_cfg_pull_down_zone_list(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EXPECTED_PRODUCTS_SORT', 'desc',  1, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'asc\', \'desc\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EXPECTED_PRODUCTS_FIELD', 'date_expected',  1, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'products_name\', \'date_expected\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_DEFAULT_LANGUAGE_CURRENCY', 'false', 1, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SEARCH_ENGINE_FRIENDLY_URLS', 'false',  16, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_CART', 'true',  1, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and', 1, 15, NULL, '', NULL, 'xtc_cfg_select_option(array(\'and\', \'or\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_NAME_ADDRESS', 'Store Name\nAddress\nCountry\nPhone',  1, 16, NULL, '', NULL, 'xtc_cfg_textarea(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHOW_COUNTS', 'false',  1, 17, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_STATUS_ID_ADMIN', '0',  1, 20, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_STATUS_ID_GUEST', '1',  1, 21, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_STATUS_ID', '2',  1, 23, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ALLOW_ADD_TO_CART', 'false',  1, 24, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CURRENT_TEMPLATE', 'xtc5', 1, 26, NULL, '', NULL, 'xtc_cfg_pull_down_template_sets(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRICE_IS_BRUTTO', 'false', 1, 27, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRICE_PRECISION', '4', 1, 28, NULL, '', NULL, '');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CC_KEYCHAIN', 'changeme', 1, 29, NULL, '', NULL, '');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_NAME', 'xtc:Modified',  1, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_OWNER', 'xtc:Modified', 1, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_OWNER_EMAIL_ADDRESS', 'owner@your-shop.com', 1, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_FROM', 'xtc:Modified owner@your-shop.com',  1, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_COUNTRY', '81',  1, 6, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_ZONE', '', 1, 7, NULL, '', 'xtc_cfg_get_zone_name', 'xtc_cfg_pull_down_zone_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EXPECTED_PRODUCTS_SORT', 'desc',  1, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'asc\', \'desc\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EXPECTED_PRODUCTS_FIELD', 'date_expected',  1, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'products_name\', \'date_expected\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_DEFAULT_LANGUAGE_CURRENCY', 'false', 1, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SEARCH_ENGINE_FRIENDLY_URLS', 'false',  16, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_CART', 'true',  1, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and', 1, 15, NULL, '', NULL, 'xtc_cfg_select_option(array(\'and\', \'or\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_NAME_ADDRESS', 'Store Name\nAddress\nCountry\nPhone',  1, 16, NULL, '', NULL, 'xtc_cfg_textarea(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHOW_COUNTS', 'false',  1, 17, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_STATUS_ID_ADMIN', '0',  1, 20, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_STATUS_ID_GUEST', '1',  1, 21, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_STATUS_ID', '2',  1, 23, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ALLOW_ADD_TO_CART', 'false',  1, 24, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CURRENT_TEMPLATE', 'xtc5', 1, 26, NULL, '', NULL, 'xtc_cfg_pull_down_template_sets(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRICE_IS_BRUTTO', 'false', 1, 27, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRICE_PRECISION', '4', 1, 28, NULL, '', NULL, '');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CC_KEYCHAIN', 'changeme', 1, 29, NULL, '', NULL, '');
 # BOF - Tomcraft - 2009-11-02 - New admin top menu
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_TOP_MENU', 'true', 1, 30, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_TOP_MENU', 'true', 1, 30, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # EOF - Tomcraft - 2009-11-02 - New admin top menu
 # BOF - Tomcraft - 2009-11-02 - Admin language tabs
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_LANG_TABS', 'true', 1, 31, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_LANG_TABS', 'true', 1, 31, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # EOF - Tomcraft - 2009-11-02 - Admin language tabs
 
 # configuration_group_id 2
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_FIRST_NAME_MIN_LENGTH', '2',  2, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_LAST_NAME_MIN_LENGTH', '2',  2, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_DOB_MIN_LENGTH', '10',  2, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_EMAIL_ADDRESS_MIN_LENGTH', '6',  2, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_STREET_ADDRESS_MIN_LENGTH', '5',  2, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_COMPANY_MIN_LENGTH', '2',  2, 6, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_POSTCODE_MIN_LENGTH', '4',  2, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_CITY_MIN_LENGTH', '3',  2, 8, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_STATE_MIN_LENGTH', '2', 2, 9, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_TELEPHONE_MIN_LENGTH', '3',  2, 10, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_PASSWORD_MIN_LENGTH', '5',  2, 11, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CC_OWNER_MIN_LENGTH', '3',  2, 12, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CC_NUMBER_MIN_LENGTH', '10',  2, 13, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'REVIEW_TEXT_MIN_LENGTH', '50',  2, 14, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MIN_DISPLAY_BESTSELLERS', '1',  2, 15, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MIN_DISPLAY_ALSO_PURCHASED', '1', 2, 16, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_FIRST_NAME_MIN_LENGTH', '2',  2, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_LAST_NAME_MIN_LENGTH', '2',  2, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_DOB_MIN_LENGTH', '10',  2, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_EMAIL_ADDRESS_MIN_LENGTH', '6',  2, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_STREET_ADDRESS_MIN_LENGTH', '5',  2, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_COMPANY_MIN_LENGTH', '2',  2, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_POSTCODE_MIN_LENGTH', '4',  2, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_CITY_MIN_LENGTH', '3',  2, 8, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_STATE_MIN_LENGTH', '2', 2, 9, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_TELEPHONE_MIN_LENGTH', '3',  2, 10, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_PASSWORD_MIN_LENGTH', '5',  2, 11, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CC_OWNER_MIN_LENGTH', '3',  2, 12, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CC_NUMBER_MIN_LENGTH', '10',  2, 13, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'REVIEW_TEXT_MIN_LENGTH', '50',  2, 14, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MIN_DISPLAY_BESTSELLERS', '1',  2, 15, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MIN_DISPLAY_ALSO_PURCHASED', '1', 2, 16, NULL, '', NULL, NULL);
 
 # configuration_group_id 3
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_ADDRESS_BOOK_ENTRIES', '5',  3, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_SEARCH_RESULTS', '20',  3, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_PAGE_LINKS', '5',  3, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_SPECIAL_PRODUCTS', '9', 3, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_NEW_PRODUCTS', '9',  3, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_UPCOMING_PRODUCTS', '10',  3, 6, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_MANUFACTURERS_IN_A_LIST', '0', 3, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_MANUFACTURERS_LIST', '1',  3, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_MANUFACTURER_NAME_LEN', '15',  3, 8, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_NEW_REVIEWS', '6', 3, 9, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_RANDOM_SELECT_REVIEWS', '10',  3, 10, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_RANDOM_SELECT_NEW', '10',  3, 11, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_RANDOM_SELECT_SPECIALS', '10',  3, 12, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_CATEGORIES_PER_ROW', '3',  3, 13, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_PRODUCTS_NEW', '10',  3, 14, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_BESTSELLERS', '10',  3, 15, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_ALSO_PURCHASED', '6',  3, 16, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX', '6',  3, 17, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_ORDER_HISTORY', '10',  3, 18, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRODUCT_REVIEWS_VIEW', '5',  3, 19, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_PRODUCTS_QTY', '1000', 3, 21, 'NULL', '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_NEW_PRODUCTS_DAYS', '30', 3, 22, 'NULL', '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_ADDRESS_BOOK_ENTRIES', '5',  3, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_SEARCH_RESULTS', '20',  3, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_PAGE_LINKS', '5',  3, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_SPECIAL_PRODUCTS', '9', 3, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_NEW_PRODUCTS', '9',  3, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_UPCOMING_PRODUCTS', '10',  3, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_MANUFACTURERS_IN_A_LIST', '0', 3, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_MANUFACTURERS_LIST', '1',  3, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_MANUFACTURER_NAME_LEN', '15',  3, 8, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_NEW_REVIEWS', '6', 3, 9, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_RANDOM_SELECT_REVIEWS', '10',  3, 10, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_RANDOM_SELECT_NEW', '10',  3, 11, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_RANDOM_SELECT_SPECIALS', '10',  3, 12, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_CATEGORIES_PER_ROW', '3',  3, 13, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_PRODUCTS_NEW', '10',  3, 14, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_BESTSELLERS', '10',  3, 15, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_ALSO_PURCHASED', '6',  3, 16, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX', '6',  3, 17, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_ORDER_HISTORY', '10',  3, 18, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRODUCT_REVIEWS_VIEW', '5',  3, 19, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_PRODUCTS_QTY', '1000', 3, 21, 'NULL', '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MAX_DISPLAY_NEW_PRODUCTS_DAYS', '30', 3, 22, 'NULL', '', NULL, NULL);
 
 # configuration_group_id 4
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONFIG_CALCULATE_IMAGE_SIZE', 'true', 4, 1, NULL, '0000-00-00 00:00:00', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'IMAGE_QUALITY', '80', 4, 2, '2003-12-15 12:10:45', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_WIDTH', '120', 4, 7, '2003-12-15 12:10:45', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_HEIGHT', '80', 4, 8, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_WIDTH', '200', 4, 9, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_HEIGHT', '160', 4, 10, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_WIDTH', '300', 4, 11, '2003-12-15 12:11:00', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_HEIGHT', '240', 4, 12, '2003-12-15 12:11:09', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_BEVEL', '', 4, 13, '2003-12-15 13:14:39', '0000-00-00 00:00:00', '', '');
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_GREYSCALE', '', 4, 14, '2003-12-15 13:13:37', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_ELLIPSE', '', 4, 15, '2003-12-15 13:14:57', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_ROUND_EDGES', '', 4, 16, '2003-12-15 13:19:45', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_MERGE', '', 4, 17, '2003-12-15 12:01:43', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_FRAME', '', 4, 18, '2003-12-15 13:19:37', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW', '', 4, 19, '2003-12-15 13:15:14', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_MOTION_BLUR', '', 4, 20, '2003-12-15 12:02:19', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_BEVEL', '', 4, 21, '2003-12-15 13:42:09', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_GREYSCALE', '', 4, 22, '2003-12-15 13:18:00', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_ELLIPSE', '', 4, 23, '2003-12-15 13:41:53', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_ROUND_EDGES', '', 4, 24, '2003-12-15 13:21:55', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_MERGE', '', 4, 25, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_FRAME', '', 4, 26, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_DROP_SHADOW', '', 4, 27, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_MOTION_BLUR', '', 4, 28, '2003-12-15 13:21:18', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_BEVEL', '', 4, 29, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_GREYSCALE', '', 4, 30, '2003-12-15 13:22:58', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_ELLIPSE', '', 4, 31, '2003-12-15 13:22:51', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_ROUND_EDGES', '', 4, 32, '2003-12-15 13:23:17', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_MERGE', '', 4, 33, NULL, '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_FRAME', '', 4, 34, '2003-12-15 13:22:43', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_DROP_SHADOW', '', 4, 35, '2003-12-15 13:22:26', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_MOTION_BLUR', '', 4, 36, '2003-12-15 13:22:32', '0000-00-00 00:00:00', NULL, NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MO_PICS', '0', '4', '3', '', '0000-00-00 00:00:00', NULL , NULL);
-INSERT INTO  configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'IMAGE_MANIPULATOR', 'image_manipulator_GD2.php', '4', '3', '', '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'image_manipulator_GD2.php\', \'image_manipulator_GD1.php\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONFIG_CALCULATE_IMAGE_SIZE', 'true', 4, 1, NULL, '0000-00-00 00:00:00', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'IMAGE_QUALITY', '80', 4, 2, '2003-12-15 12:10:45', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_WIDTH', '120', 4, 7, '2003-12-15 12:10:45', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_HEIGHT', '80', 4, 8, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_WIDTH', '200', 4, 9, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_HEIGHT', '160', 4, 10, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_WIDTH', '300', 4, 11, '2003-12-15 12:11:00', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_HEIGHT', '240', 4, 12, '2003-12-15 12:11:09', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_BEVEL', '', 4, 13, '2003-12-15 13:14:39', '0000-00-00 00:00:00', '', '');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_GREYSCALE', '', 4, 14, '2003-12-15 13:13:37', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_ELLIPSE', '', 4, 15, '2003-12-15 13:14:57', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_ROUND_EDGES', '', 4, 16, '2003-12-15 13:19:45', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_MERGE', '', 4, 17, '2003-12-15 12:01:43', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_FRAME', '', 4, 18, '2003-12-15 13:19:37', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW', '', 4, 19, '2003-12-15 13:15:14', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_THUMBNAIL_MOTION_BLUR', '', 4, 20, '2003-12-15 12:02:19', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_BEVEL', '', 4, 21, '2003-12-15 13:42:09', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_GREYSCALE', '', 4, 22, '2003-12-15 13:18:00', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_ELLIPSE', '', 4, 23, '2003-12-15 13:41:53', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_ROUND_EDGES', '', 4, 24, '2003-12-15 13:21:55', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_MERGE', '', 4, 25, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_FRAME', '', 4, 26, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_DROP_SHADOW', '', 4, 27, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_INFO_MOTION_BLUR', '', 4, 28, '2003-12-15 13:21:18', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_BEVEL', '', 4, 29, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_GREYSCALE', '', 4, 30, '2003-12-15 13:22:58', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_ELLIPSE', '', 4, 31, '2003-12-15 13:22:51', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_ROUND_EDGES', '', 4, 32, '2003-12-15 13:23:17', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_MERGE', '', 4, 33, NULL, '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_FRAME', '', 4, 34, '2003-12-15 13:22:43', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_DROP_SHADOW', '', 4, 35, '2003-12-15 13:22:26', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_POPUP_MOTION_BLUR', '', 4, 36, '2003-12-15 13:22:32', '0000-00-00 00:00:00', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MO_PICS', '0', '4', '3', '', '0000-00-00 00:00:00', NULL , NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'IMAGE_MANIPULATOR', 'image_manipulator_GD2.php', '4', '3', '', '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'image_manipulator_GD2.php\', \'image_manipulator_GD1.php\'),');
 
 # configuration_group_id 5
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_GENDER', 'true',  5, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_DOB', 'true',  5, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY', 'true',  5, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_SUBURB', 'true', 5, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_STATE', 'true',  5, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_OPTIONS', 'account',  5, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'account\', \'guest\', \'both\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DELETE_GUEST_ACCOUNT', 'true',  5, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_GENDER', 'true',  5, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_DOB', 'true',  5, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY', 'true',  5, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_SUBURB', 'true', 5, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_STATE', 'true',  5, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_OPTIONS', 'account',  5, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'account\', \'guest\', \'both\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DELETE_GUEST_ACCOUNT', 'true',  5, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 # configuration_group_id 6
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_PAYMENT_INSTALLED', '', 6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_INSTALLED', 'ot_subtotal.php;ot_shipping.php;ot_tax.php;ot_total.php', 6, 0, '2003-07-18 03:31:55', '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_SHIPPING_INSTALLED', '',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CURRENCY', 'EUR',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_LANGUAGE', 'de',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_ORDERS_STATUS_ID', '1',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_PRODUCTS_VPE_ID', '',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_SHIPPING_STATUS_ID', '1',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', '30',  6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING', 'false', 6, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', '50',  6, 4, NULL, '', 'currencies->format', NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION', 'national', 6, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'national\', \'international\', \'both\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER', '10',  6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TAX_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', '50',  6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TOTAL_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '99',  6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_DISCOUNT_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_DISCOUNT_SORT_ORDER', '20', 6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_SORT_ORDER','40',  6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_PAYMENT_INSTALLED', '', 6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_INSTALLED', 'ot_subtotal.php;ot_shipping.php;ot_tax.php;ot_total.php', 6, 0, '2003-07-18 03:31:55', '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_SHIPPING_INSTALLED', '',  6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CURRENCY', 'EUR',  6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_LANGUAGE', 'de',  6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_ORDERS_STATUS_ID', '1',  6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_PRODUCTS_VPE_ID', '',  6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_SHIPPING_STATUS_ID', '1',  6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', '30',  6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING', 'false', 6, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', '50',  6, 4, NULL, '', 'currencies->format', NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION', 'national', 6, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'national\', \'international\', \'both\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER', '10',  6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TAX_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', '50',  6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TOTAL_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '99',  6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_DISCOUNT_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_DISCOUNT_SORT_ORDER', '20', 6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_SORT_ORDER','40',  6, 2, NULL, '', NULL, NULL);
 
 
 
 # configuration_group_id 7
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_ORIGIN_COUNTRY', '81',  7, 1, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_ORIGIN_ZIP', '',  7, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_MAX_WEIGHT', '50',  7, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_BOX_WEIGHT', '3',  7, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_BOX_PADDING', '10',  7, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHOW_SHIPPING', 'true',  7, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_INFOS', '1',  7, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_ORIGIN_COUNTRY', '81',  7, 1, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_ORIGIN_ZIP', '',  7, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_MAX_WEIGHT', '50',  7, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_BOX_WEIGHT', '3',  7, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_BOX_PADDING', '10',  7, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHOW_SHIPPING', 'true',  7, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHIPPING_INFOS', '1',  7, 5, NULL, '', NULL, NULL);
 
 # configuration_group_id 8
 # BOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
-# INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRODUCT_LIST_FILTER', '1', 8, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRODUCT_LIST_FILTER', 'true', 8, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+# INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRODUCT_LIST_FILTER', '1', 8, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'PRODUCT_LIST_FILTER', 'true', 8, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # EOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
 
 # configuration_group_id 9
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_CHECK', 'true',  9, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ATTRIBUTE_STOCK_CHECK', 'true',  9, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_LIMITED', 'true', 9, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_ALLOW_CHECKOUT', 'true',  9, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_MARK_PRODUCT_OUT_OF_STOCK', '***',  9, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_REORDER_LEVEL', '5',  9, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_CHECK', 'true',  9, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ATTRIBUTE_STOCK_CHECK', 'true',  9, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_LIMITED', 'true', 9, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_ALLOW_CHECKOUT', 'true',  9, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_MARK_PRODUCT_OUT_OF_STOCK', '***',  9, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STOCK_REORDER_LEVEL', '5',  9, 6, NULL, '', NULL, NULL);
 
 # configuration_group_id 10
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_PAGE_PARSE_TIME', 'false',  10, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_PAGE_PARSE_TIME_LOG', 'page_parse_time.log',  10, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S', 10, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_PAGE_PARSE_TIME', 'true',  10, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_DB_TRANSACTIONS', 'false',  10, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_PAGE_PARSE_TIME', 'false',  10, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_PAGE_PARSE_TIME_LOG', 'page_parse_time.log',  10, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S', 10, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_PAGE_PARSE_TIME', 'true',  10, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_DB_TRANSACTIONS', 'false',  10, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 # configuration_group_id 11
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_CACHE', 'false',  11, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DIR_FS_CACHE', 'cache',  11, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CACHE_LIFETIME', '3600',  11, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CACHE_CHECK', 'true',  11, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DB_CACHE', 'false',  11, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DB_CACHE_EXPIRE', '3600',  11, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_CACHE', 'false',  11, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DIR_FS_CACHE', 'cache',  11, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CACHE_LIFETIME', '3600',  11, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CACHE_CHECK', 'true',  11, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DB_CACHE', 'false',  11, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DB_CACHE_EXPIRE', '3600',  11, 6, NULL, '', NULL, NULL);
 
 # configuration_group_id 12
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_TRANSPORT', 'mail',  12, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'sendmail\', \'smtp\', \'mail\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SENDMAIL_PATH', '/usr/sbin/sendmail', 12, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_MAIN_SERVER', 'localhost', 12, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_Backup_Server', 'localhost', 12, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_PORT', '25', 12, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_USERNAME', 'Please Enter', 12, 6, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_PASSWORD', 'Please Enter', 12, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_AUTH', 'false', 12, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_LINEFEED', 'LF',  12, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'LF\', \'CRLF\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_USE_HTML', 'true',  12, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_EMAIL_ADDRESS_CHECK', 'false',  12, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SEND_EMAILS', 'true',  12, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_TRANSPORT', 'mail',  12, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'sendmail\', \'smtp\', \'mail\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SENDMAIL_PATH', '/usr/sbin/sendmail', 12, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_MAIN_SERVER', 'localhost', 12, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_Backup_Server', 'localhost', 12, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_PORT', '25', 12, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_USERNAME', 'Please Enter', 12, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_PASSWORD', 'Please Enter', 12, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SMTP_AUTH', 'false', 12, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_LINEFEED', 'LF',  12, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'LF\', \'CRLF\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_USE_HTML', 'true',  12, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ENTRY_EMAIL_ADDRESS_CHECK', 'false',  12, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SEND_EMAILS', 'true',  12, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # BOF - Tomcraft - 2009-11-05 - Advanced contact form
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_CONTACT_EMAIL_ADDRESS', 'false', 12, 13, NULL,  NOW( ), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_CONTACT_EMAIL_ADDRESS', 'false', 12, 13, NULL,  NOW( ), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # EOF - Tomcraft - 2009-11-05 - Advanced contact form
 
 # Constants for contact_us
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_EMAIL_ADDRESS', 'contact@your-shop.com', 12, 20, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_NAME', 'Mail send by Contact_us Form',  12, 21, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_REPLY_ADDRESS',  '', 12, 22, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_REPLY_ADDRESS_NAME',  '', 12, 23, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_EMAIL_SUBJECT',  '', 12, 24, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_FORWARDING_STRING',  '', 12, 25, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_EMAIL_ADDRESS', 'contact@your-shop.com', 12, 20, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_NAME', 'Mail send by Contact_us Form',  12, 21, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_REPLY_ADDRESS',  '', 12, 22, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_REPLY_ADDRESS_NAME',  '', 12, 23, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_EMAIL_SUBJECT',  '', 12, 24, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CONTACT_US_FORWARDING_STRING',  '', 12, 25, NULL, '', NULL, NULL);
 
 # Constants for support system
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_ADDRESS', 'support@your-shop.com', 12, 26, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_NAME', 'Mail send by support systems',  12, 27, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_REPLY_ADDRESS',  '', 12, 28, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_REPLY_ADDRESS_NAME',  '', 12, 29, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_SUBJECT',  '', 12, 30, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_FORWARDING_STRING',  '', 12, 31, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_ADDRESS', 'support@your-shop.com', 12, 26, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_NAME', 'Mail send by support systems',  12, 27, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_REPLY_ADDRESS',  '', 12, 28, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_REPLY_ADDRESS_NAME',  '', 12, 29, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_SUBJECT',  '', 12, 30, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_SUPPORT_FORWARDING_STRING',  '', 12, 31, NULL, '', NULL, NULL);
 
 # Constants for billing system
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_ADDRESS', 'billing@your-shop.com', 12, 32, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_NAME', 'Mail send by billing systems',  12, 33, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_REPLY_ADDRESS',  '', 12, 34, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_REPLY_ADDRESS_NAME',  '', 12, 35, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_SUBJECT',  '', 12, 36, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_FORWARDING_STRING',  '', 12, 37, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_SUBJECT_ORDER',  'Ihre Bestellung {$nr},am {$date}', 12, 38, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_ADDRESS', 'billing@your-shop.com', 12, 32, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_NAME', 'Mail send by billing systems',  12, 33, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_REPLY_ADDRESS',  '', 12, 34, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_REPLY_ADDRESS_NAME',  '', 12, 35, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_SUBJECT',  '', 12, 36, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_FORWARDING_STRING',  '', 12, 37, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'EMAIL_BILLING_SUBJECT_ORDER',  'Ihre Bestellung {$nr},am {$date}', 12, 38, NULL, '', NULL, NULL);
 
 # configuration_group_id 13
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_ENABLED', 'false',  13, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_BY_REDIRECT', 'false',  13, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_UNALLOWED_PAYMENT', 'banktransfer,cod,invoice,moneyorder',  13, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_MIN_ORDERS_STATUS', '1',  13, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_ENABLED', 'false',  13, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_BY_REDIRECT', 'false',  13, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_UNALLOWED_PAYMENT', 'banktransfer,cod,invoice,moneyorder',  13, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DOWNLOAD_MIN_ORDERS_STATUS', '1',  13, 5, NULL, '', NULL, NULL);
 
 
 # configuration_group_id 14
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GZIP_COMPRESSION', 'false',  14, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GZIP_LEVEL', '5',  14, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GZIP_COMPRESSION', 'false',  14, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GZIP_LEVEL', '5',  14, 2, NULL, '', NULL, NULL);
 
 # configuration_group_id 15
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_WRITE_DIRECTORY', '/tmp',  15, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_FORCE_COOKIE_USE', 'False',  15, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_CHECK_SSL_SESSION_ID', 'False',  15, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_CHECK_USER_AGENT', 'False',  15, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_CHECK_IP_ADDRESS', 'False',  15, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_RECREATE', 'False',  15, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_WRITE_DIRECTORY', '/tmp',  15, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_FORCE_COOKIE_USE', 'False',  15, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_CHECK_SSL_SESSION_ID', 'False',  15, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_CHECK_USER_AGENT', 'False',  15, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_CHECK_IP_ADDRESS', 'False',  15, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SESSION_RECREATE', 'False',  15, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
 
 # configuration_group_id 16
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_MIN_KEYWORD_LENGTH', '6', 16, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_KEYWORDS_NUMBER', '5',  16, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_AUTHOR', '',  16, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_PUBLISHER', '',  16, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_COMPANY', '',  16, 6, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_TOPIC', 'shopping',  16, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_REPLY_TO', 'xx@xx.com',  16, 8, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_REVISIT_AFTER', '5',  16, 9, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_ROBOTS', 'index,follow',  16, 10, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_DESCRIPTION', '',  16, 11, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_KEYWORDS', '',  16, 12, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CHECK_CLIENT_AGENT', 'true',16, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_MIN_KEYWORD_LENGTH', '6', 16, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_KEYWORDS_NUMBER', '5',  16, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_AUTHOR', '',  16, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_PUBLISHER', '',  16, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_COMPANY', '',  16, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_TOPIC', 'shopping',  16, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_REPLY_TO', 'xx@xx.com',  16, 8, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_REVISIT_AFTER', '5',  16, 9, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_ROBOTS', 'index,follow',  16, 10, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_DESCRIPTION', '',  16, 11, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'META_KEYWORDS', '',  16, 12, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CHECK_CLIENT_AGENT', 'true',16, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 # configuration_group_id 17
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_WYSIWYG', 'true', 17, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_GIFT_SYSTEM', 'false', 17, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SECURITY_CODE_LENGTH', '10', 17, 3, NULL, '2003-12-05 05:01:41', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'NEW_SIGNUP_GIFT_VOUCHER_AMOUNT', '0', 17, 4, NULL, '2003-12-05 05:01:41', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'NEW_SIGNUP_DISCOUNT_COUPON', '', 17, 5, NULL, '2003-12-05 05:01:41', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_SHIPPING_STATUS', 'true', 17, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_CONDITIONS_ON_CHECKOUT', 'true',17, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHOW_IP_LOG', 'false',17, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GROUP_CHECK', 'false',  17, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_NAVIGATOR', 'false',  17, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'QUICKLINK_ACTIVATED', 'true',  17, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_REVERSE_CROSS_SELLING', 'true', 17, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_REVOCATION_ON_CHECKOUT', 'true', 17, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_WYSIWYG', 'true', 17, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_GIFT_SYSTEM', 'false', 17, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SECURITY_CODE_LENGTH', '10', 17, 3, NULL, '2003-12-05 05:01:41', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'NEW_SIGNUP_GIFT_VOUCHER_AMOUNT', '0', 17, 4, NULL, '2003-12-05 05:01:41', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'NEW_SIGNUP_DISCOUNT_COUPON', '', 17, 5, NULL, '2003-12-05 05:01:41', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_SHIPPING_STATUS', 'true', 17, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_CONDITIONS_ON_CHECKOUT', 'true',17, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'SHOW_IP_LOG', 'false',17, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GROUP_CHECK', 'false',  17, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_NAVIGATOR', 'false',  17, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'QUICKLINK_ACTIVATED', 'true',  17, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACTIVATE_REVERSE_CROSS_SELLING', 'true', 17, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DISPLAY_REVOCATION_ON_CHECKOUT', 'true', 17, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # BOF - Tomcraft - 2010-06-09 - predefined revocation_id
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'REVOCATION_ID', '9', 17, 14, NULL, '2003-12-05 05:01:41', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'REVOCATION_ID', '9', 17, 14, NULL, '2003-12-05 05:01:41', NULL, NULL);
 # EOF - Tomcraft - 2010-06-09 - predefined revocation_id
 
 #configuration_group_id 18
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY_VAT_CHECK', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_OWNER_VAT_ID', '', 18, 3, '', '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_VAT_STATUS_ID', '1', 18, 23, '', '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY_VAT_LIVE_CHECK', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY_VAT_GROUP', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_VAT_BLOCK_ERROR', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL', '3', '18', '24', NULL , '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY_VAT_CHECK', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'STORE_OWNER_VAT_ID', '', 18, 3, '', '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_VAT_STATUS_ID', '1', 18, 23, '', '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY_VAT_LIVE_CHECK', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY_VAT_GROUP', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_VAT_BLOCK_ERROR', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'DEFAULT_CUSTOMERS_VAT_STATUS_ID_LOCAL', '3', '18', '24', NULL , '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
 
 #configuration_group_id 19
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GOOGLE_CONVERSION_ID', '', '19', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GOOGLE_LANG', 'de', '19', '3', NULL , '0000-00-00 00:00:00', NULL , NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GOOGLE_CONVERSION', 'false', '19', '0', NULL , '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GOOGLE_CONVERSION_ID', '', '19', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GOOGLE_LANG', 'de', '19', '3', NULL , '0000-00-00 00:00:00', NULL , NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GOOGLE_CONVERSION', 'false', '19', '0', NULL , '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #configuration_group_id 20
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CSV_TEXTSIGN', '"', '20', '1', NULL , '0000-00-00 00:00:00', NULL , NULL);
-# BOF - DokuMan - 2010-02-11 - set default separator sign to semicolon ';' instead of tabulator '\t'
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CSV_SEPERATOR', ';', '20', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
-# EOF - DokuMan - 2010-02-11 - set default separator sign to semicolon ';' instead of tabulator '\t'
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'COMPRESS_EXPORT', 'false', '20', '3', NULL , '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CSV_TEXTSIGN', '"', '20', '1', NULL , '0000-00-00 00:00:00', NULL , NULL);
+# BOF - DokuMan - 2010-02-11 - set DEFAULT separator sign to semicolon ';' instead of tabulator '\t'
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'CSV_SEPERATOR', ';', '20', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
+# EOF - DokuMan - 2010-02-11 - set DEFAULT separator sign to semicolon ';' instead of tabulator '\t'
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'COMPRESS_EXPORT', 'false', '20', '3', NULL , '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #configuration_group_id 21, Afterbuy
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_PARTNERID', '', '21', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_PARTNERPASS', '', '21', '3', NULL , '0000-00-00 00:00:00', NULL , NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_USERID', '', '21', '4', NULL , '0000-00-00 00:00:00', NULL , NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_ORDERSTATUS', '1', '21', '5', NULL , '0000-00-00 00:00:00', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_ACTIVATED', 'false', '21', '6', NULL , '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_PARTNERID', '', '21', '2', NULL , '0000-00-00 00:00:00', NULL , NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_PARTNERPASS', '', '21', '3', NULL , '0000-00-00 00:00:00', NULL , NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_USERID', '', '21', '4', NULL , '0000-00-00 00:00:00', NULL , NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_ORDERSTATUS', '1', '21', '5', NULL , '0000-00-00 00:00:00', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'AFTERBUY_ACTIVATED', 'false', '21', '6', NULL , '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #configuration_group_id 22, Search Options
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_IN_DESC', 'true', '22', '2', NULL, '0000-00-00 00:00:00', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_IN_ATTR', 'true', '22', '3', NULL, '0000-00-00 00:00:00', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_IN_DESC', 'true', '22', '2', NULL, '0000-00-00 00:00:00', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_IN_ATTR', 'true', '22', '3', NULL, '0000-00-00 00:00:00', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
 #configuration_group_id 31, Moneybookers
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '',  31, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PWD','',  31, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','',  31, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0',  31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '',  31, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PWD','',  31, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','',  31, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0',  31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 
 #configuration econda
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'TRACKING_ECONDA_ACTIVE', 'false',  23, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id,  configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'TRACKING_ECONDA_ID','',  23, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'TRACKING_ECONDA_ACTIVE', 'false',  23, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'TRACKING_ECONDA_ID','',  23, 2, NULL, '', NULL, NULL);
 
-INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1');
-INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1');
-INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1');
-INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', '4', '1');
-INSERT INTO configuration_group VALUES ('5', 'Customer Details', 'Customer account configuration', '5', '1');
-INSERT INTO configuration_group VALUES ('6', 'Module Options', 'Hidden from configuration', '6', '0');
-INSERT INTO configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1');
-INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing    configuration options', '8', '1');
-INSERT INTO configuration_group VALUES ('9', 'Stock', 'Stock configuration options', '9', '1');
-INSERT INTO configuration_group VALUES ('10', 'Logging', 'Logging configuration options', '10', '1');
-INSERT INTO configuration_group VALUES ('11', 'Cache', 'Caching configuration options', '11', '1');
-INSERT INTO configuration_group VALUES ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', '12', '1');
-INSERT INTO configuration_group VALUES ('13', 'Download', 'Downloadable products options', '13', '1');
-INSERT INTO configuration_group VALUES ('14', 'GZip Compression', 'GZip compression options', '14', '1');
-INSERT INTO configuration_group VALUES ('15', 'Sessions', 'Session options', '15', '1');
-INSERT INTO configuration_group VALUES ('16', 'Meta-Tags/Search engines', 'Meta-tags/Search engines', '16', '1');
-INSERT INTO configuration_group VALUES ('18', 'Vat ID', 'Vat ID', '18', '1');
-INSERT INTO configuration_group VALUES ('19', 'Google Conversion', 'Google Conversion-Tracking', '19', '1');
-INSERT INTO configuration_group VALUES ('20', 'Import/Export', 'Import/Export', '20', '1');
-INSERT INTO configuration_group VALUES ('21', 'Afterbuy', 'Afterbuy.de', '21', '1');
-INSERT INTO configuration_group VALUES ('22', 'Search Options', 'Additional Options for search function', '22', '1');
+INSERT INTO configuration_group VALUES (1,'My Store','General information about my store',1,1);
+INSERT INTO configuration_group VALUES (2,'Minimum Values','The minimum values for functions / data',2,1);
+INSERT INTO configuration_group VALUES (3,'Maximum Values','The maximum values for functions / data',3,1);
+INSERT INTO configuration_group VALUES (4,'Images','Image parameters',4,1);
+INSERT INTO configuration_group VALUES (5,'Customer Details','Customer account configuration',5,1);
+INSERT INTO configuration_group VALUES (6,'Module Options','Hidden from configuration',6,0);
+INSERT INTO configuration_group VALUES (7,'Shipping/Packaging','Shipping options available at my store',7,1);
+INSERT INTO configuration_group VALUES (8,'Product Listing','Product Listing    configuration options',8,1);
+INSERT INTO configuration_group VALUES (9,'Stock','Stock configuration options',9,1);
+INSERT INTO configuration_group VALUES (10,'Logging','Logging configuration options',10,1);
+INSERT INTO configuration_group VALUES (11,'Cache','Caching configuration options',11,1);
+INSERT INTO configuration_group VALUES (12,'E-Mail Options','General setting for E-Mail transport and HTML E-Mails',12,1);
+INSERT INTO configuration_group VALUES (13,'Download','Downloadable products options',13,1);
+INSERT INTO configuration_group VALUES (14,'GZip Compression','GZip compression options',14,1);
+INSERT INTO configuration_group VALUES (15,'Sessions','Session options',15,1);
+INSERT INTO configuration_group VALUES (16,'Meta-Tags/Search engines','Meta-tags/Search engines',16,1);
+INSERT INTO configuration_group VALUES (18,'Vat ID','Vat ID',18,1);
+INSERT INTO configuration_group VALUES (19,'Google Conversion','Google Conversion-Tracking',19,1);
+INSERT INTO configuration_group VALUES (20,'Import/Export','Import/Export',20,1);
+INSERT INTO configuration_group VALUES (21,'Afterbuy','Afterbuy.de',21,1);
+INSERT INTO configuration_group VALUES (22,'Search Options','Additional Options for search function',22,1);
 
 #Countries
-INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1','1');
-INSERT INTO countries VALUES (2,'Albania','AL','ALB','1','1');
-INSERT INTO countries VALUES (3,'Algeria','DZ','DZA','1','1');
-INSERT INTO countries VALUES (4,'American Samoa','AS','ASM','1','1');
-INSERT INTO countries VALUES (5,'Andorra','AD','AND','1','1');
-INSERT INTO countries VALUES (6,'Angola','AO','AGO','1','1');
-INSERT INTO countries VALUES (7,'Anguilla','AI','AIA','1','1');
-INSERT INTO countries VALUES (8,'Antarctica','AQ','ATA','1','1');
-INSERT INTO countries VALUES (9,'Antigua and Barbuda','AG','ATG','1','1');
-INSERT INTO countries VALUES (10,'Argentina','AR','ARG','1','1');
-INSERT INTO countries VALUES (11,'Armenia','AM','ARM','1','1');
-INSERT INTO countries VALUES (12,'Aruba','AW','ABW','1','1');
-INSERT INTO countries VALUES (13,'Australia','AU','AUS','1','1');
-INSERT INTO countries VALUES (14,'Austria','AT','AUT','5','1');
-INSERT INTO countries VALUES (15,'Azerbaijan','AZ','AZE','1','1');
-INSERT INTO countries VALUES (16,'Bahamas','BS','BHS','1','1');
-INSERT INTO countries VALUES (17,'Bahrain','BH','BHR','1','1');
-INSERT INTO countries VALUES (18,'Bangladesh','BD','BGD','1','1');
-INSERT INTO countries VALUES (19,'Barbados','BB','BRB','1','1');
-INSERT INTO countries VALUES (20,'Belarus','BY','BLR','1','1');
-INSERT INTO countries VALUES (21,'Belgium','BE','BEL','1','1');
-INSERT INTO countries VALUES (22,'Belize','BZ','BLZ','1','1');
-INSERT INTO countries VALUES (23,'Benin','BJ','BEN','1','1');
-INSERT INTO countries VALUES (24,'Bermuda','BM','BMU','1','1');
-INSERT INTO countries VALUES (25,'Bhutan','BT','BTN','1','1');
-INSERT INTO countries VALUES (26,'Bolivia','BO','BOL','1','1');
-INSERT INTO countries VALUES (27,'Bosnia and Herzegowina','BA','BIH','1','1');
-INSERT INTO countries VALUES (28,'Botswana','BW','BWA','1','1');
-INSERT INTO countries VALUES (29,'Bouvet Island','BV','BVT','1','1');
-INSERT INTO countries VALUES (30,'Brazil','BR','BRA','1','1');
-INSERT INTO countries VALUES (31,'British Indian Ocean Territory','IO','IOT','1','1');
-INSERT INTO countries VALUES (32,'Brunei Darussalam','BN','BRN','1','1');
-INSERT INTO countries VALUES (33,'Bulgaria','BG','BGR','1','1');
-INSERT INTO countries VALUES (34,'Burkina Faso','BF','BFA','1','1');
-INSERT INTO countries VALUES (35,'Burundi','BI','BDI','1','1');
-INSERT INTO countries VALUES (36,'Cambodia','KH','KHM','1','1');
-INSERT INTO countries VALUES (37,'Cameroon','CM','CMR','1','1');
-INSERT INTO countries VALUES (38,'Canada','CA','CAN','1','1');
-INSERT INTO countries VALUES (39,'Cape Verde','CV','CPV','1','1');
-INSERT INTO countries VALUES (40,'Cayman Islands','KY','CYM','1','1');
-INSERT INTO countries VALUES (41,'Central African Republic','CF','CAF','1','1');
-INSERT INTO countries VALUES (42,'Chad','TD','TCD','1','1');
-INSERT INTO countries VALUES (43,'Chile','CL','CHL','1','1');
-INSERT INTO countries VALUES (44,'China','CN','CHN','1','1');
-INSERT INTO countries VALUES (45,'Christmas Island','CX','CXR','1','1');
-INSERT INTO countries VALUES (46,'Cocos (Keeling) Islands','CC','CCK','1','1');
-INSERT INTO countries VALUES (47,'Colombia','CO','COL','1','1');
-INSERT INTO countries VALUES (48,'Comoros','KM','COM','1','1');
-INSERT INTO countries VALUES (49,'Congo','CG','COG','1','1');
-INSERT INTO countries VALUES (50,'Cook Islands','CK','COK','1','1');
-INSERT INTO countries VALUES (51,'Costa Rica','CR','CRI','1','1');
-INSERT INTO countries VALUES (52,'Cote D\'Ivoire','CI','CIV','1','1');
-INSERT INTO countries VALUES (53,'Croatia','HR','HRV','1','1');
-INSERT INTO countries VALUES (54,'Cuba','CU','CUB','1','1');
-INSERT INTO countries VALUES (55,'Cyprus','CY','CYP','1','1');
-INSERT INTO countries VALUES (56,'Czech Republic','CZ','CZE','1','1');
-INSERT INTO countries VALUES (57,'Denmark','DK','DNK','1','1');
-INSERT INTO countries VALUES (58,'Djibouti','DJ','DJI','1','1');
-INSERT INTO countries VALUES (59,'Dominica','DM','DMA','1','1');
-INSERT INTO countries VALUES (60,'Dominican Republic','DO','DOM','1','1');
-INSERT INTO countries VALUES (61,'East Timor','TP','TMP','1','1');
-INSERT INTO countries VALUES (62,'Ecuador','EC','ECU','1','1');
-INSERT INTO countries VALUES (63,'Egypt','EG','EGY','1','1');
-INSERT INTO countries VALUES (64,'El Salvador','SV','SLV','1','1');
-INSERT INTO countries VALUES (65,'Equatorial Guinea','GQ','GNQ','1','1');
-INSERT INTO countries VALUES (66,'Eritrea','ER','ERI','1','1');
-INSERT INTO countries VALUES (67,'Estonia','EE','EST','1','1');
-INSERT INTO countries VALUES (68,'Ethiopia','ET','ETH','1','1');
-INSERT INTO countries VALUES (69,'Falkland Islands (Malvinas)','FK','FLK','1','1');
-INSERT INTO countries VALUES (70,'Faroe Islands','FO','FRO','1','1');
-INSERT INTO countries VALUES (71,'Fiji','FJ','FJI','1','1');
-INSERT INTO countries VALUES (72,'Finland','FI','FIN','1','1');
-INSERT INTO countries VALUES (73,'France','FR','FRA','1','1');
-INSERT INTO countries VALUES (74,'France, Metropolitan','FX','FXX','1','1');
-INSERT INTO countries VALUES (75,'French Guiana','GF','GUF','1','1');
-INSERT INTO countries VALUES (76,'French Polynesia','PF','PYF','1','1');
-INSERT INTO countries VALUES (77,'French Southern Territories','TF','ATF','1','1');
-INSERT INTO countries VALUES (78,'Gabon','GA','GAB','1','1');
-INSERT INTO countries VALUES (79,'Gambia','GM','GMB','1','1');
-INSERT INTO countries VALUES (80,'Georgia','GE','GEO','1','1');
-INSERT INTO countries VALUES (81,'Germany','DE','DEU','5','1');
-INSERT INTO countries VALUES (82,'Ghana','GH','GHA','1','1');
-INSERT INTO countries VALUES (83,'Gibraltar','GI','GIB','1','1');
-INSERT INTO countries VALUES (84,'Greece','GR','GRC','1','1');
-INSERT INTO countries VALUES (85,'Greenland','GL','GRL','1','1');
-INSERT INTO countries VALUES (86,'Grenada','GD','GRD','1','1');
-INSERT INTO countries VALUES (87,'Guadeloupe','GP','GLP','1','1');
-INSERT INTO countries VALUES (88,'Guam','GU','GUM','1','1');
-INSERT INTO countries VALUES (89,'Guatemala','GT','GTM','1','1');
-INSERT INTO countries VALUES (90,'Guinea','GN','GIN','1','1');
-INSERT INTO countries VALUES (91,'Guinea-bissau','GW','GNB','1','1');
-INSERT INTO countries VALUES (92,'Guyana','GY','GUY','1','1');
-INSERT INTO countries VALUES (93,'Haiti','HT','HTI','1','1');
-INSERT INTO countries VALUES (94,'Heard and Mc Donald Islands','HM','HMD','1','1');
-INSERT INTO countries VALUES (95,'Honduras','HN','HND','1','1');
-INSERT INTO countries VALUES (96,'Hong Kong','HK','HKG','1','1');
-INSERT INTO countries VALUES (97,'Hungary','HU','HUN','1','1');
-INSERT INTO countries VALUES (98,'Iceland','IS','ISL','1','1');
-INSERT INTO countries VALUES (99,'India','IN','IND','1','1');
-INSERT INTO countries VALUES (100,'Indonesia','ID','IDN','1','1');
-INSERT INTO countries VALUES (101,'Iran (Islamic Republic of)','IR','IRN','1','1');
-INSERT INTO countries VALUES (102,'Iraq','IQ','IRQ','1','1');
-INSERT INTO countries VALUES (103,'Ireland','IE','IRL','1','1');
-INSERT INTO countries VALUES (104,'Israel','IL','ISR','1','1');
-INSERT INTO countries VALUES (105,'Italy','IT','ITA','1','1');
-INSERT INTO countries VALUES (106,'Jamaica','JM','JAM','1','1');
-INSERT INTO countries VALUES (107,'Japan','JP','JPN','1','1');
-INSERT INTO countries VALUES (108,'Jordan','JO','JOR','1','1');
-INSERT INTO countries VALUES (109,'Kazakhstan','KZ','KAZ','1','1');
-INSERT INTO countries VALUES (110,'Kenya','KE','KEN','1','1');
-INSERT INTO countries VALUES (111,'Kiribati','KI','KIR','1','1');
-INSERT INTO countries VALUES (112,'Korea, Democratic People\'s Republic of','KP','PRK','1','1');
-INSERT INTO countries VALUES (113,'Korea, Republic of','KR','KOR','1','1');
-INSERT INTO countries VALUES (114,'Kuwait','KW','KWT','1','1');
-INSERT INTO countries VALUES (115,'Kyrgyzstan','KG','KGZ','1','1');
-INSERT INTO countries VALUES (116,'Lao People\'s Democratic Republic','LA','LAO','1','1');
-INSERT INTO countries VALUES (117,'Latvia','LV','LVA','1','1');
-INSERT INTO countries VALUES (118,'Lebanon','LB','LBN','1','1');
-INSERT INTO countries VALUES (119,'Lesotho','LS','LSO','1','1');
-INSERT INTO countries VALUES (120,'Liberia','LR','LBR','1','1');
-INSERT INTO countries VALUES (121,'Libyan Arab Jamahiriya','LY','LBY','1','1');
-INSERT INTO countries VALUES (122,'Liechtenstein','LI','LIE','1','1');
-INSERT INTO countries VALUES (123,'Lithuania','LT','LTU','1','1');
-INSERT INTO countries VALUES (124,'Luxembourg','LU','LUX','1','1');
-INSERT INTO countries VALUES (125,'Macau','MO','MAC','1','1');
-INSERT INTO countries VALUES (126,'Macedonia, The Former Yugoslav Republic of','MK','MKD','1','1');
-INSERT INTO countries VALUES (127,'Madagascar','MG','MDG','1','1');
-INSERT INTO countries VALUES (128,'Malawi','MW','MWI','1','1');
-INSERT INTO countries VALUES (129,'Malaysia','MY','MYS','1','1');
-INSERT INTO countries VALUES (130,'Maldives','MV','MDV','1','1');
-INSERT INTO countries VALUES (131,'Mali','ML','MLI','1','1');
-INSERT INTO countries VALUES (132,'Malta','MT','MLT','1','1');
-INSERT INTO countries VALUES (133,'Marshall Islands','MH','MHL','1','1');
-INSERT INTO countries VALUES (134,'Martinique','MQ','MTQ','1','1');
-INSERT INTO countries VALUES (135,'Mauritania','MR','MRT','1','1');
-INSERT INTO countries VALUES (136,'Mauritius','MU','MUS','1','1');
-INSERT INTO countries VALUES (137,'Mayotte','YT','MYT','1','1');
-INSERT INTO countries VALUES (138,'Mexico','MX','MEX','1','1');
-INSERT INTO countries VALUES (139,'Micronesia, Federated States of','FM','FSM','1','1');
-INSERT INTO countries VALUES (140,'Moldova, Republic of','MD','MDA','1','1');
-INSERT INTO countries VALUES (141,'Monaco','MC','MCO','1','1');
-INSERT INTO countries VALUES (142,'Mongolia','MN','MNG','1','1');
-INSERT INTO countries VALUES (143,'Montserrat','MS','MSR','1','1');
-INSERT INTO countries VALUES (144,'Morocco','MA','MAR','1','1');
-INSERT INTO countries VALUES (145,'Mozambique','MZ','MOZ','1','1');
-INSERT INTO countries VALUES (146,'Myanmar','MM','MMR','1','1');
-INSERT INTO countries VALUES (147,'Namibia','NA','NAM','1','1');
-INSERT INTO countries VALUES (148,'Nauru','NR','NRU','1','1');
-INSERT INTO countries VALUES (149,'Nepal','NP','NPL','1','1');
-INSERT INTO countries VALUES (150,'Netherlands','NL','NLD','1','1');
-INSERT INTO countries VALUES (151,'Netherlands Antilles','AN','ANT','1','1');
-INSERT INTO countries VALUES (152,'New Caledonia','NC','NCL','1','1');
-INSERT INTO countries VALUES (153,'New Zealand','NZ','NZL','1','1');
-INSERT INTO countries VALUES (154,'Nicaragua','NI','NIC','1','1');
-INSERT INTO countries VALUES (155,'Niger','NE','NER','1','1');
-INSERT INTO countries VALUES (156,'Nigeria','NG','NGA','1','1');
-INSERT INTO countries VALUES (157,'Niue','NU','NIU','1','1');
-INSERT INTO countries VALUES (158,'Norfolk Island','NF','NFK','1','1');
-INSERT INTO countries VALUES (159,'Northern Mariana Islands','MP','MNP','1','1');
-INSERT INTO countries VALUES (160,'Norway','NO','NOR','1','1');
-INSERT INTO countries VALUES (161,'Oman','OM','OMN','1','1');
-INSERT INTO countries VALUES (162,'Pakistan','PK','PAK','1','1');
-INSERT INTO countries VALUES (163,'Palau','PW','PLW','1','1');
-INSERT INTO countries VALUES (164,'Panama','PA','PAN','1','1');
-INSERT INTO countries VALUES (165,'Papua New Guinea','PG','PNG','1','1');
-INSERT INTO countries VALUES (166,'Paraguay','PY','PRY','1','1');
-INSERT INTO countries VALUES (167,'Peru','PE','PER','1','1');
-INSERT INTO countries VALUES (168,'Philippines','PH','PHL','1','1');
-INSERT INTO countries VALUES (169,'Pitcairn','PN','PCN','1','1');
-INSERT INTO countries VALUES (170,'Poland','PL','POL','1','1');
-INSERT INTO countries VALUES (171,'Portugal','PT','PRT','1','1');
-INSERT INTO countries VALUES (172,'Puerto Rico','PR','PRI','1','1');
-INSERT INTO countries VALUES (173,'Qatar','QA','QAT','1','1');
-INSERT INTO countries VALUES (174,'Reunion','RE','REU','1','1');
-INSERT INTO countries VALUES (175,'Romania','RO','ROM','1','1');
-INSERT INTO countries VALUES (176,'Russian Federation','RU','RUS','1','1');
-INSERT INTO countries VALUES (177,'Rwanda','RW','RWA','1','1');
-INSERT INTO countries VALUES (178,'Saint Kitts and Nevis','KN','KNA','1','1');
-INSERT INTO countries VALUES (179,'Saint Lucia','LC','LCA','1','1');
-INSERT INTO countries VALUES (180,'Saint Vincent and the Grenadines','VC','VCT','1','1');
-INSERT INTO countries VALUES (181,'Samoa','WS','WSM','1','1');
-INSERT INTO countries VALUES (182,'San Marino','SM','SMR','1','1');
-INSERT INTO countries VALUES (183,'Sao Tome and Principe','ST','STP','1','1');
-INSERT INTO countries VALUES (184,'Saudi Arabia','SA','SAU','1','1');
-INSERT INTO countries VALUES (185,'Senegal','SN','SEN','1','1');
-INSERT INTO countries VALUES (186,'Seychelles','SC','SYC','1','1');
-INSERT INTO countries VALUES (187,'Sierra Leone','SL','SLE','1','1');
+INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG',1,1);
+INSERT INTO countries VALUES (2,'Albania','AL','ALB',1,1);
+INSERT INTO countries VALUES (3,'Algeria','DZ','DZA',1,1);
+INSERT INTO countries VALUES (4,'American Samoa','AS','ASM',1,1);
+INSERT INTO countries VALUES (5,'Andorra','AD','AND',1,1);
+INSERT INTO countries VALUES (6,'Angola','AO','AGO',1,1);
+INSERT INTO countries VALUES (7,'Anguilla','AI','AIA',1,1);
+INSERT INTO countries VALUES (8,'Antarctica','AQ','ATA',1,1);
+INSERT INTO countries VALUES (9,'Antigua and Barbuda','AG','ATG',1,1);
+INSERT INTO countries VALUES (10,'Argentina','AR','ARG',1,1);
+INSERT INTO countries VALUES (11,'Armenia','AM','ARM',1,1);
+INSERT INTO countries VALUES (12,'Aruba','AW','ABW',1,1);
+INSERT INTO countries VALUES (13,'Australia','AU','AUS',1,1);
+INSERT INTO countries VALUES (14,'Austria','AT','AUT',5,1);
+INSERT INTO countries VALUES (15,'Azerbaijan','AZ','AZE',1,1);
+INSERT INTO countries VALUES (16,'Bahamas','BS','BHS',1,1);
+INSERT INTO countries VALUES (17,'Bahrain','BH','BHR',1,1);
+INSERT INTO countries VALUES (18,'Bangladesh','BD','BGD',1,1);
+INSERT INTO countries VALUES (19,'Barbados','BB','BRB',1,1);
+INSERT INTO countries VALUES (20,'Belarus','BY','BLR',1,1);
+INSERT INTO countries VALUES (21,'Belgium','BE','BEL',1,1);
+INSERT INTO countries VALUES (22,'Belize','BZ','BLZ',1,1);
+INSERT INTO countries VALUES (23,'Benin','BJ','BEN',1,1);
+INSERT INTO countries VALUES (24,'Bermuda','BM','BMU',1,1);
+INSERT INTO countries VALUES (25,'Bhutan','BT','BTN',1,1);
+INSERT INTO countries VALUES (26,'Bolivia','BO','BOL',1,1);
+INSERT INTO countries VALUES (27,'Bosnia and Herzegowina','BA','BIH',1,1);
+INSERT INTO countries VALUES (28,'Botswana','BW','BWA',1,1);
+INSERT INTO countries VALUES (29,'Bouvet Island','BV','BVT',1,1);
+INSERT INTO countries VALUES (30,'Brazil','BR','BRA',1,1);
+INSERT INTO countries VALUES (31,'British Indian Ocean Territory','IO','IOT',1,1);
+INSERT INTO countries VALUES (32,'Brunei Darussalam','BN','BRN',1,1);
+INSERT INTO countries VALUES (33,'Bulgaria','BG','BGR',1,1);
+INSERT INTO countries VALUES (34,'Burkina Faso','BF','BFA',1,1);
+INSERT INTO countries VALUES (35,'Burundi','BI','BDI',1,1);
+INSERT INTO countries VALUES (36,'Cambodia','KH','KHM',1,1);
+INSERT INTO countries VALUES (37,'Cameroon','CM','CMR',1,1);
+INSERT INTO countries VALUES (38,'Canada','CA','CAN',1,1);
+INSERT INTO countries VALUES (39,'Cape Verde','CV','CPV',1,1);
+INSERT INTO countries VALUES (40,'Cayman Islands','KY','CYM',1,1);
+INSERT INTO countries VALUES (41,'Central African Republic','CF','CAF',1,1);
+INSERT INTO countries VALUES (42,'Chad','TD','TCD',1,1);
+INSERT INTO countries VALUES (43,'Chile','CL','CHL',1,1);
+INSERT INTO countries VALUES (44,'China','CN','CHN',1,1);
+INSERT INTO countries VALUES (45,'Christmas Island','CX','CXR',1,1);
+INSERT INTO countries VALUES (46,'Cocos (Keeling) Islands','CC','CCK',1,1);
+INSERT INTO countries VALUES (47,'Colombia','CO','COL',1,1);
+INSERT INTO countries VALUES (48,'Comoros','KM','COM',1,1);
+INSERT INTO countries VALUES (49,'Congo','CG','COG',1,1);
+INSERT INTO countries VALUES (50,'Cook Islands','CK','COK',1,1);
+INSERT INTO countries VALUES (51,'Costa Rica','CR','CRI',1,1);
+INSERT INTO countries VALUES (52,'Cote D\'Ivoire','CI','CIV',1,1);
+INSERT INTO countries VALUES (53,'Croatia','HR','HRV',1,1);
+INSERT INTO countries VALUES (54,'Cuba','CU','CUB',1,1);
+INSERT INTO countries VALUES (55,'Cyprus','CY','CYP',1,1);
+INSERT INTO countries VALUES (56,'Czech Republic','CZ','CZE',1,1);
+INSERT INTO countries VALUES (57,'Denmark','DK','DNK',1,1);
+INSERT INTO countries VALUES (58,'Djibouti','DJ','DJI',1,1);
+INSERT INTO countries VALUES (59,'Dominica','DM','DMA',1,1);
+INSERT INTO countries VALUES (60,'Dominican Republic','DO','DOM',1,1);
+INSERT INTO countries VALUES (61,'East Timor','TP','TMP',1,1);
+INSERT INTO countries VALUES (62,'Ecuador','EC','ECU',1,1);
+INSERT INTO countries VALUES (63,'Egypt','EG','EGY',1,1);
+INSERT INTO countries VALUES (64,'El Salvador','SV','SLV',1,1);
+INSERT INTO countries VALUES (65,'Equatorial Guinea','GQ','GNQ',1,1);
+INSERT INTO countries VALUES (66,'Eritrea','ER','ERI',1,1);
+INSERT INTO countries VALUES (67,'Estonia','EE','EST',1,1);
+INSERT INTO countries VALUES (68,'Ethiopia','ET','ETH',1,1);
+INSERT INTO countries VALUES (69,'Falkland Islands (Malvinas)','FK','FLK',1,1);
+INSERT INTO countries VALUES (70,'Faroe Islands','FO','FRO',1,1);
+INSERT INTO countries VALUES (71,'Fiji','FJ','FJI',1,1);
+INSERT INTO countries VALUES (72,'Finland','FI','FIN',1,1);
+INSERT INTO countries VALUES (73,'France','FR','FRA',1,1);
+INSERT INTO countries VALUES (74,'France, Metropolitan','FX','FXX',1,1);
+INSERT INTO countries VALUES (75,'French Guiana','GF','GUF',1,1);
+INSERT INTO countries VALUES (76,'French Polynesia','PF','PYF',1,1);
+INSERT INTO countries VALUES (77,'French Southern Territories','TF','ATF',1,1);
+INSERT INTO countries VALUES (78,'Gabon','GA','GAB',1,1);
+INSERT INTO countries VALUES (79,'Gambia','GM','GMB',1,1);
+INSERT INTO countries VALUES (80,'Georgia','GE','GEO',1,1);
+INSERT INTO countries VALUES (81,'Germany','DE','DEU',5,1);
+INSERT INTO countries VALUES (82,'Ghana','GH','GHA',1,1);
+INSERT INTO countries VALUES (83,'Gibraltar','GI','GIB',1,1);
+INSERT INTO countries VALUES (84,'Greece','GR','GRC',1,1);
+INSERT INTO countries VALUES (85,'Greenland','GL','GRL',1,1);
+INSERT INTO countries VALUES (86,'Grenada','GD','GRD',1,1);
+INSERT INTO countries VALUES (87,'Guadeloupe','GP','GLP',1,1);
+INSERT INTO countries VALUES (88,'Guam','GU','GUM',1,1);
+INSERT INTO countries VALUES (89,'Guatemala','GT','GTM',1,1);
+INSERT INTO countries VALUES (90,'Guinea','GN','GIN',1,1);
+INSERT INTO countries VALUES (91,'Guinea-bissau','GW','GNB',1,1);
+INSERT INTO countries VALUES (92,'Guyana','GY','GUY',1,1);
+INSERT INTO countries VALUES (93,'Haiti','HT','HTI',1,1);
+INSERT INTO countries VALUES (94,'Heard and Mc Donald Islands','HM','HMD',1,1);
+INSERT INTO countries VALUES (95,'Honduras','HN','HND',1,1);
+INSERT INTO countries VALUES (96,'Hong Kong','HK','HKG',1,1);
+INSERT INTO countries VALUES (97,'Hungary','HU','HUN',1,1);
+INSERT INTO countries VALUES (98,'Iceland','IS','ISL',1,1);
+INSERT INTO countries VALUES (99,'India','IN','IND',1,1);
+INSERT INTO countries VALUES (100,'Indonesia','ID','IDN',1,1);
+INSERT INTO countries VALUES (101,'Iran (Islamic Republic of)','IR','IRN',1,1);
+INSERT INTO countries VALUES (102,'Iraq','IQ','IRQ',1,1);
+INSERT INTO countries VALUES (103,'Ireland','IE','IRL',1,1);
+INSERT INTO countries VALUES (104,'Israel','IL','ISR',1,1);
+INSERT INTO countries VALUES (105,'Italy','IT','ITA',1,1);
+INSERT INTO countries VALUES (106,'Jamaica','JM','JAM',1,1);
+INSERT INTO countries VALUES (107,'Japan','JP','JPN',1,1);
+INSERT INTO countries VALUES (108,'Jordan','JO','JOR',1,1);
+INSERT INTO countries VALUES (109,'Kazakhstan','KZ','KAZ',1,1);
+INSERT INTO countries VALUES (110,'Kenya','KE','KEN',1,1);
+INSERT INTO countries VALUES (111,'Kiribati','KI','KIR',1,1);
+INSERT INTO countries VALUES (112,'Korea, Democratic People\'s Republic of','KP','PRK',1,1);
+INSERT INTO countries VALUES (113,'Korea, Republic of','KR','KOR',1,1);
+INSERT INTO countries VALUES (114,'Kuwait','KW','KWT',1,1);
+INSERT INTO countries VALUES (115,'Kyrgyzstan','KG','KGZ',1,1);
+INSERT INTO countries VALUES (116,'Lao People\'s Democratic Republic','LA','LAO',1,1);
+INSERT INTO countries VALUES (117,'Latvia','LV','LVA',1,1);
+INSERT INTO countries VALUES (118,'Lebanon','LB','LBN',1,1);
+INSERT INTO countries VALUES (119,'Lesotho','LS','LSO',1,1);
+INSERT INTO countries VALUES (120,'Liberia','LR','LBR',1,1);
+INSERT INTO countries VALUES (121,'Libyan Arab Jamahiriya','LY','LBY',1,1);
+INSERT INTO countries VALUES (122,'Liechtenstein','LI','LIE',1,1);
+INSERT INTO countries VALUES (123,'Lithuania','LT','LTU',1,1);
+INSERT INTO countries VALUES (124,'Luxembourg','LU','LUX',1,1);
+INSERT INTO countries VALUES (125,'Macau','MO','MAC',1,1);
+INSERT INTO countries VALUES (126,'Macedonia, The Former Yugoslav Republic of','MK','MKD',1,1);
+INSERT INTO countries VALUES (127,'Madagascar','MG','MDG',1,1);
+INSERT INTO countries VALUES (128,'Malawi','MW','MWI',1,1);
+INSERT INTO countries VALUES (129,'Malaysia','MY','MYS',1,1);
+INSERT INTO countries VALUES (130,'Maldives','MV','MDV',1,1);
+INSERT INTO countries VALUES (131,'Mali','ML','MLI',1,1);
+INSERT INTO countries VALUES (132,'Malta','MT','MLT',1,1);
+INSERT INTO countries VALUES (133,'Marshall Islands','MH','MHL',1,1);
+INSERT INTO countries VALUES (134,'Martinique','MQ','MTQ',1,1);
+INSERT INTO countries VALUES (135,'Mauritania','MR','MRT',1,1);
+INSERT INTO countries VALUES (136,'Mauritius','MU','MUS',1,1);
+INSERT INTO countries VALUES (137,'Mayotte','YT','MYT',1,1);
+INSERT INTO countries VALUES (138,'Mexico','MX','MEX',1,1);
+INSERT INTO countries VALUES (139,'Micronesia, Federated States of','FM','FSM',1,1);
+INSERT INTO countries VALUES (140,'Moldova, Republic of','MD','MDA',1,1);
+INSERT INTO countries VALUES (141,'Monaco','MC','MCO',1,1);
+INSERT INTO countries VALUES (142,'Mongolia','MN','MNG',1,1);
+INSERT INTO countries VALUES (143,'Montserrat','MS','MSR',1,1);
+INSERT INTO countries VALUES (144,'Morocco','MA','MAR',1,1);
+INSERT INTO countries VALUES (145,'Mozambique','MZ','MOZ',1,1);
+INSERT INTO countries VALUES (146,'Myanmar','MM','MMR',1,1);
+INSERT INTO countries VALUES (147,'Namibia','NA','NAM',1,1);
+INSERT INTO countries VALUES (148,'Nauru','NR','NRU',1,1);
+INSERT INTO countries VALUES (149,'Nepal','NP','NPL',1,1);
+INSERT INTO countries VALUES (150,'Netherlands','NL','NLD',1,1);
+INSERT INTO countries VALUES (151,'Netherlands Antilles','AN','ANT',1,1);
+INSERT INTO countries VALUES (152,'New Caledonia','NC','NCL',1,1);
+INSERT INTO countries VALUES (153,'New Zealand','NZ','NZL',1,1);
+INSERT INTO countries VALUES (154,'Nicaragua','NI','NIC',1,1);
+INSERT INTO countries VALUES (155,'Niger','NE','NER',1,1);
+INSERT INTO countries VALUES (156,'Nigeria','NG','NGA',1,1);
+INSERT INTO countries VALUES (157,'Niue','NU','NIU',1,1);
+INSERT INTO countries VALUES (158,'Norfolk Island','NF','NFK',1,1);
+INSERT INTO countries VALUES (159,'Northern Mariana Islands','MP','MNP',1,1);
+INSERT INTO countries VALUES (160,'Norway','NO','NOR',1,1);
+INSERT INTO countries VALUES (161,'Oman','OM','OMN',1,1);
+INSERT INTO countries VALUES (162,'Pakistan','PK','PAK',1,1);
+INSERT INTO countries VALUES (163,'Palau','PW','PLW',1,1);
+INSERT INTO countries VALUES (164,'Panama','PA','PAN',1,1);
+INSERT INTO countries VALUES (165,'Papua New Guinea','PG','PNG',1,1);
+INSERT INTO countries VALUES (166,'Paraguay','PY','PRY',1,1);
+INSERT INTO countries VALUES (167,'Peru','PE','PER',1,1);
+INSERT INTO countries VALUES (168,'Philippines','PH','PHL',1,1);
+INSERT INTO countries VALUES (169,'Pitcairn','PN','PCN',1,1);
+INSERT INTO countries VALUES (170,'Poland','PL','POL',1,1);
+INSERT INTO countries VALUES (171,'Portugal','PT','PRT',1,1);
+INSERT INTO countries VALUES (172,'Puerto Rico','PR','PRI',1,1);
+INSERT INTO countries VALUES (173,'Qatar','QA','QAT',1,1);
+INSERT INTO countries VALUES (174,'Reunion','RE','REU',1,1);
+INSERT INTO countries VALUES (175,'Romania','RO','ROM',1,1);
+INSERT INTO countries VALUES (176,'Russian Federation','RU','RUS',1,1);
+INSERT INTO countries VALUES (177,'Rwanda','RW','RWA',1,1);
+INSERT INTO countries VALUES (178,'Saint Kitts and Nevis','KN','KNA',1,1);
+INSERT INTO countries VALUES (179,'Saint Lucia','LC','LCA',1,1);
+INSERT INTO countries VALUES (180,'Saint Vincent and the Grenadines','VC','VCT',1,1);
+INSERT INTO countries VALUES (181,'Samoa','WS','WSM',1,1);
+INSERT INTO countries VALUES (182,'San Marino','SM','SMR',1,1);
+INSERT INTO countries VALUES (183,'Sao Tome and Principe','ST','STP',1,1);
+INSERT INTO countries VALUES (184,'Saudi Arabia','SA','SAU',1,1);
+INSERT INTO countries VALUES (185,'Senegal','SN','SEN',1,1);
+INSERT INTO countries VALUES (186,'Seychelles','SC','SYC',1,1);
+INSERT INTO countries VALUES (187,'Sierra Leone','SL','SLE',1,1);
 INSERT INTO countries VALUES (188,'Singapore','SG','SGP', '4','1');
-INSERT INTO countries VALUES (189,'Slovakia (Slovak Republic)','SK','SVK','1','1');
-INSERT INTO countries VALUES (190,'Slovenia','SI','SVN','1','1');
-INSERT INTO countries VALUES (191,'Solomon Islands','SB','SLB','1','1');
-INSERT INTO countries VALUES (192,'Somalia','SO','SOM','1','1');
-INSERT INTO countries VALUES (193,'South Africa','ZA','ZAF','1','1');
-INSERT INTO countries VALUES (194,'South Georgia and the South Sandwich Islands','GS','SGS','1','1');
+INSERT INTO countries VALUES (189,'Slovakia (Slovak Republic)','SK','SVK',1,1);
+INSERT INTO countries VALUES (190,'Slovenia','SI','SVN',1,1);
+INSERT INTO countries VALUES (191,'Solomon Islands','SB','SLB',1,1);
+INSERT INTO countries VALUES (192,'Somalia','SO','SOM',1,1);
+INSERT INTO countries VALUES (193,'South Africa','ZA','ZAF',1,1);
+INSERT INTO countries VALUES (194,'South Georgia and the South Sandwich Islands','GS','SGS',1,1);
 INSERT INTO countries VALUES (195,'Spain','ES','ESP','3','1');
-INSERT INTO countries VALUES (196,'Sri Lanka','LK','LKA','1','1');
-INSERT INTO countries VALUES (197,'St. Helena','SH','SHN','1','1');
-INSERT INTO countries VALUES (198,'St. Pierre and Miquelon','PM','SPM','1','1');
-INSERT INTO countries VALUES (199,'Sudan','SD','SDN','1','1');
-INSERT INTO countries VALUES (200,'Suriname','SR','SUR','1','1');
-INSERT INTO countries VALUES (201,'Svalbard and Jan Mayen Islands','SJ','SJM','1','1');
-INSERT INTO countries VALUES (202,'Swaziland','SZ','SWZ','1','1');
-INSERT INTO countries VALUES (203,'Sweden','SE','SWE','1','1');
-INSERT INTO countries VALUES (204,'Switzerland','CH','CHE','1','1');
-INSERT INTO countries VALUES (205,'Syrian Arab Republic','SY','SYR','1','1');
-INSERT INTO countries VALUES (206,'Taiwan','TW','TWN','1','1');
-INSERT INTO countries VALUES (207,'Tajikistan','TJ','TJK','1','1');
-INSERT INTO countries VALUES (208,'Tanzania, United Republic of','TZ','TZA','1','1');
-INSERT INTO countries VALUES (209,'Thailand','TH','THA','1','1');
-INSERT INTO countries VALUES (210,'Togo','TG','TGO','1','1');
-INSERT INTO countries VALUES (211,'Tokelau','TK','TKL','1','1');
-INSERT INTO countries VALUES (212,'Tonga','TO','TON','1','1');
-INSERT INTO countries VALUES (213,'Trinidad and Tobago','TT','TTO','1','1');
-INSERT INTO countries VALUES (214,'Tunisia','TN','TUN','1','1');
-INSERT INTO countries VALUES (215,'Turkey','TR','TUR','1','1');
-INSERT INTO countries VALUES (216,'Turkmenistan','TM','TKM','1','1');
-INSERT INTO countries VALUES (217,'Turks and Caicos Islands','TC','TCA','1','1');
-INSERT INTO countries VALUES (218,'Tuvalu','TV','TUV','1','1');
-INSERT INTO countries VALUES (219,'Uganda','UG','UGA','1','1');
-INSERT INTO countries VALUES (220,'Ukraine','UA','UKR','1','1');
-INSERT INTO countries VALUES (221,'United Arab Emirates','AE','ARE','1','1');
-INSERT INTO countries VALUES (222,'United Kingdom','GB','GBR','1','1');
+INSERT INTO countries VALUES (196,'Sri Lanka','LK','LKA',1,1);
+INSERT INTO countries VALUES (197,'St. Helena','SH','SHN',1,1);
+INSERT INTO countries VALUES (198,'St. Pierre and Miquelon','PM','SPM',1,1);
+INSERT INTO countries VALUES (199,'Sudan','SD','SDN',1,1);
+INSERT INTO countries VALUES (200,'Suriname','SR','SUR',1,1);
+INSERT INTO countries VALUES (201,'Svalbard and Jan Mayen Islands','SJ','SJM',1,1);
+INSERT INTO countries VALUES (202,'Swaziland','SZ','SWZ',1,1);
+INSERT INTO countries VALUES (203,'Sweden','SE','SWE',1,1);
+INSERT INTO countries VALUES (204,'Switzerland','CH','CHE',1,1);
+INSERT INTO countries VALUES (205,'Syrian Arab Republic','SY','SYR',1,1);
+INSERT INTO countries VALUES (206,'Taiwan','TW','TWN',1,1);
+INSERT INTO countries VALUES (207,'Tajikistan','TJ','TJK',1,1);
+INSERT INTO countries VALUES (208,'Tanzania, United Republic of','TZ','TZA',1,1);
+INSERT INTO countries VALUES (209,'Thailand','TH','THA',1,1);
+INSERT INTO countries VALUES (210,'Togo','TG','TGO',1,1);
+INSERT INTO countries VALUES (211,'Tokelau','TK','TKL',1,1);
+INSERT INTO countries VALUES (212,'Tonga','TO','TON',1,1);
+INSERT INTO countries VALUES (213,'Trinidad and Tobago','TT','TTO',1,1);
+INSERT INTO countries VALUES (214,'Tunisia','TN','TUN',1,1);
+INSERT INTO countries VALUES (215,'Turkey','TR','TUR',1,1);
+INSERT INTO countries VALUES (216,'Turkmenistan','TM','TKM',1,1);
+INSERT INTO countries VALUES (217,'Turks and Caicos Islands','TC','TCA',1,1);
+INSERT INTO countries VALUES (218,'Tuvalu','TV','TUV',1,1);
+INSERT INTO countries VALUES (219,'Uganda','UG','UGA',1,1);
+INSERT INTO countries VALUES (220,'Ukraine','UA','UKR',1,1);
+INSERT INTO countries VALUES (221,'United Arab Emirates','AE','ARE',1,1);
+INSERT INTO countries VALUES (222,'United Kingdom','GB','GBR',1,1);
 INSERT INTO countries VALUES (223,'United States','US','USA', '2','1');
-INSERT INTO countries VALUES (224,'United States Minor Outlying Islands','UM','UMI','1','1');
-INSERT INTO countries VALUES (225,'Uruguay','UY','URY','1','1');
-INSERT INTO countries VALUES (226,'Uzbekistan','UZ','UZB','1','1');
-INSERT INTO countries VALUES (227,'Vanuatu','VU','VUT','1','1');
-INSERT INTO countries VALUES (228,'Vatican City State (Holy See)','VA','VAT','1','1');
-INSERT INTO countries VALUES (229,'Venezuela','VE','VEN','1','1');
-INSERT INTO countries VALUES (230,'Viet Nam','VN','VNM','1','1');
-INSERT INTO countries VALUES (231,'Virgin Islands (British)','VG','VGB','1','1');
-INSERT INTO countries VALUES (232,'Virgin Islands (U.S.)','VI','VIR','1','1');
-INSERT INTO countries VALUES (233,'Wallis and Futuna Islands','WF','WLF','1','1');
-INSERT INTO countries VALUES (234,'Western Sahara','EH','ESH','1','1');
-INSERT INTO countries VALUES (235,'Yemen','YE','YEM','1','1');
+INSERT INTO countries VALUES (224,'United States Minor Outlying Islands','UM','UMI',1,1);
+INSERT INTO countries VALUES (225,'Uruguay','UY','URY',1,1);
+INSERT INTO countries VALUES (226,'Uzbekistan','UZ','UZB',1,1);
+INSERT INTO countries VALUES (227,'Vanuatu','VU','VUT',1,1);
+INSERT INTO countries VALUES (228,'Vatican City State (Holy See)','VA','VAT',1,1);
+INSERT INTO countries VALUES (229,'Venezuela','VE','VEN',1,1);
+INSERT INTO countries VALUES (230,'Viet Nam','VN','VNM',1,1);
+INSERT INTO countries VALUES (231,'Virgin Islands (British)','VG','VGB',1,1);
+INSERT INTO countries VALUES (232,'Virgin Islands (U.S.)','VI','VIR',1,1);
+INSERT INTO countries VALUES (233,'Wallis and Futuna Islands','WF','WLF',1,1);
+INSERT INTO countries VALUES (234,'Western Sahara','EH','ESH',1,1);
+INSERT INTO countries VALUES (235,'Yemen','YE','YEM',1,1);
 # BOF - Tomcraft - 2010-07-02 - Deleted Yugoslavia
-#INSERT INTO countries VALUES (236,'Yugoslavia','YU','YUG','1','1');
+#INSERT INTO countries VALUES (236,'Yugoslavia','YU','YUG',1,1);
 # EOF - Tomcraft - 2010-07-02 - Deleted Yugoslavia
-INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR','1','1');
-INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB','1','1');
-INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1','1');
+INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR',1,1);
+INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB',1,1);
+INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE',1,1);
 # BOF - Tomcraft - 2010-07-02 - Added Serbia & Montenegro
-INSERT INTO countries VALUES (240, 'Serbia', 'RS', 'SRB', 1, 1);
-INSERT INTO countries VALUES (241, 'Montenegro', 'ME', 'MNE', 1, 1);
+INSERT INTO countries VALUES (240, 'Serbia','RS','SRB',1,1);
+INSERT INTO countries VALUES (241, 'Montenegro','ME','MNE',1,1);
 # EOF - Tomcraft - 2010-07-02 - Added Serbia & Montenegro
 
 INSERT INTO currencies VALUES (1,'Euro','EUR','','EUR',',','.','2','1.0000', now());
-
 
 # BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages (status 1)
 INSERT INTO languages VALUES (1,'English','en','icon.gif','english',2,'iso-8859-15',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','icon.gif','german',1,'iso-8859-15',1);
 # EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages (status 1)
 
-
-INSERT INTO orders_status VALUES ( '1', '1', 'Pending');
-INSERT INTO orders_status VALUES ( '1', '2', 'Offen');
-INSERT INTO orders_status VALUES ( '2', '1', 'Processing');
-INSERT INTO orders_status VALUES ( '2', '2', 'In Bearbeitung');
-INSERT INTO orders_status VALUES ( '3', '1', 'Delivered');
-INSERT INTO orders_status VALUES ( '3', '2', 'Versendet');
-
-
+INSERT INTO orders_status VALUES (1,1,'Pending');
+INSERT INTO orders_status VALUES (1,2,'Offen');
+INSERT INTO orders_status VALUES (2,1,'Processing');
+INSERT INTO orders_status VALUES (2,2,'In Bearbeitung');
+INSERT INTO orders_status VALUES (3,1,'Delivered');
+INSERT INTO orders_status VALUES (3,2,'Versendet');
 
 # USA
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
@@ -1932,7 +1918,7 @@ INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
 
 # Germany
-#Dokuman - 2009-08-21 - Bundesländer->ISO-3166-2
+# Dokuman - 2009-08-21 - Bundesländer->ISO-3166-2
 INSERT INTO zones VALUES (79,81,'NI','Niedersachsen');
 INSERT INTO zones VALUES (80,81,'BW','Baden-Württemberg');
 INSERT INTO zones VALUES (81,81,'BY','Bayern');
@@ -1990,130 +1976,130 @@ INSERT INTO zones VALUES (128,204,'ZG','Zug');
 INSERT INTO zones VALUES (129,204,'ZH','Zürich');
 
 # Spain
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'A Coruña','A Coruña');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Alava','Alava');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Albacete','Albacete');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Alicante','Alicante');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Almeria','Almeria');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Asturias','Asturias');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Avila','Avila');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Badajoz','Badajoz');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Baleares','Baleares');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Barcelona','Barcelona');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Burgos','Burgos');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Caceres','Caceres');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cadiz','Cadiz');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cantabria','Cantabria');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Castellon','Castellon');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Ceuta','Ceuta');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Ciudad Real','Ciudad Real');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cordoba','Cordoba');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cuenca','Cuenca');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Girona','Girona');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Granada','Granada');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Guadalajara','Guadalajara');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Guipuzcoa','Guipuzcoa');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Huelva','Huelva');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Huesca','Huesca');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Jaen','Jaen');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'La Rioja','La Rioja');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Las Palmas','Las Palmas');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Leon','Leon');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Lleida','Lleida');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Lugo','Lugo');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Madrid','Madrid');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Malaga','Malaga');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Melilla','Melilla');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Murcia','Murcia');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Navarra','Navarra');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Ourense','Ourense');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Palencia','Palencia');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Pontevedra','Pontevedra');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Salamanca','Salamanca');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Santa Cruz de Tenerife','Santa Cruz de Tenerife');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Segovia','Segovia');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Sevilla','Sevilla');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Soria','Soria');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Tarragona','Tarragona');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Teruel','Teruel');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Toledo','Toledo');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Valencia','Valencia');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Valladolid','Valladolid');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Vizcaya','Vizcaya');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zamora','Zamora');
-INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zaragoza','Zaragoza');
+INSERT INTO zones VALUES (130,195,'A Coruña','A Coruña');
+INSERT INTO zones VALUES (131,195,'Alava','Alava');
+INSERT INTO zones VALUES (132,195,'Albacete','Albacete');
+INSERT INTO zones VALUES (133,195,'Alicante','Alicante');
+INSERT INTO zones VALUES (134,195,'Almeria','Almeria');
+INSERT INTO zones VALUES (135,195,'Asturias','Asturias');
+INSERT INTO zones VALUES (136,195,'Avila','Avila');
+INSERT INTO zones VALUES (137,195,'Badajoz','Badajoz');
+INSERT INTO zones VALUES (138,195,'Baleares','Baleares');
+INSERT INTO zones VALUES (139,195,'Barcelona','Barcelona');
+INSERT INTO zones VALUES (140,195,'Burgos','Burgos');
+INSERT INTO zones VALUES (141,195,'Caceres','Caceres');
+INSERT INTO zones VALUES (142,195,'Cadiz','Cadiz');
+INSERT INTO zones VALUES (143,195,'Cantabria','Cantabria');
+INSERT INTO zones VALUES (144,195,'Castellon','Castellon');
+INSERT INTO zones VALUES (145,195,'Ceuta','Ceuta');
+INSERT INTO zones VALUES (146,195,'Ciudad Real','Ciudad Real');
+INSERT INTO zones VALUES (147,195,'Cordoba','Cordoba');
+INSERT INTO zones VALUES (148,195,'Cuenca','Cuenca');
+INSERT INTO zones VALUES (149,195,'Girona','Girona');
+INSERT INTO zones VALUES (150,195,'Granada','Granada');
+INSERT INTO zones VALUES (151,195,'Guadalajara','Guadalajara');
+INSERT INTO zones VALUES (152,195,'Guipuzcoa','Guipuzcoa');
+INSERT INTO zones VALUES (153,195,'Huelva','Huelva');
+INSERT INTO zones VALUES (154,195,'Huesca','Huesca');
+INSERT INTO zones VALUES (155,195,'Jaen','Jaen');
+INSERT INTO zones VALUES (156,195,'La Rioja','La Rioja');
+INSERT INTO zones VALUES (157,195,'Las Palmas','Las Palmas');
+INSERT INTO zones VALUES (158,195,'Leon','Leon');
+INSERT INTO zones VALUES (159,195,'Lleida','Lleida');
+INSERT INTO zones VALUES (160,195,'Lugo','Lugo');
+INSERT INTO zones VALUES (161,195,'Madrid','Madrid');
+INSERT INTO zones VALUES (162,195,'Malaga','Malaga');
+INSERT INTO zones VALUES (163,195,'Melilla','Melilla');
+INSERT INTO zones VALUES (164,195,'Murcia','Murcia');
+INSERT INTO zones VALUES (165,195,'Navarra','Navarra');
+INSERT INTO zones VALUES (166,195,'Ourense','Ourense');
+INSERT INTO zones VALUES (167,195,'Palencia','Palencia');
+INSERT INTO zones VALUES (168,195,'Pontevedra','Pontevedra');
+INSERT INTO zones VALUES (169,195,'Salamanca','Salamanca');
+INSERT INTO zones VALUES (170,195,'Santa Cruz de Tenerife','Santa Cruz de Tenerife');
+INSERT INTO zones VALUES (171,195,'Segovia','Segovia');
+INSERT INTO zones VALUES (172,195,'Sevilla','Sevilla');
+INSERT INTO zones VALUES (173,195,'Soria','Soria');
+INSERT INTO zones VALUES (174,195,'Tarragona','Tarragona');
+INSERT INTO zones VALUES (175,195,'Teruel','Teruel');
+INSERT INTO zones VALUES (176,195,'Toledo','Toledo');
+INSERT INTO zones VALUES (177,195,'Valencia','Valencia');
+INSERT INTO zones VALUES (178,195,'Valladolid','Valladolid');
+INSERT INTO zones VALUES (179,195,'Vizcaya','Vizcaya');
+INSERT INTO zones VALUES (180,195,'Zamora','Zamora');
+INSERT INTO zones VALUES (181,195,'Zaragoza','Zaragoza');
 
 #Australia
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'NSW','New South Wales');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'VIC','Victoria');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'QLD','Queensland');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'NT','Northern Territory');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'WA','Western Australia');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'SA','South Australia');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'TAS','Tasmania');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',13,'ACT','Australian Capital Territory');
+INSERT INTO zones VALUES (182,13,'NSW','New South Wales');
+INSERT INTO zones VALUES (183,13,'VIC','Victoria');
+INSERT INTO zones VALUES (184,13,'QLD','Queensland');
+INSERT INTO zones VALUES (185,13,'NT','Northern Territory');
+INSERT INTO zones VALUES (186,13,'WA','Western Australia');
+INSERT INTO zones VALUES (187,13,'SA','South Australia');
+INSERT INTO zones VALUES (188,13,'TAS','Tasmania');
+INSERT INTO zones VALUES (189,13,'ACT','Australian Capital Territory');
 
 #New Zealand
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Northland','Northland');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Auckland','Auckland');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Waikato','Waikato');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Bay of Plenty','Bay of Plenty');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Gisborne','Gisborne');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Hawkes Bay','Hawkes Bay');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Taranaki','Taranaki');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Manawatu-Wanganui','Manawatu-Wanganui');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Wellington','Wellington');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'West Coast','West Coast');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Canterbury','Canterbury');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Otago','Otago');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Southland','Southland');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Tasman','Tasman');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Nelson','Nelson');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',153,'Marlborough','Marlborough');
+INSERT INTO zones VALUES (190,153,'Northland','Northland');
+INSERT INTO zones VALUES (191,153,'Auckland','Auckland');
+INSERT INTO zones VALUES (192,153,'Waikato','Waikato');
+INSERT INTO zones VALUES (193,153,'Bay of Plenty','Bay of Plenty');
+INSERT INTO zones VALUES (194,153,'Gisborne','Gisborne');
+INSERT INTO zones VALUES (195,153,'Hawkes Bay','Hawkes Bay');
+INSERT INTO zones VALUES (196,153,'Taranaki','Taranaki');
+INSERT INTO zones VALUES (197,153,'Manawatu-Wanganui','Manawatu-Wanganui');
+INSERT INTO zones VALUES (198,153,'Wellington','Wellington');
+INSERT INTO zones VALUES (199,153,'West Coast','West Coast');
+INSERT INTO zones VALUES (200,153,'Canterbury','Canterbury');
+INSERT INTO zones VALUES (201,153,'Otago','Otago');
+INSERT INTO zones VALUES (202,153,'Southland','Southland');
+INSERT INTO zones VALUES (203,153,'Tasman','Tasman');
+INSERT INTO zones VALUES (204,153,'Nelson','Nelson');
+INSERT INTO zones VALUES (205,153,'Marlborough','Marlborough');
 
 #Brazil
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'SP', 'São Paulo');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'RJ', 'Rio de Janeiro');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'PE', 'Pernanbuco');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'BA', 'Bahia');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'AM', 'Amazonas');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'MG', 'Minas Gerais');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'ES', 'Espirito Santo');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'RS', 'Rio Grande do Sul');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'PR', 'Paraná');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'SC', 'Santa Catarina');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'RG', 'Rio Grande do Norte');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'MS', 'Mato Grosso do Sul');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'MT', 'Mato Grosso');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'GO', 'Goias');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'TO', 'Tocantins');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'DF', 'Distrito Federal');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'RO', 'Rondonia');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'AC', 'Acre');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'AP', 'Amapa');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'RO', 'Roraima');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'AL', 'Alagoas');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'CE', 'Ceará');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'MA', 'Maranhão');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'PA', 'Pará');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'PB', 'Paraíba');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'PI', 'Piauí');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '30', 'SE', 'Sergipe');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'SP', 'São Paulo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'RJ', 'Rio de Janeiro');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'PE', 'Pernanbuco');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'BA', 'Bahia');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'AM', 'Amazonas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'MG', 'Minas Gerais');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'ES', 'Espirito Santo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'RS', 'Rio Grande do Sul');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'PR', 'Paraná');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'SC', 'Santa Catarina');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'RG', 'Rio Grande do Norte');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'MS', 'Mato Grosso do Sul');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'MT', 'Mato Grosso');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'GO', 'Goias');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'TO', 'Tocantins');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'DF', 'Distrito Federal');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'RO', 'Rondonia');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'AC', 'Acre');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'AP', 'Amapa');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'RO', 'Roraima');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'AL', 'Alagoas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'CE', 'Ceará');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'MA', 'Maranhão');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'PA', 'Pará');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'PB', 'Paraíba');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'PI', 'Piauí');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 30, 'SE', 'Sergipe');
 
 #Chile
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'I', 'I Región de Tarapacá');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'II', 'II Región de Antofagasta');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'III', 'III Región de Atacama');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'IV', 'IV Región de Coquimbo');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'V', 'V Región de Valaparaíso');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'RM', 'Región Metropolitana');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'VI', 'VI Región de L. B. O´higgins');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'VII', 'VII Región del Maule');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'VIII', 'VIII Región del Bío Bío');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'IX', 'IX Región de la Araucanía');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'X', 'X Región de los Lagos');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'XI', 'XI Región de Aysén');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '43', 'XII', 'XII Región de Magallanes');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'I', 'I Región de Tarapacá');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'II', 'II Región de Antofagasta');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'III', 'III Región de Atacama');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'IV', 'IV Región de Coquimbo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'V', 'V Región de Valaparaíso');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'RM', 'Región Metropolitana');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'VI', 'VI Región de L. B. O´higgins');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'VII', 'VII Región del Maule');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'VIII', 'VIII Región del Bío Bío');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'IX', 'IX Región de la Araucanía');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'X', 'X Región de los Lagos');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'XI', 'XI Región de Aysén');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 43, 'XII', 'XII Región de Magallanes');
 
 #Columbia
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',47,'AMA','Amazonas');
@@ -2403,38 +2389,38 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',10
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',105,'VT','Viterbo');
 
 #Japan
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Niigata', 'Niigata');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Toyama', 'Toyama');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Ishikawa', 'Ishikawa');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Fukui', 'Fukui');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Yamanashi', 'Yamanashi');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Nagano', 'Nagano');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Gifu', 'Gifu');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Shizuoka', 'Shizuoka');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Aichi', 'Aichi');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Mie', 'Mie');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Shiga', 'Shiga');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Kyoto', 'Kyoto');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Osaka', 'Osaka');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Hyogo', 'Hyogo');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Nara', 'Nara');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Wakayama', 'Wakayama');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Tottori', 'Tottori');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Shimane', 'Shimane');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Okayama', 'Okayama');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Hiroshima', 'Hiroshima');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Yamaguchi', 'Yamaguchi');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Tokushima', 'Tokushima');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Kagawa', 'Kagawa');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Ehime', 'Ehime');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Kochi', 'Kochi');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Fukuoka', 'Fukuoka');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Saga', 'Saga');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Nagasaki', 'Nagasaki');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Kumamoto', 'Kumamoto');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Oita', 'Oita');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Miyazaki', 'Miyazaki');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '107', 'Kagoshima', 'Kagoshima');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Niigata', 'Niigata');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Toyama', 'Toyama');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Ishikawa', 'Ishikawa');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Fukui', 'Fukui');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Yamanashi', 'Yamanashi');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Nagano', 'Nagano');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Gifu', 'Gifu');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Shizuoka', 'Shizuoka');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Aichi', 'Aichi');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Mie', 'Mie');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Shiga', 'Shiga');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Kyoto', 'Kyoto');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Osaka', 'Osaka');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Hyogo', 'Hyogo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Nara', 'Nara');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Wakayama', 'Wakayama');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Tottori', 'Tottori');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Shimane', 'Shimane');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Okayama', 'Okayama');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Hiroshima', 'Hiroshima');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Yamaguchi', 'Yamaguchi');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Tokushima', 'Tokushima');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Kagawa', 'Kagawa');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Ehime', 'Ehime');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Kochi', 'Kochi');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Fukuoka', 'Fukuoka');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Saga', 'Saga');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Nagasaki', 'Nagasaki');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Kumamoto', 'Kumamoto');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Oita', 'Oita');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Miyazaki', 'Miyazaki');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 107, 'Kagoshima', 'Kagoshima');
 
 #Malaysia
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',129,'JOH','Johor');
@@ -2454,38 +2440,38 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',12
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',129,'LAB','W.P.Labuan');
 
 #Mexico
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'AGS', 'Aguascalientes');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'BC', 'Baja California');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'BCS', 'Baja California Sur');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'CAM', 'Campeche');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'COA', 'Coahuila');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'COL', 'Colima');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'CHI', 'Chiapas');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'CHIH', 'Chihuahua');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'DF', 'Distrito Federal');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'DGO', 'Durango');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'MEX', 'Estado de Mexico');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'GTO', 'Guanajuato');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'GRO', 'Guerrero');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'HGO', 'Hidalgo');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'JAL', 'Jalisco');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'MCH', 'Michoacan');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'MOR', 'Morelos');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'NAY', 'Nayarit');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'NL', 'Nuevo Leon');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'OAX', 'Oaxaca');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'PUE', 'Puebla');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'QRO', 'Queretaro');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'QR', 'Quintana Roo');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'SLP', 'San Luis Potosi');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'SIN', 'Sinaloa');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'SON', 'Sonora');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'TAB', 'Tabasco');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'TMPS', 'Tamaulipas');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'TLAX', 'Tlaxcala');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'VER', 'Veracruz');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'YUC', 'Yucatan');
-insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('', '138', 'ZAC', 'Zacatecas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'AGS', 'Aguascalientes');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'BC', 'Baja California');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'BCS', 'Baja California Sur');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'CAM', 'Campeche');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'COA', 'Coahuila');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'COL', 'Colima');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'CHI', 'Chiapas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'CHIH', 'Chihuahua');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'DF', 'Distrito Federal');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'DGO', 'Durango');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'MEX', 'Estado de Mexico');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'GTO', 'Guanajuato');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'GRO', 'Guerrero');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'HGO', 'Hidalgo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'JAL', 'Jalisco');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'MCH', 'Michoacan');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'MOR', 'Morelos');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'NAY', 'Nayarit');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'NL', 'Nuevo Leon');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'OAX', 'Oaxaca');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'PUE', 'Puebla');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'QRO', 'Queretaro');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'QR', 'Quintana Roo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'SLP', 'San Luis Potosi');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'SIN', 'Sinaloa');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'SON', 'Sonora');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'TAB', 'Tabasco');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'TMPS', 'Tamaulipas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'TLAX', 'Tlaxcala');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'VER', 'Veracruz');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'YUC', 'Yucatan');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 138, 'ZAC', 'Zacatecas');
 
 #Norway
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',160,'OSL','Oslo');
@@ -2564,15 +2550,15 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 1
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 175,'VN','Vrancea');
 
 #South Africa
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'WP', 'Western Cape');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'GP', 'Gauteng');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'KZN', 'Kwazulu-Natal');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'NC', 'Northern-Cape');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'EC', 'Eastern-Cape');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'MP', 'Mpumalanga');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'NW', 'North-West');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'FS', 'Free State');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '193', 'NP', 'Northern Province');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'WP', 'Western Cape');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'GP', 'Gauteng');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'KZN', 'Kwazulu-Natal');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'NC', 'Northern-Cape');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'EC', 'Eastern-Cape');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'MP', 'Mpumalanga');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'NW', 'North-West');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'FS', 'Free State');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 193, 'NP', 'Northern Province');
 
 #Turkey
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 215, 'ADANA','ADANA');
@@ -2658,121 +2644,117 @@ INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 2
 INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 215, 'DÜZCE','DÜZCE');
 
 #Venezuela
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'AM', 'Amazonas');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'AN', 'Anzoátegui');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'AR', 'Aragua');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'AP', 'Apure');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'BA', 'Barinas');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'BO', 'Bolívar');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'CA', 'Carabobo');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'CO', 'Cojedes');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'DA', 'Delta Amacuro');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'DC', 'Distrito Capital');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'FA', 'Falcón');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'GA', 'Guárico');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'GU', 'Guayana');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'LA', 'Lara');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'ME', 'Mérida');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'MI', 'Miranda');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'MO', 'Monagas');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'NE', 'Nueva Esparta');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'PO', 'Portuguesa');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'SU', 'Sucre');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'TA', 'Táchira');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'TU', 'Trujillo');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'VA', 'Vargas');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'YA', 'Yaracuy');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '229', 'ZU', 'Zulia');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'AM', 'Amazonas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'AN', 'Anzoátegui');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'AR', 'Aragua');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'AP', 'Apure');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'BA', 'Barinas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'BO', 'Bolívar');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'CA', 'Carabobo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'CO', 'Cojedes');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'DA', 'Delta Amacuro');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'DC', 'Distrito Capital');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'FA', 'Falcón');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'GA', 'Guárico');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'GU', 'Guayana');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'LA', 'Lara');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'ME', 'Mérida');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'MI', 'Miranda');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'MO', 'Monagas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'NE', 'Nueva Esparta');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'PO', 'Portuguesa');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'SU', 'Sucre');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'TA', 'Táchira');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'TU', 'Trujillo');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'VA', 'Vargas');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'YA', 'Yaracuy');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', 229, 'ZU', 'Zulia');
 
 #UK
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BAS','Bath and North East Somerset');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BDF','Bedfordshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WBK','Berkshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BBD','Blackburn with Darwen');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BPL','Blackpool');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BPL','Bournemouth');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BNH','Brighton and Hove');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BST','Bristol');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','BKM','Buckinghamshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','CAM','Cambridgeshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','CHS','Cheshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','CON','Cornwall');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','DUR','County Durham');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','CMA','Cumbria');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','DAL','Darlington');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','DER','Derby');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','DBY','Derbyshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','DEV','Devon');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','DOR','Dorset');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','ERY','East Riding of Yorkshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','ESX','East Sussex');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','ESS','Essex');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','GLS','Gloucestershire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','LND','Greater London');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','MAN','Greater Manchester');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','HAL','Halton');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','HAM','Hampshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','HPL','Hartlepool');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','HEF','Herefordshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','HRT','Hertfordshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','KHL','Hull');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','IOW','Isle of Wight');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','KEN','Kent');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','LAN','Lancashire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','LCE','Leicester');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','LEC','Leicestershire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','LIN','Lincolnshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','LUT','Luton');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','MDW','Medway');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','MER','Merseyside');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','MDB','Middlesbrough');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','MDB','Milton Keynes');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NFK','Norfolk');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NTH','Northamptonshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NEL','North East Lincolnshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NLN','North Lincolnshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NSM','North Somerset');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NBL','Northumberland');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NYK','North Yorkshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NGM','Nottingham');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','NTT','Nottinghamshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','OXF','Oxfordshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','PTE','Peterborough');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','PLY','Plymouth');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','POL','Poole');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','POR','Portsmouth');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','RCC','Redcar and Cleveland');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','RUT','Rutland');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SHR','Shropshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SOM','Somerset');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','STH','Southampton');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SOS','Southend-on-Sea');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SGC','South Gloucestershire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SYK','South Yorkshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','STS','Staffordshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','STT','Stockton-on-Tees');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','STE','Stoke-on-Trent');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SFK','Suffolk');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SRY','Surrey');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','SWD','Swindon');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','TFW','Telford and Wrekin');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','THR','Thurrock');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','TOB','Torbay');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','TYW','Tyne and Wear');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WRT','Warrington');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WAR','Warwickshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WMI','West Midlands');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WSX','West Sussex');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WYK','West Yorkshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WIL','Wiltshire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','WOR','Worcestershire');
-INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('', '222','YOR','York');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BAS','Bath and North East Somerset');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BDF','Bedfordshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WBK','Berkshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BBD','Blackburn with Darwen');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BPL','Blackpool');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BPL','Bournemouth');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BNH','Brighton and Hove');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BST','Bristol');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'BKM','Buckinghamshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'CAM','Cambridgeshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'CHS','Cheshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'CON','Cornwall');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'DUR','County Durham');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'CMA','Cumbria');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'DAL','Darlington');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'DER','Derby');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'DBY','Derbyshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'DEV','Devon');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'DOR','Dorset');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'ERY','East Riding of Yorkshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'ESX','East Sussex');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'ESS','Essex');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'GLS','Gloucestershire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'LND','Greater London');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'MAN','Greater Manchester');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'HAL','Halton');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'HAM','Hampshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'HPL','Hartlepool');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'HEF','Herefordshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'HRT','Hertfordshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'KHL','Hull');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'IOW','Isle of Wight');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'KEN','Kent');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'LAN','Lancashire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'LCE','Leicester');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'LEC','Leicestershire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'LIN','Lincolnshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'LUT','Luton');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'MDW','Medway');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'MER','Merseyside');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'MDB','Middlesbrough');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'MDB','Milton Keynes');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NFK','Norfolk');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NTH','Northamptonshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NEL','North East Lincolnshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NLN','North Lincolnshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NSM','North Somerset');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NBL','Northumberland');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NYK','North Yorkshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NGM','Nottingham');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'NTT','Nottinghamshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'OXF','Oxfordshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'PTE','Peterborough');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'PLY','Plymouth');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'POL','Poole');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'POR','Portsmouth');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'RCC','Redcar and Cleveland');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'RUT','Rutland');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SHR','Shropshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SOM','Somerset');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'STH','Southampton');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SOS','Southend-on-Sea');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SGC','South Gloucestershire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SYK','South Yorkshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'STS','Staffordshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'STT','Stockton-on-Tees');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'STE','Stoke-on-Trent');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SFK','Suffolk');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SRY','Surrey');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'SWD','Swindon');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'TFW','Telford and Wrekin');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'THR','Thurrock');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'TOB','Torbay');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'TYW','Tyne and Wear');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WRT','Warrington');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WAR','Warwickshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WMI','West Midlands');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WSX','West Sussex');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WYK','West Yorkshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WIL','Wiltshire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'WOR','Worcestershire');
+INSERT INTO zones (zone_id, zone_country_id, zone_code, zone_name) VALUES ('',222,'YOR','York');
 
-
-#
-# Dumping data for table `payment_moneybookers_countries`
-#
-
+# Data for table `payment_moneybookers_countries`
 INSERT INTO payment_moneybookers_countries VALUES (2, 'ALB');
 INSERT INTO payment_moneybookers_countries VALUES (3, 'ALG');
 INSERT INTO payment_moneybookers_countries VALUES (4, 'AME');
@@ -2971,10 +2953,7 @@ INSERT INTO payment_moneybookers_countries VALUES (236, 'YUG');
 INSERT INTO payment_moneybookers_countries VALUES (238, 'ZAM');
 INSERT INTO payment_moneybookers_countries VALUES (239, 'ZIM');
 
-#
-# Dumping data for table `payment_moneybookers_currencies`
-#
-
+# Data for table `payment_moneybookers_currencies`
 INSERT INTO payment_moneybookers_currencies VALUES ('AUD', 'Australian Dollar');
 INSERT INTO payment_moneybookers_currencies VALUES ('BGN', 'Bulgarian Lev');
 INSERT INTO payment_moneybookers_currencies VALUES ('CAD', 'Canadian Dollar');

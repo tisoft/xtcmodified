@@ -57,4 +57,3 @@ UPDATE content_manager SET languages_id = 1 WHERE content_manager.languages_id =
 UPDATE products_content SET languages_id = 999 WHERE products_content.languages_id = 2;
 UPDATE products_content SET languages_id = 2 WHERE products_content.languages_id = 1;
 UPDATE products_content SET languages_id = 1 WHERE products_content.languages_id = 999;
-
