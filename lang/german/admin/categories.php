@@ -218,4 +218,8 @@ define('TEXT_SORT_DESC','absteigend');
 // BOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT
 define('TEXT_PRODUCTS_DATE_FORMAT', 'JJJJ-MM-TT');
 // EOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT
+
+// BOF - web28 - 2010-08-03 - add metatags max charakters info
+define('TEXT_CHARACTERS','Zeichen');
+// EOF - web28 - 2010-08-03 - add metatags max charakters info
 ?>
