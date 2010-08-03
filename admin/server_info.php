@@ -99,7 +99,7 @@ $system = xtc_get_system_information();
         <td><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td>
+        <!--td>
            <iframe src="?phpInfo" width="100%" height="700" style="border: solid 1px #a3a3a3;">
            <p>Der verwendete Browser kann leider nicht mit inline Frames (iframe)
              umgehen:
@@ -107,7 +107,35 @@ $system = xtc_get_system_information();
              Seite vom System</a>
            </p>
          </iframe>
-        </td>
+        </td-->
+	<td align="center">
+		   <div style="width:980px; border: solid 1px #a3a3a3; padding:10px; overflow:auto; height:600px;">
+           <?php
+			  if (function_exists('ob_start')) {
+			    ob_start();
+			    phpinfo();
+			    $phpinfo = ob_get_contents();
+			    ob_end_clean();
+
+			    $phpinfo = str_replace('border: 1px', '', $phpinfo);
+			    ereg("(<style type=\"text/css\">{1})(.*)(</style>{1})", $phpinfo, $regs);
+                //BOF css border and link  correction				
+				$regs[2] = str_replace('.e {', '.e {border: 1px solid #000000; ', $regs[2]);
+				$regs[2] = str_replace('.v {', '.v {border: 1px solid #000000; ', $regs[2]);
+				$regs[2] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[2]);
+				$regs[2] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[2]);
+				$regs[2] = str_replace('a:link', 'a.phpinfo:link', $regs[2]);
+				$regs[2] = str_replace('a:hover', 'a.phpinfo:hover', $regs[2]);
+				//EOF css border and link correction
+			    echo '<style type="text/css">' . $regs[2] . '</style>';
+			    ereg("(<body>{1})(.*)(</body>{1})", $phpinfo, $regs);				
+			    echo $regs[2];
+			  } else {
+			    phpinfo();
+			  }
+		   ?>
+		   </div>
+        </td>	
       </tr>
     </table></td>
 <!-- body_text_eof //-->
