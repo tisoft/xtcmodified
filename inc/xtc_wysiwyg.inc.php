@@ -90,7 +90,9 @@ $media_path = '&Type=Media';
                         break;
                 // WYSIWYG editor products short description textarea named products_short_description_langID
                 case 'products_short_description':
-                        $val ='var oFCKeditor = new FCKeditor( \'products_short_description_'.$langID.'\', \'600\', \'300\'  ) ;
+				        //BOF -web28- 2010-07-21 - change to 100%
+                        //$val ='var oFCKeditor = new FCKeditor( \'products_short_description_'.$langID.'\', \'600\', \'300\'  ) ;
+						$val ='var oFCKeditor = new FCKeditor( \'products_short_description_'.$langID.'\', \'100%\', \'300\'  ) ;						
                         	   oFCKeditor.BasePath = "'.$path.'" ;
                         	   oFCKeditor.Config["LinkBrowserURL"] = "'.$filemanager.$file_path.'" ;
                         	   oFCKeditor.Config["ImageBrowserURL"] = "'.$filemanager.$image_path.'" ;
@@ -101,6 +103,7 @@ $media_path = '&Type=Media';
                         	   oFCKeditor.ReplaceTextarea() ;
                         	   ';
                         break;
+						//EOF -web28- 2010-07-21 - change to 100%
                 // WYSIWYG editor newsletter textarea named newsletter_body
                 case 'newsletter':
                         $val ='<script type="text/javascript" src="'.$js_src.'"></script>

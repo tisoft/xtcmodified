@@ -391,34 +391,51 @@ if ($content['content_file'] == '') {
         <?php echo xtc_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '103', '30', (($products_description[$languages[$i]['id']]) ? stripslashes($products_description[$languages[$i]['id']]) : xtc_get_products_description($pInfo->products_id, $languages[$i]['id']))); ?>
     </td>
   </tr>
-  <tr>
-    <td class="main" valign="top">
-    
-    <table>
+<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
+  <!--tr>
+    <td class="main" valign="top"-->
+	<!--table-->
+</table
+<div style="height: 8px;"></div>
+<table width="100%" border="0">
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
     <tr>
 <!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
 <!--
      <td width="60%" valign="top" class="main">        <strong><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></strong><br />
 //-->
-     <td width="60%" valign="top" class="main">        <strong><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></strong><br />
+<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
+	 <!--td width="100%" valign="top" class="main"-->
+     <td width="100%" valign="top" class="main">
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	 
+		<strong><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></strong><br />
 <!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
-       <?php echo xtc_draw_textarea_field('products_short_description_' . $languages[$i]['id'], 'soft', '103', '20', (($products_short_description[$languages[$i]['id']]) ? stripslashes($products_short_description[$languages[$i]['id']]) : xtc_get_products_short_description($pInfo->products_id, $languages[$i]['id']))); ?> </td>
-     <td class="main" valign="top" style="padding: 15px;">
+       <?php echo xtc_draw_textarea_field('products_short_description_' . $languages[$i]['id'], 'soft', '103', '20', (($products_short_description[$languages[$i]['id']]) ? stripslashes($products_short_description[$languages[$i]['id']]) : xtc_get_products_short_description($pInfo->products_id, $languages[$i]['id']))); ?> 
+<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	 
+	 </td>
+	 </tr>
+	 <tr>
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	 
+<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs form size=25 to css width 100%//-->   
+     <!--td class="main" valign="top" style="padding: 15px;"-->
+     <td class="main" valign="top" style="padding: 3px;">	 
         <?php echo TEXT_PRODUCTS_KEYWORDS; ?><br />
-        <?php echo xtc_draw_input_field('products_keywords[' . $languages[$i]['id'] . ']',(($products_keywords[$languages[$i]['id']]) ? stripslashes($products_keywords[$languages[$i]['id']]) : xtc_get_products_keywords($pInfo->products_id, $languages[$i]['id'])), 'size=25 maxlenght=255'); ?><br />     
+        <?php echo xtc_draw_input_field('products_keywords[' . $languages[$i]['id'] . ']',(($products_keywords[$languages[$i]['id']]) ? stripslashes($products_keywords[$languages[$i]['id']]) : xtc_get_products_keywords($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlenght=255'); ?><br />     
         <?php echo TEXT_META_TITLE; ?><br />
-        <?php echo xtc_draw_input_field('products_meta_title[' . $languages[$i]['id'] . ']',(($products_meta_title[$languages[$i]['id']]) ? stripslashes($products_meta_title[$languages[$i]['id']]) : xtc_get_products_meta_title($pInfo->products_id, $languages[$i]['id'])), 'size=25 maxlenght=50'); ?><br />
+        <?php echo xtc_draw_input_field('products_meta_title[' . $languages[$i]['id'] . ']',(($products_meta_title[$languages[$i]['id']]) ? stripslashes($products_meta_title[$languages[$i]['id']]) : xtc_get_products_meta_title($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlenght=50'); ?><br />
         <?php echo TEXT_META_DESCRIPTION; ?><br />
-        <?php echo xtc_draw_input_field('products_meta_description[' . $languages[$i]['id'] . ']',(($products_meta_description[$languages[$i]['id']]) ? stripslashes($products_meta_description[$languages[$i]['id']]) : xtc_get_products_meta_description($pInfo->products_id, $languages[$i]['id'])), 'size=25 maxlenght=50'); ?><br />
+        <?php echo xtc_draw_input_field('products_meta_description[' . $languages[$i]['id'] . ']',(($products_meta_description[$languages[$i]['id']]) ? stripslashes($products_meta_description[$languages[$i]['id']]) : xtc_get_products_meta_description($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlenght=140'); ?><br />
         <?php echo TEXT_META_KEYWORDS; ?><br />
-        <?php echo xtc_draw_input_field('products_meta_keywords[' . $languages[$i]['id'] . ']', (($products_meta_keywords[$languages[$i]['id']]) ? stripslashes($products_meta_keywords[$languages[$i]['id']]) : xtc_get_products_meta_keywords($pInfo->products_id, $languages[$i]['id'])), 'size=25 maxlenght=50'); ?> 
+        <?php echo xtc_draw_input_field('products_meta_keywords[' . $languages[$i]['id'] . ']', (($products_meta_keywords[$languages[$i]['id']]) ? stripslashes($products_meta_keywords[$languages[$i]['id']]) : xtc_get_products_meta_keywords($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlenght=50'); ?> 
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs form size=25 to css width 100%//-->	
      </td>
     </tr>
     </table>
-   
-   </td>
-  </tr>
-</table>
+<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
+<!--/td>
+    </tr>    
+</table-->	
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	
 
 <?php // BOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
 <?php echo ('</div>');?>
