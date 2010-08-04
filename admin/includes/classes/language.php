@@ -86,7 +86,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function get_browser_language() {
-      $this->browser_languages = explode(',', getenv('HTTP_ACCEPT_LANGUAGE'));
+      //BOF - DokuMan - 2010-08-04 - use $_SERVER here for better windows environment compatiblity
+      //$this->browser_languages = explode(',', getenv('HTTP_ACCEPT_LANGUAGE'));
+      $this->browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+      //BOF - DokuMan - 2010-08-04 - use $_SERVER here for better windows environment compatiblity
 
       for ($i=0, $n=sizeof($this->browser_languages); $i<$n; $i++) {
         reset($this->languages);
