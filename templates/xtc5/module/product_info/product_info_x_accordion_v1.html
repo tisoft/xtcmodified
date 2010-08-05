@@ -49,7 +49,7 @@
 
 {$FORM_END}
 
-{*BEGIN TABS*}
+{*BEGIN ACCORDION*}
 <div id="accordion_product_info">
 
 	{if $PRODUCTS_DESCRIPTION !=''}<h3><a href="#">{#description#}</a></h3><div>{$PRODUCTS_DESCRIPTION}</div>{/if}
@@ -72,7 +72,7 @@
 	{if $MODULE_also_purchased != ''}<h3><a href="#">{#also_purchased#}</a></h3><div>{$MODULE_also_purchased}</div>{/if}    	
 
 </div>
-{*END TABS*}
+{*END ACCORDION*}
 
 {if $PRODUCTS_ADDED != ''}<p class="productinfoproductadded">{$PRODUCTS_ADDED}</p>{/if}
 {$PRODUCT_NAVIGATOR}
