@@ -9,8 +9,7 @@
    Released under the GNU General Public License
    --------------------------------------------------------------
    based on:
-   (c) 2003	nextcommerce (install_step7.php,v 1.26 2003/08/17); www.nextcommerce.org
-   (c) 2009 xtcModified (install_step7.php,v 1.00 2009/07/13); www.www.xtc-modified.org 
+   (c) 2010 xtcModified (sb_upgrade.php,v 1.00 2010/07/22); www.www.xtc-modified.org 
    
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -24,17 +23,36 @@
 
   $restore_query = '';
   $used_files_display = '';
-  $lang = 'german'; //hard coded language
-  include('language/'.$lang.'.php');
-  
-  // Definitions
-  define ('TITLE_UPGRADE','<br /><strong><h1>xtcModified Upgrade</h1></strong>');
-  define ('SUBMIT_VALUE', 'Datenbankupgrade durchf&uuml;hren');
-  define ('SUCCESS_MESSAGE', '<strong>Datenbankupgrade erfolgreich!</strong><br /><br />Ausgef&uuml;hrte SQL-Befehle:<br /><br />');
-  define ('UPGRADE_NOT_NECESSARY', 'Kein Datenbankupgrade notwendig, sie sind auf dem aktuellesten Stand!');
-  define ('USED_FILES', 'Folgende Dateien werden für das Upgrade auf die neueste Datenbank-Version verwendet:<br /><br />');
-  define ('CURRENT_DB_VERSION', 'Ihre aktuelle Datenbank-Version ist');
-  define ('FINAL_TEXT', '<br /><br /><strong>Bitte l&ouml;schen Sie jetzt aus Sicherheitsgr&uuml;nden die Upgrade-Datei vom Server:</strong><br /> ');
+
+  //get browser language
+  $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
+  $lang = (!empty($lang)) ? explode(";", $lang) : $lang;
+  $lang = (!empty($lang['0'])) ? explode(",", $lang['0']) : $lang;
+  $lang = (!empty($lang['0'])) ? explode("-", $lang['0']) : $lang;
+  if ($lang[0] == 'de') {
+    // German definitions
+    define ('TITLE_UPGRADE','<br /><strong><h1>xtcModified-Datenbank Upgradevorgang</h1></strong>');
+    define ('SUBMIT_VALUE', 'Datenbankupgrade durchf&uuml;hren');
+    define ('SUCCESS_MESSAGE', '<br /><br /><strong>Datenbankupgrade erfolgreich!</strong><br /><br />Ausgef&uuml;hrte SQL-Befehle:<br /><br />');
+    define ('UPGRADE_NOT_NECESSARY', 'Kein Datenbankupgrade notwendig, sie sind auf dem aktuellesten Stand!');
+    define ('USED_FILES', '<br /><br />Folgende Dateien werden für das Upgrade auf die neueste Datenbank-Version verwendet:<br /><br />');
+    define ('CURRENT_DB_VERSION', '<br />Ihre aktuelle Datenbank-Version ist: ');
+    define ('FINAL_TEXT', '<br /><br /><strong>Bitte l&ouml;schen Sie jetzt aus Sicherheitsgr&uuml;nden die Upgrade-Datei vom Server:</strong><br /> ');
+    define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
+    define('TEXT_TITLE','xtcModified Datenbankupgrade');
+
+  } else {
+    // English definitions
+    define ('TITLE_UPGRADE','<br /><strong><h1>xtcModified database upgrade process</h1></strong>');
+    define ('SUBMIT_VALUE', 'Execute database upgrade');
+    define ('SUCCESS_MESSAGE', '<br /><br /><strong>Database upgrade was executed successfully!</strong><br /><br />Used SQL-statements:<br /><br />');
+    define ('UPGRADE_NOT_NECESSARY', 'Database upgrade not necessary, you are up to date!');
+    define ('USED_FILES', '<br /><br />The following files will be used for the upgrade to the newest database version:<br /><br />');
+    define ('CURRENT_DB_VERSION', '<br />Your current database version is: ');
+    define ('FINAL_TEXT', '<br /><br /><strong>Please delete the update file from your server for security reasons now:</strong><br /> ');    
+    define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
+    define('TEXT_TITLE','xtcModified database upgrade');
+  }
 
   // get DB version
   xtc_db_connect() or die('Unable to connect to database server!');  
@@ -71,8 +89,6 @@
     fclose($f);
   }
   
-  //$sql_array = explode(";\n",$restore_query);
-
   // SQL parsing taken from xtc_db_install.inc.php
   $sql_array = array();
   $sql_length = strlen($restore_query);
@@ -126,17 +142,17 @@
       }
     }
   }
-
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>xtc-Modified Updater</title>
+<title><?php echo TEXT_TITLE; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <style type="text/css">
-body { background: #eee; font-family: Arial, sans-serif; font-size: 12px;}
-table,td,div { font-family: Arial, sans-serif; font-size: 12px;}
-h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
+body {background: #eee; font-family: arial, sans-serif; font-size: 12px;}
+table,td,div {font-family: arial, sans-serif; font-size: 12px;}
+h1 {font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px;}
+a {color:#893769;}
 </style>
 </head>
 <body>
@@ -155,17 +171,17 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
          <tr>
           <td><br />
           <?php
+          echo TITLE_UPGRADE;
+
           if(isset($_POST['submit'])) { 
-          
             // Write SQL-statements to database 
             foreach ($sql_array as $stmt) {
               xtc_db_query($stmt);
             }
             // get new DB-Version
             $version_query = xtc_db_query("select version from " . TABLE_DATABASE_VERSION);
-            $version_array = xtc_db_fetch_array($version_query);            
-            echo TITLE_UPGRADE ;
-            echo CURRENT_DB_VERSION.' <strong>'. $version_array['version'].'</strong>.<br /><br />';
+            $version_array = xtc_db_fetch_array($version_query);
+            echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
             echo SUCCESS_MESSAGE;
             echo '<div style="border:1px solid #ccc; background:#fff; padding:10px;">';
 
@@ -175,11 +191,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
             }
             echo '</div>';
             echo FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']);
-
-          }
-          else {         
-            echo TITLE_UPGRADE ;
-            echo CURRENT_DB_VERSION .' <strong>'. $version_array['version'] .'</strong>.<br /><br />';
+            
+          } else {         
+            echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
             echo USED_FILES ;
             echo '<div style="border:1px solid #ccc; background:#fff; padding:10px;">';
               if ($used_files_display != '') {
@@ -189,10 +203,11 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                 echo UPGRADE_NOT_NECESSARY;
               }
             echo '</div>';
-          } 
+          }
+
           if (!isset($_POST['submit']) && $used_files_display != '') { 
             echo '<br /><form method="post" action="'.basename($_SERVER['SCRIPT_FILENAME']) .'">
-            <input type="submit" name="submit" value="'.SUBMIT_VALUE.'"><br />
+            <input type="submit" name="submit" value="'.SUBMIT_VALUE.'"/><br />
             </form>';
           } 
           ?>
@@ -205,6 +220,6 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 </table>
 
 <br />
-<div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo TEXT_FOOTER; ?></div>
+<div align="center" style="font-family:arial,sans-serif; font-size:11px; color:#666;"><?php echo TEXT_FOOTER; ?></div>
 </body>
 </html>
