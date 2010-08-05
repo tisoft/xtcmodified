@@ -66,7 +66,7 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 				  . '">' . IMAGE_BUTTON_DELETE . '</a>';
   //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
 	
-	$module_content[$i] = array ('PRODUCTS_NAME' => $products[$i]['name'].' <span style="color:red">'.$mark_stock.'</span>',
+	$module_content[$i] = array ('PRODUCTS_NAME' => $products[$i]['name'].$mark_stock,
                                'PRODUCTS_QTY' => xtc_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'size="2"')
                                                 .xtc_draw_hidden_field('products_id[]', $products[$i]['id'])
                                                 .xtc_draw_hidden_field('old_qty[]', $products[$i]['quantity']),
