@@ -199,7 +199,7 @@ define('JS_EMAIL_ADDRESS', '* Die \'E-Mail-Adresse\' muss mindestens aus ' . ENT
 define('JS_ADDRESS', '* Die \'Strasse\' muss mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muss mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_CITY', '* Die \'Stadt\' muss mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Zeichen bestehen.\n');
-define('JS_STATE', '* Das \'Bundesland\' muss ausgew&uuml;hlt werden.\n');
+define('JS_STATE', '* Das \'Bundesland\' muss ausgew&auml;hlt werden.\n');
 define('JS_STATE_SELECT', '-- W&auml;hlen Sie oberhalb --');
 define('JS_ZONE', '* Das \'Bundesland\' muss aus der Liste f&uuml;r dieses Land ausgew&auml;hlt werden.');
 define('JS_COUNTRY', '* Das \'Land\' muss ausgew&auml;hlt werden.\n');
