@@ -23,10 +23,9 @@
   //function xtc_redirect($url) {
   function xtc_redirect($url, $ssl='') {
   //EOF - web28 - 2010-07-19 - New SSL  parameter
-	//BOF - web28 - 2010-06-22 - New SSL  handling  defined by $request_type
-    //if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // We are loading an SSL page	
-	global $request_type;
 	//BOF - web28 - 2010-07-19 - FIX switch to NONSSL & New SSL  handling  defined by $request_type
+    //if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // We are loading an SSL page	
+	global $request_type;	
     if ( (ENABLE_SSL == true) && ($request_type == 'SSL') && ($ssl != 'NONSSL') ) { // We are loading an SSL page
 	//EOF - web28 - 2010-07-19 - FIX switch to NONSSL & New SSL  handling  defined by $request_type		
 		if (substr($url, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { // NONSSL url
