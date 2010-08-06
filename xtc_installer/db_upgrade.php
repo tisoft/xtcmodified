@@ -9,7 +9,7 @@
    Released under the GNU General Public License
    --------------------------------------------------------------
    based on:
-   (c) 2010 xtcModified (sb_upgrade.php,v 1.00 2010/07/22); www.www.xtc-modified.org 
+   (c) 2010 xtcModified (db_upgrade.php,v 1.00 2010/07/22); www.www.xtc-modified.org 
    
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
