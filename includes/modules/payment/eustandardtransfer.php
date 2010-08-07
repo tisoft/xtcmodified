@@ -20,14 +20,35 @@ class eustandardtransfer {
 
 	// class constructor
 	function eustandardtransfer() {
+	//function __constuct() {        // Hendrik 08.2010, php5 compatible
 		$this->code = 'eustandardtransfer';
 		$this->title = MODULE_PAYMENT_EUTRANSFER_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_EUTRANSFER_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_EUTRANSFER_SORT_ORDER;
 		$this->info = MODULE_PAYMENT_EUTRANSFER_TEXT_INFO;
 		$this->enabled = ((MODULE_PAYMENT_EUTRANSFER_STATUS == 'True') ? true : false);
-	}
+		
+		$this->update_status();		                            // Hendrik - 15.07.2010 - exlusion config for shipping modules
+	} 
 	// class methods
+	
+	// BOF - Hendrik - 15.07.2010 - exlusion config for shipping modules  
+	function update_status() {
+		global $order;
+		if( MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING != '' ) {
+			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING);
+			foreach( $neg_shpmod_arr as $neg_shpmod ) {
+				$nd=$neg_shpmod.'_'.$neg_shpmod;
+				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+					$this->enabled = false;
+					break;
+				}
+			}
+		}
+	} 
+	// eOF - Hendrik - 15.07.2010 - exlusion config for shipping modules  
+	
+	
 	function javascript_validation() {
 		return false;
 	}
@@ -91,6 +112,9 @@ class eustandardtransfer {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value,configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_EUTRANSFER_BANKBIC', '---',  '6', '1', now());");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value,configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_EUTRANSFER_SORT_ORDER', '0',  '6', '0', now())");
 
+		// Hendrik - 15.07.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value,configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING', '', '6', '0', now())");
+
 	}
 
 	function remove() {
@@ -98,7 +122,17 @@ class eustandardtransfer {
 	}
 
 	function keys() {
-		$keys = array ('MODULE_PAYMENT_EUTRANSFER_STATUS', 'MODULE_PAYMENT_EUSTANDARDTRANSFER_ALLOWED', 'MODULE_PAYMENT_EUTRANSFER_BANKNAM', 'MODULE_PAYMENT_EUTRANSFER_BRANCH', 'MODULE_PAYMENT_EUTRANSFER_ACCNAM', 'MODULE_PAYMENT_EUTRANSFER_ACCNUM', 'MODULE_PAYMENT_EUTRANSFER_ACCIBAN', 'MODULE_PAYMENT_EUTRANSFER_BANKBIC', 'MODULE_PAYMENT_EUTRANSFER_SORT_ORDER');
+		$keys = array (	'MODULE_PAYMENT_EUTRANSFER_STATUS', 
+						'MODULE_PAYMENT_EUSTANDARDTRANSFER_ALLOWED', 
+						'MODULE_PAYMENT_EUTRANSFER_BANKNAM', 
+						'MODULE_PAYMENT_EUTRANSFER_BRANCH', 
+						'MODULE_PAYMENT_EUTRANSFER_ACCNAM', 
+						'MODULE_PAYMENT_EUTRANSFER_ACCNUM', 
+						'MODULE_PAYMENT_EUTRANSFER_ACCIBAN', 
+						'MODULE_PAYMENT_EUTRANSFER_BANKBIC', 
+						'MODULE_PAYMENT_EUTRANSFER_SORT_ORDER',
+                    	'MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING'       // Hendrik - 15.07.2010 - exlusion config for shipping modules
+					);
 
 		return $keys;
 	}

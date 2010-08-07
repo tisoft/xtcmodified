@@ -28,4 +28,10 @@ define('MODULE_PAYMENT_COD_SORT_ORDER_TITLE' , 'Sort order of display');
 define('MODULE_PAYMENT_COD_SORT_ORDER_DESC' , 'Sort order of display. Lowest is displayed first.');
 define('MODULE_PAYMENT_COD_ORDER_STATUS_ID_TITLE' , 'Set Order Status');
 define('MODULE_PAYMENT_COD_ORDER_STATUS_ID_DESC' , 'Set the status of orders made with this payment module to this value');
+
+// Hendrik - 15.07.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_COD_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+define('MODULE_PAYMENT_COD_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by commas)');
+
+
 ?>
