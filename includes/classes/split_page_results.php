@@ -50,13 +50,25 @@
       $count = xtc_db_num_rows($count_query,true);
 
       $this->number_of_rows = $count;
-      $this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
+	  
+      //BOF -web28- 2010-08-07 - FIX Division by Zero
+	  //$this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
+	  if ($this->number_of_rows_per_page > 0) {
+		$this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
+	  } else {
+		$this->number_of_pages = 0;
+	  }
+	  //EOF -web28- 2010-08-07 - FIX Division by Zero
 
       if ($this->current_page_number > $this->number_of_pages) {
         $this->current_page_number = $this->number_of_pages;
       }
 
       $offset = ($this->number_of_rows_per_page * ($this->current_page_number - 1));
+	  
+	  //BOF -web28- 2010-08-07 - FIX possible $offset = -0
+	  if ($offset < 1) $offset = 0;
+	  //EOF -web28- 2010-08-07 - FIX possible $offset = -0
 
       $this->sql_query .= " LIMIT " . $offset . ", " . $this->number_of_rows_per_page;
     }
