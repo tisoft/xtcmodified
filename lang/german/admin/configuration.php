@@ -327,7 +327,7 @@ define('SHIPPING_INFOS_DESC' , 'Sprachgruppen ID der Versandkosten (Default 1) f
 define('SHIPPING_INFOS_TITLE' , 'Versandkosten ID');
 
 define('PRODUCT_LIST_FILTER_TITLE' , 'Anzeige der Sortierungsfilter in Artikellisten?');
-define('PRODUCT_LIST_FILTER_DESC' , 'Anzeige der Sortierungsfilter f&uuml;r Warengruppen/Hersteller etc Filter (0=inaktiv; 1=aktiv)');
+define('PRODUCT_LIST_FILTER_DESC' , 'Anzeige der Sortierungsfilter f&uuml;r Warengruppen/Hersteller etc. Filter (false=inaktiv; true=aktiv)');
 
 define('STOCK_CHECK_TITLE' , '&Uuml;berpr&uuml;fen des Warenbestandes');
 define('STOCK_CHECK_DESC' , 'Pr&uuml;fen ob noch genug Ware zum Ausliefern von Bestellungen verf&uuml;gbar ist.');

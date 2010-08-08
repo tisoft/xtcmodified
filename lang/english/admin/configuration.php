@@ -324,7 +324,7 @@ define('SHOW_SHIPPING_DESC' , 'Show link to shipping costs in shopping cart');
 define('SHIPPING_INFOS_TITLE' , 'Group ID');
 define('SHIPPING_INFOS_DESC' , 'Group ID of shipping costs content');
 
-define('PRODUCT_LIST_FILTER_TITLE' , 'Display Category/Manufacturer Filter (0=disable; 1=enable)');
+define('PRODUCT_LIST_FILTER_TITLE' , 'Display Category/Manufacturer Filter (false=disable; true=enable)');
 define('PRODUCT_LIST_FILTER_DESC' , 'Do you want to display the Category/Manufacturer Filter?');
 
 define('STOCK_CHECK_TITLE' , 'Check Stock Level');
