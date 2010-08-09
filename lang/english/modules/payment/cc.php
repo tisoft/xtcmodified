@@ -94,4 +94,9 @@ define('MODULE_PAYMENT_CC_ACCEPT_MAESTRO_TITLE', 'Accept MAESTRO cards');
 define('MODULE_PAYMENT_CC_ACCEPT_MAESTRO_DESC', 'Accept MAESTRO cards');
 define('MODULE_PAYMENT_CC_ACCEPT_VISA_TITLE', 'Accept VISA cards');
 define('MODULE_PAYMENT_CC_ACCEPT_VISA_DESC', 'Accept VISA cards');
+
+// Hendrik - 09.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_CC_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+define('MODULE_PAYMENT_CC_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
+
 ?>

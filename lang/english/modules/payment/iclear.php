@@ -65,4 +65,9 @@
 
   define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_TITLE', 'Tax Class');
   define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_DESC', 'Use the following tax class on the shipping fee.');
+  
+	// Hendrik - 09.08.2010 - exlusion config for shipping modules
+	define('MODULE_PAYMENT_ICLEAR_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+	define('MODULE_PAYMENT_ICLEAR_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
+  
 ?>

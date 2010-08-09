@@ -94,4 +94,9 @@ define('MODULE_PAYMENT_CC_ACCEPT_MAESTRO_TITLE', 'MAESTRO akzeptieren');
 define('MODULE_PAYMENT_CC_ACCEPT_MAESTRO_DESC', 'MAESTRO akzeptieren');
 define('MODULE_PAYMENT_CC_ACCEPT_VISA_TITLE', 'VISA akzeptieren');
 define('MODULE_PAYMENT_CC_ACCEPT_VISA_DESC', 'VISA akzeptieren');
+
+// Hendrik - 09.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_CC_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen');
+define('MODULE_PAYMENT_CC_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
+
 ?>

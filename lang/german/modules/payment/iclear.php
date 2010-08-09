@@ -65,4 +65,9 @@
 
   define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_TITLE', 'MWST Satz Versandkosten');
   define('MODULE_PAYMENT_ICLEAR_SHIPPING_TAX_DESC', 'Festlegen mit welchem MWST Satz Versandkosten erstellt werden, falls Versandkosten ohne MWST Satz angegeben sind.');
+  
+	// Hendrik - 09.08.2010 - exlusion config for shipping modules
+	define('MODULE_PAYMENT_ICLEAR_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen');
+	define('MODULE_PAYMENT_ICLEAR_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
+  
 ?>

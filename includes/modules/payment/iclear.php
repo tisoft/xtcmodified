@@ -62,6 +62,19 @@
 // class methods
     function update_status() {
       global $order;
+      
+		// BOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+		if( MODULE_PAYMENT_ICLEAR_NEG_SHIPPING != '' ) {
+			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_ICLEAR_NEG_SHIPPING);
+			foreach( $neg_shpmod_arr as $neg_shpmod ) {
+				$nd=$neg_shpmod.'_'.$neg_shpmod;
+				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+					$this->enabled = false;
+					break;
+				}
+			}
+		} 
+	    // EOF - Hendrik - 09.08.2010 - exlusion config for shipping modules        
 
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_ICLEAR_ZONE > 0) ) {
         $check_flag = false;
@@ -248,6 +261,10 @@
 			}
 
       xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_ICLEAR_STATUS_WAIT_ID', '" . $status['orders_status_id'] . "', '6', '0', '', '', now())");
+      
+		// Hendrik - 09.08.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_ICLEAR_NEG_SHIPPING', '', '6', '10', now())");
+      
     }
 
 
@@ -281,7 +298,13 @@
 
     function keys() {
 //      return array('MODULE_PAYMENT_ICLEAR_STATUS', 'MODULE_PAYMENT_ICLEAR_ID', 'MODULE_PAYMENT_ICLEAR_ZONE', 'MODULE_PAYMENT_ICLEAR_ORDER_STATUS_ID', 'MODULE_PAYMENT_ICLEAR_SORT_ORDER');
-      return array('MODULE_PAYMENT_ICLEAR_STATUS', 'MODULE_PAYMENT_ICLEAR_ID', 'MODULE_PAYMENT_ICLEAR_ZONE', 'MODULE_PAYMENT_ICLEAR_SORT_ORDER', 'MODULE_PAYMENT_ICLEAR_SHIPPING_TAX');
+      return array(	'MODULE_PAYMENT_ICLEAR_STATUS', 
+      				'MODULE_PAYMENT_ICLEAR_ID', 
+      				'MODULE_PAYMENT_ICLEAR_ZONE', 
+      				'MODULE_PAYMENT_ICLEAR_SORT_ORDER', 
+      				'MODULE_PAYMENT_ICLEAR_SHIPPING_TAX',
+      				'MODULE_PAYMENT_ICLEAR_NEG_SHIPPING' );    // Hendrik - 09.08.2010 - exlusion config for shipping modules
+      				
     }
   }
 ?>

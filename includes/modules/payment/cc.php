@@ -51,6 +51,20 @@ class cc {
 	function update_status() {
 		global $order;
 
+		// BOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+		if( MODULE_PAYMENT_CC_NEG_SHIPPING != '' ) {
+			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_CC_NEG_SHIPPING);
+			foreach( $neg_shpmod_arr as $neg_shpmod ) {
+				$nd=$neg_shpmod.'_'.$neg_shpmod;
+				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+					$this->enabled = false;
+					break;
+				}
+			}
+		} 
+	    // EOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+	    
+	    		
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_CC_ZONE > 0)) {
 			$check_flag = false;
 			$check_query = xtc_db_query("select zone_id from ".TABLE_ZONES_TO_GEO_ZONES." where geo_zone_id = '".MODULE_PAYMENT_CC_ZONE."' and zone_country_id = '".$order->billing['country']['id']."' order by zone_id");
@@ -325,6 +339,10 @@ class cc {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('', 'MODULE_PAYMENT_CC_ACCEPT_MAESTRO','False', 6, 0, 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('', 'MODULE_PAYMENT_CC_ACCEPT_VISA','False', 6, 0, 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
 		// BMC Changes End
+		
+		// Hendrik - 09.08.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_CC_NEG_SHIPPING', '', '6', '10', now())");
+		
 	}
 
 	function remove() {
@@ -332,7 +350,34 @@ class cc {
 	}
 
 	function keys() {
-		return array ('MODULE_PAYMENT_CC_STATUS', 'MODULE_PAYMENT_CC_ALLOWED', 'USE_CC_CVV', 'USE_CC_ISS', 'USE_CC_START', 'CC_CVV_MIN_LENGTH', 'CC_ENC', 'CC_VAL', 'CC_BLACK', 'MODULE_PAYMENT_CC_EMAIL', 'MODULE_PAYMENT_CC_ZONE', 'MODULE_PAYMENT_CC_ORDER_STATUS_ID', 'MODULE_PAYMENT_CC_SORT_ORDER', 'MODULE_PAYMENT_CC_ACCEPT_DINERSCLUB', 'MODULE_PAYMENT_CC_ACCEPT_AMERICANEXPRESS', 'MODULE_PAYMENT_CC_ACCEPT_CARTEBLANCHE', 'MODULE_PAYMENT_CC_ACCEPT_OZBANKCARD', 'MODULE_PAYMENT_CC_ACCEPT_DISCOVERNOVUS', 'MODULE_PAYMENT_CC_ACCEPT_DELTA', 'MODULE_PAYMENT_CC_ACCEPT_ELECTRON', 'MODULE_PAYMENT_CC_ACCEPT_MASTERCARD', 'MODULE_PAYMENT_CC_ACCEPT_SWITCH', 'MODULE_PAYMENT_CC_ACCEPT_SOLO', 'MODULE_PAYMENT_CC_ACCEPT_JCB', 'MODULE_PAYMENT_CC_ACCEPT_MAESTRO', 'MODULE_PAYMENT_CC_ACCEPT_VISA');
+		return array (	'MODULE_PAYMENT_CC_STATUS', 
+						'MODULE_PAYMENT_CC_ALLOWED', 
+						'USE_CC_CVV', 
+						'USE_CC_ISS', 
+						'USE_CC_START', 
+						'CC_CVV_MIN_LENGTH', 
+						'CC_ENC', 
+						'CC_VAL', 
+						'CC_BLACK', 
+						'MODULE_PAYMENT_CC_EMAIL', 
+						'MODULE_PAYMENT_CC_ZONE', 
+						'MODULE_PAYMENT_CC_ORDER_STATUS_ID', 
+						'MODULE_PAYMENT_CC_SORT_ORDER', 
+						'MODULE_PAYMENT_CC_ACCEPT_DINERSCLUB', 
+						'MODULE_PAYMENT_CC_ACCEPT_AMERICANEXPRESS', 
+						'MODULE_PAYMENT_CC_ACCEPT_CARTEBLANCHE', 
+						'MODULE_PAYMENT_CC_ACCEPT_OZBANKCARD', 
+						'MODULE_PAYMENT_CC_ACCEPT_DISCOVERNOVUS', 
+						'MODULE_PAYMENT_CC_ACCEPT_DELTA', 
+						'MODULE_PAYMENT_CC_ACCEPT_ELECTRON', 
+						'MODULE_PAYMENT_CC_ACCEPT_MASTERCARD', 
+						'MODULE_PAYMENT_CC_ACCEPT_SWITCH', 
+						'MODULE_PAYMENT_CC_ACCEPT_SOLO', 
+						'MODULE_PAYMENT_CC_ACCEPT_JCB', 
+						'MODULE_PAYMENT_CC_ACCEPT_MAESTRO', 
+						'MODULE_PAYMENT_CC_ACCEPT_VISA',
+      					'MODULE_PAYMENT_CC_NEG_SHIPPING' );    // Hendrik - 09.08.2010 - exlusion config for shipping modules
+						
 	}
 }
 ?>

@@ -30,4 +30,9 @@ define('MODULE_PAYMENT_INVOICE_ALLOWED_TITLE' , 'Allowed zones');
 define('MODULE_PAYMENT_INVOICE_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
 define('MODULE_PAYMENT_INVOICE_MIN_ORDER_TITLE' , 'Minimum Orders');
 define('MODULE_PAYMENT_INVOICE_MIN_ORDER_DESC' , 'Minimum orders for a Customer to view this Option.');
+
+// Hendrik - 09.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_INVOICE_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+define('MODULE_PAYMENT_INVOICE_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
+
 ?>

@@ -40,6 +40,19 @@ class invoice {
 	function update_status() {
 		global $order;
 
+	// BOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+	if( MODULE_PAYMENT_INVOICE_NEG_SHIPPING != '' ) {
+		$neg_shpmod_arr = explode(',',MODULE_PAYMENT_INVOICE_NEG_SHIPPING);
+		foreach( $neg_shpmod_arr as $neg_shpmod ) {
+			$nd=$neg_shpmod.'_'.$neg_shpmod;
+			if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+				$this->enabled = false;
+				break;
+			}
+		}
+	} 
+    // EOF - Hendrik - 09.08.2010 - exlusion config for shipping modules     
+
 		$check_order_query = xtc_db_query("select count(*) as count from ".TABLE_ORDERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
 		$order_check = xtc_db_fetch_array($check_order_query);
 
@@ -123,6 +136,9 @@ class invoice {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_INVOICE_SORT_ORDER', '0',  '6', '0', now())");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_INVOICE_MIN_ORDER', '0',  '6', '0', now())");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID', '0',  '6', '0', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
+
+		// Hendrik - 09.08.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_INVOICE_NEG_SHIPPING', '', '6', '0', now())");
 	}
 
 	function remove() {
@@ -130,7 +146,15 @@ class invoice {
 	}
 
 	function keys() {
-		return array ('MODULE_PAYMENT_INVOICE_STATUS', 'MODULE_PAYMENT_INVOICE_ALLOWED', 'MODULE_PAYMENT_INVOICE_ZONE', 'MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID', 'MODULE_PAYMENT_INVOICE_MIN_ORDER', 'MODULE_PAYMENT_INVOICE_SORT_ORDER');
+		return array (	'MODULE_PAYMENT_INVOICE_STATUS', 
+						'MODULE_PAYMENT_INVOICE_ALLOWED', 
+						'MODULE_PAYMENT_INVOICE_ZONE', 
+						'MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID', 
+						'MODULE_PAYMENT_INVOICE_MIN_ORDER', 
+						'MODULE_PAYMENT_INVOICE_SORT_ORDER',
+						'MODULE_PAYMENT_INVOICE_NEG_SHIPPING'  // Hendrik - 09.08.2010 - exlusion config for shipping modules
+						
+					);
 	}
 }
 ?>
