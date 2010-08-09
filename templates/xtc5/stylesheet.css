@@ -955,7 +955,6 @@ border:#ccc 1px solid;
 }
 table.medialist tr td {
 padding:6px;
-white-space:nowrap;
 vertical-align:top;
 }
 table.medialist tr.contentrow1 td {
