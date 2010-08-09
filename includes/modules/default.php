@@ -545,6 +545,8 @@ elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && $_
   }
 
   // Get the right image for the top-right
+  //BOF - web28 - 2010-08-06 - BUGFIX no manufacturers image displayed -> modules/product_listing.php
+  /*
   $image = DIR_WS_IMAGES.'table_background_list.gif';
   if (isset ($_GET['manufacturers_id'])) {
   $image = xtDBquery("select manufacturers_image from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
@@ -556,6 +558,8 @@ elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && $_
   $image = xtc_db_fetch_array($image,true);
   $image = $image['categories_image'];
   }
+  */
+  //BOF - web28 - 2010-08-06 - BUGFIX no manufacturers image displayed -> modules/product_listing.php
 
   include (DIR_WS_MODULES.FILENAME_PRODUCT_LISTING);
 
