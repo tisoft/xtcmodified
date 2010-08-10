@@ -25,11 +25,8 @@
   $used_files_display = '';
 
   //get browser language
-  $lang = (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
-  $lang = (!empty($lang)) ? explode(";", $lang) : $lang;
-  $lang = (!empty($lang['0'])) ? explode(",", $lang['0']) : $lang;
-  $lang = (!empty($lang['0'])) ? explode("-", $lang['0']) : $lang;
-  if ($lang[0] == 'de') {
+  preg_match("/^([a-z]+)-?([^,;]*)/i", $_SERVER["HTTP_ACCEPT_LANGUAGE"], $lang);
+  if ($lang[1] == 'de') {
     // German definitions
     define ('TITLE_UPGRADE','<br /><strong><h1>xtcModified-Datenbank Upgradevorgang</h1></strong>');
     define ('SUBMIT_VALUE', 'Datenbankupgrade durchf&uuml;hren');
