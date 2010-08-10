@@ -42,4 +42,7 @@ define('TEXT_INFO_DATE_REDEEMED', 'Date Redeemed:');
 define('TEXT_INFO_IP_ADDRESS', 'IP Address:');
 define('TEXT_INFO_CUSTOMERS_ID', 'Customer Id:');
 define('TEXT_INFO_NOT_REDEEMED', 'Not Redeemed');
+//BOF - DokuMan - 2010-08-10 - show customer's remaining credit
+define('TEXT_INFO_REMAINING_CREDIT', 'Remaining credit:');
+//EOF - DokuMan - 2010-08-10 - show customer's remaining credit
 ?>

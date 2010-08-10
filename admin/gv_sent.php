@@ -128,6 +128,12 @@
     $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_REDEEMED . ' ' . xtc_date_short($redeem['redeem_date']));
     $contents[] = array('text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']);
     $contents[] = array('text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']);
+    //BOF - DokuMan - 2010-08-10 - show customer's remaining credit
+    $query_remainingcredit = xtc_db_query("SELECT * FROM " . TABLE_COUPON_GV_CUSTOMER  ." WHERE customer_id='". $redeem['customer_id']."'");
+    $array_remainingcredit = xtc_db_fetch_array($query_remainingcredit);
+    $remainingcredit = $array_remainingcredit['amount'];
+    $contents[] = array('text' => TEXT_INFO_REMAINING_CREDIT . ' ' . $currencies->format($remainingcredit));
+    //BOF - DokuMan - 2010-08-10 - show customer's remaining credit
   } else {
     $contents[] = array('text' => '<br />' . TEXT_INFO_NOT_REDEEMED);
   }
