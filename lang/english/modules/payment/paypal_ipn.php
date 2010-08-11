@@ -122,4 +122,9 @@ define('MODULE_PAYMENT_PAYPAL_IPN_ERROR_SUB3','INVALID for PayPal payment proces
 define('MODULE_PAYMENT_PAYPAL_IPN_RETURN_HEADER','Many thanks!');
 define('MODULE_PAYMENT_PAYPAL_IPN_RETURN_TEXT1','Thank you for your PayPal payment of');
 define('MODULE_PAYMENT_PAYPAL_IPN_RETURN_TEXT2','for your order of');
+
+// Hendrik - 11.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+define('MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
+
 ?>

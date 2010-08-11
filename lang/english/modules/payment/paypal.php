@@ -22,4 +22,8 @@ define('MODULE_PAYMENT_PAYPAL_SORT_ORDER_TITLE' , 'Sort order');
 define('MODULE_PAYMENT_PAYPAL_SORT_ORDER_DESC' , 'Sort order of the view. Lowest numeral will be displayed first');
 define('MODULE_PAYMENT_PAYPAL_ZONE_TITLE' , 'Payment zone');
 define('MODULE_PAYMENT_PAYPAL_ZONE_DESC' , 'If a zone is choosen, the payment method will be valid for this zone only.');
+
+// Hendrik - 11.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_PAYPAL_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+define('MODULE_PAYMENT_PAYPAL_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
 ?>

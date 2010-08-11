@@ -56,7 +56,7 @@ class cash {
 		//if ($_SESSION['shipping']['id'] != 'selfpickup_selfpickup') {
 		//	$this->enabled = false;
 		//}
-    	// EOF - Hendrik - 15.07.2010 - exlusion config for shipping modules 
+		// EOF - Hendrik - 15.07.2010 - exlusion config for shipping modules 
     
 
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_CASH_ZONE > 0)) {
@@ -138,12 +138,12 @@ class cash {
 	}
 
 	function keys() {
-		return array (  'MODULE_PAYMENT_CASH_STATUS', 
-                    'MODULE_PAYMENT_CASH_ALLOWED', 
-                    'MODULE_PAYMENT_CASH_ZONE', 
-                    'MODULE_PAYMENT_CASH_ORDER_STATUS_ID', 
-                    'MODULE_PAYMENT_CASH_SORT_ORDER',
-                    'MODULE_PAYMENT_CASH_NEG_SHIPPING' );      // Hendrik - 15.07.2010 - exlusion config for shipping modules
+		return array (	'MODULE_PAYMENT_CASH_STATUS', 
+						'MODULE_PAYMENT_CASH_ALLOWED', 
+						'MODULE_PAYMENT_CASH_ZONE', 
+						'MODULE_PAYMENT_CASH_ORDER_STATUS_ID', 
+						'MODULE_PAYMENT_CASH_SORT_ORDER',
+						'MODULE_PAYMENT_CASH_NEG_SHIPPING' );		// Hendrik - 15.07.2010 - exlusion config for shipping modules
 	}
 }
 ?>

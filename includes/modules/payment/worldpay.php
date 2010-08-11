@@ -71,6 +71,20 @@ class worldpay {
 	// class methods
 	function update_status() {
 		global $order;
+		
+		
+		// BOF - Hendrik - 11.08.2010 - exlusion config for shipping modules  
+		if( MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING != '' ) {
+			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING);
+			foreach( $neg_shpmod_arr as $neg_shpmod ) {
+				$nd=$neg_shpmod.'_'.$neg_shpmod;
+				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+					$this->enabled = false;
+					break;
+				}
+			}
+		} 
+		// EOF - Hendrik - 11.08.2010 - exlusion config for shipping modules 		
 
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_WORLDPAY_ZONE > 0)) {
 			$check_flag = false;
@@ -181,6 +195,10 @@ class worldpay {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_WORLDPAY_PREAUTH', 'A', '6', '4', now())");
 		// Paulz zone control 04/04/2004        
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_WORLDPAY_ZONE', '0', '6', '2', 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(', now())");
+
+		// Hendrik - 11.08.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING', '', '6', '10', now())");
+
 		// Ian-san: Added MD5 here 6/4/2003:
 		xtc_db_query("delete from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_WORLDPAY_USEMD5'");
 		xtc_db_query("delete from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_WORLDPAY_MD5KEY'");
@@ -191,7 +209,17 @@ class worldpay {
 	}
 
 	function keys() {
-		return array ('MODULE_PAYMENT_WORLDPAY_STATUS', 'MODULE_PAYMENT_WORLDPAY_ID', 'MODULE_PAYMENT_WORLDPAY_MODE', 'MODULE_PAYMENT_WORLDPAY_ALLOWED', 'MODULE_PAYMENT_WORLDPAY_USEPREAUTH', 'MODULE_PAYMENT_WORLDPAY_PREAUTH', 'MODULE_PAYMENT_WORLDPAY_ZONE', 'MODULE_PAYMENT_WORLDPAY_SORT_ORDER', 'MODULE_PAYMENT_WORLDPAY_ORDER_STATUS_ID');
+		return array (	
+			'MODULE_PAYMENT_WORLDPAY_STATUS', 
+			'MODULE_PAYMENT_WORLDPAY_ID', 
+			'MODULE_PAYMENT_WORLDPAY_MODE', 
+			'MODULE_PAYMENT_WORLDPAY_ALLOWED', 
+			'MODULE_PAYMENT_WORLDPAY_USEPREAUTH', 
+			'MODULE_PAYMENT_WORLDPAY_PREAUTH', 
+			'MODULE_PAYMENT_WORLDPAY_ZONE', 
+			'MODULE_PAYMENT_WORLDPAY_SORT_ORDER', 
+			'MODULE_PAYMENT_WORLDPAY_ORDER_STATUS_ID',
+			'MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING' );		// Hendrik - 11.08.2010 - exlusion config for shipping modules
 	}
 }
 ?>

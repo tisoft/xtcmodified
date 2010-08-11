@@ -34,4 +34,8 @@ define('MODULE_PAYMENT_MONEYBOOKERS_WLT_ZONE_TITLE', 'Payment Zone');
 define('MODULE_PAYMENT_MONEYBOOKERS_WLT_ZONE_DESC', 'If a zone is selected, only enable this payment method for that zone.');
 define('MODULE_PAYMENT_MONEYBOOKERS_WLT_ALLOWED_TITLE' , 'Allowed Zones');
 define('MODULE_PAYMENT_MONEYBOOKERS_WLT_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
+
+// Hendrik - 11.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_MONEYBOOKERS_WLT_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+define('MODULE_PAYMENT_MONEYBOOKERS_WLT_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
 ?>

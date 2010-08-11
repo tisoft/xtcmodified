@@ -51,6 +51,20 @@ class paypal {
 	function update_status() {
 		// Stand: 29.04.2009
 		global $order;
+		
+		// BOF - Hendrik - 11.08.2010 - exlusion config for shipping modules  
+		if( MODULE_PAYMENT_PAYPAL_NEG_SHIPPING != '' ) {
+			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_PAYPAL_NEG_SHIPPING);
+			foreach( $neg_shpmod_arr as $neg_shpmod ) {
+				$nd=$neg_shpmod.'_'.$neg_shpmod;
+				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+					$this->enabled = false;
+					break;
+				}
+			}
+		} 
+		// EOF - Hendrik - 11.08.2010 - exlusion config for shipping modules 
+		
 		if(($this->enabled == true) && ((int) MODULE_PAYMENT_PAYPAL_ZONE > 0)) {
 			$check_flag = false;
 			$check_query = xtc_db_query("select zone_id from ".TABLE_ZONES_TO_GEO_ZONES." where geo_zone_id = '".MODULE_PAYMENT_PAYPAL_ZONE."' and zone_country_id = '".$order->billing['country']['id']."' order by zone_id");
@@ -191,6 +205,10 @@ class paypal {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION.$m_fields."values ('MODULE_PAYMENT_PAYPAL_SORT_ORDER', '0', '6', '0', NULL, now(), '', '')");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION.$m_fields."values ('MODULE_PAYMENT_PAYPAL_ALLOWED', '', '6', '0', NULL, now(), '', '')");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION.$m_fields."values ('MODULE_PAYMENT_PAYPAL_ZONE', '0', '6', '2', NULL, now(), 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(')");
+
+		// Hendrik - 11.08.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PAYPAL_NEG_SHIPPING', '', '6', '10', now())");
+
 		// Config Daten auslesen - falls schon vorhanden durch PayPal Modul
 		$rest_query=xtc_db_query("select * from ".TABLE_CONFIGURATION." where configuration_key like 'PAYPAL\_%'");
 		$rest_array=array();
@@ -290,12 +308,12 @@ class paypal {
 		else:
 			xtc_db_query("alter table ".TABLE_PAYPAL_STATUS_HISTORY." MODIFY ".str_replace(', ',', MODIFY ',$m_fields));
 		endif;
-//BOF - Dokuman - 2009-10-04 - Disable CRC-Check on paypal edited files
+		//BOF - Dokuman - 2009-10-04 - Disable CRC-Check on paypal edited files
 		/*
 		if(file_exists('module_paypal_install.php'))
 			xtc_redirect(xtc_href_link('module_paypal_install.php', 'set=' . $_GET['set'] . '&module=' . $this->code.'&ppauto=1'));
 		*/
-//EOF - Dokuman - 2009-10-04 - Disable CRC-Check on paypal edited files		
+		//EOF - Dokuman - 2009-10-04 - Disable CRC-Check on paypal edited files		
 	}
 /**************************************************************/
 	function remove($pre_inst=0) {
@@ -329,7 +347,11 @@ class paypal {
 /**************************************************************/
 	function keys() {
 		// Stand: 29.04.2009
-		return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ALLOWED', 'MODULE_PAYMENT_PAYPAL_ZONE','MODULE_PAYMENT_PAYPAL_SORT_ORDER');
+		return array(	'MODULE_PAYMENT_PAYPAL_STATUS', 
+						'MODULE_PAYMENT_PAYPAL_ALLOWED', 
+						'MODULE_PAYMENT_PAYPAL_ZONE',
+						'MODULE_PAYMENT_PAYPAL_SORT_ORDER',
+						'MODULE_PAYMENT_PAYPAL_NEG_SHIPPING' );		// Hendrik - 11.08.2010 - exlusion config for shipping modules
 	}
 /**************************************************************/
 	function mn_confsearch($needle, $haystack ){

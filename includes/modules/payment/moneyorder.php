@@ -42,18 +42,18 @@ class moneyorder {
 	function update_status() {
 		global $order;
 
-     // BOF - Hendrik - 15.07.2010 - exlusion config for shipping modules  
-    if( MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING != '' ) {
-      $neg_shpmod_arr = explode(',',MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING);
-      foreach( $neg_shpmod_arr as $neg_shpmod ) {
-        $nd=$neg_shpmod.'_'.$neg_shpmod;
-        if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
-          $this->enabled = false;
-          break;
-        }
-      }
-    } 
-     // EOF - Hendrik - 15.07.2010 - exlusion config for shipping modules 
+		// BOF - Hendrik - 15.07.2010 - exlusion config for shipping modules  
+		if( MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING != '' ) {
+			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING);
+			foreach( $neg_shpmod_arr as $neg_shpmod ) {
+				$nd=$neg_shpmod.'_'.$neg_shpmod;
+				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+					$this->enabled = false;
+					break;
+				}
+			}
+		} 
+		// EOF - Hendrik - 15.07.2010 - exlusion config for shipping modules 
          
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_MONEYORDER_ZONE > 0)) {
 			$check_flag = false;
@@ -126,8 +126,8 @@ class moneyorder {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_MONEYORDER_ZONE', '0',  '6', '2', 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(', now())");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID', '0', '6', '0', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
 
-    // Hendrik - 15.07.2010 - exlusion config for shipping modules
-    xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING', '', '6', '0', now())");
+		// Hendrik - 15.07.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING', '', '6', '0', now())");
 	}
 
 	function remove() {
@@ -135,13 +135,13 @@ class moneyorder {
 	}
 
 	function keys() {
-		return array (  'MODULE_PAYMENT_MONEYORDER_STATUS', 
-                    'MODULE_PAYMENT_MONEYORDER_ALLOWED', 
-                    'MODULE_PAYMENT_MONEYORDER_ZONE', 
-                    'MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID', 
-                    'MODULE_PAYMENT_MONEYORDER_SORT_ORDER', 
-                    'MODULE_PAYMENT_MONEYORDER_PAYTO',
-                    'MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING'         );       // Hendrik - 15.07.2010 - exlusion config for shipping modules
+		return array (	'MODULE_PAYMENT_MONEYORDER_STATUS', 
+						'MODULE_PAYMENT_MONEYORDER_ALLOWED', 
+						'MODULE_PAYMENT_MONEYORDER_ZONE', 
+						'MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID', 
+						'MODULE_PAYMENT_MONEYORDER_SORT_ORDER', 
+						'MODULE_PAYMENT_MONEYORDER_PAYTO',
+						'MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING' );		// Hendrik - 15.07.2010 - exlusion config for shipping modules
 	}
 }
 ?>

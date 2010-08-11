@@ -81,6 +81,19 @@ class fcnt_moneybookers {
 	
 	function update_status() {
 		global $order;
+		
+		// BOF - Hendrik - 11.08.2010 - exlusion config for shipping modules  
+		if( constant('MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_NEG_SHIPPING') != '' ) {
+			$neg_shpmod_arr = explode(',',constant('MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_NEG_SHIPPING') );
+			foreach( $neg_shpmod_arr as $neg_shpmod ) {
+				$nd=$neg_shpmod.'_'.$neg_shpmod;
+				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+					$this->enabled = false;
+					break;
+				}
+			}
+		} 
+    	// EOF - Hendrik - 11.08.2010 - exlusion config for shipping modules 		
 
 		if (($this->enabled == true) && ((int) constant('MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_ZONE') > 0)) {
 			$check_flag = false;
@@ -301,6 +314,9 @@ class fcnt_moneybookers {
 		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_MONEYBOOKERS_".strtoupper($this->module)."_ZONE', '0',  '6', '7', 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(', now())");
 		xtc_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_MONEYBOOKERS_".strtoupper($this->module)."_ALLOWED', '".$this->allowed."', '6', '0', now())");
 		// tables
+		// Hendrik - 15.07.2010 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_MONEYBOOKERS_".strtoupper($this->module)."_NEG_SHIPPING', '', '6', '0', now())");
+		
 	}
 	
 	function remove() {
@@ -312,8 +328,10 @@ class fcnt_moneybookers {
 			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_STATUS',
 			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_SORT_ORDER',
 			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_ALLOWED',
-			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_ZONE'
-		);
+			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_ZONE',
+			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_NEG_SHIPPING' );      // Hendrik - 11.08.2010 - exlusion config for shipping modules
+			
+		
 	}
 	
 
