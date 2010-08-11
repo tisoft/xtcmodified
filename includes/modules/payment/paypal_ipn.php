@@ -20,7 +20,8 @@
 class paypal_ipn {
 	var $code, $title, $description, $enabled;
 /**************************************************************/
-	function paypal_ipn() {
+	//function paypal_ipn() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order;
 
 		$this->code = 'paypal_ipn';

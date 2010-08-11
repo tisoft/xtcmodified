@@ -39,7 +39,8 @@ class moneybookers_mae extends fcnt_moneybookers {
 	var $images='maestro.gif';
 
 	// class constructor
-	function moneybookers_mae() {
+	// function moneybookers_mae() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order, $language;
 
 		$this->_setAllowed('ES,GB,AT');

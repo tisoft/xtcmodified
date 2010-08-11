@@ -24,7 +24,8 @@
 class paypal {
 	var $code, $title, $description, $enabled;
 /**************************************************************/
-	function paypal() {
+	//function paypal() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		// Stand: 29.04.2009
 		global $order;
 		$this->code = 'paypal';

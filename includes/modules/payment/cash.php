@@ -19,8 +19,8 @@
 class cash {
 	var $code, $title, $description, $enabled;
 
-	function cash() {
-	//function __constuct() {        // Hendrik 08.2010, php5 compatible  
+	//function cash() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order;
 
 		$this->code = 'cash';

@@ -39,7 +39,8 @@ class fcnt_moneybookers {
 	var $form_action_url = 'https://www.moneybookers.com/app/payment.pl';
 	var $tmpStatus = _PAYMENT_MONEYBOOKERS_TMP_STATUS_ID;
 	
-	function fcnt_moneybookers(){
+	//function fcnt_moneybookers(){
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		$this->Error = '';
 		$this->oID = 0;
 		$this->transaction_id = '';

@@ -39,7 +39,8 @@ class moneybookers_pwy extends fcnt_moneybookers {
 	var $images='p24.gif';
 
 	// class constructor
-	function moneybookers_pwy() {
+	//function moneybookers_pwy() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order, $language;
 
 		$this->_setAllowed('PL');

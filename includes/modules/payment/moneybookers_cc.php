@@ -39,7 +39,8 @@ class moneybookers_cc extends fcnt_moneybookers {
 	var $images='All_CCs_225x45.gif';
 
 	// class constructor
-	function moneybookers_cc() {
+	//function moneybookers_cc() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order, $language;
 
 		$this->_setCode('cc','ACC');

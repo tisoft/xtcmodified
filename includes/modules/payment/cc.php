@@ -27,7 +27,8 @@ class cc {
 	var $code, $title, $description, $enabled;
 
 	// class constructor
-	function cc() {
+	// function cc() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order, $xtPrice;
 
 		$this->code = 'cc';

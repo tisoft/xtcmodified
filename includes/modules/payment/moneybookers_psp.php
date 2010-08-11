@@ -39,7 +39,8 @@ class moneybookers_psp extends fcnt_moneybookers {
 	var $images='postepay.gif';
 
 	// class constructor
-	function moneybookers_psp() {
+	//function moneybookers_psp() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order, $language;
 
 		$this->_setAllowed('IT');

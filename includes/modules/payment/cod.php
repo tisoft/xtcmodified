@@ -20,8 +20,8 @@ class cod {
 
   var $code, $title, $description, $enabled;
 
-  function cod() {
-  //function __constuct() {        // Hendrik 08.2010, php5 compatible
+  //function cod() {
+  function __construct() {        // Hendrik 08.2010, php5 compatible  
     global $order,$xtPrice;
 
     $this->code = 'cod';

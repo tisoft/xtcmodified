@@ -19,7 +19,8 @@
 class invoice {
 	var $code, $title, $description, $enabled;
 
-	function invoice() {
+	//function invoice() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order;
 
 		$this->code = 'invoice';

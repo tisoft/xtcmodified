@@ -35,7 +35,8 @@
     var $modules, $selected_module;
 
     // class constructor
-    function payment($module = '') {
+    //function payment($module = '') {    
+	function __construct($module = '') {        // Hendrik 08.2010, php5 compatible  
       global $PHP_SELF,$order;
 
       if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {
@@ -77,7 +78,7 @@
               include(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $include_modules[$i]['file']);
               include(DIR_WS_MODULES . 'payment/' . $include_modules[$i]['file']);
 
-              }
+              }     
               $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
             }
           }
@@ -107,7 +108,7 @@
     function update_status() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module])) {
-          if (function_exists('method_exists')) {
+          if (function_exists('method_exists')) {             
             if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
               $GLOBALS[$this->selected_module]->update_status();
             }

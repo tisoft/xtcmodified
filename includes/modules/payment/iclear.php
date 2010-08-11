@@ -44,7 +44,8 @@
     var $code, $title, $description, $enabled, $order;
 
 // class constructor
-    function iclear() {
+    //function iclear() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
       global $order;
       $this->code = 'iclear';
       $this->title = MODULE_PAYMENT_ICLEAR_TEXT_TITLE;

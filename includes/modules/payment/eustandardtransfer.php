@@ -19,8 +19,8 @@ class eustandardtransfer {
 	var $code, $title, $description, $enabled;
 
 	// class constructor
-	function eustandardtransfer() {
-	//function __constuct() {        // Hendrik 08.2010, php5 compatible
+	//function eustandardtransfer() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		$this->code = 'eustandardtransfer';
 		$this->title = MODULE_PAYMENT_EUTRANSFER_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_EUTRANSFER_TEXT_DESCRIPTION;

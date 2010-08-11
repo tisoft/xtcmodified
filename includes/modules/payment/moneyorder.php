@@ -19,8 +19,8 @@
 class moneyorder {
 	var $code, $title, $description, $enabled;
 
-	function moneyorder() {
-	//function __constuct() {        // Hendrik 08.2010, php5 compatible
+	//function moneyorder() {
+	function __construct() {        // Hendrik 08.2010, php5 compatible  
 		global $order;
 
 		$this->code = 'moneyorder';
