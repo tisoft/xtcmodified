@@ -11,3 +11,4 @@ content_meta_title ,
 content_meta_description ,
 content_meta_keywords
 );
+# Keep an empty line at the end of this file for the db_updater to work properly

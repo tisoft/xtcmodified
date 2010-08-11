@@ -6,3 +6,4 @@ UPDATE configuration SET configuration_value = 'span style="color:red">***</span
 
 #Hendrik - 2010-08-11 - Thumbnails in products list 
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),'); 
+# Keep an empty line at the end of this file for the db_updater to work properly

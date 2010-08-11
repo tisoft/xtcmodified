@@ -119,3 +119,4 @@ INSERT INTO content_manager VALUES (17, 0, 0, '', 1, 'Right of revocation', 'Rig
 INSERT INTO content_manager VALUES (18, 0, 0, '', 2, 'Widerrufsrecht', 'Widerrufsrecht', '<p><strong>Widerrufsrecht<br /></strong><br />F&uuml;gen Sie hier das Widerrufsrecht ein.</p>', 0, 1, '', 1, 9, 0, '', '', '');
 UPDATE configuration SET configuration_value = 9 WHERE configuration_key = 'REVOCATION_ID';
 # EOF - Tomcraft - 2010-06-09 - Added right of revocation
+# Keep an empty line at the end of this file for the db_updater to work properly
