@@ -59,7 +59,10 @@ if ($product->getAttributesCount() > 0) {
 				$products_options_data[$row]['DATA'][$col] = array ('ID' => $products_options['products_options_values_id'], 'TEXT' => $products_options['products_options_values_name'], 'MODEL' => $products_options['attributes_model'], 'PRICE' => '', 'FULL_PRICE' => '', 'PREFIX' => $products_options['price_prefix']);
 			} else {
 				if ($products_options['options_values_price'] != '0.00') {
-					$price = $xtPrice->xtcFormat($products_options['options_values_price'], false, $product->data['products_tax_class_id']);
+					//BOF - DokuMan - 2010-08-11 - several currencies on product attributes
+					//$price = $xtPrice->xtcFormat($products_options['options_values_price'], false, $product->data['products_tax_class_id']);
+					$price = $xtPrice->xtcFormat($products_options['options_values_price'], false, $product->data['products_tax_class_id'], true);
+					//EOF - DokuMan - 2010-08-11 - several currencies on product attributes
 				}
 
 				$products_price = $xtPrice->xtcGetPrice($product->data['products_id'], $format = false, 1, $product->data['products_tax_class_id'], $product->data['products_price']);

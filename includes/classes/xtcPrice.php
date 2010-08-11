@@ -244,7 +244,10 @@ class xtcPrice {
 			if ($attribute_price_data['products_discount_allowed'] < $this->cStatus['customers_status_discount'])
 				$discount = $attribute_price_data['products_discount_allowed'];
 		}
-		$price = $this->xtcFormat($attribute_price_data['options_values_price'], false, $attribute_price_data['products_tax_class_id']);
+		//BOF - DokuMan - 2010-08-11 - several currencies on product attributes
+		//$price = $this->xtcFormat($attribute_price_data['options_values_price'], false, $attribute_price_data['products_tax_class_id']);
+		$price = $this->xtcFormat($attribute_price_data['options_values_price'], false, $attribute_price_data['products_tax_class_id'], true);
+		//EOF - DokuMan - 2010-08-11 - several currencies on product attributes
 		if ($attribute_price_data['weight_prefix'] != '+')
 			$attribute_price_data['options_values_weight'] *= -1;
 		if ($attribute_price_data['price_prefix'] == '+') {
