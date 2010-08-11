@@ -85,7 +85,10 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 			if ($_SESSION['cart']->count_contents() > 0) {
 				xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
 			} else {
-				xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
+			    //BOF - web28 - 2010-08-11 redirect NONSSL
+				//xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
+				xtc_redirect(xtc_href_link(FILENAME_DEFAULT),'NONSSL');
+				//EOF - web28 - 2010-08-11 redirect NONSSL
 			}
 
 		}
