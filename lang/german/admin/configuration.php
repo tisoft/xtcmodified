@@ -652,6 +652,12 @@ define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Top Navigation');
 define('USE_ADMIN_TOP_MENU_DESC' , 'Admin Top Navigation aktivieren?');
 // EOF - Tomcraft - 2009-11-02 - New admin top menu
 
+// Hendrik - 2010-08-11 - thumbnails in products list
+define('USE_ADMIN_THUMBS_IN_LIST_TITLE' , 'Admin Artikelliste Bilder');
+define('USE_ADMIN_THUMBS_IN_LIST_DESC' , 'Admin Artikelliste mit Spalte Bilder?');
+
+
+
 // BOF - Tomcraft - 2009-11-02 - Admin language tabs
 define('USE_ADMIN_LANG_TABS_TITLE' , 'Sprachtabs bei Kategorien/Artikel');
 define('USE_ADMIN_LANG_TABS_DESC' , 'Sprachtabs bei den Eingabefeldern f&uuml;r Kategorien/Artikel aktivieren?');

@@ -35,6 +35,9 @@ define('TABLE_HEADING_EDIT','Edit');
 define('TABLE_HEADING_PRODUCTS_MODEL','Artikelnummer');
 // EOF - Tomcraft - 2010-04-07 - Added definition for products model
 
+// Hendrik - 2010-08-11 - thumbnails in products list
+define('TABLE_HEADING_IMAGE','Bild');
+
 define('TEXT_ACTIVE_ELEMENT','Aktives Element');
 define('TEXT_MARKED_ELEMENTS','Markierte Elemente');
 define('TEXT_INFORMATIONS','Informationen');
