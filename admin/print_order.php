@@ -109,6 +109,9 @@
   	$smarty->assign('order_data', $order_data);
   	$smarty->assign('order_total', $order_total);
 
+    // 12.08.2010 Bugfix charset, found by Kukki, edit Hendrik
+  	$smarty->assign('charset', $_SESSION['language_charset'] );
+  	
   	// dont allow cache
   	$smarty->caching = false;
 
