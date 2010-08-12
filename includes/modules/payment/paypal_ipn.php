@@ -20,8 +20,10 @@
 class paypal_ipn {
 	var $code, $title, $description, $enabled;
 /**************************************************************/
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
 	//function paypal_ipn() {
-	function __construct() {        // Hendrik 08.2010, php5 compatible  
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
 		global $order;
 
 		$this->code = 'paypal_ipn';
@@ -44,7 +46,7 @@ class paypal_ipn {
 	function update_status() {
 		global $order;
 		
-		// BOF - Hendrik - 11.08.2010 - exlusion config for shipping modules  
+		// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 		if( MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING != '' ) {
 			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING);
 			foreach( $neg_shpmod_arr as $neg_shpmod ) {
@@ -55,7 +57,7 @@ class paypal_ipn {
 				}
 			}
 		} 
-		// EOF - Hendrik - 11.08.2010 - exlusion config for shipping modules 		
+		// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_PAYPAL_IPN_ZONE > 0)) {
 			$check_flag = false;
@@ -225,9 +227,9 @@ class paypal_ipn {
 	    
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PAYPAL_IPN_SBID', 'sandbox@yourbusiness.com',  '6', '4', now())");
 		
-		// Hendrik - 11.08.2010 - exlusion config for shipping modules
+		// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING', '', '6', '30', now())");
-		
+		// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules		
 	}
 /**************************************************************/
 	function remove() {
@@ -256,7 +258,7 @@ class paypal_ipn {
 					  'MODULE_PAYMENT_PAYPAL_IPN_USE_ACCOUNT',
 					  'MODULE_PAYMENT_PAYPAL_IPN_USE_SANDBOX',
 					  'MODULE_PAYMENT_PAYPAL_IPN_SBID',
-					  'MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING' );		// Hendrik - 11.08.2010 - exlusion config for shipping modules
+					  'MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING' );		// Hendrik - 2010-08-11 - exlusion config for shipping modules
 	}
 }
 ?>

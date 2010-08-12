@@ -27,8 +27,10 @@ class cc {
 	var $code, $title, $description, $enabled;
 
 	// class constructor
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
 	// function cc() {
-	function __construct() {        // Hendrik 08.2010, php5 compatible  
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
 		global $order, $xtPrice;
 
 		$this->code = 'cc';
@@ -52,7 +54,7 @@ class cc {
 	function update_status() {
 		global $order;
 
-		// BOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+		// BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 		if( MODULE_PAYMENT_CC_NEG_SHIPPING != '' ) {
 			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_CC_NEG_SHIPPING);
 			foreach( $neg_shpmod_arr as $neg_shpmod ) {
@@ -63,7 +65,7 @@ class cc {
 				}
 			}
 		} 
-	    // EOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+	    // EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 	    
 	    		
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_CC_ZONE > 0)) {
@@ -341,9 +343,9 @@ class cc {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('', 'MODULE_PAYMENT_CC_ACCEPT_VISA','False', 6, 0, 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
 		// BMC Changes End
 		
-		// Hendrik - 09.08.2010 - exlusion config for shipping modules
-		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_CC_NEG_SHIPPING', '', '6', '10', now())");
-		
+		// BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_CC_NEG_SHIPPING', '', '6', '10', now())");
+		// EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 	}
 
 	function remove() {
@@ -377,7 +379,7 @@ class cc {
 						'MODULE_PAYMENT_CC_ACCEPT_JCB', 
 						'MODULE_PAYMENT_CC_ACCEPT_MAESTRO', 
 						'MODULE_PAYMENT_CC_ACCEPT_VISA',
-      					'MODULE_PAYMENT_CC_NEG_SHIPPING' );    // Hendrik - 09.08.2010 - exlusion config for shipping modules
+      					'MODULE_PAYMENT_CC_NEG_SHIPPING' );    // Hendrik - 2010-08-09 - exlusion config for shipping modules
 						
 	}
 }

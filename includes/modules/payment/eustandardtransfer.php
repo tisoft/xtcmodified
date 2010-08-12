@@ -17,10 +17,12 @@
 
 class eustandardtransfer {
 	var $code, $title, $description, $enabled;
-
 	// class constructor
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
 	//function eustandardtransfer() {
-	function __construct() {        // Hendrik 08.2010, php5 compatible  
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
+
 		$this->code = 'eustandardtransfer';
 		$this->title = MODULE_PAYMENT_EUTRANSFER_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_EUTRANSFER_TEXT_DESCRIPTION;
@@ -28,11 +30,11 @@ class eustandardtransfer {
 		$this->info = MODULE_PAYMENT_EUTRANSFER_TEXT_INFO;
 		$this->enabled = ((MODULE_PAYMENT_EUTRANSFER_STATUS == 'True') ? true : false);
 		
-		$this->update_status();		                            // Hendrik - 15.07.2010 - exlusion config for shipping modules
+		$this->update_status();		                            // Hendrik - 2010-07-15 - exlusion config for shipping modules
 	} 
 	// class methods
 	
-	// BOF - Hendrik - 15.07.2010 - exlusion config for shipping modules  
+	// BOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 	function update_status() {
 		global $order;
 		if( MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING != '' ) {
@@ -46,7 +48,7 @@ class eustandardtransfer {
 			}
 		}
 	} 
-	// eOF - Hendrik - 15.07.2010 - exlusion config for shipping modules  
+	// EOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 	
 	
 	function javascript_validation() {
@@ -112,9 +114,9 @@ class eustandardtransfer {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value,configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_EUTRANSFER_BANKBIC', '---',  '6', '1', now());");
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value,configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_EUTRANSFER_SORT_ORDER', '0',  '6', '0', now())");
 
-		// Hendrik - 15.07.2010 - exlusion config for shipping modules
+		// BOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value,configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING', '', '6', '0', now())");
-
+		// EOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 	}
 
 	function remove() {
@@ -131,7 +133,7 @@ class eustandardtransfer {
 						'MODULE_PAYMENT_EUTRANSFER_ACCIBAN', 
 						'MODULE_PAYMENT_EUTRANSFER_BANKBIC', 
 						'MODULE_PAYMENT_EUTRANSFER_SORT_ORDER',
-                    	'MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING'       // Hendrik - 15.07.2010 - exlusion config for shipping modules
+                    	'MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING'       // Hendrik - 2010-07-15 - exlusion config for shipping modules
 					);
 
 		return $keys;

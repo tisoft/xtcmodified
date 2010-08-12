@@ -35,9 +35,9 @@ define('TABLE_HEADING_EDIT','Edit');
 define('TABLE_HEADING_PRODUCTS_MODEL','Products Model');
 // EOF - Tomcraft - 2010-04-07 - Added definition for products model
 
-// Hendrik - 2010-08-11 - thumbnails in products list
+// BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 define('TABLE_HEADING_IMAGE','Image');
-
+// EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 
 define('TEXT_ACTIVE_ELEMENT','Active Element');
 define('TEXT_INFORMATIONS','Informations');

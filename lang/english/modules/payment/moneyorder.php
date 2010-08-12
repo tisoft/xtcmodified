@@ -32,8 +32,8 @@
   define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_TITLE' , 'Set Order Status');
   define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_DESC' , 'Set the status of orders made with this payment module to this value');
   
-// Hendrik - 15.07.2010 - exlusion config for shipping modules
+// BOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 define('MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
 define('MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by commas)');
-  
+// EOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 ?>

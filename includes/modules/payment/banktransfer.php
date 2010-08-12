@@ -25,9 +25,10 @@
 
     var $code, $title, $description, $enabled;
 
-
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
     //function banktransfer() {
-	function __construct() {        // Hendrik 08.2010, php5 compatible  
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
       global $order;
 
       $this->code = 'banktransfer';
@@ -50,7 +51,7 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
     function update_status() {
       global $order;
 
-		// BOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+		// BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 		if( MODULE_PAYMENT_BANKTRANSFER_NEG_SHIPPING != '' ) {
 			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_BANKTRANSFER_NEG_SHIPPING);
 			foreach( $neg_shpmod_arr as $neg_shpmod ) {
@@ -61,7 +62,7 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
 				}
 			}
 		} 
-	    // EOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+	    // EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 	    
        $check_order_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
        $order_check = xtc_db_fetch_array($check_order_query);
@@ -317,8 +318,9 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
       xtc_db_query("CREATE TABLE IF NOT EXISTS banktransfer (orders_id int(11) NOT NULL default '0', banktransfer_owner varchar(64) default NULL, banktransfer_number varchar(24) default NULL, banktransfer_bankname varchar(255) default NULL, banktransfer_blz varchar(8) default NULL, banktransfer_status int(11) default NULL, banktransfer_prz char(2) default NULL, banktransfer_fax char(2) default NULL, KEY orders_id(orders_id))");
       xtc_db_query("insert into " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_BANKTRANSFER_MIN_ORDER', '0',  '6', '0', now())");
 
-		// Hendrik - 09.08.2010 - exlusion config for shipping modules
-		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_BANKTRANSFER_NEG_SHIPPING', '', '6', '0', now())");
+      // BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
+      xtc_db_query("insert into " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_BANKTRANSFER_NEG_SHIPPING', '', '6', '0', now())");
+      // EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 	}
 
 
@@ -336,7 +338,7 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
       				'MODULE_PAYMENT_BANKTRANSFER_FAX_CONFIRMATION', 
       				'MODULE_PAYMENT_BANKTRANSFER_MIN_ORDER', 
       				'MODULE_PAYMENT_BANKTRANSFER_URL_NOTE',
-      				'MODULE_PAYMENT_BANKTRANSFER_NEG_SHIPPING' );    // Hendrik - 09.08.2010 - exlusion config for shipping modules
+      				'MODULE_PAYMENT_BANKTRANSFER_NEG_SHIPPING' );    // Hendrik - 2010-08-09 - exlusion config for shipping modules
     }
   }
 ?>

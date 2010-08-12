@@ -42,8 +42,10 @@ require (DIR_FS_CATALOG.'callback/pn_sofortueberweisung/classPnSofortueberweisun
 class pn_sofortueberweisung {
 
 	var $code, $title, $description, $enabled, $pnSofortueberweisung;
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
 	// function pn_sofortueberweisung () {
-	function __construct() {        // Hendrik 08.2010, php5 compatible  
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
 		$this->version = 'pn_xtcmodified_v1.05';
@@ -71,7 +73,7 @@ class pn_sofortueberweisung {
 	{
 		global $order;
 		
-		// BOF - Hendrik - 11.08.2010 - exlusion config for shipping modules  
+		// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 		if( MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING != '' ) {
 			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING);
 			foreach( $neg_shpmod_arr as $neg_shpmod ) {
@@ -82,7 +84,7 @@ class pn_sofortueberweisung {
 				}
 			}
 		} 
-		// EOF - Hendrik - 11.08.2010 - exlusion config for shipping modules 
+		// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 				
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE > 0)) {
 			$check_flag = false;
@@ -354,9 +356,9 @@ class pn_sofortueberweisung {
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2', '" . STORE_NAME . "', '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE', 'Logo & Text',  '6', '6', 'xtc_cfg_select_option(array(\'Infographic\',\'Logo & Text\',\'Logo\'), ', now())");
 
-			// Hendrik - 11.08.2010 - exlusion config for shipping modules
-			xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING', '', '6', '99', now())");
-	
+			// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
+			xtc_db_query("insert into " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING', '', '6', '99', now())");
+			// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 		}
 	}
 	
@@ -380,7 +382,7 @@ class pn_sofortueberweisung {
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER',
-		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING' );		// Hendrik - 11.08.2010 - exlusion config for shipping modules
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING' );		// Hendrik - 2010-08-11 - exlusion config for shipping modules
 	}
 
 	// xtc_remove_order() in admin/includes/functions/general.php

@@ -173,13 +173,13 @@
 <!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
                 <?php echo TABLE_HEADING_SORT.xtc_sorting(FILENAME_CATEGORIES,'sort'); ?>
              </td>
-			 <!-- BOF - 11.08.2010, Hendrik, products_image thumbnail //-->
+			 <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
 			 <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
 			 <td class="dataTableHeadingContent" width="10%" align="center">
 			   <?php echo TABLE_HEADING_IMAGE ?>
 			 </td>             
 			 <?php } ?>
-			 <!-- EOF - 11.08.2010, Hendrik, products_image thumbnail //-->
+			 <!-- EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
              <td class="dataTableHeadingContent" align="center" width="30%">
                 <?php echo TABLE_HEADING_CATEGORIES_PRODUCTS.xtc_sorting(FILENAME_CATEGORIES,'name'); ?>
              </td>
@@ -257,11 +257,11 @@
              <td class="categories_view_data"><input type="checkbox" name="multi_categories[]" value="<?php echo $categories['categories_id'] . '" '; if (is_array($_POST['multi_categories'])) { if (in_array($categories['categories_id'], $_POST['multi_categories'])) { echo 'checked="checked"'; } } ?>></td>
             <td class="categories_view_data">--</td>    <td class="categories_view_data"><?php echo $categories['sort_order']; ?></td>
              
-			 <!-- BOF - 11.08.2010, Hendrik, products_image thumbnail //-->
+			 <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
 			 <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
 			 <td class="categories_view_data">--</td>   
 			 <?php } ?>
-			 <!-- EOF - 11.08.2010, Hendrik, products_image thumbnail //-->
+			 <!-- EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
 
              
              <td class="categories_view_data" style="text-align: left; padding-left: 5px;">
@@ -416,13 +416,13 @@
       ?>
       </td>
       
-	  <!-- BOF - 11.08.2010, Hendrik, products_image thumbnail //-->
+	  <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
 	  <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
 	  <td class="categories_view_data" style="text-align: center;">
   	  	<?php echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50', '50');?>
 	  </td>
 	  <?php } ?>
-	  <!-- EOF - 11.08.2010, Hendrik, products_image thumbnail //-->
+	  <!-- EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
 
       <td class="categories_view_data" style="text-align: left; padding-left: 8px;">
         <?php echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id'] ) . '">' . xtc_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '&nbsp;</a><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id']) .'">' . $products['products_name']; ?></a>

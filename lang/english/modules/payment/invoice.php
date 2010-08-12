@@ -31,8 +31,8 @@ define('MODULE_PAYMENT_INVOICE_ALLOWED_DESC' , 'Please enter the zones <b>separa
 define('MODULE_PAYMENT_INVOICE_MIN_ORDER_TITLE' , 'Minimum Orders');
 define('MODULE_PAYMENT_INVOICE_MIN_ORDER_DESC' , 'Minimum orders for a Customer to view this Option.');
 
-// Hendrik - 09.08.2010 - exlusion config for shipping modules
+// BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 define('MODULE_PAYMENT_INVOICE_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
 define('MODULE_PAYMENT_INVOICE_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
-
+// EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 ?>

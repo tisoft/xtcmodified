@@ -312,10 +312,10 @@
                     </select><br />
                    <?php echo REPORT_PAYMENT_FILTER; ?><br />
                     <select name="payment" size="1">
-                      <?php // BOF preselection bug found by Robert/Robo-X edit by Hendrik, 06.08.2010 ?>
+                      <?php // BOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
                       <!-- <option value="0"><?php echo REPORT_ALL; ?></option> -->
                       <option value="0" <?php if ($srPayment == '0') echo "selected='selected'"; ?>><?php echo REPORT_ALL; ?></option>                      
-                      <?php // EOF preselection bug  ?>
+                      <?php // EOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
 <?php
 
   $payments = explode(';', MODULE_PAYMENT_INSTALLED); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
@@ -328,10 +328,10 @@
   
                          
 ?>                           
-    <?php // BOF preselection bug found by Robert/Robo-X edit by Hendrik, 06.08.2010 ?>
+    <?php // BOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
     <!-- <option value="<?php echo $payment; ?>"<?php if ($srPayment == $payment) echo " selected"; ?>><?php echo $payment_text ; ?></option> -->
     <option value="<?php echo $payment; ?>"<?php if (($srPayment == $payment) && ($srPayment != '0')) echo "selected='selected'"; ?>><?php echo $payment_text ; ?></option>
-    <?php // EOF preselection bug ?>
+    <?php // EOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
                            
   <?php                         
   }

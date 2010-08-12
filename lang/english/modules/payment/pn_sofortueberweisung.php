@@ -91,8 +91,8 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE_DESC','Shown graphic / text i
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_HEADING', 'The following error has been announced by DIRECTebanking.com during the process:');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_MESSAGE', 'Payment via DIRECTebanking.com is unfortunately not possible or has been cancelled by the customer. Please select another payment method.');
 
-// Hendrik - 11.08.2010 - exlusion config for shipping modules
+// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
-
+// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 ?>

@@ -31,8 +31,10 @@ class amoneybookers {
 	var $mbLanguages, $mbCurrencies, $aCurrencies, $defCurr, $defLang;
 
 	// class constructor
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
 	//function amoneybookers() {
-	function __construct() {        // Hendrik 08.2010, php5 compatible  
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
 		global $order, $language;
 
 		$this->code = 'amoneybookers';
@@ -108,7 +110,7 @@ class amoneybookers {
 	function update_status() {
 		global $order;
 		
-		// BOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  
+		// BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 		if( MODULE_PAYMENT_AMONEYBOOKERS_NEG_SHIPPING != '' ) {
 			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_AMONEYBOOKERS_NEG_SHIPPING);
 			foreach( $neg_shpmod_arr as $neg_shpmod ) {
@@ -119,7 +121,7 @@ class amoneybookers {
 				}
 			}
 		} 
-	    // EOF - Hendrik - 09.08.2010 - exlusion config for shipping modules  		
+	    // EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_AMONEYBOOKERS_ZONE > 0)) {
 			$check_flag = false;
@@ -649,8 +651,9 @@ class amoneybookers {
 		xtc_db_query("insert into " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_AMONEYBOOKERS_CANCELED_STATUS_ID', '0',  '6', '0', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
 		xtc_db_query("insert into " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_AMONEYBOOKERS_ICONS', 'elv.jpg,giropay.gif,cc_visa.jpg,visa_electron.jpg,cc_mastercard.jpg,cc_amex.jpg,cc_diners.jpg,swift.jpg,cheque.jpg',  '6', '0', now())");
 
-		// Hendrik - 09.08.2010 - exlusion config for shipping modules
-		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_AMONEYBOOKERS_NEG_SHIPPING', '', '6', '10', now())");
+		// BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
+		xtc_db_query("insert into " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_AMONEYBOOKERS_NEG_SHIPPING', '', '6', '10', now())");
+		// EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 
 		// tables
 
@@ -679,7 +682,7 @@ class amoneybookers {
 			'MODULE_PAYMENT_AMONEYBOOKERS_SORT_ORDER',
 			'MODULE_PAYMENT_AMONEYBOOKERS_ALLOWED',
 			'MODULE_PAYMENT_AMONEYBOOKERS_ZONE',
-      		'MODULE_PAYMENT_AMONEYBOOKERS_NEG_SHIPPING'     // Hendrik - 09.08.2010 - exlusion config for shipping modules
+      		'MODULE_PAYMENT_AMONEYBOOKERS_NEG_SHIPPING'     // Hendrik - 2010-08-09 - exlusion config for shipping modules
 		);
 	}
 

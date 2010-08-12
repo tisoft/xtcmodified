@@ -123,8 +123,8 @@ define('MODULE_PAYMENT_PAYPAL_IPN_RETURN_HEADER','Vielen Dank');
 define('MODULE_PAYMENT_PAYPAL_IPN_RETURN_TEXT1','Wir bedanken uns für Ihre PayPal-Zahlung in Höhe von');
 define('MODULE_PAYMENT_PAYPAL_IPN_RETURN_TEXT2','für Ihre Bestellung vom');
 
-// Hendrik - 11.08.2010 - exlusion config for shipping modules
+// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 define('MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen');
 define('MODULE_PAYMENT_PAYPAL_IPN_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
-
+// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 ?>

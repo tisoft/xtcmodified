@@ -35,8 +35,10 @@
     var $modules, $selected_module;
 
     // class constructor
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
     //function payment($module = '') {    
-	function __construct($module = '') {        // Hendrik 08.2010, php5 compatible  
+	function __construct($module = '') {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
       global $PHP_SELF,$order;
 
       if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {

@@ -68,8 +68,8 @@ define('MODULE_PAYMENT_WORLDPAY_TEXT_INFO','');
 define('MODULE_PAYMENT_WORLDPAY_ALLOWED_TITLE' , 'Allowed zones');
 define('MODULE_PAYMENT_WORLDPAY_ALLOWED_DESC' , 'Please enter the zones <b>separately</b> which should be allowed to use this modul (e. g. AT,DE (leave empty if you want to allow all zones))');
 
-// Hendrik - 11.08.2010 - exlusion config for shipping modules
+// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 define('MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
 define('MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
-
+// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 ?>

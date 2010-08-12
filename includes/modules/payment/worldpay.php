@@ -49,8 +49,10 @@ class worldpay {
 	var $code, $title, $description, $enabled;
 
 	// class constructor
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
 	// function worldpay() {
-	function __construct() {        // Hendrik 08.2010, php5 compatible  
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
 		global $order;
 		$this->code = 'worldpay';
 		$this->title = MODULE_PAYMENT_WORLDPAY_TEXT_TITLE;
@@ -74,7 +76,7 @@ class worldpay {
 		global $order;
 		
 		
-		// BOF - Hendrik - 11.08.2010 - exlusion config for shipping modules  
+		// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 		if( MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING != '' ) {
 			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING);
 			foreach( $neg_shpmod_arr as $neg_shpmod ) {
@@ -85,7 +87,7 @@ class worldpay {
 				}
 			}
 		} 
-		// EOF - Hendrik - 11.08.2010 - exlusion config for shipping modules 		
+		// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_WORLDPAY_ZONE > 0)) {
 			$check_flag = false;
@@ -197,8 +199,9 @@ class worldpay {
 		// Paulz zone control 04/04/2004        
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_WORLDPAY_ZONE', '0', '6', '2', 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(', now())");
 
-		// Hendrik - 11.08.2010 - exlusion config for shipping modules
-		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING', '', '6', '10', now())");
+		// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
+		xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING', '', '6', '10', now())");
+		// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 
 		// Ian-san: Added MD5 here 6/4/2003:
 		xtc_db_query("delete from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_WORLDPAY_USEMD5'");
@@ -220,7 +223,7 @@ class worldpay {
 			'MODULE_PAYMENT_WORLDPAY_ZONE', 
 			'MODULE_PAYMENT_WORLDPAY_SORT_ORDER', 
 			'MODULE_PAYMENT_WORLDPAY_ORDER_STATUS_ID',
-			'MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING' );		// Hendrik - 11.08.2010 - exlusion config for shipping modules
+			'MODULE_PAYMENT_WORLDPAY_NEG_SHIPPING' );		// Hendrik - 2010-08-11 - exlusion config for shipping modules
 	}
 }
 ?>

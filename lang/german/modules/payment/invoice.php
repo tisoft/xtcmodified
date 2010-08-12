@@ -31,8 +31,8 @@ define('MODULE_PAYMENT_INVOICE_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zon
 define('MODULE_PAYMENT_INVOICE_MIN_ORDER_TITLE' , 'Notwendige Bestellungen');
 define('MODULE_PAYMENT_INVOICE_MIN_ORDER_DESC' , 'Die Mindestanzahl an Bestellungen die ein Kunden haben muss damit die Option zur Verf&uuml;gung steht.');
 
-// Hendrik - 09.08.2010 - exlusion config for shipping modules
+// BOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 define('MODULE_PAYMENT_INVOICE_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen');
 define('MODULE_PAYMENT_INVOICE_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
-
+// EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 ?>

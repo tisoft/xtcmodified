@@ -19,9 +19,10 @@
 class cod {
 
   var $code, $title, $description, $enabled;
-
+  // BOF - Hendrik - 2010-08-11 - php5 compatible
   //function cod() {
-  function __construct() {        // Hendrik 08.2010, php5 compatible  
+  function __construct() {
+  // EOF - Hendrik - 2010-08-11 - php5 compatible
     global $order,$xtPrice;
 
     $this->code = 'cod';
@@ -43,7 +44,7 @@ class cod {
   function update_status() {
     global $order;
     
-     // BOF - Hendrik - 15.07.2010 - exlusion config for shipping modules  
+     // BOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
     if( MODULE_PAYMENT_COD_NEG_SHIPPING != '' ) {
       $neg_shpmod_arr = explode(',',MODULE_PAYMENT_COD_NEG_SHIPPING);
       foreach( $neg_shpmod_arr as $neg_shpmod ) {
@@ -58,7 +59,7 @@ class cod {
 //    if ($_SESSION['shipping']['id'] == 'selfpickup_selfpickup') {
 //      $this->enabled = false;
 //    }
-     // EOF - Hendrik - 15.07.2010 - exlusion config for shipping modules 
+     // EOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 
 
 
@@ -212,8 +213,9 @@ class cod {
     xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_COD_SORT_ORDER', '0',  '6', '0', now())");
     xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_COD_ORDER_STATUS_ID', '0','6', '0', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
     
-    // Hendrik - 15.07.2010 - exlusion config for shipping modules
+    // BOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
     xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_COD_NEG_SHIPPING', 'selfpickup', '6', '0', now())");
+    // EOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
   }
 
   function remove() {
@@ -226,7 +228,7 @@ class cod {
                     'MODULE_PAYMENT_COD_ZONE', 
                     'MODULE_PAYMENT_COD_ORDER_STATUS_ID', 
                     'MODULE_PAYMENT_COD_SORT_ORDER',
-                    'MODULE_PAYMENT_COD_NEG_SHIPPING'         );       // Hendrik - 15.07.2010 - exlusion config for shipping modules
+                    'MODULE_PAYMENT_COD_NEG_SHIPPING'         );       // Hendrik - 2010-07-15 - exlusion config for shipping modules
   }
 }
 ?>

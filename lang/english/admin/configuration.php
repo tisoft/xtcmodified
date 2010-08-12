@@ -656,10 +656,10 @@ define('USE_ADMIN_LANG_TABS_TITLE' , 'Language Tabs with Categories / Articles')
 define('USE_ADMIN_LANG_TABS_DESC' , 'Use language tabs with categories / articles?');
 // EOF - Tomcraft - 2009-11-02 - Admin language tabs
 
-// Hendrik - 2010-08-11 - thumbnails in products list
+// BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 define('USE_ADMIN_THUMBS_IN_LIST_TITLE' , 'Admin products list images');
 define('USE_ADMIN_THUMBS_IN_LIST_DESC' , 'Admin products list with images?');
-
+// EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 
 // BOF - Tomcraft - 2009-11-05 - Advanced contact form
 define('USE_CONTACT_EMAIL_ADDRESS_TITLE' , 'Contact Us - sending option');
