@@ -12,13 +12,14 @@ if(!function_exists('xtDBquery'))
     require_once(DIR_FS_INC . 'shopstat_functions_xtc2.inc.php');
     }
 
-function shopstat_getSEO(   $page               = '',
+function shopstat_getSEO(  $page               = '',
                             $parameters         = '',
                             $connection         = 'NONSSL',
                             $add_session_id     = true,
                             $search_engine_safe = true,
                             $mode               = 'user')
 {
+        global $languages_id;
         if($mode == 'admin')
             {
             require_once(DIR_FS_INC . 'xtc_parse_category_path.inc.php');
@@ -30,8 +31,6 @@ function shopstat_getSEO(   $page               = '',
             require_once(DIR_FS_INC . 'xtc_get_products_name.inc.php');
             require_once(DIR_FS_INC . 'xtc_get_manufacturers.inc.php');
             }
-
-        global $languages_id;
 
         //-- XTC
         (!isset($languages_id)) ? $languages_id = $_SESSION['languages_id'] : false;
@@ -142,7 +141,9 @@ function shopstat_getSEO(   $page               = '',
                     {
                     $category['categories_name'] = shopstat_getRealPath($cPath);
 
-                    $link .= shopstat_hrefCatlink($category['categories_name'],$cPath,$pager);
+                    $link .= shopstat_hrefCatlink(	$category['categories_name'],
+													$cPath,
+													$pager);
                     }
                 else{
                     $category['categories_name'] = shopstat_getRealPath(xtc_get_product_path($prodid));
@@ -215,20 +216,20 @@ function shopstat_getRealPath($cPath, $delimiter = '/')
 {
     if(empty($cPath)) return;
 
-	//BOF - web28 - 2010-05-12 - set missing variable $languages_id
-	global $languages_id; 
-	//EOF  - web28 - 2010-05-12 - set missing variable $languages_id
+    //BOF - web28 - 2010-05-12 - set missing variable $languages_id
+    global $languages_id; 
+    //EOF - web28 - 2010-05-12 - set missing variable $languages_id
 	
     $path       = explode("_",$cPath);
     $categories = array();
 
     foreach($path as $key => $value)
-        {
+    {
 		//BOF - web28 - 2010-05-12 - set missing variable $languages_id
-        //$categories[$key] = shopstat_getCategoriesName($value, $language);		
-        $categories[$key] = shopstat_getCategoriesName($value, $languages_id);
+		//$categories[$key] = shopstat_getCategoriesName($value, $language);		
+		$categories[$key] = shopstat_getCategoriesName($value, $languages_id);
 		//EOF - web28 - 2010-05-12 - set missing variable $languages_id
-        }
+    }
 
     $realpath = implode($delimiter,$categories);
 
@@ -239,11 +240,11 @@ function shopstat_getContentName($coid, $language = '')
     if(empty($coid)) return;
     if(empty($language)) $language = $_SESSION['languages_id'];
 
-// BOF - Tomcraft - 2009-06-03 - fix shopstat security issue
-//	$content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".$language."' AND content_group = ".$coid;
-  $content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".intval($language)."' AND content_group = ".intval($coid);
-// EOF - Tomcraft - 2009-06-03 - fix shopstat security issue
-	$content_query  = xtDBquery($content_query);
+  // BOF - Tomcraft - 2009-06-03 - fix shopstat security issue
+  //	$content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".$language."' AND content_group = ".$coid;
+    $content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".intval($language)."' AND content_group = ".intval($coid);
+  // EOF - Tomcraft - 2009-06-03 - fix shopstat security issue
+    $content_query  = xtDBquery($content_query);
     $content_data   = xtc_db_fetch_array($content_query, true);
 
     return($content_data['content_title']);
@@ -333,8 +334,11 @@ function shopstat_hrefSmallmask($string)
 {
     shopstat_getRegExps($search, $replace);
 
-    //-- <br> neutralisieren
-    $newstring  = preg_replace("/<br>/i","-",$string);
+    //-- <br> neutralisieren  
+    //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
+    //$newstring  = preg_replace("/<br>/i","-",$string);
+    $newstring  = preg_replace("/<br(\s+)?\/?>/i","-",$string);
+    //EOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
 
     //-- HTML entfernen
     $newstring  = strip_tags($newstring);
@@ -357,8 +361,18 @@ function shopstat_hrefMask($string)
 {
     shopstat_getRegExps($search, $replace);
 
+    //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
+    $newstring = $string;
+
+    //--[1.2] HTML-Codierung entfernen (&uuml; etc.)
+    $newstring  = html_entity_decode($newstring);
+    //EOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
+
     //-- <br> neutralisieren
-    $newstring  = preg_replace("/<br>/i","-",$string);
+    //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
+    //$newstring  = preg_replace("/<br>/i","-",$string);
+    $newstring  = preg_replace("/<br(\s+)?\/?>/i","-",$newstring);  
+    //EOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
 
     //-- HTML entfernen
     $newstring  = strip_tags($newstring);
@@ -381,33 +395,33 @@ function shopstat_hrefMask($string)
 function shopstat_getRegExps(&$search, &$replace)
 {
     $search     = array(
-                        "'\s&\s'",          //--Kaufmännisches Und mit Blanks muss raus
-						"'[\r\n\s]+'",	    // strip out white space
-						"'&(quote|#34);'i",	//--Anführungszeichen oben replace html entities
-						"'&(amp|#38);'i",   //--Ampersand-Zeichen, kaufmännisches Und
-						"'&(lt|#60);'i",	//--öffnende spitze Klammer
-						"'&(gt|#62);'i",	//--schließende spitze Klammer
-						"'&(nbsp|#160);'i",	//--Erzwungenes Leerzeichen					
-						//BOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
+						"'\s&\s'",                //--Kaufmännisches Und mit Blanks muss raus
+						"'[\r\n\s]+'",	          // strip out white space
+						"'&(quote|#34);'i",	      //--Anführungszeichen oben replace html entities
+						"'&(amp|#38);'i",         //--Ampersand-Zeichen, kaufmännisches Und
+						"'&(lt|#60);'i",	        //--öffnende spitze Klammer
+						"'&(gt|#62);'i",	        //--schließende spitze Klammer
+						"'&(nbsp|#160);'i",	      //--Erzwungenes Leerzeichen					
+						//BOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
 						"'&(iexcl|#161);|¡'i", 		//umgekehrtes Ausrufezeichen
 						"'&(cent|#162);|¢'i", 		//Cent-Zeichen
 						"'&(pound|#163);|£'i", 		//Pfund-Zeichen
-						"'&(curren|#164);|¤'i",   	//Währungszeichen--currency 
+						"'&(curren|#164);|¤'i",   //Währungszeichen--currency 
 						"'&(yen|#165);|¥'i",   		//Yen  wird zu Yen
 						"'&(brvbar|#166);|¦'i",		//durchbrochener Strich
-						"'&(sect|#167);|§'i",		//Paragraph-Zeichen
-						"'&(copy|#169);|©'i",		//Copyright-Zeichen 					
-						"'&(reg|#174);|®'i",		//Eingetragene Marke wird zu -R-
-						"'&(deg|#176);|°'i",		//Grad-Zeichen -- degree wird zu -Grad-
+						"'&(sect|#167);|§'i",		  //Paragraph-Zeichen
+						"'&(copy|#169);|©'i",		  //Copyright-Zeichen 					
+						"'&(reg|#174);|®'i",		  //Eingetragene Marke wird zu -R-
+						"'&(deg|#176);|°'i",		  //Grad-Zeichen -- degree wird zu -Grad-
 						"'&(plusmn|#177);|±'i",		//Plusminus-Zeichen
-						"'&(sup2|#178);|²'i",		//Hoch-2-Zeichen 
+						"'&(sup2|#178);|²'i",	    //Hoch-2-Zeichen 
 						"'&(sup3|#179);|³'i", 		//Hoch-3-Zeichen 
 						"'&(micro|#181);|µ'i",		//Mikro-Zeichen
-						"'&(trade|#8482);|™'i",   	//--Trademark wird zu -TM-
+						"'&(trade|#8482);|™'i",   //--Trademark wird zu -TM-
 						"'&(euro|#8364);|€'i",   	//--Eurozeichen wird zu EUR
 						"'&(laquo|#171);|«'i", 	 	//-- Left angle quotes Left Winkel Zitate
 						"'&(raquo|#187);|»'i", 		//--Right angle quotes Winkelgetriebe Zitate
-						//BOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion
+						//BOF - web28 - 2010-05-13 - Benannte Zeichen für Interpunktion
 						"'&(ndash|#8211);|–'i", 	//-- Gedankenstrich Breite n 	
 						"'&(mdash|#8212);|—'i", 	//-- Gedankenstrich Breite m 	
 						"'&(lsquo|#8216);|‘'i", 	//-- einfaches Anführungszeichen links 	
@@ -416,19 +430,19 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(ldquo|#8220);|“'i", 	//-- doppeltes Anführungszeichen links 
 						"'&(rdquo|#8221);|”'i", 	//-- doppeltes Anführungszeichen rechts 
 						"'&(bdquo|#8222);|„'i", 	//-- doppeltes low-9-Zeichen rechts 
-						//EOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion
-						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
-                        "'&'",              //--Kaufmännisches Und 
-                        "'%'",              //--Prozent muss weg
-                        "/[\[\({]/",        //--öffnende Klammern nach Bindestriche
-                        "/[\)\]\}]/",       //--schliessende Klammern weg
-                        "/ß/",              //--Umlaute etc.
-                        "/ä/",              //--Umlaute etc.
-                        "/ü/",              //--Umlaute etc.
-                        "/ö/",              //--Umlaute etc.
-                        "/Ä/",              //--Umlaute etc.
-                        "/Ü/",              //--Umlaute etc.
-                        "/Ö/",              //--Umlaute etc.
+						//EOF - web28 - 2010-05-13 - Benannte Zeichen für Interpunktion
+						//EOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
+						"'&'", 	                  //--Kaufmännisches Und 
+						"'%'", 	                  //--Prozent muss weg
+						"/[\[\({]/",              //--öffnende Klammern nach Bindestriche
+						"/[\)\]\}]/",             //--schliessende Klammern weg
+						"/ß/",                    //--Umlaute etc.
+						"/ä/",                    //--Umlaute etc.
+						"/ü/",                    //--Umlaute etc.
+						"/ö/",                    //--Umlaute etc.
+						"/Ä/",                    //--Umlaute etc.
+						"/Ü/",                    //--Umlaute etc.
+						"/Ö/",                    //--Umlaute etc.
 						//BOF  - web28 - 2010-05-12 - Französisch
 						"'&(Agrave|#192);|À'i",		// Capital A-grave Capital A-Grab
 						"'&(agrave|#224);|à'i",		//Lowercase a-grave Kleinbuchstaben a-Grab
@@ -444,12 +458,12 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(eacute|#233);|é'i",		//Lowercase e-acute Kleinbuchstaben e-acute
 						"'&(Ecirc|#202);|Ê'i",		//Capital E-circumflex E-Capital circumflexa
 						"'&(ecirc|#234);|ê'i",		//Lowercase e-circumflex Kleinbuchstaben e-Zirkumflex
-						"'&(Euml|#203);|Ë'i",		//Capital E-umlaut Capital E-Umlaut
-						"'&(euml|#235);|ë'i",		//Lowercase e-umlaut Kleinbuchstaben e-Umlaut
+						"'&(Euml|#203);|Ë'i",		  //Capital E-umlaut Capital E-Umlaut
+						"'&(euml|#235);|ë'i",		  //Lowercase e-umlaut Kleinbuchstaben e-Umlaut
 						"'&(Icirc|#206);|Î'i",		//Capital I-circumflex Capital I-Zirkumflex
 						"'&(icirc|#238);|î'i",		//Lowercase i-circumflex Kleinbuchstaben i-Zirkumflex
-						"'&(Iuml|#207);|Ï'i",		//Capital I-umlaut Capital I-Umlaut
-						"'&(iuml|#239);|ï'i",		//Lowercase i-umlaut Kleinbuchstaben i-Umlaut
+						"'&(Iuml|#207);|Ï'i",		  //Capital I-umlaut Capital I-Umlaut
+						"'&(iuml|#239);|ï'i",		  //Lowercase i-umlaut Kleinbuchstaben i-Umlaut
 						"'&(Ocirc|#212);|Ô'i",		//Capital O-circumflex O-Capital circumflexa
 						"'&(ocirc|#244);|ô'i",		//Lowercase o-circumflex Kleinbuchstabe o-Zirkumflex
 						"'&(OElig|#140);|Œ'i",		//Capital OE ligature Capital OE Ligatur
@@ -458,24 +472,33 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(ugrave|#249);|ù'i",		//Lowercase u-grave Kleinbuchstaben u-Grab
 						"'&(Ucirc|#219);|Û'i",		//Capital U-circumflex Capital U-Zirkumflex
 						"'&(ucirc|#251);|û'i",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
-						//EOF  - web28 - 2010-05-12 - Französisch
-                        "/'|\"|´|`/",       //--Anführungszeichen weg.						
-                        "/[:,\.!?\*\+]/",   //--Doppelpunkte, Komma, Punkt etc. weg. 
+						//EOF - web28 - 2010-05-12 - Französisch
+						//BOF - DokuMan - 2010-08-13 - Spanisch
+            "/Á/","/Â/", "/Ã/", "/Ä/", "/Å/", "/Æ/", "/Ç/", "/È/", "/É/",
+            "/Ê/", "/Ë/", "/Ì/", "/Í/", "/Î/", "/Ï/", "/Ð/", "/Ñ/", "/Ò/",
+            "/Ó/", "/Ô/", "/Õ/", "/Ö/", "/×/", "/Ø/", "/Ù/", "/Ú/", "/Û/",
+            "/Ü/", "/Ý/", "/Þ/", "/ß/", "/à/", "/á/", "/â/", "/ã/", "/ä/",
+            "/å/", "/æ/", "/ç/", "/è/", "/é/", "/ê/", "/ë/", "/ì/", "/í/",
+            "/î/", "/ï/", "/ð/", "/ñ/", "/ò/", "/ó/", "/ô/", "/õ/", "/ö/",
+            "/÷/", "/ø/", "/ù/", "/ú/", "/û/", "/ü/", "/ý/", "/þ/", "/ÿ/",
+						//EOF - DokuMan - 2010-08-13 - Spanisch
+						"/'|\"|´|`/",             //--Anführungszeichen weg.						
+						"/[:,\.!?\*\+]/",         //--Doppelpunkte, Komma, Punkt etc. weg. 
                         );
     $replace    = array(
-                        "-",		//--Kaufmännisches Und mit Blanks
+						"-",		//--Kaufmännisches Und mit Blanks
 						"-",		// strip out white space
-					    "\"",		//--Anführungszeichen oben 
+            "\"",		//--Anführungszeichen oben 
 						"-",		//--Ampersand-Zeichen, kaufmännisches Und
 						"<",		//--öffnende spitze Klammer
 						">",		//--schließende spitze Klammer
 						"",			//--Erzwungenes Leerzeichen
-						//BOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
+						//BOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
 						"", 		//chr(161), //umgekehrtes Ausrufezeichen
-						"ct", 		//chr(162), //Cent-Zeichen
-						"GBP", 		//chr(163), //Pfund-Zeichen
+						"ct", 	//chr(162), //Cent-Zeichen
+						"GBP", 	//chr(163), //Pfund-Zeichen
 						"", 		//chr(164), //Währungszeichen--currency 
-						"Yen", 		//chr(165), //Yen-Zeichen
+						"Yen", 	//chr(165), //Yen-Zeichen
 						"",			//chr(166),durchbrochener Strich
 						"",			//chr(167),Paragraph-Zeichen
 						"",			//chr(169),Copyright-Zeichen											
@@ -485,11 +508,11 @@ function shopstat_getRegExps(&$search, &$replace)
 						"", 		//chr(178) Hoch-2-Zeichen 
 						"", 		//chr(179) Hoch-3-Zeichen
 						"", 		//chr(181) Mikro-Zeichen
-						"~TM~",		//--Trademark wird zu -TM-
-						"EUR",		//--Eurozeichen wird zu EUR
+						"~TM~",	//--Trademark wird zu -TM-
+						"EUR",	//--Eurozeichen wird zu EUR
 						"<<",		//chr(171) -- Left angle quotes Left Winkel Zitate
 						">>",		//chr(187) -- Right angle quotes Right Winkel Zitate
-						//BOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion
+						//BOF - web28 - 2010-05-13 - Benannte Zeichen für Interpunktion
 						"-", 		//-- Gedankenstrich Breite n 	
 						"-", 		//-- Gedankenstrich Breite m 	
 						"", 		//-- einfaches Anführungszeichen links 	
@@ -498,20 +521,20 @@ function shopstat_getRegExps(&$search, &$replace)
 						"", 		//-- doppeltes Anführungszeichen links 
 						"", 		//-- doppeltes Anführungszeichen rechts 
 						"", 		//-- doppeltes low-9-Zeichen rechts
-						//EOF - web28 - 2010-05-13 -  Benannte Zeichen für Interpunktion	
-						//EOF - web28 - 2010-04-16 -  UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
-                        "-",		//--Kaufmännisches Und 
+						//EOF - web28 - 2010-05-13 - Benannte Zeichen für Interpunktion	
+						//EOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
+            "-",		//--Kaufmännisches Und 
 						"-",		//--Prozent 
-                        "-",		//--öffnende Klammern
-                        "",			//--schliessende Klammern 
-                        "ss",		//--Umlaute etc.
-                        "ae",		//--Umlaute etc.
-                        "ue",		//--Umlaute etc.
-                        "oe",		//--Umlaute etc.
-                        "Ae",		//--Umlaute etc.
-                        "Ue",		//--Umlaute etc.
-                        "Oe",		//--Umlaute etc.
-						//BOF  - web28 - 2010-05-12 - Französisch
+            "-",		//--öffnende Klammern
+            "",			//--schliessende Klammern 
+            "ss",		//--Umlaute etc.
+            "ae",		//--Umlaute etc.
+            "ue",		//--Umlaute etc.
+            "oe",		//--Umlaute etc.
+            "Ae",		//--Umlaute etc.
+            "Ue",		//--Umlaute etc.
+            "Oe",		//--Umlaute etc.
+						//BOF - web28 - 2010-05-12 - Französisch
 						"A",		// Capital A-grave Capital A-Grab
 						"a",		//Lowercase a-grave Kleinbuchstaben a-Grab
 						"A",		//Capital A-circumflex Capital A-Zirkumflex
@@ -540,9 +563,18 @@ function shopstat_getRegExps(&$search, &$replace)
 						"u",		//Lowercase u-grave Kleinbuchstaben u-Grab
 						"U",		//Capital U-circumflex Capital U-Zirkumflex
 						"u",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
-						//EOF  - web28 - 2010-05-12 - Französisch
-                        "",			//--Anführungszeichen 			
-                        "-"			//--Doppelpunkte, Komma, Punkt etc. 
+						//EOF - web28 - 2010-05-12 - Französisch
+						//BOF - DokuMan - 2010-08-13 - Spanisch
+            "A", "A", "A", "Ae", "A", "AE", "C", "E", "E",
+            "E", "E", "I", "I", "I", "I", "D", "N", "O",
+            "O", "O", "O", "Oe", "x", "O", "U", "U", "U",
+            "Ue", "Y", "Th", "ss", "a", "a", "a", "a", "a",
+            "a", "ae", "c", "e", "e", "e", "e", "i", "i",
+            "i", "i", "o", "n", "o", "o", "o", "o", "oe",
+            "-", "o", "u", "u", "u", "ue", "y", "th", "y",
+						//EOF - DokuMan - 2010-08-13 - Spanisch
+            "",			//--Anführungszeichen 			
+            "-"			//--Doppelpunkte, Komma, Punkt etc. 
                         );
 
 }
