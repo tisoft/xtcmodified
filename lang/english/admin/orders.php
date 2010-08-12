@@ -119,4 +119,10 @@ define('TEXT_VALIDATING','Not validated');
 // BOF - Tomcraft - 2010-04-22 - Added a missing language definition
 define('TEXT_PRODUCTS', 'Products');
 // EOF - Tomcraft - 2010-04-22 - Added a missing language definition
+
+// BOF - DokuMan - 2010-08-12 resend email to admin and/or customer
+define('TEXT_SUCCESS_ORDER_SEND', 'The order was sent successfully via email!');
+define('TEXT_ORDER_SEND_ADMIN','Resend email again to admin');
+define('TEXT_ORDER_SEND_CUSTOMER','Resend email again to customer');
+// EOF - DokuMan - 2010-08-12 resend email to admin and/or customer
 ?>

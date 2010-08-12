@@ -84,6 +84,138 @@ while ($orders_status = xtc_db_fetch_array($orders_status_query)) {
 	$orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
 }
 switch ($_GET['action']) {
+
+  //BOF - DokuMan - 2010-08-12 resend email to admin and/or customer
+	case 'send' :
+		$send_to_customer = 0;
+		$send_to_admin = 0;
+		
+		if (isset($_GET['stc']))
+			$send_to_customer = $_GET['stc'];
+		if (isset($_GET['sta']))
+			$send_to_admin = $_GET['sta'];
+
+		$oID = xtc_db_prepare_input($_GET['oID']);
+		$order = new order($oID);
+		require (DIR_FS_CATALOG.DIR_WS_CLASSES.'xtcPrice.php');
+		$xtPrice = new xtcPrice($order->info['currency'], $order->info['status']);
+	// set dirs manual
+		$smarty->template_dir = DIR_FS_CATALOG.'templates';
+		$smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
+		$smarty->config_dir = DIR_FS_CATALOG.'lang';
+		
+		$smarty->assign('address_label_customer', xtc_address_format($order->customer['format_id'], $order->customer, 1, '', '<br />'));
+		$smarty->assign('address_label_shipping', xtc_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br />'));
+		if ($_SESSION['credit_covers'] != '1') {
+			$smarty->assign('address_label_payment', xtc_address_format($order->billing['format_id'], $order->billing, 1, '', '<br />'));
+		}
+		$smarty->assign('csID', $order->customer['csID']);
+	
+		// get products data
+		$order_query = xtc_db_query("SELECT
+								products_id,
+								orders_products_id,
+								products_model,
+								products_name,
+								final_price,
+								products_quantity
+								FROM ".TABLE_ORDERS_PRODUCTS."
+								WHERE orders_id='".$oID."'");
+	
+		$order_data = array ();
+		while ($order_data_values = xtc_db_fetch_array($order_query)) {
+			$attributes_query = xtc_db_query("SELECT
+									products_options,
+									products_options_values,
+									price_prefix,
+									options_values_price
+									FROM ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES."
+									WHERE orders_products_id='".$order_data_values['orders_products_id']."'");
+			$attributes_data = '';
+			$attributes_model = '';
+			while ($attributes_data_values = xtc_db_fetch_array($attributes_query)) {	
+				$attributes_data .= $attributes_data_values['products_options'].':'.$attributes_data_values['products_options_values'].'<br />';
+				$attributes_model .= xtc_get_attributes_model($order_data_values['products_id'], $attributes_data_values['products_options_values']).'<br />';
+			}
+			$order_data[] = array ('PRODUCTS_MODEL' => $order_data_values['products_model'], 'PRODUCTS_NAME' => $order_data_values['products_name'], 'PRODUCTS_ATTRIBUTES' => $attributes_data, 'PRODUCTS_ATTRIBUTES_MODEL' => $attributes_model, 'PRODUCTS_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price'], true),'PRODUCTS_SINGLE_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price']/$order_data_values['products_quantity'], true), 'PRODUCTS_QTY' => $order_data_values['products_quantity']);		
+		}
+		// get order_total data
+		$oder_total_query = xtc_db_query("SELECT
+							title,
+							text,
+							sort_order
+							FROM ".TABLE_ORDERS_TOTAL."
+							WHERE orders_id='".$oID."'
+							ORDER BY sort_order ASC");
+	
+		$order_total = array ();
+		while ($oder_total_values = xtc_db_fetch_array($oder_total_query)) {
+	
+			$order_total[] = array ('TITLE' => $oder_total_values['title'], 'TEXT' => $oder_total_values['text']);
+		}
+	
+		// assign language to template for caching
+		$smarty->assign('language', $_SESSION['language']);
+		$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+		$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
+		$smarty->assign('oID', $oID);
+		if ($order->info['payment_method'] != '' && $order->info['payment_method'] != 'no_payment') {
+			include ('..'.DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
+			$payment_method = constant(strtoupper('MODULE_PAYMENT_'.$order->info['payment_method'].'_TEXT_TITLE'));
+		}
+		$smarty->assign('PAYMENT_METHOD', $payment_method);
+		$smarty->assign('DATE', xtc_date_long($order->info['date_purchased']));
+		$smarty->assign('order_data', $order_data);
+		$smarty->assign('order_total', $order_total);
+		$smarty->assign('NAME', $order->customer['name']);
+		$smarty->assign('COMMENTS', $order->info['comments']);
+		$smarty->assign('EMAIL', $order->customer['email_address']);
+		$smarty->assign('PHONE',$order->customer['telephone']);
+	
+		// PAYMENT MODUL TEXTS
+		// EU Bank Transfer
+		if ($order->info['payment_method'] == 'eustandardtransfer') {
+			$smarty->assign('PAYMENT_INFO_HTML', MODULE_PAYMENT_EUTRANSFER_TEXT_DESCRIPTION);
+			$smarty->assign('PAYMENT_INFO_TXT', str_replace("<br />", "\n", MODULE_PAYMENT_EUTRANSFER_TEXT_DESCRIPTION));
+		}
+	
+		// MONEYORDER
+		if ($order->info['payment_method'] == 'moneyorder') {
+			$smarty->assign('PAYMENT_INFO_HTML', MODULE_PAYMENT_MONEYORDER_TEXT_DESCRIPTION);
+			$smarty->assign('PAYMENT_INFO_TXT', str_replace("<br />", "\n", MODULE_PAYMENT_MONEYORDER_TEXT_DESCRIPTION));
+		}
+	
+		// dont allow cache
+		$smarty->caching = false;
+	
+		$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/order_mail.html');
+		$txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/order_mail.txt');
+
+		// create subject
+		$order_subject = str_replace('{$nr}', $oID, EMAIL_BILLING_SUBJECT_ORDER);
+		$order_subject = str_replace('{$date}', strftime(DATE_FORMAT_LONG), $order_subject);
+		$order_subject = str_replace('{$lastname}', $order->customer['lastname'], $order_subject);
+		$order_subject = str_replace('{$firstname}', $order->customer['firstname'], $order_subject);
+	
+		// send mail to admin
+		if ($send_to_admin==1)
+			xtc_php_mail($order->customer['email_address'], $order->customer['firstname'], EMAIL_BILLING_ADDRESS, STORE_NAME, EMAIL_BILLING_FORWARDING_STRING, $order->customer['email_address'], $order->customer['firstname'], '', '', $order_subject, $html_mail, $txt_mail);
+	
+		// send mail to customer
+		if ($send_to_customer==1)
+			xtc_php_mail(EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, $order->customer['email_address'], $order->customer['firstname'].' '.$order->customer['lastname'], '', EMAIL_BILLING_REPLY_ADDRESS, EMAIL_BILLING_REPLY_ADDRESS_NAME, '', '', $order_subject, $html_mail, $txt_mail);
+	
+		if (AFTERBUY_ACTIVATED == 'true') {
+			require_once (DIR_WS_CLASSES.'afterbuy.php');
+			$aBUY = new xtc_afterbuy_functions($oID);
+			if ($aBUY->order_send())
+				$aBUY->process_order();
+		}
+		$messageStack->add_session(TEXT_SUCCESS_ORDER_SEND, 'success');
+		
+		xtc_redirect(xtc_href_link(FILENAME_ORDERS, 'oID='.$_GET['oID']));
+    //EOF - DokuMan - 2010-08-12 resend email to admin and/or customer
+
 	case 'update_order' :
 		$oID = xtc_db_prepare_input($_GET['oID']);
 		$status = xtc_db_prepare_input($_POST['status']);
@@ -880,7 +1012,11 @@ elseif ($_GET['action'] == 'custom_action') {
 			if (is_object($oInfo)) {
 				$heading[] = array ('text' => '<b>['.$oInfo->orders_id.']&nbsp;&nbsp;'.xtc_datetime_short($oInfo->date_purchased).'</b>');
 
-				$contents[] = array ('align' => 'center', 'text' => '<a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=edit').'">'.BUTTON_EDIT.'</a> <a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=delete').'">'.BUTTON_DELETE.'</a>');
+    //BOF - DokuMan - 2010-08-12 resend email to admin and/or customer
+				//$contents[] = array ('align' => 'center', 'text' => '<a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=edit').'">'.BUTTON_EDIT.'</a> <a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=delete').'">'.BUTTON_DELETE.'</a>');
+				$contents[] = array ('align' => 'center', 'text' => '<a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=edit').'">'.BUTTON_EDIT.'</a> <a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=delete').'">'.BUTTON_DELETE.'</a><br /><br /><a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=send&sta=1&stc=0').'">'.TEXT_ORDER_SEND_ADMIN.'</a><br /><br /><a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=send&sta=0&stc=1').'">'.TEXT_ORDER_SEND_CUSTOMER.'</a>');			
+    //EOF - DokuMan - 2010-08-12 resend email to admin and/or customer
+				
 				if (AFTERBUY_ACTIVATED == 'true') {
 					$contents[] = array ('align' => 'center', 'text' => '<a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=afterbuy_send').'">'.BUTTON_AFTERBUY_SEND.'</a>');
 
