@@ -462,4 +462,9 @@ define('ASB_QUICK_SEARCH_EMAIL', 'E-Mail Address:');
 define('BUTTON_SET','Check All');
 define('BUTTON_UNSET','Uncheck All');
 //EOF - web28 - 2010.05.30 - accounting - set all checkboxes 
+
+//BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+define('TEXT_ROWS','Row');
+define('TABLE_HEADING_RESET','Reset statistics');
+//EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
 ?>

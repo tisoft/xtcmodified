@@ -16,6 +16,24 @@
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
+
+  //BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+  require(DIR_FS_INC. 'xtc_remove_non_numeric.inc.php');
+  
+  if ($_POST['maxrows']){
+    $maxrows = xtc_remove_non_numeric(xtc_db_prepare_input($_POST['maxrows']));
+  } else {
+    $maxrows = $_GET['maxrows'];
+  }
+  if ($maxrows <= '20') $maxrows=20;
+  
+  if ($_GET['clear_id']){
+      xtc_db_query("update " . TABLE_PRODUCTS . " set products_ordered = '0' where products_id ='".$_GET['clear_id']."'");
+  }
+  if ($_GET['clear_all']=='true'){
+    xtc_db_query("update " . TABLE_PRODUCTS . " set products_ordered = '0' ");
+  }  
+  //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -58,11 +76,22 @@
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_NUMBER; ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
                 <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_PURCHASED; ?>&nbsp;</td>
+<?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
+                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_RESET; ?>&nbsp;</td>                
+<?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
               </tr>
 <?php
-  if ($_GET['page'] > 1) $rows = $_GET['page'] * '20' - '20';
+  //BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+  //if ($_GET['page'] > 1) $rows = $_GET['page'] * '20' - '20';
+  if ($_GET['page'] > 1) $rows = $_GET['page'] * $maxrows - $maxrows;
+  //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+  
   $products_query_raw = "select p.products_id, p.products_ordered, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . $_SESSION['languages_id'] . "' and p.products_ordered > 0 group by pd.products_id order by p.products_ordered DESC, pd.products_name";
-  $products_split = new splitPageResults($_GET['page'], '20', $products_query_raw, $products_query_numrows);
+  
+  //BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+  //$products_split = new splitPageResults($_GET['page'], '20', $products_query_raw, $products_query_numrows);
+  $products_split = new splitPageResults($_GET['page'], $maxrows, $products_query_raw, $products_query_numrows);
+  //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
 
   $products_query = xtc_db_query($products_query_raw);
   while ($products = xtc_db_fetch_array($products_query)) {
@@ -76,10 +105,24 @@
                 <td class="dataTableContent"><?php echo $rows; ?>.</td>
                 <td class="dataTableContent"><?php echo $products['products_name'] . '</a>'; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $products['products_ordered']; ?>&nbsp;</td>
+<?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
+                <td class="dataTableContent" align="center"><?php echo '<a href="'.$_SERVER['PHP_SELF'].'?clear_id='.$products['products_id'].'&page='.$_GET['page'].'&maxrows='.$maxrows.'"><img src="images/icon_delete.gif" alt="reset" style="border:0px;" /> </a>'; ?></td>
+<?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
               </tr>
 <?php
   }
 ?>
+<?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
+              <tr>
+                <td class="dataTableContent" colspan="4" align="right" style="padding-right:20px">
+                <?php echo xtc_draw_form('resetall', FILENAME_STATS_PRODUCTS_PURCHASED, 'clear_all=true&page='.$_GET['page'].'&maxrows='.$maxrows);?>               
+                <img src="images/icons/warning.gif" alt="" style="border:0px;" />
+                <input type="submit" value="<?php echo BUTTON_RESET_PRODUCTS_PURCHASED; ?>" onclick="this.blur();" class="button" />
+                <img src="images/icons/warning.gif" alt="" style="border:0px;" />
+                </form>
+                </td>
+              </tr>
+<?php /* EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
             </table></td>
           </tr>
           <tr>
@@ -88,6 +131,13 @@
                 <td class="smallText" valign="top"><?php echo $products_split->display_count($products_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
                 <td class="smallText" align="right"><?php echo $products_split->display_links($products_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
               </tr>
+<?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */?>
+              <tr>             
+                <td class="smallText"><?php echo TEXT_ROWS.'&nbsp;'. xtc_draw_form('getmaxrows', FILENAME_STATS_PRODUCTS_PURCHASED, 'page='.$_GET['page']) . xtc_draw_input_field('maxrows', $maxrows, 'style="width:50px"'); ?>
+                <input type="image" src="images/icon_arrow_right.gif" style="vertical-align:bottom" alt="los" title="los" />
+                </form></td>
+              </tr>
+<?php /* EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */?>
             </table></td>
           </tr>
         </table></td>

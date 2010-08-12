@@ -85,4 +85,8 @@ define('BUTTON_DELETE_CACHE', 'Cache leeren');
 define('BUTTON_DELETE_TEMP_CACHE', 'Templatecache leeren');
 // EOF - Dokuman - 2010-02-04 - delete cache files in admin section
 
+//BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+define('BUTTON_RESET_PRODUCTS_PURCHASED', 'Alle Positionen zur&uuml;cksetzen');
+define('BUTTON_RESET_PRODUCTS_VIEWED', 'Alle Positionen zur&uuml;cksetzen');
+//EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
 ?>
