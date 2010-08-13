@@ -1,17 +1,37 @@
 <?PHP
 /*-----------------------------------------------------------------------
-    Version: $Id: shopstat_functions.inc.php,v 1.7 2005/05/20 08:00:12 Administrator Exp $
+    $Id$
     xtC-SEO-Module by www.ShopStat.com (Hartmut König)
     http://www.shopstat.com
     info@shopstat.com
     © 2004 ShopStat.com
     All Rights Reserved.
+	
+   Version 1.06 rev.01 (c) by rpa-com.de
 ------------------------------------------------------------------------*/
+//#################################
+
+//-- Einstellungen für die Trennzeichen
+define('CAT_DIVIDER','---');	//Kategorie
+define('ART_DIVIDER','--');		//Artikel
+define('CNT_DIVIDER','-_-');	//Content
+define('MAN_DIVIDER','-.-');	//Hersteller
+
+//-- Soll die Sprachauswahl in der URL vorangestellt werden?
+//--  Empfehlung: JA, die Suchmaschine findet ansonsten keinen einzigen Link ausser der Standardsprache !
+define('LANG_DEPENDING', false); //default: true;
+
+//#################################
+
 if(!function_exists('xtDBquery'))
     {
     require_once(DIR_FS_INC . 'shopstat_functions_xtc2.inc.php');
     }
-
+if(!function_exists('language'))
+    {
+    include (DIR_WS_CLASSES.'language.php');
+    }
+	
 function shopstat_getSEO(  $page               = '',
                             $parameters         = '',
                             $connection         = 'NONSSL',
@@ -20,6 +40,8 @@ function shopstat_getSEO(  $page               = '',
                             $mode               = 'user')
 {
         global $languages_id;
+		$link = "";		
+		
         if($mode == 'admin')
             {
             require_once(DIR_FS_INC . 'xtc_parse_category_path.inc.php');
@@ -60,48 +82,35 @@ function shopstat_getSEO(  $page               = '',
             $go = false;
             }
 
-        preg_match("/(?:cPath)\=([^\&]*)/",$parameters,$caterg);
-        preg_match("/[&|?]{0,1}(?:^products_id)\=([^\&]*)/",$parameters,$proderg);
-        preg_match("/(?:coID)\=([^\&]*)/",$parameters,$coerg);
-        preg_match("/(?:content)\=([^\&]*)/",$parameters,$conterg);
+//-- [1.2] Die Parameter aufspalten
+        $pararray = array();
+        foreach(explode("&",$parameters) as $pair)
+            {
+            $values = explode("=",$pair);
+            if(!empty($values[0]))
+                {
+                $pararray[$values[0]] = $values[1];
+                }
+            }
+        $cPath      = (isset($pararray['cPath']))?$pararray['cPath']:false;
+        $prodid     = (isset($pararray['products_id']))?$pararray['products_id']:false;
+        $content    = (isset($pararray['content']))?$pararray['content']:false;
+        $coid       = (isset($pararray['coID']))?$pararray['coID']:false;
+        $maid       = (isset($pararray['manufacturers_id']))?$pararray['manufacturers_id']:false;
+        $pager      = (isset($pararray['page']))?$pararray['page']:false;
+        $lang       = (isset($pararray['language']))?$pararray['language']:false;
+//------------------------------
 
-        //-- Manufacturer
-        preg_match("/(?:manufacturers_id)\=([^\&]*)/",$parameters,$manuerg);
-        //preg_match("/(?:filter_id)\=([^\&]*)/",$parameters,$filtererg);
-
-        //-- Paging
-        preg_match("/(?:page)\=([^\&]*)/",$parameters,$pagerg);
-
-        //-- Language
-        preg_match("/(?:language)\=([^\&]*)/",$parameters,$lang);
-
-//BOF - DokuMan - 2010-02-25 - set missing variables
-        $link = '';
-        $cPath = '';
-        $prodid = '';
-        $content    = '';
-        $coid       = '';
-        $maid       = '';
-        //$filterid  = '';
-        $pager      = '';
-
-        isset($caterg[1]) ? $cPath = $caterg[1] : "";
-        isset($proderg[1]) ? $prodid = $proderg[1] : "";
-        isset($conterg[1]) ? $content = $conterg[1] : "";
-        isset($coerg[1]) ? $coid = $coerg[1] : "";
-        isset($manuerg[1]) ? $maid = $manuerg[1] : "";
-        //isset($filtererg[1]) ? $filterid = $filtererg[1] : "";
-        isset($pagerg[1]) ? $pager = $pagerg[1] : "";
-/*
-        $cPath      = $caterg[1];
-        $prodid     = $proderg[1];
-        $content    = $conterg[1];
-        $coid       = $coerg[1];
-        $maid       = $manuerg[1];
-        //$filterid   = $filtererg[1];
-        $pager      = $pagerg[1];
-*/
-//EOF - DokuMan - 2010-02-25 - set missing variables
+//-- Falls eine Sprache übergeben wurde, wird diese als 'Linksprache' definiert
+        if(strlen($lang)>0)
+            {
+            $seolng  = new language;
+            $lang_id = $seolng->catalog_languages[$lang]['id'];			
+            }
+        else{
+            $lang_id    = $languages_id;
+            }
+//------------------------------
 
         if ($go &&
             (   xtc_not_null($maid) ||
@@ -125,6 +134,22 @@ function shopstat_getSEO(  $page               = '',
                 $link = HTTP_SERVER . DIR_WS_CATALOG;
                 }
 
+//-- Die Sprache voranstellen
+            if(LANG_DEPENDING)
+                {
+                include(DIR_WS_CLASSES.'language.php');
+                $seolng = new language;
+                foreach($seolng->catalog_languages as $seolangs)
+                    {
+                    if($seolangs['id'] == $lang_id)
+                        {
+                        $link .= $seolangs['code'].'/';
+                        break;
+                        }
+                    }
+                }
+//------------------------------
+
             if((xtc_not_null($cPath) || xtc_not_null($prodid)) )
                 {
                 $cPath_array        = xtc_parse_category_path($cPath);
@@ -139,18 +164,21 @@ function shopstat_getSEO(  $page               = '',
                 // -------------------------------------------------
                 if(!$prodid)
                     {
-                    $category['categories_name'] = shopstat_getRealPath($cPath);
+                    $category['categories_name'] = shopstat_getRealPath($cPath,'/',$lang_id);
 
                     $link .= shopstat_hrefCatlink(	$category['categories_name'],
 													$cPath,
-													$pager);
+													$pager,
+													CAT_DIVIDER
+													);
                     }
                 else{
-                    $category['categories_name'] = shopstat_getRealPath(xtc_get_product_path($prodid));
+                    $category['categories_name'] = shopstat_getRealPath(xtc_get_product_path($prodid),'/',$lang_id);
 
                     $link .= shopstat_hrefLink($category['categories_name'],
-                                               xtc_get_products_name($prodid,$languages_id),
-                                               $prodid
+                                               xtc_get_products_name($prodid,$lang_id),
+                                               $prodid,
+											   ART_DIVIDER
                                                );
                     }
                 }
@@ -168,11 +196,11 @@ function shopstat_getSEO(  $page               = '',
                     }
                 else{
 */
-                    $content = shopstat_getContentName($coid, $languages_id);
+                    $content = shopstat_getContentName($coid, $lang_id);
 
 //                    }
 
-                $link .= shopstat_hrefContlink($content, $coid);
+                $link .= shopstat_hrefContlink($content, $coid, CNT_DIVIDER);
 
                 }
             elseif(xtc_not_null($maid))
@@ -187,24 +215,17 @@ function shopstat_getSEO(  $page               = '',
                         }
                     }
 
-                $link .= shopstat_hrefManulink($maname, $maid, $pager);
+                $link .= shopstat_hrefManulink($maname, $maid, $pager, MAN_DIVIDER);
                 }
 
             $separator  = '?';
             }
+    
+    //Link in Sprachbox zur Umschaltung der Sprachen
+    if(strlen($lang)>0 && $lang_id != $languages_id && $link != ""){
+		$link .= $separator.'language='.$lang;		
+	}
 
-    //-- Concat the lang-var
-    //-- Check parameters and given language, just concat
-    //-- if the language is different
-    if(sizeof($lang)>0)
-        {
-        $lng = new language;
-        if( $lng->catalog_languages[$lang[1]]['id'] != $languages_id &&
-            $link != "")
-            {
-            $link .= $separator.$lang[0];
-            }
-        }
 
     return($link);
 }
@@ -212,23 +233,17 @@ function shopstat_getSEO(  $page               = '',
  * FUNCTION shopstat_getRealPath
  * Get the 'breadcrumb'-path
  */
-function shopstat_getRealPath($cPath, $delimiter = '/')
+function shopstat_getRealPath($cPath, $delimiter = '/', $language = '')
 {
     if(empty($cPath)) return;
-
-    //BOF - web28 - 2010-05-12 - set missing variable $languages_id
-    global $languages_id; 
-    //EOF - web28 - 2010-05-12 - set missing variable $languages_id
+	if(empty($language)) $language = $_SESSION['languages_id'];
 	
     $path       = explode("_",$cPath);
     $categories = array();
 
     foreach($path as $key => $value)
-    {
-		//BOF - web28 - 2010-05-12 - set missing variable $languages_id
-		//$categories[$key] = shopstat_getCategoriesName($value, $language);		
-		$categories[$key] = shopstat_getCategoriesName($value, $languages_id);
-		//EOF - web28 - 2010-05-12 - set missing variable $languages_id
+    {		
+		$categories[$key] = shopstat_getCategoriesName($value, $language);		
     }
 
     $realpath = implode($delimiter,$categories);
@@ -271,7 +286,7 @@ function shopstat_getCategoriesName($categories_id, $language = '')
 /*
  * FUNCTION shopstat_hrefLink
  */
-function shopstat_hrefLink($cat_desc, $product_name, $product_id)
+function shopstat_hrefLink($cat_desc, $product_name, $product_id, $divider)
 {
     $link = "";
 
@@ -280,16 +295,16 @@ function shopstat_hrefLink($cat_desc, $product_name, $product_id)
         $link .= shopstat_hrefSmallmask($cat_desc)."/";
         }
 
-    $link .= shopstat_hrefMask($product_name)."::".$product_id.".html";
+    $link .= shopstat_hrefMask($product_name).$divider.$product_id.".html";
 
     return($link);
 }
 /*
  * FUNCTION shopstat_hrefCatlink
  */
-function shopstat_hrefCatlink($category_name, $category_id, $pager=false)
+function shopstat_hrefCatlink($category_name, $category_id, $pager=false, $divider)
 {
-    $link = shopstat_hrefSmallmask($category_name).":::".$category_id;
+    $link = shopstat_hrefSmallmask($category_name).$divider.$category_id;
 
     if($pager && $pager != 1)
         {
@@ -304,18 +319,18 @@ function shopstat_hrefCatlink($category_name, $category_id, $pager=false)
 /*
  * FUNCTION shopstat_hrefContlink
  */
-function shopstat_hrefContlink($content_name, $content_id)
+function shopstat_hrefContlink($content_name, $content_id, $divider)
 {
-    $link = shopstat_hrefMask($content_name).":_:".$content_id.".html";
+    $link = shopstat_hrefMask($content_name).$divider.$content_id.".html";
 
     return($link);
 }
 /*
  * FUNCTION shopstat_hrefManulink
  */
-function shopstat_hrefManulink($content_name, $content_id, $pager=false)
+function shopstat_hrefManulink($content_name, $content_id, $pager=false, $divider)
 {
-    $link = shopstat_hrefMask($content_name).":.:".$content_id;
+    $link = shopstat_hrefMask($content_name).$divider.$content_id;
 
     if($pager && $pager != 1)
         {
@@ -333,11 +348,16 @@ function shopstat_hrefManulink($content_name, $content_id, $pager=false)
 function shopstat_hrefSmallmask($string)
 {
     shopstat_getRegExps($search, $replace);
+	
+	$newstring = $string;
+
+    //--[1.2] HTML-Codierung entfernen (&uuml; etc.)
+    $newstring  = html_entity_decode($newstring, ENT_NOQUOTES , strtoupper($_SESSION['language_charset']));
 
     //-- <br> neutralisieren  
     //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
     //$newstring  = preg_replace("/<br>/i","-",$string);
-    $newstring  = preg_replace("/<br(\s+)?\/?>/i","-",$string);
+    $newstring  = preg_replace("/<br(\s+)?\/?>/i","-",$newstring);
     //EOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
 
     //-- HTML entfernen
@@ -351,6 +371,9 @@ function shopstat_hrefSmallmask($string)
 
     //-- Die nun noch (komisch aussehenden) doppelten Bindestriche entfernen
     $newstring  = preg_replace("/(-){2,}/","-",$newstring);
+	
+	//--Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
+	$newstring = rtrim($newstring,"-");
 
     return($newstring);
 }
@@ -359,15 +382,17 @@ function shopstat_hrefSmallmask($string)
  */
 function shopstat_hrefMask($string)
 {
-    shopstat_getRegExps($search, $replace);
+    shopstat_getRegExps($search, $replace);	
 
     //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
     $newstring = $string;
+	
+	$newstring  = preg_replace("'€'","EUR",$newstring);
 
     //--[1.2] HTML-Codierung entfernen (&uuml; etc.)
-    $newstring  = html_entity_decode($newstring);
+    $newstring  = html_entity_decode($newstring, ENT_NOQUOTES , strtoupper($_SESSION['language_charset']));
     //EOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
-
+	
     //-- <br> neutralisieren
     //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
     //$newstring  = preg_replace("/<br>/i","-",$string);
@@ -389,35 +414,39 @@ function shopstat_hrefMask($string)
 
     //-- Die nun noch (komisch aussehenden) doppelten Bindestriche entfernen
     $newstring  = preg_replace("/(-){2,}/","-",$newstring);
+	
+	//--Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
+	$newstring = rtrim($newstring,"-");
+	
 //if($_REQUEST['test']){print $newstring."<hr>";}
     return($newstring);
 }
 function shopstat_getRegExps(&$search, &$replace)
 {
     $search     = array(
-						"'\s&\s'",                //--Kaufmännisches Und mit Blanks muss raus
-						"'[\r\n\s]+'",	          // strip out white space
-						"'&(quote|#34);'i",	      //--Anführungszeichen oben replace html entities
-						"'&(amp|#38);'i",         //--Ampersand-Zeichen, kaufmännisches Und
-						"'&(lt|#60);'i",	        //--öffnende spitze Klammer
-						"'&(gt|#62);'i",	        //--schließende spitze Klammer
-						"'&(nbsp|#160);'i",	      //--Erzwungenes Leerzeichen					
+						"'\s&\s'",                	//--Kaufmännisches Und mit Blanks muss raus
+						"'[\r\n\s]+'",	          	// strip out white space
+						"'&(quote|#34);'i",	      	//--Anführungszeichen oben replace html entities
+						"'&(amp|#38);'i",        	//--Ampersand-Zeichen, kaufmännisches Und
+						"'&(lt|#60);'i",	     	//--öffnende spitze Klammer
+						"'&(gt|#62);'i",	     	//--schließende spitze Klammer
+						"'&(nbsp|#160);'i",	      	//--Erzwungenes Leerzeichen					
 						//BOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
 						"'&(iexcl|#161);|¡'i", 		//umgekehrtes Ausrufezeichen
 						"'&(cent|#162);|¢'i", 		//Cent-Zeichen
 						"'&(pound|#163);|£'i", 		//Pfund-Zeichen
-						"'&(curren|#164);|¤'i",   //Währungszeichen--currency 
+						"'&(curren|#164);|¤'i",   	//Währungszeichen--currency 
 						"'&(yen|#165);|¥'i",   		//Yen  wird zu Yen
 						"'&(brvbar|#166);|¦'i",		//durchbrochener Strich
-						"'&(sect|#167);|§'i",		  //Paragraph-Zeichen
-						"'&(copy|#169);|©'i",		  //Copyright-Zeichen 					
-						"'&(reg|#174);|®'i",		  //Eingetragene Marke wird zu -R-
-						"'&(deg|#176);|°'i",		  //Grad-Zeichen -- degree wird zu -Grad-
+						"'&(sect|#167);|§'i",		//Paragraph-Zeichen
+						"'&(copy|#169);|©'i",		//Copyright-Zeichen 					
+						"'&(reg|#174);|®'i",		//Eingetragene Marke wird zu -R-
+						"'&(deg|#176);|°'i",		//Grad-Zeichen -- degree wird zu -Grad-
 						"'&(plusmn|#177);|±'i",		//Plusminus-Zeichen
 						"'&(sup2|#178);|²'i",	    //Hoch-2-Zeichen 
 						"'&(sup3|#179);|³'i", 		//Hoch-3-Zeichen 
 						"'&(micro|#181);|µ'i",		//Mikro-Zeichen
-						"'&(trade|#8482);|™'i",   //--Trademark wird zu -TM-
+						"'&(trade|#8482);|™'i",   	//--Trademark wird zu -TM-
 						"'&(euro|#8364);|€'i",   	//--Eurozeichen wird zu EUR
 						"'&(laquo|#171);|«'i", 	 	//-- Left angle quotes Left Winkel Zitate
 						"'&(raquo|#187);|»'i", 		//--Right angle quotes Winkelgetriebe Zitate
@@ -458,47 +487,84 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(eacute|#233);|é'i",		//Lowercase e-acute Kleinbuchstaben e-acute
 						"'&(Ecirc|#202);|Ê'i",		//Capital E-circumflex E-Capital circumflexa
 						"'&(ecirc|#234);|ê'i",		//Lowercase e-circumflex Kleinbuchstaben e-Zirkumflex
-						"'&(Euml|#203);|Ë'i",		  //Capital E-umlaut Capital E-Umlaut
-						"'&(euml|#235);|ë'i",		  //Lowercase e-umlaut Kleinbuchstaben e-Umlaut
+						"'&(Euml|#203);|Ë'i",		//Capital E-umlaut Capital E-Umlaut
+						"'&(euml|#235);|ë'i",		//Lowercase e-umlaut Kleinbuchstaben e-Umlaut
 						"'&(Icirc|#206);|Î'i",		//Capital I-circumflex Capital I-Zirkumflex
 						"'&(icirc|#238);|î'i",		//Lowercase i-circumflex Kleinbuchstaben i-Zirkumflex
-						"'&(Iuml|#207);|Ï'i",		  //Capital I-umlaut Capital I-Umlaut
-						"'&(iuml|#239);|ï'i",		  //Lowercase i-umlaut Kleinbuchstaben i-Umlaut
+						"'&(Iuml|#207);|Ï'i",		//Capital I-umlaut Capital I-Umlaut
+						"'&(iuml|#239);|ï'i",		//Lowercase i-umlaut Kleinbuchstaben i-Umlaut
 						"'&(Ocirc|#212);|Ô'i",		//Capital O-circumflex O-Capital circumflexa
 						"'&(ocirc|#244);|ô'i",		//Lowercase o-circumflex Kleinbuchstabe o-Zirkumflex
-						"'&(OElig|#140);|Œ'i",		//Capital OE ligature Capital OE Ligatur
-						"'&(oelig|#156);|œ'i",		//Lowercase oe ligature Kleinbuchstaben oe Ligatur
+						"'&(OElig|#338);|Œ'i",		//Capital OE ligature Capital OE Ligatur
+						"'&(oelig|#339);|œ'i",		//Lowercase oe ligature Kleinbuchstaben oe Ligatur
 						"'&(Ugrave|#217);|Ù'i",		//Capital U-grave Capital U-Grab
 						"'&(ugrave|#249);|ù'i",		//Lowercase u-grave Kleinbuchstaben u-Grab
 						"'&(Ucirc|#219);|Û'i",		//Capital U-circumflex Capital U-Zirkumflex
 						"'&(ucirc|#251);|û'i",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
-						//EOF - web28 - 2010-05-12 - Französisch
+						"'&(Yuml|#376);|Ÿ'i",		//Großes Y mit Diaeresis
+						"'&(yuml|#255);|ÿ'i",		//Kleines y mit Diaeresis
+						//EOF - web28 - 2010-05-12 - Französisch						
 						//BOF - DokuMan - 2010-08-13 - Spanisch
-            "/Á/","/Â/", "/Ã/", "/Ä/", "/Å/", "/Æ/", "/Ç/", "/È/", "/É/",
-            "/Ê/", "/Ë/", "/Ì/", "/Í/", "/Î/", "/Ï/", "/Ð/", "/Ñ/", "/Ò/",
-            "/Ó/", "/Ô/", "/Õ/", "/Ö/", "/×/", "/Ø/", "/Ù/", "/Ú/", "/Û/",
-            "/Ü/", "/Ý/", "/Þ/", "/ß/", "/à/", "/á/", "/â/", "/ã/", "/ä/",
-            "/å/", "/æ/", "/ç/", "/è/", "/é/", "/ê/", "/ë/", "/ì/", "/í/",
-            "/î/", "/ï/", "/ð/", "/ñ/", "/ò/", "/ó/", "/ô/", "/õ/", "/ö/",
-            "/÷/", "/ø/", "/ù/", "/ú/", "/û/", "/ü/", "/ý/", "/þ/", "/ÿ/",
+						"'&(Aacute|#193);|Á'i",		//Großes A mit Akut
+						"'&(aacute|#225);|á'i",		//Kleines a mit Akut
+						"'&(Iacute|#205);|Í'i",		//Großes I mit Akut
+						"'&(iacute|#227);|í'i",		//Kleines i mit Akut
+						"'&(Ntilde|#209);|Ñ'i",		//Großes N mit Tilde
+						"'&(ntilde|#241);|ñ'i",		//Kleines n mit Tilde
+						"'&(Oacute|#211);|Ó'i",		//Großes O mit Akut
+						"'&(oacute|#243);|ó'i",		//Kleines o mit Akut
+						"'&(Uacute|#218);|Ú'i",		//Großes U mit Akut
+						"'&(uacute|#250);|ú'i",		//Kleines u mit Akut
+						"'&(ordf|#170);|ª'i",		//Weibliche Ordnungszahl
+						"'&(ordm|#186);|º'i",		//männliche Ordnungszahl
+						"'&(iexcl|#161);|¡'i",		//umgekehrtes Ausrufungszeichen
+						"'&(iquest|#191);|¿'i",		//umgekehrtes Fragezeichen
 						//EOF - DokuMan - 2010-08-13 - Spanisch
+						//EOF - web28 - 2010-05-12 - Portugiesisch	
+						"'&(Atilde|#195);|Ã'i",		//Großes A mit Tilde
+						"'&(atilde|#227);|ã'i",		//Kleines a mit Tilde
+						"'&(Otilde|#213);|Õ'i",		//Großes O mit Tilde
+						"'&(otilde|#245);|õ'i",		//Kleines o mit Tilde
+						//BOF - web28 - 2010-05-12 - Portugiesisch
+						//BOF - web28 - 2010-05-12 - Italienisch
+						"'&(Igrave|#204);|Ì'i",		//Großes I mit Grave
+						"'&(igrave|#236);|ì'i",		//Kleines i mit Grave						
+						//EOF - web28 - 2010-05-12 - Italienisch
+						//BOF - web28 - 2010-05-12 - Weitere Sonderzeichen
+						"'&(Ograve|#210);|Ò'i",		//Großes O mit Grave
+						"'&(ograve|#242);|ò'i",		//Kleines o mit Grave
+						"'&(Ograve|#210);|Ò'i",		//Großes O mit Grave
+						"'&(ograve|#242);|ò'i",		//Kleines o mit Grave
+						"'&(Oslash|#216);|Ø'i",		//Großes O mit Schrägstrich
+						"'&(oslash|#248);|ø'i",		//Kleines o mit Schrägstrich
+						"'&(Aring|#197);|Å'i",		//Großes A mit Ring (Krouzek)
+						"'&(aring|#229);|å'i",		//Kleines a mit Ring (Krouzek)
+						"'&(THORN|#222);|Þ'i",		//Großes Thorn (isländischer Buchstabe)
+						"'&(thorn|#254);|þ'i",		//Kleines thorn (isländischer Buchstabe)
+						"'&(divide|#247);|÷'i",		//Divisions-Zeichen ("Geteilt durch ...")
+						"'&(times|#215);|×'i",		//Multiplikationszeichen; "Multipliziert mit ..."
+						"'&(ETH|#272;)|Ð'i",		//Großes D mit Querstrich (isländischer Buchstabe)
+						"'&(eth|#273;)|ð'i",		//Kleines d mit Querstrich (isländischer Buchstabe)
+						"'&(Yacute|#221;)|Ý'i",		//Großes Y mit Akut
+						"'&(yacute|#253;)|ý'i",		//Kleines y mit Akut
+						//EOF - web28 - 2010-05-12 - Weitere Sonderzeichen
 						"/'|\"|´|`/",             //--Anführungszeichen weg.						
 						"/[:,\.!?\*\+]/",         //--Doppelpunkte, Komma, Punkt etc. weg. 
                         );
     $replace    = array(
 						"-",		//--Kaufmännisches Und mit Blanks
 						"-",		// strip out white space
-            "\"",		//--Anführungszeichen oben 
+						"\"",		//--Anführungszeichen oben 
 						"-",		//--Ampersand-Zeichen, kaufmännisches Und
 						"<",		//--öffnende spitze Klammer
 						">",		//--schließende spitze Klammer
 						"",			//--Erzwungenes Leerzeichen
 						//BOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
 						"", 		//chr(161), //umgekehrtes Ausrufezeichen
-						"ct", 	//chr(162), //Cent-Zeichen
-						"GBP", 	//chr(163), //Pfund-Zeichen
+						"ct", 		//chr(162), //Cent-Zeichen
+						"GBP", 		//chr(163), //Pfund-Zeichen
 						"", 		//chr(164), //Währungszeichen--currency 
-						"Yen", 	//chr(165), //Yen-Zeichen
+						"Yen", 		//chr(165), //Yen-Zeichen
 						"",			//chr(166),durchbrochener Strich
 						"",			//chr(167),Paragraph-Zeichen
 						"",			//chr(169),Copyright-Zeichen											
@@ -508,8 +574,8 @@ function shopstat_getRegExps(&$search, &$replace)
 						"", 		//chr(178) Hoch-2-Zeichen 
 						"", 		//chr(179) Hoch-3-Zeichen
 						"", 		//chr(181) Mikro-Zeichen
-						"~TM~",	//--Trademark wird zu -TM-
-						"EUR",	//--Eurozeichen wird zu EUR
+						"~TM~",		//--Trademark wird zu -TM-
+						"EUR",		//--Eurozeichen wird zu EUR
 						"<<",		//chr(171) -- Left angle quotes Left Winkel Zitate
 						">>",		//chr(187) -- Right angle quotes Right Winkel Zitate
 						//BOF - web28 - 2010-05-13 - Benannte Zeichen für Interpunktion
@@ -523,17 +589,17 @@ function shopstat_getRegExps(&$search, &$replace)
 						"", 		//-- doppeltes low-9-Zeichen rechts
 						//EOF - web28 - 2010-05-13 - Benannte Zeichen für Interpunktion	
 						//EOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
-            "-",		//--Kaufmännisches Und 
+						"-",		//--Kaufmännisches Und 
 						"-",		//--Prozent 
-            "-",		//--öffnende Klammern
-            "",			//--schliessende Klammern 
-            "ss",		//--Umlaute etc.
-            "ae",		//--Umlaute etc.
-            "ue",		//--Umlaute etc.
-            "oe",		//--Umlaute etc.
-            "Ae",		//--Umlaute etc.
-            "Ue",		//--Umlaute etc.
-            "Oe",		//--Umlaute etc.
+			            "-",		//--öffnende Klammern
+			            "",			//--schliessende Klammern 
+			            "ss",		//--Umlaute etc.
+			            "ae",		//--Umlaute etc.
+			            "ue",		//--Umlaute etc.
+			            "oe",		//--Umlaute etc.
+			            "Ae",		//--Umlaute etc.
+			            "Ue",		//--Umlaute etc.
+			            "Oe",		//--Umlaute etc.
 						//BOF - web28 - 2010-05-12 - Französisch
 						"A",		// Capital A-grave Capital A-Grab
 						"a",		//Lowercase a-grave Kleinbuchstaben a-Grab
@@ -561,20 +627,57 @@ function shopstat_getRegExps(&$search, &$replace)
 						"oe",		//Lowercase oe ligature Kleinbuchstaben oe Ligatur
 						"U",		//Capital U-grave Capital U-Grab
 						"u",		//Lowercase u-grave Kleinbuchstaben u-Grab
-						"U",		//Capital U-circumflex Capital U-Zirkumflex
+						"U",		//Capital U-circumflex Capital U-Zirkumflex						
 						"u",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
+						"Y",		//Großes Y mit Diaeresis
+						"y",		//Kleines y mit Diaeresis
 						//EOF - web28 - 2010-05-12 - Französisch
-						//BOF - DokuMan - 2010-08-13 - Spanisch
-            "A", "A", "A", "Ae", "A", "AE", "C", "E", "E",
-            "E", "E", "I", "I", "I", "I", "D", "N", "O",
-            "O", "O", "O", "Oe", "x", "O", "U", "U", "U",
-            "Ue", "Y", "Th", "ss", "a", "a", "a", "a", "a",
-            "a", "ae", "c", "e", "e", "e", "e", "i", "i",
-            "i", "i", "o", "n", "o", "o", "o", "o", "oe",
-            "-", "o", "u", "u", "u", "ue", "y", "th", "y",
-						//EOF - DokuMan - 2010-08-13 - Spanisch
-            "",			//--Anführungszeichen 			
-            "-"			//--Doppelpunkte, Komma, Punkt etc. 
+						//BOF - web28 - 2010-08-13 - Spanisch
+						"A",		//Großes A mit Akut
+						"a",		//Kleines a mit Akut
+						"I",		//Großes I mit Akut
+						"i",		//Kleines i mit Akut
+						"N",		//Großes N mit Tilde
+						"n",		//Kleines n mit Tilde
+						"O",		//Großes O mit Akut
+						"o",		//Kleines o mit Akut
+						"U",		//Großes U mit Akut
+						"u",		//Kleines u mit Akut
+						"",			//Weibliche Ordnungszahl
+						"",			//männliche Ordnungszahl
+						"",			//umgekehrtes Ausrufungszeichen
+						"",			//umgekehrtes Fragezeichen
+						//EOF - web28 - 2010-08-13 - Spanisch
+						//EOF - web28 - 2010-08-13 - Portugiesisch	
+						"A",		//Großes A mit Tilde
+						"a",		//Kleines a mit Tilde
+						"O",		//Großes O mit Tilde
+						"o",		//Kleines o mit Tilde
+						//BOF - web28 - 2010-08-13 - Portugiesisch
+						//BOF - web28 - 2010-08-13 - Italienisch
+						"I",		//Großes I mit Grave
+						"i",		//Kleines i mit Grave						
+						//EOF - web28 - 2010-08-13 - Italienisch
+						//BOF -web28 - 2010-08-13 - Weitere Sonderzeichen
+						"O",		//Großes O mit Grave
+						"o",		//Kleines o mit Grave
+						"O",		//Großes O mit Grave
+						"o",		//Kleines o mit Grave
+						"O",		//Großes O mit Schrägstrich
+						"o",		//Kleines o mit Schrägstrich
+						"A",		//Großes A mit Ring (Krouzek)
+						"a",		//Kleines a mit Ring (Krouzek)
+						"Th",		//Großes Thorn (isländischer Buchstabe)
+						"th",		//Kleines thorn (isländischer Buchstabe)
+						"-",		//Divisions-Zeichen ("Geteilt durch ...")
+						"x",		//Multiplikationszeichen; "Multipliziert mit ..."
+						"D",		//Großes D mit Querstrich (isländischer Buchstabe)
+						"d",		//Kleines d mit Querstrich (isländischer Buchstabe)
+						"Y",		//Großes Y mit Akut
+						"y",		//Kleines y mit Akut
+						//EOF - web28 - 2010-08-13 - Weitere Sonderzeichen						
+						"",			//--Anführungszeichen 			
+						"-"			//--Doppelpunkte, Komma, Punkt etc. 
                         );
 
 }
