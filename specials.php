@@ -35,16 +35,29 @@ if (GROUP_CHECK == 'true') {
 $specials_query_raw = "select p.products_id,
                                 pd.products_name,
                                 p.products_price,
-                                p.products_tax_class_id,p.products_shippingtime,
-                                p.products_image,p.products_vpe_status,p.products_vpe_value,p.products_vpe,p.products_fsk18,
-                                s.specials_new_products_price from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_SPECIALS." s
+                                p.products_tax_class_id,
+                                p.products_shippingtime,
+                                p.products_image,
+                                p.products_vpe_status,
+                                p.products_vpe_value,
+                                p.products_vpe,
+                                p.products_fsk18,"
+/* BOF DokuMan - 2010-08-13 - show expiry date of special products in specials.php */                           
+                                ."s.expires_date,".
+/* BOF DokuMan - 2010-08-13 - show expiry date of special products in specials.php */     
+                                "s.specials_new_products_price
+                                from 
+                                ".TABLE_PRODUCTS." p,
+                                ".TABLE_PRODUCTS_DESCRIPTION." pd,
+                                ".TABLE_SPECIALS." s
                                 where p.products_status = '1'
                                 and s.products_id = p.products_id
                                 and p.products_id = pd.products_id
                                 ".$group_check."
                                 ".$fsk_lock."
                                 and pd.language_id = '".(int) $_SESSION['languages_id']."'
-                                and s.status = '1' order by s.specials_date_added DESC";
+                                and s.status = '1'
+                                order by s.specials_date_added DESC";
 $specials_split = new splitPageResults($specials_query_raw, $_GET['page'], MAX_DISPLAY_SPECIAL_PRODUCTS);
 
 $module_content = '';
@@ -52,8 +65,6 @@ $row = 0;
 if ($specials_split->number_of_rows==0) xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
 require (DIR_WS_INCLUDES.'header.php');
 $specials_query = xtc_db_query($specials_split->sql_query);
-
-
 
 while ($specials = xtc_db_fetch_array($specials_query)) {
 	$module_content[] = $product->buildDataArray($specials);
