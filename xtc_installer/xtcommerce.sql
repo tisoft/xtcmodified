@@ -1509,6 +1509,9 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 # BOF - Tomcraft - 2010-06-09 - predefined revocation_id
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'REVOCATION_ID', '9', 17, 14, NULL, '2003-12-05 05:01:41', NULL, NULL);
 # EOF - Tomcraft - 2010-06-09 - predefined revocation_id
+# BOF - DokuMan - 2010-08-13 - Google RSS Feed REFID configuration
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'GOOGLE_RSS_FEED_REFID', '', 17, 15, NULL, NOW(), NULL, NULL);
+# EOF - DokuMan - 2010-08-13 - Google RSS Feed REFID configuration
 
 #configuration_group_id 18
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES   ('', 'ACCOUNT_COMPANY_VAT_CHECK', 'true', 18, 4, '', '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');

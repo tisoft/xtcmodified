@@ -6,4 +6,8 @@ UPDATE configuration SET configuration_value = '<span style="color:red">***</spa
 
 #Hendrik - 2010-08-11 - Thumbnails in admin products list
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),'); 
+
+#DokuMan - 2010-08-13 - Google RSS Feed REFID configuration
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GOOGLE_RSS_FEED_REFID', '', 17, 15, NULL, NOW(), NULL, NULL);
+
 # Keep an empty line at the end of this file for the db_updater to work properly

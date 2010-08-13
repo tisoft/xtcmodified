@@ -672,4 +672,9 @@ define('DELETE_CACHE_SUCCESSFUL', 'Cache erfolgreich geleert.');
 define('DELETE_TEMP_CACHE_SUCCESSFUL', 'Templatecache erfolgreich geleert.');
 // EOF - Dokuman - 2010-02-04 - delete cache files in admin section
 
+// BOF - DokuMan - 2010-08-13 - set Google RSS Feed in admin section
+define('GOOGLE_RSS_FEED_REFID_TITLE' , 'Google RSS Feed - refID');
+define('GOOGLE_RSS_FEED_REFID_DESC' , 'Tragen Sie hier die Kampanien ID ein. Diese wird dem Google RSS Feed an jedem Link automatisch angef&uuml;gt.');
+// EOF - DokuMan - 2010-08-13 - set Google RSS Feed in admin section
+
 ?>
