@@ -1,7 +1,7 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$  
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
