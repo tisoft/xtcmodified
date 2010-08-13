@@ -1,7 +1,7 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: print_product_info.php 1282 2005-10-03 19:39:36Z mz $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -26,6 +26,10 @@ $smarty = new Smarty;
 //BOF - web28 - 2010-07-09 - define smarty template path
 $smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 //EOF - web28 - 2010-07-09 - define smarty template path
+
+//BOF - web28 - 2010-08-13 - define missing charset
+$smarty->assign('charset', $_SESSION['language_charset'] ); 
+//EOF - web28 - 2010-08-13 - define missing charset
 
 $product_info_query = xtc_db_query("select * FROM ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_status = '1' and p.products_id = '".(int) $_GET['products_id']."' and pd.products_id = p.products_id and pd.language_id = '".(int) $_SESSION['languages_id']."'");
 $product_info = xtc_db_fetch_array($product_info_query);
