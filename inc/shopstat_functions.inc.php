@@ -12,10 +12,10 @@
 //#################################
 
 //-- Einstellungen für die Trennzeichen
-define('CAT_DIVIDER','---');	//Kategorie
-define('ART_DIVIDER','--');		//Artikel
-define('CNT_DIVIDER','-_-');	//Content
-define('MAN_DIVIDER','-.-');	//Hersteller
+define('CAT_DIVIDER',':::');	//Kategorie
+define('ART_DIVIDER','::');		//Artikel
+define('CNT_DIVIDER',':_:');	//Content
+define('MAN_DIVIDER',':.:');	//Hersteller
 
 //-- Soll die Sprachauswahl in der URL vorangestellt werden?
 //--  Empfehlung: JA, die Suchmaschine findet ansonsten keinen einzigen Link ausser der Standardsprache !
