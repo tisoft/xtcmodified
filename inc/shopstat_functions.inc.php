@@ -1,6 +1,6 @@
 <?PHP
 /*-----------------------------------------------------------------------
-    $Id$
+    Version: $Id: shopstat_functions.inc.php,v 1.7 2005/05/20 08:00:12 Administrator Exp $
     xtC-SEO-Module by www.ShopStat.com (Hartmut König)
     http://www.shopstat.com
     info@shopstat.com
