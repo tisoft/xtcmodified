@@ -17,7 +17,8 @@ define('SEO_SEPARATOR',':');
 //-- Soll die Sprachauswahl in der URL vorangestellt werden?
 //--  Empfehlung: JA, die Suchmaschine findet ansonsten keinen
 //--  einzigen Link ausser der Standardsprache !
-define('LANG_DEPENDING', true); //default: true;
+//--  ACHTUNG spezielle .htaccess notwendig
+define('LANG_DEPENDING', false); //default: true;  
 
 //Sonderzeichen
 define('SPECIAL_CHAR_FR', true);  	//Französische Sonderzeichen
@@ -44,7 +45,7 @@ if(!function_exists('language'))
     include (DIR_WS_CLASSES.'language.php');
     }
 	
-function shopstat_getSEO(  $page               = '',
+function shopstat_getSEO(   $page               = '',
                             $parameters         = '',
                             $connection         = 'NONSSL',
                             $add_session_id     = true,
@@ -117,7 +118,8 @@ function shopstat_getSEO(  $page               = '',
         if(strlen($lang)>0)
             {
             $seolng  = new language;
-            $lang_id = $seolng->catalog_languages[$lang]['id'];			
+            $lang_id = $seolng->catalog_languages[$lang]['id'];
+			if(!LANG_DEPENDING) $go = false; //Wichtig für die Sprachumschaltung
             }
         else{
             $lang_id    = $languages_id;
@@ -232,12 +234,6 @@ function shopstat_getSEO(  $page               = '',
 
             $separator  = '?';
             }
-    
-    //Link in Sprachbox zur Umschaltung der Sprachen
-    if(strlen($lang)>0 && $lang_id != $languages_id && $link != ""){
-		$link .= $separator.'language='.$lang;		
-	}
-
 
     return($link);
 }
