@@ -1,27 +1,39 @@
 <?PHP
 /*-----------------------------------------------------------------------
-    Version: $Id: shopstat_functions.inc.php,v 1.7 2005/05/20 08:00:12 Administrator Exp $
+    $Id$
     xtC-SEO-Module by www.ShopStat.com (Hartmut König)
     http://www.shopstat.com
     info@shopstat.com
     © 2004 ShopStat.com
     All Rights Reserved.
 	
-   Version 1.06 rev.01 (c) by rpa-com.de
+   Version 1.06 rev.02 (c) by web28  - www.rpa-com.de
 ------------------------------------------------------------------------*/
 //#################################
 
-//-- Einstellungen für die Trennzeichen
-define('CAT_DIVIDER',':::');	//Kategorie
-define('ART_DIVIDER','::');		//Artikel
-define('CNT_DIVIDER',':_:');	//Content
-define('MAN_DIVIDER',':.:');	//Hersteller
+//-- Einstellungen für die Trennzeichen - 	Doppelpunkt oder Minuszeichen
+define('SEO_SEPARATOR',':');  
 
 //-- Soll die Sprachauswahl in der URL vorangestellt werden?
-//--  Empfehlung: JA, die Suchmaschine findet ansonsten keinen einzigen Link ausser der Standardsprache !
-define('LANG_DEPENDING', false); //default: true;
+//--  Empfehlung: JA, die Suchmaschine findet ansonsten keinen
+//--  einzigen Link ausser der Standardsprache !
+define('LANG_DEPENDING', true); //default: true;
+
+//Sonderzeichen
+define('SPECIAL_CHAR_FR', true);  	//Französische Sonderzeichen
+define('SPECIAL_CHAR_ES', true);	//Spanische/Italienische/Portugisische Sonderzeichen (nur aktivieren wenn auch französiche Sonderzeichen aktiviert sind)
+define('SPECIAL_CHAR_MORE', true);	//Weitere Sonderzeichen
 
 //#################################
+
+
+//-- Definition für die Trennzeichen
+define('CAT_DIVIDER',SEO_SEPARATOR.SEO_SEPARATOR.SEO_SEPARATOR);	//Kategorie ':::'
+define('ART_DIVIDER',SEO_SEPARATOR.SEO_SEPARATOR);					//Artikel '::'
+define('CNT_DIVIDER',SEO_SEPARATOR.'_'.SEO_SEPARATOR);				//Content ':_:'
+define('MAN_DIVIDER',SEO_SEPARATOR.'.'.SEO_SEPARATOR);				//Hersteller '-.-'
+define('PAG_DIVIDER',SEO_SEPARATOR);								//Seitennummer '-'
+
 
 if(!function_exists('xtDBquery'))
     {
@@ -308,7 +320,7 @@ function shopstat_hrefCatlink($category_name, $category_id, $pager=false, $divid
 
     if($pager && $pager != 1)
         {
-        $link .= ":".$pager.".html";
+        $link .= PAG_DIVIDER.$pager.".html";
         }
     else{
         $link .= ".html";
@@ -334,7 +346,7 @@ function shopstat_hrefManulink($content_name, $content_id, $pager=false, $divide
 
     if($pager && $pager != 1)
         {
-        $link .= ":".$pager.".html";
+        $link .= PAG_DIVIDER.$pager.".html";
         }
     else{
         $link .= ".html";
@@ -471,8 +483,14 @@ function shopstat_getRegExps(&$search, &$replace)
 						"/ö/",                    //--Umlaute etc.
 						"/Ä/",                    //--Umlaute etc.
 						"/Ü/",                    //--Umlaute etc.
-						"/Ö/",                    //--Umlaute etc.
-						//BOF  - web28 - 2010-05-12 - Französisch
+						"/Ö/",                    //--Umlaute etc.						
+						"/'|\"|´|`/",             //--Anführungszeichen weg.						
+						"/[:,\.!?\*\+]/",         //--Doppelpunkte, Komma, Punkt etc. weg. 
+                        );
+						
+	
+	if (SPECIAL_CHAR_FR) {					
+	$search2 = array(	//BOF  - web28 - 2010-05-12 - Französisch
 						"'&(Agrave|#192);|À'i",		// Capital A-grave Capital A-Grab
 						"'&(agrave|#224);|à'i",		//Lowercase a-grave Kleinbuchstaben a-Grab
 						"'&(Acirc|#194);|Â'i",		//Capital A-circumflex Capital A-Zirkumflex
@@ -502,9 +520,15 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(Ucirc|#219);|Û'i",		//Capital U-circumflex Capital U-Zirkumflex
 						"'&(ucirc|#251);|û'i",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
 						"'&(Yuml|#376);|Ÿ'i",		//Großes Y mit Diaeresis
-						"'&(yuml|#255);|ÿ'i",		//Kleines y mit Diaeresis
-						//EOF - web28 - 2010-05-12 - Französisch						
-						//BOF - DokuMan - 2010-08-13 - Spanisch
+						"'&(yuml|#255);|ÿ'i"		//Kleines y mit Diaeresis
+						//EOF - web28 - 2010-05-12 - Französisch	
+						);
+						
+	$search = array_merge($search,$search2);
+	}
+	
+	if (SPECIAL_CHAR_ES) {
+	$search3 = array(	//BOF - web28 - 2010-08-13 - Spanisch
 						"'&(Aacute|#193);|Á'i",		//Großes A mit Akut
 						"'&(aacute|#225);|á'i",		//Kleines a mit Akut
 						"'&(Iacute|#205);|Í'i",		//Großes I mit Akut
@@ -519,7 +543,7 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(ordm|#186);|º'i",		//männliche Ordnungszahl
 						"'&(iexcl|#161);|¡'i",		//umgekehrtes Ausrufungszeichen
 						"'&(iquest|#191);|¿'i",		//umgekehrtes Fragezeichen
-						//EOF - DokuMan - 2010-08-13 - Spanisch
+						//EOF - web28 - 2010-08-13 - Spanisch
 						//EOF - web28 - 2010-05-12 - Portugiesisch	
 						"'&(Atilde|#195);|Ã'i",		//Großes A mit Tilde
 						"'&(atilde|#227);|ã'i",		//Kleines a mit Tilde
@@ -528,9 +552,15 @@ function shopstat_getRegExps(&$search, &$replace)
 						//BOF - web28 - 2010-05-12 - Portugiesisch
 						//BOF - web28 - 2010-05-12 - Italienisch
 						"'&(Igrave|#204);|Ì'i",		//Großes I mit Grave
-						"'&(igrave|#236);|ì'i",		//Kleines i mit Grave						
+						"'&(igrave|#236);|ì'i"		//Kleines i mit Grave						
 						//EOF - web28 - 2010-05-12 - Italienisch
-						//BOF - web28 - 2010-05-12 - Weitere Sonderzeichen
+						);
+	
+	$search = array_merge($search,$search3);
+	}
+	
+    if (SPECIAL_CHAR_MORE) {	
+	$search4 = array(	//BOF - web28 - 2010-05-12 - Weitere Sonderzeichen
 						"'&(Ograve|#210);|Ò'i",		//Großes O mit Grave
 						"'&(ograve|#242);|ò'i",		//Kleines o mit Grave
 						"'&(Ograve|#210);|Ò'i",		//Großes O mit Grave
@@ -546,12 +576,16 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(ETH|#272;)|Ð'i",		//Großes D mit Querstrich (isländischer Buchstabe)
 						"'&(eth|#273;)|ð'i",		//Kleines d mit Querstrich (isländischer Buchstabe)
 						"'&(Yacute|#221;)|Ý'i",		//Großes Y mit Akut
-						"'&(yacute|#253;)|ý'i",		//Kleines y mit Akut
+						"'&(yacute|#253;)|ý'i"		//Kleines y mit Akut
 						//EOF - web28 - 2010-05-12 - Weitere Sonderzeichen
-						"/'|\"|´|`/",             //--Anführungszeichen weg.						
-						"/[:,\.!?\*\+]/",         //--Doppelpunkte, Komma, Punkt etc. weg. 
-                        );
-    $replace    = array(
+						);
+						
+	$search = array_merge($search,$search4);
+	}
+	
+//*****************************************************************
+    
+	$replace    = array(
 						"-",		//--Kaufmännisches Und mit Blanks
 						"-",		// strip out white space
 						"\"",		//--Anführungszeichen oben 
@@ -599,8 +633,13 @@ function shopstat_getRegExps(&$search, &$replace)
 			            "oe",		//--Umlaute etc.
 			            "Ae",		//--Umlaute etc.
 			            "Ue",		//--Umlaute etc.
-			            "Oe",		//--Umlaute etc.
-						//BOF - web28 - 2010-05-12 - Französisch
+			            "Oe",		//--Umlaute etc.											
+						"",			//--Anführungszeichen 			
+						"-"			//--Doppelpunkte, Komma, Punkt etc. 
+                        );
+						
+	if (SPECIAL_CHAR_FR) {					
+	$replace2 = array(	//BOF - web28 - 2010-05-12 - Französisch
 						"A",		// Capital A-grave Capital A-Grab
 						"a",		//Lowercase a-grave Kleinbuchstaben a-Grab
 						"A",		//Capital A-circumflex Capital A-Zirkumflex
@@ -630,9 +669,15 @@ function shopstat_getRegExps(&$search, &$replace)
 						"U",		//Capital U-circumflex Capital U-Zirkumflex						
 						"u",		//Lowercase U-circumflex Kleinbuchstaben U-Zirkumflex
 						"Y",		//Großes Y mit Diaeresis
-						"y",		//Kleines y mit Diaeresis
+						"y"			//Kleines y mit Diaeresis
 						//EOF - web28 - 2010-05-12 - Französisch
-						//BOF - web28 - 2010-08-13 - Spanisch
+						);
+						
+	$replace = array_merge($replace,$replace2);
+	}
+	
+	if (SPECIAL_CHAR_ES) {
+	$replace3 = array(	//BOF - web28 - 2010-08-13 - Spanisch
 						"A",		//Großes A mit Akut
 						"a",		//Kleines a mit Akut
 						"I",		//Großes I mit Akut
@@ -656,9 +701,15 @@ function shopstat_getRegExps(&$search, &$replace)
 						//BOF - web28 - 2010-08-13 - Portugiesisch
 						//BOF - web28 - 2010-08-13 - Italienisch
 						"I",		//Großes I mit Grave
-						"i",		//Kleines i mit Grave						
+						"i"			//Kleines i mit Grave						
 						//EOF - web28 - 2010-08-13 - Italienisch
-						//BOF -web28 - 2010-08-13 - Weitere Sonderzeichen
+						);
+	
+	$replace = array_merge($replace,$replace3);
+	}
+	
+    if (SPECIAL_CHAR_MORE) {	
+	$replace4 = array(	//BOF -web28 - 2010-08-13 - Weitere Sonderzeichen
 						"O",		//Großes O mit Grave
 						"o",		//Kleines o mit Grave
 						"O",		//Großes O mit Grave
@@ -674,11 +725,12 @@ function shopstat_getRegExps(&$search, &$replace)
 						"D",		//Großes D mit Querstrich (isländischer Buchstabe)
 						"d",		//Kleines d mit Querstrich (isländischer Buchstabe)
 						"Y",		//Großes Y mit Akut
-						"y",		//Kleines y mit Akut
-						//EOF - web28 - 2010-08-13 - Weitere Sonderzeichen						
-						"",			//--Anführungszeichen 			
-						"-"			//--Doppelpunkte, Komma, Punkt etc. 
-                        );
+						"y"			//Kleines y mit Akut
+						//EOF - web28 - 2010-08-13 - Weitere Sonderzeichen	
+						);
+						
+	$replace = array_merge($replace,$replace4);
+	}
 
 }
 ?>
