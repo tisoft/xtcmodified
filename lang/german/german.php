@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: german.php 302 2007-03-30 08:25:49Z mzanier $
+   $Id$
 
    xt:Commerce - community made shopping
    http://www.xt-Commerce.com
@@ -319,19 +319,19 @@ define('ERROR_INVALID_PRODUCT', 'Der von Ihnen gew&auml;hlte Artikel wurde nicht
  * 
  */
 
-define('NAVBAR_TITLE_ACCOUNT', 'Ihr Konto');
-define('NAVBAR_TITLE_1_ACCOUNT_EDIT', 'Ihr Konto');
+define('NAVBAR_TITLE_ACCOUNT', 'Mein Konto');
+define('NAVBAR_TITLE_1_ACCOUNT_EDIT', 'Mein Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_EDIT', 'Ihre pers&ouml;nliche Daten &auml;ndern');
-define('NAVBAR_TITLE_1_ACCOUNT_HISTORY', 'Ihr Konto');
+define('NAVBAR_TITLE_1_ACCOUNT_HISTORY', 'Mein Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_HISTORY', 'Ihre get&auml;tigten Bestellungen');
-define('NAVBAR_TITLE_1_ACCOUNT_HISTORY_INFO', 'Ihr Konto');
+define('NAVBAR_TITLE_1_ACCOUNT_HISTORY_INFO', 'Mein Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_HISTORY_INFO', 'Get&auml;tigte Bestellung');
 define('NAVBAR_TITLE_3_ACCOUNT_HISTORY_INFO', 'Bestellnummer %s');
-define('NAVBAR_TITLE_1_ACCOUNT_PASSWORD', 'Ihr Konto');
+define('NAVBAR_TITLE_1_ACCOUNT_PASSWORD', 'Mein Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_PASSWORD', 'Passwort &auml;ndern');
-define('NAVBAR_TITLE_1_ADDRESS_BOOK', 'Ihr Konto');
+define('NAVBAR_TITLE_1_ADDRESS_BOOK', 'Mein Konto');
 define('NAVBAR_TITLE_2_ADDRESS_BOOK', 'Adressbuch');
-define('NAVBAR_TITLE_1_ADDRESS_BOOK_PROCESS', 'Ihr Konto');
+define('NAVBAR_TITLE_1_ADDRESS_BOOK_PROCESS', 'Mein Konto');
 define('NAVBAR_TITLE_2_ADDRESS_BOOK_PROCESS', 'Adressbuch');
 define('NAVBAR_TITLE_ADD_ENTRY_ADDRESS_BOOK_PROCESS', 'Neuer Eintrag');
 define('NAVBAR_TITLE_MODIFY_ENTRY_ADDRESS_BOOK_PROCESS', 'Eintrag &auml;ndern');
@@ -476,7 +476,7 @@ define('_MODULE_INVALID_SHIPPING_ZONE', 'Es ist leider kein Versand in dieses La
 define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Die Versandkosten k&ouml;nnen im Moment nicht errechnet werden');
 
 //Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
-define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Ihr Konto');
+define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Mein Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Konto l&ouml;schen');
 	
 //contact-form error messages
