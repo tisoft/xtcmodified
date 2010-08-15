@@ -1,17 +1,18 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: shopping_cart.php 1534 2006-08-20 19:39:22Z mz $
+   $Id$
 
    XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.32 2003/02/11); www.oscommerce.com
    (c) 2003	 nextcommerce (shopping_cart.php,v 1.21 2003/08/17); www.nextcommerce.org
+   (c) 2006	 xt:Commerce; www.xt-commerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -119,7 +120,7 @@ class shoppingCart {
 		if ($this->in_cart($products_id)) {
 			$this->update_quantity($products_id, $qty, $attributes);
 		} else {
-			$this->contents[] = array ($products_id);
+			//$this->contents[] = array ($products_id); //web28 - 2010-08-15 - BUGFIX unnecessary code causes problems with download articles
 			$this->contents[$products_id] = array ('qty' => $qty);
 			// insert into database
 			if (isset ($_SESSION['customer_id']))
