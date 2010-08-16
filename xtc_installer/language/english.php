@@ -1,20 +1,20 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: english.php 1213 2005-09-14 11:34:50Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    based on:
-   (c) 2003	 nextcommmerce (english.php,v 1.8 2003/08/13); www.nextcommerce.com
-   (c) 2009 xtcModified (english.php,v 1.00 2009/07/13); www.www.xtc-modified.org 
+   (c) 2003	nextcommerce (english.php,v 1.8 2003/08/13); www.nextcommerce.com
+   (c) 2006 xt:Commerce (english.php 1213 2005-09-14); www.xtcommerce.com
    
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 // Global
-define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
+define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a> &copy; ' . date('Y') . ' provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
    
 // Box names
 define('BOX_LANGUAGE','Language');
@@ -28,7 +28,7 @@ define('PULL_DOWN_DEFAULT','Please select a Country!');
 
 // Error messages
 // index.php
-define('SELECT_LANGUAGE_ERROR','Please select a language! / Bitte w&auml;hlen Sie eine Sprache!');
+define('SELECT_LANGUAGE_ERROR','Please select a language!');
 // install_step2,5.php
 define('TEXT_CONNECTION_ERROR','The test connect to the database was NOT successful.');
 define('TEXT_CONNECTION_SUCCESS','The test connect to the database was successful.');
@@ -48,10 +48,25 @@ define('TEXT_PATH_ERROR','<h1>Invalid path</h1>');
 define('TEXT_PATH_ERROR2','Regard! You have entered an invalid file path!');
 define('TEXT_PATH_ERROR3','Please check your settings!');
 // EOF - web28 - 2010-02-1014 - check FILE PATH
+// BOF - DokuMan - 2010-08-16 - language dependent definitions for index.php
+define('TEXT_WRONG_FILE_PERMISSION','WRONG FILE PERMISSIONS ');
+define('TEXT_WRONG_FOLDER_PERMISSION','WRONG FOLDER PERMISSIONS ');
+define('TEXT_FILE_PERMISSION_STATUS','FILE PERMISSIONS ');
+define('TEXT_FOLDER_PERMISSION_STATUS','FOLDER PERMISSIONS ');
+define('TEXT_ERROR','ERROR');
+define('TEXT_PHPVERSION_TOO_OLD','ATTENTION! Your PHP version is too old. The shop requires at least version 5.0!<br /><br />Your PHP version: ');
+define('TEXT_NO_GDLIB_FOUND',': GDLIB NOT FOUND!');
+define('TEXT_GDLIBV2_SUPPORT','if GDlib version &lt; 2+ , please contact the support!');
+define('TEXT_GDLIB_MISSING_GIF_SUPPORT','You do not have GIF support in GDlib. Therefo using GIF images and GIF watermarks is not possible!');
+define('TEXT_GDLIB_GIF_VERSION','GDlib GIF support');
+define('TEXT_CHMOD_REMARK_HEADLINE','Attention');
+define('TEXT_CHMOD_REMARK','The following files and folders require write permission ( CHMOD 0777 )');
+define('TEXT_CHECKING','Checking');
+define('TEXT_INSTALLATION_NOT_POSSIBLE','Due to missing requirements the installation process cannot proceed! Please correct the issues and try again!');// EOF - DokuMan - 2010-08-16 - language dependent definitions for index.php
 	
 // index.php
-define('TITLE_SELECT_LANGUAGE','Select your language! / Bitte w&auml;hlen Sie eine Sprache!');
-define('TEXT_WELCOME_INDEX','<b>Welcome to xtcModified</b><br /><br />xtcModified is an open source e-commerce solution under on going development by the xtcModified Team and its community.<br /> Its feature packed out-of-the-box installation allows store owners to setup, run, and maintain their online stores with minimum effort and with no costs involved.<br /> xtcModified combines open source solutions to provide a free and open development platform, which includes the powerful PHP web scripting language, the stable Apache web server, and the fast MySQL database server.<br /><br />With no restrictions or special requirements, xtcModified can be installed on any PHP4 enabled web server, on any environment that PHP and MySQL supports, which includes Linux, Solaris, BSD, and Microsoft Windows environments.<br /><br />xtcModified is an open source project, yet a lot of work and spare time go into this project. Therefore we would be grateful if you show your appreciation by <b>donating</b> to the project.<br /><br /><b>Willkommen zu xtcModified</b><br /><br />xtcModified ist eine Open-Source e-commerce Lösung, die ständig vom xtcModified Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />xtcModified ist auf jedem System lauffähig, welches eine PHP Umgebung (ab PHP 4.1) und mySQL zur Verfügung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.<br /><br />xtcModified ist ein OpenSource-Projekt &ndash; wir stecken jede Menge Arbeit und Freizeit in dieses Projekt und würden uns daher über eine <b>Spende</b> als kleine Anerkennung freuen.');
+define('TITLE_SELECT_LANGUAGE','Select your language!');
+define('TEXT_WELCOME_INDEX','<b>Welcome to xtcModified</b><br /><br />xtcModified is an open source e-commerce solution under on going development by the xtcModified Team and its community.<br /> Its feature packed out-of-the-box installation allows store owners to setup, run, and maintain their online stores with minimum effort and with no costs involved.<br /> xtcModified combines open source solutions to provide a free and open development platform, which includes the powerful PHP web scripting language, the stable Apache web server, and the fast MySQL database server.<br /><br />With no restrictions or special requirements, xtcModified can be installed on on any environment that supports PHP 5.0 and MySQL, which includes Linux, Solaris, BSD, and Microsoft Windows environments.<br /><br />xtcModified is an open source project, yet a lot of work and spare time go into this project. Therefore we would be grateful if you show your appreciation by <b>donating</b> to the project.');
 define('TEXT_INFO_DONATIONS_IMG_ALT', 'Please support this project with your donation.');
 define('TEXT_WELCOME_STEP1','<b>Main database and webserver settings</b><br /><br />Please enter your Database and webserver settings.<br />');
 define('TEXT_WELCOME_STEP2','<b>Install database</b><br /><br />The xtcModified installer will automatically install the xtcModified database.');

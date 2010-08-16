@@ -1,20 +1,20 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: german.php 1213 2005-09-14 11:34:50Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    based on:
-   (c) 2003	 nextcommerce (german.php,v 1.8 2003/08/13); www.nextcommerce.com
-   (c) 2009 xtcModified (german.php,v 1.00 2009/07/13); www.www.xtc-modified.org 
-   
+   (c) 2003 nextcommerce (german.php,v 1.8 2003/08/13); www.nextcommerce.com
+   (c) 2006 xt:Commerce (german.php 1213 2005-09-14); www.xtcommerce.com
+
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 // Global
-define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
+define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a> &copy; ' . date('Y') . ' provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
    
 // Box names
 define('BOX_LANGUAGE','Sprache');
@@ -48,10 +48,26 @@ define('TEXT_PATH_ERROR','<h1>URL oder Dateipfad ung&uuml;ltig</h1>');
 define('TEXT_PATH_ERROR2','Achtung! Sie haben eine ung&uuml;ltige URL oder einen ung&uuml;ltigen Dateipfad eingegeben!');
 define('TEXT_PATH_ERROR3','Bitte &uuml;berpr&uuml;fen Sie Ihre Einstellungen!');
 // EOF - web28 - 2010-02-1014 - check FILE PATH
+// BOF - DokuMan - 2010-08-16 - language dependent definitions for index.php
+define('TEXT_WRONG_FILE_PERMISSION','FALSCHE DATEIRECHTE ');
+define('TEXT_WRONG_FOLDER_PERMISSION','FALSCHE VERZEICHNISRECHTE ');
+define('TEXT_FILE_PERMISSION_STATUS','DATEIRECHTE ');
+define('TEXT_FOLDER_PERMISSION_STATUS','VERZEICHNISRECHTE ');
+define('TEXT_ERROR','FEHLER');
+define('TEXT_PHPVERSION_TOO_OLD','ACHTUNG! Ihre PHP-Version ist zu alt. Der Shop setzt mindestens die Version 5.0 voraus.<br /><br />Ihre PHP-Version: ');
+define('TEXT_NO_GDLIB_FOUND',': KEINE GDLIB GEFUNDEN!');
+define('TEXT_GDLIBV2_SUPPORT','falls GDlib Version &lt; 2+ , wenden Sie sich bitte an den Support!');
+define('TEXT_GDLIB_MISSING_GIF_SUPPORT','Sie haben keine GIF-Unterst&uuml;tzung innerhalb der GDlib, so dass Sie im Shop keine GIF-Bilder und GIF-Wasserzeichen-Funktionen nutzen k&ouml;nnen!');
+define('TEXT_GDLIB_GIF_VERSION','GDlib GIF-Unterst&uuml;tzung');
+define('TEXT_CHMOD_REMARK_HEADLINE','Achtung');
+define('TEXT_CHMOD_REMARK','Die folgenden Dateien und Ordner benötigen Schreibrechte ( CHMOD 0777 )');
+define('TEXT_CHECKING','&Uuml;berprüfung');
+define('TEXT_INSTALLATION_NOT_POSSIBLE','Die Installation kann wegen fehlender Voraussetzungen nicht fortgesetzt werden! Bitte beheben Sie die Fehler und versuchen Sie es dann erneuet!');
+// EOF - DokuMan - 2010-08-16 - language dependent definitions for index.php
 
 // index.php
-define('TITLE_SELECT_LANGUAGE','W&auml;hlen Sie eine Sprache!');
-define('TEXT_WELCOME_INDEX','<b>Willkommen zu xtcModified</b><br /><br />xtcModified ist eine Open-Source e-commerce L&ouml;sung, die st&auml;ndig vom xtcModified Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />xtcModified ist auf jedem System lauff&auml;hig, welches eine PHP Umgebung (ab PHP 4.1) und mySQL zur Verf&uuml;gung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.<br /><br />xtcModified ist ein OpenSource-Projekt &ndash; wir stecken jede Menge Arbeit und Freizeit in dieses Projekt und würden uns daher über eine Spende als kleine Anerkennung freuen.');
+define('TITLE_SELECT_LANGUAGE','W&auml;hlen Sie eine Sprache aus!');
+define('TEXT_WELCOME_INDEX','<b>Willkommen zu xtcModified</b><br /><br />xtcModified ist eine Open-Source e-commerce L&ouml;sung, die st&auml;ndig vom xtcModified Team und einer grossen Gemeinschaft weiterentwickelt wird.<br /> Seine out-of-the-box Installation erlaubt es dem Shop-Besitzer seinen Online-Shop mit einem Minimum an Aufwand und Kosten zu installieren, zu betreiben und zu verwalten.<br /><br />xtcModified ist auf jedem System lauff&auml;hig, welches eine PHP Umgebung (ab PHP 5.0) und MySQL zur Verf&uuml;gung stellt, wie zum Beispiel Linux, Solaris, BSD, und Microsoft Windows.<br /><br />xtcModified ist ein OpenSource-Projekt &ndash; wir stecken jede Menge Arbeit und Freizeit in dieses Projekt und würden uns daher über eine Spende als kleine Anerkennung freuen.');
 define('TEXT_INFO_DONATIONS_IMG_ALT','Unterstützen Sie dieses Projekt mit Ihrer Spende');
 define('TEXT_WELCOME_STEP1','<b>Datenbank- und Webservereinstellungen</b><br /><br />Der Installer ben&ouml;tigt hier einige Informationen bez&uuml;glich Ihrer Datenbank und Ihrer Verzeichnisstruktur.');
 define('TEXT_WELCOME_STEP2','<b>Datenbank Installation</b><br /><br />Der xtcModified Installer installiert automatisch die xtcModified-Datenbank.');

@@ -1,22 +1,23 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: application.php 1119 2005-07-25 22:19:50Z novalis $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application.php,v 1.4 2002/11/29); www.oscommerce.com
-   (c) 2003	 nextcommerce (application.php,v 1.16 2003/08/13); www.nextcommerce.org 
+   (c) 2003	nextcommerce (application.php,v 1.16 2003/08/13); www.nextcommerce.org 
+   (c) 2006 xt:Commerce (application.php 1119 2005-07-25); www.xtcommerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
-// Some FileSystem Directories
+  // Some FileSystem Directories
   if (!defined('DIR_FS_DOCUMENT_ROOT')) {
-      //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+    //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
 	  if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {	    
 		define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));		
 	  } else {	    
@@ -37,7 +38,6 @@
   }
   if (!defined('DIR_FS_INC')) define('DIR_FS_INC', DIR_FS_CATALOG.'inc/');
 
-// include
   //require('../includes/functions/validations.php');
   require(DIR_FS_CATALOG.'includes/classes/boxes.php');
   require(DIR_FS_CATALOG.'includes/classes/message_stack.php');
@@ -45,10 +45,10 @@
   require(DIR_FS_CATALOG.'includes/database_tables.php');
   require_once(DIR_FS_CATALOG.'inc/xtc_image.inc.php');
   
-// Start the Install_Session
+  // Start the Install_Session
   session_start();
   
-// Set the level of error reporting
+  // Set the level of error reporting
   error_reporting(E_ALL & ~E_NOTICE);
 
   define('CR', "\n");
@@ -61,7 +61,7 @@
   require_once(DIR_FS_INC.'xtc_check_agent.inc.php');
   require_once(DIR_FS_INC.'xtc_in_array.inc.php');
   
-  // Include Database functions for installer
+  // include Database functions for installer
   require_once(DIR_FS_INC.'xtc_db_prepare_input.inc.php');
   require_once(DIR_FS_INC.'xtc_db_connect_installer.inc.php');
   require_once(DIR_FS_INC.'xtc_db_select_db.inc.php');
@@ -86,10 +86,10 @@
   require_once(DIR_FS_INC.'xtc_draw_box_contents.inc.php');
   require_once(DIR_FS_INC.'xtc_draw_box_content_bullet.inc.php');
 
-  // iinclude check functions
+  // include check functions
   require_once(DIR_FS_INC .'xtc_gdlib_check.inc.php');
   
-   if (!defined('DIR_WS_ICONS')) define('DIR_WS_ICONS','images/');
+  if (!defined('DIR_WS_ICONS')) define('DIR_WS_ICONS','images/');
 
   function xtc_check_version($mini='4.1.2')
 {
@@ -97,32 +97,32 @@
   sscanf($dummy,"%d.%d.%d%s",$v1,$v2,$v3,$v4);
   sscanf($mini,"%d.%d.%d%s",$m1,$m2,$m3,$m4);
   if($v1>$m1)
-       return(1);
-   elseif($v1<$m1)
+     return(1);
+  elseif($v1<$m1)
      return(0);
-   if($v2>$m2)
-       return(1);
+  if($v2>$m2)
+     return(1);
   elseif($v2<$m2)
-       return(0);
-   if($v3>$m3)
-      return(1);
-   elseif($v3<$m3)
-       return(0);
+     return(0);
+  if($v3>$m3)
+     return(1);
+  elseif($v3<$m3)
+     return(0);
   if((!$v4)&&(!$m4))
-       return(1);
+     return(1);
   if(($v4)&&(!$m4))
    {
-      $dummy=strpos($v4,"pl");
-       if(is_integer($dummy))
-          return(1);
-       return(0);
+    $dummy=strpos($v4,"pl");
+    if(is_integer($dummy))
+       return(1);
+    return(0);
    }
   elseif((!$v4)&&($m4))
    {
-      $dummy=strpos($m4,"rc");
-       if(is_integer($dummy))
-          return(1);
-       return(0);
+    $dummy=strpos($m4,"rc");
+    if(is_integer($dummy))
+       return(1);
+    return(0);
    }
    return(0);
 }
@@ -131,18 +131,26 @@
     if (isset($_SESSION['language']) && $_SESSION['language'] != '') {
 		$lang = $_SESSION['language'];
     } else {
-        $lang = 'english'; //Set standard language
-        if(isset($_GET['lg']) && $_GET['lg'] != '') {
-            $lang = $_GET['lg'];			
-		}
-		if(isset($_POST['lg']) && $_POST['lg'] != '') {	
-            $lang = $_POST['lg'];			
-		}	
+    //BOF - DokuMan - 2010-08-16 - Set browser language on installer start page
+      preg_match("/^([a-z]+)-?([^,;]*)/i", $_SERVER["HTTP_ACCEPT_LANGUAGE"], $browser_lang);
+      switch ($browser_lang[1]) {
+        case 'de':
+          $lang = 'german';
+          break;
+        default:
+          $lang = 'english';
+          break;
+      }
+     //EOF - DokuMan - 2010-08-16 - Set browser language on installer start page 
+      if(isset($_GET['lg']) && $_GET['lg'] != '') {
+        $lang = $_GET['lg'];			
+       }
+      if(isset($_POST['lg']) && $_POST['lg'] != '') {	
+        $lang = $_POST['lg'];			
+      }	
     }	
         
-	//include('language/'.$lang.'.php');
-	$input_lang = '<input type="hidden" name="lg" value="'. $lang .'">';   
-    //EOF - web28 - 2010.02.09 - FIX LOST SESSION   
-
-
+    //include('language/'.$lang.'.php');
+    $input_lang = '<input type="hidden" name="lg" value="'. $lang .'">';   
+    //EOF - web28 - 2010.02.09 - FIX LOST SESSION
 ?>
