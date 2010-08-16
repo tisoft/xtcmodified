@@ -111,6 +111,17 @@ if (!is_writeable(DIR_FS_CATALOG . 'admin/includes/configure.org.php')) {
   $error_flag=true;
   $message .= TEXT_WRONG_FILE_PERMISSION .DIR_FS_CATALOG . 'admin/includes/configure.org.php<br />';
 }
+
+if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/xt-news.cache')) {
+    $error_flag=true;
+    $folder_flag=true;
+    $message .= TEXT_WRONG_FILE_PERMISSION .DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
+ }
+  if (!is_writeable(DIR_FS_CATALOG . 'sitemap.xml')) {
+    $error_flag=true;
+    $message .= TEXT_WRONG_FILE_PERMISSION .DIR_FS_CATALOG . 'sitemap.xml<br />';
+ }
+
 $status='<strong>OK</strong>';
 if ($error_flag==true) $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
 $ok_message.= TEXT_FILE_PERMISSION_STATUS .'.............................. '.$status.'<br /><hr noshade />';
@@ -133,11 +144,6 @@ if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/')) {
   $folder_flag=true;
   $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'admin/rss/<br />';
 }
-if (!is_writeable(DIR_FS_CATALOG . 'admin/rss/xt-news.cache')) {
-  $error_flag=true;
-  $folder_flag=true;
-  $message .= TEXT_WRONG_FILE_PERMISSION .DIR_FS_CATALOG . 'admin/rss/xt-news.cache<br />';
-}
 if (!is_writeable(DIR_FS_CATALOG . 'cache/')) {
   $error_flag=true;
   $folder_flag=true;
@@ -147,6 +153,7 @@ if (!is_writeable(DIR_FS_CATALOG . 'export/')) {
   $error_flag=true;
   $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'export/<br />';
 } 
+ // image folders
 if (!is_writeable(DIR_FS_CATALOG . 'images/')) {
   $error_flag=true;
   $folder_flag=true;
@@ -216,7 +223,7 @@ $status='<strong>OK</strong>';
 if ($folder_flag==true) $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
 $ok_message.= TEXT_FOLDER_PERMISSION_STATUS . '............... '.$status.'<br /><hr noshade />';
 
-// check PHP-Version
+//BOF *************  check PHP-Version *************
 $php_flag==false;
 //BOF - Dokuman - 2009-09-02: update PHP-Version check
 /*
@@ -226,41 +233,38 @@ if (xtc_check_version()!=1) {
     $message .='<strong>ATTENTION!, your PHP Version is to old, xtc:Modified requires atleast PHP 4.1.3.</strong><br /><br />Your php Version: <strong><?php echo phpversion(); ?></strong><br /><br />xtc:Modified wont work on this server, update PHP or change Server.';
 }
 */
+$php_min = '5.0.0';
+$php_max = '6.0.0';
 if (function_exists('version_compare')) {
- if(version_compare(phpversion(), "5.0.0", "<=")){
-   $error_flag = true;
-   $php_flag = true;
-   $message .= '<strong>'. TEXT_PHPVERSION_TOO_OLD . phpversion() . '</strong>.';
- }
+	if(version_compare(phpversion(), $php_min, "<=")){
+		$error_flag = true;
+		$php_flag = true;
+		$message .= '<strong>'. sprintf(TEXT_PHPVERSION_TOO_OLD,$php_min) . phpversion() . '</strong>.';
+	}
+	if(version_compare(phpversion(), $php_max, ">=")){
+		$error_flag = true;
+		$php_flag = true;
+		$message .= '<strong>'.sprintf(TEXT_ERROR_PHP_MAX,$php_max) . phpversion() . '</strong>.';
+	}
 }
 else{
   $error_flag = true;
   $php_flag = true;
-  $message .= '<strong>'. TEXT_PHPVERSION_TOO_OLD . phpversion() . '</strong>.';
+  $message .= '<strong>'. sprintf(TEXT_PHPVERSION_TOO_OLD,$php_min) . phpversion() . '</strong>.';
 }
 //EOF - Dokuman - 2009-09-02: update PHP-Version check
 
 $status='<strong>OK</strong>';
 if ($php_flag==true) $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
 $ok_message.='PHP VERSION ............................... '.$status.' ('.phpversion().')<br /><hr noshade />';
-
-/*
-// BOF - Tomcraft - 2009-11-22 - Check MySQL version
-if (function_exists('version_compare')) {
-// vr - 2010-02-06 don't check mysql native driver php extension
-  if((mysql_get_client_info() != 'MySQL Native Driver') && version_compare(mysql_get_client_info(), "4.1.2", "<")){
-    $error_flag = true;
-    $php_flag = true;
-    $message .= '<br /><strong>ACHTUNG! Ihre MySQL-Version ist zu alt. Der Shop setzt mindestens die Version 4.1.2 voraus.<br /><br />
-          Ihre MySQL-Version: ' . mysql_get_client_info() . '</strong>.';
-    }
-$status='OK';
-if ($php_flag==true) $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
-$ok_message.='MySQL-VERSION .............................. '.mysql_get_client_info() . ' '. $status.'<br /><hr noshade />'; 
-}
-// EOF - Tomcraft - 2009-11-22 - Check MySQL version   
-*/
+//EOF *************  check PHP-Version *************
  
+//BOF *************  check fsockopen *************
+ 
+ //TODO
+
+//EOF *************  check fsockopen ************* 
+
 $gd=gd_info();
 
 if ($gd['GD Version']=='') $gd['GD Version']='<strong><font color="#ff0000">'.TEXT_ERROR.TEXT_NO_GDLIB_FOUND.'</font></strong>';

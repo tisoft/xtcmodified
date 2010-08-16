@@ -54,7 +54,8 @@ define('TEXT_WRONG_FOLDER_PERMISSION','WRONG FOLDER PERMISSIONS ');
 define('TEXT_FILE_PERMISSION_STATUS','FILE PERMISSIONS ');
 define('TEXT_FOLDER_PERMISSION_STATUS','FOLDER PERMISSIONS ');
 define('TEXT_ERROR','ERROR');
-define('TEXT_PHPVERSION_TOO_OLD','ATTENTION! Your PHP version is too old. The shop requires at least version 5.0!<br /><br />Your PHP version: ');
+define('TEXT_PHPVERSION_TOO_OLD','ATTENTION! Your PHP version is too old. The shop requires at least version %s!<br /><br />Your PHP version: ');
+define('TEXT_ERROR_PHP_MAX','ACHTUNG! Your PHP version is not supported. The shop only works up to version %s.<br /><br />Your PHP version: ');
 define('TEXT_NO_GDLIB_FOUND',': GDLIB NOT FOUND!');
 define('TEXT_GDLIBV2_SUPPORT','if GDlib version &lt; 2+ , please contact the support!');
 define('TEXT_GDLIB_MISSING_GIF_SUPPORT','You do not have GIF support in GDlib. Therefo using GIF images and GIF watermarks is not possible!');
@@ -62,7 +63,8 @@ define('TEXT_GDLIB_GIF_VERSION','GDlib GIF support');
 define('TEXT_CHMOD_REMARK_HEADLINE','Attention');
 define('TEXT_CHMOD_REMARK','The following files and folders require write permission ( CHMOD 0777 )');
 define('TEXT_CHECKING','Checking');
-define('TEXT_INSTALLATION_NOT_POSSIBLE','Due to missing requirements the installation process cannot proceed! Please correct the issues and try again!');// EOF - DokuMan - 2010-08-16 - language dependent definitions for index.php
+define('TEXT_INSTALLATION_NOT_POSSIBLE','Due to missing requirements the installation process cannot proceed! Please correct the issues and try again!');
+// EOF - DokuMan - 2010-08-16 - language dependent definitions for index.php
 	
 // index.php
 define('TITLE_SELECT_LANGUAGE','Select your language!');
