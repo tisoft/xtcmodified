@@ -1,6 +1,7 @@
 <?php
-
-
+/* -----------------------------------------------------------------------------------------
+   $Id$
+ -----------------------------------------------------------------------------------------*/
 // -----------------------------------------------------------------------------------------
 //	gunnart_productRedirect.inc.php
 // -----------------------------------------------------------------------------------------
@@ -11,7 +12,7 @@
 // 	
 //	Nähere Infos: http://www.gunnart.de?p=379
 //	
-//	v 0.13
+//	v 0.14 changes by web28 - www.rpa-com.de
 // -----------------------------------------------------------------------------------------
 
 
@@ -28,25 +29,34 @@
 			$group_check = ''; //DokuMan - 2010-03-12 - set undefined variable
 			if(GROUP_CHECK == 'true') {
 				$group_check = "AND p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-			}
-			$dbQuery = xtDBquery("
-				SELECT 	p.products_id, 
-						pd.products_name
-				FROM 	".TABLE_PRODUCTS_DESCRIPTION." pd,
-						".TABLE_PRODUCTS." p
-				WHERE 	pd.products_id = '".intval($ProdID)."'
-				AND 	pd.products_id = p.products_id
-				".$fsk_lock."
-				".$group_check."
-				AND		p.products_status = '1'
-				AND 	pd.language_id = '".(int)$_SESSION['languages_id']."' 
-			");
-			$dbQuery = xtc_db_fetch_array($dbQuery,true);
+			}			
 			
-			if(!empty($dbQuery['products_id'])) {
-				return xtc_href_link(FILENAME_PRODUCT_INFO,xtc_product_link(intval($ProdID),$dbQuery['products_name']));
+			//BOF - web28- 2010-08-16 - better performance
+			if ($fsk_lock != '' || $group_check != '') {
+			
+				$dbQuery = xtDBquery("
+					SELECT 	p.products_id, 
+							pd.products_name
+					FROM 	".TABLE_PRODUCTS_DESCRIPTION." pd,
+							".TABLE_PRODUCTS." p
+					WHERE 	pd.products_id = '".$ProdID."'
+					AND 	pd.products_id = p.products_id
+					".$fsk_lock."
+					".$group_check."
+					AND		p.products_status = '1'
+					AND 	pd.language_id = '".(int)$_SESSION['languages_id']."' 
+				");
+				$dbQuery = xtc_db_fetch_array($dbQuery,true);
+				
+				if(!empty($dbQuery['products_id'])) {
+					return xtc_href_link(FILENAME_PRODUCT_INFO,xtc_product_link($ProdID,$dbQuery['products_name']));
+				}
+			} else {
+				return xtc_href_link(FILENAME_PRODUCT_INFO,xtc_product_link($ProdID));
 			}
+			//EOF - web28- 2010-08-16 - better performance	
 		}
+		
 		return false;
 	}
 // -----------------------------------------------------------------------------------------
@@ -58,12 +68,14 @@
 	function productRedirect() {
 		// Wenn wir auf ner Produkt-Info-Seite sind
 		if(basename($_SERVER['SCRIPT_NAME']) == FILENAME_PRODUCT_INFO) {
-		
-			global $actual_products_id;
+			
+			//BOF - web28 - 2010-08-16 - New SSL  handling  defined by $request_type
+			global $actual_products_id, $request_type;
+			//EOF - web28 - 2010-08-16 - New SSL  handling  defined by $request_type
 			
 			// Link zum Weiterleiten (MIT Session-ID)
 			//$RedirectionLink = xtc_href_link(FILENAME_PRODUCT_INFO,xtc_product_link($actual_products_id));
-			$RedirectionLink = ProductRedirectionLink($actual_products_id);
+			$RedirectionLink = ProductRedirectionLink(intval($actual_products_id));
 			
 			// Wenn es den Artikel gibt
 			if($RedirectionLink) { 
@@ -76,7 +88,10 @@
 				
 				// 301er-Weiterleitung mit Unterscheidung SSL / kein SSL
 				if(strpos($ProductLink, $CurrentLink) === false) {
-					if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // Bei aktivem SSL 
+				    //BOF - web28 - 2010-08-16 - New SSL  handling  defined by $request_type
+					//if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // Bei aktivem SSL 
+					if ( (ENABLE_SSL == true) && ($request_type == 'SSL') ) { // We are loading an SSL page
+					//EOF - web28 - 2010-08-16 - New SSL  handling  defined by $request_type
 						if (substr($RedirectionLink, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { 
 							$RedirectionLink = HTTPS_SERVER . substr($RedirectionLink, strlen(HTTP_SERVER)); 
 						}
@@ -93,7 +108,10 @@
 				
 				// 404er-Weiterleitung
 				$DefaultLink = xtc_href_link(FILENAME_DEFAULT); // <-- Hier Fehlerseite festlegen ...
-				if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // Bei aktivem SSL 
+				//BOF - web28 - 2010-08-16 - New SSL  handling  defined by $request_type
+				//if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on' || getenv('HTTPS') == '1') ) { // Bei aktivem SSL 
+				if ( (ENABLE_SSL == true) && ($request_type == 'SSL') ) { // We are loading an SSL page
+				//EOF - web28 - 2010-08-16 - New SSL  handling  defined by $request_type
 					if (substr($DefaultLink, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { 
 						$DefaultLink = HTTPS_SERVER . substr($DefaultLink, strlen(HTTP_SERVER)); 
 					}
@@ -106,8 +124,12 @@
 			}
 		}
 	}
-// -----------------------------------------------------------------------------------------
-	productRedirect(); // <-- ... und los!
+	
+
+// -----------------------------------------------------------------------------------------	
+	
+	productRedirect(); // <-- ... und los!	
+	
 // -----------------------------------------------------------------------------------------
 
 

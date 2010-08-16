@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: boxes.php 1298 2005-10-09 13:14:44Z mz $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -10,6 +10,9 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
+// BOF - web28 - 2010-10-16 -	Prevent duplicate content by SEO language switch
+  require_once (DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/source/inc/clear_language_param.inc.php');
+// EOF - web28 - 2010-10-16 -	Prevent duplicate content by SEO language switch  
 // BOF - Tomcraft - 2009-10-27 - Prevent duplicate content, see: http://www.gunnart.de/tipps-und-tricks/doppelten-content-vermeiden-productredirect-fuer-xtcommerce/
   require_once (DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/source/inc/gunnart_productRedirect.inc.php');
 // EOF - Tomcraft - 2009-10-27 - Prevent duplicate content, see: http://www.gunnart.de/tipps-und-tricks/doppelten-content-vermeiden-productredirect-fuer-xtcommerce/
