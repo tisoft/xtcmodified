@@ -26,8 +26,6 @@ require_once(DIR_FS_INC.'xtc_href_link.inc.php');
 //include('language/english.php');
 include('language/'.$lang.'.php');
 //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
-// Include Developer - standard settings for installer
-// require('developer_settings.php');  
 define('HTTP_SERVER','');
 define('HTTPS_SERVER','');
 define('DIR_WS_CATALOG','');
@@ -350,4 +348,3 @@ if ($messageStack->size('index') > 0) {
 <div align="center" style="padding-top:5px; font-size:11px;">Installer 106 rev1</div>
 </body>
 </html>
-<?php phpinfo(); ?>
