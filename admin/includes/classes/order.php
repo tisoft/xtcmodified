@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: order.php 1037 2005-07-17 15:25:32Z gwinger $   
+   $Id$   
 
    XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(order.php,v 1.6 2003/02/06); www.oscommerce.com 
-   (c) 2003	 nextcommerce (order.php,v 1.12 2003/08/18); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com 
+   (c) 2003      nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
+   (c) 2006      xt:Commerce; www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -42,6 +43,9 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function query($order_id) {
+	
+	//BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+	  /*
       $order_query = xtc_db_query("select customers_name,
                                    customers_cid,
                                    customers_lastname,
@@ -98,12 +102,25 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                    customers_status_discount
                                    from " . TABLE_ORDERS . " where
                                    orders_id = '" . xtc_db_input($order_id) . "'");
-
+ */
+	  $order_query = xtc_db_query("SELECT
+                                   *
+                                   FROM " . TABLE_ORDERS . " WHERE
+                                   orders_id = '" . xtc_db_input($order_id) . "'");
+								   
+	  //BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+								   
       $order = xtc_db_fetch_array($order_query);
-
-      $totals_query = xtc_db_query("select title, text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . xtc_db_input($order_id) . "' order by sort_order");
-      while ($totals = xtc_db_fetch_array($totals_query)) {
+	  
+	  //BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+      //$totals_query = xtc_db_query("select title, text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . xtc_db_input($order_id) . "' order by sort_order");
+      $totals_query = xtc_db_query("select title, text, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . xtc_db_input($order_id) . "' order by sort_order");
+      //EOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+	  while ($totals = xtc_db_fetch_array($totals_query)) {
         $this->totals[] = array('title' => $totals['title'],
+								//BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+								'value' => $totals['value'],
+								//EOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
                                 'text' => $totals['text']);
       }
 
@@ -147,6 +164,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                               'email_address' => $order['customers_email_address']);
 
       $this->delivery = array('name' => $order['delivery_name'],
+							  //BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+							  'firstname' => $order['delivery_firstname'],
+                              'lastname' => $order['delivery_lastname'],
+							  //EOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
                               'company' => $order['delivery_company'],
                               'street_address' => $order['delivery_street_address'],
                               'suburb' => $order['delivery_suburb'],
@@ -154,6 +175,9 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                               'postcode' => $order['delivery_postcode'],
                               'state' => $order['delivery_state'],
                               'country' => $order['delivery_country'],
+							  //BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+							  'country_iso_2' => $order['delivery_country_iso_code_2'],
+							  //EOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
                               'format_id' => $order['delivery_address_format_id']);
 
       $this->billing = array('name' => $order['billing_name'],
@@ -201,5 +225,100 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
         $index++;
       }
     }
+//BOF - web28 - 2010-03-20 - Send Order by Admin	
+	function getOrderData($oID) {
+    	global $xtPrice;
+    	
+    	require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
+    	
+    	$order_query = "SELECT
+	        				products_id,
+	        				orders_products_id,
+	        				products_model,
+	        				products_name,
+	        				final_price,
+	        			  	products_shipping_time,
+	        				products_quantity
+	        				FROM ".TABLE_ORDERS_PRODUCTS."
+	        				WHERE orders_id='".(int) $oID."'";
+		$order_data = array ();
+		$order_query = xtc_db_query($order_query);
+		while ($order_data_values = xtc_db_fetch_array($order_query)) {
+			$attributes_query = "SELECT
+			        				products_options,
+			        				products_options_values,
+			        				price_prefix,
+			        				options_values_price
+			        				FROM ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES."
+			        				WHERE orders_products_id='".$order_data_values['orders_products_id']."'
+									order by orders_products_attributes_id";
+			$attributes_data = '';
+			$attributes_model = '';
+			$attributes_query = xtc_db_query($attributes_query);
+			while ($attributes_data_values = xtc_db_fetch_array($attributes_query)) {
+				$attributes_data .= '<br />'.$attributes_data_values['products_options'].':'.$attributes_data_values['products_options_values'];
+				$attributes_model .= '<br />'.xtc_get_attributes_model($order_data_values['products_id'], $attributes_data_values['products_options_values'],$attributes_data_values['products_options']);
+
+			}
+			
+			$order_data[] = array ('PRODUCTS_MODEL' => $order_data_values['products_model'], 
+								   'PRODUCTS_NAME' => $order_data_values['products_name'],
+								   'PRODUCTS_SHIPPING_TIME' => $order_data_values['products_shipping_time'], 
+								   'PRODUCTS_ATTRIBUTES' => $attributes_data, 
+								   'PRODUCTS_ATTRIBUTES_MODEL' => $attributes_model, 
+								   'PRODUCTS_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price'], true),
+								   'PRODUCTS_SINGLE_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price']/$order_data_values['products_quantity'], true), 
+								   'PRODUCTS_QTY' => $order_data_values['products_quantity']);
+
+		}
+		
+		return $order_data;
+    	
+    }
+    
+    function getTotalData($oID) {
+    	global $xtPrice,$db;
+    	
+    	// get order_total data
+		$oder_total_query = "SELECT
+		  					title,
+		  					text,
+		                    class,
+		                    value,
+		  					sort_order
+		  					FROM ".TABLE_ORDERS_TOTAL."
+		  					WHERE orders_id='".(int) $oID."'
+		  					ORDER BY sort_order ASC";
+
+		$order_total = array ();
+		$oder_total_query = xtc_db_query($oder_total_query);
+		while ($oder_total_values = xtc_db_fetch_array($oder_total_query)) {
+
+			$order_total[] = array (
+									'TITLE' => $oder_total_values['title'], 
+									'CLASS' => $oder_total_values['class'], 
+									'VALUE' => $oder_total_values['value'], 
+									'TEXT' => $oder_total_values['text']
+									);
+			// BOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class
+			//if ($oder_total_values['class'] = 'ot_total')
+			if ($order_total_values['class'] == 'ot_total') 
+			// EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class	
+				$total = $order_total_values['value'];
+			
+			//BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin	
+			if ($order_total_values['class'] == 'ot_shipping')				
+				$shipping = $order_total_values['value'];
+			//EOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin			
+
+		}
+		
+		//BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+		//return array('data'=>$order_total,'total'=>$total);
+		return array('data'=>$order_total,'total'=>$total, 'shipping'=>$shipping); 
+		//EOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
+	
+    }
+//BOF - web28 - 2010-03-20 - Send Order by Admin		
   }
 ?>

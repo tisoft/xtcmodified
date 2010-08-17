@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: orders.php 1308 2005-10-15 14:22:18Z hhgag $   
+   $Id$   
 
    XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(orders.php,v 1.27 2003/02/16); www.oscommerce.com 
-   (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com 
+   (c) 2003      nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
+   (c) 2006      xt:Commerce; www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -120,9 +121,9 @@ define('TEXT_VALIDATING','Nicht best&auml;tigt');
 define('TEXT_PRODUCTS', 'Artikel');
 // EOF - Tomcraft - 2010-04-22 - Added a missing language definition
 
-// BOF - DokuMan - 2010-08-12 resend email to admin and/or customer
-define('TEXT_SUCCESS_ORDER_SEND', 'Die Bestellung wurde erfolgreich nochmals per E-Mail versendet!');
-define('TEXT_ORDER_SEND_ADMIN','E-Mail erneut an Admin versenden');
-define('TEXT_ORDER_SEND_CUSTOMER','E-Mail erneut an Kunde versenden');
-// EOF - DokuMan - 2010-08-12 resend email to admin and/or customer
+//BOF - web28 - 2010-03-20 - Send Order by Admin
+define('COMMENT_SEND_ORDER_BY_ADMIN' , 'Auftragsbestätigung gesendet'); //ACHTUNG hier  keine HTML-Entities verwenden
+define('BUTTON_ORDER_CONFIRMATION', 'Auftragsbest&auml;tigung senden');
+define('SUCCESS_ORDER_SEND', 'Auftragsbest&auml;tigung erfolgreich gesendet');
+//EOF - web28 - 2010-03-20 - Send Order by Admin
 ?>
