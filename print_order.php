@@ -1,7 +1,7 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: print_order.php 1185 2005-08-26 15:16:31Z mz $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -59,6 +59,9 @@ if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check[
 	$smarty->assign('DATE', xtc_date_long($order->info['date_purchased']));
 	$path = DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/';
 	$smarty->assign('tpl_path', $path);
+	//BOF - web28 - 2010-08-17 - define missing charset
+	$smarty->assign('charset', $_SESSION['language_charset'] ); 
+	//EOF - web28 - 2010-08-17 - define missing charset
 
 	// dont allow cache
 	$smarty->caching = false;
