@@ -1,10 +1,10 @@
 # -----------------------------------------------------------------------------------------
 #  $Id: xtcommerce.sql,v 1.62 2004/06/06 18:21:16 novalis Exp $
 #
-#  XT-Commerce - community made shopping
-#  http://www.xt-commerce.com 
+#  xtc-Modified 
+#  http://www.xtc-modified.org
 #
-#  Copyright (c) 2003 XT-Commerce
+#  Copyright (c) 2010 xtc-Modified
 #  -----------------------------------------------------------------------------------------
 #  Third Party Contributions:
 #  Customers status v3.x (c) 2002-2003 Elari elari@free.fr
@@ -16,12 +16,13 @@
 #  based on:
 #  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
 #  (c) 2002-2003 osCommerce (oscommerce.sql,v 1.83); www.oscommerce.com
-#  (c) 2003  nextcommerce (nextcommerce.sql,v 1.76 2003/08/25); www.nextcommerce.org
+#  (c) 2003 nextcommerce (nextcommerce.sql,v 1.76 2003/08/25); www.nextcommerce.org
+#  (c) 2006 xtCommerce (xtcommerce.sql,v 1.62 2004/06/06); www.xt-commerce.com
 #
 #  Released under the GNU General Public License
 #
 #  --------------------------------------------------------------
-# NOTE: * Please make any modifications to this file by hand!
+#  NOTE: * Please make any modifications to this file by hand!
 #   * DO NOT use a mysqldump created file for new changes!
 #   * Please take note of the table structure, and use this
 #   structure as a standard for future modifications!
@@ -1154,32 +1155,6 @@ CREATE TABLE payment_qenta (
   PRIMARY KEY (q_TRID)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-#Dokuman - 2009-10-02 - added entries for GLS shipping module version 1.1
-DROP TABLE IF EXISTS gls_country_to_postal;
-CREATE TABLE gls_country_to_postal (
-  gls_country CHAR(2) NOT NULL DEFAULT '',
-  gls_postal_reference INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (gls_country)
-) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
-DROP TABLE IF EXISTS gls_postal_to_weight;
-CREATE TABLE gls_postal_to_weight (
-  gls_postal_reference INT(11) NOT NULL DEFAULT 0,
-  gls_from_postal VARCHAR(10) NOT NULL DEFAULT '',
-  gls_to_postal VARCHAR(10) NOT NULL DEFAULT '',
-  gls_weight_ref CHAR(3) NOT NULL DEFAULT '',
-  PRIMARY KEY (gls_postal_reference,gls_from_postal)
-) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
-DROP TABLE IF EXISTS gls_weight;
-CREATE TABLE gls_weight (
-  gls_weight_ref CHAR(3) NOT NULL DEFAULT '',
-  gls_weight_price_string text NOT NULL,
-  gls_free_shipping_over DECIMAL(15,4) NOT NULL DEFAULT -1.0000,
-  gls_shipping_subsidized DECIMAL(15,4) NOT NULL DEFAULT -1.0000,
-  PRIMARY KEY (gls_weight_ref)
-) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
 DROP TABLE IF EXISTS personal_offers_by_customers_status_0;
 DROP TABLE IF EXISTS personal_offers_by_customers_status_1;
 DROP TABLE IF EXISTS personal_offers_by_customers_status_2;
@@ -1199,7 +1174,6 @@ INSERT INTO shipping_status VALUES (3, 1, '2 Weeks', '');
 INSERT INTO shipping_status VALUES (3, 2, '2 Wochen', '');
 
 # data
-
 INSERT INTO content_manager VALUES (1, 0, 0, '', 1, 'Shipping &amp; Returns', 'Shipping &amp; Returns', 'Put here your Shipping &amp; Returns information.', 0, 1, '', 1, 1, 0, '', '', '');
 INSERT INTO content_manager VALUES (2, 0, 0, '', 1, 'Privacy Notice', 'Privacy Notice', 'Put here your Privacy Notice information.', 0, 1, '', 1, 2, 0, '', '', '');
 INSERT INTO content_manager VALUES (3, 0, 0, '', 1, 'Conditions of Use', 'Conditions of Use', 'Conditions of Use<br />Put here your Conditions of Use information.<br /><br /><ol><li>Geltungsbereich</li><li>Vertragspartner</li><li>Angebot und Vertragsschluss</li><li>Widerrufsrecht, Widerrufsbelehrung, Widerrufsfolgen</li><li>Preise und Versandkosten</li><li>Lieferung</li><li>Zahlung</li><li>Eigentumsvorbehalt</li><li>Gew&auml;hrleistung</li></ol>Weitere Informationen', 0, 1, '', 1, 3, 0, '', '', '');

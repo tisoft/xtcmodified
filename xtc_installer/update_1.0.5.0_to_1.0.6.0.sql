@@ -10,4 +10,15 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 #DokuMan - 2010-08-13 - Google RSS Feed REFID configuration
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GOOGLE_RSS_FEED_REFID', '', 17, 15, NULL, NOW(), NULL, NULL);
 
+#DokuMan - 2010-08-17 - Replace GLS shipping module with newer version
+DELETE FROM configuration WHERE configuration_key = 'MODULE_SHIPPING_GLS_STATUS';
+DELETE FROM configuration WHERE configuration_key = 'MODULE_SHIPPING_GLS_HANDLING';
+DELETE FROM configuration WHERE configuration_key = 'MODULE_SHIPPING_GLS_ALLOWED';
+DELETE FROM configuration WHERE configuration_key = 'MODULE_SHIPPING_GLS_SORT_ORDER';
+DELETE FROM configuration WHERE configuration_key = 'MODULE_SHIPPING_GLS_TAX_CLASS';
+DELETE FROM configuration WHERE configuration_key = 'MODULE_SHIPPING_GLS_ZONE';
+DROP TABLE IF EXISTS gls_country_to_postal;
+DROP TABLE IF EXISTS gls_postal_to_weight;
+DROP TABLE IF EXISTS gls_weight;
+
 # Keep an empty line at the end of this file for the db_updater to work properly
