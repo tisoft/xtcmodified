@@ -369,7 +369,8 @@ function shopstat_hrefMask($string)
     //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
     $newstring = $string;
 	
-	$newstring  = preg_replace("'€'","EUR",$newstring);
+	//web28 - 2010-08-17 - Eurozeichen ersetzen
+	$newstring  = str_replace("&euro;","-EUR-",$newstring);
 
     //BOF - web28 - 2010-08-18 -HTML-Codierung entfernen (&uuml; etc.)
     $newstring  = html_entity_decode($newstring, ENT_NOQUOTES , strtoupper($_SESSION['language_charset']));
@@ -397,7 +398,7 @@ function shopstat_hrefMask($string)
     //-- Die nun noch (komisch aussehenden) doppelten Bindestriche entfernen
     $newstring  = preg_replace("/(-){2,}/","-",$newstring);
 	
-	//web28 - 2010-08-18 - Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
+	//web28 - 2010-08-13 - Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
 	$newstring = rtrim($newstring,"-");
 	
 //if($_REQUEST['test']){print $newstring."<hr>";}
@@ -558,10 +559,10 @@ function shopstat_getRegExps(&$search, &$replace)
 	$replace    = array(
 						"-",		//--Kaufmännisches Und mit Blanks
 						"-",		// strip out white space
-						"\"",		//--Anführungszeichen oben 
+						"-",		//--Anführungszeichen oben 
 						"-",		//--Ampersand-Zeichen, kaufmännisches Und
-						"<",		//--öffnende spitze Klammer
-						">",		//--schließende spitze Klammer
+						"-",		//--öffnende spitze Klammer
+						"-",		//--schließende spitze Klammer
 						"",			//--Erzwungenes Leerzeichen
 						//BOF - web28 - 2010-04-16 - UFT-8 kompatibel +  Eingetragene Marke, Trademark, Eurozeichen
 						"", 		//chr(161), //umgekehrtes Ausrufezeichen
@@ -573,15 +574,15 @@ function shopstat_getRegExps(&$search, &$replace)
 						"",			//chr(167),Paragraph-Zeichen
 						"",			//chr(169),Copyright-Zeichen											
 						"", 		//chr(174), //Eingetragene Marke
-						"~GRAD~", 	//chr(176), //Grad-Zeichen
-						"~",		//chr(177) Plusminus-Zeichen
+						"-GRAD-", 	//chr(176), //Grad-Zeichen
+						"",			//chr(177) Plusminus-Zeichen
 						"", 		//chr(178) Hoch-2-Zeichen 
 						"", 		//chr(179) Hoch-3-Zeichen
 						"", 		//chr(181) Mikro-Zeichen
-						"~TM~",		//--Trademark wird zu -TM-
-						"EUR",		//--Eurozeichen wird zu EUR
-						"<<",		//chr(171) -- Left angle quotes Left Winkel Zitate
-						">>",		//chr(187) -- Right angle quotes Right Winkel Zitate
+						"-TM-",		//--Trademark wird zu -TM-
+						"-EUR-",		//--Eurozeichen wird zu EUR
+						"",			//chr(171) -- Left angle quotes Left Winkel Zitate
+						"",			//chr(187) -- Right angle quotes Right Winkel Zitate
 						//BOF - web28 - 2010-05-13 - Benannte Zeichen für Interpunktion
 						"-", 		//-- Gedankenstrich Breite n 	
 						"-", 		//-- Gedankenstrich Breite m 	
