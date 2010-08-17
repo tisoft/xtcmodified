@@ -1,17 +1,18 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: shopping_cart.php 1299 2005-10-09 18:54:29Z gwinger $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com 
    (c) 2003	 nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
+   (c) 2006	 xt:Commerce; www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -48,6 +49,7 @@ if ($_SESSION['cart']->count_contents() > 0) {
 		if (isset ($products[$i]['attributes'])) {
 			while (list ($option, $value) = each($products[$i]['attributes'])) {
 				$hidden_options .= xtc_draw_hidden_field('id['.$products[$i]['id'].']['.$option.']', $value);
+				//Dokuman - 2010-08-17 - fixed possible SQL injection
 				$attributes = xtc_db_query("select popt.products_options_name, 
                                            poval.products_options_values_name, 
                                            pa.options_values_price,
@@ -58,10 +60,10 @@ if ($_SESSION['cart']->count_contents() > 0) {
                                     from ".TABLE_PRODUCTS_OPTIONS." popt, 
                                          ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, 
                                          ".TABLE_PRODUCTS_ATTRIBUTES." pa
-				                            where pa.products_id = '".$products[$i]['id']."'
-				                            and pa.options_id = '".$option."'
+				                            where pa.products_id = '".(int)$products[$i]['id']."'
+				                            and pa.options_id = '".(int)$option."'
 				                            and pa.options_id = popt.products_options_id
-				                            and pa.options_values_id = '".$value."'
+				                            and pa.options_values_id = '".(int)$value."'
 				                            and pa.options_values_id = poval.products_options_values_id
 				                            and popt.language_id = '".(int) $_SESSION['languages_id']."'
 				                            and poval.language_id = '".(int) $_SESSION['languages_id']."'");
