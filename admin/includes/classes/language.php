@@ -1,18 +1,20 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: language.php 950 2005-05-14 16:45:21Z mz $   
+   $Id$   
 
    XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(language.php,v 1.4 2003/02/11); www.oscommerce.com 
-   (c) 2003	 nextcommerce (language.php,v 1.5 2003/08/18); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com 
+   (c) 2003      nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
+   (c) 2006      xt:Commerce; www.xt-commerce.com
 
-   Released under the GNU General Public License
+   Released under the GNU General Public License 
+   --------------------------------------------------------------
    browser language detection logic 
    Copyright phpMyAdmin (select_lang.lib.php3 v1.24 04/19/2002)
    Copyright Stephane Garin <sgarin@sgarin.com> (detect_language.php v0.1 04/02/2002)
@@ -67,14 +69,17 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
 
       $this->catalog_languages = array();
-      $languages_query = xtc_db_query("select languages_id, name, code, image, directory from " . TABLE_LANGUAGES . " order by sort_order");
+	  //BOF - web28 - 2010-08-19 - added status
+      $languages_query = xtc_db_query("select languages_id, name, code, image, directory, status from " . TABLE_LANGUAGES . " order by sort_order");
       while ($languages = xtc_db_fetch_array($languages_query)) {
         $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
                                                              'name' => $languages['name'],
                                                              'image' => $languages['image'],
+															 'status' => $languages['status'],
                                                              'directory' => $languages['directory']);
       }
-
+	  //EOF - web28 - 2010-08-19 - added status
+	  
       $this->browser_languages = '';
       $this->language = '';
 

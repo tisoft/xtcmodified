@@ -1,39 +1,43 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: header.php 1025 2005-07-14 11:57:54Z gwinger $   
+   $Id$   
 
    XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(header.php,v 1.19 2002/04/13); www.oscommerce.com 
-   (c) 2003	 nextcommerce (header.php,v 1.17 2003/08/24); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com 
+   (c) 2003      nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
+   (c) 2006      xt:Commerce; www.xt-commerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License    
    --------------------------------------------------------------*/
 
   if ($messageStack->size > 0) {
     echo $messageStack->output();
   } 
 
-// BOF - Tomcraft - 2009-11-02 - Admin language switch
+// BOF - web28 - 2010-08-19 - Admin language switch
   if (!isset($lng) && !is_object($lng)) {
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language;
   }
 
   $languages_string = '';
-  $count_lng='';
+  $count_lng=0;
   reset($lng->catalog_languages);
   while (list($key, $value) = each($lng->catalog_languages)) {
-  $count_lng++;
+	if ( $value['status'] != 0 ){
+	  $count_lng++;
  	  $languages_string .= '&nbsp;<a href="' . xtc_href_link(basename($_SERVER["PHP_SELF"]), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), 'NONSSL') . '">' . xtc_image('../lang/' .  $value['directory'] .'/admin/images/' . $value['image'], $value['name']) . '</a>';
+	}
   }
-  //if ($count_lng > 1 ) echo $languages_string;
-// EOF - Tomcraft - 2009-11-02 - Admin language switch
+  if ($count_lng < 2) $languages_string = '';
+  
+// EOF - web28 - 2010-08-19 - Admin language switch
   
 // BOF - Tomcraft - 2009-11-02 - JavaScript WEICHE  - Admin Umschaltauswahl
     if (USE_ADMIN_TOP_MENU != 'false') {
