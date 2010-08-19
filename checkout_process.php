@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_process.php 1277 2005-10-01 17:02:59Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_process.php,v 1.128 2003/05/28); www.oscommerce.com
-   (c) 2003	 nextcommerce (checkout_process.php,v 1.30 2003/08/24); www.nextcommerce.org
+   (c) 2003 nextcommerce (checkout_process.php,v 1.30 2003/08/24); www.nextcommerce.org
+   (c) 2006 XT-Commerce (checkout_process.php 1277 2005-10-01)
 
    Released under the GNU General Public License
     ----------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
 }
 
 // load selected payment module
-require (DIR_WS_CLASSES.'payment.php');
+require_once (DIR_WS_CLASSES.'payment.php');
 if (isset ($_SESSION['credit_covers']))
 	$_SESSION['payment'] = ''; //ICW added for CREDIT CLASS
 $payment_modules = new payment($_SESSION['payment']);
@@ -127,10 +127,117 @@ if ($_SERVER["HTTP_X_FORWARDED_FOR"]) {
 	$customers_ip = $_SERVER["REMOTE_ADDR"];
 }
 if ($_SESSION['credit_covers'] != '1') {
-	$sql_data_array = array ('customers_id' => $_SESSION['customer_id'], 'customers_name' => $order->customer['firstname'].' '.$order->customer['lastname'], 'customers_firstname' => $order->customer['firstname'], 'customers_lastname' => $order->customer['lastname'], 'customers_cid' => $order->customer['csID'], 'customers_vat_id' => $_SESSION['customer_vat_id'], 'customers_company' => $order->customer['company'], 'customers_status' => $_SESSION['customers_status']['customers_status_id'], 'customers_status_name' => $_SESSION['customers_status']['customers_status_name'], 'customers_status_image' => $_SESSION['customers_status']['customers_status_image'], 'customers_status_discount' => $discount, 'customers_street_address' => $order->customer['street_address'], 'customers_suburb' => $order->customer['suburb'], 'customers_city' => $order->customer['city'], 'customers_postcode' => $order->customer['postcode'], 'customers_state' => $order->customer['state'], 'customers_country' => $order->customer['country']['title'], 'customers_telephone' => $order->customer['telephone'], 'customers_email_address' => $order->customer['email_address'], 'customers_address_format_id' => $order->customer['format_id'], 'delivery_name' => $order->delivery['firstname'].' '.$order->delivery['lastname'], 'delivery_firstname' => $order->delivery['firstname'], 'delivery_lastname' => $order->delivery['lastname'], 'delivery_company' => $order->delivery['company'], 'delivery_street_address' => $order->delivery['street_address'], 'delivery_suburb' => $order->delivery['suburb'], 'delivery_city' => $order->delivery['city'], 'delivery_postcode' => $order->delivery['postcode'], 'delivery_state' => $order->delivery['state'], 'delivery_country' => $order->delivery['country']['title'], 'delivery_country_iso_code_2' => $order->delivery['country']['iso_code_2'], 'delivery_address_format_id' => $order->delivery['format_id'], 'billing_name' => $order->billing['firstname'].' '.$order->billing['lastname'], 'billing_firstname' => $order->billing['firstname'], 'billing_lastname' => $order->billing['lastname'], 'billing_company' => $order->billing['company'], 'billing_street_address' => $order->billing['street_address'], 'billing_suburb' => $order->billing['suburb'], 'billing_city' => $order->billing['city'], 'billing_postcode' => $order->billing['postcode'], 'billing_state' => $order->billing['state'], 'billing_country' => $order->billing['country']['title'], 'billing_country_iso_code_2' => $order->billing['country']['iso_code_2'], 'billing_address_format_id' => $order->billing['format_id'], 'payment_method' => $order->info['payment_method'], 'payment_class' => $order->info['payment_class'], 'shipping_method' => $order->info['shipping_method'], 'shipping_class' => $order->info['shipping_class'], 'cc_type' => $order->info['cc_type'], 'cc_owner' => $order->info['cc_owner'], 'cc_number' => $order->info['cc_number'], 'cc_expires' => $order->info['cc_expires'], 'cc_start' => $order->info['cc_start'], 'cc_cvv' => $order->info['cc_cvv'], 'cc_issue' => $order->info['cc_issue'], 'date_purchased' => 'now()', 'orders_status' => $tmp_status, 'currency' => $order->info['currency'], 'currency_value' => $order->info['currency_value'], 'customers_ip' => $customers_ip, 'language' => $_SESSION['language'], 'comments' => $order->info['comments']);
+	$sql_data_array = array ('customers_id' => $_SESSION['customer_id'],
+                            'customers_name' => $order->customer['firstname'].' '.$order->customer['lastname'], 
+                            'customers_firstname' => $order->customer['firstname'],
+                            'customers_lastname' => $order->customer['lastname'],
+                            'customers_cid' => $order->customer['csID'],
+                            'customers_vat_id' => $_SESSION['customer_vat_id'],
+                            'customers_company' => $order->customer['company'],
+                            'customers_status' => $_SESSION['customers_status']['customers_status_id'],
+                            'customers_status_name' => $_SESSION['customers_status']['customers_status_name'], 
+                            'customers_status_image' => $_SESSION['customers_status']['customers_status_image'],
+                            'customers_status_discount' => $discount,
+                            'customers_street_address' => $order->customer['street_address'],
+                            'customers_suburb' => $order->customer['suburb'],
+                            'customers_city' => $order->customer['city'],
+                            'customers_postcode' => $order->customer['postcode'],
+                            'customers_state' => $order->customer['state'],
+                            'customers_country' => $order->customer['country']['title'],
+                            'customers_telephone' => $order->customer['telephone'],
+                            'customers_email_address' => $order->customer['email_address'],
+                            'customers_address_format_id' => $order->customer['format_id'],
+                            'delivery_name' => $order->delivery['firstname'].' '.$order->delivery['lastname'],
+                            'delivery_firstname' => $order->delivery['firstname'],
+                            'delivery_lastname' => $order->delivery['lastname'],
+                            'delivery_company' => $order->delivery['company'],
+                            'delivery_street_address' => $order->delivery['street_address'],
+                            'delivery_suburb' => $order->delivery['suburb'],
+                            'delivery_city' => $order->delivery['city'],
+                            'delivery_postcode' => $order->delivery['postcode'],
+                            'delivery_state' => $order->delivery['state'],
+                            'delivery_country' => $order->delivery['country']['title'],
+                            'delivery_country_iso_code_2' => $order->delivery['country']['iso_code_2'],
+                            'delivery_address_format_id' => $order->delivery['format_id'],
+                            'billing_name' => $order->billing['firstname'].' '.$order->billing['lastname'],
+                            'billing_firstname' => $order->billing['firstname'],
+                            'billing_lastname' => $order->billing['lastname'],
+                            'billing_company' => $order->billing['company'],
+                            'billing_street_address' => $order->billing['street_address'],
+                            'billing_suburb' => $order->billing['suburb'],
+                            'billing_city' => $order->billing['city'],
+                            'billing_postcode' => $order->billing['postcode'],
+                            'billing_state' => $order->billing['state'],
+                            'billing_country' => $order->billing['country']['title'],
+                            'billing_country_iso_code_2' => $order->billing['country']['iso_code_2'],
+                            'billing_address_format_id' => $order->billing['format_id'],
+                            'payment_method' => $order->info['payment_method'],
+                            'payment_class' => $order->info['payment_class'],
+                            'shipping_method' => $order->info['shipping_method'],
+                            'shipping_class' => $order->info['shipping_class'],
+                            'cc_type' => $order->info['cc_type'],
+                            'cc_owner' => $order->info['cc_owner'],
+                            'cc_number' => $order->info['cc_number'],
+                            'cc_expires' => $order->info['cc_expires'],
+                            'cc_start' => $order->info['cc_start'],
+                            'cc_cvv' => $order->info['cc_cvv'],
+                            'cc_issue' => $order->info['cc_issue'],
+                            'date_purchased' => 'now()',
+                            'orders_status' => $tmp_status,
+                            'currency' => $order->info['currency'],
+                            'currency_value' => $order->info['currency_value'],
+                            'customers_ip' => $customers_ip,
+                            'language' => $_SESSION['language'],
+                            'comments' => $order->info['comments']);
 } else {
 	// free gift , no paymentaddress
-	$sql_data_array = array ('customers_id' => $_SESSION['customer_id'], 'customers_name' => $order->customer['firstname'].' '.$order->customer['lastname'], 'customers_firstname' => $order->customer['firstname'], 'customers_lastname' => $order->customer['lastname'], 'customers_cid' => $order->customer['csID'], 'customers_vat_id' => $_SESSION['customer_vat_id'], 'customers_company' => $order->customer['company'], 'customers_status' => $_SESSION['customers_status']['customers_status_id'], 'customers_status_name' => $_SESSION['customers_status']['customers_status_name'], 'customers_status_image' => $_SESSION['customers_status']['customers_status_image'], 'customers_status_discount' => $discount, 'customers_street_address' => $order->customer['street_address'], 'customers_suburb' => $order->customer['suburb'], 'customers_city' => $order->customer['city'], 'customers_postcode' => $order->customer['postcode'], 'customers_state' => $order->customer['state'], 'customers_country' => $order->customer['country']['title'], 'customers_telephone' => $order->customer['telephone'], 'customers_email_address' => $order->customer['email_address'], 'customers_address_format_id' => $order->customer['format_id'], 'delivery_name' => $order->delivery['firstname'].' '.$order->delivery['lastname'], 'delivery_firstname' => $order->delivery['firstname'], 'delivery_lastname' => $order->delivery['lastname'], 'delivery_company' => $order->delivery['company'], 'delivery_street_address' => $order->delivery['street_address'], 'delivery_suburb' => $order->delivery['suburb'], 'delivery_city' => $order->delivery['city'], 'delivery_postcode' => $order->delivery['postcode'], 'delivery_state' => $order->delivery['state'], 'delivery_country' => $order->delivery['country']['title'], 'delivery_country_iso_code_2' => $order->delivery['country']['iso_code_2'], 'delivery_address_format_id' => $order->delivery['format_id'], 'payment_method' => $order->info['payment_method'], 'payment_class' => $order->info['payment_class'], 'shipping_method' => $order->info['shipping_method'], 'shipping_class' => $order->info['shipping_class'], 'cc_type' => $order->info['cc_type'], 'cc_owner' => $order->info['cc_owner'], 'cc_number' => $order->info['cc_number'], 'cc_expires' => $order->info['cc_expires'], 'date_purchased' => 'now()', 'orders_status' => $tmp_status, 'currency' => $order->info['currency'], 'currency_value' => $order->info['currency_value'], 'customers_ip' => $customers_ip, 'comments' => $order->info['comments']);
+	$sql_data_array = array ('customers_id' => $_SESSION['customer_id'],
+                            'customers_name' => $order->customer['firstname'].' '.$order->customer['lastname'], 
+                            'customers_firstname' => $order->customer['firstname'],
+                            'customers_lastname' => $order->customer['lastname'],
+                            'customers_cid' => $order->customer['csID'],
+                            'customers_vat_id' => $_SESSION['customer_vat_id'],
+                            'customers_company' => $order->customer['company'],
+                            'customers_status' => $_SESSION['customers_status']['customers_status_id'],
+                            'customers_status_name' => $_SESSION['customers_status']['customers_status_name'],
+                            'customers_status_image' => $_SESSION['customers_status']['customers_status_image'],
+                            'customers_status_discount' => $discount,
+                            'customers_street_address' => $order->customer['street_address'],
+                            'customers_suburb' => $order->customer['suburb'],
+                            'customers_city' => $order->customer['city'],
+                            'customers_postcode' => $order->customer['postcode'],
+                            'customers_state' => $order->customer['state'],
+                            'customers_country' => $order->customer['country']['title'],
+                            'customers_telephone' => $order->customer['telephone'],
+                            'customers_email_address' => $order->customer['email_address'],
+                            'customers_address_format_id' => $order->customer['format_id'],
+                            'delivery_name' => $order->delivery['firstname'].' '.$order->delivery['lastname'], 
+                            'delivery_firstname' => $order->delivery['firstname'],
+                            'delivery_lastname' => $order->delivery['lastname'],
+                            'delivery_company' => $order->delivery['company'],
+                            'delivery_street_address' => $order->delivery['street_address'],
+                            'delivery_suburb' => $order->delivery['suburb'],
+                            'delivery_city' => $order->delivery['city'],
+                            'delivery_postcode' => $order->delivery['postcode'],
+                            'delivery_state' => $order->delivery['state'],
+                            'delivery_country' => $order->delivery['country']['title'],
+                            'delivery_country_iso_code_2' => $order->delivery['country']['iso_code_2'], 
+                            'delivery_address_format_id' => $order->delivery['format_id'],
+                            'payment_method' => $order->info['payment_method'],
+                            'payment_class' => $order->info['payment_class'],
+                            'shipping_method' => $order->info['shipping_method'],
+                            'shipping_class' => $order->info['shipping_class'],
+                            'cc_type' => $order->info['cc_type'],
+                            'cc_owner' => $order->info['cc_owner'],
+                            'cc_number' => $order->info['cc_number'],
+                            'cc_expires' => $order->info['cc_expires'],
+                            'date_purchased' => 'now()',
+                            'orders_status' => $tmp_status,
+                            'currency' => $order->info['currency'],
+                            'currency_value' => $order->info['currency_value'],
+                            'customers_ip' => $customers_ip,
+                            'language' => $_SESSION['language'],                            
+                            'comments' => $order->info['comments']);
 }
 
 xtc_db_perform(TABLE_ORDERS, $sql_data_array);
@@ -155,13 +262,14 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 	// Stock Update - Joao Correia
 	if (STOCK_LIMITED == 'true') {
 		if (DOWNLOAD_ENABLED == 'true') {
-			$stock_query_raw = "SELECT products_quantity, pad.products_attributes_filename
-						                            FROM ".TABLE_PRODUCTS." p
-						                            LEFT JOIN ".TABLE_PRODUCTS_ATTRIBUTES." pa
-						                             ON p.products_id=pa.products_id
-						                            LEFT JOIN ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
-						                             ON pa.products_attributes_id=pad.products_attributes_id
-						                            WHERE p.products_id = '".xtc_get_prid($order->products[$i]['id'])."'";
+			$stock_query_raw = "SELECT products_quantity, 
+                                 pad.products_attributes_filename
+                                 FROM ".TABLE_PRODUCTS." p
+                                 LEFT JOIN ".TABLE_PRODUCTS_ATTRIBUTES." pa
+                                 ON p.products_id=pa.products_id
+                                 LEFT JOIN ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
+                                 ON pa.products_attributes_id=pad.products_attributes_id
+                                 WHERE p.products_id = '".xtc_get_prid($order->products[$i]['id'])."'";
 			// Will work with only one option for downloadable products
 			// otherwise, we have to build the query dynamically with a loop
 			$products_attributes = $order->products[$i]['attributes'];
@@ -235,37 +343,41 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 		for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j ++) {
 			if (DOWNLOAD_ENABLED == 'true') {
 				$attributes_query = "select popt.products_options_name,
-								                               poval.products_options_values_name,
-								                               pa.options_values_price,
-								                               pa.price_prefix,
-								                               pad.products_attributes_maxdays,
-								                               pad.products_attributes_maxcount,
-								                               pad.products_attributes_filename
-								                               from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, ".TABLE_PRODUCTS_ATTRIBUTES." pa
-								                               left join ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
-								                                on pa.products_attributes_id=pad.products_attributes_id
-								                               where pa.products_id = '".$order->products[$i]['id']."'
-								                                and pa.options_id = '".$order->products[$i]['attributes'][$j]['option_id']."'
-								                                and pa.options_id = popt.products_options_id
-								                                and pa.options_values_id = '".$order->products[$i]['attributes'][$j]['value_id']."'
-								                                and pa.options_values_id = poval.products_options_values_id
-								                                and popt.language_id = '".$_SESSION['languages_id']."'
-								                                and poval.language_id = '".$_SESSION['languages_id']."'";
+								                    poval.products_options_values_name,
+								                    pa.options_values_price,
+								                    pa.price_prefix,
+								                    pad.products_attributes_maxdays,
+								                    pad.products_attributes_maxcount,
+								                    pad.products_attributes_filename
+								                    from ".TABLE_PRODUCTS_OPTIONS." popt, 
+								                    ".TABLE_PRODUCTS_OPTIONS_VALUES." poval,
+								                    ".TABLE_PRODUCTS_ATTRIBUTES." pa
+								                    left join ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
+								                    on pa.products_attributes_id=pad.products_attributes_id
+								                    where pa.products_id = '".$order->products[$i]['id']."'
+								                    and pa.options_id = '".$order->products[$i]['attributes'][$j]['option_id']."'
+								                    and pa.options_id = popt.products_options_id
+								                    and pa.options_values_id = '".$order->products[$i]['attributes'][$j]['value_id']."'
+								                    and pa.options_values_id = poval.products_options_values_id
+								                    and popt.language_id = '".$_SESSION['languages_id']."'
+								                    and poval.language_id = '".$_SESSION['languages_id']."'";
 
 				$attributes = xtc_db_query($attributes_query);
 			} else {
 				$attributes = xtc_db_query("select popt.products_options_name,
-								                                             poval.products_options_values_name,
-								                                             pa.options_values_price,
-								                                             pa.price_prefix
-								                                             from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, ".TABLE_PRODUCTS_ATTRIBUTES." pa
-								                                             where pa.products_id = '".$order->products[$i]['id']."'
-								                                             and pa.options_id = '".$order->products[$i]['attributes'][$j]['option_id']."'
-								                                             and pa.options_id = popt.products_options_id
-								                                             and pa.options_values_id = '".$order->products[$i]['attributes'][$j]['value_id']."'
-								                                             and pa.options_values_id = poval.products_options_values_id
-								                                             and popt.language_id = '".$_SESSION['languages_id']."'
-								                                             and poval.language_id = '".$_SESSION['languages_id']."'");
+                                           poval.products_options_values_name,
+                                           pa.options_values_price,
+                                           pa.price_prefix
+                                           from ".TABLE_PRODUCTS_OPTIONS." popt, 
+                                           ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, 
+                                           ".TABLE_PRODUCTS_ATTRIBUTES." pa
+                                           where pa.products_id = '".$order->products[$i]['id']."'
+                                           and pa.options_id = '".$order->products[$i]['attributes'][$j]['option_id']."'
+                                           and pa.options_id = popt.products_options_id
+                                           and pa.options_values_id = '".$order->products[$i]['attributes'][$j]['value_id']."'
+                                           and pa.options_values_id = poval.products_options_values_id
+                                           and popt.language_id = '".$_SESSION['languages_id']."'
+                                           and poval.language_id = '".$_SESSION['languages_id']."'");
 			}
 
 			// update attribute stock
@@ -283,7 +395,11 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 			xtc_db_perform(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $sql_data_array);
 
 			if ((DOWNLOAD_ENABLED == 'true') && isset ($attributes_values['products_attributes_filename']) && xtc_not_null($attributes_values['products_attributes_filename'])) {
-				$sql_data_array = array ('orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'orders_products_filename' => $attributes_values['products_attributes_filename'], 'download_maxdays' => $attributes_values['products_attributes_maxdays'], 'download_count' => $attributes_values['products_attributes_maxcount']);
+				$sql_data_array = array ('orders_id' => $insert_id,
+                                 'orders_products_id' => $order_products_id,
+                                 'orders_products_filename' => $attributes_values['products_attributes_filename'],
+                                 'download_maxdays' => $attributes_values['products_attributes_maxdays'],
+                                 'download_count' => $attributes_values['products_attributes_maxcount']);
 				xtc_db_perform(TABLE_ORDERS_PRODUCTS_DOWNLOAD, $sql_data_array);
 			}
 		}
@@ -391,6 +507,5 @@ if (!$tmp) {
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
-
 }
 ?>

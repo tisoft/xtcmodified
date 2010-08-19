@@ -1,17 +1,18 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: download.php 831 2005-03-13 10:16:09Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(download.php,v 1.9 2003/02/13); www.oscommerce.com 
-   (c) 2003	 nextcommerce (download.php,v 1.7 2003/08/17); www.nextcommerce.org
+   (c) 2003	nextcommerce (download.php,v 1.7 2003/08/17); www.nextcommerce.org
+   (c) 2006	xtCommerce (download.php 831 2005-03-13)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -23,14 +24,14 @@ require_once (DIR_FS_INC.'xtc_random_name.inc.php');
 require_once (DIR_FS_INC.'xtc_unlink_temp_dir.inc.php');
 
 if (!isset ($_SESSION['customer_id']))
-	die;
+	die('not allowed');
 
 // Check download.php was called with proper GET parameters
 //BOF - DokuMan - 2010-03-19 - check for correct and set GET-Parameters
 //if ((isset ($_GET['order']) && !is_numeric($_GET['order'])) || (isset ($_GET['id']) && !is_numeric($_GET['id']))) {
 if (!isset ($_GET['order']) || !is_numeric($_GET['order']) || !isset ($_GET['id']) || !is_numeric($_GET['id'])) {
 //EOF - DokuMan - 2010-03-19 - check for correct and set GET-Parameters
-	die;
+	die('not allowed');
 }
 
 // Check that order_id, customer_id and filename match
@@ -55,7 +56,7 @@ AND o.orders_status >= " . DOWNLOAD_MIN_ORDERS_STATUS
 //EOF - web28 - 2010-07-07 - BUGFIX o.orders_status >
 //EOF - DokuMan - 2010-03-19 - call everything in SQL
 if (!xtc_db_num_rows($downloads_query))
-	die;
+	die();
 $downloads = xtc_db_fetch_array($downloads_query);
 //BOF - DokuMan - 2010-03-19 - call everything in SQL
 // MySQL 3.22 does not have INTERVAL
@@ -74,7 +75,7 @@ if ($downloads['download_count'] <= 0)
 	
 // Die if file is not there
 if (!file_exists(DIR_FS_DOWNLOAD.$downloads['orders_products_filename']))
-	die;
+	die('file not found');
 
 // Now decrement counter
 xtc_db_query("update ".TABLE_ORDERS_PRODUCTS_DOWNLOAD." set download_count = download_count-1 where orders_products_download_id = '".(int) $_GET['id']."'");

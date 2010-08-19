@@ -1,18 +1,17 @@
 <?php
-
-
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_shipping.php 1037 2005-07-17 15:25:32Z gwinger $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (cxtc_format_price) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_shipping.php,v 1.15 2003/04/08); www.oscommerce.com 
-   (c) 2003	 nextcommerce (checkout_shipping.php,v 1.20 2003/08/20); www.nextcommerce.org
+   (c) 2003 nextcommerce (checkout_shipping.php,v 1.20 2003/08/20); www.nextcommerce.org
+   (c) 2006 xtCommerce (checkout_shipping.php 1037 2005-07-17)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -24,7 +23,6 @@
    Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
-
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -142,7 +140,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 			$_SESSION['shipping'] = $_POST['shipping'];
 
 			list ($module, $method) = explode('_', $_SESSION['shipping']);
-			if (is_object($$module) || ($_SESSION['shipping'] == 'free_free')) {
+			if ((isset($$module) && is_object($$module) ) || ($_SESSION['shipping'] == 'free_free')) {
 				if ($_SESSION['shipping'] == 'free_free') {
 					$quote[0]['methods'][0]['title'] = FREE_SHIPPING_TITLE;
 					$quote[0]['methods'][0]['cost'] = '0';
@@ -153,7 +151,9 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 					unset ($_SESSION['shipping']);
 				} else {
 					if ((isset ($quote[0]['methods'][0]['title'])) && (isset ($quote[0]['methods'][0]['cost']))) {
-						$_SESSION['shipping'] = array ('id' => $_SESSION['shipping'], 'title' => (($free_shipping == true) ? $quote[0]['methods'][0]['title'] : $quote[0]['module'].' ('.$quote[0]['methods'][0]['title'].')'), 'cost' => $quote[0]['methods'][0]['cost']);
+						$_SESSION['shipping'] = array ('id' => $_SESSION['shipping'],
+                                           'title' => (($free_shipping == true) ? $quote[0]['methods'][0]['title'] : $quote[0]['module'].' ('.$quote[0]['methods'][0]['title'].')'),
+                                           'cost' => $quote[0]['methods'][0]['cost']);
 
 						xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 					}
@@ -246,7 +246,7 @@ if (xtc_count_shipping_modules() > 0) {
 						if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0)
 							$quotes[$i]['tax'] = 0;
 
-						$quotes[$i]['methods'][$j]['price'] = $xtPrice->xtcFormat(xtc_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax']), true, 0, true).xtc_draw_hidden_field('shipping', $quotes[$i]['id'].'_'.$quotes[$i]['methods'][$j]['id']);
+						$quotes[$i]['methods'][$j]['price'] = $xtPrice->xtcFormat(xtc_add_tax($quotes[$i]['methods'][$j]['cost'], isset($quotes[$i]['tax']) ? $quotes[$i]['tax'] : 0), true, 0, true).xtc_draw_hidden_field('shipping', $quotes[$i]['id'].'_'.$quotes[$i]['methods'][$j]['id']);
 
 					}
 

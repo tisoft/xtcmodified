@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: specials.php 1292 2005-10-07 16:10:55Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(specials.php,v 1.47 2003/05/27); www.oscommerce.com 
-   (c) 2003	 nextcommerce (specials.php,v 1.12 2003/08/17); www.nextcommerce.org
+   (c) 2003	nextcommerce (specials.php,v 1.12 2003/08/17); www.nextcommerce.org
+   (c) 2006	XT-Commerce (specials.php 1292 2005-10-07)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -58,7 +59,7 @@ $specials_query_raw = "select p.products_id,
                                 and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                 and s.status = '1'
                                 order by s.specials_date_added DESC";
-$specials_split = new splitPageResults($specials_query_raw, $_GET['page'], MAX_DISPLAY_SPECIAL_PRODUCTS);
+$specials_split = new splitPageResults($specials_query_raw, isset($_GET['page']) ? $_GET['page'] : 0, MAX_DISPLAY_SPECIAL_PRODUCTS);
 
 $module_content = '';
 $row = 0;

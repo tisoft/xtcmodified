@@ -1,17 +1,18 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_confirmation.php 1277 2005-10-01 17:02:59Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_confirmation.php,v 1.137 2003/05/07); www.oscommerce.com 
-   (c) 2003	 nextcommerce (checkout_confirmation.php,v 1.21 2003/08/17); www.nextcommerce.org
+   (c) 2003	nextcommerce (checkout_confirmation.php,v 1.21 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (checkout_confirmation.php 1277 2005-10-01)
 
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
@@ -76,14 +77,14 @@ if (isset ($_POST['cot_gv']))
 // if conditions are not accepted, redirect the customer to the payment method selection page
 
 if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
-	if ($_POST['conditions'] == false) {
+  if (!isset($_POST['conditions']) || $_POST['conditions'] == false) {
 		$error = str_replace('\n', '<br />', ERROR_CONDITIONS_NOT_ACCEPTED);
 		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode($error), 'SSL', true, false));
 	}
 }
 
 // load the selected payment module
-require (DIR_WS_CLASSES . 'payment.php');
+require_once (DIR_WS_CLASSES . 'payment.php');
 if (isset ($_SESSION['credit_covers']))
 	$_SESSION['payment'] = 'no_payment'; // GV Code Start/End ICW added for CREDIT CLASS
 $payment_modules = new payment($_SESSION['payment']);

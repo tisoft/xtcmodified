@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_shipping_address.php 867 2005-04-21 18:35:29Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_shipping_address.php,v 1.14 2003/05/27); www.oscommerce.com
-   (c) 2003	 nextcommerce (checkout_shipping_address.php,v 1.14 2003/08/17); www.nextcommerce.org 
+   (c) 2003	nextcommerce (checkout_shipping_address.php,v 1.14 2003/08/17); www.nextcommerce.org 
+   (c) 2006	xtcommerce (checkout_shipping_address.php 867 2005-04-21)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -42,7 +42,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
 
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
-if ($order->content_type == 'virtual') {
+if (isset($order) && $order->content_type == 'virtual') {
 	$_SESSION['shipping'] = false;
 	$_SESSION['sendto'] = false;
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
@@ -144,7 +144,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 		}
 
 		if ($error == false) {
-			$sql_data_array = array ('customers_id' => $_SESSION['customer_id'], 'entry_firstname' => $firstname, 'entry_lastname' => $lastname, 'entry_street_address' => $street_address, 'entry_postcode' => $postcode, 'entry_city' => $city, 'entry_country_id' => $country);
+			$sql_data_array = array ('customers_id' => $_SESSION['customer_id'],
+                               'entry_firstname' => $firstname,
+                               'entry_lastname' => $lastname,
+                               'entry_street_address' => $street_address,
+                               'entry_postcode' => $postcode,
+                               'entry_city' => $city,
+                               'entry_country_id' => $country);
 
 			if (ACCOUNT_GENDER == 'true')
 				$sql_data_array['entry_gender'] = $gender;

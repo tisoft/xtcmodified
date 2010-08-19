@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_payment.php 1325 2005-10-30 10:23:32Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_payment.php,v 1.110 2003/03/14); www.oscommerce.com
    (c) 2003	 nextcommerce (checkout_payment.php,v 1.20 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (checkout_payment.php 1325 2005-10-30)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -117,7 +117,7 @@ $_SESSION['delivery_zone'] = $order->delivery['country']['iso_code_2'];
 }
 
 // load all enabled payment modules
-require (DIR_WS_CLASSES . 'payment.php');
+require_once (DIR_WS_CLASSES . 'payment.php');
 $payment_modules = new payment;
 
 $order_total_modules->process();
