@@ -67,9 +67,35 @@ if ($_SESSION['customer_id'] == $order_check['customers_id'] || $send_by_admin) 
 	$smarty->assign('DATE', xtc_date_long($order->info['date_purchased']));
 
 	$smarty->assign('NAME', $order->customer['name']);
+	
+	//BOF - web28 - 2010-08-20 - Anrede {$GENDER} in Bestätigungsmail verfügbar machen
+	$gender_query = xtc_db_query("SELECT customers_gender FROM " . TABLE_CUSTOMERS . " WHERE customers_id = '" . $order->customer['id'] . "'"); 
+	$gender = xtc_db_fetch_array($gender_query); 
+	if ($gender['customers_gender']=='f') {
+		$smarty->assign('GENDER', FEMALE); 
+	} elseif ($gender['customers_gender']=='m') {    
+		$smarty->assign('GENDER', MALE); 
+	} else {
+		$smarty->assign('GENDER', '');
+	}
+	//EOF - web28 - 2010-08-20 - Anrede {$GENDER} in Bestätigungsmail verfügbar machen
+	
+	//BOF - web28 - 2010-08-20 - Erweiterung Variablen für Bestätigungsmail
+	$smarty->assign('CITY', $order->customer['city']);
+	$smarty->assign('POSTCODE', $order->customer['postcode']);
+	$smarty->assign('STATE', $order->customer['state']);
+	$smarty->assign('COUNTRY', $order->customer['country']);
+	$smarty->assign('COMPANY', $order->customer['company']);
+	$smarty->assign('STREET', $order->customer['street_address']);
+	$smarty->assign('FIRSTNAME', $order->customer['firstname']);
+    $smarty->assign('LASTNAME', $order->customer['lastname']);
+	//EOF - web28 - 2010-08-20 - Erweiterung Variablen für Bestätigungsmail	
+	
 	$smarty->assign('COMMENTS', $order->info['comments']);
 	$smarty->assign('EMAIL', $order->customer['email_address']);
 	$smarty->assign('PHONE',$order->customer['telephone']);
+	
+	
 
 	//BOF  - web28 - 2010-03-27 PayPal Bezahl-Link
 	unset ($_SESSION['paypal_link']);
