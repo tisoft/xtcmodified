@@ -1,8 +1,11 @@
 <?php
 
 /* --------------------------------------------------------------
-   $Id: new_product.php 897 2005-04-28 21:36:55Z mz $
-
+   $Id$
+   
+   http://www.xtc-modified.org
+   Copyright (c) 2010 xtcModified   
+   --------------------------------------------------------------   
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
@@ -306,6 +309,12 @@ if ($content['content_file'] == '') {
   <!-- EOF - Tomcraft - 2009-11-06 - Included specials //-->
       <td class="main" align="right">      	
       	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+		<!-- BOF - web28- 2010-08-20 - add update & preview button //-->
+		&nbsp;&nbsp;
+		<input type="submit" class="button" name="prod_update" value="<?php echo BUTTON_UPDATE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+		&nbsp;&nbsp;
+		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_PREVIEW . '</a>'; ?>
+		<!-- EOF - web28- 2010-08-20 - add update & preview button //-->
       	&nbsp;&nbsp;
       	<?php echo '<a class="button" href="' . xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . BUTTON_CANCEL . '</a>'; ?>
   	 </td>
@@ -523,6 +532,12 @@ echo xtc_draw_hidden_field('products_date_added', (($pInfo->products_date_added)
 echo xtc_draw_hidden_field('products_id', $pInfo->products_id);
 ?>
       	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+		<!-- BOF - web28- 2010-08-20 - add update & preview button //-->
+		&nbsp;&nbsp;
+		<input type="submit" class="button" name="prod_update" value="<?php echo BUTTON_UPDATE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
+		&nbsp;&nbsp;
+		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_PREVIEW . '</a>'; ?>
+		<!-- EOF - web28- 2010-08-20 - add update & preview button //-->
       	&nbsp;&nbsp;
       	<?php echo '<a class="button" href="' . xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . BUTTON_CANCEL . '</a>'; ?>
   	 </td>

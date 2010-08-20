@@ -2,8 +2,11 @@
 
 
 /* --------------------------------------------------------------
-   $Id: categories.php 1318 2005-10-21 19:40:59Z mz $
-  
+   $Id$
+   
+   http://www.xtc-modified.org
+   Copyright (c) 2010 xtcModified   
+   --------------------------------------------------------------
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
@@ -746,6 +749,13 @@ class categories {
 				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\' and language_id = \''.$language_id.'\'');
 			}
 		}
+		
+		//BOF - web28- 2010-08-20 - add redirect by update button
+		if(isset($products_data['prod_update'])) {		
+			xtc_redirect(xtc_href_link(FILENAME_CATEGORIES, 'cPath='.$_GET['cPath'].'&action=new_product&pID='.$products_id));
+		}
+		//EOF - web28- 2010-08-20 - add redirect by update button
+		
 	} // insert_product ends
 
 	// ----------------------------------------------------------------------------------------------------- //   
