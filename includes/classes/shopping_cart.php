@@ -238,10 +238,6 @@ class shoppingCart {
 			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".(int)$_SESSION['customer_id']."' and products_id = '".xtc_db_input($products_id)."'");
 		}
 
-		//BOF - GTB - 2010-08-19 - cleanup Cart after removing a Product
-		$this->cleanup();
-		//EOF - GTB - 2010-08-19 - cleanup Cart after removing a Product
-
 		// assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
 		$this->cartID = $this->generate_cart_id();
 	}
