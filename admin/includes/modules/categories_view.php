@@ -429,10 +429,10 @@
 	  <td class="categories_view_data" style="text-align: center;">
   	  	<?php
 		//BOF  web28 - add file_exists
-		if (file_exists(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'])) {
+		if (file_exists(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$products['products_image']) && $products['products_image']!='') {		   
 			echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50', '50');
-		} else echo '--';
-		//EOF  web28 - add file_exists
+		} else echo xtc_image(DIR_WS_IMAGES.'pixel_trans.gif', '', '50', '50');
+		//EOF  web28 - add file_exists		
 		?>
 	  </td>
 	  <?php } ?>
