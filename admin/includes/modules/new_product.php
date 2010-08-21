@@ -309,14 +309,14 @@ if ($content['content_file'] == '') {
   <!-- EOF - Tomcraft - 2009-11-06 - Included specials //-->
       <td class="main" align="right">      	
       	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
-		<!-- BOF - web28- 2010-08-20 - add update & preview button //-->
+		<!-- BOF - web28- 2010-08-20 - add update & view product button //-->
 		&nbsp;&nbsp;
 		<input type="submit" class="button" name="prod_update" value="<?php echo BUTTON_UPDATE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
 		<?php if (isset($_GET['pID']) && $_GET['pID'] > 0) { ?>
 		&nbsp;&nbsp;
-		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_PREVIEW . '</a>'; 
+		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_VIEW_PRODUCT . '</a>'; 
 		} ?>
-		<!-- EOF - web28- 2010-08-20 - add update & preview button //-->
+		<!-- EOF - web28- 2010-08-20 - add update & view product button //-->
       	&nbsp;&nbsp;
       	<?php echo '<a class="button" href="' . xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . BUTTON_CANCEL . '</a>'; ?>
   	 </td>
@@ -534,14 +534,14 @@ echo xtc_draw_hidden_field('products_date_added', (($pInfo->products_date_added)
 echo xtc_draw_hidden_field('products_id', $pInfo->products_id);
 ?>
       	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
-		<!-- BOF - web28- 2010-08-20 - add update & preview button //-->
+		<!-- BOF - web28- 2010-08-20 - add update & view product button //-->
 		&nbsp;&nbsp;
 		<input type="submit" class="button" name="prod_update" value="<?php echo BUTTON_UPDATE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
 		<?php if (isset($_GET['pID']) && $_GET['pID'] > 0) { ?>
 		&nbsp;&nbsp;
-		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_PREVIEW . '</a>'; 
+		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_VIEW_PRODUCT . '</a>'; 
 		} ?>
-		<!-- EOF - web28- 2010-08-20 - add update & preview button //-->
+		<!-- EOF - web28- 2010-08-20 - add update & view product button //-->
       	&nbsp;&nbsp;
       	<?php echo '<a class="button" href="' . xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $_GET['pID']) . '">' . BUTTON_CANCEL . '</a>'; ?>
   	 </td>

@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: buttons.php 1125 2005-07-28 09:59:44Z novalis $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -89,4 +89,8 @@ define('BUTTON_DELETE_TEMP_CACHE', 'Templatecache leeren');
 define('BUTTON_RESET_PRODUCTS_PURCHASED', 'Alle Positionen zur&uuml;cksetzen');
 define('BUTTON_RESET_PRODUCTS_VIEWED', 'Alle Positionen zur&uuml;cksetzen');
 //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+
+// BOF - web28 - 2010-08-21 - add  button view products
+define('BUTTON_VIEW_PRODUCT','Produktansicht');
+// EOF - web28 - 2010-08-21 - add  button view products
 ?>
