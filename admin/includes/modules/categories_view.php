@@ -1,7 +1,10 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: categories_view.php 901 2005-04-29 10:32:14Z novalis $
-
+   $Id$
+   
+   http://www.xtc-modified.org
+   Copyright (c) 2010 xtcModified   
+   --------------------------------------------------------------   
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
@@ -266,7 +269,12 @@
              
              <td class="categories_view_data" style="text-align: left; padding-left: 5px;">
              <?php 
-                echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . xtc_get_path($categories['categories_id'])) . '">' . xtc_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '<a>&nbsp;<b><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) .'">' . $categories['categories_name'] . '</a></b>'; 
+				//BOF - web28 - 2010-08-21 - added edit icon - thanks to user pq 
+                //echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . xtc_get_path($categories['categories_id'])) . '">' . xtc_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '<a>&nbsp;<b><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) .'">' . $categories['categories_name'] . '</a></b>'; 
+				echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . xtc_get_path($categories['categories_id']) . '">' . xtc_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '</a>');
+				echo '&nbsp;<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']. '&action=edit_category' . '">' . xtc_image(DIR_WS_ICONS . 'icon_edit.gif', ICON_EDIT) . '</a>');
+				echo '&nbsp;&nbsp;<b><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) .'">' . $categories['categories_name'] . '</a></b>'; 
+				//EOF - web28 - 2010-08-21 - added edit icon - thanks to user pq 
              ?>
              </td>
         
@@ -419,14 +427,26 @@
 	  <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
 	  <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
 	  <td class="categories_view_data" style="text-align: center;">
-  	  	<?php echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50', '50');?>
+  	  	<?php
+		//BOF  web28 - add file_exists
+		if (file_exists(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'])) {
+			echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50', '50');
+		} else echo '--';
+		//EOF  web28 - add file_exists
+		?>
 	  </td>
 	  <?php } ?>
 	  <!-- EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
 
       <td class="categories_view_data" style="text-align: left; padding-left: 8px;">
-        <?php echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id'] ) . '">' . xtc_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '&nbsp;</a><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id']) .'">' . $products['products_name']; ?></a>
-      </td>          
+        <?php //BOF - web28 - 2010-08-21 - added edit icon - thanks to user pq ?>
+        <?php //echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id'] ) . '">' . xtc_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '&nbsp;</a><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id']) .'">' . $products['products_name']; ?></a>
+        <?php 
+		echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id'] ) . '&action=new_product' . '">' . xtc_image(DIR_WS_ICONS . 'icon_edit.gif', ICON_EDIT). '</a>';
+		echo '&nbsp;</a><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id']) .'">' . $products['products_name'] . '</a>'; 
+		?>
+		<?php //EOF - web28 - 2010-08-21 - added edit icon - thanks to user pq ?>
+	  </td>          
       <?php
       // check product and attributes stock
       if (STOCK_CHECK == 'true') { ?>
