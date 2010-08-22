@@ -1,7 +1,7 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: application_top.php 1323 2005-10-27 17:58:08Z mz $
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -28,6 +28,11 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
+// BOF - Hendrik - 2010-08-22 - xajax support
+define('XAJAX_SUPPORT',         'false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
+define('XAJAX_SUPPORT_TEST',    'false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
+// EOF - Hendrik - 2010-08-22 - xajax support
+   
 // start the timer for the page parse time log
 define('PAGE_PARSE_START_TIME', microtime());
 

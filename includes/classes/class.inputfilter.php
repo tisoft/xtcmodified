@@ -63,7 +63,18 @@ class InputFilter {
 			foreach ($source as $key => $value) {
 				// filter element for XSS and other 'bad' code etc.
 				$tmp_key = $key;
-				unset ($source[$key]);
+
+                // BOF - Hendrik - 2010-08-22 - xajax support
+                //unset ($source[$key]);
+                if( XAJAX_SUPPORT=='true' ) {
+                    if ($key != 'xajaxargs') {                     // imdxajax
+                      unset ($source[$key]);
+                    }
+                } else {
+                    unset ($source[$key]);
+                }
+                // EOF - Hendrik - 2010-08-22 - xajax support                
+                
 				$key = $this->remove($this->decode($key));
 				if ($key != $tmp_key) {
 					return $source;

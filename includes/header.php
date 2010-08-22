@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: header.php 1140 2005-08-10 10:16:00Z mz $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -123,6 +123,16 @@ function popupImageWindow(url) {
 require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
 //EOF - web28 - 2010-07-14 - change to TOP of page again because jquery view problems
 //EOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
+
+// BOF - Hendrik - 2010-08-22 - xajax support
+if( XAJAX_SUPPORT=='true' ) {
+    // Include XAJAX JS Library
+    require ('xajax.common.php');                            
+    if ($imdxajax) {
+      $imdxajax->printJavascript('includes/');
+    }
+}
+// EOF - Hendrik - 2010-08-22 - xajax support
 
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT)) {
  echo $payment_modules->javascript_validation();
