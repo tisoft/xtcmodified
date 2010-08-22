@@ -1,10 +1,20 @@
 <?
-/* ---------------------------------------------------
-   Basismodul imdxajax
-   xajax.common.php
-   ---------------------------------------------------
-   03.2008 h.koch 
-   --------------------------------------------------- */
+/* -----------------------------------------------------------------------------------------
+   $Id$
+
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce; www.oscommerce.com 
+   (c) 2003      nextcommerce; www.nextcommerce.org
+   (c) 2006      xt:Commerce; www.xt-commerce.com
+
+   Released under the GNU General Public License 
+   ----------------------------------------------------------------------------------------- */
 define( 'XAJAX_SUPPORT_VERSION', 'XAjax Support v1.3.0 - 08.2010' );
 define( 'IMDXAJAX_MODULE_INCLUDES', 'includes/xajax_imd' );
 
