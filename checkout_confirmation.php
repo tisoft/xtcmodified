@@ -377,13 +377,13 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 	//EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
 	
 	$shop_content_query = "SELECT
-		                                                content_title,
-		                                                content_heading,
-		                                                content_text,
-		                                                content_file
-		                                                FROM " . TABLE_CONTENT_MANAGER . "
-		                                                WHERE content_group='3' " . $group_check . "
-		                                                AND languages_id='" . $_SESSION['languages_id'] . "'";
+		                           content_title,
+		                           content_heading,
+		                           content_text,
+		                           content_file
+		                     FROM " . TABLE_CONTENT_MANAGER . "
+		                     WHERE content_group='3' " . $group_check . "
+		                       AND languages_id='" . $_SESSION['languages_id'] . "'";
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
@@ -396,7 +396,9 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 }
 
 $smarty->assign('language', $_SESSION['language']);
-$smarty->assign('PAYMENT_BLOCK', $payment_block);
+//BOF - DokuMan - PAYMENT_BLOCK not needed in checkout_confimation
+//$smarty->assign('PAYMENT_BLOCK', $payment_block);
+//EOF - DokuMan - PAYMENT_BLOCK not needed in checkout_confimation
 $smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_confirmation.html');
 
