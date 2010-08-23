@@ -1,20 +1,18 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_db_queryCached.inc.php 782 2005-02-19 19:26:00Z khan_thep $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2002-2003 osCommerce(database.php,v 1.19 2003/03/22); www.oscommerce.com
-
+   (c) 2006 XT-Commerce (xtcPrice.php 1316 2005-10-21)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
-
 
   function xtc_db_queryCached($query, $link = 'db_link') {
     global $$link;
@@ -49,19 +47,26 @@
                 $result_error = mysql_error();
                 error_log('RESULT ' . $result . ' ' . $result_error . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
         }
-
+        
+        $records = array(); //DokuMan - 2010-08-23 - set undefinded variable
         // fetch data into array
         while ($record = xtc_db_fetch_array($result))
                 $records[]=$record;
 
-
+        //BOF - DokuMan - 2010-08-23 - check if record exists
+        if (count($records) > 0) {
+        //EOF - DokuMan - 2010-08-23 - check if record exists
         // safe result into file.
-        $stream = serialize($records);
-        $fp = fopen($file,"w");
-        fwrite($fp, $stream);
-        fclose($fp);
-        $result = unserialize(implode('',file($file)));
-
+          $stream = serialize($records);
+          $fp = fopen($file,"w");
+          fwrite($fp, $stream);
+          fclose($fp);
+          $result = unserialize(implode('',file($file)));
+        //BOF - DokuMan - 2010-08-23 - check if record exists
+        } else {
+            $result = array();
+        }
+        //EOF - DokuMan - 2010-08-23 - check if record exists
    }
 
     return $result;

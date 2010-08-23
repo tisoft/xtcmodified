@@ -1,18 +1,17 @@
 <?php
-
-
 /* -----------------------------------------------------------------------------------------
-   $Id: xtcPrice.php 1316 2005-10-21 15:30:58Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(currencies.php,v 1.15 2003/03/17); www.oscommerce.com
-   (c) 2003         nextcommerce (currencies.php,v 1.9 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (currencies.php,v 1.9 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (xtcPrice.php 1316 2005-10-21)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------
@@ -43,19 +42,16 @@ class xtcPrice {
 
 		// select Currencies
 
-		$currencies_query = "SELECT *
-				                                    FROM
-				                                         ".TABLE_CURRENCIES;
+		$currencies_query = "SELECT * FROM ".TABLE_CURRENCIES;
 		$currencies_query = xtDBquery($currencies_query);
 		while ($currencies = xtc_db_fetch_array($currencies_query, true)) {
 			$this->currencies[$currencies['code']] = array ('title' => $currencies['title'], 'symbol_left' => $currencies['symbol_left'], 'symbol_right' => $currencies['symbol_right'], 'decimal_point' => $currencies['decimal_point'], 'thousands_point' => $currencies['thousands_point'], 'decimal_places' => $currencies['decimal_places'], 'value' => $currencies['value']);
 		}
 		// select Customers Status data
 		$customers_status_query = "SELECT *
-				                                        FROM
-				                                             ".TABLE_CUSTOMERS_STATUS."
-				                                        WHERE
-				                                             customers_status_id = '".$this->actualGroup."' AND language_id = '".$_SESSION['languages_id']."'";
+				                        FROM ".TABLE_CUSTOMERS_STATUS."
+				                        WHERE customers_status_id = '".$this->actualGroup."' 
+				                        AND language_id = '".$_SESSION['languages_id']."'";
 		$customers_status_query = xtDBquery($customers_status_query);
 		$customers_status_value = xtc_db_fetch_array($customers_status_query, true);
 		$this->cStatus = array ('customers_status_id' => $this->actualGroup, 'customers_status_name' => $customers_status_value['customers_status_name'], 'customers_status_image' => $customers_status_value['customers_status_image'], 'customers_status_public' => $customers_status_value['customers_status_public'], 'customers_status_discount' => $customers_status_value['customers_status_discount'], 'customers_status_ot_discount_flag' => $customers_status_value['customers_status_ot_discount_flag'], 'customers_status_ot_discount' => $customers_status_value['customers_status_ot_discount'], 'customers_status_graduated_prices' => $customers_status_value['customers_status_graduated_prices'], 'customers_status_show_price' => $customers_status_value['customers_status_show_price'], 'customers_status_show_price_tax' => $customers_status_value['customers_status_show_price_tax'], 'customers_status_add_tax_ot' => $customers_status_value['customers_status_add_tax_ot'], 'customers_status_payment_unallowed' => $customers_status_value['customers_status_payment_unallowed'], 'customers_status_shipping_unallowed' => $customers_status_value['customers_status_shipping_unallowed'], 'customers_status_discount_attributes' => $customers_status_value['customers_status_discount_attributes'], 'customers_fsk18' => $customers_status_value['customers_fsk18'], 'customers_fsk18_display' => $customers_status_value['customers_fsk18_display']);
@@ -73,7 +69,6 @@ class xtcPrice {
 			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class']);
 			}
 
-
 		}
 
 	}
@@ -90,7 +85,10 @@ class xtcPrice {
 			$cinfo = xtc_oe_customer_infos($cedit_id);
 			$products_tax = xtc_get_tax_rate($tax_class, $cinfo['country_id'], $cinfo['zone_id']);
 		} else {
-			$products_tax = $this->TAX[$tax_class];
+			//BOF - DokuMan - 2010-08-23 - set undefined index 
+			//$products_tax = $this->TAX[$tax_class];
+			$products_tax = isset($this->TAX[$tax_class]) ? $this->TAX[$tax_class] : 0;
+			//EOF - DokuMan - 2010-08-23 - set undefined index 		
 		}
 
 		if ($this->cStatus['customers_status_show_price_tax'] == '0')
@@ -139,7 +137,7 @@ class xtcPrice {
 	}
 
 	function xtcAddTax($price, $tax) {
-		$price = $price + $price / 100 * $tax;
+		$price += $price / 100 * $tax;
 		$price = $this->xtcCalculateCurr($price);
 		return round($price, $this->currencies[$this->actualCurr]['decimal_places']);
 	}
@@ -149,7 +147,10 @@ class xtcPrice {
 	function xtcCheckXTBAuction($pID)
 	{
 		if(($pos=strpos($pID,"{"))) $pID=substr($pID,0,$pos);
-		if(!is_array($_SESSION['xtb0']['tx'])) return false;
+    //BOF - DokuMan - 2010-08-23 - set undefined index xtb0	
+		//if(!is_array($_SESSION['xtb0']['tx'])) return false;   
+		if(!isset($_SESSION['xtb0']['tx']) || !is_array($_SESSION['xtb0']['tx'])) return false;
+    //EOF - DokuMan - 2010-08-23 - set undefined index xtb0		
 		foreach($_SESSION['xtb0']['tx'] as $tx) {  
 			if($tx['products_id']==$pID&&$tx['XTB_QUANTITYPURCHASED']!=0) {
 				$this->actualCurr=$tx['XTB_AMOUNTPAID_CURRENCY'];

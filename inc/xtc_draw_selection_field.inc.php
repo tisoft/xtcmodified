@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_draw_selection_field.inc.php 812 2005-02-27 20:55:34Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce 
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(html_output.php,v 1.52 2003/03/19); www.oscommerce.com 
    (c) 2003	 nextcommerce (xtc_draw_selection_field.inc.php,v 1.3 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (xtc_draw_selection_field.inc.php 812 2005-02-27)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -22,7 +23,10 @@
 
     if (xtc_not_null($value)) $selection .= ' value="' . xtc_parse_input_field_data($value, array('"' => '&quot;')) . '"';
 
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ( (isset($value)) && ($GLOBALS[$name] == $value) ) ) {
+    //BOF - DokuMan - 2010-08-23 - set undefined index
+    //if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ( (isset($value)) && ($GLOBALS[$name] == $value) ) ) {
+    if ( ($checked == true) || (isset($GLOBALS[$name]) && $GLOBALS[$name] == 'on') || ( (isset($value)) && (isset($GLOBALS[$name]) && $GLOBALS[$name] == $value) ) ) {
+    //EOF - DokuMan - 2010-08-23 - set undefined index
       $selection .= ' checked="checked"';
     }
 

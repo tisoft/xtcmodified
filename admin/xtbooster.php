@@ -2735,39 +2735,39 @@ $sites = ceil($num_rows/$items_per_site);
 	<br/><br/>
 	<strong><?php echo TXT_DATE_FILTER?></strong>&nbsp;&nbsp;
 		<?php echo TXT_FROM?>: <select name="datum_von_m">
-				<?
+				<?php
 				foreach ($months as $k=>$v)		{
 					?><option value="<?php echo $k?>"<?php echo ($datum_von_m==$k?' SELECTED="SELECTED"':(($datum_von_m==0 AND $k==date('n'))?' SELECTED="SELECTED"':''))?>><?php echo $v?></option>
-					<?
+					<?php
 					}
 				?>
 		 	 </select>
 			 <select name="datum_von_j">
 				<option value="0"><?php echo TXT_YEAR?></option>
-				<?
+				<?php
 				$year_start = date('Y', mysql_result(xsb_db_query("SELECT MIN(_EBAY_START_TIME) as MinTime FROM xtb_auctions"),0,'MinTime'));
 				for ($y=date('Y');$y>=$year_start;$y--)	{
 					?><option value="<?php echo $y?>"<?php echo ($datum_von_j==$y?' SELECTED="SELECTED"':(($datum_von_j==0 AND $y==date('Y'))?' SELECTED="SELECTED"':''))?>><?php echo $y?></option>
-					<?
+					<?php
 					}
 				?>
 			</select>
 		&nbsp;&nbsp;
 		<?php echo TXT_TO?>: <select name="datum_bis_m">
-				<?
+				<?php
 				foreach ($months as $k=>$v)		{
 					?><option value="<?php echo $k?>"<?php echo ($datum_bis_m==$k?' SELECTED="SELECTED"':(($datum_bis_m==0 AND $k==date('n'))?' SELECTED="SELECTED"':''))?>><?php echo $v?></option>
-					<?
+					<?php
 					}
 				?>
 		 	 </select>
 			 <select name="datum_bis_j">
 				<option value="0"><?php echo TXT_YEAR?></option>
-				<?
+				<?php
 				$year_start = date('Y', mysql_result(xsb_db_query("SELECT MIN(_EBAY_START_TIME) as MinTime FROM xtb_auctions"),0,'MinTime'));
 				for ($y=date('Y');$y>=$year_start;$y--)	{
 					?><option value="<?php echo $y?>"<?php echo ($datum_bis_j==$y?' SELECTED="SELECTED"':(($datum_bis_j==0 AND $y==date('Y'))?' SELECTED="SELECTED"':''))?>><?php echo $y?></option>
-					<?
+					<?php
 					}
 				?>
 			</select>
@@ -2885,7 +2885,7 @@ while($tx = xtc_db_fetch_array($q)) # This line includes GNU/GPL licensed code w
 ?>
 	</td>
 	<td><?php if ($filter==3) { ?><input type="checkbox" name="items[]" id="items_<?php echo (int)$CheckboxIndex?>" value="<?php echo $x['XTB_ITEM_ID']?>"><?php } ?></td>
-	<?
+	<?php
 		// Checkboxname für die "Check All"-Funktion in einer Liste speichern
 		$CheckboxIndex++;
 	?>

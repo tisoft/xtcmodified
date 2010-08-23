@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id: product.php 1316 2005-10-21 15:30:58Z mz $ 
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2005 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(Coding Standards); www.oscommerce.com 
+   (c) 2006 XT-Commerce (product.php 1316 2005-10-21)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -102,19 +102,19 @@ class product {
 
 		$data_reviews = array ();
 		$reviews_query = xtDBquery("select
-									                                 r.reviews_rating,
-									                                 r.reviews_id,
-									                                 r.customers_name,
-									                                 r.date_added,
-									                                 r.last_modified,
-									                                 r.reviews_read,
-									                                 rd.reviews_text
-									                                 from ".TABLE_REVIEWS." r,
-									                                 ".TABLE_REVIEWS_DESCRIPTION." rd
-									                                 where r.products_id = '".$this->pID."'
-									                                 and  r.reviews_id=rd.reviews_id
-									                                 and rd.languages_id = '".$_SESSION['languages_id']."'
-									                                 order by reviews_id DESC");
+                                      r.reviews_rating,
+                                      r.reviews_id,
+                                      r.customers_name,
+                                      r.date_added,
+                                      r.last_modified,
+                                      r.reviews_read,
+                                      rd.reviews_text
+                                      from ".TABLE_REVIEWS." r,
+                                      ".TABLE_REVIEWS_DESCRIPTION." rd
+                                      where r.products_id = '".$this->pID."'
+                                      and  r.reviews_id=rd.reviews_id
+                                      and rd.languages_id = '".$_SESSION['languages_id']."'
+                                      order by reviews_id DESC");
 		if (xtc_db_num_rows($reviews_query, true)) {
 			$row = 0;
 			$data_reviews = array ();
@@ -164,23 +164,30 @@ class product {
 		}
 
 		// BOF - vr - 2010-04-21 make sql human readable, update to SQL-92-Standard
-		$orders_query = "select p.products_fsk18, p.products_id, p.products_price, p.products_tax_class_id,
-							 p.products_image, pd.products_name, p.products_vpe, p.products_vpe_status,
-							 p.products_vpe_value, pd.products_short_description
-						from ".TABLE_ORDERS_PRODUCTS." op1 
-						join ".TABLE_ORDERS_PRODUCTS." op2 on op2.orders_id = op1.orders_id
-						join ".TABLE_ORDERS." o on o.orders_id = op2.orders_id
-						join ".TABLE_PRODUCTS." p on p.products_id = op2.products_id 
-						join ".TABLE_PRODUCTS_DESCRIPTION." pd on pd.products_id = op2.products_id
-						where op1.products_id = '".$this->pID."'
-						and op2.products_id != '".$this->pID."'
-						and p.products_status = '1'
-						and pd.language_id = '".(int) $_SESSION['languages_id']."'
-						".$group_check."
-						".$fsk_lock."
-						group by p.products_id 
-						order by o.date_purchased desc 
-						limit ".MAX_DISPLAY_ALSO_PURCHASED;
+		$orders_query = "select p.products_fsk18, 
+                            p.products_id,
+                            p.products_price,
+                            p.products_tax_class_id,
+                            p.products_image,
+                            pd.products_name,
+                            p.products_vpe,
+                            p.products_vpe_status,
+                            p.products_vpe_value,
+                            pd.products_short_description
+                            from ".TABLE_ORDERS_PRODUCTS." op1 
+                            join ".TABLE_ORDERS_PRODUCTS." op2 on op2.orders_id = op1.orders_id
+                            join ".TABLE_ORDERS." o on o.orders_id = op2.orders_id
+                            join ".TABLE_PRODUCTS." p on p.products_id = op2.products_id 
+                            join ".TABLE_PRODUCTS_DESCRIPTION." pd on pd.products_id = op2.products_id
+                            where op1.products_id = '".$this->pID."'
+                            and op2.products_id != '".$this->pID."'
+                            and p.products_status = '1'
+                            and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                            ".$group_check."
+                            ".$fsk_lock."
+                            group by p.products_id 
+                            order by o.date_purchased desc 
+                            limit ".MAX_DISPLAY_ALSO_PURCHASED;
 		// EOF - vr - 2010-04-21 make sql human readable
 		$orders_query = xtDBquery($orders_query);
 		while ($orders = xtc_db_fetch_array($orders_query, true)) {
@@ -219,20 +226,25 @@ class product {
 			}
 
 				$cross_query = "select p.products_fsk18,
-																														 p.products_tax_class_id,
-																								                                                 p.products_id,
-																								                                                 p.products_image,
-																								                                                 pd.products_name,
-																														 						pd.products_short_description,
-																								                                                 p.products_fsk18,p.products_price,p.products_vpe,
-						                           																									p.products_vpe_status,
-						                           																									p.products_vpe_value,
-																								                                                 xp.sort_order from ".TABLE_PRODUCTS_XSELL." xp, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
-																								                                            where xp.products_id = '".$this->pID."' and xp.xsell_id = p.products_id ".$fsk_lock.$group_check."
-																								                                            and p.products_id = pd.products_id and xp.products_xsell_grp_name_id='".$cross_sells['products_xsell_grp_name_id']."'
-																								                                            and pd.language_id = '".$_SESSION['languages_id']."'
-																								                                            and p.products_status = '1'
-																								                                            order by xp.sort_order asc";
+												p.products_tax_class_id,
+												p.products_id,
+												p.products_image,
+												pd.products_name,
+												pd.products_short_description,
+												p.products_fsk18,p.products_price,p.products_vpe,
+												p.products_vpe_status,
+												p.products_vpe_value,
+												xp.sort_order
+												from ".TABLE_PRODUCTS_XSELL." xp,
+												 ".TABLE_PRODUCTS." p,
+												 ".TABLE_PRODUCTS_DESCRIPTION." pd
+												where xp.products_id = '".$this->pID."' 
+												and xp.xsell_id = p.products_id ".$fsk_lock.$group_check."
+												and p.products_id = pd.products_id 
+												and xp.products_xsell_grp_name_id='".$cross_sells['products_xsell_grp_name_id']."'
+												and pd.language_id = '".$_SESSION['languages_id']."'
+												and p.products_status = '1'
+												order by xp.sort_order asc";
 
 			$cross_query = xtDBquery($cross_query);
 			if (xtc_db_num_rows($cross_query, true) > 0)
@@ -269,20 +281,24 @@ class product {
 			}
 
 			$cross_query = xtDBquery("select p.products_fsk18,
-																						 p.products_tax_class_id,
-																                                                 p.products_id,
-																                                                 p.products_image,
-																                                                 pd.products_name,
-																						 						pd.products_short_description,
-																                                                 p.products_fsk18,p.products_price,p.products_vpe,
-						                           																p.products_vpe_status,
-						                           																p.products_vpe_value,  
-																                                                 xp.sort_order from ".TABLE_PRODUCTS_XSELL." xp, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
-																                                            where xp.xsell_id = '".$this->pID."' and xp.products_id = p.products_id ".$fsk_lock.$group_check."
-																                                            and p.products_id = pd.products_id
-																                                            and pd.language_id = '".$_SESSION['languages_id']."'
-																                                            and p.products_status = '1'
-																                                            order by xp.sort_order asc");
+																			 p.products_tax_class_id,
+																			 p.products_id,
+																			 p.products_image,
+																			 pd.products_name,
+																			 pd.products_short_description,
+																			 p.products_fsk18,p.products_price,p.products_vpe,
+																			 p.products_vpe_status,
+																			 p.products_vpe_value,  
+																			 xp.sort_order
+																			 from ".TABLE_PRODUCTS_XSELL." xp,
+																			 ".TABLE_PRODUCTS." p,
+																			 ".TABLE_PRODUCTS_DESCRIPTION." pd
+																			 where xp.xsell_id = '".$this->pID."'
+																			 and xp.products_id = p.products_id ".$fsk_lock.$group_check."
+																			 and p.products_id = pd.products_id
+																			 and pd.language_id = '".$_SESSION['languages_id']."'
+																			 and p.products_status = '1'
+																			 order by xp.sort_order asc");
 
         $cross_sell_data = array(); //DokuMan - 2010-03-12 - set undefined array
 
@@ -291,10 +307,7 @@ class product {
 				$cross_sell_data[] = $this->buildDataArray($xsell);
 			}
 
-
 		return $cross_sell_data;
-	 	
-	 	
 	 	
 	 }
 	
@@ -304,13 +317,13 @@ class product {
 		
 		$discount = $xtPrice->xtcCheckDiscount($this->pID);	// Hetfield - 2010-03-15 - BUGFIX show VPE with discount for graduated prices	
 		$staffel_query = xtDBquery("SELECT
-				                                     quantity,
-				                                     personal_offer
-				                                     FROM
-				                                     ".TABLE_PERSONAL_OFFERS_BY.(int) $_SESSION['customers_status']['customers_status_id']."
-				                                     WHERE
-				                                     products_id = '".$this->pID."'
-				                                     ORDER BY quantity ASC");
+																			 quantity,
+																			 personal_offer
+																			 FROM
+																			 ".TABLE_PERSONAL_OFFERS_BY.(int) $_SESSION['customers_status']['customers_status_id']."
+																			 WHERE
+																			 products_id = '".$this->pID."'
+																			 ORDER BY quantity ASC");
 
 		$staffel = array ();
 		while ($staffel_values = xtc_db_fetch_array($staffel_query, true)) {
@@ -378,7 +391,7 @@ class product {
 		if (!is_array($product))
 			$product = $this->data;
 
-		if ($product['products_vpe_status'] == 1 && $product['products_vpe_value'] != 0.0 && $price > 0) {
+		if (isset($product['products_vpe_status']) && $product['products_vpe_status'] == 1 && $product['products_vpe_value'] != 0.0 && $price > 0) {
 			return $xtPrice->xtcFormat($price * (1 / $product['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product['products_vpe']);
 		}
 
@@ -389,7 +402,8 @@ class product {
 	function buildDataArray(&$array,$image='thumbnail') {
 		global $xtPrice,$main;
 
-			$tax_rate = $xtPrice->TAX[$array['products_tax_class_id']];
+			//$tax_rate = $xtPrice->TAX[$array['products_tax_class_id']];
+      $tax_rate = isset($xtPrice->TAX[$array['products_tax_class_id']]) ? $xtPrice->TAX[$array['products_tax_class_id']] : 0; //DokuMan: set Undefined index
 
 			$products_price = $xtPrice->xtcGetPrice($array['products_id'], $format = true, 1, $array['products_tax_class_id'], $array['products_price'], 1);
 
@@ -399,13 +413,11 @@ class product {
         if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
           if (isset($array['products_fsk18']) && $array['products_fsk18'] == '0')
             $buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
-        
         } else {
           $buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
         }
 			}
 			
-
       //BOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
 			//$shipping_status_name = $main->getShippingStatusName($array['products_shippingtime']);
 			//$shipping_status_image = $main->getShippingStatusImage($array['products_shippingtime']);
@@ -419,9 +431,9 @@ class product {
       //EOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
 		
 		return array ('PRODUCTS_NAME' => $array['products_name'], 
-				'COUNT'=>$array['ID'],
-				'PRODUCTS_ID'=>$array['products_id'],
-				'PRODUCTS_MODEL'=>$array['products_model'],
+        'COUNT' => isset($array['ID']) ? $array['ID'] : 0,
+				'PRODUCTS_ID'=> $array['products_id'],
+				'PRODUCTS_MODEL'=> isset($array['products_model']) ? $array['products_model'] : '',
 				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']), 
 				'PRODUCTS_IMAGE' => $this->productImage($array['products_image'], $image),
 				'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])), 
@@ -436,7 +448,7 @@ class product {
         'PRODUCTS_DESCRIPTION' => isset($array['products_description']) ? $array['products_description'] : '', //DokuMan - 2010-02-26 - set Undefined index
         
         //BOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
-        'PRODUCTS_QUANTITY' => (int)$array['products_quantity'],
+        'PRODUCTS_QUANTITY' => isset($array['products_quantity']) ? $array['products_quantity'] : '',
         //EOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
 				
 				//'PRODUCTS_EXPIRES' => $array['expires_date'],
