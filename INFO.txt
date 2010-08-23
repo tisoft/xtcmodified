@@ -47,8 +47,6 @@
   xt:Commerce Entwicklungsteam, http://www.xt-commerce.com
 
 
-#### xtc:modified ####
-
 
    
 
