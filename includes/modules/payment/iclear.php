@@ -1,41 +1,22 @@
 <?php
-/*
-  $Id: iclear.php,v 1.4 2007/05/10 15:01:03 dis Exp $
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-  Copyright (c) 2001 - 2003 osCommerce
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers; http://www.themedia.at & http://www.oscommerce.at
+   (c) 2003	osCommerce (iclear.php,v 1.4 2007/05/10); www.nextcommerce.org
+   (c) 2006 XT-Commerce (cash.php 1102 2005-07-24)
 
-  Released under the GNU General Public License
+   Released under the GNU General Public License
 
-************************************************************************
-  Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers
-       http://www.themedia.at & http://www.oscommerce.at
-
-  WSDL extensions
-  Copyright (C) 2005 - 2007 BSE, David Brandt
-
-                    All rights reserved.
-
-  This program is free software licensed under the GNU General Public License (GPL).
-
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
-  USA
-
-*************************************************************************/
+   WSDL extensions
+   ---------------------------------------------------------------------------------------*/
+   
 // iclear DMI
   include(DIR_FS_CATALOG . 'includes/iclear/iclear_catalog.php');
 
@@ -203,8 +184,15 @@
 
     function after_process() {
       global $insert_id;
-      $sql = 'UPDATE orders_iclear SET orders_id = "' . $insert_id . '" WHERE wsdl_id = "' . $this->wsdlOrder['wsdl_id'] . '" LIMIT 1';
-      xtc_db_query($sql);
+      //BOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
+      //$sql = 'UPDATE orders_iclear SET orders_id = "' . $insert_id . '" WHERE wsdl_id = "' . $this->wsdlOrder['wsdl_id'] . '" LIMIT 1';
+      //xtc_db_query($sql);
+      if (isset($this->order_status) && $this->order_status) {
+          xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+          xtc_db_query("UPDATE ".TABLE_ORDERS_STATUS_HISTORY." SET orders_status_id='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+      }   
+      //EOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
+      
 // remove wsdl session var
       unset($_SESSION['iclearWsdlResult']);// Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
 	    return false;

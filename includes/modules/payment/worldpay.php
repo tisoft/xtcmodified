@@ -1,49 +1,40 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id: worldpay.php,v 1.0 
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   modified for XT-Commerce by XTC-Webservice.de http://www.xtc-webservice.de
-
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(world.php,v Version 1.6); www.oscommerce.com
+   (c) 2006 XT-Commerce (worldpay.php,v 1.0)
+   modified for XT-Commerce by XTC-Webservice.de; http://www.xtc-webservice.de
 
    Released under the GNU General Public License
 
    Third Party contribution:
+   ************************************************************************
+   Id: worldpay.php,v MS1a 2003/04/06 21:30
+   Author : Graeme Conkie (graeme@conkie.net)
+   Title: WorldPay Payment Callback Module V4.0 Version 1.6
 
-************************************************************************
-  $Id: worldpay.php,v MS1a 2003/04/06 21:30
-  Author : Graeme Conkie (graeme@conkie.net)
-  Title: WorldPay Payment Callback Module V4.0 Version 1.6
-
-  Revisions:
-  
-Paulz added minor changes to enable control of 'Payment Zone' added function update_status
-Version MS1a Cleaned up code, moved static English to language file to allow for bi-lingual use,
-        Now posting language code to WP, Redirect on failure now to Checkout Payment,
-Reduced re-direct time to 8 seconds, added MD5, made callback dynamic
-NOTE: YOU MUST CHANGE THE CALLBACK URL IN WP ADMIN TO <wpdisplay item="MC_callback">
-Version 1.4 Removes boxes to prevent users from clicking away before update,
-Fixes currency for Yen,
-Redirects to Checkout_Process after 10 seconds or click by user
-Version 1.3 Fixes problem with Multi Currency
-Version 1.2 Added Sort Order and Default order status to work with snapshots after 14 Jan 2003
-Version 1.1 Added Worldpay Pre-Authorisation ability
-Version 1.0 Initial Payment Module
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003
-  Released under the GNU General Public License
------------------------------------------------------------------------------------------*/
+   Revisions:
+   Paulz added minor changes to enable control of 'Payment Zone' added function update_status
+   Version MS1a Cleaned up code, moved static English to language file to allow for bi-lingual use,
+   Now posting language code to WP, Redirect on failure now to Checkout Payment,
+   Reduced re-direct time to 8 seconds, added MD5, made callback dynamic
+   NOTE: YOU MUST CHANGE THE CALLBACK URL IN WP ADMIN TO <wpdisplay item="MC_callback">
+   Version 1.4 Removes boxes to prevent users from clicking away before update,
+   Fixes currency for Yen,
+   Redirects to Checkout_Process after 10 seconds or click by user
+   Version 1.3 Fixes problem with Multi Currency
+   Version 1.2 Added Sort Order and Default order status to work with snapshots after 14 Jan 2003
+   Version 1.1 Added Worldpay Pre-Authorisation ability
+   Version 1.0 Initial Payment Module
+   -----------------------------------------------------------------------------------------*/
 
 class worldpay {
 	var $code, $title, $description, $enabled;
@@ -167,7 +158,14 @@ class worldpay {
 
 	function after_process() {
  	global $insert_id;
-	if ($this->order_status) xtc_db_query("UPDATE ". TABLE_ORDERS ." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+    //BOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
+    //if ($this->order_status)
+    //  xtc_db_query("UPDATE ". TABLE_ORDERS ." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+    if (isset($this->order_status) && $this->order_status) {
+        xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+        xtc_db_query("UPDATE ".TABLE_ORDERS_STATUS_HISTORY." SET orders_status_id='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+    }
+    //EOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
 	}
 
 	function output_error() {

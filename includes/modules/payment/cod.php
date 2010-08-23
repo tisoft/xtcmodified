@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: cod.php 1003 2005-07-10 18:58:52Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
    (c) 2003   nextcommerce (cod.php,v 1.7 2003/08/24); www.nextcommerce.org
+   (c) 2006 XT-Commerce (cod.php 1003 2005-07-10)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -90,13 +90,9 @@ class cod {
 
   function selection() {
     global $xtPrice,$order;
-    
-      if (MODULE_ORDER_TOTAL_COD_FEE_STATUS == 'true') {
-
-
-        $cod_country = false;
-
-          //process installed shipping modules
+    $cod_country = false;
+    if (MODULE_ORDER_TOTAL_COD_FEE_STATUS == 'true') {
+      //process installed shipping modules
       // BOF - Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ($_SESSION['shipping']['id'] == 'flat_flat') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FLAT);
           if ($_SESSION['shipping']['id'] == 'item_item') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ITEM);
@@ -166,8 +162,7 @@ class cod {
 
         
       }
-    
-    
+   
     return array ('id' => $this->code, 'module' => $this->title, 'description' => $this->info,'module_cost'=>$this->cost);
   }
 
@@ -189,9 +184,14 @@ class cod {
 
   function after_process() {
     global $insert_id;
-    if ($this->order_status)
-      xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
-
+    //BOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
+    //if ($this->order_status)
+    //  xtc_db_query("UPDATE ". TABLE_ORDERS ." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+    if (isset($this->order_status) && $this->order_status) {
+        xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+        xtc_db_query("UPDATE ".TABLE_ORDERS_STATUS_HISTORY." SET orders_status_id='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+    }
+    //EOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
   }
 
   function get_error() {

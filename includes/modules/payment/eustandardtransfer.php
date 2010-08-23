@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: eustandardtransfer.php 998 2005-07-07 14:18:20Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ptebanktransfer.php,v 1.4.1 2003/09/25 19:57:14); www.oscommerce.com
+   (c) 2006 XT-Commerce (eustandardtransfer.php 998 2005-07-07)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -30,7 +30,7 @@ class eustandardtransfer {
 		$this->info = MODULE_PAYMENT_EUTRANSFER_TEXT_INFO;
 		$this->enabled = ((MODULE_PAYMENT_EUTRANSFER_STATUS == 'True') ? true : false);
 		
-		$this->update_status();		                            // Hendrik - 2010-07-15 - exlusion config for shipping modules
+		$this->update_status(); // Hendrik - 2010-07-15 - exlusion config for shipping modules
 	} 
 	// class methods
 	
@@ -86,9 +86,14 @@ class eustandardtransfer {
 
 	function after_process() {
 		global $insert_id;
-		if ($this->order_status)
+		//BOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
+		//if ($this->order_status)
+		//xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+		if (isset($this->order_status) && $this->order_status) {
 			xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
-
+			xtc_db_query("UPDATE ".TABLE_ORDERS_STATUS_HISTORY." SET orders_status_id='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+		}
+		//EOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
 	}
 
 	function output_error() {

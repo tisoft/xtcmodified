@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: banktransfer.php 1122 2005-07-26 10:16:27Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(banktransfer.php,v 1.16 2003/03/02 22:01:50); www.oscommerce.com 
    (c) 2003	 nextcommerce (banktransfer.php,v 1.9 2003/08/24); www.nextcommerce.org
+   (c) 2006 XT-Commerce (banktransfer.php 1122 2005-07-26)
 
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
@@ -20,14 +21,13 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
-
   class banktransfer {
 
     var $code, $title, $description, $enabled;
 
 	// BOF - Hendrik - 2010-08-11 - php5 compatible
     //function banktransfer() {
-	function __construct() {
+	  function __construct() {
 	// EOF - Hendrik - 2010-08-11 - php5 compatible
       global $order;
 
@@ -47,7 +47,6 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
         $this->email_footer = MODULE_PAYMENT_BANKTRANSFER_TEXT_EMAIL_FOOTER;
     }
 
-
     function update_status() {
       global $order;
 
@@ -62,11 +61,10 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
 				}
 			}
 		} 
-	    // EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
+		// EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 	    
        $check_order_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
        $order_check = xtc_db_fetch_array($check_order_query);
-
 
        if ($order_check['count'] < MODULE_PAYMENT_BANKTRANSFER_MIN_ORDER) {
        $check_flag = false;
@@ -75,19 +73,19 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
        }else{
        $check_flag = true;
 
-      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_BANKTRANSFER_ZONE > 0) ) {
-        $check_flag = false;
-        $check_query = xtc_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_BANKTRANSFER_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
-        while ($check = xtc_db_fetch_array($check_query)) {
-          if ($check['zone_id'] < 1) {
-            $check_flag = true;
-            break;
-          } elseif ($check['zone_id'] == $order->billing['zone_id']) {
-            $check_flag = true;
-            break;
+        if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_BANKTRANSFER_ZONE > 0) ) {
+          $check_flag = false;
+          $check_query = xtc_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_BANKTRANSFER_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
+          while ($check = xtc_db_fetch_array($check_query)) {
+            if ($check['zone_id'] < 1) {
+              $check_flag = true;
+              break;
+            } elseif ($check['zone_id'] == $order->billing['zone_id']) {
+              $check_flag = true;
+              break;
+            }
           }
         }
-      }
         if ($check_flag == false) {
           $this->enabled = false;
         }
@@ -124,8 +122,6 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
     function selection() {
       global $order;
 
-
-
       $selection = array('id' => $this->code,
                          'module' => $this->title,
                          'description'=>$this->info,
@@ -148,14 +144,12 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
       	                               'field' => MODULE_PAYMENT_BANKTRANSFER_TEXT_NOTE2 . '<a href="' . MODULE_PAYMENT_BANKTRANSFER_URL_NOTE . '" target="_blank"><b>' . MODULE_PAYMENT_BANKTRANSFER_TEXT_NOTE3 . '</b></a>' . MODULE_PAYMENT_BANKTRANSFER_TEXT_NOTE4);
       	$selection['fields'][] = array('title' => MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_FAX,
       	                               'field' => xtc_draw_checkbox_field('banktransfer_fax', 'on'));
-
       }
 
       return $selection;
     }
 
     function pre_confirmation_check(){
-
 
       if ($_POST['banktransfer_fax'] == false  && $_POST['recheckok'] != 'true') {
         include(DIR_WS_CLASSES . 'banktransfer_validation.php');
@@ -164,79 +158,79 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
         $banktransfer_result = $banktransfer_validation->CheckAccount($_POST['banktransfer_number'], $_POST['banktransfer_blz']);
 
 
-		if ($banktransfer_validation->Bankname != '') {
-                       $this->banktransfer_bankname =  $banktransfer_validation->Bankname;
-                } else {
-                         $this->banktransfer_bankname = xtc_db_prepare_input($_POST['banktransfer_bankname']);
-                }
+        if ($banktransfer_validation->Bankname != '') {
+                         $this->banktransfer_bankname =  $banktransfer_validation->Bankname;
+                  } else {
+                           $this->banktransfer_bankname = xtc_db_prepare_input($_POST['banktransfer_bankname']);
+                  }
 
-                if ($_POST['banktransfer_owner'] == '') {
-                        $banktransfer_result = 10;
-                }
+                  if ($_POST['banktransfer_owner'] == '') {
+                          $banktransfer_result = 10;
+                  }
 
-          
-          
-          switch ($banktransfer_result) {
-                        case 0: // payment o.k.
-                                $error = 'O.K.';
-                                $recheckok = 'false';
-                                break;
-                        case 1: // number & blz not ok
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_1;
-                                $recheckok = 'false';
-                                break;
-                        case 2: // account number has no calculation method
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_2;
-                                $recheckok = 'true';
-                                break;
-                        case 3: // No calculation method implemented
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_3;
-                                $recheckok = 'true';
-                                break;
-                        case 4: // Number cannot be checked
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_4;
-                                $recheckok = 'true';
-                                break;
-                        case 5: // BLZ not found
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_5;
-                                $recheckok = 'false'; // Set "true" if you have not the latest BLZ table!
-                                break;
-                        case 8: // no BLZ entered
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_8;
-                                $recheckok = 'false';
-                                break;
-                        case 9: // no number entered
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_9;
-                                $recheckok = 'false';
-                                break;
-                        case 10: // no account holder entered
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_10;
-                                $recheckok = 'false';
-                                break;
-                        case 128: // Internal error
-                                $error = 'Internal error, please check again to process your payment';
-                                $recheckok = 'true';
-                                break;
-                        default:
-                                $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_4;
-                                $recheckok = 'true';
-                                break;
-                }
-         
-          
+            
+            
+        switch ($banktransfer_result) {
+          case 0: // payment o.k.
+                  $error = 'O.K.';
+                  $recheckok = 'false';
+                  break;
+          case 1: // number & blz not ok
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_1;
+                  $recheckok = 'false';
+                  break;
+          case 2: // account number has no calculation method
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_2;
+                  $recheckok = 'true';
+                  break;
+          case 3: // No calculation method implemented
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_3;
+                  $recheckok = 'true';
+                  break;
+          case 4: // Number cannot be checked
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_4;
+                  $recheckok = 'true';
+                  break;
+          case 5: // BLZ not found
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_5;
+                  $recheckok = 'false'; // Set "true" if you have not the latest BLZ table!
+                  break;
+          case 8: // no BLZ entered
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_8;
+                  $recheckok = 'false';
+                  break;
+          case 9: // no number entered
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_9;
+                  $recheckok = 'false';
+                  break;
+          case 10: // no account holder entered
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_10;
+                  $recheckok = 'false';
+                  break;
+          case 128: // Internal error
+                  $error = 'Internal error, please check again to process your payment';
+                  $recheckok = 'true';
+                  break;
+          default:
+                  $error = MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR_4;
+                  $recheckok = 'true';
+                  break;
+        }
+           
+            
 
-          if ($banktransfer_result > 0 && $_POST['recheckok'] != 'true') {
-            $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&banktransfer_owner=' . urlencode($_POST['banktransfer_owner']) . '&banktransfer_number=' . urlencode($_POST['banktransfer_number']) . '&banktransfer_blz=' . urlencode($_POST['banktransfer_blz']) . '&banktransfer_bankname=' . urlencode($_POST['banktransfer_bankname']) . '&recheckok=' . $recheckok;
-            xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
-          }
-     	$this->banktransfer_owner = xtc_db_prepare_input($_POST['banktransfer_owner']);
+        if ($banktransfer_result > 0 && $_POST['recheckok'] != 'true') {
+          $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&banktransfer_owner=' . urlencode($_POST['banktransfer_owner']) . '&banktransfer_number=' . urlencode($_POST['banktransfer_number']) . '&banktransfer_blz=' . urlencode($_POST['banktransfer_blz']) . '&banktransfer_bankname=' . urlencode($_POST['banktransfer_bankname']) . '&recheckok=' . $recheckok;
+          xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
+        }
+        $this->banktransfer_owner = xtc_db_prepare_input($_POST['banktransfer_owner']);
         $this->banktransfer_blz = xtc_db_prepare_input($_POST['banktransfer_blz']);
         $this->banktransfer_number = xtc_db_prepare_input($_POST['banktransfer_number']);
         $this->banktransfer_prz = $banktransfer_validation->PRZ;
         $this->banktransfer_status = $banktransfer_result;
-
       }
     }
+    
     function confirmation() {
       global $banktransfer_val, $banktransfer_owner, $banktransfer_bankname, $banktransfer_blz, $banktransfer_number, $checkout_form_action, $checkout_form_submit;
 
@@ -287,14 +281,19 @@ $this->info=MODULE_PAYMENT_BANKTRANSFER_TEXT_INFO;
       xtc_db_query("INSERT INTO banktransfer (orders_id, banktransfer_blz, banktransfer_bankname, banktransfer_number, banktransfer_owner, banktransfer_status, banktransfer_prz) VALUES ('" . $insert_id . "', '" . $this->banktransfer_blz . "', '" . $this->banktransfer_bankname . "', '" . $this->banktransfer_number . "', '" . $this->banktransfer_owner ."', '" . $this->banktransfer_status ."', '" . $this->banktransfer_prz ."')");
       if ($_POST['banktransfer_fax'])
         xtc_db_query("update banktransfer set banktransfer_fax = '" . $this->banktransfer_fax ."' where orders_id = '" . $insert_id . "'");
-        if ($this->order_status) xtc_db_query("UPDATE ". TABLE_ORDERS ." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+        //BOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
+        //if ($this->order_status)
+        //  xtc_db_query("UPDATE ". TABLE_ORDERS ." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+        if (isset($this->order_status) && $this->order_status) {
+            xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+            xtc_db_query("UPDATE ".TABLE_ORDERS_STATUS_HISTORY." SET orders_status_id='".$this->order_status."' WHERE orders_id='".$insert_id."'");
+        }
+        //EOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
     }
 
     function get_error() {
-
       $error = array('title' => MODULE_PAYMENT_BANKTRANSFER_TEXT_BANK_ERROR,
                      'error' => stripslashes(urldecode($_GET['error'])));
-
       return $error;
     }
 
