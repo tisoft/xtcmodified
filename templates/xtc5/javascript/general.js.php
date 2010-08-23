@@ -17,8 +17,8 @@
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery.js" type="text/javascript"></script>
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/thickbox.js" type="text/javascript"></script>
 
-<?php// BOF - web28 - 2010-07-26 - TABS/ACCORDION in product_info ?>
 <?php
+// BOF - web28 - 2010-07-26 - TABS/ACCORDION in product_info
 if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 ?>
 <script src="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery-ui.js" type="text/javascript"></script>
@@ -37,5 +37,5 @@ if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 </script>
 <?php
 }
+// EOF - web28 - 2010-07-26 - TABS/ACCORDION in product_info
 ?>
-<?php// EOF - web28 - 2010-07-26 - TABS/ACCORDION in product_info ?>

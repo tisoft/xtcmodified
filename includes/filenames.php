@@ -99,4 +99,8 @@ define('FILENAME_PRINT_ORDER', 'print_order.php');
 define('FILENAME_ERROR_HANDLER', 'error_handler.php');
 define('FILENAME_CONTENT', 'shop_content.php');
 define('FILENAME_BANNER', 'banners.php');
+
+// BOF - DokuMan - 2010-08-23 - PayPal API Modul - Use of undefined constant FILENAME_PAYPAL_CHECKOUT 
+define('FILENAME_PAYPAL_CHECKOUT', 'paypal_checkout.php');
+// EOF - DokuMan - 2010-08-23 - PayPal API Modul - Use of undefined constant FILENAME_PAYPAL_CHECKOUT 
 ?>
