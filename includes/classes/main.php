@@ -1,15 +1,16 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: main.php 1286 2005-10-07 10:10:18Z mz $ 
+   $Id$ 
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2005 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(Coding Standards); www.oscommerce.com 
+   (c) 2006 XT-Commerce (main.php 1286 2005-10-07)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -73,7 +74,8 @@ class main {
 	}
 	
 	function getTaxInfo($tax_rate) {
-		
+	
+        $tax_info = ''; //DokuMan - 2010-08-24 - set undefined variable
         // price incl tax
 				if ($tax_rate > 0 && $_SESSION['customers_status']['customers_status_show_price_tax'] != 0) {
 					$tax_info = sprintf(TAX_INFO_INCL, $tax_rate.' %');

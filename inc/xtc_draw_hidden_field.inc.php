@@ -21,10 +21,7 @@
     $field = '<input type="hidden" name="' . xtc_parse_input_field_data($name, array('"' => '&quot;')) . '" value="';
 
     if (xtc_not_null($value)) {
-      //BOF - DokuMan - 2010-08-24 - set undefined variable
-      //$field .= xtc_parse_input_field_data($value, array('"' => '&quot;'));
-      $field .= xtc_parse_input_field_data(isset($GLOBALS[$name]) ? $GLOBALS[$name] : '', array('"' => '&quot;'));
-      //EOF - DokuMan - 2010-08-24 - set undefined variable
+      $field .= xtc_parse_input_field_data($value, array('"' => '&quot;'));
     } else {
       $field .= xtc_parse_input_field_data($GLOBALS[$name], array('"' => '&quot;'));
     }

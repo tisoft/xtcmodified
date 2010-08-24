@@ -1,13 +1,14 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: tracking.php 1151 2005-08-12 09:19:33Z gwinger $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
+   based on:
+   (c) 2006 XT-Commerce (tracking.php 1151 2005-08-12)
 
    Third Party contribution:
    Some ideas and code from TrackPro v1.0 Web Traffic Analyzer 
@@ -30,8 +31,8 @@ if (isset($_SESSION['tracked']) && $_SESSION['tracked'] != true) { // if this vi
 	$_SESSION['tracked'] = true; // set tracked so they are only logged once
 }
 
- if (!isset($_SESSION['tracking']['ip'])) 
-    $_SESSION['tracking']['ip'] = $_SERVER['REMOTE_ADDR'];
+if (!isset($_SESSION['tracking']['ip'])) 
+  $_SESSION['tracking']['ip'] = $_SERVER['REMOTE_ADDR'];
 
 if (!isset ($_SESSION['tracking']['refID'])) {	
 	// check if referer exists
@@ -58,20 +59,19 @@ if (!isset ($_SESSION['tracking']['date']))
 if (!isset ($_SESSION['tracking']['browser']))
 	$_SESSION['tracking']['browser'] = $_SERVER["HTTP_USER_AGENT"];
 
-
-
+//BOF - DokuMan - 2010-08-24 - set undefined index
+if (!isset($_SESSION['tracking']['pageview_history'])) $_SESSION['tracking']['pageview_history'] = array();
+//EOF - DokuMan - 2010-08-24 - set undefined index
 $i = count($_SESSION['tracking']['pageview_history']);
 if ($i > 6) {
 	array_shift($_SESSION['tracking']['pageview_history']);
 	$_SESSION['tracking']['pageview_history'][6] = $ref_url;
 } else {
 	$_SESSION['tracking']['pageview_history'][$i] = $ref_url;
+  //BOF - DokuMan - 2010-02-26 - set undefined index http_referer
+  //if ($_SESSION['tracking']['pageview_history'][$i] == $_SESSION['tracking']['http_referer'])
+  if (isset($_SESSION['tracking']['http_referer']) && $_SESSION['tracking']['pageview_history'][$i] == $_SESSION['tracking']['http_referer'])
+    array_shift($_SESSION['tracking']['pageview_history']);
+  //EOF - DokuMan - 2010-02-26 - set undefined index http_referer
 }
-
-//BOF - DokuMan - 2010-02-26 - set undefined index http_referer
-//if ($_SESSION['tracking']['pageview_history'][$i] == $_SESSION['tracking']['http_referer'])
-if (isset($_SESSION['tracking']['http_referer']) && $_SESSION['tracking']['pageview_history'][$i] == $_SESSION['tracking']['http_referer'])
-	array_shift($_SESSION['tracking']['pageview_history']);
-//EOF - DokuMan - 2010-02-26 - set undefined index http_referer
-
 ?>

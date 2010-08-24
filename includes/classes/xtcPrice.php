@@ -430,6 +430,7 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
 	$tQuery = xtc_db_query($tQuery);
    	$tQuery = xtc_db_fetch_array($tQuery);
    	$tax_class = $tQuery[products_tax_class_id];
+   	//$tax_class = isset($tQuery[products_tax_class_id]) ? $tQuery[products_tax_class_id] : 0;   	
 	// ENDE "Steuerklasse ermitteln"
 //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 	if ($pPrice == 0)
