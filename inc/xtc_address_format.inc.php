@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_address_format.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(general.php,v 1.225 2003/05/29); www.oscommerce.com 
    (c) 2003	 nextcommerce (xtc_address_format.inc.php,v 1.5 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (xtc_address_format.inc.php 899 2005-04-29)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -29,8 +30,12 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
     $suburb = addslashes($address['suburb']);
     $city = addslashes($address['city']);
     $state = addslashes($address['state']);
-    $country_id = $address['country_id'];
-    $zone_id = $address['zone_id'];
+    //BOF - DokuMan - 2010-08-24 - set undefined index
+    //$country_id = $address['country_id'];
+    //$zone_id = $address['zone_id'];
+    $country_id = array_key_exists('country_id', $address) ? $address['country_id'] : 0;
+    $zone_id = array_key_exists('zone_id', $address) ? $address['zone_id'] : 0;
+    //EOF - DokuMan - 2010-08-24 - set undefined index
     $postcode = addslashes($address['postcode']);
     $zip = $postcode;
     $country = xtc_get_country_name($country_id);
@@ -73,5 +78,5 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
     $address = stripslashes($address);
 
     return $address;
-  }
- ?>
+}
+?>
