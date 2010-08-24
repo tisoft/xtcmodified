@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
    (c) 2003	 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
+   (c) 2006 XT-Commerce (application_top.php 1194 2010-08-22)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -25,7 +25,6 @@
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
-
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 // BOF - Hendrik - 2010-08-22 - xajax support
@@ -38,7 +37,6 @@ define('PAGE_PARSE_START_TIME', microtime());
 
 // set the level of error reporting
 error_reporting(E_ALL & ~E_NOTICE);
-//  error_reporting(E_ALL);
 
 // Set the local configuration parameters - mainly for developers - if exists else the mainconfigure
 if (file_exists('includes/local/configure.php')) {
@@ -48,9 +46,9 @@ if (file_exists('includes/local/configure.php')) {
 }
 
 // BOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
-  if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
-	date_default_timezone_set('Europe/Berlin');
-  }
+if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
+date_default_timezone_set('Europe/Berlin');
+}
 // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 
 $php4_3_10 = (0 == version_compare(phpversion(), "4.3.10"));
@@ -134,7 +132,6 @@ require_once (DIR_FS_INC.'xtc_db_output.inc.php');
 require_once (DIR_FS_INC.'xtc_db_input.inc.php');
 require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
 require_once (DIR_FS_INC.'xtc_get_top_level_domain.inc.php');
-
 
 // html basics
 require_once (DIR_FS_INC.'xtc_href_link.inc.php');
@@ -437,12 +434,10 @@ if (isset($_SESSION['language']) && !isset($_SESSION['language_charset'])) {
 	include (DIR_WS_CLASSES.'language.php');
 	$lng = new language(xtc_input_validation($_SESSION['language'], 'char', ''));
 
-
 	$_SESSION['language'] = $lng->language['directory'];
 	$_SESSION['languages_id'] = $lng->language['id'];
 	$_SESSION['language_charset'] = $lng->language['language_charset'];
 	$_SESSION['language_code'] = $lng->language['code'];
-	
 }
 
 // include the language translations
@@ -466,7 +461,6 @@ if (isset ($_SESSION['currency']) && $_SESSION['currency'] == '') {
 require (DIR_WS_INCLUDES.'write_customers_status.php');
 
 // testing new price class
-
 require (DIR_WS_CLASSES.'main.php');
 $main = new main();
 
@@ -576,6 +570,7 @@ $breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
 
 // add category names or the manufacturer name to the breadcrumb trail
 if (isset ($cPath_array)) {
+  $group_check = '';
 	for ($i = 0, $n = sizeof($cPath_array); $i < $n; $i ++) {
 		if (GROUP_CHECK == 'true') {
 			$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
@@ -602,7 +597,6 @@ elseif (isset($_GET['manufacturers_id']) && xtc_not_null($_GET['manufacturers_id
 	$manufacturers = xtc_db_fetch_array($manufacturers_query, true);
 
 	$breadcrumb->add($manufacturers['manufacturers_name'], xtc_href_link(FILENAME_DEFAULT, xtc_manufacturer_link((int) $_GET['manufacturers_id'], $manufacturers['manufacturers_name'])));
-
 }
 
 // add the products model/name to the breadcrumb trail
@@ -612,7 +606,6 @@ if ($product->isProduct()) {
 	$breadcrumb->add($product->data['products_name'], xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
 // EOF - Tomcraft - 2009-10-25 - replaced model-number with products_name in breadcrumb navigation
 }
-
 
 // initialize the message stack for output messages
 require (DIR_WS_CLASSES.'message_stack.php');

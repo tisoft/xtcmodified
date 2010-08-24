@@ -41,7 +41,6 @@ class xtcPrice {
 		$this->showFrom_Attributes = true;
 
 		// select Currencies
-
 		$currencies_query = "SELECT * FROM ".TABLE_CURRENCIES;
 		$currencies_query = xtDBquery($currencies_query);
 		while ($currencies = xtc_db_fetch_array($currencies_query, true)) {
@@ -132,7 +131,6 @@ class xtcPrice {
 		$pQuery = xtDBquery($pQuery);
 		$pData = xtc_db_fetch_array($pQuery, true);
 		return $pData['products_price'];
-
 
 	}
 
@@ -428,9 +426,8 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
 		FROM ".TABLE_PRODUCTS." WHERE
 		products_id='".$pID."'";
 	$tQuery = xtc_db_query($tQuery);
-   	$tQuery = xtc_db_fetch_array($tQuery);
-   	$tax_class = $tQuery[products_tax_class_id];
-   	//$tax_class = isset($tQuery[products_tax_class_id]) ? $tQuery[products_tax_class_id] : 0;   	
+  $tQuery = xtc_db_fetch_array($tQuery);
+  $tax_class = $tQuery['products_tax_class_id'];
 	// ENDE "Steuerklasse ermitteln"
 //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 	if ($pPrice == 0)
@@ -445,9 +442,9 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
 		$sQuery = xtDBquery($sQuery);
 		$sQuery = xtc_db_fetch_array($sQuery, true);
 		// NEU! Damit "UVP"-Anzeige wieder möglich ist
-		// if ( ($this->cStatus['customers_status_graduated_prices'] == '1') || ($sQuery[qty] > 1) ) {
-		if ( ($this->cStatus['customers_status_graduated_prices'] == '1') && ($sQuery[qty] > 1) ) {
-			$bestPrice = $this->xtcGetGraduatedPrice($pID, $sQuery[qty]);
+		// if ( ($this->cStatus['customers_status_graduated_prices'] == '1') || ($sQuery['qty'] > 1) ) {
+		if ( ($this->cStatus['customers_status_graduated_prices'] == '1') && ($sQuery['qty'] > 1) ) {
+			$bestPrice = $this->xtcGetGraduatedPrice($pID, $sQuery['qty']);
 			if ($discount)
 				$bestPrice -= $bestPrice / 100 * $discount;
 			$price .= FROM.$this->xtcFormat($bestPrice, $format, $tax_class)
@@ -475,5 +472,4 @@ function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus =
 	}
 
 }
-
 ?>

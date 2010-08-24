@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: product_info.php 1317 2005-10-21 16:03:18Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(product_info.php,v 1.94 2003/05/04); www.oscommerce.com 
    (c) 2003      nextcommerce (product_info.php,v 1.46 2003/08/25); www.nextcommerce.org
+   (c) 2006 xt:Commerce (product_info.php 1317 2005-10-21); www.xt-commerce.de
 
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
@@ -113,7 +114,11 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			$info_smarty->assign('PRODUCTS_VPE', $xtPrice->xtcFormat($products_price['plain'] * (1 / $product->data['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product->data['products_vpe']));
 		$info_smarty->assign('PRODUCTS_ID', $product->data['products_id']);
 		$info_smarty->assign('PRODUCTS_NAME', $product->data['products_name']);
-		if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
+		//BOF - DokuMan - 2010-08-24 - set Undefined index: 0
+		//if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
+		if ($_SESSION['customers_status']['customers_status_show_price'] != 0 && isset($xtPrice->TAX[$product->data['products_tax_class_id']])) {
+		//EOF - DokuMan - 2010-08-24 - set Undefined index: 0
+
 			// price incl tax
 			$tax_rate = $xtPrice->TAX[$product->data['products_tax_class_id']];				
 			$tax_info = $main->getTaxInfo($tax_rate);
@@ -237,7 +242,10 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 //EOF - web28 - 2010-07-12 - sort templates array
 	}
 
-$i = count($_SESSION['tracking']['products_history']);
+  //BOF - DokuMan - 2010-08-24 - set undefined index
+  //$i = count($_SESSION['tracking']['products_history']);
+  $i = isset($_SESSION['tracking']['products_history']) ? count($_SESSION['tracking']['products_history']) : 0;
+  //EOF - DokuMan - 2010-08-24 - set undefined index
 	if ($i > 6) {
 		array_shift($_SESSION['tracking']['products_history']);
 		$_SESSION['tracking']['products_history'][6] = $product->data['products_id'];

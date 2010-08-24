@@ -1,38 +1,40 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: reviews.php 1262 2005-09-30 10:00:32Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(reviews.php,v 1.36 2003/02/12); www.oscommerce.com 
    (c) 2003	 nextcommerce (reviews.php,v 1.9 2003/08/17 22:40:08); www.nextcommerce.org
+   (c) 2006 XT-Commerce (reviews.php 1262 2005-09-30)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
-$box_smarty = new smarty;
-$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
-$box_content='';
+  $box_smarty = new smarty;
+  $box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
+  $box_content='';
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_random_select.inc.php');
   require_once(DIR_FS_INC . 'xtc_break_string.inc.php');
 
-      //fsk18 lock
+  //fsk18 lock
   $fsk_lock='';
   if ($_SESSION['customers_status']['customers_fsk18_display']=='0') {
-  $fsk_lock=' and p.products_fsk18!=1';
+    $fsk_lock=' and p.products_fsk18!=1';
   }
+  
   $random_select = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = r.products_id ".$fsk_lock." and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'";
+  
   if ($product->isProduct()) {
     $random_select .= " and p.products_id = '" . $product->data['products_id'] . "'";
   }
   $random_select .= " order by r.reviews_id desc limit " . MAX_RANDOM_SELECT_REVIEWS;
   $random_product = xtc_random_select($random_select);
-
 
   if ($random_product) {
     // display random review box
@@ -50,11 +52,10 @@ $box_content='';
 
   } elseif ($product->isProduct()) {
 	
-	// Verhindern das Gäste oder Spamer bewerten können. www.aranowa.de 
+    // Verhindern das Gäste oder Spamer bewerten können. www.aranowa.de 
     if (isset($_SESSION['customer_id'])) {
-
-   // display 'write a review' box
-   $box_content = '<table border="0" cellspacing="0" cellpadding="2"><tr><td align="left" class="infoBoxContents"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xtc_product_link($product->data['products_id'],$product->data['products_name'])) . '">' . BOX_REVIEWS_WRITE_REVIEW .'</a></td></tr></table>';
+     // display 'write a review' box
+     $box_content = '<table border="0" cellspacing="0" cellpadding="2"><tr><td align="left" class="infoBoxContents"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xtc_product_link($product->data['products_id'],$product->data['products_name'])) . '">' . BOX_REVIEWS_WRITE_REVIEW .'</a></td></tr></table>';
     }
   }
 
@@ -63,18 +64,19 @@ $box_content='';
   $box_smarty->assign('BOX_CONTENT', $box_content);
   $box_smarty->assign('language', $_SESSION['language']);
   // set cache ID
- if (!CacheCheck()) {
-  $box_smarty->caching = 0;
-  $box_reviews= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_reviews.html');
-  } else {
-  $box_smarty->caching = 1;
-  $box_smarty->cache_lifetime=CACHE_LIFETIME;
-  $box_smarty->cache_modified_check=CACHE_CHECK;
-  $cache_id = $_SESSION['language'].$random_product['reviews_id'].$product->data['products_id'].$_SESSION['language'];
-  $box_reviews= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_reviews.html',$cache_id);
-  }
+   if (!CacheCheck()) {
+    $box_smarty->caching = 0;
+    $box_reviews= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_reviews.html');
+    } else {
+    $box_smarty->caching = 1;
+    $box_smarty->cache_lifetime=CACHE_LIFETIME;
+    $box_smarty->cache_modified_check=CACHE_CHECK;
+    //BOF - DokuMan - 2010-08-23 - set undefined index
+    //$cache_id = $_SESSION['language'].$random_product['reviews_id'].$product->data['products_id'].$_SESSION['language'];
+    $cache_id = $_SESSION['language'].$random_product['reviews_id'].(isset($product->data['products_id']) ? $product->data['products_id'] : 0).$_SESSION['language'];
+    //EOF - DokuMan - 2010-08-23 - set undefined index  
+    $box_reviews= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_reviews.html',$cache_id);
+    }
   $smarty->assign('box_REVIEWS',$box_reviews);
-
-  } 
-
+  }
 ?>

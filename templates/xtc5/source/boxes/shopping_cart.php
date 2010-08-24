@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: shopping_cart.php 1281 2005-10-03 09:30:17Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce 
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.18 2003/02/10); www.oscommerce.com
    (c) 2003	 nextcommerce (shopping_cart.php,v 1.15 2003/08/17); www.nextcommerce.org 
+   (c) 2006 XT-Commerce (shopping_cart.php 1281 2005-10-03)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -20,6 +20,7 @@ $box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 $box_content = '';
 $box_price_string = '';
 $products_in_cart = array (); //DokuMan - 2010-02-28 - Undefined variable: products_in_cart
+$total = 0.0; //DokuMan - 2010-08-24 - Undefined variable: total
 $qty = 0; //DokuMan - 2010-02-28 - Undefined variable: qty
 // include needed files
 require_once (DIR_FS_INC.'xtc_recalculate_price.inc.php');

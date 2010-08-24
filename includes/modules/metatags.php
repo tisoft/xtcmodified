@@ -1,47 +1,54 @@
-<?php 
+<?php
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-// ---------------------------------------------------------------------------------------
-//	AUTOMATISCHE METATAGS MULTILANGUAGE für xt:Commerce 3.04
-// ---------------------------------------------------------------------------------------
-//	by Gunnar Tillmann
-//	http://www.gunnart.de?p=401
-// ---------------------------------------------------------------------------------------
-//	Rewritten, formerly based on:
-//	(c) 2003 xt:Commerce (metatags.php, v.1140 2005/08/10); www.xt-commerce.de
-//	(c) 2003 nextcommerce (metatags.php, v1.7 2003/08/14); www.nextcommerce.org
-// ---------------------------------------------------------------------------------------
-//	Version 0.96 / 21. Juni 2009
-//  - 	Umwandlung von Umlauten in Keywords statt in ae und oe JETZT in &auml; &ouml;
-//	-	"Bindestrich-Wörter" (z.B. T-Shirt oder DVD-Player) werden in den Keywords nicht 
-//		mehr getrennt
-//  - 	Metatags auch für ContentManager-Seiten (Achtung! Dazu Erweiterung erforderlich!)
-//  - 	Im ContentManager können auch automatische Metatags aus eingebundenen HTML- oder 
-//		Text-Dateien erzeugt werden
-//	-	Standard-Meta-Angaben durch Content-Metas auch mehrsprachig möglich. Dazu eine 
-//	 	Seite namens "STANDARD_META" anlegen
-//	- 	Bei automatisch erzeugen Keywords oder Descriptions werden Wörter nach Zeilen-
-//		umbrüchen nicht mehr "zusammengezogen"
-//	-	Eigene (mehrsprachige) Metas für die Shop-Startseite möglich - Dazu werden die 
-//		Metas aus der "index"-Seite im ContentManager geholt 
-//	-	Seiten-Nummer im Title bei Artikel-Listen (also Kategorien, Sonderangebote etc.)
-//	-	Eigener Title bei Suchergebnissen (Mit Seiten-Nummer, Suchbegriff, ggf. Hersteller
-//		und Kategorienname)
-//	- 	Bei allen Seiten, die nicht "Kategorie", "Startseite", "Content", "Produkt" o.ä.
-//		sind, wird der Title aus den Einträgen im $breadcrumb-Objekt zusammengesetzt
-// 	- 	BugFix: BreadCrumb wird nicht mehr verkürzt
-// ---------------------------------------------------------------------------------------
-//	Inspired by "Dynamic Meta" - Ein WordPress-PlugIn von Michael Schwarz
-//	http://www.php-vision.de/plugins-scripte/dynamicmeta-wpplugin.php
-// ---------------------------------------------------------------------------------------
-//	Getestet für xt:C 3.04 SP2.1, 
-// 	Tauglich für Shops mit und ohne ShopStat-Erweiterung
-//	Eventuell sollte die "includes/header.php" ein bisschen angepasst werden, um valides
-//	XHTML zu gewährleisten
-// ---------------------------------------------------------------------------------------
-//	Achtung: Vor Einbau bitte unbedingt dieses Modul installieren:
-//	--> http://www.xtc-load.de/2008/11/metatags-fur-content-seiten/
-// ---------------------------------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on:
+ 	 (c) 2003 nextcommerce (metatags.php, v1.7 2003/08/14); www.nextcommerce.org
+   (c) 2006 xt:Commerce (metatags.php, v.1140 2005/08/10); www.xt-commerce.de
+
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------------------------
+   Modified by Gunnar Tillmann (August 2006)
+   http://www.gunnart.de
+   ---------------------------------------------------------------------------------------
+  	AUTOMATISCHE METATAGS MULTILANGUAGE für xt:Commerce 3.04
+   ---------------------------------------------------------------------------------------
+      Version 0.96 / 21. Juni 2009
+    - 	Umwandlung von Umlauten in Keywords statt in ae und oe JETZT in &auml; &ouml;
+    -	"Bindestrich-Wörter" (z.B. T-Shirt oder DVD-Player) werden in den Keywords nicht 
+      mehr getrennt
+    - 	Metatags auch für ContentManager-Seiten (Achtung! Dazu Erweiterung erforderlich!)
+    - 	Im ContentManager können auch automatische Metatags aus eingebundenen HTML- oder 
+      Text-Dateien erzeugt werden
+    -	Standard-Meta-Angaben durch Content-Metas auch mehrsprachig möglich. Dazu eine 
+      Seite namens "STANDARD_META" anlegen
+    - 	Bei automatisch erzeugen Keywords oder Descriptions werden Wörter nach Zeilen-
+      umbrüchen nicht mehr "zusammengezogen"
+    -	Eigene (mehrsprachige) Metas für die Shop-Startseite möglich - Dazu werden die 
+      Metas aus der "index"-Seite im ContentManager geholt 
+    -	Seiten-Nummer im Title bei Artikel-Listen (also Kategorien, Sonderangebote etc.)
+    -	Eigener Title bei Suchergebnissen (Mit Seiten-Nummer, Suchbegriff, ggf. Hersteller
+      und Kategorienname)
+    - 	Bei allen Seiten, die nicht "Kategorie", "Startseite", "Content", "Produkt" o.ä.
+      sind, wird der Title aus den Einträgen im $breadcrumb-Objekt zusammengesetzt
+    - 	BugFix: BreadCrumb wird nicht mehr verkürzt
+   ---------------------------------------------------------------------------------------
+    Inspired by "Dynamic Meta" - Ein WordPress-PlugIn von Michael Schwarz
+    http://www.php-vision.de/plugins-scripte/dynamicmeta-wpplugin.php
+   ---------------------------------------------------------------------------------------
+    Getestet für xt:C 3.04 SP2.1, 
+    Tauglich für Shops mit und ohne ShopStat-Erweiterung
+    Eventuell sollte die "includes/header.php" ein bisschen angepasst werden, um valides
+    XHTML zu gewährleisten
+   ---------------------------------------------------------------------------------------
+    Achtung: Vor Einbau bitte unbedingt dieses Modul installieren:
+    --> http://www.xtc-load.de/2008/11/metatags-fur-content-seiten/
+   ---------------------------------------------------------------------------------------*/
 
 
 // ---------------------------------------------------------------------------------------
@@ -59,7 +66,7 @@
 	$addCatShopTitle 		= 	true; 	// Shop-Titel bei Kategorien anhängen, ja/nein?
 	$addProdShopTitle 		= 	true; 	// Shop-Titel bei Produkten anhängen, ja/nein?
 	$addContentShopTitle 	= 	true; 	// Shop-Titel bei Contentseiten anhängen, ja/nein?
-	$addSpecialsShopTitle 	= 	true; 	// Shop-Titel bei Angeboten anhängen, ja/nein?
+	$addSpecialsShopTitle = 	true; 	// Shop-Titel bei Angeboten anhängen, ja/nein?
 	$addNewsShopTitle 		= 	true; 	// Shop-Titel bei Neuen Artikeln anhängen, ja/nein?
 	$addSearchShopTitle 	= 	true; 	// Shop-Titel bei Suchergebnissen anhängen, ja/nein?
 	$addOthersShopTitle 	= 	true; 	// Shop-Titel bei sonstigen Seiten anhängen, ja/nein?
@@ -145,7 +152,8 @@
 // ---------------------------------------------------------------------------------------
 // 	Seitennummerierung im Title (Kategorien, Sonderangebote, Neue Artikel etc.)
 // ---------------------------------------------------------------------------------------
-	if($_GET['page'] > 1 && $addPagination) {
+	$Page = '';
+	if(isset($_GET['page']) && $_GET['page'] > 1 && $addPagination) {
 		// PREVNEXT_TITLE_PAGE_NO ist "Seite %d" aus der deutschen 
 		// bzw. "page %d" aus der englischen Sprachdatei ...
 		$Page = trim(str_replace('%d','',PREVNEXT_TITLE_PAGE_NO)).' '.intval($_GET['page']);
@@ -203,7 +211,7 @@
 		$KeyWords 	= 	WordArray($KeyWords);
 		$StopWords 	=	WordArray($metaStopWords);
 		$KeyWords 	= 	array_diff($KeyWords,$StopWords);
-		$KeyWords 	= 	array_filter($KeyWords,filterKeyWordArray);
+		$KeyWords 	= 	array_filter($KeyWords,'filterKeyWordArray');
 		return $KeyWords;
 	}
 // ---------------------------------------------------------------------------------------
@@ -260,7 +268,7 @@
 // ---------------------------------------------------------------------------------------
 	function metaTitle($Title=array()) {
 		$Title = func_get_args();
-		$Title = array_filter($Title,metaClean);
+		$Title = array_filter($Title,'metaClean');
 		return implode(' - ',$Title);
 	}
 // ---------------------------------------------------------------------------------------

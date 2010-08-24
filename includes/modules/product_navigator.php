@@ -1,12 +1,14 @@
 <?php
-
 /* ----------------------------------------------------------------------------------------------
-   $Id: product_navigator.php 1292 2005-10-07 16:10:55Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on:
+   (c) 2006 xt:Commerce (product_navigator.php 1292 2005-10-07); www.xt-commerce.de
 
    Released under the GNU General Public License
    ----------------------------------------------------------------------------------------------
@@ -60,6 +62,12 @@ while ($products_data = xtc_db_fetch_array($products_query, true)) {
 		$actual_key = $i;
 	$i ++;
 }
+
+$first_link = '';
+$prev_link  = '';
+$next_link  = '';
+$last_link  = '';
+
 // check if array key = first
 if ($actual_key == 0) {
 	// aktuel key = first product
