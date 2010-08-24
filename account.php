@@ -1,13 +1,12 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: account.php 1124 2005-07-28 08:50:04Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------   
    based on:
    (c) 2000-2001 The Exchange Project (earlier name of osCommerce)
    (c) 2002-2003 osCommerce (account.php,v 1.59 2003/05/19); www.oscommerce.com
