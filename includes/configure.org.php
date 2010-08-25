@@ -1,18 +1,20 @@
 <?php
 /* --------------------------------------------------------------
-  ### Be careful, this is the backup of your original configuration data ###
+   $Id$   
 
-  XT-Commerce - community made shopping
-  http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-  --------------------------------------------------------------
-  based on:
-  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-  (c) 2002-2003 osCommerce (configure.php,v 1.13 2003/02/10); www.oscommerce.com
+   Copyright (c) 2010 xtcModified
+   --------------------------------------------------------------
+   ### Be careful, this is the backup of your original configuration data ###
+   --------------------------------------------------------------
+   based on:
+   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce (configure.php,v 1.13 2003/02/10); www.oscommerce.com
 
-  Released under the GNU General Public License
-  --------------------------------------------------------------*/
+   Released under the GNU General Public License
+   --------------------------------------------------------------*/
 
 // Define the webserver and path parameters
 // * DIR_FS_* = Filesystem directories (local/physical)
@@ -20,9 +22,9 @@
   define('HTTP_SERVER', 'http://localhost'); // eg, http://localhost - should not be empty for productive servers
   define('HTTPS_SERVER', 'https://localhost'); // eg, https://localhost - should not be empty for productive servers
   define('ENABLE_SSL', false); // secure webserver for checkout procedure?
-  define('DIR_WS_CATALOG', '/304SP2/xtcommerce/'); // absolute path required
-  define('DIR_FS_DOCUMENT_ROOT', '/Users/mzanier/Sites/304SP2/xtcommerce/');
-  define('DIR_FS_CATALOG', '/Users/mzanier/Sites/304SP2/xtcommerce/');
+  define('DIR_WS_CATALOG', '/xtc-modified/'); // absolute path required
+  define('DIR_FS_DOCUMENT_ROOT', '/web1/xtc-modified/');
+  define('DIR_FS_CATALOG', '/xtc-modified/');
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_WS_ORIGINAL_IMAGES', DIR_WS_IMAGES .'product_images/original_images/');
   define('DIR_WS_THUMBNAIL_IMAGES', DIR_WS_IMAGES .'product_images/thumbnail_images/');
@@ -44,7 +46,7 @@
   define('DB_SERVER', 'localhost'); // eg, localhost - should not be empty for productive servers
   define('DB_SERVER_USERNAME', 'root');
   define('DB_SERVER_PASSWORD', 'root');
-  define('DB_DATABASE', 'xtc_sp2');
+  define('DB_DATABASE', 'xtc_modified');
   define('USE_PCONNECT', 'false'); // use persistent connections?
   define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
 ?>
