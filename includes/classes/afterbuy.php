@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: afterbuy.php 1287 2005-10-07 10:41:03Z mz $ 
+   $Id$ 
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(Coding Standards); www.oscommerce.com 
+   (c) 2006 XT-Commerce (afterbuy.php 1287 2005-10-07)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -60,7 +60,7 @@ class xtc_afterbuy_functions {
 		curl_setopt($ch, CURLOPT_POST, 1);
 
 		// get order data
-		$o_query = xtc_db_query("SELECT * FROM ".TABLE_ORDERS." WHERE orders_id='".$oID."'");
+		$o_query = xtc_db_query("SELECT * FROM ".TABLE_ORDERS." WHERE orders_id='".(int)$oID."'");
 		$oData = xtc_db_fetch_array($o_query);
 
 		// customers Address
@@ -77,7 +77,7 @@ class xtc_afterbuy_functions {
 		$customer['land'] = $oData['billing_country_iso_code_2'];
 
 		// get gender
-		$c_query = xtc_db_query("SELECT customers_gender FROM ".TABLE_CUSTOMERS." WHERE customers_id='".$customer['id']."'");
+		$c_query = xtc_db_query("SELECT customers_gender FROM ".TABLE_CUSTOMERS." WHERE customers_id='".(int)$customer['id']."'");
 		$c_data = xtc_db_fetch_array($c_query);
 		switch ($c_data['customers_gender']) {
 			case 'm' :
@@ -98,7 +98,7 @@ class xtc_afterbuy_functions {
 		$customer['d_land'] = $oData['delivery_country_iso_code_2'];
 
 		// get products related to order
-		$p_query = xtc_db_query("SELECT * FROM ".TABLE_ORDERS_PRODUCTS." WHERE orders_id='".$oID."'");
+		$p_query = xtc_db_query("SELECT * FROM ".TABLE_ORDERS_PRODUCTS." WHERE orders_id='".(int)$oID."'");
 
 		$p_count = xtc_db_num_rows($p_query);
 		// init GET string
@@ -151,7 +151,7 @@ class xtc_afterbuy_functions {
 			$url = HTTP_SERVER.DIR_WS_CATALOG.'product_info.php?products_id='.$pDATA['products_id'];
 			$DATAstring .= "ArtikelLink_".$nr."=".$url."&";
 
-			$a_query = xtc_db_query("SELECT * FROM ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." WHERE orders_id='".$oID."' AND orders_products_id='".$pDATA['orders_products_id']."'");
+			$a_query = xtc_db_query("SELECT * FROM ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." WHERE orders_id='".(int)$oID."' AND orders_products_id='".$pDATA['orders_products_id']."'");
 			$options = '';
 			while ($aDATA = xtc_db_fetch_array($a_query)) {
 				if ($options == '') {
@@ -171,7 +171,7 @@ class xtc_afterbuy_functions {
 						                      value,
 						                      sort_order
 						                      FROM ".TABLE_ORDERS_TOTAL."
-						                      WHERE orders_id='".$oID."'
+						                      WHERE orders_id='".(int)$oID."'
 						                      ORDER BY sort_order ASC");
 
 		$order_total = array ();
@@ -276,7 +276,7 @@ class xtc_afterbuy_functions {
 
 		//banktransfer data
 		if ($oData['payment_method']=='banktransfer') {
-		$b_query = xtc_db_query("SELECT * FROM ".TABLE_BANKTRANSFER." WHERE orders_id='".$oID."'");
+		$b_query = xtc_db_query("SELECT * FROM ".TABLE_BANKTRANSFER." WHERE orders_id='".(int)$oID."'");
 
 		if (xtc_db_numrows($b_query)) {
 			$b_data = xtc_db_fetch_array($b_query);
@@ -305,11 +305,11 @@ class xtc_afterbuy_functions {
 			$cdr = explode('<KundenNr>', $result);
 			$cdr = explode('</KundenNr>', $cdr[1]);
 			$cdr = $cdr[0];
-			xtc_db_query("update ".TABLE_ORDERS." set afterbuy_success='1',afterbuy_id='".$cdr."' where orders_id='".$oID."'");
+			xtc_db_query("update ".TABLE_ORDERS." set afterbuy_success='1',afterbuy_id='".$cdr."' where orders_id='".(int)$oID."'");
 
 			//set new order status
 			if ($order_status != '') {
-				xtc_db_query("update ".TABLE_ORDERS." set orders_status='".$order_status."' where orders_id='".$oID."'");
+				xtc_db_query("update ".TABLE_ORDERS." set orders_status='".$order_status."' where orders_id='".(int)$oID."'");
 			}
 		} else {
 
@@ -326,7 +326,7 @@ class xtc_afterbuy_functions {
 	// Funktion zum ueberpruefen ob Bestellung bereits an Afterbuy gesendet.
 	function order_send() {
 
-		$check_query = xtc_db_query("SELECT afterbuy_success FROM ".TABLE_ORDERS." WHERE orders_id='".$this->order_id."'");
+		$check_query = xtc_db_query("SELECT afterbuy_success FROM ".TABLE_ORDERS." WHERE orders_id='".(int)$this->order_id."'");
 		$data = xtc_db_fetch_array($check_query);
 
 		if ($data['afterbuy_success'] == 1)
