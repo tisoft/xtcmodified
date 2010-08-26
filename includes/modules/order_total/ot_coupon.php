@@ -4,6 +4,11 @@
    $Id: ot_coupon.php 1322 2010-05-23 13:58:22Z web28 $
 
    XT-Commerce - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2003 XT-Commerce
@@ -24,6 +29,8 @@
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
    Released under the GNU General Public License
+   
+   BUGFIXES & MODIFIED rev8 by web28 - www.rpa-com.de
    ---------------------------------------------------------------------------------------*/
 
 class ot_coupon {
@@ -77,6 +84,7 @@ class ot_coupon {
 		$this->deduction = $od_amount;		
 
 		if ($od_amount > 0) {
+		    $od_amount = $xtPrice->xtcFormat($od_amount, false); //Rabatt runden
 			if ($this->calculate_tax != 'None') { 		   
 				$od_amount = $this->new_calculate_tax_deduction($od_amount,$order_total);
 			}
@@ -206,13 +214,13 @@ class ot_coupon {
 									
 									if ($pr_ids[$ii] == xtc_get_prid($order->products[$i]['id'])) {										
 										if ($get_result['coupon_type'] == 'P') {											
-											$pr_c = $this->product_price($pr_ids[$ii]); //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
+											$pr_c = $this->product_price($order->products[$i]['id']); //web28- 2010-07-29 - $order->products[$i]['id']  //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
 											$pod_amount = round($pr_c*10)/10*$c_deduct/100;
 											$od_amount = $od_amount + $pod_amount;
 										
 										} else {
 											$od_amount = $c_deduct;											
-											$pr_c += $this->product_price($pr_ids[$ii]); //web28- 2010-05-21 - FIX - restrict  max coupon amount											
+											$pr_c += $this->product_price($order->products[$i]['id']); //web28- 2010-07-29 - FIX $order->products[$i]['id']  //web28- 2010-05-21 - FIX - restrict  max coupon amount											
 										}
 									}
 								}
@@ -222,10 +230,11 @@ class ot_coupon {
 						//allowed categories						
 						if ($get_result['restrict_to_categories']) {						
 							$cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+							
 							for ($i = 0; $i < sizeof($order->products); $i ++) {
 								$my_path = xtc_get_product_path(xtc_get_prid($order->products[$i]['id']));
 								$sub_cat_ids = explode("_", $my_path); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
-								
+																
 								//BOF - web28 - 2010-06-19 - test for product_id to prevent double counting
 								if ($get_result['restrict_to_products']  && in_array(xtc_get_prid($order->products[$i]['id']) ,$pr_ids) ) {
 									$p_flag = true;
@@ -234,15 +243,15 @@ class ot_coupon {
 								
 								for ($iii = 0; $iii < count($sub_cat_ids); $iii ++) {
 									for ($ii = 0; $ii < count($cat_ids); $ii ++) {
-										if ($sub_cat_ids[$iii] == $cat_ids[$ii] && !$p_flag) {										    
+										if ($sub_cat_ids[$iii] == $cat_ids[$ii] && !$p_flag) {											
 											if ($get_result['coupon_type'] == 'P') {												
-												$pr_c = $this->product_price(xtc_get_prid($order->products[$i]['id'])); //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
+												$pr_c = $this->product_price($order->products[$i]['id']);//web28- 2010-07-29 - FIX no xtc_get_prid  //Fred 2003-10-28, fix for the row above, otherwise the discount is calc based on price excl VAT!
 												$pod_amount = round($pr_c*10)/10*$c_deduct/100;
 												$od_amount = $od_amount + $pod_amount;												
 												continue 3;      // v5.13a Tanaka 2005-4-30: to prevent double counting of a product discount
 											} else {
 												$od_amount = $c_deduct;												
-												$pr_c += $this->product_price(xtc_get_prid($order->products[$i]['id'])); //web28- 2010-05-21 - FIX - restrict  max coupon amount												
+												$pr_c += $this->product_price($order->products[$i]['id']);  //web28- 2010-07-29 - FIX no xtc_get_prid  //web28- 2010-05-21 - FIX - restrict  max coupon amount																								
 												continue 3;
 											}
 										}
@@ -271,11 +280,11 @@ class ot_coupon {
 							$product = xtc_db_fetch_array($product_query, true);					    
 							if($product['specials_new_products_price']) {							
 								if ($get_result['coupon_type'] == 'P') {
-									$pr_c = $this->product_price(xtc_get_prid($order->products[$i]['id']));
+									$pr_c = $this->product_price($order->products[$i]['id']);  //web28- 2010-07-29 - FIX no xtc_get_prid 
 									$pod_amount = round($pr_c*10)/10*$c_deduct/100;
 									$od_amount -= $pod_amount;								
 								} else {
-									$pr_c += $this->product_price(xtc_get_prid($order->products[$i]['id']));								
+									$pr_c += $this->product_price($order->products[$i]['id']);  //web28- 2010-07-29 - FIX no xtc_get_prid  								
 								}
 							}
 						}
