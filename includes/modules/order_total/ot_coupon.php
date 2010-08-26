@@ -1,7 +1,7 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: ot_coupon.php 1322 2010-05-23 13:58:22Z web28 $
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xtc-modified.org
