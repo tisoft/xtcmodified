@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: account.php 1124 2005-07-28 08:50:04Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project (earlier name of osCommerce)
    (c) 2002-2003 osCommerce (account.php,v 1.59 2003/05/19); www.oscommerce.com
-   (c) 2003      nextcommerce (account.php,v 1.12 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (account.php,v 1.12 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (account.php 1124 2005-07-28)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -52,14 +52,18 @@ $also_purchased_history = array();
 //EOF - DokuMan - 2010-02-28 - set undefined Undefined variables
 
 while ($i < $max) {
-
-	
-	$product_history_query = xtDBquery("select * from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id=pd.products_id and pd.language_id='".(int) $_SESSION['languages_id']."' and p.products_status = '1' and p.products_id = '".$_SESSION['tracking']['products_history'][$i]."'");
+	$product_history_query = xtDBquery("select * from 
+                                              ".TABLE_PRODUCTS." p,
+                                              ".TABLE_PRODUCTS_DESCRIPTION." pd
+                                              where p.products_id=pd.products_id
+                                              and pd.language_id=".(int) $_SESSION['languages_id']."
+                                              and p.products_status = 1
+                                              and p.products_id = ".$_SESSION['tracking']['products_history'][$i]);
 	$history_product = xtc_db_fetch_array($product_history_query, true);
-$cpath = xtc_get_product_path($_SESSION['tracking']['products_history'][$i]);
+	$cpath = xtc_get_product_path($_SESSION['tracking']['products_history'][$i]);
 	if ($history_product['products_status'] != 0) {
 
-		$history_product = array_merge($history_product,array('cat_url' => xtc_href_link(FILENAME_DEFAULT, 'cPath='.$cpath)));
+		$history_product = array_merge($history_product, array('cat_url' => xtc_href_link(FILENAME_DEFAULT, 'cPath='.$cpath)));
 		$products_history[] = $product->buildDataArray($history_product);
 	}
 	$i ++;
@@ -67,7 +71,6 @@ $cpath = xtc_get_product_path($_SESSION['tracking']['products_history'][$i]);
 
 $order_content = '';
 if (xtc_count_customer_orders() > 0) {
-
 	$orders_query = xtc_db_query("select
 	                                  o.orders_id,
 	                                  o.date_purchased,
@@ -77,8 +80,9 @@ if (xtc_count_customer_orders() > 0) {
 	                                  o.billing_country,
 	                                  ot.text as order_total,
 	                                  s.orders_status_name
-	                              from ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL."
-	                                  ot, ".TABLE_ORDERS_STATUS." s
+	                              from ".TABLE_ORDERS." o, 
+                                     ".TABLE_ORDERS_TOTAL." ot,
+                                     ".TABLE_ORDERS_STATUS." s
 	                              where o.customers_id = '".(int) $_SESSION['customer_id']."'
 	                              and o.orders_id = ot.orders_id
 	                              and ot.class = 'ot_total'
@@ -94,7 +98,12 @@ if (xtc_count_customer_orders() > 0) {
 			$order_name = $orders['billing_name'];
 			$order_country = $orders['billing_country'];
 		}
-		$order_content[] = array ('ORDER_ID' => $orders['orders_id'], 'ORDER_DATE' => xtc_date_short($orders['date_purchased']), 'ORDER_STATUS' => $orders['orders_status_name'], 'ORDER_TOTAL' => $orders['order_total'], 'ORDER_LINK' => xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$orders['orders_id'], 'SSL'), 'ORDER_BUTTON' => '<a href="'.xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$orders['orders_id'], 'SSL').'">'.xtc_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW).'</a>');
+		$order_content[] = array ('ORDER_ID' => $orders['orders_id'],
+                              'ORDER_DATE' => xtc_date_short($orders['date_purchased']),
+                              'ORDER_STATUS' => $orders['orders_status_name'],
+                              'ORDER_TOTAL' => $orders['order_total'],
+                              'ORDER_LINK' => xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$orders['orders_id'], 'SSL'), 
+                              'ORDER_BUTTON' => '<a href="'.xtc_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$orders['orders_id'], 'SSL').'">'.xtc_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW).'</a>');
 	}
 
 }
@@ -123,7 +132,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

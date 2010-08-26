@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: split_page_results.php 1166 2005-08-21 00:52:02Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(split_page_results.php,v 1.14 2003/05/27); www.oscommerce.com 
    (c) 2003	 nextcommerce (split_page_results.php,v 1.6 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (split_page_results.php 1166 2005-08-21)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -28,30 +29,35 @@
       $this->number_of_rows_per_page = $max_rows;
 
       $pos_to = strlen($this->sql_query);
-      $pos_from = strpos($this->sql_query, ' FROM', 0);
+      $pos_from = strpos(strtoupper($this->sql_query), ' FROM', 0);
 
-      $pos_group_by = strpos($this->sql_query, ' GROUP BY', $pos_from);
+      $pos_group_by = strpos(strtoupper($this->sql_query), ' GROUP BY', $pos_from);
       if (($pos_group_by < $pos_to) && ($pos_group_by != false)) $pos_to = $pos_group_by;
 
-      $pos_having = strpos($this->sql_query, ' HAVING', $pos_from);
+      $pos_having = strpos(strtoupper($this->sql_query), ' HAVING', $pos_from);
       if (($pos_having < $pos_to) && ($pos_having != false)) $pos_to = $pos_having;
 
-      $pos_order_by = strpos($this->sql_query, ' ORDER BY', $pos_from);
+      $pos_order_by = strpos(strtoupper($this->sql_query), ' ORDER BY', $pos_from);
       if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
 
-      if (strpos($this->sql_query, 'DISTINCT') || strpos($this->sql_query, 'GROUP BY')) {
+      if (strpos(strtoupper($this->sql_query), 'DISTINCT') || strpos(strtoupper($this->sql_query), 'GROUP BY')) {
         $count_string = 'DISTINCT ' . xtc_db_input($count_key);
         //$count_string = xtc_db_input($count_key);
       } else {
         $count_string = xtc_db_input($count_key);
       }
-
-      $count_query = xtDBquery($query);
-      $count = xtc_db_num_rows($count_query,true);
+      
+      //BOF - DokuMan - 2010-08-26 - performance improvement
+      //$count_query = xtDBquery($query);
+      //$count = xtc_db_num_rows($count_query,true);
+      $reviews_count_query = xtc_db_query("select count(" . $count_string . ") as total " . substr($query, $pos_from, ($pos_to - $pos_from)));
+      $reviews_count = xtc_db_fetch_array($reviews_count_query);
+      $count = $reviews_count['total'];
+      //EOF - DokuMan - 2010-08-26 - performance improvement
 
       $this->number_of_rows = $count;
 	  
-      //BOF -web28- 2010-08-07 - FIX Division by Zero
+	  //BOF -web28- 2010-08-07 - FIX Division by Zero
 	  //$this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
 	  if ($this->number_of_rows_per_page > 0) {
 		$this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
@@ -69,8 +75,11 @@
 	  //BOF -web28- 2010-08-07 - FIX possible $offset = -0
 	  if ($offset < 1) $offset = 0;
 	  //EOF -web28- 2010-08-07 - FIX possible $offset = -0
-
-      $this->sql_query .= " LIMIT " . $offset . ", " . $this->number_of_rows_per_page;
+      
+      //BOF - DokuMan - 2010-08-26 - limit by highest offset
+      //$this->sql_query .= " LIMIT " . $offset . ", " . $this->number_of_rows_per_page;
+      $this->sql_query .= " LIMIT " . max((int)$offset, 0) . ", " . $this->number_of_rows_per_page;
+      //EOF - DokuMan - 2010-08-26 - limit by highest offset
     }
 
     // class functions
@@ -83,7 +92,10 @@
 
       $class = 'class="pageResults"';
 
-      if (xtc_not_null($parameters) && (substr($parameters, -1) != '&')) $parameters .= '&';
+      //BOF - DokuMan - 2010-08-26 - also check for ampersand
+      //if (xtc_not_null($parameters) && (substr($parameters, -1) != '&')) $parameters .= '&';
+      if (xtc_not_null($parameters) && (substr($parameters, -1) != '&') && (substr($parameters, -5) != '&amp;')) $parameters .= '&';
+      //EOF - DokuMan - 2010-08-26 - also check for ampersand
 
       // previous button - not displayed on first page
       if ($this->current_page_number > 1) $display_links_string .= '<a href="' . xtc_href_link(basename($PHP_SELF), $parameters . 'page=' . ($this->current_page_number - 1), $request_type) . '" class="pageResults" title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' ">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';

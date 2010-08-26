@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: product_info.php 1320 2005-10-25 14:21:11Z matthias $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(product_info.php,v 1.94 2003/05/04); www.oscommerce.com 
-   (c) 2003      nextcommerce (product_info.php,v 1.46 2003/08/25); www.nextcommerce.org
+   (c) 2003 nextcommerce (product_info.php,v 1.46 2003/08/25); www.nextcommerce.org
+   (c) 2006 XT-Commerce (product_info.php 1320 2005-10-25)
 
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
@@ -27,14 +27,12 @@ include ('includes/application_top.php');
 $smarty = new Smarty;
 
 // include boxes
-
-if ($_GET['products_id']) {
+if (isset($_GET['products_id'])) {
 	$cat = xtc_db_query("SELECT categories_id FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id='".(int) $_GET['products_id']."'");
 	$catData = xtc_db_fetch_array($cat);
 	require_once (DIR_FS_INC.'xtc_get_path.inc.php');
 	if ($catData['categories_id'])
 		$cPath = xtc_input_validation(xtc_get_path($catData['categories_id']), 'cPath', '');
-
 }
 
 require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
@@ -50,7 +48,7 @@ require_once (DIR_FS_INC.'xtc_draw_form.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_input_field.inc.php');
 require_once (DIR_FS_INC.'xtc_image_submit.inc.php');
 
-if ($_GET['action'] == 'get_download') {
+if (isset($_GET['action']) && $_GET['action'] == 'get_download') {
 	xtc_get_download((int)$_GET['cID']); // Hetfield - 2009-08-12 - update function call for security
 }
 
@@ -59,7 +57,7 @@ include (DIR_WS_MODULES.'product_info.php');
 require (DIR_WS_INCLUDES.'header.php');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

@@ -1,18 +1,17 @@
 <?php
-
-
 /* -----------------------------------------------------------------------------------------
-   $Id: login.php 1143 2005-08-11 11:58:59Z gwinger $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(login.php,v 1.79 2003/05/19); www.oscommerce.com 
-   (c) 2003      nextcommerce (login.php,v 1.13 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (login.php,v 1.13 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (login.php 1143 2005-08-11)
 
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
@@ -46,8 +45,19 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 	$password = xtc_db_prepare_input($_POST['password']);
 
 	// Check if email exists
-	$check_customer_query = xtc_db_query("select customers_id, customers_vat_id, customers_firstname,customers_lastname, customers_gender, customers_password, customers_email_address, customers_default_address_id from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($email_address)."' and account_type = '0'");
-	if (!xtc_db_num_rows($check_customer_query)) {
+	$check_customer_query = xtc_db_query("select 
+                                            customers_id,
+                                            customers_vat_id,
+                                            customers_firstname,
+                                            customers_lastname,
+                                            customers_gender,
+                                            customers_password,
+                                            customers_email_address,
+                                            customers_default_address_id
+                                            from ".TABLE_CUSTOMERS."
+                                            where customers_email_address = '".xtc_db_input($email_address)."' 
+                                            and account_type = 0");
+	if (xtc_db_num_rows($check_customer_query) == 0) {
 		$_GET['login'] = 'fail';
 		$info_message = TEXT_NO_EMAIL_ADDRESS_FOUND;
 	} else {
@@ -80,7 +90,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 			// restore cart contents
 			$_SESSION['cart']->restore_contents();
 			
-			if (is_object($econda)) $econda->_loginUser();
+			if (isset($econda) && is_object($econda)) $econda->_loginUser();
 
 			if ($_SESSION['cart']->count_contents() > 0) {
 				xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
@@ -98,7 +108,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 $breadcrumb->add(NAVBAR_TITLE_LOGIN, xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 require (DIR_WS_INCLUDES.'header.php');
 
-if ($_GET['info_message']) $info_message = $_GET['info_message'];
+if (isset($_GET['info_message'])) $info_message = $_GET['info_message'];
 $smarty->assign('info_message', $info_message);
 $smarty->assign('account_option', ACCOUNT_OPTIONS);
 $smarty->assign('BUTTON_NEW_ACCOUNT', '<a href="'.xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL').'">'.xtc_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE).'</a>');
@@ -117,7 +127,7 @@ $smarty->assign('main_content', $main_content);
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
