@@ -471,7 +471,7 @@ class product {
 				'PRODUCTS_SHIPPING_NAME'=>$shipping_status_name,
 				'PRODUCTS_SHIPPING_IMAGE'=>$shipping_status_image, 
 				 //BOF - GTB - 2010-08-27 make Button Details global
-				'PRODUCTS_BUTTON_DETAILS' = '<a href="'.xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])).'">'.xtc_image_button('button_product_more.gif', $array['products_name'].TEXT_NOW).'</a>',
+				'PRODUCTS_BUTTON_DETAILS' => '<a href="'.xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])).'">'.xtc_image_button('button_product_more.gif', $array['products_name'].TEXT_NOW).'</a>',
 				 //EOF - GTB - 2010-08-27 make Button Details global
 				 
 				//'PRODUCTS_DESCRIPTION' => $array['products_description'],
