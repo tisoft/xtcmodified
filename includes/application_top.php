@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
-   (c) 2003	 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
+   (c) 2003	nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
    (c) 2006 XT-Commerce (application_top.php 1194 2010-08-22)
 
    Released under the GNU General Public License
@@ -565,8 +565,15 @@ if (xtc_not_null($cPath)) {
 require (DIR_WS_CLASSES.'breadcrumb.php');
 $breadcrumb = new breadcrumb;
 
-$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
-$breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
+// BOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
+if (DIR_WS_CATALOG == '/') {
+	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
+} else {	
+	$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER.'?'.session_name().'='.xtc_session_id()); 
+	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
+	$breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
+}
+// EOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 
 // add category names or the manufacturer name to the breadcrumb trail
 if (isset ($cPath_array)) {
