@@ -1,8 +1,12 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_php_mail.inc.php 1129 2005-08-05 11:46:11Z mz $   
+   $Id$   
+  
+   http://www.xtc-modified.org
 
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
@@ -119,26 +123,22 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 	if (EMAIL_TRANSPORT == 'mail') {
 		$mail->IsMail();
 	}
+	
+	//BOF  - web28 - 2010-08-27 -  decode html2txt
+	$html_array = array('<br />', '<br/>', '<br>');
+	$txt_array = array(" \n", " \n", " \n");
+	$message_body_plain = str_replace($html_array, $txt_array, $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
+	// remove html tags	
+	$message_body_plain = strip_tags($message_body_plain);	
+	$message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);	
+	//EOF  - web28 - 2010-08-27 -  decode html2txt
 
-	if (EMAIL_USE_HTML == 'true') // set email format to HTML
-		{
+	if (EMAIL_USE_HTML == 'true') { // set email format to HTML
 		$mail->IsHTML(true);
-		$mail->Body = $message_body_html.$html_signatur;//DPW Signatur ergänzt.
-		// remove html tags
-		$message_body_plain = str_replace('<br />', " \n", $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
-		$message_body_plain = strip_tags($message_body_plain);
-		//BOF  - web28 - 2010-07-15 -  html_entity_decode
-		$message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);
-		//EOF  - web28 - 2010-07-15 -  html_entity_decode
+		$mail->Body = $message_body_html.$html_signatur;//DPW Signatur ergänzt.		
 		$mail->AltBody = $message_body_plain;
 	} else {
-		$mail->IsHTML(false);
-		//remove html tags
-		$message_body_plain = str_replace('<br />', " \n", $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
-		$message_body_plain = strip_tags($message_body_plain);
-		//BOF  - web28 - 2010-07-15 -  html_entity_decode
-		$message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);
-		//EOF  - web28 - 2010-07-15 -  html_entity_decode
+		$mail->IsHTML(false);		
 		$mail->Body = $message_body_plain;
 	}
 
