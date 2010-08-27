@@ -1,4 +1,4 @@
-# $Id: .htaccess,v 1.5 2005/05/19 17:09:19 Administrator Exp $
+# $Id$
 #
 # If your shop runs in a subfolder, for example "www.domain.de/shop/"
 # you can use this .htaccess as a template. 
@@ -38,9 +38,9 @@
 #  php_value register_globals 1
 #</IfModule>
 
-#-- set expire header for image, pdf, js and css files for 30 days
-#<FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif|js|css)$" >
-#  Header set Cache-Control "max-age=2592000, public"
+#-- Set expires header with far-future expiration date
+#<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+#Header set Expires "Thu, 15 Apr 3010 20:00:00 GMT"
 #</FilesMatch>
 
 #-- Turn off ETags in HTTP-header
