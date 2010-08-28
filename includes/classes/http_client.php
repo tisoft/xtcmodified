@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: http_client.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(http_client.php,v 1.1 2002/11/01); www.oscommerce.com 
-   (c) 2003	 nextcommerce (http_client.php,v 1.5 2003/08/13); www.nextcommerce.org
+   (c) 2003	nextcommerce (http_client.php,v 1.5 2003/08/13); www.nextcommerce.org
+   (c) 2006 xt:Commerce (http_client.php 899 2005-04-29)
 
    Released under the GNU General Public License
    Copyright 2001 Leo West <west_leo@yahoo-REMOVE-.com> Net_HTTP_Client v0.6
@@ -56,7 +57,7 @@
  * @seeAlso connect
  **/
     function httpClient($host = '', $port = '') {
-      if (xtc_not_null($host)) {
+      if (!empty($host)) {
         $this->connect($host, $port);
       }
     }
@@ -141,7 +142,7 @@
     function Connect($host, $port = '') {
       $this->url['scheme'] = 'http';
       $this->url['host'] = $host;
-      if (xtc_not_null($port)) $this->url['port'] = $port;
+      if (!empty($port)) $this->url['port'] = $port;
 
       return true;
     }
@@ -330,7 +331,7 @@
           $port = $this->url['port'];
         }
 
-        if (!xtc_not_null($port)) $port = 80;
+        if (!!empty($port)) $port = 80;
 
         //BOF - DokuMan - 2010-07-06 - added timeout value
         /*
@@ -343,7 +344,7 @@
         }
         //EOF - DokuMan - 2010-07-06 - added timeout value
 
-        if (xtc_not_null($this->requestBody)) {
+        if (!empty($this->requestBody)) {
           $this->addHeader('Content-Length', strlen($this->requestBody));
         }
 
@@ -356,7 +357,7 @@
           }
         }
 
-        if (xtc_not_null($this->requestBody)) {
+        if (!empty($this->requestBody)) {
           $cmd .= "\r\n" . $this->requestBody;
         }
 
