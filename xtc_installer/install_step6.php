@@ -1,5 +1,5 @@
 <?php
-  /* --------------------------------------------------------------
+/* --------------------------------------------------------------
    $Id: install_step6.php 941 2005-05-11 19:49:53Z hhgag $   
 
    XT-Commerce - community made shopping
@@ -197,8 +197,8 @@
     
 	
 	    if ($error == false) {
-		
-xtc_db_query("insert into " . TABLE_CUSTOMERS . " (
+        //xtc_db_query('SET NAMES "UTF8"'); //DokuMan - 2010-08-28 - For future UTF-8 use
+		xtc_db_query("insert into " . TABLE_CUSTOMERS . " (
 										customers_id,
 										customers_status,
 										customers_firstname,
@@ -211,11 +211,11 @@ xtc_db_query("insert into " . TABLE_CUSTOMERS . " (
 										delete_user) VALUES
 										('1',
 										'0',
-										'".$firstname."',
-										'".$lastname."','m',
-										'".$email_address."',
+										'".xtc_db_input($firstname)."',
+										'".xtc_db_input($lastname)."','m',
+										'".xtc_db_input($email_address)."',
 										'1',
-										'".$telephone."',
+										'".xtc_db_input($telephone)."',
 										'".xtc_encrypt_password($password)."',
 										'0')");
 
@@ -226,7 +226,7 @@ xtc_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (
 										customers_info_date_account_created,
 										customers_info_date_account_last_modified,
 										global_product_notifications) VALUES
-										('1','','','','','')");
+										('1','','','now()','','')");
 xtc_db_query("insert into " .TABLE_ADDRESS_BOOK . " (
 										customers_id,
 										entry_company,
@@ -239,15 +239,15 @@ xtc_db_query("insert into " .TABLE_ADDRESS_BOOK . " (
    										entry_country_id,
    										entry_zone_id) VALUES
 										('1',
-										'".($company)."',
-										'".($firstname)."',
-										'".($lastname)."',
-										'".($street_address)."',
-										'".($postcode)."',
-										'".($city)."',
-										'".($state)."',
-										'".($country)."',
-										'".($zone_id)."'
+										'".xtc_db_input($company)."',
+										'".xtc_db_input($firstname)."',
+										'".xtc_db_input($lastname)."',
+										'".xtc_db_input($street_address)."',
+										'".xtc_db_input($postcode)."',
+										'".xtc_db_input($city)."',
+										'".xtc_db_input($state)."',
+										'".xtc_db_input($country)."',
+										'".xtc_db_input($zone_id)."'
 										)");
 										
 										 
@@ -373,6 +373,13 @@ switch ($country) {
 		$tax_special='6.0000';
 		$tax_special_text='UST 6%';
 		 break;	
+    case '204':
+        // Schweiz
+        $tax_normal='7.6000';
+        $tax_normal_text='MwSt 7,6%';
+        $tax_special='2.4000';
+        $tax_special_text='MwSt 2,4%';
+        break;
 	case '222':
 	// UK
 		$tax_normal='17.5000';
@@ -394,23 +401,22 @@ xtc_db_query("INSERT INTO tax_rates (tax_rates_id, tax_zone_id, tax_class_id, ta
 // Steuerklassen
 
 xtc_db_query("INSERT INTO tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (1, 'Standardsatz', '', '', now())");
-xtc_db_query("INSERT INTO tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (2, 'ermäßigter Steuersatz', '', NULL, now())");
+            xtc_db_query("INSERT INTO tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (2, 'erm&auml;&szlig;igter Steuersatz', '', NULL, now())");
 
 // Steuersätze
 
 xtc_db_query("INSERT INTO geo_zones (geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added) VALUES (6, 'Steuerzone EU-Ausland', '', '', now())");
-xtc_db_query("INSERT INTO geo_zones (geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added) VALUES (5, 'Steuerzone EU', 'Steuerzone für die EU', '', now())");
+            xtc_db_query("INSERT INTO geo_zones (geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added) VALUES (5, 'Steuerzone EU', 'Steuerzone f&uuml;r die EU', '', now())");
 xtc_db_query("INSERT INTO geo_zones (geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added) VALUES (7, 'Steuerzone B2B', '', NULL, now())");
 
-// EU-Steuerzonen 
-
+// EU-Steuerzonen Stand 01.01.2007
 
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (14, 14, 0, 5, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (21, 21, 0, 5, NULL, now())");
-xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (55, 55, 0, 5, NULL,  now())");
 //BOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (33, 33, 0, 5, NULL,  now())");
 //EOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
+xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (55, 55, 0, 5, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (56, 56, 0, 5, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (57, 57, 0, 5, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (67, 67, 0, 5, NULL,  now())");
@@ -437,7 +443,7 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (203, 203, 0, 5, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (222, 222, 0, 5, NULL, now())");
 
-
+// Rest der Welt
 
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (1, 1, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (2, 2, 0, 6, NULL, now())");
@@ -469,9 +475,6 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (30, 30, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (31, 31, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (32, 32, 0, 6, NULL, now())");
-//BOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
-//xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (33, 33, 0, 6, NULL, now())");
-//EOF - Dokuman 2009-08-20 - Added Bulgaria to EU Zones (since 01.01.2007)
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (34, 34, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (35, 35, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (36, 36, 0, 6, NULL, now())");
@@ -595,9 +598,6 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (172, 172, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (173, 173, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (174, 174, 0, 6, NULL,  now())");
-//BOF - Dokuman 2009-08-20 - Added Romania to EU Zones (since 01.01.2007)
-//xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (175, 175, 0, 6, NULL,  now())");
-//EOF - Dokuman 2009-08-20 - Added Romania to EU Zones (since 01.01.2007)
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (176, 176, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (177, 177, 0, 6, NULL,  now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (178, 178, 0, 6, NULL,  now())");
@@ -657,9 +657,6 @@ xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, z
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (237, 237, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (238, 238, 0, 6, NULL, now())");
 xtc_db_query("INSERT INTO zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (239, 239, 0, 6, NULL, now())");
-
-
-
 }																			
 	
 	      xtc_redirect(xtc_href_link('xtc_installer/install_step7.php', '', 'NONSSL'));
@@ -872,12 +869,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
               </table>
 			</div>
               <br />
-              
               <h1><?php echo TITLE_ZONE_CONFIG; ?> </h1>
               <div style="border:1px solid #ccc; background:#fff; padding:10px;">
-              
-              
-              
+
               <table width="100%" border="0">
                 <tr> 
                   <td width="26%"><strong><?php echo  TEXT_ZONE; ?></strong></td>
@@ -897,8 +891,6 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
             </form></div></td>
         </tr>
       </table> 
-      
-
      <br />
     </td>
   </tr>
