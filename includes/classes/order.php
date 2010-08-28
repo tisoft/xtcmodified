@@ -121,7 +121,7 @@
       $order_fee = xtc_db_fetch_array($order_fee_query);
       $pp_order_fee+=$order_fee['SUM(value)'];  
 
-        //$shipping_method_query = xtc_db_query("select title from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
+      //$shipping_method_query = xtc_db_query("select title from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
       $shipping_method_query = xtc_db_query("select title, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
       // EOF - web28 - 2010-05-06 - PayPal API Modul  
       $shipping_method = xtc_db_fetch_array($shipping_method_query);
@@ -247,7 +247,6 @@
     	global $xtPrice;
     	
     	require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
-    	
     	$order_query = "SELECT
 	        				products_id,
 	        				orders_products_id,

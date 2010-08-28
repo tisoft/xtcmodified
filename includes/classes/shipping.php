@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: shipping.php 1305 2005-10-14 10:30:03Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shipping.php,v 1.22 2003/05/08); www.oscommerce.com 
    (c) 2003	 nextcommerce (shipping.php,v 1.9 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (shipping.php 1305 2005-10-14)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -42,15 +43,14 @@
         for ($i = 0, $n = sizeof($include_modules); $i < $n; $i++) {
           if (xtc_in_array(str_replace('.php', '', $include_modules[$i]['file']), $unallowed_modules) != 'false') {
             // check if zone is alowed to see module
-            if (constant(MODULE_SHIPPING_ . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . _ALLOWED) != '') {
-              $unallowed_zones = explode(',', constant(MODULE_SHIPPING_ . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . _ALLOWED));
+            if (constant('MODULE_SHIPPING_' . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . '_ALLOWED') != '') {
+              $unallowed_zones = explode(',', constant('MODULE_SHIPPING_' . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . '_ALLOWED'));
             } else {
               $unallowed_zones = array();
             }
             if (in_array($_SESSION['delivery_zone'], $unallowed_zones) == true || count($unallowed_zones) == 0) {
               include(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/shipping/' . $include_modules[$i]['file']);
               include(DIR_WS_MODULES . 'shipping/' . $include_modules[$i]['file']);
-
               $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
             }
           }
@@ -113,7 +113,10 @@
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $quotes = $GLOBALS[$class]->quotes;
-            $size = sizeof($quotes['methods']);
+            //BOF - Dokuman - 2009-10-02 - set undefined index
+            //$size = sizeof($quotes['methods']);
+            $size = isset($quotes['methods']) && is_array($quotes['methods']) ? sizeof($quotes['methods']) : 0;
+            //BOF - Dokuman - 2009-10-02 - set undefined index 
             for ($i=0; $i<$size; $i++) {
             if(array_key_exists("cost",$quotes['methods'][$i])) {
                 $rates[] = array('id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],

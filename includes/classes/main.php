@@ -16,7 +16,7 @@
    ---------------------------------------------------------------------------------------*/
  
 class main {
- 	
+
  	function main () {
  		$this->SHIPPING = array();
  		 		
@@ -25,20 +25,28 @@ class main {
                                     shipping_status_image,
                                     shipping_status_id
                              FROM ".TABLE_SHIPPING_STATUS."
-                             WHERE language_id = '".(int)$_SESSION['languages_id']."'");
+                             WHERE language_id = ".(int)$_SESSION['languages_id']);
          
-     while ($status_data=xtc_db_fetch_array($status_query,true)) {
-         	$this->SHIPPING[$status_data['shipping_status_id']]=array('name'=>$status_data['shipping_status_name'],'image'=>$status_data['shipping_status_image']);
-     }
-         
+     	while ($status_data=xtc_db_fetch_array($status_query,true)) {
+         		$this->SHIPPING[$status_data['shipping_status_id']] = array(
+         		'name'=>$status_data['shipping_status_name'],
+         		'image'=>$status_data['shipping_status_image']
+         		);
+     	}
  	}
  	
  	function getShippingStatusName($id) {
- 		return $this->SHIPPING[$id]['name'];
- 	}
+ 		//BOF - DokuMan - 2009-08-28 - set undefined index
+ 		//return $this->SHIPPING[$id]['name'];
+        return isset($this->SHIPPING[$id]['name']) ? $this->SHIPPING[$id]['name'] : '';
+ 		//EOF - DokuMan - 2009-08-28 - set undefined index
+	}
  	
  	function getShippingStatusImage($id) {
- 		if ($this->SHIPPING[$id]['image']) {
+ 		//BOF - DokuMan - 2009-08-28 - set undefined index
+ 		//if ($this->SHIPPING[$id]['image']) {
+        if (isset($this->SHIPPING[$id]['image']) && $this->SHIPPING[$id]['image'] != '') {
+ 		//EOF - DokuMan - 2009-08-28 - set undefined index
  		return 'admin/images/icons/'.$this->SHIPPING[$id]['image'];
  		} else {
  			return;
@@ -48,7 +56,7 @@ class main {
  	function getShippingLink() {
  	  //BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
  	  //return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
-	return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+ 	  return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
 	  //EOF - DokuMan - 2009-05-31 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
 	}
 
@@ -69,7 +77,6 @@ class main {
 		if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 0) {
 			return TAX_INFO_EXCL_GLOBAL;
 		}
-		
 		return;
 	}
 	

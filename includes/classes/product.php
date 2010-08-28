@@ -23,16 +23,20 @@ class product {
 	 * 
 	 */
 	function product($pID = 0) {
-		$this->pID = $pID;
-// BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+		// BOF - DokuMan - 2010-08-28 - typecasting
+		//$this->pID = $pID;
+		$this->pID = (int)$pID;
+		// EOF - DokuMan - 2010-08-28 - typecasting
+
+		// BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
 		//$this->useStandardImage=false;
 		$this->useStandardImage=true;
-// EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+		// EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
 		$this->standardImage='noimage.gif';
-// BOF - DokuMan - 2010-03-12 - bugfix, wrong comparison
+		// BOF - DokuMan - 2010-03-12 - bugfix, wrong comparison
 		//if ($pID = 0) {
 		if ($pID == 0) {
-// EOF - DokuMan - 2010-03-12 - bugfix, wrong comparison
+		// EOF - DokuMan - 2010-03-12 - bugfix, wrong comparison
 			$this->isProduct = false;
 			return;
 		}
@@ -52,8 +56,8 @@ class product {
                                ".TABLE_PRODUCTS_DESCRIPTION." pd
                                where p.products_status = 1
                                and p.products_id = ".$this->pID."
-                               and pd.products_id = p.products_id"
-                               .$group_check
+                               and pd.products_id = p.products_id
+                               ".$group_check
                                .$fsk_lock."
                                and pd.language_id = ".(int) $_SESSION['languages_id'];
 
@@ -82,10 +86,10 @@ class product {
                                  ".TABLE_PRODUCTS_ATTRIBUTES." patrib
                             where patrib.products_id=".$this->pID."
                             and patrib.options_id = popt.products_options_id
-                            and popt.language_id = ".(int) $_SESSION['languages_id']);
+                            and popt.language_id = ".(int) $_SESSION['languages_id']
+                            );
 		$products_attributes = xtc_db_fetch_array($products_attributes_query, true);
 		return $products_attributes['total'];
-
 	}
 
 	/**
@@ -102,7 +106,8 @@ class product {
                             where r.products_id = ".$this->pID."
                             and r.reviews_id = rd.reviews_id
                             and rd.languages_id = ".(int)$_SESSION['languages_id']."
-                            and rd.reviews_text !=''");
+                            and rd.reviews_text !=''
+                            ");
 		$reviews = xtc_db_fetch_array($reviews_query, true);
 		return $reviews['total'];
 	}
@@ -126,10 +131,11 @@ class product {
                                       rd.reviews_text
                                       from ".TABLE_REVIEWS." r,
                                       ".TABLE_REVIEWS_DESCRIPTION." rd
-                                      where r.products_id = ".$this->pID."
+                                      where r.products_id = '".$this->pID."'
                                       and r.reviews_id = rd.reviews_id
-                                      and rd.languages_id = ".(int)$_SESSION['languages_id']."
-                                      order by reviews_id DESC");
+                                      and rd.languages_id = '".(int)$_SESSION['languages_id']."'
+                                      order by reviews_id DESC
+                                      ");
 		if (xtc_db_num_rows($reviews_query, true)) {
 			$row = 0;
 			$data_reviews = array ();
@@ -158,7 +164,6 @@ class product {
 		if ($this->data['products_model'] != "")
 			return $this->data['products_model'];
 		return $this->data['products_name'];
-
 	}
 
 	/**
@@ -209,13 +214,10 @@ class product {
 		// EOF - vr - 2010-04-21 make sql human readable
 		$orders_query = xtDBquery($orders_query);
 		while ($orders = xtc_db_fetch_array($orders_query, true)) {
-
 			$module_content[] = $this->buildDataArray($orders);
-
 		}
 
 		return $module_content;
-
 	}
 
 	/**
@@ -228,7 +230,7 @@ class product {
 	function getCrossSells() {
 		global $xtPrice;
 
-		$cs_groups = "SELECT products_xsell_grp_name_id FROM ".TABLE_PRODUCTS_XSELL." WHERE products_id = ".$this->pID." GROUP BY products_xsell_grp_name_id";
+		$cs_groups = "SELECT products_xsell_grp_name_id FROM ".TABLE_PRODUCTS_XSELL." WHERE products_id = '".$this->pID."' GROUP BY products_xsell_grp_name_id";
 		$cs_groups = xtDBquery($cs_groups);
 		$cross_sell_data = array ();
 		if (xtc_db_num_rows($cs_groups, true)>0) {
@@ -243,7 +245,7 @@ class product {
 				$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 			}
 
-				$cross_query = "select p.products_fsk18,
+			$cross_query = "select p.products_fsk18,
 												p.products_tax_class_id,
 												p.products_id,
 												p.products_image,
@@ -263,7 +265,7 @@ class product {
 												.$fsk_lock
 												.$group_check."
 												and p.products_id = pd.products_id 
-												and xp.products_xsell_grp_name_id=".$cross_sells['products_xsell_grp_name_id']."
+												and xp.products_xsell_grp_name_id='".$cross_sells['products_xsell_grp_name_id']."'
 												and pd.language_id = ".(int)$_SESSION['languages_id']."
 												and p.products_status = 1
 												order by xp.sort_order asc";
@@ -273,12 +275,9 @@ class product {
 				$cross_sell_data[$cross_sells['products_xsell_grp_name_id']] = array (
             'GROUP' => xtc_get_cross_sell_name($cross_sells['products_xsell_grp_name_id']),
             'PRODUCTS' => array ());
-
 			while ($xsell = xtc_db_fetch_array($cross_query, true)) {
-
 				$cross_sell_data[$cross_sells['products_xsell_grp_name_id']]['PRODUCTS'][] = $this->buildDataArray($xsell);
 			}
-
 		}
 		return $cross_sell_data;
 		}
@@ -318,7 +317,7 @@ class product {
 																			 from ".TABLE_PRODUCTS_XSELL." xp,
 																			 ".TABLE_PRODUCTS." p,
 																			 ".TABLE_PRODUCTS_DESCRIPTION." pd
-																			 where xp.xsell_id = ".$this->pID."
+																			 where xp.xsell_id = '".$this->pID."'
 																			 and xp.products_id = p.products_id "
 																			 .$fsk_lock
 																			 .$group_check."
@@ -327,15 +326,12 @@ class product {
 																			 and p.products_status = 1
 																			 order by xp.sort_order asc");
 
-        $cross_sell_data = array(); //DokuMan - 2010-03-12 - set undefined array
-
+			$cross_sell_data = array(); //DokuMan - 2010-03-12 - set undefined array
 			while ($xsell = xtc_db_fetch_array($cross_query, true)) {
-
 				$cross_sell_data[] = $this->buildDataArray($xsell);
 			}
 
 		return $cross_sell_data;
-	 	
 	 }
 	
 
@@ -344,19 +340,18 @@ class product {
 		
 		$discount = $xtPrice->xtcCheckDiscount($this->pID);	// Hetfield - 2010-03-15 - BUGFIX show VPE with discount for graduated prices	
 		$staffel_query = xtDBquery("SELECT
-																			 quantity,
-																			 personal_offer
-																			 FROM
-																			 ".TABLE_PERSONAL_OFFERS_BY.(int) $_SESSION['customers_status']['customers_status_id']."
-																			 WHERE
-																			 products_id = ".$this->pID."
-																			 ORDER BY quantity ASC");
-
+										quantity,
+										personal_offer
+										FROM ".TABLE_PERSONAL_OFFERS_BY.(int) $_SESSION['customers_status']['customers_status_id']."
+										WHERE products_id = ".$this->pID."
+										ORDER BY quantity ASC");
 		$staffel = array ();
 		while ($staffel_values = xtc_db_fetch_array($staffel_query, true)) {
-			$staffel[] = array ('stk' => $staffel_values['quantity'], 'price' => $staffel_values['personal_offer']);
-		}		
-		
+			$staffel[] = array (
+								'stk' => $staffel_values['quantity'],
+								'price' => $staffel_values['personal_offer']
+								);
+		}
 		$staffel_data = array ();
 		for ($i = 0, $n = sizeof($staffel); $i < $n; $i ++) {
 			//BOF - web28 - 2010-07-13 - BUGFIX display same quantity only once for graduated prices / FIX max value info for graduated prices
@@ -381,7 +376,7 @@ class product {
             //EOF - web28 - 2010-07-13 - BUGFIX display same quantity only once for graduated prices	/FIX max value info for graduated prices		
 			$vpe = '';
 			// BOF - Hetfield - 2009-08-24 - BUGFIX show VPE for graduated prices
-			if ($this->data['products_vpe_status'] == 1 && $this->data['products_vpe_value'] != 0.0 && $staffel[$i]['price'] > 0) {
+			if (isset($this->data) && $this->data['products_vpe_status'] == 1 && $this->data['products_vpe_value'] != 0.0 && $staffel[$i]['price'] > 0) {
 				$vpe = $staffel[$i]['price'] - $staffel[$i]['price'] / 100 * $discount;
 				$vpe = $vpe * (1 / $this->data['products_vpe_value']);
 				$vpe = BASICPRICE_VPE_TEXT.$xtPrice->xtcFormat($vpe, true, $this->data['products_tax_class_id']).TXT_PER.xtc_get_vpe_name($this->data['products_vpe']);
@@ -389,16 +384,14 @@ class product {
 			// EOF - Hetfield - 2009-08-24 - BUGFIX show VPE for graduated prices
 			$staffel_data[$i] = array ('QUANTITY' => $quantity, 'VPE' => $vpe, 'PRICE' => $xtPrice->xtcFormat($staffel[$i]['price'] - $staffel[$i]['price'] / 100 * $discount, true, $this->data['products_tax_class_id']));
 		}
-
 		return $staffel_data;
-
 	}
+
 	/**
 	 * 
 	 * valid flag
 	 * 
 	 */
-
 	function isProduct() {
 		return $this->isProduct;
 	}
@@ -412,7 +405,6 @@ class product {
 
 	function getVPEtext($product, $price) {
 		global $xtPrice;
-
 		require_once (DIR_FS_INC.'xtc_get_vpe_name.inc.php');
 
 		if (!is_array($product))
@@ -421,29 +413,27 @@ class product {
 		if (isset($product['products_vpe_status']) && $product['products_vpe_status'] == 1 && $product['products_vpe_value'] != 0.0 && $price > 0) {
 			return $xtPrice->xtcFormat($price * (1 / $product['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product['products_vpe']);
 		}
-
 		return;
-
 	}
 	
 	function buildDataArray(&$array,$image='thumbnail') {
 		global $xtPrice,$main;
 
-			//$tax_rate = $xtPrice->TAX[$array['products_tax_class_id']];
-      $tax_rate = isset($xtPrice->TAX[$array['products_tax_class_id']]) ? $xtPrice->TAX[$array['products_tax_class_id']] : 0; //DokuMan: set Undefined index
+		//$tax_rate = $xtPrice->TAX[$array['products_tax_class_id']];
+		$tax_rate = isset($xtPrice->TAX[$array['products_tax_class_id']]) ? $xtPrice->TAX[$array['products_tax_class_id']] : 0; //DokuMan: set Undefined index
 
-			$products_price = $xtPrice->xtcGetPrice($array['products_id'], $format = true, 1, $array['products_tax_class_id'], $array['products_price'], 1);
+		$products_price = $xtPrice->xtcGetPrice($array['products_id'], $format = true, 1, $array['products_tax_class_id'], $array['products_price'], 1);
 
-			$buy_now = ''; //DokuMan: Undefined variable: buy_now
+		$buy_now = ''; //DokuMan: Undefined variable: buy_now
 
-			if ($_SESSION['customers_status']['customers_status_show_price'] != '0') {
-        if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
-          if (isset($array['products_fsk18']) && $array['products_fsk18'] == '0')
-            $buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
-        } else {
-          $buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
-        }
-			}
+		if ($_SESSION['customers_status']['customers_status_show_price'] != '0') {
+        	if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
+          		if (isset($array['products_fsk18']) && $array['products_fsk18'] == '0')
+            	$buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
+        	} else {
+          		$buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
+        	}
+		}
 			
       //BOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
 			//$shipping_status_name = $main->getShippingStatusName($array['products_shippingtime']);
@@ -457,8 +447,9 @@ class product {
         }
       //EOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
 		
-		return array ('PRODUCTS_NAME' => $array['products_name'], 
-        'COUNT' => isset($array['ID']) ? $array['ID'] : 0,
+		$productData = array (
+				'PRODUCTS_NAME' => $array['products_name'], 
+				'COUNT' => isset($array['ID']) ? $array['ID'] : 0,
 				'PRODUCTS_ID'=> $array['products_id'],
 				'PRODUCTS_MODEL'=> isset($array['products_model']) ? $array['products_model'] : '',
 				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']), 
@@ -469,35 +460,26 @@ class product {
 				'PRODUCTS_SHIPPING_LINK' => $main->getShippingLink(), 
 				'PRODUCTS_BUTTON_BUY_NOW' => $buy_now,
 				'PRODUCTS_SHIPPING_NAME'=>$shipping_status_name,
-				'PRODUCTS_SHIPPING_IMAGE'=>$shipping_status_image, 
-				 //BOF - GTB - 2010-08-27 make Button Details global
-				'PRODUCTS_BUTTON_DETAILS' => '<a href="'.xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])).'">'.xtc_image_button('button_product_more.gif', $array['products_name'].TEXT_NOW).'</a>',
-				 //EOF - GTB - 2010-08-27 make Button Details global
-				 
-				//'PRODUCTS_DESCRIPTION' => $array['products_description'],
-        'PRODUCTS_DESCRIPTION' => isset($array['products_description']) ? $array['products_description'] : '', //DokuMan - 2010-02-26 - set Undefined index
-        
-        //BOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
-        'PRODUCTS_QUANTITY' => isset($array['products_quantity']) ? $array['products_quantity'] : '',
-        //EOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
-				
-				//'PRODUCTS_EXPIRES' => $array['expires_date'],
-        'PRODUCTS_EXPIRES' => isset($array['expires_date']) ? $array['expires_date'] : 0, //DokuMan - 2010-02-26 - set Undefined index
-
-				//'PRODUCTS_CATEGORY_URL'=>$array['cat_url'],
-        'PRODUCTS_CATEGORY_URL' => isset($array['cat_url']) ? $array['cat_url'] : '', //DokuMan - 2010-02-26 - set Undefined index
-				
-				//'PRODUCTS_SHORT_DESCRIPTION' => $array['products_short_description'],
+				'PRODUCTS_SHIPPING_IMAGE'=>$shipping_status_image,
+				'PRODUCTS_DESCRIPTION' => isset($array['products_description']) ? $array['products_description'] : '', //DokuMan - 2010-02-26 - set Undefined index
+				'PRODUCTS_EXPIRES' => isset($array['expires_date']) ? $array['expires_date'] : 0, //DokuMan - 2010-02-26 - set Undefined index
+				'PRODUCTS_CATEGORY_URL' => isset($array['cat_url']) ? $array['cat_url'] : '', //DokuMan - 2010-02-26 - set Undefined index
 				'PRODUCTS_SHORT_DESCRIPTION' => isset($array['products_short_description']) ? $array['products_short_description'] : '', //DokuMan - 2010-02-26 - set Undefined index
-
-				//'PRODUCTS_FSK18' => $array['products_fsk18']);
 				'PRODUCTS_FSK18' => isset($array['products_fsk18']) ? $array['products_fsk18'] : 0, //DokuMan - 2010-02-26 - set Undefined index
+
+				//BOF - GTB - 2010-08-27 make Button Details global
+				'PRODUCTS_BUTTON_DETAILS' => '<a href="'.xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])).'">'.xtc_image_button('button_product_more.gif', $array['products_name'].TEXT_NOW).'</a>',
+				//EOF - GTB - 2010-08-27 make Button Details global
+				 
+				//BOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
+				'PRODUCTS_QUANTITY' => isset($array['products_quantity']) ? $array['products_quantity'] : '',
+				//EOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
         );
 
+        return $productData;
 	}
 	
 	function productImage($name, $type) {
-	
 	    switch ($type) {
 			case 'info' :
 				$path = DIR_WS_INFO_IMAGES;

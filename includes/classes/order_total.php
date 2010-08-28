@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: order_total.php 1029 2005-07-14 19:08:49Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(order_total.php,v 1.4 2003/02/11); www.oscommerce.com 
    (c) 2003	 nextcommerce (order_total.php,v 1.6 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (order_total.php 1029 2005-07-14)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -23,7 +23,6 @@
    Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
-
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -80,7 +79,7 @@ class order_total {
 			$output_string = '';
 			while (list (, $value) = each($this->modules)) {
 				$class = substr($value, 0, strrpos($value, '.'));
-				if ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) {
+                if ($GLOBALS[$class]->enabled && isset($GLOBALS[$class]->credit_class) && $GLOBALS[$class]->credit_class) {
 					$use_credit_string = $GLOBALS[$class]->use_credit_amount();
 					if ($selection_string == '')
 						$selection_string = $GLOBALS[$class]->credit_selection();
@@ -123,7 +122,7 @@ class order_total {
 			reset($this->modules);
 			while (list (, $value) = each($this->modules)) {
 				$class = substr($value, 0, strrpos($value, '.'));
-				if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
+                if (($GLOBALS[$class]->enabled && isset($GLOBALS[$class]->credit_class) && $GLOBALS[$class]->credit_class)) {
 					$GLOBALS[$class]->update_credit_account($i);
 				}
 			}
@@ -141,9 +140,9 @@ class order_total {
 			reset($this->modules);
 			while (list (, $value) = each($this->modules)) {
 				$class = substr($value, 0, strrpos($value, '.'));
-				if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
+                if (($GLOBALS[$class]->enabled && isset($GLOBALS[$class]->credit_class) && $GLOBALS[$class]->credit_class)) {
 					$post_var = 'c'.$GLOBALS[$class]->code;
-					if ($_POST[$post_var]) {
+                    if (isset($_POST[$post_var]) && $_POST[$post_var]) {
 						$_SESSION[$post_var] = $_POST[$post_var];
 					}
 					$GLOBALS[$class]->collect_posts();
@@ -165,7 +164,7 @@ class order_total {
 			while (list (, $value) = each($this->modules)) {
 				$class = substr($value, 0, strrpos($value, '.'));
 				$order_total = $this->get_order_total_main($class, $order_total);
-				if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
+                if (($GLOBALS[$class]->enabled && isset($GLOBALS[$class]->credit_class) && $GLOBALS[$class]->credit_class)) {
 					$total_deductions = $total_deductions + $GLOBALS[$class]->pre_confirmation_check($order_total);
 					$order_total = $order_total - $GLOBALS[$class]->pre_confirmation_check($order_total);
 				}
@@ -186,7 +185,7 @@ class order_total {
 			reset($this->modules);
 			while (list (, $value) = each($this->modules)) {
 				$class = substr($value, 0, strrpos($value, '.'));
-				if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
+                if (($GLOBALS[$class]->enabled && isset($GLOBALS[$class]->credit_class) && $GLOBALS[$class]->credit_class)) {
 					$GLOBALS[$class]->apply_credit();
 				}
 			}
@@ -200,7 +199,7 @@ class order_total {
 			reset($this->modules);
 			while (list (, $value) = each($this->modules)) {
 				$class = substr($value, 0, strrpos($value, '.'));
-				if (($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class)) {
+                if (($GLOBALS[$class]->enabled && isset($GLOBALS[$class]->credit_class) && $GLOBALS[$class]->credit_class)) {
 					$post_var = 'c'.$GLOBALS[$class]->code;
 					unset ($_SESSION[$post_var]);
 				}
@@ -249,7 +248,13 @@ class order_total {
 
 					for ($i = 0, $n = sizeof($GLOBALS[$class]->output); $i < $n; $i ++) {
 						if (xtc_not_null($GLOBALS[$class]->output[$i]['title']) && xtc_not_null($GLOBALS[$class]->output[$i]['text'])) {
-							$order_total_array[] = array ('code' => $GLOBALS[$class]->code, 'title' => $GLOBALS[$class]->output[$i]['title'], 'text' => $GLOBALS[$class]->output[$i]['text'], 'value' => $GLOBALS[$class]->output[$i]['value'], 'sort_order' => $GLOBALS[$class]->sort_order);
+							$order_total_array[] = array (
+							'code' => $GLOBALS[$class]->code,
+							'title' => $GLOBALS[$class]->output[$i]['title'],
+							'text' => $GLOBALS[$class]->output[$i]['text'],
+							'value' => $GLOBALS[$class]->output[$i]['value'],
+							'sort_order' => $GLOBALS[$class]->sort_order
+							);
 						}
 					}
 				}

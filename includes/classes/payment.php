@@ -77,8 +77,8 @@
         for ($i = 0, $n = sizeof($include_modules); $i < $n; $i++) {
           if (!in_array($include_modules[$i]['class'], $unallowed_modules)) {
             // check if zone is alowed to see module
-            if (constant(MODULE_PAYMENT_ . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . _ALLOWED) != '') {
-              $unallowed_zones = explode(',', constant(MODULE_PAYMENT_ . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . _ALLOWED));
+            if (constant('MODULE_PAYMENT_' . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . '_ALLOWED') != '') {
+              $unallowed_zones = explode(',', constant('MODULE_PAYMENT_' . strtoupper(str_replace('.php', '', $include_modules[$i]['file'])) . '_ALLOWED'));
             } else {
               $unallowed_zones = array();
             }
@@ -196,7 +196,10 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->enabled) {
+          //BOF - DokuMan - 2010-08-28 - set undefined index          
+          //if ($GLOBALS[$class]->enabled) {
+          if (isset($GLOBALS[$class]) && $GLOBALS[$class]->enabled) {
+          //EOF - DokuMan - 2010-08-28 - set undefined index          
             $selection = $GLOBALS[$class]->selection();
             if (is_array($selection)) $selection_array[] = $selection;
           }

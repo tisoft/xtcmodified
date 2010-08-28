@@ -1,15 +1,15 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: vat_validation.php 1283 2005-10-05 15:42:48Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2005 xtc_validate_vatid_status.inc.php 899 2005-04-29
+   (c) 2006 XT-Commerce (vat_validation.php 1283 2005-10-05)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -175,7 +175,12 @@ class vat_validation {
 			}
 		}
 
-		$this->vat_info = array ('status' => $status, 'vat_id_status' => $vat_id_status, 'error' => $error, 'validate' => $validate_vatid);
+		$this->vat_info = array (
+		'status' => $status,
+		'vat_id_status' => $vat_id_status,
+		'error' => $error,
+		'validate' => $validate_vatid
+		);
 
 	}
 
@@ -446,7 +451,6 @@ class vat_validation {
 //		if (!is_numeric(substr($vat_id), 4))
 		if (!is_numeric(substr($vat_id, 4)))
 //EOF - Dokuman - 15.07.2009 - minor fix for VAT check
-
 			return 0;
 
 		if ($this->live_check = true) {

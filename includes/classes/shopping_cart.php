@@ -1,9 +1,8 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id$
 
-   XT-Commerce - community made shopping
+   xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
@@ -12,7 +11,7 @@
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.32 2003/02/11); www.oscommerce.com
    (c) 2003	 nextcommerce (shopping_cart.php,v 1.21 2003/08/17); www.nextcommerce.org
-   (c) 2006	 xt:Commerce; www.xt-commerce.com
+   (c) 2006	 xt:Commerce (shopping_cart.php); www.xt-commerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -369,7 +368,21 @@ class shoppingCart {
 		reset($this->contents);
 		while (list ($products_id,) = each($this->contents)) {
 			if($this->contents[$products_id]['qty'] != 0 || $this->contents[$products_id]['qty'] !=''){			
-			$products_query = xtc_db_query("select p.products_id, pd.products_name,p.products_shippingtime, p.products_image, p.products_model, p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id='".xtc_get_prid($products_id)."' and pd.products_id = p.products_id and pd.language_id = '".(int)$_SESSION['languages_id']."'");
+			$products_query = xtc_db_query("select p.products_id,
+			pd.products_name,
+			p.products_shippingtime,
+			p.products_image,
+			p.products_model,
+			p.products_price,
+			p.products_discount_allowed,
+			p.products_weight,
+			p.products_tax_class_id
+			from ".TABLE_PRODUCTS." p,
+			".TABLE_PRODUCTS_DESCRIPTION." pd
+			where p.products_id='".xtc_get_prid($products_id)."'
+			and pd.products_id = p.products_id
+			and pd.language_id = '".(int)$_SESSION['languages_id']."'"
+			);
 			if ($products = xtc_db_fetch_array($products_query)) {
 				$prid = $products['products_id'];
 
@@ -438,9 +451,14 @@ class shoppingCart {
 				if (isset ($this->contents[$products_id]['attributes'])) {
 					reset($this->contents[$products_id]['attributes']);
 					while (list (, $value) = each($this->contents[$products_id]['attributes'])) {
-						$virtual_check_query = xtc_db_query("select count(*) as total from ".TABLE_PRODUCTS_ATTRIBUTES." pa, ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad where pa.products_id = '".(int)$products_id."' and pa.options_values_id = '".(int)$value."' and pa.products_attributes_id = pad.products_attributes_id");
+						$virtual_check_query = xtc_db_query("select count(*) as total
+																from ".TABLE_PRODUCTS_ATTRIBUTES." pa,
+																".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
+																where pa.products_id = '".(int)$products_id."'
+																and pa.options_values_id = '".(int)$value."'
+																and pa.products_attributes_id = pad.products_attributes_id
+																");
 						$virtual_check = xtc_db_fetch_array($virtual_check_query);
-
 						if ($virtual_check['total'] > 0) {
 							switch ($this->content_type) {
 								case 'physical' :

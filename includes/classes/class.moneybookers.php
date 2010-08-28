@@ -1,15 +1,16 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: class.moneybookers.php 29 2009-01-19 15:37:52Z mzanier $
+   $Id$
 
-   xt:Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2009 xt:Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(moneybookers.php,v 1.00 2003/10/27); www.oscommerce.com
+   (c) 2006 XT-Commerce (class.moneybookers.php 29 2009-01-19)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -334,9 +335,7 @@ class fcnt_moneybookers {
 			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_SORT_ORDER',
 			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_ALLOWED',
 			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_ZONE',
-			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_NEG_SHIPPING' );      // Hendrik - 2010-08-11 - exlusion config for shipping modules
-			
-		
+			'MODULE_PAYMENT_MONEYBOOKERS_'.strtoupper($this->module).'_NEG_SHIPPING');      // Hendrik - 2010-08-11 - exlusion config for shipping modules
 	}
 	
 
