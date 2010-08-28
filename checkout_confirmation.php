@@ -1,5 +1,4 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id$   
 
@@ -132,7 +131,7 @@ $breadcrumb->add(NAVBAR_TITLE_2_CHECKOUT_CONFIRMATION);
 require (DIR_WS_INCLUDES . 'header.php');
 if (SHOW_IP_LOG == 'true') {
 	$smarty->assign('IP_LOG', 'true');
-	if ($_SERVER["HTTP_X_FORWARDED_FOR"]) {
+    if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && $_SERVER["HTTP_X_FORWARDED_FOR"] != '') {
 		$customers_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
 	} else {
 		$customers_ip = $_SERVER["REMOTE_ADDR"];
@@ -140,7 +139,7 @@ if (SHOW_IP_LOG == 'true') {
 	$smarty->assign('CUSTOMERS_IP', $customers_ip);
 }
 $smarty->assign('DELIVERY_LABEL', xtc_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br />'));
-if ($_SESSION['credit_covers'] != '1') {
+if (!isset($_SESSION['credit_covers']) || $_SESSION['credit_covers'] != '1') {
 	$smarty->assign('BILLING_LABEL', xtc_address_format($order->billing['format_id'], $order->billing, 1, ' ', '<br />'));
 }
 $smarty->assign('PRODUCTS_EDIT', xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
@@ -148,67 +147,11 @@ $smarty->assign('SHIPPING_ADDRESS_EDIT', xtc_href_link(FILENAME_CHECKOUT_SHIPPIN
 $smarty->assign('BILLING_ADDRESS_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'));
 
 if ($_SESSION['sendto'] != false) {
-
 	if ($order->info['shipping_method']) {
 		$smarty->assign('SHIPPING_METHOD', $order->info['shipping_method']);
 		$smarty->assign('SHIPPING_EDIT', xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-
 	}
-
 }
-
-if (sizeof($order->info['tax_groups']) > 1) {
-
-	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
-
-	}
-
-} else {
-
-}
-/*
-
-//BOF - 2009-06-05 - replace table with div
-//$data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
-$data_products = '';
-//EOF - 2009-06-05 - replace table with div
-for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
-
-	//BOF - 2009-06-05 - replace table with div
-	//$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";
-	$data_products .= '<div style="width:100%"><div style="float:left;width:70%">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</div><div style="float:left;width:29%" align="right">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</div><br style="clear:both" /></div>' . "\n";
-	//EOF - 2009-06-05 - replace table with div
-	if (ACTIVATE_SHIPPING_STATUS == 'true') {
-		//BOF - 2009-06-05 - replace table with div
-		/*$data_products .= '<tr>
-							<td class="main" align="left" valign="top">
-							<nobr><small>' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '
-							</small><nobr></td>
-							<td class="main" align="right" valign="top">&nbsp;</td></tr>';
-		*/		
-		
-		/*
-		$data_products .= '<div style="font-size:smaller">' . SHIPPING_TIME . $order->products[$i]['shipping_time'] . '</div>';
-		//EOF - 2009-06-05 - replace table with div
-
-	}
-	if ((isset ($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0)) {
-		for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j++) {
-			//BOF - 2009-06-05 - replace table with div
-			$data_products .= '<div>&nbsp;<em> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</em></div>';
-			/*$data_products .= '<tr>
-								<td class="main" align="left" valign="top">
-								<nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '
-								</i></small><nobr></td>
-								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
-			*/
-			//EOF - 2009-06-05 - replace table with div
-		//}
-	//}
-	
-	
-	
-	//BOF - 2009-07-21 - remove Changes div to table //  Christian
 
 $data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
@@ -229,7 +172,8 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 							 . "\n"	. '  <td class="main_row" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['price'], true) . '</td>'
 							 . "\n"	. '  <td class="main_row" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td>
 					   </tr>' . "\n";
-// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation				   
+// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+				   
 	if (ACTIVATE_SHIPPING_STATUS == 'true') {
 
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
@@ -284,8 +228,8 @@ $data_products .= '</table>';
 $smarty->assign('PRODUCTS_BLOCK', $data_products);
 
 if ($order->info['payment_method'] != 'no_payment' && $order->info['payment_method'] != '') {
-	include (DIR_WS_LANGUAGES . '/' . $_SESSION['language'] . '/modules/payment/' . $order->info['payment_method'] . '.php');
-	$smarty->assign('PAYMENT_METHOD', constant(MODULE_PAYMENT_ . strtoupper($order->info['payment_method']) . _TEXT_TITLE));
+	include_once (DIR_WS_LANGUAGES . '/' . $_SESSION['language'] . '/modules/payment/' . $order->info['payment_method'] . '.php');
+	$smarty->assign('PAYMENT_METHOD', constant('MODULE_PAYMENT_' . strtoupper($order->info['payment_method']) . '_TEXT_TITLE'));
 }
 $smarty->assign('PAYMENT_EDIT', xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
@@ -299,7 +243,6 @@ $smarty->assign('TOTAL_BLOCK', $total_block);
 
 if (is_array($payment_modules->modules)) {
 	if ($confirmation = $payment_modules->confirmation()) {
-
 		$payment_info = $confirmation['title'];
 		for ($i = 0, $n = sizeof($confirmation['fields']); $i < $n; $i++) {
 
@@ -313,19 +256,15 @@ if (is_array($payment_modules->modules)) {
 
 		}
 		$smarty->assign('PAYMENT_INFORMATION', $payment_info);
-
 	}
 }
 
 if (xtc_not_null($order->info['comments'])) {
 	$smarty->assign('ORDER_COMMENTS', nl2br(htmlspecialchars($order->info['comments'])) . xtc_draw_hidden_field('comments', $order->info['comments']));
-
 }
 
 if (isset ($$_SESSION['payment']->form_action_url) && !$$_SESSION['payment']->tmpOrders) {
-
 	$form_action_url = $$_SESSION['payment']->form_action_url;
-
 } else {
 	$form_action_url = xtc_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');
 }
@@ -345,13 +284,13 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 	}
 
 	$shop_content_query = "SELECT
-		                                                content_title,
-		                                                content_heading,
-		                                                content_text,
-		                                                content_file
-		                                                FROM " . TABLE_CONTENT_MANAGER . "
-		                                                WHERE content_group='" . REVOCATION_ID . "' " . $group_check . "
-		                                                AND languages_id='" . $_SESSION['languages_id'] . "'";
+		                         content_title,
+		                         content_heading,
+		                         content_text,
+		                         content_file
+		                         FROM " . TABLE_CONTENT_MANAGER . "
+		                         WHERE content_group='" . REVOCATION_ID . "' " . $group_check . "
+		                         AND languages_id='" . $_SESSION['languages_id'] . "'";
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
@@ -383,7 +322,7 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 		                           content_file
 		                     FROM " . TABLE_CONTENT_MANAGER . "
 		                     WHERE content_group='3' " . $group_check . "
-		                       AND languages_id='" . $_SESSION['languages_id'] . "'";
+		                     AND languages_id='" . $_SESSION['languages_id'] . "'";
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
@@ -405,7 +344,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_confirmation
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 include ('includes/application_bottom.php');

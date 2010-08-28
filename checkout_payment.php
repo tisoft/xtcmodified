@@ -111,9 +111,9 @@ $total_weight = $_SESSION['cart']->show_weight();
 $total_count = $_SESSION['cart']->count_contents_virtual(); // GV Code ICW ADDED FOR CREDIT CLASS SYSTEM
 
 if ($order->billing['country']['iso_code_2'] != '' && $order->delivery['country']['iso_code_2'] == '') {
-$_SESSION['delivery_zone'] = $order->billing['country']['iso_code_2'];
+	$_SESSION['delivery_zone'] = $order->billing['country']['iso_code_2'];
 } else {
-$_SESSION['delivery_zone'] = $order->delivery['country']['iso_code_2']; 
+	$_SESSION['delivery_zone'] = $order->delivery['country']['iso_code_2']; 
 }
 
 // load all enabled payment modules
@@ -136,11 +136,8 @@ require (DIR_WS_INCLUDES . 'header.php');
 $module_smarty = new Smarty;
 if ($order->info['total'] > 0) {
 	if (isset ($_GET['payment_error']) && is_object(${ $_GET['payment_error'] }) && ($error = ${$_GET['payment_error']}->get_error())) {
-
 		$smarty->assign('error', htmlspecialchars($error['error']));
-
 	}
-
 	$selection = $payment_modules->selection();
 
 	$radio_buttons = 0;
@@ -160,13 +157,11 @@ if ($order->info['total'] > 0) {
 		if (isset ($selection[$i]['error'])) {
 
 		} else {
-
 			$radio_buttons++;
 		}
 	}
 
 	$module_smarty->assign('module_content', $selection);
-
 } else {
 	$smarty->assign('GV_COVER', 'true');
 }
@@ -182,7 +177,6 @@ $smarty->assign('COMMENTS', xtc_draw_textarea_field('comments', 'soft', '60', '5
 
 //check if display conditions on checkout page is true
 if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
-
 	if (GROUP_CHECK == 'true') {
 		$group_check = "and group_ids LIKE '%c_" . $_SESSION['customers_status']['customers_status_id'] . "_group%'";
 	}
@@ -221,7 +215,6 @@ if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 		$smarty->assign('AGB_checkbox', '<input type="checkbox" value="conditions" name="conditions" />');
 	}
 	// EOF - Tomcraft - 2009-10-01 - AGB checkbox re-implemented
-
 }
 
 $smarty->assign('language', $_SESSION['language']);
@@ -232,7 +225,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_payment.html
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 include ('includes/application_bottom.php');

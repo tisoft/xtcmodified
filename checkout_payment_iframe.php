@@ -62,7 +62,6 @@ require (DIR_WS_CLASSES . 'order_total.php');
 require (DIR_WS_CLASSES.'order.php');
 $order = new order();
 
-
 $order_total_modules = new order_total();
 $order_total_modules->process();
 
@@ -81,14 +80,13 @@ echo '</pre>';
 */
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-
 $main_content = '<iframe src="'.$iframe_url.'" width="100%" height="750" name="_top" frameborder="0"></iframe>';
 
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 include ('includes/application_bottom.php');

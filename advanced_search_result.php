@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: advanced_search_result.php 1141 2005-08-10 11:31:36Z novalis $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2005 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(advanced_search_result.php,v 1.68 2003/05/14); www.oscommerce.com 
    (c) 2003	 nextcommerce (advanced_search_result.php,v 1.17 2003/08/21); www.nextcommerce.org
+   (c) 2006 XT-Commerce (advanced_search_result.php 1141 2005-08-10)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -47,13 +47,13 @@ elseif (isset ($_GET['keywords']) && empty ($_GET['keywords']) && !(isset ($_GET
 	$error = 1;
 }
 
-if (strlen($_GET['keywords']) < 3 && strlen($_GET['keywords']) > 0 && $error == 0) {
+if (isset($_GET['keywords']) && strlen($_GET['keywords']) < 3 && strlen($_GET['keywords']) > 0 && $error == 0) {
 	$errorno += 1;
 	$error = 1;
 	$keyerror = 1;
 }
 
-if (strlen($_GET['pfrom']) > 0) {
+if (isset($_GET['pfrom']) && strlen($_GET['pfrom']) > 0) {
 	$pfrom_to_check = xtc_db_input($_GET['pfrom']);
 	if (!settype($pfrom_to_check, "double")) {
 		$errorno += 10000;
@@ -61,7 +61,7 @@ if (strlen($_GET['pfrom']) > 0) {
 	}
 }
 
-if (strlen($_GET['pto']) > 0) {
+if (isset($_GET['pto']) && strlen($_GET['pto']) > 0) {
 	$pto_to_check = $_GET['pto'];
 	if (!settype($pto_to_check, "double")) {
 		$errorno += 100000;
@@ -69,14 +69,14 @@ if (strlen($_GET['pto']) > 0) {
 	}
 }
 
-if (strlen($_GET['pfrom']) > 0 && !(($errorno & 10000) == 10000) && strlen($_GET['pto']) > 0 && !(($errorno & 100000) == 100000)) {
+if (isset($_GET['pfrom']) && strlen($_GET['pfrom']) > 0 && !(($errorno & 10000) == 10000) && isset($_GET['pto']) && strlen($_GET['pto']) > 0 && !(($errorno & 100000) == 100000)) {
 	if ($pfrom_to_check > $pto_to_check) {
 		$errorno += 1000000;
 		$error = 1;
 	}
 }
 
-if (strlen($_GET['keywords']) > 0) {
+if (isset($_GET['keywords']) && strlen($_GET['keywords']) > 0) {
 	if (!xtc_parse_search_string(stripslashes($_GET['keywords']), $search_keywords)) {
 		$errorno += 10000000;
 		$error = 1;
@@ -87,9 +87,7 @@ if (strlen($_GET['keywords']) > 0) {
 if ($error == 1 && $keyerror != 1) {
 
 	xtc_redirect(xtc_href_link(FILENAME_ADVANCED_SEARCH, 'errorno='.$errorno.'&'.xtc_get_all_get_params(array ('x', 'y'))));
-
 } else {
-
 	/*
 	 *    search process starts here
 	 */
@@ -137,7 +135,7 @@ if ($error == 1 && $keyerror != 1) {
 		}
 	}
 
-	if ($_GET['pfrom'] || $_GET['pto']) {
+    if ((isset($_GET['pfrom']) && $_GET['pfrom']) || (isset($_GET['pto']) && $_GET['pto'])) {
 		$rate = xtc_get_currencies_values($_SESSION['currency']);
 		$rate = $rate['value'];
 		if ($rate && $_GET['pfrom'] != '') {
@@ -150,13 +148,13 @@ if ($error == 1 && $keyerror != 1) {
 
 	//price filters
 	if (($pfrom != '') && (is_numeric($pfrom))) {
-		$pfrom_check = " AND (IF(s.status = '1' AND p.products_id = s.products_id, s.specials_new_products_price, p.products_price) >= ".$pfrom.") ";
+		$pfrom_check = " AND (IF(s.status = 1 AND p.products_id = s.products_id, s.specials_new_products_price, p.products_price) >= ".$pfrom.") ";
 	} else {
 		unset ($pfrom_check);
 	}
 
 	if (($pto != '') && (is_numeric($pto))) {
-		$pto_check = " AND (IF(s.status = '1' AND p.products_id = s.products_id, s.specials_new_products_price, p.products_price) <= ".$pto." ) ";
+		$pto_check = " AND (IF(s.status = 1 AND p.products_id = s.products_id, s.specials_new_products_price, p.products_price) <= ".$pto." ) ";
 	} else {
 		unset ($pto_check);
 	}
@@ -197,7 +195,7 @@ if ($error == 1 && $keyerror != 1) {
 	}
 
 	//where-string
-	$where_str = " WHERE p.products_status = '1' "." AND pd.language_id = '".(int) $_SESSION['languages_id']."'".$subcat_where.$fsk_lock.$manu_check.$group_check.$tax_where.$pfrom_check.$pto_check;
+	$where_str = " WHERE p.products_status = 1 AND pd.language_id = '".(int) $_SESSION['languages_id']."'".$subcat_where.$fsk_lock.$manu_check.$group_check.$tax_where.$pfrom_check.$pto_check;
 
 	//go for keywords... this is the main search process
 	if (isset ($_GET['keywords']) && xtc_not_null($_GET['keywords'])) {
@@ -212,7 +210,7 @@ if ($error == 1 && $keyerror != 1) {
 						$where_str .= " ".$search_keywords[$i]." ";
 						break;
 					default :
-					// BOF - Dokuman - 2009-05-27 - search for umlaut letters
+		// BOF - Dokuman - 2009-05-27 - search for umlaut letters
 					//see http://www.gunnart.de/tipps-und-tricks/xtcommerce-suche-nach-umlauten/		
 					/*
 						$where_str .= " ( ";
@@ -235,7 +233,6 @@ if ($error == 1 && $keyerror != 1) {
 
           // addslashes langt einmal ...
           $keyword = addslashes($search_keywords[$i]);
-
           $where_str .= " ( ";
           $where_str .= "pd.products_keywords LIKE ('%".$keyword."%') ";
           $where_str .= ($ent_keyword) ? "OR pd.products_keywords LIKE ('%".$ent_keyword."%') " : '';
@@ -254,7 +251,7 @@ if ($error == 1 && $keyerror != 1) {
              $where_str .= ($ent_keyword) ? "OR pov.products_options_values_name LIKE ('%".$ent_keyword."%') " : '';
              $where_str .= "AND pov.language_id = '".(int) $_SESSION['languages_id']."')";
           }
-					// EOF - Dokuman - 2009-05-27 - search for umlaut letters
+		// EOF - Dokuman - 2009-05-27 - search for umlaut letters
 					
 						$where_str .= " ) ";
 						break;
@@ -270,7 +267,7 @@ if ($error == 1 && $keyerror != 1) {
 }
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');	
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

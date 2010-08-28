@@ -109,7 +109,7 @@ else {
 	}
 
 // BMC CC Mod Start
-if (strtolower(CC_ENC) == 'true') {
+    if (defined('CC_ENC') && strtolower(CC_ENC) == 'true') {
 	$plain_data = $order->info['cc_number'];
 	$order->info['cc_number'] = changedatain($plain_data, CC_KEYCHAIN);
 }
@@ -121,12 +121,12 @@ if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
 	$discount = '0.00';
 }
 
-if ($_SERVER["HTTP_X_FORWARDED_FOR"]) {
+    if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && $_SERVER["HTTP_X_FORWARDED_FOR"]) {
 	$customers_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
 } else {
 	$customers_ip = $_SERVER["REMOTE_ADDR"];
 }
-if ($_SESSION['credit_covers'] != '1') {
+if (!isset($_SESSION['credit_covers']) || $_SESSION['credit_covers'] != '1') {
 	$sql_data_array = array ('customers_id' => $_SESSION['customer_id'],
                             'customers_name' => $order->customer['firstname'].' '.$order->customer['lastname'], 
                             'customers_firstname' => $order->customer['firstname'],
@@ -311,7 +311,7 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 	'products_price' => $order->products[$i]['price'],
 	'final_price' => $order->products[$i]['final_price'],
 	'products_tax' => $order->products[$i]['tax'],
-	'products_discount_made' => $order->products[$i]['discount_allowed'],
+        'products_discount_made' => isset($order->products[$i]['discount_allowed']) ? $order->products[$i]['discount_allowed'] : 0,
 	'products_quantity' => $order->products[$i]['qty'],
 	'allow_tax' => $_SESSION['customers_status']['customers_status_show_price_tax']
 	);
@@ -391,7 +391,14 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 
 			$attributes_values = xtc_db_fetch_array($attributes);
 
-			$sql_data_array = array ('orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'products_options' => $attributes_values['products_options_name'], 'products_options_values' => $attributes_values['products_options_values_name'], 'options_values_price' => $attributes_values['options_values_price'], 'price_prefix' => $attributes_values['price_prefix']);
+			$sql_data_array = array (
+			'orders_id' => $insert_id,
+			'orders_products_id' => $order_products_id,
+			'products_options' => $attributes_values['products_options_name'],
+			'products_options_values' => $attributes_values['products_options_values_name'],
+			'options_values_price' => $attributes_values['options_values_price'],
+			'price_prefix' => $attributes_values['price_prefix']
+			);
 			xtc_db_perform(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $sql_data_array);
 
 			if ((DOWNLOAD_ENABLED == 'true') && isset ($attributes_values['products_attributes_filename']) && xtc_not_null($attributes_values['products_attributes_filename'])) {
@@ -412,10 +419,10 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 }
 
 if (isset ($_SESSION['tracking']['refID'])) {
-
 	xtc_db_query("update ".TABLE_ORDERS." set
 	                                 refferers_id = '".$_SESSION['tracking']['refID']."'
 	                                 where orders_id = '".$insert_id."'");
+
 	// check if late or direct sale
 	$customers_logon_query = "SELECT customers_info_number_of_logons
 				                            FROM ".TABLE_CUSTOMERS_INFO."

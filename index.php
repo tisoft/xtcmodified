@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(default.php,v 1.84 2003/05/07); www.oscommerce.com
    (c) 2003	 nextcommerce (default.php,v 1.13 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (index.php 1215 2010-08-26)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -52,7 +52,6 @@ if (isset ($cPath) && xtc_not_null($cPath)) {
 }
 
 require (DIR_WS_INCLUDES.'header.php');
-
 include (DIR_WS_MODULES.'default.php');
 $smarty->assign('language', $_SESSION['language']);
 

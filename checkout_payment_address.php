@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_payment_address.php 993 2005-07-06 11:34:27Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_payment_address.php,v 1.13 2003/05/27); www.oscommerce.com 
    (c) 2003	 nextcommerce (checkout_payment_address.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (checkout_payment_address.php 993 2005-07-06)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -129,7 +129,15 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 		}
 
 		if ($error == false) {
-			$sql_data_array = array ('customers_id' => $_SESSION['customer_id'], 'entry_firstname' => $firstname, 'entry_lastname' => $lastname, 'entry_street_address' => $street_address, 'entry_postcode' => $postcode, 'entry_city' => $city, 'entry_country_id' => $country);
+			$sql_data_array = array (
+			'customers_id' => $_SESSION['customer_id'],
+			'entry_firstname' => $firstname,
+			'entry_lastname' => $lastname,
+			'entry_street_address' => $street_address,
+			'entry_postcode' => $postcode,
+			'entry_city' => $city,
+			'entry_country_id' => $country
+			);
 
 			if (ACCOUNT_GENDER == 'true')
 				$sql_data_array['entry_gender'] = $gender;
@@ -298,14 +306,12 @@ if ($process == false) {
 }
 
 if ($addresses_count < MAX_ADDRESS_BOOK_ENTRIES) {
-
 	require (DIR_WS_MODULES.'checkout_new_address.php');
 }
 $smarty->assign('BUTTON_CONTINUE', xtc_draw_hidden_field('action', 'submit').xtc_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE));
 
 if ($process == true) {
 	$smarty->assign('BUTTON_BACK', '<a href="'.xtc_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL').'">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
-
 }
 $smarty->assign('FORM_END', '</form>');
 $smarty->assign('language', $_SESSION['language']);
@@ -316,7 +322,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_payment_addres
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

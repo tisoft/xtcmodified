@@ -1,15 +1,15 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
-   (c) 2003	 nextcommerce (print_order.php,v 1.5 2003/08/24); www.nextcommerce.org
+   (c) 2003	nextcommerce (print_order.php,v 1.5 2003/08/24); www.nextcommerce.org
+   (c) 2005 xtCommerce (print_order.php); www.xt-commerce.com
    
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -51,7 +51,7 @@ if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check[
 	$smarty->assign('oID', (int) $_GET['oID']);
 	$payment_method = false; //DokuMan - 2010-03-18 - set undefined variable	
 	if ($order->info['payment_method'] != '' && $order->info['payment_method'] != 'no_payment') {
-		include (DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
+		include_once (DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
 		$payment_method = constant(strtoupper('MODULE_PAYMENT_'.$order->info['payment_method'].'_TEXT_TITLE'));
 	}
 	$smarty->assign('PAYMENT_METHOD', $payment_method);
@@ -68,7 +68,6 @@ if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check[
 
 	$smarty->display(CURRENT_TEMPLATE.'/module/print_order.html');
 } else {
-
 	$smarty->assign('ERROR', 'You are not allowed to view this order!');
 	$smarty->display(CURRENT_TEMPLATE.'/module/error_message.html');
 }

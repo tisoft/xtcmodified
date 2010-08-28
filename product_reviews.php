@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: product_reviews.php 1238 2005-09-24 10:51:19Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(product_reviews.php,v 1.47 2003/02/13); www.oscommerce.com 
    (c) 2003	 nextcommerce (product_reviews.php,v 1.12 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (product_reviews.php 1238 2005-09-24)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -66,8 +66,15 @@ if (xtc_db_num_rows($reviews_query)) {
 	$row = 0;
 	while ($reviews = xtc_db_fetch_array($reviews_query)) {
 		$row ++;
-		$data_reviews[] = array ('ID' => $reviews['reviews_id'], 'AUTHOR' => '<a href="'.xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params.'&reviews_id='.$reviews['reviews_id']).'">'.$reviews['customers_name'].'</a>', 'DATE' => xtc_date_short($reviews['date_added']), 'RATING' => xtc_image('templates/'.CURRENT_TEMPLATE.'/img/stars_'.$reviews['reviews_rating'].'.gif', sprintf(BOX_REVIEWS_TEXT_OF_5_STARS, $reviews['reviews_rating'])), 'TEXT' => $reviews['reviews_text']);
-
+		$data_reviews[] = array (
+		'ID' => $reviews['reviews_id'],
+		'AUTHOR' => '<a href="'.xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params.'&reviews_id='.$reviews['reviews_id']).'">'.$reviews['customers_name'].'</a>',
+		
+		'DATE' => xtc_date_short($reviews['date_added']),
+		'RATING' => xtc_image('templates/'.CURRENT_TEMPLATE.'/img/stars_'.$reviews['reviews_rating'].'.gif', sprintf(BOX_REVIEWS_TEXT_OF_5_STARS, $reviews['reviews_rating'])),
+		'TEXT' => $reviews['reviews_text']
+		
+		);
 	}
 }
 $smarty->assign('module_content', $data_reviews);
@@ -91,7 +98,7 @@ $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

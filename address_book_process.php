@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id: address_book_process.php 1218 2005-09-16 11:38:37Z mz $   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(address_book_process.php,v 1.77 2003/05/27); www.oscommerce.com
    (c) 2003	 nextcommerce (address_book_process.php,v 1.13 2003/08/17); www.nextcommerce.org 
+   (c) 2006 XT-Commerce (address_book_process.php 1218 2005-09-16)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -44,7 +44,7 @@ if (isset ($_POST['action']) && (($_POST['action'] == 'process') || ($_POST['act
 	$error = false;
 
 	if (ACCOUNT_GENDER == 'true')
-		$gender = xtc_db_prepare_input($_POST['gender']);
+    $gender = isset($_POST['gender']) ? xtc_db_prepare_input($_POST['gender']) : '';
 	if (ACCOUNT_COMPANY == 'true')
 		$company = xtc_db_prepare_input($_POST['company']);
 	$firstname = xtc_db_prepare_input($_POST['firstname']);
@@ -129,7 +129,15 @@ if (isset ($_POST['action']) && (($_POST['action'] == 'process') || ($_POST['act
 	}
 
 	if ($error == false) {
-		$sql_data_array = array ('entry_firstname' => $firstname, 'entry_lastname' => $lastname, 'entry_street_address' => $street_address, 'entry_postcode' => $postcode, 'entry_city' => $city, 'entry_country_id' => (int) $country,'address_last_modified' => 'now()');
+		$sql_data_array = array (
+		'entry_firstname' => $firstname,
+		'entry_lastname' => $lastname,
+		'entry_street_address' => $street_address,
+		'entry_postcode' => $postcode,
+		'entry_city' => $city,
+		'entry_country_id' => (int) $country,
+		'address_last_modified' => 'now()'
+		);
 
 		if (ACCOUNT_GENDER == 'true')
 			$sql_data_array['entry_gender'] = $gender;
@@ -266,7 +274,6 @@ if (isset ($_GET['delete']) == false)
 $smarty->assign('FORM_ACTION', $action);
 if ($messageStack->size('addressbook') > 0) {
 	$smarty->assign('error', $messageStack->output('addressbook'));
-
 }
 
 if (isset ($_GET['delete'])) {
@@ -284,17 +291,15 @@ if (isset ($_GET['delete'])) {
 		$smarty->assign('BUTTON_UPDATE', xtc_draw_hidden_field('action', 'update').xtc_draw_hidden_field('edit', $_GET['edit']).xtc_image_submit('button_update.gif', IMAGE_BUTTON_UPDATE));
 
 	} else {
-		if (sizeof($_SESSION['navigation']->snapshot) > 0) {
+        if (isset($_SESSION['navigation']) && sizeof($_SESSION['navigation']->snapshot) > 0) {
 			$back_link = xtc_href_link($_SESSION['navigation']->snapshot['page'], xtc_array_to_string($_SESSION['navigation']->snapshot['get'], array (xtc_session_name())), $_SESSION['navigation']->snapshot['mode']);
 		} else {
 			$back_link = xtc_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL');
 		}
 		$smarty->assign('BUTTON_BACK', '<a href="'.$back_link.'">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
 		$smarty->assign('BUTTON_UPDATE', xtc_draw_hidden_field('action', 'process').xtc_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE));
-
 	}
 	$smarty->assign('FORM_END', '</form>');
-
 }
 
 $smarty->assign('language', $_SESSION['language']);
@@ -304,7 +309,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/address_book_process.ht
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

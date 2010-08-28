@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: product_reviews_info.php 1238 2005-09-24 10:51:19Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(product_reviews_info.php,v 1.47 2003/02/13); www.oscommerce.com
    (c) 2003	 nextcommerce (product_reviews_info.php,v 1.12 2003/08/17); www.nextcommerce.org 
+   (c) 2006 XT-Commerce (product_reviews_info.php 1238 2005-09-24)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -44,10 +44,11 @@ $reviews_query = "select rd.reviews_text,
                   from ".TABLE_REVIEWS." r
                   left join ".TABLE_PRODUCTS." p on (r.products_id = p.products_id)
                   left join ".TABLE_PRODUCTS_DESCRIPTION." pd on (p.products_id = pd.products_id 
-                  and pd.language_id = '".(int) $_SESSION['languages_id']."'), ".TABLE_REVIEWS_DESCRIPTION." rd 
-                  where r.reviews_id = '".(int) $_GET['reviews_id']."'
+                  and pd.language_id = ".(int) $_SESSION['languages_id']."),
+                  ".TABLE_REVIEWS_DESCRIPTION." rd 
+                  where r.reviews_id = ".(int) $_GET['reviews_id']."
                   and r.reviews_id = rd.reviews_id
-                  and p.products_status = '1'";
+                  and p.products_status = 1";
 $reviews_query = xtc_db_query($reviews_query);
 
 if (!xtc_db_num_rows($reviews_query))
@@ -89,7 +90,7 @@ $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

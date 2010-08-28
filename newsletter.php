@@ -103,22 +103,17 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 			if (SEND_EMAILS == true) {
 				xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, xtc_db_input($_POST['email']), '', '', EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', TEXT_EMAIL_SUBJECT, $html_mail, $txt_mail);
 			}
-
 		} else {
 			$check_mail = xtc_db_fetch_array($check_mail_query);
-
 			if ($check_mail['mail_status'] == '0') {
-
 				$info_message = TEXT_EMAIL_EXIST_NO_NEWSLETTER;
 
 				if (SEND_EMAILS == true) {
 					xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, xtc_db_input($_POST['email']), '', '', EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', TEXT_EMAIL_SUBJECT, $html_mail, $txt_mail);
 				}
-
 			} else {
 				$info_message = TEXT_EMAIL_EXIST_NEWSLETTER;
 			}
-
 		}
 
 	} else {
@@ -143,7 +138,6 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 			$info_message = TEXT_EMAIL_NOT_EXIST;
 		} else {
 			$del_query = xtc_db_query("delete from ".TABLE_NEWSLETTER_RECIPIENTS." where customers_email_address ='".xtc_db_input($_POST['email'])."'");
-           
 			$info_message = TEXT_EMAIL_DEL;
 		}	
 	}	
@@ -163,7 +157,6 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'activate')) {
 			$info_message = TEXT_EMAIL_ACTIVE_ERROR;
 		} else {
 			xtc_db_query("update ".TABLE_NEWSLETTER_RECIPIENTS." set mail_status = '1' where customers_email_address = '".xtc_db_input($_GET['email'])."'");
-			
 			$info_message = TEXT_EMAIL_ACTIVE;
 		}
 	}
@@ -172,7 +165,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'activate')) {
 // Accountdeaktivierung per Emaillink
 if (isset ($_GET['action']) && ($_GET['action'] == 'remove')) {
 	$check_mail_query = xtc_db_query("select customers_email_address,
-                                           mail_key
+                                    mail_key
                                     from ".TABLE_NEWSLETTER_RECIPIENTS."
                                     where customers_email_address = '".xtc_db_input($_GET['email'])."' 
                                     and mail_key = '".xtc_db_input($_GET['key'])."'");
@@ -187,7 +180,6 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'remove')) {
 			$info_message = TEXT_EMAIL_DEL_ERROR;
 		} else {
 			$del_query = xtc_db_query("delete from ".TABLE_NEWSLETTER_RECIPIENTS." where  customers_email_address ='".xtc_db_input($_GET['email'])."' and mail_key = '".xtc_db_input($_GET['key'])."'");
-			
 			$info_message = TEXT_EMAIL_DEL;
 		}
 	}

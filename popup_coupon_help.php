@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: popup_coupon_help.php 1313 2005-10-18 15:49:15Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(popup_coupon_help.php,v 1.1.2.5 2003/05/02); www.oscommerce.com
+   (c) 2006 XT-Commerce (popup_coupon_help.php 1313 2005-10-18)
 
 
    Released under the GNU General Public License
@@ -61,7 +61,7 @@ for ($i = 0; $i < count($cat_ids); $i ++) {
 		$cats .= '<br />'.$row["categories_name"];
 	}
 }
-if ($cats == '')
+if (!isset($cats) || $cats == '')
 	$cats = '<br />NONE';
 $text_coupon_help .= $cats;
 $text_coupon_help .= '<br /><br />'.TEXT_COUPON_HELP_PRODUCTS;
@@ -75,7 +75,7 @@ for ($i = 0; $i < count($pr_ids); $i ++) {
 		$prods .= '<br />'.$row["products_name"];
 	}
 }
-if ($prods == '')
+if (!isset($prods) || $prods == '')
 	$prods = '<br />NONE';
 $text_coupon_help .= $prods;
 

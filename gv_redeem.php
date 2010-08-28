@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: gv_redeem.php 1034 2005-07-15 15:21:43Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project (earlier name of osCommerce)
    (c) 2002-2003 osCommerce (gv_redeem.php,v 1.3.2.1 2003/04/18); www.oscommerce.com
+   (c) 2006 XT-Commerce (gv_redeem.php 1034 2005-07-15)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -44,9 +44,6 @@ require (DIR_WS_INCLUDES.'header.php');
 
 // check for a voucher number in the url
 if (isset ($_GET['gv_no'])) {
-	
-	
-	
 	$error = true;
 	$gv_query = xtc_db_query("select c.coupon_id, c.coupon_amount from ".TABLE_COUPONS." c, ".TABLE_COUPON_EMAIL_TRACK." et where coupon_code = '".xtc_db_input($_GET['gv_no'])."' and c.coupon_id = et.coupon_id");
 	if (xtc_db_num_rows($gv_query) > 0) {
@@ -85,7 +82,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/gv_redeem.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

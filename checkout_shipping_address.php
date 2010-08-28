@@ -316,9 +316,7 @@ if ($process == false) {
 }
 
 if ($addresses_count < MAX_ADDRESS_BOOK_ENTRIES) {
-
 	require (DIR_WS_MODULES.'checkout_new_address.php');
-
 }
 $smarty->assign('BUTTON_CONTINUE', xtc_draw_hidden_field('action', 'submit').xtc_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE));
 
@@ -335,7 +333,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_shipping_addre
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

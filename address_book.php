@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: address_book.php 867 2005-04-21 18:35:29Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(address_book.php,v 1.57 2003/05/29); www.oscommerce.com 
    (c) 2003	 nextcommerce (address_book.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2006 xt:Commerce (address_book.php 867 2005-04-21)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -61,7 +61,7 @@ while ($addresses = xtc_db_fetch_array($addresses_query)) {
 	} else {
 		$primary = 0;
 	}
-	$addresses_data[] = array ('NAME' => $addresses['firstname'].' '.$addresses['lastname'], 
+	$addresses_data[] = array ('NAME' => $addresses['firstname'].' '.$addresses['lastname'],
                              'BUTTON_EDIT' => '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'edit='.$addresses['address_book_id'], 'SSL').'">'.xtc_image_button('small_edit.gif', SMALL_IMAGE_BUTTON_EDIT).'</a>', 
                              'BUTTON_DELETE' => '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'delete='.$addresses['address_book_id'], 'SSL').'">'.xtc_image_button('small_delete.gif', SMALL_IMAGE_BUTTON_DELETE).'</a>',
                              'ADDRESS' => xtc_address_format($format_id, $addresses, true, ' ', '<br />'),
@@ -73,7 +73,6 @@ $smarty->assign('addresses_data', $addresses_data);
 $smarty->assign('BUTTON_BACK', '<a href="'.xtc_href_link(FILENAME_ACCOUNT, '', 'SSL').'">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
 
 if (xtc_count_customer_address_book_entries() < MAX_ADDRESS_BOOK_ENTRIES) {
-
 	$smarty->assign('BUTTON_NEW', '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL').'">'.xtc_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS).'</a>');
 }
 
@@ -86,7 +85,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/address_book.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

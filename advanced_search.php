@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: advanced_search.php 988 2005-06-18 16:42:42Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(advanced_search.php,v 1.49 2003/02/13); www.oscommerce.com 
    (c) 2003	 nextcommerce (advanced_search.php,v 1.13 2003/08/21); www.nextcommerce.org
+   (c) 2006 XT-Commerce (advanced_search.php 988 2005-06-18)
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -45,7 +45,6 @@ $smarty->assign('ENTRY_SUBCAT',xtc_draw_checkbox_field('inc_subcat', '1', true))
 $smarty->assign('SELECT_MANUFACTURERS',xtc_draw_pull_down_menu('manufacturers_id', xtc_get_manufacturers(array (array ('id' => '', 'text' => TEXT_ALL_MANUFACTURERS)))));
 $smarty->assign('SELECT_PFROM',xtc_draw_input_field('pfrom'));
 $smarty->assign('SELECT_PTO',xtc_draw_input_field('pto'));
-
 
 $error = '';
 if (isset ($_GET['errorno'])) {
@@ -85,7 +84,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/advanced_search.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
