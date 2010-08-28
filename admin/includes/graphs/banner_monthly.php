@@ -1,23 +1,24 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: banner_monthly.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(banner_monthly.php,v 1.3 2002/05/09); www.oscommerce.com 
    (c) 2003	 nextcommerce (banner_monthly.php,v 1.6 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (banner_monthly.php 899 2005-04-29)
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
   require(DIR_WS_CLASSES . 'phplot.php');
 
-  $year = (($_GET['year']) ? $_GET['year'] : date('Y'));
+  $year = isset($_GET['year']) ? $_GET['year'] : date('Y');
 
   $stats = array();
   for ($i=1; $i<13; $i++) {

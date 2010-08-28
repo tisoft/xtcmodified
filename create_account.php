@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: create_account.php 307 2007-03-30 16:30:58Z mzanier $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(create_account.php,v 1.63 2003/05/28); www.oscommerce.com
    (c) 2003  nextcommerce (create_account.php,v 1.27 2003/08/24); www.nextcommerce.org 
+   (c) 2006 XT-Commerce (create_account.php 307 2007-03-30)
 
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
@@ -297,7 +297,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
 		$address_id = xtc_db_insert_id();
 
-		xtc_db_query("update ".TABLE_CUSTOMERS." set customers_default_address_id = '".$address_id."' where customers_id = '".(int) $_SESSION['customer_id']."'");
+		xtc_db_query("update ".TABLE_CUSTOMERS." set customers_default_address_id = '".(int)$address_id."' where customers_id = '".(int) $_SESSION['customer_id']."'");
 
 		xtc_db_query("insert into ".TABLE_CUSTOMERS_INFO." (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('".(int) $_SESSION['customer_id']."', '0', now())");
 
