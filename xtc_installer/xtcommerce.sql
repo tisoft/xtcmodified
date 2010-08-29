@@ -195,6 +195,7 @@ CREATE TABLE admin_access (
   cleverreach INT(1) NOT NULL DEFAULT 0,
   sofortueberweisung_install INT(1) NOT NULL DEFAULT 0,
   shop_offline INT(1) NOT NULL DEFAULT 0,
+  xajax INT(1) NOT NULL DEFAULT 1,
 
   PRIMARY KEY (customers_id)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;

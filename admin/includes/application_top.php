@@ -28,6 +28,11 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
+// BOF - hendrik - 2010-08-29 - xajax in backend
+define('XAJAX_BACKEND_SUPPORT',         'false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
+define('XAJAX_BACKEND_SUPPORT_TEST',    'false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
+// EOF - hendrik - 2010-08-29 - xajax in backend
+   
   // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
   

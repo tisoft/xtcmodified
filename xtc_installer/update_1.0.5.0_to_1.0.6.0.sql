@@ -22,3 +22,5 @@ DROP TABLE IF EXISTS gls_postal_to_weight;
 DROP TABLE IF EXISTS gls_weight;
 
 # Keep an empty line at the end of this file for the db_updater to work properly
+ALTER TABLE admin_access ADD xajax INT(1) DEFAULT 1 NOT NULL;
+

@@ -51,6 +51,16 @@
   <?php
   } else echo '<link href="includes/liststyle_menu/liststyle_left.css" rel="stylesheet" type="text/css" />';
  // EOF - Tomcraft - 2009-11-02 - JavaScript WEICHE  - Admin Umschaltauswahl
+ 
+// BOF - hendrik - 2010-08-29 - xajax in backend
+if( XAJAX_BACKEND_SUPPORT=='true' ) {
+	// Include XAJAX JS Library
+	require ('xajax.common.php');                            // imdxajax
+	if ($imdxajax) {
+		$imdxajax->printJavascript('includes/');
+	}
+} 
+// EOF - hendrik - 2010-08-29 - xajax in backend
 ?>
 
 <!-- BOF - Tomcraft - 2009-11-02 - JavaScript WEICHE //-->
@@ -101,6 +111,17 @@
 		Credits
 		</td>
 <!-- EOF - web28 - 2010-06-20 - added xtc_href_link to fastmenu //-->
+
+		<!-- BOF - hendrik - 2010-08-29 - xajax in backend //-->
+       	<?php if( XAJAX_BACKEND_SUPPORT_TEST=='true' ) {  ?>
+        <td class="fastmenu" align="center">
+		    <!-- ---- beginn xajax_support_test------------------------ -->
+		    <a href="#" onClick="xajax_xajax_support_test_get_servertime( new Date().toLocaleString() );">xajax_support_test</a>
+		    <!-- ---- end xajax_support_test------------------------ -->
+   		</td>
+   		<?php } ?>
+		<!-- EOF - hendrik - 2010-08-29 - xajax in backend //-->
+
       </tr>
     </table>
     </td>
@@ -124,4 +145,7 @@ if (USE_ADMIN_TOP_MENU != 'false') {
 // EOF - Hetfield  2009-12-16 - rename $content in $menucontent because $content already exist
 // EOF - vr/web28 - 2009-12-13 - escape some characters
 }
+
+
+
 ?>
