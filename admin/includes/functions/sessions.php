@@ -2,18 +2,23 @@
 /* --------------------------------------------------------------
    $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(sessions.php,v 1.16 2003/04/02); www.oscommerce.com 
    (c) 2003	 nextcommerce (sessions.php,v 1.7 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (sessions.php 950 2005-05-14)
 
    Released under the GNU General Public License 
+
+   Do not use 'xtc_db_input()' on variable '$key' as it breaks the db-session-entry
    --------------------------------------------------------------*/
+
+
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   if (STORE_SESSIONS == 'mysql') {
     if (!$SESS_LIFE = get_cfg_var('session.gc_maxlifetime')) {
@@ -29,10 +34,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function _sess_read($key) {
-      $qid = xtc_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . $key . "' and expiry > '" . time() . "'");
-
-      $value = xtc_db_fetch_array($qid);
-      if ($value['value']) {
+      $value_query = xtc_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "' and expiry > '" . time() . "'");
+      $value = xtc_db_fetch_array($value_query);
+      
+      if (isset($value['value'])) {
         return $value['value'];
       }
 
@@ -45,18 +50,18 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $expiry = time() + $SESS_LIFE;
       $value = addslashes($val);
 
-      $qid = xtc_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
-      $total = xtc_db_fetch_array($qid);
+      $check_query = xtc_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "'");
+      $total = xtc_db_fetch_array($check_query);
 
       if ($total['total'] > 0) {
-        return xtc_db_query("update " . TABLE_SESSIONS . " set expiry = '" . $expiry . "', value = '" . $value . "' where sesskey = '" . $key . "'");
+        return xtc_db_query("update " . TABLE_SESSIONS . " set expiry = '" . (int)$expiry . "', value = '" . $value . "' where sesskey = '" . xtc_db_input($key) . "'");
       } else {
-        return xtc_db_query("insert into " . TABLE_SESSIONS . " values ('" . $key . "', '" . $expiry . "', '" . $value . "')");
+        return xtc_db_query("insert into " . TABLE_SESSIONS . " values ('" . xtc_db_input($key) . "', '" . (int)$expiry . "', '" . $value . "')");
       }
     }
 
     function _sess_destroy($key) {
-      return xtc_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
+      return xtc_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "'");
     }
 
     function _sess_gc($maxlifetime) {
@@ -131,7 +136,7 @@ function xtc_session_register($variable) {
   }
 
   function xtc_session_recreate() {
-    if (PHP_VERSION >= 4.1) {
+
       $session_backup = $_SESSION;
 
       unset($_COOKIE[xtc_session_name()]);
@@ -146,6 +151,6 @@ function xtc_session_register($variable) {
 
       $_SESSION = $session_backup;
       unset($session_backup);
-    }
+
   }
 ?>
