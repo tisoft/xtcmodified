@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS gls_country_to_postal;
 DROP TABLE IF EXISTS gls_postal_to_weight;
 DROP TABLE IF EXISTS gls_weight;
 
-# Keep an empty line at the end of this file for the db_updater to work properly
+#Hendurk 2010-08-29 Xajax Support in Backend
 ALTER TABLE admin_access ADD xajax INT(1) DEFAULT 1 NOT NULL;
+# Keep an empty line at the end of this file for the db_updater to work properly
 
