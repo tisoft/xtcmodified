@@ -43,7 +43,7 @@ require_once (DIR_FS_INC.'xtc_get_download.inc.php');
 require_once (DIR_FS_INC.'xtc_get_all_get_params.inc.php');
 require_once (DIR_FS_INC.'xtc_date_long.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_hidden_field.inc.php');
-require_once (DIR_FS_INC.'xtc_image_button.inc.php');
+//require_once (DIR_FS_INC.'xtc_image_button.inc.php'); //DokuMan - 2010-08-30 - function already set in application_top.php
 require_once (DIR_FS_INC.'xtc_draw_form.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_input_field.inc.php');
 require_once (DIR_FS_INC.'xtc_image_submit.inc.php');
