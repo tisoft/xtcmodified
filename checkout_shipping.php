@@ -82,6 +82,16 @@ if (!isset ($_SESSION['sendto'])) {
 require (DIR_WS_CLASSES.'order.php');
 $order = new order();
 
+//BOF - DokuMan - 2010-08-30 - check for cartID also in checkout_shipping
+// avoid hack attempts during the checkout procedure by checking the internal cartID
+if (isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) {
+    if ($_SESSION['cart']->cartID !== $_SESSION['cartID']) {
+        unset($_SESSION['shipping']);
+        unset($_SESSION['payment']);
+    }
+}
+//EOF - DokuMan - 2010-08-30 - check for cartID also in checkout_shipping
+
 // register a random ID in the session to check throughout the checkout procedure
 // against alterations in the shopping cart contents
 $_SESSION['cartID'] = $_SESSION['cart']->cartID;
@@ -191,6 +201,7 @@ $smarty->assign('BUTON_CONTINUE', xtc_image_submit('button_continue.gif', IMAGE_
 $smarty->assign('FORM_END', '</form>');
 
 $module_smarty = new Smarty;
+$shipping_block = ''; //DokuMan - 2010-08-30 - set undefined variable
 if (xtc_count_shipping_modules() > 0) {
 	$showtax = $_SESSION['customers_status']['customers_status_show_price_tax'];
 	$module_smarty->assign('FREE_SHIPPING', $free_shipping);

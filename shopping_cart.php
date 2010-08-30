@@ -1,10 +1,9 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
@@ -12,7 +11,7 @@
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com 
    (c) 2003	 nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
-   (c) 2006	 xt:Commerce; www.xt-commerce.com
+   (c) 2006 xtCommerce (shopping_cart.php)
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -35,6 +34,16 @@ $breadcrumb->add(NAVBAR_TITLE_SHOPPING_CART, xtc_href_link(FILENAME_SHOPPING_CAR
 
 require (DIR_WS_INCLUDES.'header.php');
 include (DIR_WS_MODULES.'gift_cart.php');
+
+//BOF - DokuMan - 2010-08-30 - check for cartID also in shopping_cart
+// avoid hack attempts during the checkout procedure by checking the internal cartID
+if ((isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) || (!isset($_SESSION['cartID']) && isset($_SESSION['shipping']))) {
+    if ($_SESSION['cart']->cartID !== $_SESSION['cartID']) {
+        unset($_SESSION['shipping']);
+        unset($_SESSION['payment']);
+    }
+}
+//EOF - DokuMan - 2010-08-30 - check for cartID also in shopping_cart
 
 if ($_SESSION['cart']->count_contents() > 0) {
 
@@ -163,7 +172,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/shopping_cart.html');
 $smarty->assign('main_content', $main_content);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
         $smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 
