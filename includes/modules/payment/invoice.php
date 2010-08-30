@@ -1,20 +1,19 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com
    (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
    (c) 2006 XT-Commerce (invoice.php 1122 2005-07-26)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 class invoice {
@@ -49,12 +48,12 @@ class invoice {
 		$neg_shpmod_arr = explode(',',MODULE_PAYMENT_INVOICE_NEG_SHIPPING);
 		foreach( $neg_shpmod_arr as $neg_shpmod ) {
 			$nd=$neg_shpmod.'_'.$neg_shpmod;
-			if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
+			if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) {
 				$this->enabled = false;
 				break;
 			}
 		}
-	} 
+	}
     // EOF - Hendrik - 2010-08-09 - exlusion config for shipping modules
 
 		$check_order_query = xtc_db_query("select count(*) as count from ".TABLE_ORDERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
@@ -95,7 +94,11 @@ class invoice {
 	}
 
 	function selection() {
-		return array ('id' => $this->code, 'module' => $this->title, 'description' => $this->info);
+		return array (
+		'id' => $this->code,
+		'module' => $this->title,
+		'description' => $this->info
+		);
 	}
 
 	function pre_confirmation_check() {
@@ -116,7 +119,7 @@ class invoice {
 
 	function after_process() {
 		global $insert_id;
-		//BOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY	
+		//BOF - DokuMan - 2010-08-23 - Also update status in TABLE_ORDERS_STATUS_HISTORY
 		//if ($this->order_status)
 		//	xtc_db_query("UPDATE ".TABLE_ORDERS." SET orders_status='".$this->order_status."' WHERE orders_id='".$insert_id."'");
 		if (isset($this->order_status) && $this->order_status) {
@@ -156,14 +159,13 @@ class invoice {
 	}
 
 	function keys() {
-		return array (	'MODULE_PAYMENT_INVOICE_STATUS', 
-						'MODULE_PAYMENT_INVOICE_ALLOWED', 
-						'MODULE_PAYMENT_INVOICE_ZONE', 
-						'MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID', 
-						'MODULE_PAYMENT_INVOICE_MIN_ORDER', 
+		return array (	'MODULE_PAYMENT_INVOICE_STATUS',
+						'MODULE_PAYMENT_INVOICE_ALLOWED',
+						'MODULE_PAYMENT_INVOICE_ZONE',
+						'MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID',
+						'MODULE_PAYMENT_INVOICE_MIN_ORDER',
 						'MODULE_PAYMENT_INVOICE_SORT_ORDER',
 						'MODULE_PAYMENT_INVOICE_NEG_SHIPPING'  // Hendrik - 2010-08-09 - exlusion config for shipping modules
-						
 					);
 	}
 }

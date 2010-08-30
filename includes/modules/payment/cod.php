@@ -91,7 +91,7 @@ class cod {
   function selection() {
     global $xtPrice,$order;
     $cod_country = false;
-    if (MODULE_ORDER_TOTAL_COD_FEE_STATUS == 'true') {
+    if (defined('MODULE_ORDER_TOTAL_COD_FEE_STATUS') && MODULE_ORDER_TOTAL_COD_FEE_STATUS == 'true') {
       //process installed shipping modules
       // BOF - Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ($_SESSION['shipping']['id'] == 'flat_flat') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FLAT);
@@ -160,7 +160,6 @@ class cod {
         }
         $this->cost = '+ '.$cod_cost;
 
-        
       }
    
     return array ('id' => $this->code, 'module' => $this->title, 'description' => $this->info,'module_cost'=>$this->cost);
