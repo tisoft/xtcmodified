@@ -1,23 +1,23 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(product_info.php,v 1.94 2003/05/04); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(product_info.php,v 1.94 2003/05/04); www.oscommerce.com
    (c) 2003      nextcommerce (product_info.php,v 1.46 2003/08/25); www.nextcommerce.org
    (c) 2006 xt:Commerce (product_info.php 1317 2005-10-21); www.xt-commerce.de
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contribution:
    Customers Status v3.x  (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
-   New Attribute Manager v4b                            Autor: Mike G | mp3man@internetwork.net | http://downloads.ephing.com   
+   New Attribute Manager v4b                            Autor: Mike G | mp3man@internetwork.net | http://downloads.ephing.com
    Cross-Sell (X-Sell) Admin 1                          Autor: Joshua Dechant (dreamscape)
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -50,7 +50,6 @@ if(@is_array($_SESSION['xtb0']['tx'])) {
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 if (!is_object($product) || !$product->isProduct()) { // product not found in database
-
 	$error = TEXT_PRODUCT_NOT_FOUND;
 	include (DIR_WS_MODULES.FILENAME_ERROR_HANDLER);
 
@@ -60,7 +59,6 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 
 	xtc_db_query("update ".TABLE_PRODUCTS_DESCRIPTION." set products_viewed = products_viewed+1 where products_id = '".$product->data['products_id']."' and language_id = '".$_SESSION['languages_id']."'");
 
-
 		$products_price = $xtPrice->xtcGetPrice($product->data['products_id'], $format = true, 1, $product->data['products_tax_class_id'], $product->data['products_price'], 1);
 
 		// check if customer is allowed to add to cart
@@ -68,23 +66,23 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			// fsk18
 			if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
 				if ($product->data['products_fsk18'] == '0') {
-// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+          // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 					//$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
 				if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
 					$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
 				else
 					$info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
-// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+          // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 					$info_smarty->assign('ADD_CART_BUTTON', xtc_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART));
 				}
 			} else {
-// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+        // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 				//$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
 			if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
 				$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
 			else
 				$info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
-// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+        // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 				$info_smarty->assign('ADD_CART_BUTTON', xtc_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART));
 			}
 		}
@@ -120,7 +118,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		//EOF - DokuMan - 2010-08-24 - set Undefined index: 0
 
 			// price incl tax
-			$tax_rate = $xtPrice->TAX[$product->data['products_tax_class_id']];				
+			$tax_rate = $xtPrice->TAX[$product->data['products_tax_class_id']];
 			$tax_info = $main->getTaxInfo($tax_rate);
 			$info_smarty->assign('PRODUCTS_TAX_INFO', $tax_info);
 			$info_smarty->assign('PRODUCTS_SHIPPING_LINK',$main->getShippingLink());
@@ -131,23 +129,23 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$info_smarty->assign('PRODUCTS_WEIGHT', $product->data['products_weight']);
 		$info_smarty->assign('PRODUCTS_STATUS', $product->data['products_status']);
 		$info_smarty->assign('PRODUCTS_ORDERED', $product->data['products_ordered']);
-//BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
+    //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 		//$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')" alt="" />');
 		$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')" alt="" />');
-//EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
+    //EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 		$info_smarty->assign('PRODUCTS_DESCRIPTION', stripslashes($product->data['products_description']));
-// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+    // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 		if(isset($xsb_tx['XTB_REDIRECT_USER_TO'])&&$xsb_tx['products_id']==$product->data['products_id'])
 			$info_smarty->assign('XTB_REDIRECT_USER_TO', $xsb_tx['XTB_REDIRECT_USER_TO']);
-// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+    // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 		$image = '';
-// BOF - Tomcraft - 2009-10-30 - use allready defined function from product.php
-/*
+    // BOF - Tomcraft - 2009-10-30 - use allready defined function from product.php
+    /*
 		if ($product->data['products_image'] != '')
-			$image = DIR_WS_INFO_IMAGES.$product->data['products_image'];		
-*/
+			$image = DIR_WS_INFO_IMAGES.$product->data['products_image'];
+    */
 		$image = $product->productImage($product->data['products_image'], 'info');
-// EOF - Tomcraft - 2009-10-30 - use allready defined function from product.php		
+    // EOF - Tomcraft - 2009-10-30 - use allready defined function from product.php
 
 		$info_smarty->assign('PRODUCTS_IMAGE', $image);
 
@@ -166,19 +164,21 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$info_smarty->assign('PRODUCTS_POPUP_LINK', 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID=0').'\')');
 		$mo_images = xtc_get_products_mo_images($product->data['products_id']);
 		if ($mo_images != false) {
-// BOF - Tomcraft - 2009-09-12 - build more_images array
-/*
+      // BOF - Tomcraft - 2009-09-12 - build more_images array
+      /*
 			foreach ($mo_images as $img) {
 				$mo_img = DIR_WS_INFO_IMAGES.$img['image_name'];
 				$info_smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);
 				$info_smarty->assign('PRODUCTS_POPUP_LINK_'.$img['image_nr'], 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')');
 			}
-*/   
+      */
 			$more_images_data = array();
 			foreach ($mo_images as $img) {
-				$more_images_data[] = array ('PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
-											 'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')'
-											 );
+				$more_images_data[] = array (
+          'PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
+          'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE,
+          'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')'
+          );
 				// BOF - Tomcraft - 2009-09-12 - needed for non modified templates
 				$mo_img = DIR_WS_INFO_IMAGES.$img['image_name'];
 				$info_smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);
@@ -186,7 +186,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 				// EOF - Tomcraft - 2009-09-12 - needed for non modified templates
 			}
 			$info_smarty->assign('more_images', $more_images_data);
-// EOF - Tomcraft - 2009-09-12 - build more_images array
+    // EOF - Tomcraft - 2009-09-12 - build more_images array
 		}
 		//mo_images EOF
 		$discount = 0.00;
@@ -211,7 +211,6 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		} else {
 			if ($product->data['products_date_added'] != '0000-00-00 00:00:00')
 				$info_smarty->assign('PRODUCTS_ADDED', sprintf(TEXT_DATE_ADDED, xtc_date_long($product->data['products_date_added'])));
-
 		}
 
 		if ($_SESSION['customers_status']['customers_status_graduated_prices'] == 1)
@@ -220,26 +219,26 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		include (DIR_WS_MODULES.FILENAME_PRODUCTS_MEDIA);
 		include (DIR_WS_MODULES.FILENAME_ALSO_PURCHASED_PRODUCTS);
 		include (DIR_WS_MODULES.FILENAME_CROSS_SELLING);
-	
+
 	if ($product->data['product_template'] == '' or $product->data['product_template'] == 'default') {
 		$files = array ();
 		if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/')) {
 			while ($file = readdir($dir)) {
-// BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+        // BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
 				//if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
 				if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_info/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
-// EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
-// BOF - web28 - 2010-07-12 - sort templates array
+        // EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+        // BOF - web28 - 2010-07-12 - sort templates array
 					//$files[] = array ('id' => $file, 'text' => $file);
 					$files[] = $file;
 				} //if
 			} // while
 			closedir($dir);
-		}		
-		sort($files);        	
+		}
+		sort($files);
 		//$product->data['product_template'] = $files[0]['id'];
 		$product->data['product_template'] = $files[0];
-//EOF - web28 - 2010-07-12 - sort templates array
+      //EOF - web28 - 2010-07-12 - sort templates array
 	}
 
   //BOF - DokuMan - 2010-08-24 - set undefined index
@@ -267,7 +266,6 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$cache_id = $product->data['products_id'].$_SESSION['language'].$_SESSION['customers_status']['customers_status_name'].$_SESSION['currency'];
 		$product_info = $info_smarty->fetch(CURRENT_TEMPLATE.'/module/product_info/'.$product->data['product_template'], $cache_id);
 	}
-
 }
 $smarty->assign('main_content', $product_info);
 ?>

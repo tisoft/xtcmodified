@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: product_listing.php 1286 2005-10-07 10:10:18Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(product_listing.php,v 1.42 2003/05/27); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(product_listing.php,v 1.42 2003/05/27); www.oscommerce.com
    (c) 2003	 nextcommerce (product_listing.php,v 1.19 2003/08/1); www.nextcommerce.org
+   (c) 2006 xt:Commerce (product_listing.php 1286 2005-10-07); www.xt-commerce.de
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -21,7 +22,7 @@ $result = true;
 // include needed functions
 require_once (DIR_FS_INC.'xtc_get_all_get_params.inc.php');
 require_once (DIR_FS_INC.'xtc_get_vpe_name.inc.php');
-$listing_split = new splitPageResults($listing_sql, (int)$_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, 'p.products_id');
+$listing_split = new splitPageResults($listing_sql, (isset($_GET['page']) ? (int)$_GET['page'] : 1), MAX_DISPLAY_SEARCH_RESULTS, 'p.products_id');
 $module_content = array ();
 if ($listing_split->number_of_rows > 0) {
 
@@ -38,32 +39,34 @@ if ($listing_split->number_of_rows > 0) {
 	$category_query = xtDBquery("select
 		                                    cd.categories_description,
 		                                    cd.categories_name,
-						    cd.categories_heading_title,
+		                                    cd.categories_heading_title,
 		                                    c.listing_template,
-		                                    c.categories_image from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+		                                    c.categories_image
+		                                    from ".TABLE_CATEGORIES." c,
+		                                    ".TABLE_CATEGORIES_DESCRIPTION." cd
 		                                    where c.categories_id = '".$current_category_id."'
 		                                    and cd.categories_id = '".$current_category_id."'
 		                                    ".$group_check."
 		                                    and cd.language_id = '".$_SESSION['languages_id']."'");
 
 	$category = xtc_db_fetch_array($category_query,true);
-	$image = '';	
+	$image = '';
 	if ($category['categories_image'] != '') {
-		$image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];		
+		$image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
 // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
 		if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
 // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
 	}
-	
+
 	//BOF -web28- 2010-08-06 - BUGFIX no manufacturers image displayed
-	if (isset ($_GET['manufacturers_id'])) {	    
+	if (isset ($_GET['manufacturers_id'])) {
 		$manu_query = xtDBquery("select manufacturers_image from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
 		$manu = xtc_db_fetch_array($manu_query,true);
-		$image = DIR_WS_IMAGES.''.$manu['manufacturers_image'];		
+		$image = DIR_WS_IMAGES.''.$manu['manufacturers_image'];
 		if(!file_exists($image)) $image = '';
     }
 	//EOF -web28- 2010-08-06 - BUGFIX no manufacturers image displayed
-	
+
 	$module_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
 	$module_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
 
@@ -74,13 +77,11 @@ if ($listing_split->number_of_rows > 0) {
 	$listing_query = xtDBquery($listing_split->sql_query);
 	while ($listing = xtc_db_fetch_array($listing_query, true)) {
 		$rows ++;
-		$module_content[] =  $product->buildDataArray($listing);		
+		$module_content[] =  $product->buildDataArray($listing);
 	}
 } else {
-
 	// no product found
 	$result = false;
-
 }
 // get default template
 if ($category['listing_template'] == '' or $category['listing_template'] == 'default') {
@@ -105,7 +106,6 @@ if ($category['listing_template'] == '' or $category['listing_template'] == 'def
 }
 
 if ($result != false) {
-
 	$module_smarty->assign('MANUFACTURER_DROPDOWN', $manufacturer_dropdown);
 	$module_smarty->assign('language', $_SESSION['language']);
 	$module_smarty->assign('module_content', $module_content);

@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: product_attributes.php 1255 2005-09-28 15:10:36Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(product_info.php,v 1.94 2003/05/04); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(product_info.php,v 1.94 2003/05/04); www.oscommerce.com
    (c) 2003      nextcommerce (product_info.php,v 1.46 2003/08/25); www.nextcommerce.org
+   (c) 2006 xt:Commerce (product_attributes.php 1255 2005-09-28); www.xt-commerce.de
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -25,11 +25,18 @@
 $module_smarty = new Smarty;
 $module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 
-
 if ($product->getAttributesCount() > 0) {
 // BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 	//$products_options_name_query = xtDBquery("select distinct popt.products_options_id, popt.products_options_name from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$product->data['products_id']."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."' order by popt.products_options_name");
-	$products_options_name_query = xtDBquery("select distinct popt.products_options_id, popt.products_options_name from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$product->data['products_id']."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."' order by popt.products_options_sortorder, popt.products_options_id");
+	$products_options_name_query = xtDBquery("select distinct
+                                            popt.products_options_id,
+                                            popt.products_options_name
+                                            from ".TABLE_PRODUCTS_OPTIONS." popt,
+                                            ".TABLE_PRODUCTS_ATTRIBUTES." patrib
+                                            where patrib.products_id='".$product->data['products_id']."'
+                                            and patrib.options_id = popt.products_options_id
+                                            and popt.language_id = '".(int) $_SESSION['languages_id']."'
+                                            order by popt.products_options_sortorder, popt.products_options_id");
 // EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 	$row = 0;
 	$col = 0;
@@ -37,8 +44,11 @@ if ($product->getAttributesCount() > 0) {
 	while ($products_options_name = xtc_db_fetch_array($products_options_name_query,true)) {
 		$selected = 0;
 		$products_options_array = array ();
-
-		$products_options_data[$row] = array ('NAME' => $products_options_name['products_options_name'], 'ID' => $products_options_name['products_options_id'], 'DATA' => '');
+		$products_options_data[$row] = array (
+		'NAME' => $products_options_name['products_options_name'],
+		'ID' => $products_options_name['products_options_id'],
+		'DATA' => ''
+		);
 		$products_options_query = xtDBquery("select pov.products_options_values_id,
 		                                                 pov.products_options_values_name,
 		                                                 pa.attributes_model,
@@ -56,7 +66,14 @@ if ($product->getAttributesCount() > 0) {
 		while ($products_options = xtc_db_fetch_array($products_options_query,true)) {
 			$price = '';
 			if ($_SESSION['customers_status']['customers_status_show_price'] == '0') {
-				$products_options_data[$row]['DATA'][$col] = array ('ID' => $products_options['products_options_values_id'], 'TEXT' => $products_options['products_options_values_name'], 'MODEL' => $products_options['attributes_model'], 'PRICE' => '', 'FULL_PRICE' => '', 'PREFIX' => $products_options['price_prefix']);
+				$products_options_data[$row]['DATA'][$col] = array (
+          'ID' => $products_options['products_options_values_id'],
+          'TEXT' => $products_options['products_options_values_name'],
+          'MODEL' => $products_options['attributes_model'],
+          'PRICE' => '',
+          'FULL_PRICE' => '',
+          'PREFIX' => $products_options['price_prefix']
+          );
 			} else {
 				if ($products_options['options_values_price'] != '0.00') {
 					//BOF - DokuMan - 2010-08-11 - several currencies on product attributes
@@ -68,11 +85,18 @@ if ($product->getAttributesCount() > 0) {
 				$products_price = $xtPrice->xtcGetPrice($product->data['products_id'], $format = false, 1, $product->data['products_tax_class_id'], $product->data['products_price']);
 				if ($_SESSION['customers_status']['customers_status_discount_attributes'] == 1 && $products_options['price_prefix'] == '+')
 					$price -= $price / 100 * $discount;
-					
+
 					$attr_price=$price;
 					if ($products_options['price_prefix']=="-") $attr_price=$price*(-1);
 					$full = $products_price + $attr_price;
-				$products_options_data[$row]['DATA'][$col] = array ('ID' => $products_options['products_options_values_id'], 'TEXT' => $products_options['products_options_values_name'], 'MODEL' => $products_options['attributes_model'], 'PRICE' => $xtPrice->xtcFormat($price, true), 'FULL_PRICE' => $xtPrice->xtcFormat($full, true), 'PREFIX' => $products_options['price_prefix']);
+					$products_options_data[$row]['DATA'][$col] = array (
+          'ID' => $products_options['products_options_values_id'],
+          'TEXT' => $products_options['products_options_values_name'],
+          'MODEL' => $products_options['attributes_model'],
+          'PRICE' => $xtPrice->xtcFormat($price, true),
+          'FULL_PRICE' => $xtPrice->xtcFormat($full, true),
+          'PREFIX' => $products_options['price_prefix']
+          );
 
 				//if PRICE for option is 0 we don't need to display it
 				if ($price == 0) {
@@ -102,7 +126,7 @@ if ($product->data['options_template'] == '' or $product->data['options_template
 				} //if
 			} // while
 			closedir($dir);
-	}		
+	}
 	sort($files);
 	//$product->data['options_template'] = $files[0]['id'];
 	$product->data['options_template'] = $files[0];
@@ -113,8 +137,8 @@ $module_smarty->assign('language', $_SESSION['language']);
 $module_smarty->assign('options', $products_options_data);
 // set cache ID
 
-	$module_smarty->caching = 0;
-	$module = $module_smarty->fetch(CURRENT_TEMPLATE.'/module/product_options/'.$product->data['options_template']);
+$module_smarty->caching = 0;
+$module = $module_smarty->fetch(CURRENT_TEMPLATE.'/module/product_options/'.$product->data['options_template']);
 
 $info_smarty->assign('MODULE_product_options', $module);
 ?>

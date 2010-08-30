@@ -1,22 +1,22 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: downloads.php 896 2005-04-27 19:22:59Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(downloads.php,v 1.2 2003/02/12); www.oscommerce.com 
    (c) 2003	 nextcommerce (downloads.php,v 1.6 2003/08/13); www.nextcommerce.org
+   (c) 2006 xt:Commerce (downloads.php 896 2005-04-27); www.xt-commerce.de
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
-// ibclude the needed functions
+// include the needed functions
 if (!function_exists('xtc_date_long')) {
 	require_once (DIR_FS_INC.'xtc_date_long.inc.php');
 }
@@ -43,13 +43,18 @@ if ($order_status < DOWNLOAD_MIN_ORDERS_STATUS) {
 // BOF - vr - 2010-03-19 simplify download expiry calculation
 /* $downloads_query = xtc_db_query("select date_format(o.date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, op.products_name, opd.orders_products_download_id, opd.orders_products_filename, opd.download_count, opd.download_maxdays from ".TABLE_ORDERS." o, ".TABLE_ORDERS_PRODUCTS." op, ".TABLE_ORDERS_PRODUCTS_DOWNLOAD." opd where o.customers_id = '".$_SESSION['customer_id']."' and o.orders_id = '".$last_order."' and o.orders_id = op.orders_id and op.orders_products_id = opd.orders_products_id and opd.orders_products_filename != ''"); */
 
-$downloads_query = xtc_db_query("select op.products_name, opd.orders_products_download_id, opd.orders_products_filename, 
-opd.download_count, if(opd.download_maxdays = 0, current_date, date(o.date_purchased)) + interval opd.download_maxdays + 1 day - interval 1 second download_expiry 
-from ".TABLE_ORDERS." o
-join ".TABLE_ORDERS_PRODUCTS." op on op.orders_id = o.orders_id
-join ".TABLE_ORDERS_PRODUCTS_DOWNLOAD." opd on opd.orders_products_id = op.orders_products_id
-where o.customers_id = '".$_SESSION['customer_id']."' 
-and o.orders_id = '".$last_order."' and opd.orders_products_filename != ''");
+$downloads_query = xtc_db_query("select 
+                                  op.products_name,
+                                  opd.orders_products_download_id,
+                                  opd.orders_products_filename, 
+                                  opd.download_count,
+                                  if(opd.download_maxdays = 0, current_date, date(o.date_purchased)) + interval opd.download_maxdays + 1 day - interval 1 second download_expiry 
+                                  from ".TABLE_ORDERS." o
+                                  join ".TABLE_ORDERS_PRODUCTS." op on op.orders_id = o.orders_id
+                                  join ".TABLE_ORDERS_PRODUCTS_DOWNLOAD." opd on opd.orders_products_id = op.orders_products_id
+                                  where o.customers_id = '".$_SESSION['customer_id']."' 
+                                  and o.orders_id = '".$last_order."'
+                                  and opd.orders_products_filename != ''");
 // EOF - vr - 2010-03-19 simplify download expiry calculation
 
 if (xtc_db_num_rows($downloads_query) > 0) {

@@ -14,7 +14,7 @@
    ----------------------------------------------------------------------------------------------
    Third Party contributions:
    Produktsortierung nach Voreinstellung der Kategorie - (c) by Hetfield | j_hetfield@hotmail.de
-   
+
    Released under the GNU General Public License
    --------------------------------------------------------------------------------------------*/
 
@@ -27,13 +27,13 @@ $fsk_lock = '';
 if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 	$fsk_lock = ' and p.products_fsk18!=1';
 }
-$group_check = "";
+$group_check = '';
 if (GROUP_CHECK == 'true') {
 	$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 }
 // Produktsortierung nach Voreinstellung der Kategorie - (c) by Hetfield | Anfang
 $sorting_query = xtDBquery("SELECT products_sorting,
-                                   products_sorting2 
+                                   products_sorting2
 							  FROM ".TABLE_CATEGORIES."
                             WHERE  categories_id='".$current_category_id."'");
 $sorting_data = xtc_db_fetch_array($sorting_query,true);
@@ -52,14 +52,15 @@ $products_query = xtDBquery("SELECT
                                AND p.products_id=pc.products_id
                                AND p.products_id = pd.products_id
                                AND pd.language_id = '".(int) $_SESSION['languages_id']."'
-                               AND p.products_status=1 
+                               AND p.products_status=1
                                    ".$fsk_lock.$group_check.$sorting);
 // Produktsortierung nach Voreinstellung der Kategorie - (c) by Hetfield | Ende
 $i = 0;
 while ($products_data = xtc_db_fetch_array($products_query, true)) {
 	$p_data[$i] = array ('pID' => $products_data['products_id'], 'pName' => $products_data['products_name']);
-	if ($products_data['products_id'] == $product->data['products_id'])
+	if ($products_data['products_id'] == $product->data['products_id']){
 		$actual_key = $i;
+	}
 	$i ++;
 }
 
@@ -88,7 +89,6 @@ if ($actual_key == (sizeof($p_data) - 1)) {
 	if ($next_id != (sizeof($p_data) - 1))
 		$last_link = xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($p_data[(sizeof($p_data) - 1)]['pID'], $p_data[(sizeof($p_data) - 1)]['pName']));
 }
-
 $module_smarty->assign('FIRST', $first_link);
 $module_smarty->assign('PREVIOUS', $prev_link);
 $module_smarty->assign('NEXT', $next_link);

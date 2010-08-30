@@ -34,10 +34,10 @@ if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0')) 
 	if (GROUP_CHECK == 'true')
 		$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 
-	$new_products_query = "SELECT * FROM
+		$new_products_query = "SELECT * FROM
 	                       ".TABLE_PRODUCTS." p,
 	                       ".TABLE_PRODUCTS_DESCRIPTION." pd
-	                       WHERE p.products_id=pd.products_id and
+	                       WHERE p.products_id = pd.products_id
 	                       and p.products_startpage = '1'
 	                       ".$group_check."
 	                       ".$fsk_lock."
@@ -61,7 +61,7 @@ if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0')) 
 	                       ".TABLE_CATEGORIES." c
 	                       where c.categories_status='1'
 	                       and p.products_id = p2c.products_id
-	                       and p.products_id=pd.products_id
+	                       and p.products_id = pd.products_id
 	                       and p2c.categories_id = c.categories_id
 	                       ".$group_check."
 	                       ".$fsk_lock."

@@ -1,19 +1,19 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_new_address.php 1239 2005-09-24 20:09:56Z mz $   
+   $Id: checkout_new_address.php 1239 2005-09-24 20:09:56Z mz $
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(checkout_new_address.php,v 1.3 2003/05/19); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(checkout_new_address.php,v 1.3 2003/05/19); www.oscommerce.com
    (c) 2003	 nextcommerce (checkout_new_address.php,v 1.8 2003/08/17); www.nextcommerce.org
+   (c) 2006 xt:Commerce (checkout_new_address.php 1239 2005-09-24); www.xt-commerce.de
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 $module_smarty = new Smarty;
@@ -41,8 +41,6 @@ if (ACCOUNT_COMPANY == 'true') {
 	$module_smarty->assign('INPUT_COMPANY', xtc_draw_input_fieldNote(array ('name' => 'company', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_COMPANY_TEXT) ? '<span class="inputRequirement">'.ENTRY_COMPANY_TEXT.'</span>' : ''))));
 } else {
 	$module_smarty->assign('company', '0');
-	//  }
-
 }
 $module_smarty->assign('INPUT_STREET', xtc_draw_input_fieldNote(array ('name' => 'street_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_STREET_ADDRESS_TEXT.'</span>' : ''))));
 
@@ -77,11 +75,11 @@ if (ACCOUNT_STATE == 'true') {
 	$module_smarty->assign('state', '0');
 }
 
- if ($_POST['country']){
+if ($_POST['country']){
   $selected = $_POST['country'];
-  }else{
+} else {
   $selected = STORE_COUNTRY;
-  }
+}
 
 $module_smarty->assign('SELECT_COUNTRY', xtc_get_country_list('country', $selected).'&nbsp;'. (xtc_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">'.ENTRY_COUNTRY_TEXT.'</span>' : ''));
 

@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: products_media.php 1259 2005-09-29 16:11:19Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2003	 nextcommerce (products_media.php,v 1.8 2003/08/25); www.nextcommerce.org
-   
+   (c) 2006 xt:Commerce (cross_selling.php 1243 2005-09-25); www.xt-commerce.de
+
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
@@ -18,6 +18,7 @@ $module_smarty = new Smarty;
 $module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 $module_content = array ();
 $filename = '';
+$group_check = '';
 
 // check if allowed to see
 require_once (DIR_FS_INC.'xtc_in_array.inc.php');
@@ -39,7 +40,7 @@ if (xtc_in_array($product->data['products_id'], $check_data)) {
 	require_once (DIR_FS_INC.'xtc_filesize.inc.php');
 
 	if (GROUP_CHECK == 'true')
-		$group_check = "group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%' AND";
+		$group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
 
 	//get download
 	$content_query = xtDBquery("SELECT
@@ -51,14 +52,13 @@ if (xtc_in_array($product->data['products_id'], $check_data)) {
 					file_comment
 					FROM ".TABLE_PRODUCTS_CONTENT."
 					WHERE
-					products_id='".$product->data['products_id']."' AND
+					products_id='".$product->data['products_id']."'
 	                ".$group_check."
-					languages_id='".(int) $_SESSION['languages_id']."'");
+					and languages_id='".(int) $_SESSION['languages_id']."'");
 
 	while ($content_data = xtc_db_fetch_array($content_query,true)) {
 		$filename = '';
 		if ($content_data['content_link'] != '') {
-
 			$icon = xtc_image(DIR_WS_CATALOG.'admin/images/icons/icon_link.gif');
 		} else {
 			$icon = xtc_image(DIR_WS_CATALOG.'admin/images/icons/icon_'.str_replace('.', '', strstr($content_data['content_file'], '.')).'.gif');
@@ -79,12 +79,17 @@ if (xtc_in_array($product->data['products_id'], $check_data)) {
 //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 
 			} else {
-
 				$button = '<a href="'.xtc_href_link('media/products/'.$content_data['content_file']).'">'.xtc_image_button('button_download.gif', TEXT_DOWNLOAD).'</a>';
-
 			}
 		}
-		$module_content[] = array ('ICON' => $icon, 'FILENAME' => $filename, 'DESCRIPTION' => $content_data['file_comment'], 'FILESIZE' => xtc_filesize($content_data['content_file']), 'BUTTON' => $button, 'HITS' => $content_data['content_read']);
+		$module_content[] = array (
+		'ICON' => $icon,
+		'FILENAME' => $filename,
+		'DESCRIPTION' => $content_data['file_comment'],
+		'FILESIZE' => xtc_filesize($content_data['content_file']),
+		'BUTTON' => $button,
+		'HITS' => $content_data['content_read']
+		);
 	}
 
 	$module_smarty->assign('language', $_SESSION['language']);

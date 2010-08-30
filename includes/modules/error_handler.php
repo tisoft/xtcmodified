@@ -1,26 +1,27 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: error_handler.php 949 2005-05-14 16:44:33Z hhgag $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2006 xt:Commerce (error_handler.php 949 2005-05-14); www.xt-commerce.de
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-   $module_smarty= new Smarty;
-   $module_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
-
-
+  $module_smarty= new Smarty;
+  $module_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
 
   $module_smarty->assign('language', $_SESSION['language']);
   $module_smarty->assign('ERROR',$error);
-// BOF - Tomcraft - 2010-05-04 - Changed alternative text for the button
+  // BOF - Tomcraft - 2010-05-04 - Changed alternative text for the button
   //$module_smarty->assign('BUTTON','<a href="javascript:history.back(1)">'. xtc_image_button('button_back.gif', IMAGE_BUTTON_CONTINUE).'</a>');
   $module_smarty->assign('BUTTON','<a href="javascript:history.back(1)">'. xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
-// EOF - Tomcraft - 2010-05-04 - Changed alternative text for the button
+  // EOF - Tomcraft - 2010-05-04 - Changed alternative text for the button
   $module_smarty->assign('language', $_SESSION['language']);
 
   // search field
@@ -30,13 +31,9 @@
   $module_smarty->assign('LINK_ADVANCED',xtc_href_link(FILENAME_ADVANCED_SEARCH));
   $module_smarty->assign('FORM_END', '</form>');
 
-
-
-  $module_smarty->caching = 0;
   $module_smarty->caching = 0;
   $module= $module_smarty->fetch(CURRENT_TEMPLATE.'/module/error_message.html');
 
   if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO))  $product_info=$module;
-
   $smarty->assign('main_content',$module);
 ?>
