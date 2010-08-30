@@ -18,6 +18,10 @@
    ---------------------------------------------------------------------------------------
   	AUTOMATISCHE METATAGS MULTILANGUAGE für xt:Commerce 3.04
    ---------------------------------------------------------------------------------------
+      Version 0.96m / 26. August 2010 / DokuMan / xtcModified
+      
+    - 	Unterstützung für "canonical"-Tag
+   ---------------------------------------------------------------------------------------
       Version 0.96 / 21. Juni 2009
     - 	Umwandlung von Umlauten in Keywords statt in ae und oe JETZT in &auml; &ouml;
     -	"Bindestrich-Wörter" (z.B. T-Shirt oder DVD-Player) werden in den Keywords nicht 
@@ -262,6 +266,7 @@
 			}
 		}
 		return metaHtmlEntities($Text,ENT_QUOTES);
+		//return metaHtmlEntities(utf8_decode($Text),ENT_QUOTES); //DokuMan - 2010-08-26 - for future use with UTF8
 	}
 // ---------------------------------------------------------------------------------------
 //	metaTitle und metaKeyWords, Rückgabe bzw. Formatierung
@@ -309,6 +314,10 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 			} else {
 				$meta_title = metaTitle($product->data['products_name'],$product->data['manufacturers_name'],($addProdShopTitle)?ML_TITLE:'');
 			} 
+			
+      //-- Canonical-URL
+      //-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
+      $canonical_url = xtc_href_link(FILENAME_PRODUCT_INFO, 'products_id='.$product->data['products_id'].'&language='.$_SESSION['language_code']);			
 		}
 		break; 
 // ---------------------------------------------------------------------------------------
@@ -379,6 +388,11 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 		} else{ 
 			$meta_title = metaTitle($categories_meta['categories_name'],$manu_name,$Page,($addCatShopTitle)?ML_TITLE:'');
 		}
+		
+		//-- Canonical-URL
+		//-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
+		$canonical_url = xtc_href_link(FILENAME_DEFAULT, 'cPath='.$_REQUEST['cPath'].'&language='.$_SESSION['language_code']);
+		
 		break;
 // ---------------------------------------------------------------------------------------
 //	Daten holen: Inhalts-Seite (ContentManager)
@@ -432,6 +446,10 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 				$meta_descr .= $contents_meta['content_text'];
 			}
 		}
+		
+    //-- Canonical-URL
+    //-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
+    $canonical_url = xtc_href_link(FILENAME_CONTENT, 'coID='.$_GET['coID'].'&language='.$_SESSION['language_code']);		
 		break;
 // ---------------------------------------------------------------------------------------
 //	Title für Suchergebnisse - Mit Suchbegriff, Kategorien-Namen, Seiten-Nummer etc.
@@ -524,3 +542,4 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 <meta name="reply-to" content="<?php echo META_REPLY_TO; ?>" />
 <meta name="distribution" content="global" />
 <meta name="revisit-after" content="<?php echo META_REVISIT_AFTER; ?>" />
+<?php if(isset($canonical_url)) echo '<link rel="canonical" href="'.$canonical_url.'" />'."\n"; ?>
