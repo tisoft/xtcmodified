@@ -161,7 +161,10 @@ define('TEXT_SESS_LONG','Das Verzeichnis, in welches PHP die Session-Dateien spe
 define('TITLE_CHECK_FILES','Bitte pr&uuml;fen Sie Ihre Datei Informationen');
 //BOF - web28 - 2010-03-02 - New SSL-PROXY info
 define('TEXT_SSL_PROXY_LONG','<b>* SSL Proxy: </b><br />Bei Verwendung eines SLL Proxys ist der Pfad bei <b>HTTPS Server</b> anzupassen!');
-define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy Beispiele für einige Provider: </b><br /><span class="prov">Hosteurope: </span><span class="proxy">https://ssl.webpack.de/nureinbeispiel.de</span><br /><span class="prov">ALL-INKL.COM: </span><span class="proxy">https://ssl-account.com/nureinbeispiel.de</span><br /><span class="prov">1und1: </span><span class="proxy">https://ssl.kundenserver.de/nureinbeispiel.de</span><br /><span class="prov">Strato: </span><span class="proxy">https://www.ssl-id.de/nureinbeispiel.de</span>');
+//BOF - GTB - 2010-08-31 - Layout correction
+define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy Beispiele für einige Provider: </b><br /><br /><div class="prov">Hosteurope: </div><div class="proxy">https://ssl.webpack.de/nureinbeispiel.de</div><div class="clear"></div><div class="prov">ALL-INKL.COM: </div><div class="proxy">https://ssl-account.com/nureinbeispiel.de</div><div class="clear"></div><div class="prov">1und1: </div><div class="proxy">https://ssl.kundenserver.de/nureinbeispiel.de</div><div class="clear"></div><div class="prov">Strato: </div><div class="proxy">https://www.ssl-id.de/nureinbeispiel.de</div><div class="clear"></div>');
+//define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy Beispiele für einige Provider: </b><br /><span class="prov">Hosteurope: </span><span class="proxy">https://ssl.webpack.de/nureinbeispiel.de</span><br /><span class="prov">ALL-INKL.COM: </span><span class="proxy">https://ssl-account.com/nureinbeispiel.de</span><br /><span class="prov">1und1: </span><span class="proxy">https://ssl.kundenserver.de/nureinbeispiel.de</span><br /><span class="prov">Strato: </span><span class="proxy">https://www.ssl-id.de/nureinbeispiel.de</span>');
+//EOF - GTB - 2010-08-31 - Layout correction
 //EOF - web28 - 2010-03-02 - New SSL-PROXY info
 
 // install_step5.php

@@ -1,7 +1,7 @@
 <?php
 
 /* -----------------------------------------------------------------------------------------
-   $Id: account_delete.php 3315 2007-02-03 11:38:37Z msslovi0 $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com

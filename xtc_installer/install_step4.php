@@ -1,17 +1,17 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: install_step4.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(install_4.php,v 1.9 2002/08/19); www.oscommerce.com
    (c) 2003	 nextcommerce (install_step4.php,v 1.14 2003/08/17); www.nextcommerce.org
-   (c) 2009 xtcModified (install_step4,v 1.00 2009/07/13); www.www.xtc-modified.org
+   (c) 2006 XT-Commerce www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -165,7 +165,10 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                 <b><?php echo TEXT_SSL; ?></b><br />
                <?php echo TEXT_SSL_LONG; ?></p>
 			   <p><?php echo TEXT_SSL_PROXY_LONG; ?></p>
-			   <p span style="border: #a3a3a3 1px solid; padding: 3px; background-color: #f4f4f4;"><?php echo TEXT_SSL_PROXY_EXP; ?></p>
+			   <?php //BOF - GTB - 2010-08-31 -  Layout correction ?>
+			   <div style="border: #a3a3a3 1px solid; padding: 3px; background-color: #f4f4f4;"><?php echo TEXT_SSL_PROXY_EXP; ?></div>			   
+			   <!-- <p span style="border: #a3a3a3 1px solid; padding: 3px; background-color: #f4f4f4;"><?php echo TEXT_SSL_PROXY_EXP; ?></p> -->
+			   <?php //EOF - GTB - 2010-08-31 -  Layout correction ?>
 			   
 			   <!--p><b><?php //echo TEXT_WS_CATALOG; ?></b><br />
                 <?php //echo xtc_draw_input_field_installer('DIR_WS_CATALOG'); ?><br />
