@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: upload.php 950 2005-05-14 16:45:21Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(upload.php,v 1.1 2003/03/22); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(upload.php,v 1.1 2003/03/22); www.oscommerce.com
    (c) 2003	 nextcommerce (upload.php,v 1.7 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (upload.php 950 2005-05-14)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class upload {
@@ -62,6 +63,16 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
             return false;
           }
         }
+        //BOF - DokuMan - 2010-08-31 - disable upload of php files and htaccess/htpasswd to avoid uploading of malicious scripts
+        if (in_array(strtolower(substr($file['name'], strrpos($file['name'], '.')+1)), array('php', 'php3', 'php4', 'php5', 'phtml'))) {
+            $messageStack->add_session(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+            return false;
+        }
+        if ($file['name'] == '.htaccess' || $file['name'] == '.htpasswd') {
+            $messageStack->add_session(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+            return false;
+        }
+        //EOF - DokuMan - 2010-08-31 - disable upload of php files and htaccess/htpasswd to avoid uploading of malicious scripts
 
         $this->set_file($file);
         $this->set_filename($file['name']);
@@ -69,9 +80,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
         return $this->check_destination();
       } else {
-
         if ($file['tmp_name']=='none') $messageStack->add_session(WARNING_NO_FILE_UPLOADED, 'warning');
-
         return false;
       }
     }
@@ -105,17 +114,13 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
       }
 
-
-
       if (move_uploaded_file($this->file['tmp_name'], $this->destination . $this->filename)) {
         chmod($this->destination . $this->filename, $this->permissions);
-
         $messageStack->add_session(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
 
         return true;
       } else {
         $messageStack->add_session(ERROR_FILE_NOT_SAVED, 'error');
-
         return false;
       }
     }
