@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: message_stack.php 799 2005-02-23 18:08:06Z novalis $   
+   $Id: message_stack.php 799 2005-02-23 18:08:06Z novalis $
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(message_stack.php,v 1.1 2003/05/19); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(message_stack.php,v 1.1 2003/05/19); www.oscommerce.com
    (c) 2003	 nextcommerce (message_stack.php,v 1.9 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (message_stack.php 799 2005-02-23)
 
    Released under the GNU General Public License
    Example usage:
@@ -28,6 +29,9 @@
 
       if (isset($_SESSION['messageToStack'])) {
         for ($i=0, $n=sizeof($_SESSION['messageToStack']); $i<$n; $i++) {
+          //BOF - DokuMan - 2010-08-31 - set undefined index
+          if (isset($_SESSION['messageToStack'][$i]['class']))
+          //EOF - DokuMan - 2010-08-31 - set undefined index
           $this->add($_SESSION['messageToStack'][$i]['class'], $_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
         }
         unset($_SESSION['messageToStack']);
@@ -37,11 +41,11 @@
     // class methods
     function add($class, $message, $type = 'error') {
       if ($type == 'error') {
-        $this->messages[] = array('params' => 'class="messageStackError"', 'class' => $class, 'text' => xtc_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . '&nbsp;' . $message);
+        $this->messages[] = array('params' => 'class="messageStackError"', 'class' => $class, 'text' => xtc_image(DIR_WS_ICONS . 'error.gif', 'ICON_ERROR') . '&nbsp;' . $message);
       } elseif ($type == 'warning') {
-        $this->messages[] = array('params' => 'class="messageStackWarning"', 'class' => $class, 'text' => xtc_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . '&nbsp;' . $message);
+        $this->messages[] = array('params' => 'class="messageStackWarning"', 'class' => $class, 'text' => xtc_image(DIR_WS_ICONS . 'warning.gif', 'ICON_WARNING') . '&nbsp;' . $message);
       } elseif ($type == 'success') {
-        $this->messages[] = array('params' => 'class="messageStackSuccess"', 'class' => $class, 'text' => xtc_image(DIR_WS_ICONS . 'success.gif', ICON_SUCCESS) . '&nbsp;' . $message);
+        $this->messages[] = array('params' => 'class="messageStackSuccess"', 'class' => $class, 'text' => xtc_image(DIR_WS_ICONS . 'success.gif', 'ICON_SUCCESS') . '&nbsp;' . $message);
       } else {
         $this->messages[] = array('params' => 'class="messageStackError"', 'class' => $class, 'text' => $message);
       }

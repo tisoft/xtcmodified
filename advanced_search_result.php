@@ -1,19 +1,19 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(advanced_search_result.php,v 1.68 2003/05/14); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(advanced_search_result.php,v 1.68 2003/05/14); www.oscommerce.com
    (c) 2003	 nextcommerce (advanced_search_result.php,v 1.17 2003/08/21); www.nextcommerce.org
    (c) 2006 XT-Commerce (advanced_search_result.php 1141 2005-08-10)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -91,13 +91,27 @@ if ($error == 1 && $keyerror != 1) {
 	/*
 	 *    search process starts here
 	 */
-
 	$breadcrumb->add(NAVBAR_TITLE1_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH));
-	$breadcrumb->add(NAVBAR_TITLE2_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords='.htmlspecialchars(xtc_db_input($_GET['keywords'])) .'&search_in_description='.xtc_db_input($_GET['search_in_description']).'&categories_id='.(int)$_GET['categories_id'].'&inc_subcat='.xtc_db_input($_GET['inc_subcat']).'&manufacturers_id='.(int)$_GET['manufacturers_id'].'&pfrom='.xtc_db_input($_GET['pfrom']).'&pto='.xtc_db_input($_GET['pto']).'&dfrom='.xtc_db_input($_GET['dfrom']).'&dto='.xtc_db_input($_GET['dto'])));
+	//BOF - DokuMan - 2010-08-31 - set multiple undefined index
+	//$breadcrumb->add(NAVBAR_TITLE2_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords='.htmlspecialchars(xtc_db_input($_GET['keywords'])) .'&search_in_description='.xtc_db_input($_GET['search_in_description']).'&categories_id='.(int)$_GET['categories_id'].'&inc_subcat='.xtc_db_input($_GET['inc_subcat']).'&manufacturers_id='.(int)$_GET['manufacturers_id'].'&pfrom='.xtc_db_input($_GET['pfrom']).'&pto='.xtc_db_input($_GET['pto']).'&dfrom='.xtc_db_input($_GET['dfrom']).'&dto='.xtc_db_input($_GET['dto'])));
+  $get_params = xtc_get_all_get_params(array('keywords'));
+	$breadcrumb->add(NAVBAR_TITLE2_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords='.rawurlencode(htmlspecialchars(xtc_db_input($_GET['keywords']))).(strlen($get_params) > 0 ? '&' . $get_params : '')));
+	//EOF - DokuMan - 2010-08-31 - set multiple undefined index
 
 	require (DIR_WS_INCLUDES.'header.php');
 
 	// define additional filters //
+  // default values
+  $subcat_join = '';
+  $subcat_where = '';
+  $manu_check = '';
+  $pfrom = '';
+  $pto = '';
+  $tax_where = '';
+  $pfrom_check = '';
+  $pto_check = '';
+	$fsk_lock = '';
+	$group_check = '';
 
 	//fsk18 lock
 	if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
@@ -171,9 +185,9 @@ if ($error == 1 && $keyerror != 1) {
 	                  p.products_image,
 	                  p.products_weight,
 	                  p.products_tax_class_id,
-					  p.products_vpe,
-					  p.products_vpe_status,
-					  p.products_vpe_value,
+	                  p.products_vpe,
+	                  p.products_vpe_status,
+	                  p.products_vpe_value,
 	                  pd.products_name,
 	                  pd.products_short_description,
 	                  pd.products_description ";
@@ -183,7 +197,7 @@ if ($error == 1 && $keyerror != 1) {
 	if (SEARCH_IN_ATTR == 'true') { $from_str .= " LEFT OUTER JOIN ".TABLE_PRODUCTS_ATTRIBUTES." AS pa ON (p.products_id = pa.products_id) LEFT OUTER JOIN ".TABLE_PRODUCTS_OPTIONS_VALUES." AS pov ON (pa.options_values_id = pov.products_options_values_id) "; }
 	$from_str .= "LEFT OUTER JOIN ".TABLE_SPECIALS." AS s ON (p.products_id = s.products_id) AND s.status = '1'";
 
-	if ((DISPLAY_PRICE_WITH_TAX == 'true') && ((isset ($_GET['pfrom']) && xtc_not_null($_GET['pfrom'])) || (isset ($_GET['pto']) && xtc_not_null($_GET['pto'])))) {
+	if (('DISPLAY_PRICE_WITH_TAX' == 'true') && ((isset ($_GET['pfrom']) && xtc_not_null($_GET['pfrom'])) || (isset ($_GET['pto']) && xtc_not_null($_GET['pto'])))) {
 		if (!isset ($_SESSION['customer_country_id'])) {
 			$_SESSION['customer_country_id'] = STORE_COUNTRY;
 			$_SESSION['customer_zone_id'] = STORE_ZONE;
@@ -195,7 +209,16 @@ if ($error == 1 && $keyerror != 1) {
 	}
 
 	//where-string
-	$where_str = " WHERE p.products_status = 1 AND pd.language_id = '".(int) $_SESSION['languages_id']."'".$subcat_where.$fsk_lock.$manu_check.$group_check.$tax_where.$pfrom_check.$pto_check;
+	$where_str = "
+	WHERE p.products_status = 1
+	AND pd.language_id = '".(int) $_SESSION['languages_id']."'"
+	.$subcat_where
+	.$fsk_lock
+	.$manu_check
+	.$group_check
+	.$tax_where
+	.$pfrom_check
+	.$pto_check;
 
 	//go for keywords... this is the main search process
 	if (isset ($_GET['keywords']) && xtc_not_null($_GET['keywords'])) {
@@ -211,14 +234,14 @@ if ($error == 1 && $keyerror != 1) {
 						break;
 					default :
 		// BOF - Dokuman - 2009-05-27 - search for umlaut letters
-					//see http://www.gunnart.de/tipps-und-tricks/xtcommerce-suche-nach-umlauten/		
+					//see http://www.gunnart.de/tipps-und-tricks/xtcommerce-suche-nach-umlauten/
 					/*
 						$where_str .= " ( ";
 						$where_str .= "pd.products_keywords LIKE ('%".addslashes($search_keywords[$i])."%') ";
 						if (SEARCH_IN_DESC == 'true') {
 						   $where_str .= "OR pd.products_description LIKE ('%".addslashes($search_keywords[$i])."%') ";
 						   $where_str .= "OR pd.products_short_description LIKE ('%".addslashes($search_keywords[$i])."%') ";
-						}						
+						}
 						$where_str .= "OR pd.products_name LIKE ('%".addslashes($search_keywords[$i])."%') ";
 						$where_str .= "OR p.products_model LIKE ('%".addslashes($search_keywords[$i])."%') ";
 						if (SEARCH_IN_ATTR == 'true') {
@@ -226,7 +249,7 @@ if ($error == 1 && $keyerror != 1) {
 						   $where_str .= "AND pov.language_id = '".(int) $_SESSION['languages_id']."')";
 						}
 					*/
-					
+
 					// Wurde nach Umlauten gesucht?
           $ent_keyword = htmlentities($search_keywords[$i]);
           $ent_keyword = ($ent_keyword != $search_keywords[$i]) ? addslashes($ent_keyword) : false;
@@ -252,7 +275,7 @@ if ($error == 1 && $keyerror != 1) {
              $where_str .= "AND pov.language_id = '".(int) $_SESSION['languages_id']."')";
           }
 		// EOF - Dokuman - 2009-05-27 - search for umlaut letters
-					
+
 						$where_str .= " ) ";
 						break;
 				}
@@ -268,7 +291,7 @@ if ($error == 1 && $keyerror != 1) {
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');	
+	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

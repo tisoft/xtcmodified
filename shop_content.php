@@ -1,19 +1,19 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: shop_content.php 148 2007-01-24 09:08:14Z mzanier $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(conditions.php,v 1.21 2003/02/13); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(conditions.php,v 1.21 2003/02/13); www.oscommerce.com
    (c) 2003	 nextcommerce (shop_content.php,v 1.1 2003/08/19); www.nextcommerce.org
+   (c) 2006 xt:Commerce (shop_content.php 148 2007-01-24); www.xt-commerce.de
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 require ('includes/application_top.php');
@@ -38,7 +38,8 @@ $shop_content_query = xtc_db_query("SELECT
                      content_text,
                      content_file
                      FROM ".TABLE_CONTENT_MANAGER."
-                     WHERE content_group='".(int) $_GET['coID']."' ".$group_check."
+                     WHERE content_group='".(int) $_GET['coID']."'"
+                     .$group_check."
                      AND languages_id='".(int) $_SESSION['languages_id']."'");
 $shop_content_data = xtc_db_fetch_array($shop_content_query);
 
@@ -52,20 +53,19 @@ $breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CON
 if ($_GET['coID'] != 7) {
 	require (DIR_WS_INCLUDES.'header.php');
 }
-if ($_GET['coID'] == 7 && $_GET['action'] == 'success') {
+if ($_GET['coID'] == 7 && isset($_GET['action']) && $_GET['action'] == 'success') {
 	require (DIR_WS_INCLUDES.'header.php');
 }
 
 $smarty->assign('CONTENT_HEADING', $shop_content_data['content_heading']);
 
-if ($_GET['coID'] == 7) {    
-    //BOF - web28 - 2010-04-03 - outsource email code 
+if ($_GET['coID'] == 7) {
+    //BOF - web28 - 2010-04-03 - outsource email code
 	include (DIR_WS_INCLUDES.'contact_us.php');
-	//EOF - web28 - 2010-04-03 - outsource email code 
+	//EOF - web28 - 2010-04-03 - outsource email code
 } else {
 
 	if ($shop_content_data['content_file'] != '') {
-
 		ob_start();
 
 		if (strpos($shop_content_data['content_file'], '.txt'))
@@ -101,7 +101,7 @@ if ($_GET['coID'] == 7) {
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

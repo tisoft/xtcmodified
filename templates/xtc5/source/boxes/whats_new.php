@@ -1,24 +1,23 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: whats_new.php 1292 2005-10-07 16:10:55Z mz $   
+   $Id: whats_new.php 1292 2005-10-07 16:10:55Z mz $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2003 XT-Commerce
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(whats_new.php,v 1.31 2003/02/10); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(whats_new.php,v 1.31 2003/02/10); www.oscommerce.com
    (c) 2003	 nextcommerce (whats_new.php,v 1.12 2003/08/21); www.nextcommerce.org
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contributions:
    Enable_Disable_Categories 1.3        	Autor: Mikel Williams | mikel@ladykatcostumes.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 $box_smarty = new smarty;
 $box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
@@ -51,23 +50,27 @@ if ($random_product = xtc_random_select("select distinct
                                            p.products_vpe_status,
                                            p.products_vpe_value,
                                            p.products_price
-                                           from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c
+                                           from ".TABLE_PRODUCTS." p,
+                                           ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
+                                           ".TABLE_CATEGORIES." c
                                            where p.products_status=1
                                            and p.products_id = p2c.products_id
-                                           and p.products_id !='".(int) $_GET['products_id']."'
+                                           " .(isset($_GET['products_id']) && (int)$_GET['products_id'] > 0 ? 
+'and p.products_id != ' . (int)$_GET['products_id'] : '')."
                                            and c.categories_id = p2c.categories_id
                                            ".$group_check."
                                            ".$fsk_lock."
                                            ".$days."
-                                           and c.categories_status=1 order by
-                                           p.products_date_added desc limit ".MAX_RANDOM_SELECT_NEW)) {
+                                           and c.categories_status=1
+                                           order by p.products_date_added desc
+                                           limit ".MAX_RANDOM_SELECT_NEW)) {
 //EOF - Hetfield - 2009-08-11 - #BUGFIX 0000374: Box Whats New 30 Tage BUG
 	$whats_new_price = $xtPrice->xtcGetPrice($random_product['products_id'], $format = true, 1, $random_product['products_tax_class_id'], $random_product['products_price']);
 }
 
 $random_product['products_name'] = xtc_get_products_name($random_product['products_id']);
 
-if ($random_product['products_name'] != '') {
+if ($random_product && $random_product['products_name'] != '') {
 
 	$box_smarty->assign('box_content',$product->buildDataArray($random_product));
 	$box_smarty->assign('LINK_NEW_PRODUCTS',xtc_href_link(FILENAME_PRODUCTS_NEW));

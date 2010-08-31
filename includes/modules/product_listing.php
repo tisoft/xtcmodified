@@ -33,6 +33,7 @@ if ($listing_split->number_of_rows > 0) {
 		    <td class="smallText" align="right">'.TEXT_RESULT_PAGE.' '.$listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
 		  </tr>
 		</table>';
+	$group_check = '';
 	if (GROUP_CHECK == 'true') {
 		$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 	}
@@ -106,7 +107,7 @@ if ($category['listing_template'] == '' or $category['listing_template'] == 'def
 }
 
 if ($result != false) {
-	$module_smarty->assign('MANUFACTURER_DROPDOWN', $manufacturer_dropdown);
+    $module_smarty->assign('MANUFACTURER_DROPDOWN', (isset($manufacturer_dropdown) ? $manufacturer_dropdown : ''));
 	$module_smarty->assign('language', $_SESSION['language']);
 	$module_smarty->assign('module_content', $module_content);
 
@@ -124,7 +125,6 @@ if ($result != false) {
 	}
 	$smarty->assign('main_content', $module);
 } else {
-
 	$error = TEXT_PRODUCT_NOT_FOUND;
 	include (DIR_WS_MODULES.FILENAME_ERROR_HANDLER);
 }

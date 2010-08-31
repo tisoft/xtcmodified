@@ -391,8 +391,9 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 		
 		//-- Canonical-URL
 		//-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
+		if(isset ($_REQUEST['cPath'])){
 		$canonical_url = xtc_href_link(FILENAME_DEFAULT, 'cPath='.$_REQUEST['cPath'].'&language='.$_SESSION['language_code']);
-		
+		}
 		break;
 // ---------------------------------------------------------------------------------------
 //	Daten holen: Inhalts-Seite (ContentManager)
@@ -449,7 +450,9 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 		
     //-- Canonical-URL
     //-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
-    $canonical_url = xtc_href_link(FILENAME_CONTENT, 'coID='.$_GET['coID'].'&language='.$_SESSION['language_code']);		
+    if(isset($_GET['coID'])){
+    $canonical_url = xtc_href_link(FILENAME_CONTENT, 'coID='.$_GET['coID'].'&language='.$_SESSION['language_code']);
+    }		
 		break;
 // ---------------------------------------------------------------------------------------
 //	Title für Suchergebnisse - Mit Suchbegriff, Kategorien-Namen, Seiten-Nummer etc.
@@ -476,7 +479,8 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 			");
 			$cat_name = implode('',xtc_db_fetch_array($cat_name_query,true));
 		}
-		$meta_title = metaTitle($breadcrumbTitle,'&quot;'.trim($_GET['keywords']).'&quot;',$Page,$cat_name,$manu_name,($addSearchShopTitle)?ML_TITLE:'');
+		
+		$meta_title = metaTitle($breadcrumbTitle,'&quot;'.trim($_GET['keywords']).'&quot;',$Page,(isset($cat_name) ? $cat_name : ''),(isset($manu_name) ? $manu_name :''),($addSearchShopTitle)?ML_TITLE:'');
 		break;
 // ---------------------------------------------------------------------------------------
 //	Title für Angebote
@@ -522,7 +526,6 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 		$meta_title   = ML_TITLE;
 	}
 // ---------------------------------------------------------------------------------------
-
 
 ?>
 <title><?php echo metaClean($meta_title);?></title> 

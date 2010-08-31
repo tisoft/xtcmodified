@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: boxes.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id: boxes.php 899 2005-04-29 02:40:57Z hhgag $
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(boxes.php,v 1.32 2003/05/27); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(boxes.php,v 1.32 2003/05/27); www.oscommerce.com
    (c) 2003	 nextcommerce (boxes.php,v 1.11 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (boxes.php 899 2005-04-29)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -37,7 +38,7 @@
         if (isset($contents[$i]['params']) && xtc_not_null($contents[$i]['params'])) $tableBox_string .= ' ' . $contents[$i]['params'];
         $tableBox_string .= '>' . "\n";
 
-        if (is_array($contents[$i][0])) {
+        if (isset($contents[$i][0]) && is_array($contents[$i][0])) { //DokuMan - 2010-08-31 - set undefined index 0
           for ($x=0, $n2=sizeof($contents[$i]); $x<$n2; $x++) {
             if (isset($contents[$i][$x]['text']) && xtc_not_null($contents[$i][$x]['text'])) {
               $tableBox_string .= '    <td';
