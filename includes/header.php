@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce 
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(header.php,v 1.40 2003/03/14); www.oscommerce.com 
-   (c) 2003	 nextcommerce (header.php,v 1.13 2003/08/17); www.nextcommerce.org 
+   (c) 2002-2003 osCommerce(header.php,v 1.40 2003/03/14); www.oscommerce.com
+   (c) 2003	 nextcommerce (header.php,v 1.13 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (header.php 1140 2005-08-10)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -23,17 +24,14 @@
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
-
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" <?php echo HTML_PARAMS; ?>>
 <head>
 <?php include(DIR_WS_MODULES.FILENAME_METATAGS); ?>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <link rel="shortcut icon" href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER).DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/favicon.ico';?>" type="image/x-icon" />
 
@@ -65,7 +63,7 @@
 if (file_exists('templates/'.CURRENT_TEMPLATE.'/css/general.css.php')) {
   require('templates/'.CURRENT_TEMPLATE.'/css/general.css.php');
   }
-  //Maintain backwards compatibility for older templates 
+  //Maintain backwards compatibility for older templates
   else {
     echo '<link rel="stylesheet" type="text/css" href="templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
 }
@@ -81,7 +79,7 @@ function submitFunction() {
 }
 function popupWindow(url) {
   window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
-}  
+}
 
 function selectRowEffect(object, buttonSelect) {
   if (!selected) {
@@ -127,7 +125,7 @@ require('templates/'.CURRENT_TEMPLATE.'/javascript/general.js.php');
 // BOF - Hendrik - 2010-08-22 - xajax support
 if( XAJAX_SUPPORT=='true' ) {
     // Include XAJAX JS Library
-    require ('xajax.common.php');                            
+    require ('xajax.common.php');
     if ($imdxajax) {
       $imdxajax->printJavascript('includes/');
     }
@@ -137,12 +135,9 @@ if( XAJAX_SUPPORT=='true' ) {
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT)) {
  echo $payment_modules->javascript_validation();
 }
-
 if (strstr($PHP_SELF, FILENAME_CREATE_ACCOUNT)) {
 require('includes/form_check.js.php');
 }
-
-
 if (strstr($PHP_SELF, FILENAME_CREATE_GUEST_ACCOUNT )) {
 require('includes/form_check.js.php');
 }
@@ -156,7 +151,7 @@ if (strstr($PHP_SELF, FILENAME_ADDRESS_BOOK_PROCESS )) {
   if (isset($_GET['delete']) == false) {
     include('includes/form_check.js.php');
   }
-  }
+}
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_SHIPPING_ADDRESS )or strstr($PHP_SELF,FILENAME_CHECKOUT_PAYMENT_ADDRESS)) {
 require('includes/form_check.js.php');
 ?>
@@ -283,8 +278,8 @@ function resize() {
   self.focus();
 }
 //--></script>
-<?php 
-} 
+<?php
+}
 
 ?>
 </head>
@@ -296,7 +291,7 @@ echo '<body>';
 }
 
 // econda tracking
-if (TRACKING_ECONDA_ACTIVE=='true') {	
+if (TRACKING_ECONDA_ACTIVE=='true') {
 ?>
 <script type="text/javascript">
 <!--
@@ -305,21 +300,19 @@ var emos_kdnr='<?php echo TRACKING_ECONDA_ID; ?>';
 </script>
 <a name="emos_sid" rel="<?php echo session_id(); ?>" rev=""></a>
 <a name="emos_name" title="siteid" rel="<?php echo $_SESSION['languages_id']; ?>" rev=""></a>
-<?php	
+<?php
 //	require_once(DIR_WS_INCLUDES . 'econda/econda.php');
 }
-
 
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_SUCCESS) && GOOGLE_CONVERSION == 'true') {
 require('includes/google_conversiontracking.js.php');
 }
 
-
   // include needed functions
-  require_once('inc/xtc_output_warning.inc.php');
-  require_once('inc/xtc_image.inc.php');
-  require_once('inc/xtc_parse_input_field_data.inc.php');
-  require_once('inc/xtc_draw_separator.inc.php');
+  require_once(DIR_FS_INC . 'xtc_output_warning.inc.php');
+  require_once(DIR_FS_INC . 'xtc_image.inc.php');
+  require_once(DIR_FS_INC . 'xtc_parse_input_field_data.inc.php');
+  require_once(DIR_FS_INC . 'xtc_draw_separator.inc.php');
 
 //  require_once('inc/xtc_draw_form.inc.php');
 //  require_once('inc/xtc_draw_pull_down_menu.inc.php');
@@ -362,7 +355,6 @@ require('includes/google_conversiontracking.js.php');
     }
   }
 
-
 $smarty->assign('navtrail',$breadcrumb->trail(' &raquo; '));
 // BOF - Hetfield - 2009-12-17 - added new links index and login for index.html
 if (isset($_SESSION['customer_id'])) {
@@ -373,10 +365,11 @@ if (isset($_SESSION['customer_id'])) {
 $smarty->assign('index',xtc_href_link(FILENAME_DEFAULT));
 // EOF - Hetfield - 2009-12-17 - added new links index and login for index.html
 if ( $_SESSION['account_type']=='0') {
-$smarty->assign('account',xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
+	$smarty->assign('account',xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 }
 $smarty->assign('cart',xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
 $smarty->assign('checkout',xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+$smarty->assign('store_name',TITLE);
 
 // BOF - Dokuman - 2009-05-27 - added htmlspecialchars
 //$smarty->assign('store_name',TITLE);
@@ -392,13 +385,13 @@ if (isset($_GET['info_message']) && xtc_not_null($_GET['info_message'])) {
 
 include(DIR_WS_INCLUDES.FILENAME_BANNER);
 //BOF - web28- 2010-07-07 SHOP OFFLINE INFO
-require_once(DIR_FS_INC . 'xtc_get_shop_conf.inc.php'); 
-if(xtc_get_shop_conf('SHOP_OFFLINE') != 'checked' || $_SESSION['customers_status']['customers_status_id'] == 0) {	
+require_once(DIR_FS_INC . 'xtc_get_shop_conf.inc.php');
+if(xtc_get_shop_conf('SHOP_OFFLINE') != 'checked' || $_SESSION['customers_status']['customers_status_id'] == 0) {
 	//Do nothing
-} else {    
+} else {
 	$smarty->assign('language', $_SESSION['language']);
-	$smarty->assign('shop_offline_msg', xtc_get_shop_conf('SHOP_OFFLINE_MSG'));	
-    $smarty->display(CURRENT_TEMPLATE.'/offline.html');	
+	$smarty->assign('shop_offline_msg', xtc_get_shop_conf('SHOP_OFFLINE_MSG'));
+    $smarty->display(CURRENT_TEMPLATE.'/offline.html');
 	EXIT;
 }
 //EOF  - web28- 2010-07-07 SHOP OFFLINE INFO
