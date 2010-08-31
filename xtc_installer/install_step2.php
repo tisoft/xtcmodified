@@ -1,17 +1,17 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: install_step2.php 1119 2005-07-25 22:19:50Z novalis $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(install_2.php,v 1.4 2002/08/12); www.oscommerce.com 
    (c) 2003	 nextcommerce (install_step2.php,v 1.16 2003/08/1); www.nextcommerce.org
-   (c) 2009 xtcModified (install_step2.php,v 1.00 2009/07/13); www.www.xtc-modified.org 
+   (c) 2006 XT-Commerce www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -125,7 +125,11 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 	if (!$db_error) {
 		if (function_exists('version_compare')) {
 		    //BOF - web28 - 2010-02-10 - check for 'native'
-			if(version_compare(mysql_get_server_info(), "4.1.2", "<") && strpos(strtolower(mysql_get_server_info()), 'native')=== false){
+		    //BOF - GTB - 2010-08-31 - check Development Version
+		    preg_match("/[0-9]\.[0-9]\.[0-9]/",mysql_get_server_info(), $server_info);
+		    if(version_compare($server_info[0], "4.1.2", "<") && strpos(strtolower(mysql_get_server_info()), 'native')=== false){
+			//if(version_compare(mysql_get_server_info(), "4.1.2", "<") && strpos(strtolower(mysql_get_server_info()), 'native')=== false){
+			//EOF - GTB - 2010-08-31 - check Development Version
 			//EOF - web28 - 2010-02-10 - check for 'native'
 				$db_error = '<br /><strong>' . TEXT_DB_SERVER_VERSION_ERROR .  ' 4.1.2. <br /><br />' . TEXT_DB_SERVER_VERSION . mysql_get_server_info() . '</strong>.';
 			}
@@ -138,7 +142,11 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 	if (!$db_error) {
 		if (function_exists('version_compare')) {
 		    //BOF - web28 - 2010-02-10 - check for 'native'
-			if(version_compare(mysql_get_client_info(), "4.1.2", "<") && strpos(strtolower(mysql_get_client_info()), 'native')=== false){
+		    //BOF - GTB - 2010-08-31 - check Development Version
+		    preg_match("/[0-9]\.[0-9]\.[0-9]/",mysql_get_client_info(), $client_info);
+		    if(version_compare($client_info[0], "4.1.2", "<") && strpos(strtolower(mysql_get_client_info()), 'native')=== false){
+			//if(version_compare(mysql_get_client_info(), "4.1.2", "<") && strpos(strtolower(mysql_get_client_info()), 'native')=== false){
+			//BOF - GTB - 2010-08-31 - check Development Version
 			//EOF - web28 - 2010-02-10 - check for 'native'
 				$db_warning = '<strong>' . TEXT_DB_CLIENT_VERSION_WARNING .  '<br /><br />' . TEXT_DB_CLIENT_VERSION . mysql_get_client_info() . '</strong>.';
 			}
