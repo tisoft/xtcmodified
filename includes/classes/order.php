@@ -360,6 +360,9 @@
                           'comments' => isset($_SESSION['comments']) ? $_SESSION['comments'] : '',
                           'shipping_class' => isset($_SESSION['shipping']) ? $_SESSION['shipping']['id'] : '',
                           'payment_class' => isset($_SESSION['payment']) ? $_SESSION['payment'] : '',
+                          'subtotal' => 0,
+                          'tax' => 0,
+                          'tax_groups' => array(),
                           );
                           
       if (isset($_SESSION['payment']) && is_object($_SESSION['payment'])) {
@@ -486,9 +489,15 @@
         if ($_SESSION['customers_status']['customers_status_show_price_tax'] == '1') {
           if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
             $this->info['tax'] += $shown_price_tax - ($shown_price_tax / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+            //BOF - DokuMan - set undefined index
+            if (!isset($this->info['tax_groups'][TAX_ADD_TAX."$products_tax_description"])) $this->info['tax_groups'][TAX_ADD_TAX."$products_tax_description"] = 0;
+            //EOF - DokuMan - set undefined index
             $this->info['tax_groups'][TAX_ADD_TAX."$products_tax_description"] += (($shown_price_tax /(100+$products_tax)) * $products_tax);
           } else {
             $this->info['tax'] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+            //BOF - DokuMan - set undefined index
+            if (!isset($this->info['tax_groups'][TAX_ADD_TAX."$products_tax_description"])) $this->info['tax_groups'][TAX_ADD_TAX."$products_tax_description"] = 0;
+            //EOF - DokuMan - set undefined index
             $this->info['tax_groups'][TAX_ADD_TAX . "$products_tax_description"] += (($shown_price /(100+$products_tax)) * $products_tax);
           }
         } else {

@@ -1,15 +1,16 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: ot_gv.php 899 2005-04-29 02:40:57Z hhgag $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ot_gv.php,v 1.1.2.1 2003/05/15); www.oscommerce.com
+   (c) 2006 XT-Commerce (ot_gv.php 899 2005-04-29)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -28,8 +29,10 @@
   define('MODULE_ORDER_TOTAL_GV_TITLE', 'Gutscheine');
   define('MODULE_ORDER_TOTAL_GV_HEADER', 'Gutscheine');
   define('MODULE_ORDER_TOTAL_GV_DESCRIPTION', 'Gutscheine');
-  define('SHIPPING_NOT_INCLUDED', ' [Versand nicht enthalten]');
-  define('TAX_NOT_INCLUDED', ' [MwSt. nicht enthalten]');
+  //BOF - DokuMan - 2010-08-31 - constants already defined in german.php
+  //define('SHIPPING_NOT_INCLUDED', ' [Versand nicht enthalten]');
+  //define('TAX_NOT_INCLUDED', ' [MwSt. nicht enthalten]');
+  //EOF - DokuMan - 2010-08-31 - constants already defined in german.php
   define('MODULE_ORDER_TOTAL_GV_USER_PROMPT', 'Anw&auml;hlen, wenn Sie Ihr Guthaben verwenden m&ouml;chten');
   define('TEXT_ENTER_GV_CODE', 'Geben Sie bitte hier Ihren Gutscheincode ein &nbsp;&nbsp;');
 

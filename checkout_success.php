@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_success.php 896 2005-04-27 19:22:59Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_success.php,v 1.48 2003/02/17); www.oscommerce.com 
    (c) 2003	 nextcommerce (checkout_success.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (checkout_success.php 896 2005-04-27)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -91,7 +92,6 @@ if ($gv_result = xtc_db_fetch_array($gv_query)) {
 // GV Code End
 // Google Conversion tracking
 if (GOOGLE_CONVERSION == 'true') {
-
 	$smarty->assign('google_tracking', 'true');
 	$smarty->assign('tracking_code', '
 		<noscript>
@@ -133,7 +133,9 @@ if (($_SESSION['account_type'] == 1) && (DELETE_GUEST_ACCOUNT == 'true')) {
 //EOF - DokuMan - 2010-05-20 - Move guest deletion from logoff to checkout_success
 
 $smarty->assign('language', $_SESSION['language']);
-$smarty->assign('PAYMENT_BLOCK', $payment_block);
+//BOF - DokuMan - 2010-08-31 - PAYMENT_BLOCK not needed in checkout success
+//$smarty->assign('PAYMENT_BLOCK', $payment_block);
+//EOF - DokuMan - 2010-08-31 - PAYMENT_BLOCK not needed in checkout success
 $smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_success.html');
 
@@ -143,7 +145,7 @@ $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content.(isset($_SESSION['xtb2'])?"<div style=\"text-align:center;padding:3px;margin-top:10px;font-weight:bold;\"><a style=\"text-decoration:underline;color:blue;\" href=\"./xtbcallback.php?reverse=true\">Zur&uuml;ck zur xs:booster Auktions&uuml;bersicht..</a></div>":""));
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

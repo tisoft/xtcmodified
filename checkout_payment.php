@@ -149,7 +149,7 @@ if ($order->info['total'] > 0) {
 		}
 
 		if (sizeof($selection) > 1) {
-			$selection[$i]['selection'] = xtc_draw_radio_field('payment', $selection[$i]['id'], ($selection[$i]['id'] == $_SESSION['payment']));
+			$selection[$i]['selection'] = xtc_draw_radio_field('payment', $selection[$i]['id'], (isset($_SESSION['payment']) && $selection[$i]['id'] == $_SESSION['payment']));
 		} else {
 			$selection[$i]['selection'] = xtc_draw_hidden_field('payment', $selection[$i]['id']);
 		}

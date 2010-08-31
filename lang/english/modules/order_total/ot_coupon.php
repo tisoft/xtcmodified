@@ -1,15 +1,16 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: ot_coupon.php 899 2005-04-29 02:40:57Z hhgag $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(t_coupon.php,v 1.1.2.2 2003/05/15); www.oscommerce.com
+   (c) 2006 XT-Commerce (ot_coupon.php 899 2005-04-29)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -32,12 +33,14 @@
   define('TAX_NOT_INCLUDED', ' [Tax not included]');
   define('MODULE_ORDER_TOTAL_COUPON_USER_PROMPT', '');
   define('ERROR_NO_INVALID_REDEEM_COUPON', 'Invalid Coupon Code');
-  define('ERROR_INVALID_STARTDATE_COUPON', 'This coupon is not available yet');
-  define('ERROR_INVALID_FINISDATE_COUPON', 'This coupon has expired');
-  define('ERROR_INVALID_USES_COUPON', 'This coupon could only be used ');  
-  define('TIMES', ' times.');
-  define('ERROR_INVALID_USES_USER_COUPON', 'You have used the coupon the maximum number of times allowed per customer.'); 
-  define('REDEEMED_COUPON', 'a coupon worth ');  
+  //BOF - DokuMan - 2010-08-31 - constants already defined in english.php
+  //define('ERROR_INVALID_STARTDATE_COUPON', 'This coupon is not available yet');
+  //define('ERROR_INVALID_FINISDATE_COUPON', 'This coupon has expired');
+  //define('ERROR_INVALID_USES_COUPON', 'This coupon could only be used ');  
+  //define('TIMES', ' times.');
+  //define('ERROR_INVALID_USES_USER_COUPON', 'You have used the coupon the maximum number of times allowed per customer.'); 
+  //define('REDEEMED_COUPON', 'a coupon worth ');  
+  //EOF - DokuMan - 2010-08-31 - constants already defined in english.php
   define('REDEEMED_MIN_ORDER', 'on orders over ');  
   define('REDEEMED_RESTRICTIONS', ' [Product-Category restrictions apply]');  
   define('TEXT_ENTER_COUPON_CODE', 'Enter Redeem Code&nbsp;&nbsp;');

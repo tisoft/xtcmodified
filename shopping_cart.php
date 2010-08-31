@@ -54,7 +54,7 @@ if ($_SESSION['cart']->count_contents() > 0) {
 	$products = $_SESSION['cart']->get_products();
 	for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 		// Push all attributes information in an array
-		if (isset ($products[$i]['attributes'])) {
+        if (isset ($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
 			while (list ($option, $value) = each($products[$i]['attributes'])) {
 				$hidden_options .= xtc_draw_hidden_field('id['.$products[$i]['id'].']['.$option.']', $value);
 				//Dokuman - 2010-08-17 - fixed possible SQL injection

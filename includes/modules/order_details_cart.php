@@ -1,19 +1,19 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: order_details_cart.php 1281 2005-10-03 09:30:17Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(order_details.php,v 1.8 2003/05/03); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(order_details.php,v 1.8 2003/05/03); www.oscommerce.com
    (c) 2003	 nextcommerce (order_details.php,v 1.16 2003/08/17); www.nextcommerce.org
+   (c) 2006 xt:Commerce (order_details_cart.php 1281 2005-10-03); www.xt-commerce.de
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contribution:
 
@@ -65,27 +65,27 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 				  . xtc_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&prd_id=' . $products[$i]['id'], 'SSL')
 				  . '">' . IMAGE_BUTTON_DELETE . '</a>';
   //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
-	
+
 	$module_content[$i] = array ('PRODUCTS_NAME' => $products[$i]['name'].$mark_stock,
                                'PRODUCTS_QTY' => xtc_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'size="2"')
                                                 .xtc_draw_hidden_field('products_id[]', $products[$i]['id'])
                                                 .xtc_draw_hidden_field('old_qty[]', $products[$i]['quantity']),
                                 'PRODUCTS_MODEL' => $products[$i]['model'],
                                 'PRODUCTS_SHIPPING_TIME'=>$products[$i]['shipping_time'],
-                                'PRODUCTS_TAX' => number_format($products[$i]['tax'], TAX_DECIMAL_PLACES), 
+                                'PRODUCTS_TAX' => number_format($products[$i]['tax'], TAX_DECIMAL_PLACES),
                                 'PRODUCTS_IMAGE' => $image, 'IMAGE_ALT' => $products[$i]['name'],
-                                'BOX_DELETE' => xtc_draw_checkbox_field('cart_delete[]', $products[$i]['id']), 
-                                'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products[$i]['id'], $products[$i]['name'])), 
+                                'BOX_DELETE' => xtc_draw_checkbox_field('cart_delete[]', $products[$i]['id']),
+                                'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products[$i]['id'], $products[$i]['name'])),
   //BOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
                                 'BUTTON_DELETE' => $del_button,
-                                'LINK_DELETE' => $del_link,									 
+                                'LINK_DELETE' => $del_link,
   //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
-                                'PRODUCTS_PRICE' => $xtPrice->xtcFormat($products[$i]['price'] * $products[$i]['quantity'], true), 
-                                'PRODUCTS_SINGLE_PRICE' =>$xtPrice->xtcFormat($products[$i]['price'], true), 
-                                'PRODUCTS_SHORT_DESCRIPTION' => xtc_get_short_description($products[$i]['id']), 
+                                'PRODUCTS_PRICE' => $xtPrice->xtcFormat($products[$i]['price'] * $products[$i]['quantity'], true),
+                                'PRODUCTS_SINGLE_PRICE' =>$xtPrice->xtcFormat($products[$i]['price'], true),
+                                'PRODUCTS_SHORT_DESCRIPTION' => xtc_get_short_description($products[$i]['id']),
                                 'ATTRIBUTES' => '');
 	// Product options names
-	$attributes_exist = ((isset ($products[$i]['attributes'])) ? 1 : 0);
+    $attributes_exist = ((isset ($products[$i]['attributes']) && is_array($products[$i]['attributes'])) ? 1 : 0);
 
 	if ($attributes_exist == 1) {
 		reset($products[$i]['attributes']);
@@ -98,13 +98,17 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 					$_SESSION['any_out_of_stock'] = 1;
 			}
 
-			$module_content[$i]['ATTRIBUTES'][] = array ('ID' => $products[$i][$option]['products_attributes_id'], 'MODEL' => xtc_get_attributes_model(xtc_get_prid($products[$i]['id']), $products[$i][$option]['products_options_values_name'],$products[$i][$option]['products_options_name']), 'NAME' => $products[$i][$option]['products_options_name'], 'VALUE_NAME' => $products[$i][$option]['products_options_values_name'].$attribute_stock_check);
-
+			$module_content[$i]['ATTRIBUTES'][] = array (
+			'ID' => $products[$i][$option]['products_attributes_id'],
+			'MODEL' => xtc_get_attributes_model(xtc_get_prid($products[$i]['id']), $products[$i][$option]['products_options_values_name'],$products[$i][$option]['products_options_name']),
+			'NAME' => $products[$i][$option]['products_options_name'],
+			'VALUE_NAME' => $products[$i][$option]['products_options_values_name'].$attribute_stock_check
+			);
 		}
 	}
-
 }
 
+$discount = 0;
 $total_content = '';
 $total =$_SESSION['cart']->show_total();
 if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == '1' && $_SESSION['customers_status']['customers_status_ot_discount'] != '0.00') {
@@ -126,8 +130,12 @@ if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
 	$total_content .= NOT_ALLOWED_TO_SEE_PRICES.'<br />';
 }
 // display only if there is an ot_discount
-if ($customer_status_value['customers_status_ot_discount'] != 0) {
-	$total_content .= TEXT_CART_OT_DISCOUNT.$customer_status_value['customers_status_ot_discount'].'%';
+//BOF - DokuMan - 2010-08-31 - use customers_status instead
+//if ($customer_status_value['customers_status_ot_discount'] != 0) {
+//	$total_content .= TEXT_CART_OT_DISCOUNT.$customer_status_value['customers_status_ot_discount'].'%';
+if ($_SESSION['customers_status']['customers_status_ot_discount'] != 0) {
+    $total_content .= TEXT_CART_OT_DISCOUNT.$_SESSION['customers_status']['customers_status_ot_discount'].'%';
+//EOF - DokuMan - 2010-08-31 - use customers_status instead
 }
 if (SHOW_SHIPPING == 'true') {
   //BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true

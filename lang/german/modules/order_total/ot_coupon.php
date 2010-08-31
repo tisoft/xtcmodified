@@ -1,15 +1,16 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: ot_coupon.php 899 2005-04-29 02:40:57Z hhgag $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(t_coupon.php,v 1.1.2.2 2003/05/15); www.oscommerce.com
+   (c) 2006 XT-Commerce (ot_coupon.php 899 2005-04-29)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -32,12 +33,14 @@
   define('TAX_NOT_INCLUDED', ' [MwSt. nicht enthalten]');
   define('MODULE_ORDER_TOTAL_COUPON_USER_PROMPT', '');
   define('ERROR_NO_INVALID_REDEEM_COUPON', 'Ung&uuml;ltiger Gutscheincode');
-  define('ERROR_INVALID_STARTDATE_COUPON', 'Dieser Gutschein ist noch nicht verf&uuml;gbar');
-  define('ERROR_INVALID_FINISDATE_COUPON', 'Dieser Gutschein ist nicht mehr g&uuml;ltig');
-  define('ERROR_INVALID_USES_COUPON', 'Dieser Gutschein kann nur ');
-  define('TIMES', ' mal benutzt werden.');
-  define('ERROR_INVALID_USES_USER_COUPON', 'Die maximale Nutzung dieses Gutscheines wurde erreicht.');
-  define('REDEEMED_COUPON', 'ein Gutschein &uuml;ber ');
+  //BOF - DokuMan - 2010-08-31 - constants already defined in german.php
+  //define('ERROR_INVALID_STARTDATE_COUPON', 'Dieser Gutschein ist noch nicht verf&uuml;gbar');
+  //define('ERROR_INVALID_FINISDATE_COUPON', 'Dieser Gutschein ist nicht mehr g&uuml;ltig');
+  //define('ERROR_INVALID_USES_COUPON', 'Dieser Gutschein kann nur ');
+  //define('TIMES', ' mal benutzt werden.');
+  //define('ERROR_INVALID_USES_USER_COUPON', 'Die maximale Nutzung dieses Gutscheines wurde erreicht.');
+  //define('REDEEMED_COUPON', 'ein Gutschein &uuml;ber ');
+  //EOF - DokuMan - 2010-08-31 - constants already defined in german.php
   define('REDEEMED_MIN_ORDER', 'f&uuml;r Waren &uuml;ber ');
   define('REDEEMED_RESTRICTIONS', ' [Artikel / Kategorie Einschr&auml;nkungen]');
   define('TEXT_ENTER_COUPON_CODE', 'Geben Sie hier Ihren Gutscheincode ein &nbsp;&nbsp;');
