@@ -19,7 +19,7 @@
  *
  * ab 15.08.2008 Teile vom Hamburger-Internetdienst geändert
  * Hamburger-Internetdienst Support Forums at www.forum.hamburger-internetdienst.de
- * Stand 27.03.2010
+ * Stand 19.07.2010
 */
 class paypal {
 	var $code, $title, $description, $enabled;
@@ -102,8 +102,8 @@ class paypal {
 	}
 /**************************************************************/
 	function confirmation() {
-		// Stand: 29.04.2009
-		return false;
+		// Stand: 19.07.2010
+		return array ('title' => $this->description);
 	}
 /**************************************************************/
 	function process_button() {
