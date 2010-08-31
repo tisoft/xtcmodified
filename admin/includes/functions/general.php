@@ -1,19 +1,18 @@
 <?php
-
 /* --------------------------------------------------------------
-   $Id: general.php 1316 2005-10-21 15:30:58Z mz $  
+   $Id$
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(general.php,v 1.156 2003/05/29); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(general.php,v 1.156 2003/05/29); www.oscommerce.com
    (c) 2003	 nextcommerce (general.php,v 1.35 2003/08/1); www.nextcommerce.org
+   (c) 2006 XT-Commerce (general.php 1316 2005-10-21)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------
    Third Party contributions:
 
@@ -30,17 +29,15 @@
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 function clear_string($value) {
-
 	$string = str_replace("'", '', $value);
 	$string = str_replace(')', '', $string);
 	$string = str_replace('(', '', $string);
 	$array = explode(',', $string);
 	return $array;
-
 }
 
 function check_stock($products_id) {
@@ -81,10 +78,9 @@ function xtc_set_categories_status($categories_id, $status) {
 }
 
 function xtc_set_groups($categories_id, $permission_array) {
-
 	// get products in categorie
 	$products_query = xtc_db_query("SELECT products_id FROM ".TABLE_PRODUCTS_TO_CATEGORIES." where categories_id='".$categories_id."'");
-	while ($products = xtc_db_fetch_array($products_query)) {		
+	while ($products = xtc_db_fetch_array($products_query)) {
 		xtc_db_perform(TABLE_PRODUCTS, $permission_array, 'update', 'products_id = \''.$products['products_id'].'\'');
 	}
 	// set status of categorie
@@ -94,7 +90,6 @@ function xtc_set_groups($categories_id, $permission_array) {
 	while ($categories = xtc_db_fetch_array($categories_query)) {
 		xtc_set_groups($categories['categories_id'], $permission_array);
 	}
-
 }
 
 // Set Admin Access Rights
@@ -126,7 +121,6 @@ function xtc_check_permission($pagename) {
 // Redirect to another page or site
 function xtc_redirect($url) {
 	global $logger;
-
 	header('Location: '.$url);
 
 	if (STORE_PAGE_PARSE_TIME == 'true') {
@@ -182,7 +176,6 @@ function xtc_get_all_get_params($exclude_array = '') {
 
 	if ($exclude_array == '')
 		$exclude_array = array ();
-
 	$get_url = '';
 
 	reset($_GET);
@@ -226,7 +219,7 @@ function xtc_date_short($raw_date) {
 	if (@ date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
 		return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
 	} else {
-		return preg_replace('/2037'.'$/', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037))); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+		return preg_replace('/2037$/', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037))); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 	}
 
 }
@@ -246,8 +239,8 @@ function xtc_datetime_short($raw_datetime) {
 }
 
 function xtc_array_merge($array1, $array2, $array3 = '') {
-   if (!is_array($array1)) { $array1 = array (); }
-   if (!is_array($array2)) { $array2 = array (); }
+	if (!is_array($array1)) { $array1 = array (); }
+	if (!is_array($array2)) { $array2 = array (); }
 	if (!is_array($array3)) { $array3 = array (); }
 	if (function_exists('array_merge')) {
 		$array_merged = array_merge($array1, $array2, $array3);
@@ -572,7 +565,13 @@ function xtc_get_languages() {
 	$languages_query = xtc_db_query("select languages_id, name, code, image, directory from ".TABLE_LANGUAGES." where status = '1' order by sort_order");
 // EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
 	while ($languages = xtc_db_fetch_array($languages_query)) {
-		$languages_array[] = array ('id' => $languages['languages_id'], 'name' => $languages['name'], 'code' => $languages['code'], 'image' => $languages['image'], 'directory' => $languages['directory']);
+		$languages_array[] = array (
+			'id' => $languages['languages_id'],
+			'name' => $languages['name'],
+			'code' => $languages['code'],
+			'image' => $languages['image'],
+			'directory' => $languages['directory']
+			);
 	}
 
 	return $languages_array;
@@ -672,8 +671,6 @@ function xtc_get_cross_sell_groups() {
 
 	return $cross_sell_array;
 }
-
-
 
 function xtc_get_products_vpe_name($products_vpe_id, $language_id = '') {
 
@@ -871,9 +868,9 @@ function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
 //function xtc_cfg_textarea($text) {
 	//return xtc_draw_textarea_field('configuration_value', false, 35, 5, $text);
 //}
-function xtc_cfg_textarea($text, $key = '') {	
+function xtc_cfg_textarea($text, $key = '') {
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
-    return xtc_draw_textarea_field($name, false, 35, 3, $text, 'class="textareaModule"');	
+    return xtc_draw_textarea_field($name, false, 35, 3, $text, 'class="textareaModule"');
 }
 //EOF - web28- 2010-07-06 - added missing code
 
@@ -933,13 +930,13 @@ function xtc_cfg_select_option($select_array, $key_value, $key = '') {
 		if ($key_value == $select_array[$i])
 			$string .= ' CHECKED';
 		$string .= '> '.$select_array[$i];*/
-		if ($i == 0)		
+		if ($i == 0)
 			$string .= '<input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
 		else
 			$string .= '<br /><input type="radio" name="'.$name.'" value="'.$select_array[$i].'"';
 		if ($key_value == $select_array[$i])
 			$string .= ' CHECKED';
-		$string .= '> '.$select_array[$i];		
+		$string .= '> '.$select_array[$i];
 		// EOF vr - 2010-02-04 admin configuration pages 3 column layout - modified by web28 2010-06-09
 	}
 
@@ -1694,7 +1691,5 @@ function xtc_button_link($value, $href='javascript:void(null)', $parameter='') {
    return '<a href="'.$href.'" class="button" onclick="this.blur()" '.$parameter.' >'.$value.'</a>';
 }
 
-
-
-//--------------------------------------------------------------------------------------Ende 
+//--------Ende
 ?>
