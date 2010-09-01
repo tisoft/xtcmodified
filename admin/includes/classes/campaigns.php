@@ -203,10 +203,10 @@ class campaigns {
 		$status = "";
 		if ($this->status > 0)
 			$status = " and o.orders_status='".$this->status."'";
-		//BOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+		//BOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 		//$sale_query = "SELECT count(*) as sells, SUM(ot.value/o.currency_value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total'".$selection.$status;
 		$sale_query = "SELECT count(*) as sells, SUM(ot.value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total'".$selection.$status;
-		//EOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+		//EOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 		$sale_query = xtc_db_query($sale_query);
 		$sale_data = xtc_db_fetch_array($sale_query);
 
@@ -231,26 +231,24 @@ class campaigns {
 				$end = mktime(0, 0, 0, date("m", $date_start), date("d", $date_start) + 1, date("Y", $date_start));
 				$selection = " and o.date_purchased>'".xtc_db_input(date("Y-m-d", $date_start))."'"." and o.date_purchased<'".xtc_db_input(date("Y-m-d", $end))."'";
 				break;
-
 		}
 
 		$status = "";
 		if ($this->status > 0)
 			$status = " and o.orders_status='".$this->status."'";
-		//BOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+		//BOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 		//$sell_query = "SELECT count(*) as sells, SUM(ot.value/o.currency_value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='1' and o.refferers_id='".$this->campaign."'".$selection.$status;
 		$sell_query = "SELECT count(*) as sells, SUM(ot.value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='1' and o.refferers_id='".$this->campaign."'".$selection.$status;
-		//EOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+		//EOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 		$sell_query = xtc_db_query($sell_query);
 		$sell_data = xtc_db_fetch_array($sell_query);
 
-		//BOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+		//BOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 		//$late_sell_query = "SELECT count(*) as sells, SUM(ot.value/o.currency_value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='2' and o.refferers_id='".$this->campaign."'".$selection.$status;
 		$late_sell_query = "SELECT count(*) as sells, SUM(ot.value) as Summe FROM ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot WHERE o.orders_id=ot.orders_id and ot.class='ot_total' and o.conversion_type='2' and o.refferers_id='".$this->campaign."'".$selection.$status;
-		//EOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+		//EOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 		$late_sell_query = xtc_db_query($late_sell_query);
 		$late_sell_data = xtc_db_fetch_array($late_sell_query);
-
 
 		$this->result[$this->counterCMP]['result'][$this->counter]['sells'] = $sell_data['sells'];
 		$this->result[$this->counterCMP]['result'][$this->counter]['sum'] =  $currencies->format(($sell_data['Summe']+$late_sell_data['Summe']));
@@ -262,10 +260,10 @@ class campaigns {
 			$this->result[$this->counterCMP]['result'][$this->counter]['sum_p'] = 0;
 		} else {
 			$this->result[$this->counterCMP]['result'][$this->counter]['sells_p'] = $sell_data['sells'] / $this->total['sells'] * 100;
-			//BOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+			//BOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 			//$this->result[$this->counterCMP]['result'][$this->counter]['late_sells_p'] = $late_sell_data['sells'] / $this->total['sells'] * 100;
 			$this->result[$this->counterCMP]['result'][$this->counter]['late_sells_p'] = round($late_sell_data['sells'] / $this->total['sells'] * 100,2);
-			//EOF - 2010-08-31 - corrected calculation, see also xtc_304_SP22_beta
+			//EOF - 2010-08-31 - BUGFIX: #0000285 calculation error in campaign report with multiple currencies
 			$this->result[$this->counterCMP]['result'][$this->counter]['sum_p'] = round(($sell_data['Summe']+$late_sell_data['Summe'])/$this->total['sum']*100,2);
 		}
 		$this->result[$this->counterCMP]['result'][$this->counter]['late_sells'] = $late_sell_data['sells'];
@@ -353,9 +351,7 @@ class campaigns {
 	function printResult() {
 		echo '<pre>';
 		print_r($this->result);
-
 		print_r($this->total);
-
 		echo '</pre>';
 	}
 
