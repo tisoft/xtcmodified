@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: cross_selling.php 799 2005-02-23 18:08:06Z novalis $
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
