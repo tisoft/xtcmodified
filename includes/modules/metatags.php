@@ -317,7 +317,7 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 			
       //-- Canonical-URL
       //-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
-      $canonical_url = xtc_href_link(FILENAME_PRODUCT_INFO, 'products_id='.$product->data['products_id'].'&language='.$_SESSION['language_code']);			
+      $canonical_url = xtc_href_link(FILENAME_PRODUCT_INFO, 'products_id='.$product->data['products_id'].'&amp;language='.$_SESSION['language_code']);			
 		}
 		break; 
 // ---------------------------------------------------------------------------------------
@@ -392,7 +392,7 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 		//-- Canonical-URL
 		//-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
 		if(isset ($_REQUEST['cPath'])){
-		$canonical_url = xtc_href_link(FILENAME_DEFAULT, 'cPath='.$_REQUEST['cPath'].'&language='.$_SESSION['language_code']);
+		$canonical_url = xtc_href_link(FILENAME_DEFAULT, 'cPath='.$_REQUEST['cPath'].'&amp;language='.$_SESSION['language_code']);
 		}
 		break;
 // ---------------------------------------------------------------------------------------
@@ -451,7 +451,7 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
     //-- Canonical-URL
     //-- http://www.linkvendor.com/blog/der-canonical-tag-%E2%80%93-was-kann-man-damit-machen.html
     if(isset($_GET['coID'])){
-    $canonical_url = xtc_href_link(FILENAME_CONTENT, 'coID='.$_GET['coID'].'&language='.$_SESSION['language_code']);
+    $canonical_url = xtc_href_link(FILENAME_CONTENT, 'coID='.$_GET['coID'].'&amp;language='.$_SESSION['language_code']);
     }		
 		break;
 // ---------------------------------------------------------------------------------------
