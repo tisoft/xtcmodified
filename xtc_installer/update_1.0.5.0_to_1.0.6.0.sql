@@ -21,7 +21,13 @@ DROP TABLE IF EXISTS gls_country_to_postal;
 DROP TABLE IF EXISTS gls_postal_to_weight;
 DROP TABLE IF EXISTS gls_weight;
 
-#Hendurk 2010-08-29 Xajax Support in Backend
+#Hendrik 2010-08-29 Xajax Support in Backend
 ALTER TABLE admin_access ADD xajax INT(1) DEFAULT 1 NOT NULL;
-# Keep an empty line at the end of this file for the db_updater to work properly
 
+#DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
+# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany , 6 - Taiwan , 7 - China
+INSERT INTO address_format VALUES (6, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
+INSERT INTO address_format VALUES (7, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
+UPDATE countries SET address_format_id = 6 WHERE countries_id = 206;
+UPDATE countries SET address_format_id = 7 WHERE countries_id = 44;
+# Keep an empty line at the end of this file for the db_updater to work properly
