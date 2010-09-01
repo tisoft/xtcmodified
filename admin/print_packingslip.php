@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: print_packingslip.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2003	 nextcommerce (print_order.php,v 1.1 2003/08/19); www.nextcommerce.org
-   
-   Released under the GNU General Public License 
+   (c) 2006 XT-Commerce (print_packingslip.php 899 2005-04-29)
+
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
   require('includes/application_top.php');
@@ -19,34 +20,35 @@
   require_once(DIR_FS_INC .'xtc_get_attributes_model.inc.php');
   require_once(DIR_FS_INC .'xtc_not_null.inc.php');
   require_once(DIR_FS_INC .'xtc_format_price_order.inc.php');
-  
+
   $smarty = new Smarty;
 
   $order_query_check = xtc_db_query("SELECT
   					customers_id
   					FROM ".TABLE_ORDERS."
   					WHERE orders_id='".(int)$_GET['oID']."'");
-  					
+
   $order_check = xtc_db_fetch_array($order_query_check);
  // if ($_SESSION['customer_id'] == $order_check['customers_id'])
   //	{
   	// get order data
- 	
+
   	include(DIR_WS_CLASSES . 'order.php');
   	$order = new order($_GET['oID']);
-
 
   	$smarty->assign('address_label_customer',xtc_address_format($order->customer['format_id'], $order->customer, 1, '', '<br />'));
   	$smarty->assign('address_label_shipping',xtc_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br />'));
   	$smarty->assign('address_label_payment',xtc_address_format($order->billing['format_id'], $order->billing, 1, '', '<br />'));
   	$smarty->assign('csID',$order->customer['csID']);
   	// get products data
+  	//DokuMan - 2010-09-01 - FEATURE: #0000215 shipping time in admin print order/packingslip
         $order_query=xtc_db_query("SELECT
         				products_id,
         				orders_products_id,
         				products_model,
         				products_name,
         				final_price,
+        				products_shipping_time,
         				products_quantity
         				FROM ".TABLE_ORDERS_PRODUCTS."
         				WHERE orders_id='".(int)$_GET['oID']."'");
@@ -62,7 +64,7 @@
         	$attributes_data='';
         	$attributes_model='';
         	while ($attributes_data_values = xtc_db_fetch_array($attributes_query)) {
-        	$attributes_data .='<br />'.$attributes_data_values['products_options'].':'.$attributes_data_values['products_options_values'];	
+        	$attributes_data .='<br />'.$attributes_data_values['products_options'].':'.$attributes_data_values['products_options_values'];
         	$attributes_model .='<br />'.xtc_get_attributes_model($order_data_values['products_id'],$attributes_data_values['products_options_values'],$attributes_data_values['products_options']);
         	}
         $order_data[]=array(
@@ -70,6 +72,9 @@
         		'PRODUCTS_NAME' => $order_data_values['products_name'],
         		'PRODUCTS_ATTRIBUTES' => $attributes_data,
         		'PRODUCTS_ATTRIBUTES_MODEL' => $attributes_model,
+        		//DokuMan - 2010-09-01 - FEATURE: #0000215 shipping time in admin print order/packingslip
+        		'PRODUCTS_SHIPPING_TIME' => $order_data_values['products_shipping_time'],
+        		//DokuMan - 2010-09-01 - FEATURE: #0000215 shipping time in admin print order/packingslip
         		'PRODUCTS_PRICE' =>  xtc_format_price_order($order_data_values['final_price'],1,$order->info['currency']),
         		'PRODUCTS_QTY' => $order_data_values['products_quantity']);
         }
@@ -112,18 +117,16 @@
     // BOF - Hendrik - 2010-08-12 - Bugfix charset found by Kukki
   	$smarty->assign('charset', $_SESSION['language_charset'] );
     // EOF - Hendrik - 2010-08-12 - Bugfix charset found by Kukki
-    
+
   	// dont allow cache
   	$smarty->caching = false;
-  	
-	$smarty->template_dir=DIR_FS_CATALOG.'templates';
-	$smarty->compile_dir=DIR_FS_CATALOG.'templates_c';
-	$smarty->config_dir=DIR_FS_CATALOG.'lang';
-	
-  	$smarty->display(CURRENT_TEMPLATE . '/admin/print_packingslip.html');	
+
+    $smarty->template_dir=DIR_FS_CATALOG.'templates';
+    $smarty->compile_dir=DIR_FS_CATALOG.'templates_c';
+    $smarty->config_dir=DIR_FS_CATALOG.'lang';
+
+  	$smarty->display(CURRENT_TEMPLATE . '/admin/print_packingslip.html');
 //	} else {
-  	
 //  	$smarty->display(CURRENT_TEMPLATE . '/error_message.html');
 //	}
-
 ?>
