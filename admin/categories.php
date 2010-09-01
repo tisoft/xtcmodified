@@ -1,19 +1,17 @@
 <?php
-
 /* --------------------------------------------------------------
-   $Id: categories.php 1249 2005-09-27 12:06:40Z gwinger $
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on:
+   based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(categories.php,v 1.140 2003/03/24); www.oscommerce.com
-   (c) 2003  nextcommerce (categories.php,v 1.37 2003/08/18); www.nextcommerce.org
-
-   Released under the GNU General Public License
+   (c) 2002-2003 osCommerce(countries.php,v 1.26 2003/05/17); www.oscommerce.com 
+   (c) 2003	 nextcommerce (countries.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (countries.php 1123 2005-07-27)
    --------------------------------------------------------------
    Third Party contribution:
    Enable_Disable_Categories 1.3               Autor: Mikel Williams | mikel@ladykatcostumes.com
@@ -273,6 +271,9 @@ if ($_GET['action']) {
 							}
 						}
 						elseif (xtc_not_null($_POST['dest_category_id'])) {
+							//BOF - GTB - 2010-08-01 - categorie copy not to TOP - thanks to enricosh
+							$dest_category_id = xtc_db_prepare_input($_POST['dest_category_id']);
+							//EOF - GTB - 2010-08-01 - categorie copy not to TOP - thanks to enricosh					
 							if ($_POST['copy_as'] == 'link') {
 								$catfunc->copy_category($category_id, $dest_category_id, 'link');
 							}
