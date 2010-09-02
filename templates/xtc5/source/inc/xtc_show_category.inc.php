@@ -28,12 +28,7 @@ function xtc_show_category($counter,$oldlevel='1',$last_next_id = '',$ul_open = 
 		$einzug .= "\t";
 	}
  	$categories_string .= '';
- 	if ( ($id) && (in_array($counter, $id)) ) {
-      	$submenu = " childs";
-    } else {
-		$submenu = "";
-	}
-	if ($in_path) { 
+ 	if ($in_path) { 
 		$active = " activeparent";
 		$active2 = " class=\"actparentlink\"";
 	} else {
@@ -59,7 +54,7 @@ function xtc_show_category($counter,$oldlevel='1',$last_next_id = '',$ul_open = 
 	} else {
 		$einzug2 = "\t";
 	}
-    $categories_string .= $einzug2.'<li class="level'.($foo[$counter]['level']+1).$active.$current.$submenu.'">';
+    $categories_string .= $einzug2.'<li class="level'.($foo[$counter]['level']+1).$active.$current.'">';
 	$categories_string .= "<a".$current2.$active2." href=\"".xtc_href_link(FILENAME_DEFAULT, xtc_category_link($counter,$foo[$counter]['name']))."\" title=\"".$foo[$counter]['name']."\">";
     $categories_string .= $foo[$counter]['name']."</a>";    
 	if (SHOW_COUNTS == 'true') {
