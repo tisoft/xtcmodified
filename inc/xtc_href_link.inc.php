@@ -1,7 +1,12 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_href_link.inc.php 804 2005-02-26 16:42:03Z mz $
+   $Id$
 
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
@@ -18,6 +23,8 @@
 // The HTML href link wrapper function
   function xtc_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $urlencode=false) {
     global $request_type, $session_started, $http_domain, $https_domain,$truncate_session_id;
+	
+	$parameters = str_replace('&amp;', '&', $parameters); // web28 - 2010-09-02 -- making link W3C-Conform
 
     if (!xtc_not_null($page)) {
       //die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><strong>Error!</strong></font><br /><br /><strong>Unable to determine the page link!<br /><br />');
@@ -99,10 +106,9 @@
 */
 
     //-- W3C-Conform
-    if($urlencode)
-        {
+    if($urlencode) {
         $link = htmlentities($link);
-        }
+    } else  $link = str_replace('&', '&amp;', $link); // web28 - 2010-09-02 -- making link W3C-Conform	
 
     return $link;
   }
