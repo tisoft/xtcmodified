@@ -117,7 +117,7 @@ if ($cPath) {
 
 xtc_show_category($first_element);
 
-$box_smarty->assign('BOX_CONTENT', $categories_string); //DokuMan - 2010-03-02 - BOX_CONTENT on wrong position
+$box_smarty->assign('BOX_CONTENT', $categories_string.'</li>'); //DokuMan - 2010-03-02 - BOX_CONTENT on wrong position
 
 }
 
