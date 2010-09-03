@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: application_top_export.php 1323 2005-10-27 17:58:08Z mz $
+   $Id$
+ 
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+  -----------------------------------------------------------------------------------------  
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
    (c) 2003	 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org 
+   (c) 2006 XT-Commerce (application_top_export.php 1323 2005-10-27); www.xt-commerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -47,11 +48,13 @@
   define('TAX_DECIMAL_PLACES', 0);
 // EOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
 
-  // set the type of request (secure or not)
-  //BOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
-  //$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
-  $request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on' || !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) ? 'SSL' : 'NONSSL';
-  //EOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
+// set the type of request (secure or not)
+//BOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
+//$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+if (file_exists('includes/request_type.php')) {
+	include ('includes/request_type.php');
+} else $request_type = 'NONSSL';
+//EOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 
   // set php_self in the local scope
   $PHP_SELF = $_SERVER['PHP_SELF'];

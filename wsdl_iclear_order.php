@@ -1,5 +1,5 @@
 <?php
-// $Id: wsdl_iclear_order.php,v 1.12 2006/10/26 16:20:46 dis Exp $
+// $Id$
 /*
   iclear WSDL order service
 
@@ -41,11 +41,14 @@
       header('Location: install/index.php');
     }
   }
-  define('PROJECT_VERSION', 'osCommerce 2.2-MS2');
-  //BOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
-  //$request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
-  $request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on' || !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) ? 'SSL' : 'NONSSL';
-  //EOF - DokuMan - 2010-03-03 - added native support for SSL-proxy connections
+  
+// set the type of request (secure or not)
+//BOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
+//$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+if (file_exists('includes/request_type.php')) {
+	include ('includes/request_type.php');
+} else $request_type = 'NONSSL';
+//EOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 
   if (!isset($PHP_SELF)) $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
   if ($request_type == 'NONSSL') {
