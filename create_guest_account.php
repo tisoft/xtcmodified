@@ -85,7 +85,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	$fax = xtc_db_prepare_input($_POST['fax']);
 	//BOF - Dokuman - 2010-03-19 - no newsletter for guest accounts
 	//$newsletter = xtc_db_prepare_input($_POST['newsletter']);
-	$newsletter = 0;
+	$newsletter = '';
 	//EOF - Dokuman - 2010-03-19 - no newsletter for guest accounts
 	$password = xtc_db_prepare_input($_POST['password']);
 	$confirmation = xtc_db_prepare_input($_POST['confirmation']);
@@ -226,7 +226,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	$password = xtc_create_password(8);
 
 	if (!$newsletter)
-		$newsletter = 0;
+		$newsletter = '';
 	if ($error == false) {
 		$sql_data_array = array (
 			'customers_vat_id' => $vat,
