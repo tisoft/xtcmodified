@@ -17,12 +17,12 @@
 ?>
 <?php 
 /*
-// BOF - web28 - 2010-07-09 - TABS/ACCORDION in product_info
-<link rel="stylesheet" href="<?php echo DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE; ?>/stylesheet.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE; ?>/css/thickbox.css" type="text/css" media="screen" />
-*/ ?>
+//BOF - GTB - 2010-08-03 - Security Fix - Base
 <link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/stylesheet.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo 'templates/'.CURRENT_TEMPLATE; ?>/css/thickbox.css" type="text/css" media="screen" />
+*/ ?>
+<link rel="stylesheet" href="<?php echo DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE; ?>/stylesheet.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE; ?>/css/thickbox.css" type="text/css" media="screen" />
 <?php 
 //EOF - GTB - 2010-08-03 - Security Fix - Base
 ?>
