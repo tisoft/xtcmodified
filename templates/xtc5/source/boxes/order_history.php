@@ -1,21 +1,25 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: order_history.php 1262 2005-09-30 10:00:32Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(order_history.php,v 1.4 2003/02/10); www.oscommerce.com 
    (c) 2003	 nextcommerce (order_history.php,v 1.9 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 $box_smarty = new smarty;
-$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$box_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 $box_content='';
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_get_all_get_params.inc.php');

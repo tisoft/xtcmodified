@@ -88,7 +88,10 @@ if ($_GET['action'] == 'process') {
 		$gv_email_subject = sprintf(EMAIL_GV_TEXT_SUBJECT, stripslashes($_POST['send_name']));
 
 		$smarty->assign('language', $_SESSION['language']);
-		$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+		//BOF - GTB - 2010-08-03 - Security Fix - Base
+		$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+		//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+		//EOF - GTB - 2010-08-03 - Security Fix - Base
 		$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
 		$smarty->assign('GIFT_LINK', xtc_href_link(FILENAME_GV_REDEEM, 'gv_no='.$id1, 'NONSSL', false));
 		$smarty->assign('AMMOUNT', $xtPrice->xtcFormat(str_replace(",", ".", $_POST['amount']), true));

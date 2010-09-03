@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -57,8 +57,11 @@ if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check[
 	$smarty->assign('PAYMENT_METHOD', $payment_method);
 	$smarty->assign('COMMENT', $order->info['comments']);
 	$smarty->assign('DATE', xtc_date_long($order->info['date_purchased']));
-	$path = DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/';
-	$smarty->assign('tpl_path', $path);
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+	//$path = DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/';
+	$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	//$smarty->assign('tpl_path', $path);
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	//BOF - web28 - 2010-08-17 - define missing charset
 	$smarty->assign('charset', $_SESSION['language_charset'] ); 
 	//EOF - web28 - 2010-08-17 - define missing charset

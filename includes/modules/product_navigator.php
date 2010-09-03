@@ -1,5 +1,5 @@
 <?php
-/* ----------------------------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -19,8 +19,10 @@
    --------------------------------------------------------------------------------------------*/
 
 $module_smarty = new Smarty;
-$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
-
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$module_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 // select products
 //fsk18 lock
 $fsk_lock = '';

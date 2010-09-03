@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: upcoming_products.php 1243 2005-09-25 09:33:02Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(upcoming_products.php,v 1.23 2003/02/12); www.oscommerce.com 
    (c) 2003	 nextcommerce (upcoming_products.php,v 1.7 2003/08/22); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -19,7 +19,10 @@
 if (MAX_DISPLAY_UPCOMING_PRODUCTS != '0') {
 //EOF - Dokuman - 2009-09-02: show upcoming products only when greater zero
   $module_smarty = new Smarty;
-  $module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+  //BOF - GTB - 2010-08-03 - Security Fix - Base
+  $module_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+  //$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+  //EOF - GTB - 2010-08-03 - Security Fix - Base
   // include needed functions
   require_once (DIR_FS_INC.'xtc_date_short.inc.php');
   $module_content = array ();

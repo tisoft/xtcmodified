@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: manufacturer_info.php 1262 2005-09-30 10:00:32Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(manufacturer_info.php,v 1.10 2003/02/12); www.oscommerce.com
    (c) 2003	 nextcommerce (manufacturer_info.php,v 1.6 2003/08/13); www.nextcommerce.org 
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -33,7 +34,10 @@ if (!CacheCheck()) {
 }
 
 if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_manufacturers_info.html', $cache_id) || !$cache) {
-	$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+	$box_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	//$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	$rebuild = true;
 
     $manufacturer_query = xtDBquery("select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS . " p  where p.products_id = '" . $product->data['products_id'] . "' and p.manufacturers_id = m.manufacturers_id");

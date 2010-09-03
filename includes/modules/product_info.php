@@ -32,7 +32,10 @@ require_once (DIR_FS_INC.'xtc_date_short.inc.php');  // Für Anzeige Sonderangebo
 // EOF  - DokuMan - 2010-08-13 - show expiry date of special products
 
 $info_smarty = new Smarty;
-$info_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$info_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$info_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 $group_check = '';
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
@@ -131,7 +134,10 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$info_smarty->assign('PRODUCTS_ORDERED', $product->data['products_ordered']);
     //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 		//$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')" alt="" />');
-		$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')" alt="" />');
+		//BOF - GTB - 2010-08-03 - Security Fix - Base
+		$info_smarty->assign('PRODUCTS_PRINT', '<img src="'.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')" alt="" />');
+		//$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')" alt="" />');
+		//BOF - GTB - 2010-08-03 - Security Fix - Base
     //EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 		$info_smarty->assign('PRODUCTS_DESCRIPTION', stripslashes($product->data['products_description']));
     // BOF - Tomcraft - 2009-11-28 - Included xs:booster
@@ -175,12 +181,18 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			$more_images_data = array();
 			foreach ($mo_images as $img) {
 				$more_images_data[] = array (
-          'PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
+		  //BOF - GTB - 2010-08-03 - Security Fix - Base		
+		  'PRODUCTS_IMAGE' => DIR_WS_CATALOG.DIR_WS_INFO_IMAGES.$img['image_name'],		
+          //'PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
+          //EOF - GTB - 2010-08-03 - Security Fix - Base
           'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE,
           'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')'
           );
 				// BOF - Tomcraft - 2009-09-12 - needed for non modified templates
-				$mo_img = DIR_WS_INFO_IMAGES.$img['image_name'];
+				//BOF - GTB - 2010-08-03 - Security Fix - Base
+				$mo_img = DIR_WS_CATALOG.DIR_WS_INFO_IMAGES.$img['image_name'];
+				//$mo_img = DIR_WS_INFO_IMAGES.$img['image_name'];
+				//EOF - GTB - 2010-08-03 - Security Fix - Base
 				$info_smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);
 				$info_smarty->assign('PRODUCTS_POPUP_LINK_'.$img['image_nr'], 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')');
 				// EOF - Tomcraft - 2009-09-12 - needed for non modified templates

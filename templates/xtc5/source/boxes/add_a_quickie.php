@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: add_a_quickie.php 1262 2005-09-30 10:00:32Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(add_a_quickie.php,v 1.10 2001/12/19); www.oscommerce.com 
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
@@ -23,8 +23,10 @@
 // reset var
 $box_smarty = new smarty;
 $box_content = '';
-$box_smarty->assign('tpl_path', 'templates/' . CURRENT_TEMPLATE . '/');
-
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$box_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$box_smarty->assign('tpl_path', 'templates/' . CURRENT_TEMPLATE . '/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base 
 $box_smarty->assign('FORM_ACTION','<form id="quick_add" method="post" action="' . xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array ('action')) . 'action=add_a_quickie', 'NONSSL') . '">');
 $box_smarty->assign('INPUT_FIELD',xtc_draw_input_field('quickie','','style="width:170px"'));
 $box_smarty->assign('SUBMIT_BUTTON', xtc_image_submit('button_add_quick.gif', BOX_HEADING_ADD_PRODUCT_ID));

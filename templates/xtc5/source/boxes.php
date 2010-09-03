@@ -1,12 +1,15 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
+   based on:
+   (c) 2006 XT-Commerce
+   
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
@@ -53,6 +56,8 @@
 
     include(DIR_WS_BOXES . 'currencies.php');
   }
-
-$smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 ?>

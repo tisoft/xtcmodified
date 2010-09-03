@@ -507,7 +507,10 @@ class product {
 				if ($this->useStandardImage == 'true' && $this->standardImage != '')
 					$name = $this->standardImage;
 			}
-			return $path.$name;
+			//BOF - GTB - 2010-08-03 - Security Fix - Base
+			return DIR_WS_CATALOG.$path.$name;
+			//return $path.$name;
+			//EOF - GTB - 2010-08-03 - Security Fix - Base
 		}
 	}
 	

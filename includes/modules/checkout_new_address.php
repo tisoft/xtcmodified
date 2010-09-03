@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: checkout_new_address.php 1239 2005-09-24 20:09:56Z mz $
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -17,7 +17,10 @@
    ---------------------------------------------------------------------------------------*/
 
 $module_smarty = new Smarty;
-$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$module_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 // include needed functions
 
 require_once (DIR_FS_INC.'xtc_get_country_list.inc.php');

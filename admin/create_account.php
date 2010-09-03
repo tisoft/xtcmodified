@@ -1,17 +1,17 @@
 <?php
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
-/* --------------------------------------------------------------
-   $Id: create_account.php 1296 2005-10-08 17:52:26Z mz $   
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(customers.php,v 1.76 2003/05/04); www.oscommerce.com 
    (c) 2003	 nextcommerce (create_account.php,v 1.17 2003/08/24); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -331,7 +331,10 @@ if ($_GET['action'] == 'edit') {
 			$smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
 			$smarty->config_dir = DIR_FS_CATALOG.'lang';
 
-			$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+			//BOF - GTB - 2010-08-03 - Security Fix - Base
+			$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+			//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+			//EOF - GTB - 2010-08-03 - Security Fix - Base
 			$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
 
 			$smarty->assign('NAME', $customers_lastname.' '.$customers_firstname);

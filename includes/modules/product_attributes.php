@@ -23,8 +23,10 @@
    ---------------------------------------------------------------------------------------*/
 
 $module_smarty = new Smarty;
-$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
-
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$module_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 if ($product->getAttributesCount() > 0) {
 // BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 	//$products_options_name_query = xtDBquery("select distinct popt.products_options_id, popt.products_options_name from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$product->data['products_id']."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."' order by popt.products_options_name");

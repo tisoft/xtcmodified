@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id
+   $Id$
 
-   XTC-NEWSLETTER_RECIPIENTS RC1 - Contribution for XT-Commerce http://www.xt-commerce.com
-   by Matthias Hinsche http://www.gamesempire.de
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce www.oscommerce.com 
    (c) 2003	 nextcommerce www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -34,7 +35,10 @@ if (!CacheCheck()) {
 }
 
 if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_newsletter.html', $cache_id) || !$cache) {
-	$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+	$box_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	//$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	$rebuild = true;
 
 $box_smarty->assign('FORM_ACTION', xtc_draw_form('sign_in', xtc_href_link(FILENAME_NEWSLETTER, '', 'NONSSL')));

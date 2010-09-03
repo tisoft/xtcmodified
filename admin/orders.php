@@ -1,9 +1,8 @@
 <?php
-
-/* --------------------------------------------------------------
+/* -----------------------------------------------------------------------------------------
    $Id$
-   
-   XT-Commerce - community made shopping
+
+   xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
@@ -131,7 +130,10 @@ switch ($_GET['action']) {
 				$smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
 				$smarty->config_dir = DIR_FS_CATALOG.'lang';
 
-				$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+				//BOF - GTB - 2010-08-03 - Security Fix - Base
+				$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+				//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+				//EOF - GTB - 2010-08-03 - Security Fix - Base
 				$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
 
 				$smarty->assign('NAME', $check_status['customers_name']);

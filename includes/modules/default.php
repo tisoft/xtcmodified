@@ -1,11 +1,11 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-  $Id$
+   $Id$
 
-  xtcModified - community made shopping
-  http://www.xtc-modified.org
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-  Copyright (c) 2010 xtcModified
+   Copyright (c) 2010 xtcModified
   -----------------------------------------------------------------------------------------
   based on:
   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
@@ -23,7 +23,10 @@
   ---------------------------------------------------------------------------------------*/
 
 $default_smarty = new smarty;
-$default_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$default_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$default_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 $default_smarty->assign('session', session_id());
 $main_content = '';
 $group_check = '';

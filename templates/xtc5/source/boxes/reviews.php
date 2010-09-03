@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -16,7 +16,10 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
   $box_smarty = new smarty;
-  $box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
+  //BOF - GTB - 2010-08-03 - Security Fix - Base
+  $box_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+  //$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
+  //EOF - GTB - 2010-08-03 - Security Fix - Base
   $box_content='';
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_random_select.inc.php');

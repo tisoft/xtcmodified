@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: whats_new.php 1292 2005-10-07 16:10:55Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(whats_new.php,v 1.31 2003/02/10); www.oscommerce.com
    (c) 2003	 nextcommerce (whats_new.php,v 1.12 2003/08/21); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -20,7 +21,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 $box_smarty = new smarty;
-$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$box_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+//$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 $box_content = '';
 // include needed functions
 require_once (DIR_FS_INC.'xtc_random_select.inc.php');

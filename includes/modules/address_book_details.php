@@ -11,14 +11,17 @@
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(address_book_details.php,v 1.9 2003/05/22); www.oscommerce.com
    (c) 2003	 nextcommerce (address_book_details.php,v 1.9 2003/08/13); www.nextcommerce.org
-   (c) 2006 xt:Commerce (address_book_details.php 1239 2005-09-24); www.xt-commerce.de
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------/-----*/
 
   // include needed functions
   $module_smarty=new Smarty;
-  $module_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
+  //BOF - GTB - 2010-08-03 - Security Fix - Base
+  $module_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+  //$module_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
+  //EOF - GTB - 2010-08-03 - Security Fix - Base
   include_once(DIR_FS_INC . 'xtc_get_zone_name.inc.php');
   include_once(DIR_FS_INC . 'xtc_get_country_list.inc.php');
 

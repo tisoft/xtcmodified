@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_image.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(html_output.php,v 1.52 2003/03/19); www.oscommerce.com 
    (c) 2003	 nextcommerce (xtc_image.inc.php,v 1.5 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -25,7 +26,10 @@
 
 // alt is added to the img tag even if it is null to prevent browsers from outputting
 // the image filename as default
-    $image = '<img src="' . xtc_parse_input_field_data($src, array('"' => '&quot;')) . '" alt="' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . '"';
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+    $image = '<img src="' . xtc_parse_input_field_data(DIR_WS_CATALOG.$src, array('"' => '&quot;')) . '" alt="' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . '"';
+    //$image = '<img src="' . xtc_parse_input_field_data($src, array('"' => '&quot;')) . '" alt="' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . '"';
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
 
 //BOF - Dokuman - 2009-10-14 - Remove title-attribute from images to avoid "keyword stuffing" (SEO), as it is identical to the alt-attribute
     /*

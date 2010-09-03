@@ -1,15 +1,16 @@
 <?php
-   /* -----------------------------------------------------------------------------------------
-   $Id: gv_queue.php 1030 2005-07-14 20:22:32Z novalis $
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project (earlier name of osCommerce)
    (c) 2002-2003 osCommerce (gv_queue.php,v 1.2.2.5 2003/05/05); www.oscommerce.com
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -59,9 +60,11 @@
       $smarty->compile_dir=DIR_FS_CATALOG.'templates_c';
       $smarty->config_dir=DIR_FS_CATALOG.'lang';
 
-      $smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
+      //BOF - GTB - 2010-08-03 - Security Fix - Base
+	  $smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	  //$smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
       $smarty->assign('logo_path',HTTP_SERVER  . DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
-
+	  //EOF - GTB - 2010-08-03 - Security Fix - Base
       $smarty->assign('AMMOUNT',$currencies->format($gv_amount));
 
       $html_mail=$smarty->fetch(CURRENT_TEMPLATE . '/admin/mail/'.$_SESSION['language'].'/gift_accepted.html');

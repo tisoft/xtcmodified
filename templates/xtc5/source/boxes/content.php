@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: content.php 1302 2005-10-12 16:21:29Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(information.php,v 1.6 2003/02/10); www.oscommerce.com 
    (c) 2003	 nextcommerce (content.php,v 1.2 2003/08/21); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -33,7 +33,10 @@ if (!CacheCheck()) {
 }
 
 if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_id) || !$cache) {
-	$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+	$box_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	//$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	//$rebuild = true; //DokuMan - 2010-02-28 - fix Smarty cache error on unlink
 
 	if (GROUP_CHECK == 'true') {

@@ -1,6 +1,6 @@
 <?php
-/*------------------------------------------------------------------------------
-   $Id: password_double_opt.php,v 1.0 
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -45,7 +45,10 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
 
 	// assign language to template for caching
 	$smarty->assign('language', $_SESSION['language']);
-	$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+	$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
 
 	// assign vars
@@ -92,7 +95,10 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'verified')) {
 		xtc_db_query("update ".TABLE_CUSTOMERS." set password_request_key = '' where customers_id = '".$check_customer['customers_id']."'");
 		// assign language to template for caching
 		$smarty->assign('language', $_SESSION['language']);
-		$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+		//BOF - GTB - 2010-08-03 - Security Fix - Base
+		$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+		//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+		//EOF - GTB - 2010-08-03 - Security Fix - Base
 		$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
 
 		// assign vars

@@ -1,17 +1,17 @@
 <?php
-
-/*------------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------------------
    $Id$
-   
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
 
-   Copyright (c) 2005 xt:Commerce
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce www.oscommerce.com 
    (c) 2003	 nextcommerce www.nextcommerce.org
+   (c) 2006 XT-Commerce
    
    XTC-NEWSLETTER_RECIPIENTS RC1 - Contribution for XT-Commerce http://www.xt-commerce.com
    by Matthias Hinsche http://www.gamesempire.de
@@ -165,7 +165,10 @@ class newsletter {
 
 		// assign language to template for caching
 		$smarty->assign('language', $_SESSION['language']);
-		$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+		//BOF - GTB - 2010-08-03 - Security Fix - Base
+		$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+		//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
+		//EOF - GTB - 2010-08-03 - Security Fix - Base
 		$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
 
 		// assign vars

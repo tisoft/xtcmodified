@@ -54,9 +54,11 @@
 	Information and contribution at http://www.xt-commerce.com
 -->
 <meta name="generator" content="(c) by <?php echo PROJECT_VERSION; ?> ----- http://www.xtc-modified.org" />
-<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
 <?php
 /*
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+//<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 //BOF - DokuMan - 2010-03-16 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 //<link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
 */
@@ -65,7 +67,12 @@ if (file_exists('templates/'.CURRENT_TEMPLATE.'/css/general.css.php')) {
   }
   //Maintain backwards compatibility for older templates
   else {
-    echo '<link rel="stylesheet" type="text/css" href="templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
+    
+    //BOF - GTB - 2010-08-03 - Security Fix - Base
+	echo '<link rel="stylesheet" type="text/css" href="'.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
+	//echo '<link rel="stylesheet" type="text/css" href="templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
+
 }
 //EOF - DokuMan - 2010-03-16 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 ?>
