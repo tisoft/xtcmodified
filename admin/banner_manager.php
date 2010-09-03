@@ -1,18 +1,18 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: banner_manager.php 1030 2005-07-14 20:22:32Z novalis $   
+   $Id$
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(banner_manager.php,v 1.70 2003/03/22); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(banner_manager.php,v 1.70 2003/03/22); www.oscommerce.com
    (c) 2003	 nextcommerce (banner_manager.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (banner_manager.php 1030 2005-07-14)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
@@ -187,7 +187,7 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript"><!--
@@ -197,7 +197,11 @@ function popupImageWindow(url) {
 //--></script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <div id="spiffycalendar" class="text"></div>
+*/
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI ?>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -226,7 +230,7 @@ function popupImageWindow(url) {
     if ($_GET['bID']) {
       $bID = xtc_db_prepare_input($_GET['bID']);
       $form_action = 'update';
-		
+
       // BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
       //$banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%d/%m/%Y') as date_scheduled, date_format(expires_date, '%d/%m/%Y') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($bID) . "'");
       $banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%Y-%m-%d') as date_scheduled, date_format(expires_date, '%Y-%m-%d') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($bID) . "'");
@@ -246,17 +250,37 @@ function popupImageWindow(url) {
       $groups_array[] = array('id' => $groups['banners_group'], 'text' => $groups['banners_group']);
     }
 ?>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script type="text/javascript">
 // BOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
-/*
-  var dateExpires = new ctlSpiffyCalendarBox("dateExpires", "new_banner", "expires_date","btnDate1","<?php echo $bInfo->expires_date; ?>",scBTNMODE_CUSTOMBLUE);
-  var dateScheduled = new ctlSpiffyCalendarBox("dateScheduled", "new_banner", "date_scheduled","btnDate2","<?php echo $bInfo->date_scheduled; ?>",scBTNMODE_CUSTOMBLUE);
-*/
+//  var dateExpires = new ctlSpiffyCalendarBox("dateExpires", "new_banner", "expires_date","btnDate1","<?php echo $bInfo->expires_date; ?>",scBTNMODE_CUSTOMBLUE);
+//  var dateScheduled = new ctlSpiffyCalendarBox("dateScheduled", "new_banner", "date_scheduled","btnDate2","<?php echo $bInfo->date_scheduled; ?>",scBTNMODE_CUSTOMBLUE);
   var dateExpires = new ctlSpiffyCalendarBox("dateExpires", "new_banner", "expires_date","btnDate1","<?php echo $bInfo->expires_date; ?>",2);
   var dateScheduled = new ctlSpiffyCalendarBox("dateScheduled", "new_banner", "date_scheduled","btnDate2","<?php echo $bInfo->date_scheduled; ?>",2);
 // EOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
+*/
+?>
+<link type="text/css" href="includes/javascript/jquery.ui.core.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.datepicker.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.theme.min.css" rel="stylesheet" />
+<script type="text/javascript" src="includes/javascript/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-de.js"></script>
+ <script type="text/javascript">
+  $(function() {
+  $('#hasDatepicker1').datepicker(
+  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
+  {dateFormat:'yy-mm-dd',});
+  $('#hasDatepicker2').datepicker(
+  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
+  {dateFormat:'yy-mm-dd',});
+	});
+</script>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
 </script>
       <tr>
         <td><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -299,6 +323,8 @@ function popupImageWindow(url) {
           <tr>
             <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
 <!--
           <tr>
@@ -311,36 +337,50 @@ function popupImageWindow(url) {
           <tr>
             <td valign="top" class="main"><?php echo TEXT_BANNERS_EXPIRES_ON; ?><br /><small>(dd/mm/yyyy)</small></td>
             <td class="main"><script type="text/javascript">dateExpires.writeControl(); dateExpires.dateFormat="dd/MM/yyyy";</script><?php echo TEXT_BANNERS_OR_AT . '<br />' . xtc_draw_input_field('impressions', $bInfo->expires_impressions, 'maxlength="7" size="7"') . ' ' . TEXT_BANNERS_IMPRESSIONS; ?></td>
-
-
-
-
-
-
-
-
           </tr>
 //-->
+*/
+?>
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_SCHEDULED_AT; ?><br /><small><?php echo TEXT_BANNERS_DATE_FORMAT; ?></small></td>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
             <td valign="top" class="main"><script type="text/javascript">dateScheduled.writeControl(); dateScheduled.dateFormat="yyyy-MM-dd";</script>
                 <noscript>
-                <?php echo  xtc_draw_input_field('dateScheduled', $bInfo->date_scheduled ,'style="width: 130px"'); ?>
+                <?php echo xtc_draw_input_field('dateScheduled', $bInfo->date_scheduled ,'style="width: 130px"'); ?>
                 </noscript>
             </td>
+*/
+?>
+            <td class="main"><?php echo xtc_draw_input_field('dateScheduled', $bInfo->date_scheduled ,'id="hasDatepicker1"'); ?>
+            </td>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
           </tr>
           <tr>
             <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
             <td valign="top" class="main"><?php echo TEXT_BANNERS_EXPIRES_ON; ?><br /><small><?php echo TEXT_BANNERS_DATE_FORMAT; ?></small></td>
+
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
             <td class="main"><script type="text/javascript">dateExpires.writeControl(); dateExpires.dateFormat="yyyy-MM-dd";</script><?php echo TEXT_BANNERS_OR_AT . '<br />' . xtc_draw_input_field('impressions', $bInfo->expires_impressions, 'maxlength="7" size="7"') . ' ' . TEXT_BANNERS_IMPRESSIONS; ?>
                 <noscript>
                 <?php echo  xtc_draw_input_field('dateExpires', $bInfo->expires_date ,'style="width: 130px"'); ?>
                 </noscript>
             </td>
+*/
+?>
+            <td class="main">
+            <?php echo xtc_draw_input_field('dateExpires', $bInfo->expires_date ,'id="hasDatepicker2"'); ?>
+            <?php echo TEXT_BANNERS_OR_AT . '<br />' . xtc_draw_input_field('impressions', $bInfo->expires_impressions, 'maxlength="7" size="7"') . ' ' . TEXT_BANNERS_IMPRESSIONS; ?>
+            </td>
+<?php /*
+//<!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
+//EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+*/
+?>
           </tr>
-<!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
         </table></td>
       </tr>
       <tr>

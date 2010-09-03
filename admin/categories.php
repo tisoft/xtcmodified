@@ -383,8 +383,11 @@ if (USE_WYSIWYG == 'true') {
 ?>
 </head>
 <body style="margin: 0; background-color: #FFFFFF">
-
-		<div id="spiffycalendar" class="text"></div>
+<?php
+// BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+//		<div id="spiffycalendar" class="text"></div>
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+?>		
 		<!-- header //-->
 		<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 		<!-- header_eof //-->

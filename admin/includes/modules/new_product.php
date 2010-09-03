@@ -1,20 +1,15 @@
 <?php
-
 /* --------------------------------------------------------------
    $Id$
    
    http://www.xtc-modified.org
    Copyright (c) 2010 xtcModified   
-   --------------------------------------------------------------   
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(categories.php,v 1.140 2003/03/24); www.oscommerce.com
    (c) 2003  nextcommerce (categories.php,v 1.37 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (new_product.php 1193 2010-08-21)
 
    Released under the GNU General Public License
    --------------------------------------------------------------
@@ -90,6 +85,8 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
 //if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $startpage_checked = false; }
 
 ?>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script type="text/javascript">
@@ -98,7 +95,27 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",2);
 // BOF - Tomcraft - 2009-11-06 - Replaced the blue Button with calendar icon
 </script>
-
+*/
+?>
+<link type="text/css" href="includes/javascript/jquery.ui.core.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.datepicker.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.theme.min.css" rel="stylesheet" />
+<script type="text/javascript" src="includes/javascript/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-de.js"></script>
+ <script type="text/javascript">
+  /* set Datepicker for new_products (1) and categories_specials (2) */
+  $(function() {
+  $('#hasDatepicker1').datepicker(
+  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
+  {dateFormat:'yy-mm-dd',});
+  $('#hasDatepicker2').datepicker(
+  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
+  {dateFormat:'yy-mm-dd',});  
+	});
+</script>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
 <tr><td>
 <?php $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product'; ?>
 <?php $fsk18_array=array(array('id'=>0,'text'=>NO),array('id'=>1,'text'=>YES)); ?>
@@ -125,12 +142,18 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
               <td><span class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?> <small><?php echo TEXT_PRODUCTS_DATE_FORMAT; ?></small></span></td>
 <!-- EOF - Tomcraft - 2009-11-06 - Use variable TEXT_PRODUCTS_DATE_FORMAT //-->
               <td><span class="main">
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
                 <script type="text/javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script>
 <!-- BOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
 		<noscript>
                 <?php echo  xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'style="width: 135px"'); ?>
                 </noscript>
 <!-- EOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
+*/
+?>
+            <?php echo xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'id="hasDatepicker1"'); ?>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
               </span></td>
             </tr>
             <tr>

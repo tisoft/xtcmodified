@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: specials.php 1125 2005-07-28 09:59:44Z novalis $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(specials.php,v 1.38 2002/05/16); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(specials.php,v 1.38 2002/05/16); www.oscommerce.com
    (c) 2003	 nextcommerce (specials.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (specials.php 1125 2005-07-28)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
@@ -21,7 +22,6 @@
   $xtPrice = new xtcPrice(DEFAULT_CURRENCY,$_SESSION['customers_status']['customers_status_id']);
 
   require_once(DIR_FS_INC .'xtc_get_tax_rate.inc.php');
-
 
   switch ($_GET['action']) {
     case 'setflag':
@@ -34,15 +34,14 @@
      if (PRICE_IS_BRUTTO=='true' && substr($_POST['specials_price'], -1) != '%'){
      //BOF - Dokuman - 2009-08-19 - BUGFIX: #0000264 specials are no longer deactivated when stock check = false
      //$sql="select tr.tax_rate from " . TABLE_TAX_RATES . " tr, " . TABLE_PRODUCTS . " p  where tr.tax_class_id = p. products_tax_class_id  and p.products_id = '". $_POST['products_up_id'] . "' ";
-     
-        $sql="select tr.tax_rate from " . TABLE_TAX_RATES . " tr, " . TABLE_PRODUCTS . " p  where tr.tax_class_id = p. products_tax_class_id  and p.products_id = '". $_POST['products_id'] . "' ";
+        $sql="select tr.tax_rate from " . TABLE_TAX_RATES . " tr, " . TABLE_PRODUCTS . " p  where tr.tax_class_id = p. products_tax_class_id and p.products_id = '". $_POST['products_id'] . "' ";
      //EOF - Dokuman - 2009-08-19 - BUGFIX: #0000264 specials are no longer deactivated when stock check = false
-        
+
         $tax_query = xtc_db_query($sql);
         $tax = xtc_db_fetch_array($tax_query);
         $_POST['specials_price'] = ($_POST['specials_price']/($tax['tax_rate']+100)*100);
      }
-     
+
      if (substr($_POST['specials_price'], -1) == '%')  {
      	$new_special_insert_query = xtc_db_query("select products_id,products_tax_class_id, products_price from " . TABLE_PRODUCTS . " where products_id = '" . (int)$_POST['products_id'] . "'");
         $new_special_insert = xtc_db_fetch_array($new_special_insert_query);
@@ -50,8 +49,7 @@
       $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
       }
 
-
-      // BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
+      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
       /*
       $expires_date = '';
       if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
@@ -61,11 +59,11 @@
       }
       */
       $expires_date = '';
-      if ($_POST['specials_expires']) {
-        $expires_date = str_replace("-", "", $_POST['specials_expires']);
+      if (isset($_POST['specials_expires'])) {
+        $expires_date = $_POST['specials_expires'];
       }
-      // EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
-	  
+      // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+
       xtc_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_quantity, specials_new_products_price, specials_date_added, expires_date, status) values ('" . $_POST['products_id'] . "', '" . $_POST['specials_quantity'] . "', '" . $_POST['specials_price'] . "', now(), '" . $expires_date . "', '1')");
       xtc_redirect(xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page']));
       break;
@@ -82,7 +80,7 @@
       if (substr($_POST['specials_price'], -1) == '%')  {
       $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
       }
-      // BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
+      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
       /*
       $expires_date = '';
       if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
@@ -92,10 +90,10 @@
       }
       */
       $expires_date = '';
-      if ($_POST['specials_expires']) {
-        $expires_date = str_replace("-", "", $_POST['specials_expires']);
+      if (isset($_POST['specials_expires'])) {
+        $expires_date = $_POST['specials_expires'];
       }
-      // EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
+      // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
 
       xtc_db_query("update " . TABLE_SPECIALS . " set specials_quantity = '" . $_POST['specials_quantity'] . "', specials_new_products_price = '" . $_POST['specials_price'] . "', specials_last_modified = now(), expires_date = '" . $expires_date . "' where specials_id = '" . $_POST['specials_id'] . "'");
       xtc_redirect(xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials_id));
@@ -113,32 +111,54 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
 <?php
   if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) {
 ?>
-<!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <!--
 <link rel="stylesheet" type="text/css" href="includes/javascript/calendar.css">
 <script type="text/javascript" src="includes/javascript/calendarcode.js"></script>
 //-->
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
-<!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+*/
+?>
+<link type="text/css" href="includes/javascript/jquery.ui.core.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.datepicker.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.theme.min.css" rel="stylesheet" />
+<script type="text/javascript" src="includes/javascript/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-de.js"></script>
+ <script type="text/javascript">
+  $(function() {
+  $('#hasDatepicker').datepicker(
+  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
+  {dateFormat:'yy-mm-dd',});
+	});
+</script>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
 <?php
   }
 ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
 <!--
 <div id="popupcalendar" class="text"></div>
 //-->
 <div id="spiffycalendar" class="text"></div>
 <!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+*/
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI ?>
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -184,16 +204,18 @@
       $product = xtc_db_fetch_array($product_query);
 
       $sInfo = new objectInfo($product);
-	  
-      // BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1
-	  // build the expires date in the format YYYY-MM-DD	  
-	  if ($sInfo->expires_date != 0){
-		$expires_date = substr($sInfo->expires_date, 0, 4)."-".
-						substr($sInfo->expires_date, 5, 2)."-".
-						substr($sInfo->expires_date, 8, 2);
-      }	else $expires_date = "";				  
-      // EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1	  
-				
+
+      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+      // build the expires date in the format YYYY-MM-DD
+      if ($sInfo->expires_date != 0) {
+        $expires_date = substr($sInfo->expires_date, 0, 4)."-".
+        substr($sInfo->expires_date, 5, 2)."-".
+        substr($sInfo->expires_date, 8, 2);
+      }	else { 
+        $expires_date = ""; 
+      }
+       // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+
     } else {
       $sInfo = new objectInfo(array());
 
@@ -205,20 +227,22 @@
                                       " . TABLE_PRODUCTS . " p,
                                       " . TABLE_SPECIALS . " s
                                       where s.products_id = p.products_id");
-
       while ($specials = xtc_db_fetch_array($specials_query)) {
         $specials_array[] = $specials['products_id'];
       }
     }
 ?>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
 <script type="text/javascript">
   var specialExpires = new ctlSpiffyCalendarBox("specialExpires", "new_special", "specials_expires","btnDate1","<?php echo $expires_date; ?>",2);
 </script>
 <!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+*/
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI ?>
       <tr><form name="new_special" <?php echo 'action="' . xtc_href_link(FILENAME_SPECIALS, xtc_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post"><?php if ($form_action == 'update') echo xtc_draw_hidden_field('specials_id', $_GET['sID']); ?>
         <td><br /><table border="0" cellspacing="0" cellpadding="2">
-          
                 <td class="main"><?php echo TEXT_SPECIALS_PRODUCT; echo ($sInfo->products_name) ? "" :  ''; ?>&nbsp;</td>
 	   <?php
 		$price=$sInfo->products_price;
@@ -233,7 +257,7 @@
 		$new_price=xtc_round($new_price,PRICE_PRECISION);
 
 		echo '<input type="hidden" name="products_up_id" value="' . $sInfo->products_id . '">';
-	   ?>      
+	   ?>
           <td class="main"><?php echo ($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . $xtPrice->xtcFormat($price,true). ')</small>' : xtc_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array); echo xtc_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
 	  </tr>
           <tr>
@@ -246,6 +270,8 @@
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?>&nbsp;</td>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <!-- BOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
 <!--
             <td class="main"><?php echo xtc_draw_input_field('day', substr($sInfo->expires_date, 8, 2), 'size="2" maxlength="2" class="cal-TextBox"') . xtc_draw_input_field('month', substr($sInfo->expires_date, 5, 2), 'size="2" maxlength="2" class="cal-TextBox"') . xtc_draw_input_field('year', substr($sInfo->expires_date, 0, 4), 'size="4" maxlength="4" class="cal-TextBox"'); ?><a class="so-BtnLink" href="javascript:calClick();return false;" onMouseOver="calSwapImg('BTN_date', 'img_Date_OVER',true);" onMouseOut="calSwapImg('BTN_date', 'img_Date_UP',true);" onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_special','dteWhen','BTN_date');return false;"><?php echo xtc_image(DIR_WS_IMAGES . 'cal_date_up.gif', 'Calendar', '22', '17', 'align="absmiddle" name="BTN_date"'); ?></a></td>
@@ -256,6 +282,11 @@
                 </noscript>
             </td>
 <!-- EOF - Tomcraft - 2009-11-06 - SPIFFY CAL 2.1 //-->
+*/
+?>
+            <td class="main"><?php echo xtc_draw_input_field('specials_expires', $expires_date ,'id="hasDatepicker"'); ?>
+            </td>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
           </tr>
         </table></td>
       </tr>
@@ -281,11 +312,29 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-    $specials_query_raw = "select p.products_id, pd.products_name,p.products_tax_class_id, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added, s.specials_last_modified, s.expires_date, s.date_status_change, s.status from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $_SESSION['languages_id'] . "' and p.products_id = s.products_id order by pd.products_name";
+    $specials_query_raw = "select 
+                          p.products_id,
+                          pd.products_name,
+                          p.products_tax_class_id,
+                          p.products_price,
+                          s.specials_id,
+                          s.specials_new_products_price,
+                          s.specials_date_added,
+                          s.specials_last_modified,
+                          s.expires_date,
+                          s.date_status_change,
+                          s.status
+                          from " . TABLE_PRODUCTS . " p,
+                          " . TABLE_SPECIALS . " s,
+                          " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                          where p.products_id = pd.products_id
+                          and pd.language_id = '" .(int) $_SESSION['languages_id'] . "'
+                          and p.products_id = s.products_id
+                          order by pd.products_name";
     $specials_split = new splitPageResults($_GET['page'], '20', $specials_query_raw, $specials_query_numrows);
     $specials_query = xtc_db_query($specials_query_raw);
     while ($specials = xtc_db_fetch_array($specials_query)) {
- 
+
  		$price=$specials['products_price'];
 		$new_price=$specials['specials_new_products_price'];
 		if (PRICE_IS_BRUTTO=='true'){
@@ -296,7 +345,7 @@
 		}
 		$specials['products_price']=xtc_round($price,PRICE_PRECISION);
 		$specials['specials_new_products_price']=xtc_round($new_price,PRICE_PRECISION);
-    
+
       if ( ((!$_GET['sID']) || ($_GET['sID'] == $specials['specials_id'])) && (!$sInfo) ) {
         $products_query = xtc_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $specials['products_id'] . "'");
         $products = xtc_db_fetch_array($products_query);
@@ -314,13 +363,8 @@
 ?>
                 <td  class="dataTableContent"><?php echo $specials['products_name']; ?></td>
                 <td  class="dataTableContent" align="right"><span class="oldPrice">
-                
-                <?php
-                
-        
-                
-                
-                 echo $xtPrice->xtcFormat($specials['products_price'],true); ?>
+
+                <?php echo $xtPrice->xtcFormat($specials['products_price'],true); ?>
                 </span> <span class="specialPrice">
                 <?php echo $xtPrice->xtcFormat($specials['specials_new_products_price'],true); ?>
                 </span></td>
@@ -351,7 +395,7 @@
 <?php
   if (!$_GET['action']) {
 ?>
-                  <tr> 
+                  <tr>
                     <td colspan="2" align="right"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&action=new') . '">' . BUTTON_NEW_PRODUCTS . '</a>'; ?></td>
                   </tr>
 <?php

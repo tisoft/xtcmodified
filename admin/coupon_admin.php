@@ -1,16 +1,16 @@
 <?php
-/*
-  $Id: coupon_admin.php 1084 2005-07-23 18:36:08Z matthias $
+/* --------------------------------------------------------------
+  $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(coupon_admin.php); www.oscommerce.com
-
+   (c) 2006 XT-Commerce (coupon_admin.php 1084 2005-07-23)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -23,15 +23,13 @@
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
-
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
 
   require('includes/application_top.php');
   require(DIR_WS_CLASSES . 'currencies.php');
   $currencies = new currencies();
-  
+
   require_once(DIR_FS_CATALOG.DIR_WS_CLASSES.'class.phpmailer.php');
   require_once(DIR_FS_INC . 'xtc_php_mail.inc.php');
 
@@ -42,7 +40,7 @@
     $_GET['action']='';
     $_GET['old_action']='';
   }
-  
+
   if (($_GET['action'] == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
     case '***':
@@ -95,7 +93,7 @@
 
     xtc_redirect(xtc_href_link(FILENAME_COUPON_ADMIN, 'mail_sent_to=' . urlencode($mail_sent_to)));
   }
- 
+
   if ( ($_GET['action'] == 'preview_email') && (!$_POST['customers_email_address']) ) {
     $_GET['action'] = 'email';
     $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
@@ -109,13 +107,13 @@
     case 'confirmdelete':
       $delete_query=xtc_db_query("update " . TABLE_COUPONS . " set coupon_active = 'N' where coupon_id='".$_GET['cid']."'");
       break;
-	//BOF - web28 - 2010-07-23 - new coupon actions  
+	//BOF - web28 - 2010-07-23 - new coupon actions
 	case 'noconfirmdelete':
 		// WM Koupon wird aus der DB gelöscht
 		$delete_query = xtc_db_query("delete from ".TABLE_COUPONS." where coupon_id = '".$_GET['cID']."'");
 		$delete_query = xtc_db_query("delete from ".TABLE_COUPONS_DESCRIPTION." where coupon_id = '".$_GET['cID']."'");
 	break;
-	//EOF - web28 - 2010-07-23 - new coupon actions  
+	//EOF - web28 - 2010-07-23 - new coupon actions
     case 'update':
       // get all _POST and validate
       $_POST['coupon_code'] = trim($_POST['coupon_code']);
@@ -136,7 +134,7 @@
         $messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
       }
       if (!$_POST['coupon_code']) {
-        $coupon_code = create_coupon_code(); 
+        $coupon_code = create_coupon_code();
       }
       if ($_POST['coupon_code']) $coupon_code = $_POST['coupon_code'];
       $query1 = xtc_db_query("select coupon_code from " . TABLE_COUPONS . " where coupon_code = '" . xtc_db_prepare_input($coupon_code) . "'");
@@ -146,7 +144,7 @@
       }
       if ($update_errors != 0) {
         $_GET['action'] = 'new';
-      } else {  
+      } else {
         $_GET['action'] = 'update_preview';
       }
       break;
@@ -207,20 +205,43 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
-
 <script type="text/javascript">
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
 </script>
+*/
+?>
+<link type="text/css" href="includes/javascript/jquery.ui.core.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.datepicker.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery.ui.theme.min.css" rel="stylesheet" />
+<script type="text/javascript" src="includes/javascript/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-de.js"></script>
+ <script type="text/javascript">
+  $(function() {
+  /* set Datepicker for coupon_startdate (1) and coupon_finishdate (2) */
+  $('#hasDatepicker1').datepicker(
+  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
+  {dateFormat:'yy-mm-dd',});
+  $('#hasDatepicker2').datepicker(
+  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
+  {dateFormat:'yy-mm-dd',});
+	});
+</script>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
-
-<div id="spiffycalendar" class="text"></div>
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+//<div id="spiffycalendar" class="text"></div>
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI ?>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -234,7 +255,7 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-<?php 
+<?php
   switch ($_GET['action']) {
   case 'voucherreport':
 ?>
@@ -252,12 +273,12 @@
           <tr>
             <td valign="top">
 			 <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">			    
-				<td class="dataTableHeadingContent" align="left"><?php echo COUPON_ID; ?></td> <?php// web28 - 2010-07-23 - new table design ?>				
-                <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_ID; ?></td> 
-                <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_NAME; ?></td>	
-                <td class="dataTableHeadingContent" align="left"><?php echo IP_ADDRESS; ?></td>	
-                <td class="dataTableHeadingContent" align="left"><?php echo REDEEM_DATE; ?></td>	
+              <tr class="dataTableHeadingRow">
+				<td class="dataTableHeadingContent" align="left"><?php echo COUPON_ID; ?></td> <?php// web28 - 2010-07-23 - new table design ?>
+                <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_ID; ?></td>
+                <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_NAME; ?></td>
+                <td class="dataTableHeadingContent" align="left"><?php echo IP_ADDRESS; ?></td>
+                <td class="dataTableHeadingContent" align="left"><?php echo REDEEM_DATE; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
@@ -297,7 +318,7 @@ $customer = xtc_db_fetch_array($customer_query);
     }
 ?>
 
- 
+
 
              </table></td>
 <?php
@@ -306,14 +327,14 @@ $customer = xtc_db_fetch_array($customer_query);
       $coupon_description_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
       $coupon_desc = xtc_db_fetch_array($coupon_description_query);
       $count_customers = xtc_db_query("select * from " . TABLE_COUPON_REDEEM_TRACK . " where coupon_id = '" . $_GET['cid'] . "' and customer_id = '" . $cInfo->customer_id . "'");
-       
+
       $heading[] = array('text' => '<b>[' . $_GET['cid'] . ']' . COUPON_NAME . ' ' . $coupon_desc['coupon_name'] . '</b>');
       $contents[] = array('text' => '<b>' . TEXT_REDEMPTIONS . '</b>');
       $contents[] = array('text' => TEXT_REDEMPTIONS_TOTAL . '=' . xtc_db_num_rows($cc_query));
       $contents[] = array('text' => TEXT_REDEMPTIONS_CUSTOMER . '=' . xtc_db_num_rows($count_customers));
 	  // WM - und wie kommt man zurück? zurück Button fehlt
       $contents[] = array('text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_COUPON_ADMIN) . '">' . BUTTON_BACK . '</a>');
-                              
+
 ?>
     <td width="25%" valign="top">
 <?php
@@ -322,7 +343,7 @@ $customer = xtc_db_fetch_array($customer_query);
       echo '            </td>' . "\n";
 
     break;
-  case 'preview_email': 
+  case 'preview_email':
     $coupon_query = xtc_db_query("select coupon_code from " .TABLE_COUPONS . " where coupon_id = '" . $_GET['cid'] . "'");
     $coupon_result = xtc_db_fetch_array($coupon_query);
     $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
@@ -404,8 +425,8 @@ $customer = xtc_db_fetch_array($customer_query);
               </tr>
             </table></td>
           </form></tr>
-<?php 
-    break;       
+<?php
+    break;
   case 'email':
     $coupon_query = xtc_db_query("select coupon_code from " . TABLE_COUPONS . " where coupon_id = '" . $_GET['cid'] . "'");
     $coupon_result = xtc_db_fetch_array($coupon_query);
@@ -496,9 +517,9 @@ $customer = xtc_db_fetch_array($customer_query);
 
       </tr>
       </td>
-<?php      
+<?php
     break;
-	
+
 //##########################
 
   case 'update_preview':
@@ -515,17 +536,17 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
       <td>
 <?php echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cid=' . $_GET['cid']); ?>
- <?php// BOF - web28 - 2010-07-23 - new table design ?>        
-	  <table class="main" border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">  
- 
+ <?php// BOF - web28 - 2010-07-23 - new table design ?>
+	  <table class="main" border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+
 <?php
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
 ?>
-      <tr>	    
+      <tr>
         <td class="td_left"><?php echo COUPON_NAME . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
-        <td class="td_right"><?php echo $_POST['coupon_name'][$language_id]; ?>&nbsp;</td>		
+        <td class="td_right"><?php echo $_POST['coupon_name'][$language_id]; ?>&nbsp;</td>
       </tr>
 <?php
 }
@@ -534,21 +555,21 @@ $customer = xtc_db_fetch_array($customer_query);
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
 ?>
-      <tr>	    
+      <tr>
         <td class="td_left"><?php echo COUPON_DESC . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
-        <td class="td_right"><?php echo $_POST['coupon_desc'][$language_id]; ?>&nbsp;</td>		
+        <td class="td_right"><?php echo $_POST['coupon_desc'][$language_id]; ?>&nbsp;</td>
       </tr>
 <?php
 }
 ?>
-      <tr> 		
+      <tr>
 		<td class="td_left"><?php echo COUPON_AMOUNT; ?></td>
-        <td class="td_right"><?php echo $_POST['coupon_amount']; ?>&nbsp;</td>		
+        <td class="td_right"><?php echo $_POST['coupon_amount']; ?>&nbsp;</td>
       </tr>
- 
-      <tr>		
+
+      <tr>
 		<td class="td_left"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td class="td_right"><?php echo $_POST['coupon_min_order']; ?>&nbsp;</td>		
+        <td class="td_right"><?php echo $_POST['coupon_min_order']; ?>&nbsp;</td>
       </tr>
 
       <tr>
@@ -558,7 +579,7 @@ $customer = xtc_db_fetch_array($customer_query);
 ?>
         <td class="td_right"><?php echo TEXT_FREE_SHIPPING; ?></td>
 <?php
-    } else { 
+    } else {
 ?>
         <td class="td_right"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
 <?php
@@ -576,40 +597,46 @@ $customer = xtc_db_fetch_array($customer_query);
 ?>
         <td class="td_right"><?php echo $coupon_code; ?>&nbsp;</td>
       </tr>
-      
-      <tr>	    
-        <td class="td_left"><?php echo COUPON_USES_COUPON; ?></td>		
-        <td class="td_right"><?php echo $_POST['coupon_uses_coupon']; ?>&nbsp;</td>		
+
+      <tr>
+        <td class="td_left"><?php echo COUPON_USES_COUPON; ?></td>
+        <td class="td_right"><?php echo $_POST['coupon_uses_coupon']; ?>&nbsp;</td>
       </tr>
 
       <tr>
-        <td class="td_left"><?php echo COUPON_USES_USER; ?></td>		
-        <td class="td_right"><?php echo $_POST['coupon_uses_user']; ?>&nbsp;</td>		
+        <td class="td_left"><?php echo COUPON_USES_USER; ?></td>
+        <td class="td_right"><?php echo $_POST['coupon_uses_user']; ?>&nbsp;</td>
       </tr>
-      
+
        <tr>
-        <td class="td_left"><?php echo COUPON_PRODUCTS; ?></td>		
-        <td class="td_right"><?php echo $_POST['coupon_products']; ?>&nbsp;</td>		
+        <td class="td_left"><?php echo COUPON_PRODUCTS; ?></td>
+        <td class="td_right"><?php echo $_POST['coupon_products']; ?>&nbsp;</td>
       </tr>
 
 
       <tr>
-        <td class="td_left"><?php echo COUPON_CATEGORIES; ?></td>		
+        <td class="td_left"><?php echo COUPON_CATEGORIES; ?></td>
         <td class="td_right"><?php echo $_POST['coupon_categories']; ?>&nbsp;</td>
-		
+
       </tr>
       <tr>
         <td class="td_left"><?php echo COUPON_STARTDATE; ?></td>
 <?php
-    $start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
+// BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+    //$start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
+    $start_date = xtc_date_short($_POST['coupon_startdate']);
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
 ?>
         <td class="td_right"><?php echo $start_date; ?>&nbsp;</td>
       </tr>
-      
+
       <tr>
         <td class="td_left"><?php echo COUPON_FINISHDATE; ?></td>
 <?php
-    $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] ));
+// BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+    //$finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] ));
+    $finish_date = xtc_date_short($_POST['coupon_finishdate']);
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
 ?>
         <td class="td_right"><?php echo $finish_date; ?>&nbsp;</td>
       </tr>
@@ -628,25 +655,27 @@ $customer = xtc_db_fetch_array($customer_query);
     echo xtc_draw_hidden_field('coupon_uses_user', $_POST['coupon_uses_user']);
     echo xtc_draw_hidden_field('coupon_products', $_POST['coupon_products']);
     echo xtc_draw_hidden_field('coupon_categories', $_POST['coupon_categories']);
-    echo xtc_draw_hidden_field('coupon_startdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] )));
-    echo xtc_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
+    // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+    //echo xtc_draw_hidden_field('coupon_startdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] )));
+    //echo xtc_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
+    echo xtc_draw_hidden_field('coupon_startdate', $_POST['coupon_startdate']);
+    echo xtc_draw_hidden_field('coupon_finishdate', $_POST['coupon_finishdate']);
+    // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
 ?>
      <tr>
         <td align="left"><?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_CONFIRM . '"/>'; ?></td>
         <td align="left"><?php echo '<input type="submit" name="back" class="button" onclick="this.blur();" value="' . BUTTON_BACK . '"/>'; ?></td>
       </td>
       </tr>
-      
       </td></table>
-<?php// EOF - web28 - 2010-07-23 - new table design?>
+<?php // EOF - web28 - 2010-07-23 - new table design ?>
 	  </form>
       </tr>
-
       </table></td>
-<?php      
-   
+<?php
+
     break;
-	
+
 //##########################
 
   case 'voucheredit':
@@ -666,13 +695,13 @@ $customer = xtc_db_fetch_array($customer_query);
     }
     if ($coupon['coupon_type']=='S') {
       $coupon_free_ship .= true;
-    }     
+    }
     $coupon_min_order = $coupon['coupon_minimum_order'];
     $coupon_code = $coupon['coupon_code'];
     $coupon_uses_coupon = $coupon['uses_per_coupon'];
     $coupon_uses_user = $coupon['uses_per_user'];
     $coupon_products = $coupon['restrict_to_products'];
-    $coupon_categories = $coupon['restrict_to_categories'];     
+    $coupon_categories = $coupon['restrict_to_categories'];
   case 'new':
 // set some defaults
     if (!$coupon_uses_user) $coupon_uses_user=1;
@@ -688,7 +717,7 @@ $customer = xtc_db_fetch_array($customer_query);
       </tr>
       <tr>
       <td>
-<?php 
+<?php
     echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update&oldaction='.$_GET['action'] . '&cid=' . $_GET['cid'],'post', 'enctype="multipart/form-data"');
 ?>
 <?php// BOF - web28 - 2010-07-23 - new table design?>
@@ -762,25 +791,50 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
 <?php
     if (!$_POST['coupon_startdate']) {
-      $coupon_startdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+      // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+      //$coupon_startdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+      $coupon_startdate = date('Y-m-d');
+      // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
     } else {
-      $coupon_startdate = explode("-", $_POST['coupon_startdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+      // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+      //$coupon_startdate = explode("-", $_POST['coupon_startdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+      $coupon_startdate = $_POST['coupon_startdate'];
+      // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
     }
+
     if (!$_POST['coupon_finishdate']) {
-      $coupon_finishdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
-      $coupon_finishdate[0] = $coupon_finishdate[0] + 1;
+      // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+      //$coupon_finishdate = explode("-", date('Y-m-d')); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+      $coupon_finishdate = date('Y-m-d');
+      $coupon_finishdate[3] = $coupon_finishdate[3] + 1; //set actual year +1
+      // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
     } else {
-      $coupon_finishdate = explode("-", $_POST['coupon_finishdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+      // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+      //$coupon_finishdate = explode("-", $_POST['coupon_finishdate']); // Hetfield - 2009-08-18 - replaced depricated function split with explode to be ready for PHP >= 5.3
+      $coupon_finishdate = $_POST['coupon_finishdate'];
+      // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
     }
 ?>
         <td class="td_left"><?php echo COUPON_STARTDATE; ?></td>
-        <td class="td_middle"><?php echo xtc_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0], 0)); ?></td>
+        <td class="td_middle">
+        <?php
+          // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+          //echo xtc_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0], 0));
+          echo xtc_draw_input_field('coupon_startdate', $coupon_startdate ,'id="hasDatepicker1"');
+          // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+        ?>
+        </td>
         <td class="td_right"><?php echo COUPON_STARTDATE_HELP; ?></td>
       </tr>
       <tr>
         <td class="td_left"><?php echo COUPON_FINISHDATE; ?></td>
-        <td class="td_middle">		
-		<?php echo xtc_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0], 0)); ?>
+        <td class="td_middle">
+        <?php
+          // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+          //echo xtc_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0], 0));
+          echo xtc_draw_input_field('coupon_finishdate', $coupon_finishdate ,'id="hasDatepicker2"');
+          // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+        ?>
 		</td>
         <td class="td_right"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
@@ -789,7 +843,7 @@ $customer = xtc_db_fetch_array($customer_query);
         <td align="left"><?php echo '&nbsp;&nbsp;<a class="button" onclick="this.blur();" href="' . xtc_href_link('coupon_admin.php', ''); ?>"><?php echo BUTTON_CANCEL; ?></a></td>
 		<td align="left">&nbsp;</td>
 	  </tr>
-      </td></table>	  
+      </td></table>
 <?php// EOF - web28 - 2010-07-23 - new table design?>
 	  </form>
       </tr>
@@ -798,7 +852,7 @@ $customer = xtc_db_fetch_array($customer_query);
 <?php
     break;
   default:
-?>    
+?>
     <td  class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -812,9 +866,9 @@ $customer = xtc_db_fetch_array($customer_query);
 
     if ($_GET['status']) {
       $status = xtc_db_prepare_input($_GET['status']);
-    } else { 
+    } else {
       $status = 'Y';
-    } 
+    }
     echo HEADING_TITLE_STATUS . ' ' . xtc_draw_pull_down_menu('status', $status_array, $status, 'onChange="this.form.submit();"');
 ?>
               </form>
@@ -866,7 +920,7 @@ $customer = xtc_db_fetch_array($customer_query);
 		<td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['coupon_id']; ?></td>
 		<td class="dataTableContent" align="left">&nbsp;<?php echo $coupon_desc['coupon_name']; ?></td>
 		<td class="dataTableContent" align="left" style="padding-left: 5px">
-<?php  
+<?php
       if ($cc_list['coupon_type'] == 'P') {
         echo $cc_list['coupon_amount'] . '%';
       } elseif ($cc_list['coupon_type'] == 'S') {
@@ -877,11 +931,11 @@ $customer = xtc_db_fetch_array($customer_query);
 ?>
             &nbsp;</td>
 				<td class="dataTableContent" align="left">&nbsp;<?php echo $currencies->format($cc_list['coupon_minimum_order']); ?></td>
-                <td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['coupon_code']; ?></td>                
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['coupon_code']; ?></td>
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_COUPON_ADMIN, 'page=' . $_GET['page'] . '&cid=' . $cc_list['coupon_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->     
+-->
 				<td class="dataTableContent" align="center"><?php if ($cc_list['coupon_active'] == 'N') { echo xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10); } else { echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10); } ?></td>
                 <td class="dataTableContent" align="center">&nbsp;<?php if ($cc_list['coupon_active'] == 'N') { echo '<a href="' . xtc_href_link('coupon_admin.php',  '&action=noconfirmdelete' . '&cID=' . $cc_list['coupon_id']) . '">' . xtc_image(DIR_WS_ICONS . 'delete.gif', BUTTON_DELETE_NO_CONFIRM) . '</a>'; } ?></td>
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_COUPON_ADMIN, 'page=' . $_GET['page'] . '&cid=' . $cc_list['coupon_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
@@ -902,7 +956,7 @@ $customer = xtc_db_fetch_array($customer_query);
                 <td align="right" colspan="2" class="smallText"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link('coupon_admin.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
               </tr>
             </table>
-<?php// EOF - web28 - 2010-07-23 - new table design?>			
+<?php// EOF - web28 - 2010-07-23 - new table design?>
 			</td>
           </tr>
         </table></td>
@@ -929,8 +983,8 @@ $customer = xtc_db_fetch_array($customer_query);
       break;
     default:
       $heading[] = array('text'=>'['.$cInfo->coupon_id.']  '.$cInfo->coupon_code);
-	  
-	  
+
+
       $amount = $cInfo->coupon_amount;
       if ($cInfo->coupon_type == 'P') {
         $amount .= '%';
@@ -940,18 +994,18 @@ $customer = xtc_db_fetch_array($customer_query);
 	  // EOF - web28 - 2010-07-22 - FIX coupon_amount
       } else {
         $amount = $currencies->format($amount);
-      }	  
-	  
+      }
+
       if ($_GET['action'] == 'voucherdelete') {
-        $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' . 
+        $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' .
                 '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=confirmdelete&cid='.$_GET['cid'],'NONSSL').'">'.BUTTON_CONFIRM.'</a>' .
                 '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_CANCEL.'</a>'
                 );
-      } else { 
+      } else {
         $prod_details = NONE;
         if ($cInfo->restrict_to_products) {
           $prod_details = '<a href="listproducts.php?cid=' . $cInfo->coupon_id . '" target="_blank" onclick="window.open(\'listproducts.php?cid=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false"><strong>' . TEXT_VIEW_SHORT .'</strong></a>';
-        }   
+        }
         $cat_details = NONE;
         if ($cInfo->restrict_to_categories) {
           $cat_details = '<a href="listcategories.php?cid=' . $cInfo->coupon_id . '" target="_blank" onclick="window.open(\'listcategories.php?cid=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false"><strong>' . TEXT_VIEW_SHORT .'</strong></a>';
@@ -961,7 +1015,7 @@ $customer = xtc_db_fetch_array($customer_query);
 									  // BOF - web28 - 2010-07-23 - new table design / Abfrage ob Coupon aktiv ist
                                       $coupon_active_query = xtc_db_query("select coupon_active from " . TABLE_COUPONS . " where coupon_id = '" . $cInfo->coupon_id . "'");
                                       $coupon_active = xtc_db_fetch_array($coupon_active_query);
-                                      
+
                                       $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
                                       COUPON_AMOUNT . ':&nbsp;<strong><font color="red">' . $amount . '</font></strong><br /><br />' .
 
@@ -989,7 +1043,7 @@ $customer = xtc_db_fetch_array($customer_query);
                                     }
                                     break;
       }
-?>                       
+?>
     <td width="25%" valign="top">
 <?php
       $box = new box;

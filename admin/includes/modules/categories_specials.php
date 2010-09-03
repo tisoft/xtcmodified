@@ -1,7 +1,16 @@
 <?php
+/* --------------------------------------------------------------
+   $Id$
+   
+   http://www.xtc-modified.org
+   Copyright (c) 2010 xtcModified   
+   --------------------------------------------------------------
 
-
-// (c) 2006 Web4Business GmbH - Designs - Modules. www.web4business.ch
+   Released under the GNU General Public License
+   --------------------------------------------------------------
+   Third Party contribution:
+   (c) 2006 Web4Business GmbH - Designs - Modules. www.web4business.ch
+   --------------------------------------------------------------*/
 
 defined("_VALID_XTC") or die("Direct access to this location isn't allowed.");
 
@@ -96,12 +105,15 @@ function showSpecialsBox() {
 			
 			if(isset($_GET['pID']) and xtc_db_num_rows($specials_query, true) > 0)
 				echo xtc_draw_hidden_field('specials_id', $sInfo->specials_id);
-
 		?>
-
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
 <script type="text/javascript">
   var specialExpires = new ctlSpiffyCalendarBox("specialExpires", "new_product", "specials_expires","btnDate2","<?php echo $expires_date; ?>",2);
 </script>
+*/
+// EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+?>
 <script language="JavaScript" type="text/JavaScript">  
   function showSpecial() {
     //alert(document.getElementById("special").style.display);	
@@ -166,10 +178,17 @@ function showSpecialsBox() {
 		<?php } ?>
           <tr>
           <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></td>
-          <td class="main"><script type="text/javascript">specialExpires.writeControl(); specialExpires.dateFormat="yyyy-MM-dd";</script>
+          <td class="main">
+<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+/*
+          <script type="text/javascript">specialExpires.writeControl(); specialExpires.dateFormat="yyyy-MM-dd";</script>
 				<noscript>
                 <?php echo  xtc_draw_input_field('specials_expires', $expires_date ,'style="width: 135px"'); ?>
                 </noscript>
+*/
+?>
+            <?php echo xtc_draw_input_field('specials_expires', $expires_date ,'id="hasDatepicker2"'); ?>
+<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>               
           </td>				
 		  <td class="main">&nbsp;</td>
           </tr>
@@ -184,7 +203,6 @@ function showSpecialsBox() {
 	  </div>
 <?php
 }
-
 
 function saveSpecialsData($products_id) {
 
@@ -204,11 +222,9 @@ function saveSpecialsData($products_id) {
         $_POST['specials_price'] = ($_POST['specials_price']/($_POST['tax_rate']+100)*100); //web28 - 2010-07-27 - tax_rate from  hidden field
      }
      
-     
      if (substr($_POST['specials_price'], -1) == '%')  {     	
 		$_POST['specials_price'] = ($_POST['products_price_hidden'] - (($_POST['specials_price'] / 100) * $_POST['products_price_hidden'])); //web28 - 2010-07-27 - products_price_hidden from  hidden field
      }
-     
      
       $expires_date = '';
       if ($_POST['specials_expires']) {
@@ -218,9 +234,9 @@ function saveSpecialsData($products_id) {
       xtc_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_quantity, specials_new_products_price, specials_date_added, expires_date, status) values ('" . $products_id . "', '" . $_POST['specials_quantity'] . "', '" . $_POST['specials_price'] . "', now(), '" . $expires_date . "', '1')");
 
   }
-
   elseif($_POST['specials_action'] == "update"
-	and isset($_POST['specials_price']) and isset($_POST['specials_quantity'])) {
+	and isset($_POST['specials_price'])
+	and isset($_POST['specials_quantity'])) {
 
 	  // update the existing special for this product, code taken from /admin/specials.php, and modified
 
@@ -238,19 +254,17 @@ function saveSpecialsData($products_id) {
       if ($_POST['specials_expires']) {
         $expires_date = str_replace("-", "", $_POST['specials_expires']);
       }
-      //BOF BUGFIX - Änderungen wurden bei Update nicht übernommen
+	  //BOF BUGFIX - Änderungen wurden bei Update nicht übernommen
 	  //xtc_db_query("update " . TABLE_SPECIALS . " set specials_quantity = '" . $_POST['specials_quantity'] . "', specials_new_products_price = '" . $_POST['specials_price'] . "', specials_last_modified = now(), expires_date = '" . $expires_date . "' where specials_id = '" . $products_id  . "'");
       xtc_db_query("update " . TABLE_SPECIALS . " set specials_quantity = '" . $_POST['specials_quantity'] . "', specials_new_products_price = '" . $_POST['specials_price'] . "', specials_last_modified = now(), expires_date = '" . $expires_date . "' where specials_id = '" . xtc_db_input($_POST['specials_id'])  . "'");
-      //BOF BUGFIX - Änderungen wurden bei Update nicht übernommen
+	  //BOF BUGFIX - Änderungen wurden bei Update nicht übernommen
   }
 
   if(isset($_POST['specials_delete'])) {
 
 	// delete existing special for this product, code taken from /admin/specials.php, and modified
-
 	xtc_db_query("delete from " . TABLE_SPECIALS . " where specials_id = '" . xtc_db_input($_POST['specials_id']) . "'");
   }
-
 
 }
 ?>
