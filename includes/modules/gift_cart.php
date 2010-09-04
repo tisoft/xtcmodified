@@ -11,8 +11,8 @@
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.32 2003/02/11); www.oscommerce.com
    (c) 2003     nextcommerce (shopping_cart.php,v 1.21 2003/08/17); www.nextcommerce.org
-   (c) 2006 XT-Commerce
-
+   (c) 2006 XT-Commerce (gift_cart.php 842 2005-03-24 14)
+   
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contributions:
@@ -63,7 +63,10 @@ if (isset ($_SESSION['cc_id'])) {
 if (isset ($_SESSION['customer_id'])) {
 	$gift_smarty->assign('C_FLAG', 'true');
 }
-$gift_smarty->assign('LINK_ACCOUNT', xtc_href_link(FILENAME_CREATE_ACCOUNT));
+//BOF - web28 - 2010-09-04 - FIX SSL Link FILENAME_CREATE_ACCOUNT
+//$gift_smarty->assign('LINK_ACCOUNT', xtc_href_link(FILENAME_CREATE_ACCOUNT));
+$gift_smarty->assign('LINK_ACCOUNT', xtc_href_link(FILENAME_CREATE_ACCOUNT,'','SSL'));
+//EOF - web28 - 2010-09-04 - FIX SSL Link FILENAME_CREATE_ACCOUNT
 $gift_smarty->assign('FORM_ACTION', xtc_draw_form('gift_coupon', xtc_href_link(FILENAME_SHOPPING_CART, 'action=check_gift', 'SSL')));
 $gift_smarty->assign('INPUT_CODE', xtc_draw_input_field('gv_redeem_code'));
 $gift_smarty->assign('BUTTON_SUBMIT', xtc_image_submit('button_redeem.gif', IMAGE_REDEEM_GIFT));
