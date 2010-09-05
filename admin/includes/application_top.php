@@ -1,16 +1,15 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: application_top.php 1323 2005-10-27 17:58:08Z mz $
-
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
+   $Id$
+    
+    http://www.xtc-modified.org
+   Copyright (c) 2010 xtcModified    
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.158 2003/03/22); www.oscommerce.com
    (c) 2003	 nextcommerce (application_top.php,v 1.46 2003/08/24); www.nextcommerce.org 
+   (c) 2006  XT-Commerce 8application_top.php 1323 2005-10-27) ; www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -348,6 +347,7 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 
     $_SESSION['language'] = $lng->language['directory'];
     $_SESSION['languages_id'] = $lng->language['id'];
+	$_SESSION['language_code'] = $lng->language['code']; //web28 - 2010-09-05 - add $_SESSION['language_code']
   }
 
   // include the language translations

@@ -1,10 +1,8 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
-
-   XT-Commerce - community made shopping
+   $Id$ 
+   
    http://www.xtc-modified.org
-
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
@@ -76,6 +74,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                                              'name' => $languages['name'],
                                                              'image' => $languages['image'],
 															 'status' => $languages['status'],
+															 'code' => $languages['code'], //web28 - 2010-09-05 - add $languages['code']
                                                              'directory' => $languages['directory']);
       }
 	  //EOF - web28 - 2010-08-19 - added status
