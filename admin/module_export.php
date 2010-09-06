@@ -1,17 +1,17 @@
 <?php
-/* --------------------------------------------------------------
-   $Id: module_export.php 1179 2005-08-25 12:37:13Z mz $   
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/28); www.oscommerce.com 
    (c) 2003	 nextcommerce (modules.php,v 1.23 2003/08/19); www.nextcommerce.org
-
+   (c) 2006 xt:Commerce
    --------------------------------------------------------------
    Contribution
    image_processing_step (step-by-step Variante B) by INSEH 2008-03-26
@@ -47,7 +47,10 @@
     if (count($_POST['configuration'])) {
       while (list($key, $value) = each($_POST['configuration'])) {
         xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
-        if (substr($key,'FILE')) $file=$value;
+       //BOF - GTB - 2010-08-06 - start Download Problem PHP > 5.3 
+       if (strpos($key,'FILE') !== false) $file=$value;
+        //if (substr($key,'FILE')) $file=$value;
+       //BOF - GTB - 2010-08-06 - start Download Problem PHP > 5.3 
       }
     }
     }
