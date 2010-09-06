@@ -1,16 +1,16 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: ot_gv.php 1185 2005-08-26 15:16:31Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ot_gv.php,v 1.37.3 2004/01/01); www.oscommerce.com
+   (c) 2006 xt:Commerce (ot_gv.php 1185 2005-08-26); www.xt-commerce.de
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -50,7 +50,6 @@ class ot_gv {
 		$this->checkbox = '<input type="checkbox" onclick="submitFunction()" name="'.'c'.$this->code.'"> '.$this->user_prompt;
 		// EOF - Tomcraft - 2010-01-29 - Fix display of voucher
 		$this->output = array ();
-
 	}
 
 	function process() {
@@ -197,7 +196,7 @@ class ot_gv {
 
 	function collect_posts() {
 		global $xtPrice, $coupon_no, $REMOTE_ADDR;
-		if ($_POST['gv_redeem_code']) {
+		if (isset($_POST['gv_redeem_code'])) {
 			$gv_query = xtc_db_query("select coupon_id, coupon_type, coupon_amount from ".TABLE_COUPONS." where coupon_code = '".$_POST['gv_redeem_code']."'");
 			$gv_result = xtc_db_fetch_array($gv_query);
 			if (xtc_db_num_rows($gv_query) != 0) {
@@ -233,7 +232,7 @@ class ot_gv {
 				//xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_REDEEMED_AMOUNT. $currencies->format($gv_amount)), 'SSL'));
 			}
 		}
-		if ($_POST['submit_redeem_x'] && $gv_result['coupon_type'] == 'G')
+		if (isset($_POST['submit_redeem_x']) && $gv_result['coupon_type'] == 'G')
 			xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message='.urlencode(ERROR_NO_REDEEM_CODE), 'SSL'));
 	}
 
