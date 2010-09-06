@@ -17,7 +17,8 @@
    ---------------------------------------------------------------------------------------*/
 
 $box_smarty = new smarty;
-$box_content='';
+$box_content = '';
+$manufacturer = array();
 $rebuild = false;
 
 $box_smarty->assign('language', $_SESSION['language']);
@@ -40,7 +41,19 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_manufacturers_info.html
 	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	$rebuild = true;
 
-    $manufacturer_query = xtDBquery("select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS . " p  where p.products_id = '" . $product->data['products_id'] . "' and p.manufacturers_id = m.manufacturers_id");
+    $manufacturer_query = xtDBquery("select 
+    m.manufacturers_id,
+    m.manufacturers_name,
+    m.manufacturers_image,
+    mi.manufacturers_url
+    from " . TABLE_MANUFACTURERS . " m
+    left join " . TABLE_MANUFACTURERS_INFO . " mi
+    on (m.manufacturers_id = mi.manufacturers_id
+    and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), 
+    " . TABLE_PRODUCTS . " p 
+    where p.products_id = '" . $product->data['products_id'] . "'
+    and p.manufacturers_id = m.manufacturers_id");
+    
     if (xtc_db_num_rows($manufacturer_query,true)) {
       $manufacturer = xtc_db_fetch_array($manufacturer_query,true);
 
@@ -62,7 +75,7 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_manufacturers_info.html
 }
 
 if (!$cache || $rebuild) {
-	if ($manufacturer['manufacturers_name']!='') {
+	if (isset($manufacturer['manufacturers_name']) && $manufacturer['manufacturers_name']!='') {
 		$box_manufacturers_info = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_manufacturers_info.html');	
 		$smarty->assign('box_MANUFACTURERS_INFO',$box_manufacturers_info);
 	}

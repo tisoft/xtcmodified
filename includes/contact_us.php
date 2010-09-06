@@ -1,9 +1,25 @@
 <?php
-//include by shop_content.php
-	
+/* -----------------------------------------------------------------------------------------
+   $Id$   
+
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2006 XT-Commerce
+
+   Released under the GNU General Public License 
+   ---------------------------------------------------------------------------------------*/
+
+//included by shop_content.php
+
+  //BOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
 	//BOF - web28 - 2010-07-17 - move language definition on top
-    require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');
+  //  require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');
 	//EOF - web28 - 2010-07-17 - move language definition on top
+  //EOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
     
 	$error = false;
 	if (isset ($_GET['action']) && ($_GET['action'] == 'send')) {

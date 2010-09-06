@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: english.php 1260 2005-09-29 17:48:04Z gwinger $
+   $Id$
 
-   xt:Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 xt:Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(german.php,v 1.119 2003/05/19); www.oscommerce.com
    (c) 2003  nextcommerce (german.php,v 1.25 2003/08/25); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -479,10 +480,31 @@ define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Shipping costs cannot be calculated a
 define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Your account');
 define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Delete account');	
 
-//contact-form error messages
+//contact-form messages
 define('ERROR_EMAIL','<p><b>Your e-mail address:</b> None or invalid input!</p>');
 define('ERROR_VVCODE','<p><b>Security code:</b> No match, please enter your security code again!</p>');
 define('ERROR_MSG_BODY','<p><b>Your message:</b> No input!</p>');
+// BOF - DokuMan - 2010-09-06 - combined contact form messages in one language file
+define('EMAIL_COMPANY', 'Company: ');
+define('EMAIL_STREET', 'Street: ');
+define('EMAIL_POSTCODE', 'Postcode: ');
+define('EMAIL_CITY', 'City: ');
+define('EMAIL_PHONE', 'Telephone: ');
+define('EMAIL_FAX', 'Fax: ');
+define('EMAIL_SENT_BY', 'Sent by %s %s at %s to %s clock');
+define('EMAIL_NOTIFY', 'Attention, this e-mail can NOT be answered with -ANSWER THE SENDER-!');
+define('EMAIL_NAME', 'Name: ');
+define('EMAIL_EMAIL', 'E-mail: ');
+define('EMAIL_MESSAGE', 'Message: ');
+// EOF - DokuMan - 2010-09-06 - combined contact form messages in one language file
+
+// BOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file
+//Table Header checkout_confirmation.php
+define('HEADER_QTY', 'Number');
+define('HEADER_ARTICLE', 'Item');    
+define('HEADER_SINGLE', 'Singleprice');
+define('HEADER_TOTAL','Total');
+// EOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file
 
 // BOF - web28 - 2010-05-07 - PayPal API Modul
 define('NAVBAR_TITLE_PAYPAL_CHECKOUT','PayPal-Checkout');

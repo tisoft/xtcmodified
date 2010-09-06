@@ -2,15 +2,16 @@
 /* -----------------------------------------------------------------------------------------
    $Id$
 
-   xt:Commerce - community made shopping
-   http://www.xt-Commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 xt:Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(german.php,v 1.119 2003/05/19); www.oscommerce.com 
    (c) 2003  nextcommerce (german.php,v 1.25 2003/08/25); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -479,10 +480,31 @@ define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Die Versandkosten k&ouml;nnen im Mome
 define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Mein Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Konto l&ouml;schen');
 	
-//contact-form error messages
+//contact-form messages
 define('ERROR_EMAIL','<p><b>Ihre E-Mail-Adresse:</b> Keine oder ung&uuml;ltige Eingabe!</p>');
 define('ERROR_VVCODE','<p><b>Sicherheitscode:</b> Keine &Uuml;bereinstimmung, bitte geben Sie den Sicherheitscode erneut ein!</p>');
+// BOF - DokuMan - 2010-09-06 - combined contact form messages in one language file
 define('ERROR_MSG_BODY','<p><b>Ihre Nachricht:</b> Keine Eingabe!</p>');	
+define('EMAIL_COMPANY', 'Firma: ');
+define('EMAIL_STREET', 'Strasse: ');
+define('EMAIL_POSTCODE', 'PLZ: ');
+define('EMAIL_CITY', 'Stadt: ');
+define('EMAIL_PHONE', 'Telefon: ');
+define('EMAIL_FAX', 'Fax: ');
+define('EMAIL_SENT_BY', '&Uuml;bermittelt von %s %s am %s um %s Uhr');
+define('EMAIL_NOTIFY', 'ACHTUNG, diese E-Mail kann NICHT mit -ABSENDER ANTWORTEN- beantwortet werden!');
+define('EMAIL_NAME', 'Name: ');
+define('EMAIL_EMAIL', 'Email: ');
+define('EMAIL_MESSAGE', 'Nachricht: ');
+// EOF - DokuMan - 2010-09-06 - combined contact form messages in one language file
+
+// BOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file
+//Table Header checkout_confirmation.php
+define('HEADER_QTY', 'Anzahl');
+define('HEADER_ARTICLE', 'Artikel');    
+define('HEADER_SINGLE', 'Einzelpreis');
+define('HEADER_TOTAL','Summe');
+// EOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file
 
 // BOF - web28 - 2010-05-07 - PayPal API Modul
 define('NAVBAR_TITLE_PAYPAL_CHECKOUT','PayPal-Checkout');
@@ -498,6 +520,7 @@ define('PAYPAL_EXP_WARN','Achtung! Eventuell anfallende Versandkosten werden ers
 define('PAYPAL_EXP_VORL','Vorl&auml;ufige Versandkosten');
 define('PAYPAL_EXP_VERS','6.90');
 // EOF - web28 - 2010-05-07 - PayPal API Modul
+
 define('BASICPRICE_VPE_TEXT','bei dieser Menge nur '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
 //web - 2010-07-11 - Preisanzeige bei Staffelpreisen (größte Staffel)
 define('GRADUATED_PRICE_MAX_VALUE', 'ab');

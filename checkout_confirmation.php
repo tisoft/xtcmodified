@@ -40,9 +40,12 @@ require_once (DIR_FS_INC . 'xtc_calculate_tax.inc.php');
 require_once (DIR_FS_INC . 'xtc_check_stock.inc.php');
 require_once (DIR_FS_INC . 'xtc_display_tax_value.inc.php');
 
+//BOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
-require (DIR_WS_LANGUAGES.$_SESSION['language'].'/checkout_confirmation.php');
+//require (DIR_WS_LANGUAGES.$_SESSION['language'].'/checkout_confirmation.php');
 // EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+//EOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
+
 // if the customer is not logged on, redirect them to the login page
 
 if (!isset ($_SESSION['customer_id']))
@@ -154,15 +157,18 @@ if ($_SESSION['sendto'] != false) {
 }
 
 $data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
+//BOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
-if (file_exists(DIR_WS_LANGUAGES.$_SESSION['language'].'/checkout_confirmation.php')) {
+//if (file_exists(DIR_WS_LANGUAGES.$_SESSION['language'].'/checkout_confirmation.php')) {
 	$data_products.= '<tr>' . "\n" . '  <td class="main_header" align="left" valign="top"><b>' . HEADER_QTY . '</b></td>'
 							. "\n" . '  <td class="main_header" align="left" valign="top"><b>' . HEADER_ARTICLE . '</b></td>'
 							. "\n" . '  <td class="main_header" align="right" valign="top"><b>' . HEADER_SINGLE . '</b></td>'
 							. "\n" . '  <td class="main_header" align="right" valign="top"><b>' . HEADER_TOTAL . '</b></td>
 					 </tr>' . "\n";
-}
+//}
 // EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+//BOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
+
 for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {   
 	
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation

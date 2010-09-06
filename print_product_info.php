@@ -34,6 +34,7 @@ $smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
 $smarty->assign('charset', $_SESSION['language_charset'] ); 
 //EOF - web28 - 2010-08-13 - define missing charset
 
+$module_content = array();
 $product_info_query = xtc_db_query("select * FROM ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_status = '1' and p.products_id = '".(int) $_GET['products_id']."' and pd.products_id = p.products_id and pd.language_id = '".(int) $_SESSION['languages_id']."'");
 $product_info = xtc_db_fetch_array($product_info_query);
 
