@@ -66,15 +66,21 @@ if ($listing_split->number_of_rows > 0) {
 	if (isset ($_GET['manufacturers_id'])) {
 		$manu_query = xtDBquery("select manufacturers_image from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
 		$manu = xtc_db_fetch_array($manu_query,true);
-		$image = DIR_WS_IMAGES.''.$manu['manufacturers_image'];
+		//BOF - GTB - 2010-08-03 - Security Fix - Base
+		$image = DIR_WS_IMAGES.$manu['manufacturers_image'];
+		//$image = DIR_WS_IMAGES.''.$manu['manufacturers_image'];
+		//EOF - GTB - 2010-08-03 - Security Fix - Base
 		if(!file_exists($image)) $image = '';
     }
 	//EOF -web28- 2010-08-06 - BUGFIX no manufacturers image displayed
 
 	$module_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
 	$module_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
-
-	$module_smarty->assign('CATEGORIES_IMAGE', $image);
+	
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+	$module_smarty->assign('CATEGORIES_IMAGE', DIR_WS_CATALOG.$image);
+	//$module_smarty->assign('CATEGORIES_IMAGE', $image);
+	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	$module_smarty->assign('CATEGORIES_DESCRIPTION', $category['categories_description']);
 
 	$rows = 0;
