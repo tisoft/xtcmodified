@@ -2,25 +2,24 @@
 /* --------------------------------------------------------------
    $Id: orders_edit.php,v 1.0
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   --------------------------------------------------------------
+   based on:
+   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce(orders.php,v 1.27 2003/02/16); www.oscommerce.com
+   (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2006 XT-Commerce (orders_edit.php)
+
+   Released under the GNU General Public License
 
    XTC-Bestellbearbeitung:
    http://www.xtc-webservice.de / Matthias Hinsche
    info@xtc-webservice.de
-
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
-   based on: 
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(orders.php,v 1.27 2003/02/16); www.oscommerce.com 
-   (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
-
-   Released under the GNU General Public License 
-
    --------------------------------------------------------------*/
 ?>
-
 
 <!-- Artikelbearbeitung Anfang //-->
 
@@ -66,6 +65,10 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
 echo xtc_draw_form('product_delete', FILENAME_ORDERS_EDIT, 'action=product_delete', 'post');
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
 echo xtc_draw_hidden_field('opID', $order->products[$i]['opid']);
+//BOF - DokuMan - 2010-09-07 - variables for correct deletion of products (thx to franky_n)
+echo xtc_draw_hidden_field('del_qty', $order->products[$i]['qty']);
+echo xtc_draw_hidden_field('del_pID', $order->products[$i]['id']);
+//EOF - DokuMan - 2010-09-07 - variables for correct deletion of products (thx to franky_n)
 echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE . '"/>';
 ?>
 </form>
@@ -74,7 +77,6 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
 
 <tr class="dataTableRow">
 <td class="dataTableContent" colspan="8">&nbsp;</td>
-
 <td class="dataTableContent">
 <?php
 echo xtc_draw_form('select_options', FILENAME_ORDERS_EDIT, '', 'GET');
@@ -134,12 +136,11 @@ if ($_GET['action'] =='product_search') {
      " . TABLE_PRODUCTS_DESCRIPTION . " pd
      where
      p.products_id = pd.products_id
-     and pd.language_id = '" . $_SESSION['languages_id'] . "' and
-     (pd.products_name like '%" . $_GET['search'] . "%' OR p.products_model = '" . $_GET['search'] . "') order by pd.products_name");
-
+     and pd.language_id = '" . $_SESSION['languages_id'] . "'
+     and (pd.products_name like '%" . $_GET['search'] . "%' OR p.products_model = '" . $_GET['search'] . "')
+     order by pd.products_name");
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
-
 <tr class="dataTableHeadingRow">
 <td class="dataTableHeadingContent"><b><?php echo TEXT_PRODUCT_ID;?></b></td>
 <td class="dataTableHeadingContent"><b><?php echo TEXT_QUANTITY;?></b></td>
@@ -156,12 +157,12 @@ while($products = xtc_db_fetch_array($products_query)) {
 echo xtc_draw_form('product_ins', FILENAME_ORDERS_EDIT, 'action=product_ins', 'post');
 echo xtc_draw_hidden_field('cID', $_POST['cID']);
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo xtc_draw_hidden_field('products_id', $products[products_id]);
+echo xtc_draw_hidden_field('products_id', $products['products_id']);
 ?>
-<td class="dataTableContent"><?php echo $products[products_id];?></td>
-<td class="dataTableContent"><?php echo xtc_draw_input_field('products_quantity', $products[products_quantity], 'size="2"');?></td>
-<td class="dataTableContent"><?php echo $products[products_name];?></td>
-<td class="dataTableContent"><?php echo $products[products_model];?></td>
+<td class="dataTableContent"><?php echo $products['products_id'];?></td>
+<td class="dataTableContent"><?php echo xtc_draw_input_field('products_quantity', $products['products_quantity'], 'size="2"');?></td>
+<td class="dataTableContent"><?php echo $products['products_name'];?></td>
+<td class="dataTableContent"><?php echo $products['products_model'];?></td>
 <td class="dataTableContent">
 <?php
 echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_INSERT . '"/>';
@@ -176,14 +177,3 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
 <?php } ?>
 <br /><br />
 <!-- Artikel Einfügen Ende //-->
-
-
-
-
-
-
-
-
-
-
-
