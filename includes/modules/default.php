@@ -135,7 +135,10 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
 
     $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'],
                                    'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],
-                                   'CATEGORIES_IMAGE' => $image,
+                                   //BOF - GTB - 2010-08-03 - Security Fix - Base
+                                   'CATEGORIES_IMAGE' => DIR_WS_CATALOG.$image,
+                                   //'CATEGORIES_IMAGE' => $image,
+                                   //EOF - GTB - 2010-08-03 - Security Fix - Base
                                    'CATEGORIES_LINK' => xtc_href_link(FILENAME_DEFAULT, $cPath_new),
                                    'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
     }
@@ -148,8 +151,10 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
     }
     $default_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
     $default_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
-
-    $default_smarty->assign('CATEGORIES_IMAGE', $image);
+	//BOF - GTB - 2010-08-03 - Security Fix - Base
+    //$default_smarty->assign('CATEGORIES_IMAGE', $image);
+    $default_smarty->assign('CATEGORIES_IMAGE', DIR_WS_CATALOG.$image);
+    //EOF - GTB - 2010-08-03 - Security Fix - Base
     $default_smarty->assign('CATEGORIES_DESCRIPTION', $category['categories_description']);
 
     $default_smarty->assign('language', $_SESSION['language']);
