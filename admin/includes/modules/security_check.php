@@ -1,15 +1,15 @@
 <?php
-
 /* --------------------------------------------------------------
-   $Id: security_check.php 1221 2005-09-20 16:44:09Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2003	 nextcommerce (security_check.php,v 1.2 2003/08/23); www.nextcommerce.org
+   (c) 2006  xt-commerce(security_check.php 1221 2005-09-20); www.xt-commerce.com
    
    Released under the GNU General Public License
    --------------------------------------------------------------*/
@@ -33,9 +33,12 @@ if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'includes/configure.org.php')), '444')
 	$file_warning .= '<br />'.DIR_FS_ADMIN.'includes/configure.org.php';
 }
 
-if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'rss/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'admin/rss/')), '755')) {
+//BOF - web28- 2010-09-06 -  FIX DIR_FS_ADMIN
+//if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'rss/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'admin/rss/')), '755')) {
+if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'rss/')), '777') and !strpos(decoct(fileperms(DIR_FS_ADMIN.'rss/')), '755')) {
 	$folder_warning .= '<br />'.DIR_FS_ADMIN.'rss/';
 }
+//EOF - web28- 2010-09-06 - FIX DIR_FS_ADMIN 
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'templates_c/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'templates_c/')), '755')) {
 	$folder_warning .= '<br />'.DIR_FS_CATALOG.'templates_c/';

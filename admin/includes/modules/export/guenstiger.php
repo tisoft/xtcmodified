@@ -10,6 +10,7 @@
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
    (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
+   (c) 2006  xt-commerce; www.xt-commerce.com
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -40,7 +41,11 @@ define('MODULE_GUENSTIGER_GTGOOGLE_YES','<span style="color:#006">Aktivieren</sp
 
 define('MODULE_GUENSTIGER_EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
 define('MODULE_GUENSTIGER_CAMPAIGNS','<span style="color:#006"><hr noshade><b>Kampagnen:</b> (automatisch)</span>');
-define('MODULE_GUENSTIGER_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_CATALOG."admin/stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
+//BOF - web28 - 2010-09-06 - Fix admin to DIR_WS_ADMIN
+//define('MODULE_GUENSTIGER_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_CATALOG."admin/stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
+define('MODULE_GUENSTIGER_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_ADMIN."stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
+//EOF - web28 - 2010-09-06 - Fix admin to DIR_WS_ADMIN
+
 define('MODULE_GUENSTIGER_CAMPAIGNS_DESC','<span style="color:#006"><i>(nur in Kooperation mit Preissuchmaschine.de relevant)</i><br>Durch unsere automatische Kampagneneinrichtung k&ouml;nnen Sie jederzeit die von der <a href="campaigns.php"><i>Kampagne</i></a> Preissuchmaschine.de in Ihren Onlineshop weitergeleiteten Nutzer auswerten. Sie sollten &uuml;ber folgenden Link den durch uns generierten Warenkorbumsatz jederzeit nachvollziehen k&ouml;nnen:<br><br><a style="text-decoration:underline:color:#006" href=\''.MODULE_GUENSTIGER_CAMPAIGNS_LINK.'\'><i><b>Kampagnen-Report</b></i></a><br><br></span>');
 define('MODULE_GUENSTIGER_EXPORT_LINK_SEND','<a style="text-decoration:underline" href=\'mailto:haendlerinfo@guenstiger.de?SUBJECT=Anfrage - Interesse an einer eventuellen Onlinekooperation&BODY=' .  str_replace("<-SHOP->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG,str_replace("<-LINK->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_GUENSTIGER_EXPORT_LINK . MODULE_GUENSTIGER_FILE,MODULE_GUENSTIGER_EMAIL)) .  '\'><br><br><i><b>zur Anfrage</b> </i></a>(sofern noch nicht erfolgt)');
 

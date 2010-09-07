@@ -1,15 +1,17 @@
 <?php 
 /* -----------------------------------------------------------------------------------------
+   Id$
+   
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   ----------------------------------------------------------------------------------------- 
+   Copyright (c) 2010 xtcModified
+   --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
    (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
+   (c) 2006  xt-commerce); www.xt-commerce.com
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -40,7 +42,11 @@ define('MODULE_PREISSUCHMASCHINE_psmgoogle_YES','Aktivieren');
 
 define('MODULE_PREISSUCHMASCHINE_EXPORT_TYPE','<hr noshade><b>Speicherart:</b>');
 define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS','<hr noshade><b>Kampagnen:</b> (automatisch)');
-define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_CATALOG."admin/stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
+//BOF - web28 - 2010-09-06 - Fix admin to DIR_WS_ADMIN
+//define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_CATALOG."admin/stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
+define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_LINK',HTTP_CATALOG_SERVER.DIR_WS_ADMIN."stats_campaigns.php?report=2&startD=1&startM=".date("m")."&startY=".date("Y")."&status=0&campaign=psm&endD=".date("d")."&endM=".date("m")."&endY=".date("Y"));
+//EOF - web28 - 2010-09-06 - Fix admin to DIR_WS_ADMIN
+
 define('MODULE_PREISSUCHMASCHINE_CAMPAIGNS_DESC','Durch unsere automatische Kampagneneinrichtung k&ouml;nnen Sie jederzeit die von der <a href="campaigns.php"><i>Kampagne</i></a> Preissuchmaschine.de in Ihren Onlineshop weitergeleiteten Nutzer auswerten. Sie sollten &uuml;ber folgenden Link den durch uns generierten Warenkorbumsatz jederzeit nachvollziehen k&ouml;nnen:<br><br><a style="text-decoration:underline" href=\''.MODULE_PREISSUCHMASCHINE_CAMPAIGNS_LINK.'\'><i><b>Kampagnen-Report</b></i></a><br><br>');
 define('MODULE_PREISSUCHMASCHINE_EXPORT_LINK_SEND','Den vorangegangenen Link sollten Sie nun unter dem Punkt Preisliste/Produktdatenliste auf der Stammdatenerfassung der PreisSuchmaschine.de eintragen. Die Stammdatenerfassung kann man hier anfordern: <a style="text-decoration:underline" href=\'mailto:mitmachen@metashopper.de?SUBJECT=Anfrage - Interesse an einer eventuellen Onlinekooperation&BODY=' .  str_replace("<-SHOP->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG,str_replace("<-LINK->",HTTP_CATALOG_SERVER . DIR_WS_CATALOG . MODULE_PREISSUCHMASCHINE_EXPORT_LINK . MODULE_PREISSUCHMASCHINE_FILE,MODULE_PREISSUCHMASCHINE_EMAIL)) .  '\'><br><br><i><b>zur Anfrage</b> </i></a>(sofern noch nicht erfolgt)');
 

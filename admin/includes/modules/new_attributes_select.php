@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: new_attributes_select.php 901 2005-04-29 10:32:14Z novalis $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(new_attributes_select.php); www.oscommerce.com 
    (c) 2003	 nextcommerce (new_attributes_select.php,v 1.9 2003/08/21); www.nextcommerce.org
+   (c) 2006  xt-commerce(new_attributes_select.php 901 2005-04-29); www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -21,7 +22,9 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
-$adminImages = DIR_WS_CATALOG . "lang/". $_SESSION['language'] ."/admin/images/buttons/";
+//BOF - web28 - 2010-09-06 - variable not used
+//$adminImages = DIR_WS_CATALOG . "lang/". $_SESSION['language'] ."/admin/images/buttons/";
+//EOF - web28 - 2010-09-06 - variable not used
 ?>
   <tr>
     <td class="pageHeading" colspan="3"><?php echo $pageTitle; ?></td>
