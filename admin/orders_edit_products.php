@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: orders_edit.php,v 1.0
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
