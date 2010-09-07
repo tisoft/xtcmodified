@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_check_stock.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -15,7 +15,9 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
  // include needed functions
+ 
  require_once(DIR_FS_INC . 'xtc_get_products_stock.inc.php');
+ 
   function xtc_check_stock($products_id, $products_quantity) {
     $stock_left = xtc_get_products_stock($products_id) - $products_quantity;
     $out_of_stock = '';
@@ -26,4 +28,4 @@
 
     return $out_of_stock;
   }
- ?>
+?>

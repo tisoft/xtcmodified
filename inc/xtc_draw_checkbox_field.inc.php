@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_draw_checkbox_field.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -21,4 +21,4 @@
   function xtc_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
     return xtc_draw_selection_field($name, 'checkbox', $value, $checked, $parameters);
   }
- ?>
+?>

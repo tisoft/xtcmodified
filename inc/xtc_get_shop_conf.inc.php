@@ -1,23 +1,24 @@
 <?php
-/* --------------------------------------------------------------
-   configuration_get_conf.inc.php 2008-08-06 gambio
-   Gambio OHG
-   http://www.gambio.de
-   Copyright (c) 2008 Gambio OHG
-   Released under the GNU General Public License
-   --------------------------------------------------------------
-*/
-?><?php
+/* -----------------------------------------------------------------------------------------
+   $Id: configuration_get_conf.inc.php
 
-	
-	/*
-		-> function to get shop_configuration values
-	*/
-	
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on:
+   Copyright (c) 2008 Gambio OHG
+
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------------------------*/
+
+	//	-> function to get shop_configuration values
+
 	function xtc_get_shop_conf($configuration_key, $result_type = 'ASSOC') {
 
 		$configuration_values = false;
-	
+
 		if($result_type == 'ASSOC' || $result_type == 'NUMERIC'){
 
 			if(is_array($configuration_key)){
@@ -37,8 +38,8 @@
 						if($result_type == 'ASSOC') {
 							$configuration_values[$key] = $configuration_row['configuration_value'];
 						} else {
-							$configuration_values[] = $configuration_row['configuration_value'];				
-						}					
+							$configuration_values[] = $configuration_row['configuration_value'];
+						}
 					}
 				}
 			}

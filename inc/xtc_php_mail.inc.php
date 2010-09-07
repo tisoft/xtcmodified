@@ -1,22 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id$   
-  
+   $Id$
+
+   xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2003	 nextcommerce (xtc_php_mail.inc.php,v 1.17 2003/08/24); www.nextcommerce.org
+   (c) 2006 XT-Commerce (xtc_php_mail.inc.php)
 
-
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 // include the mail classes
 function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, $to_name, $forwarding_to, $reply_address, $reply_address_name, $path_to_attachement, $path_to_more_attachements, $email_subject, $message_body_html, $message_body_plain) {
@@ -26,8 +21,8 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
 // Signatur für E-Mails
 // by Dipl.-Ing. Daniel Wallas für www.tuvino.de
 //*********************************************************************************************
-$mailsmarty= new Smarty;
-$mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
+  $mailsmarty= new Smarty;
+  $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 
 //BOF - Dokuman - 20091030 - Check for existing signature files
 //$html_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
@@ -37,10 +32,10 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 	$html_signatur = '';
 	$txt_signatur = '';
   if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html')) {
-        $html_signatur = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
+    $html_signatur = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
   }
   if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt')) {
-        $txt_signatur = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
+    $txt_signatur = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
   }
 //EOF - Dokuman - 20091030 - Check for existing signature files
 
@@ -48,28 +43,28 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
   $html_widerruf = '';
   $txt_widerruf = '';
   if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.html')) {
-        $html_widerruf = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.html');
+    $html_widerruf = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.html');
   }
   if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.txt')) {
-        $txt_widerruf = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.txt');
+    $txt_widerruf = $mailsmarty->fetch(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/widerruf.txt');
   }
-  
+
   //Platzhalter [WIDERRUF] durch Widerruf Text ersetzen
   if (strpos($message_body_html,'[WIDERRUF]') !== false) {
-	$message_body_html = str_replace('[WIDERRUF]', $html_widerruf, $message_body_html);
+    $message_body_html = str_replace('[WIDERRUF]', $html_widerruf, $message_body_html);
   }
   if (strpos($message_body_plain,'[WIDERRUF]') !== false) {
-	$message_body_plain = str_replace('[WIDERRUF]', $txt_widerruf, $message_body_plain);
+    $message_body_plain = str_replace('[WIDERRUF]', $txt_widerruf, $message_body_plain);
   }
-  
+
   //Platzhalter [SIGNATUR] durch Signatur Text ersetzen
   if (strpos($message_body_html,'[SIGNATUR]') !== false) {
-	$message_body_html = str_replace('[SIGNATUR]', $html_signatur, $message_body_html);
-	$html_signatur = '';
+    $message_body_html = str_replace('[SIGNATUR]', $html_signatur, $message_body_html);
+    $html_signatur = '';
   }
   if (strpos($message_body_plain,'[SIGNATUR]') !== false) {
-	$message_body_plain = str_replace('[SIGNATUR]', $txt_signatur, $message_body_plain);
-	$txt_signatur = '';
+    $message_body_plain = str_replace('[SIGNATUR]', $txt_signatur, $message_body_plain);
+    $txt_signatur = '';
   }
   //EOF - web28 - 2010-06-05 - Widerruf in Email
 
@@ -90,7 +85,7 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 		$mail->CharSet = $lang_data['language_charset'];
 		//BOF  - web28 - 2010-07-15 - needed for html_entity_decode
 		$charset = $lang_data['language_charset'];
-		//EOF  - web28 - 2010-07-15 - needed for html_entity_decode		
+		//EOF  - web28 - 2010-07-15 - needed for html_entity_decode
 	}
 	//BOF  - web28 - 2010-06-05 - SetLanguage Multilanguage
 	/*
@@ -100,13 +95,13 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 		$mail->SetLanguage("en", DIR_WS_CLASSES);
 	}
 	*/
-    if (isset (	$_SESSION['language_code'])) {		
+  if (isset (	$_SESSION['language_code'])) {
 		$lang_code = $_SESSION['language_code'];
-	} else $lang_code = DEFAULT_LANGUAGE;	
-	
-	$mail->SetLanguage($lang_code, DIR_WS_CLASSES);	
+	} else $lang_code = DEFAULT_LANGUAGE;
+
+	$mail->SetLanguage($lang_code, DIR_WS_CLASSES);
 	//EOF - web28 - 2010-06-05 - SetLanguage Multilanguage
-	
+
 	if (EMAIL_TRANSPORT == 'smtp') {
 		$mail->IsSMTP();
 		$mail->SMTPKeepAlive = true; // set mailer to use SMTP
@@ -123,22 +118,22 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 	if (EMAIL_TRANSPORT == 'mail') {
 		$mail->IsMail();
 	}
-	
+
 	//BOF  - web28 - 2010-08-27 -  decode html2txt
 	$html_array = array('<br />', '<br/>', '<br>');
 	$txt_array = array(" \n", " \n", " \n");
 	$message_body_plain = str_replace($html_array, $txt_array, $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
-	// remove html tags	
-	$message_body_plain = strip_tags($message_body_plain);	
-	$message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);	
+	// remove html tags
+	$message_body_plain = strip_tags($message_body_plain);
+	$message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);
 	//EOF  - web28 - 2010-08-27 -  decode html2txt
 
 	if (EMAIL_USE_HTML == 'true') { // set email format to HTML
 		$mail->IsHTML(true);
-		$mail->Body = $message_body_html.$html_signatur;//DPW Signatur ergänzt.		
+		$mail->Body = $message_body_html.$html_signatur;//DPW Signatur ergänzt.
 		$mail->AltBody = $message_body_plain;
 	} else {
-		$mail->IsHTML(false);		
+		$mail->IsHTML(false);
 		$mail->Body = $message_body_plain;
 	}
 
@@ -152,7 +147,7 @@ $mailsmarty->compile_dir = DIR_FS_DOCUMENT_ROOT.'templates_c';
 
 	$mail->WordWrap = 50; // set word wrap to 50 characters
 	//$mail->AddAttachment($path_to_attachement);                     // add attachments
-	//$mail->AddAttachment($path_to_more_attachements);               // optional name                                          
+	//$mail->AddAttachment($path_to_more_attachements);               // optional name
 
 	$mail->Subject = $email_subject;
 

@@ -1,6 +1,6 @@
 <?php
 /*------------------------------------------------------------------------------
-  $Id: dectobase64.inc.php 899 2005-04-29 02:40:57Z hhgag $
+  $Id$
 
   XTC-CC - Contribution for XT-Commerce http://www.xt-commerce.com
   modified by http://www.netz-designer.de

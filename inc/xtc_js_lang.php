@@ -2,11 +2,13 @@
 /* -----------------------------------------------------------------------------------------
    $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2005 XT-Commerce
-
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -28,8 +30,5 @@
    	$message=str_replace($search_array,$replace_array,$message);
    	   	
    	return $message;
-   	
    }
-   
-   
 ?>

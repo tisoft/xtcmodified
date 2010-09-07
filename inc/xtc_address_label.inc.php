@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_address_label.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -25,4 +25,4 @@
 
     return xtc_address_format($format_id, $address, $html, $boln, $eoln);
   }
- ?>
+?>

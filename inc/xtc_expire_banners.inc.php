@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_expire_banners.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -34,4 +34,4 @@ require_once(DIR_FS_INC . 'xtc_set_banner_status.inc.php');
       }
     }
   }
- ?>
+?>

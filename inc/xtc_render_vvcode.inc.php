@@ -1,11 +1,14 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_render_vvcode.inc.php,v 1.0
+   $Id$
    
-   Copyright (c) 2003 XT-Commerce
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   
-   by Guido Winger for XT:Commerce (gwinger@xtcommerce.com)
+   based on:
+   (c) 2006 XT-Commerce
   
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -19,14 +22,14 @@ function vvcode_render_code($code) {
     $ttf=array();
     if ($dir= opendir(DIR_WS_INCLUDES.'fonts/')){
     while  (($file = readdir($dir)) !==false) {
-    if (is_file(DIR_WS_INCLUDES.'fonts/'.$file) and (strstr(strtoupper($file),'.TTF'))){
-        $ttf[]=DIR_FS_CATALOG.'/includes/fonts/'.$file;
-        }
-        }
+      if (is_file(DIR_WS_INCLUDES.'fonts/'.$file) and (strstr(strtoupper($file),'.TTF'))){
+          $ttf[]=DIR_FS_CATALOG.'/includes/fonts/'.$file;
+          }
+      }
         closedir($dir);
     }
     $width = 240;
-    $height =50;
+    $height = 50;
 
     $imgh = imagecreate($width, $height);
     // BOF - Tomcraft - 2009-11-06 - Set VVCODE Colors back to default
@@ -100,4 +103,4 @@ function vvcode_render_code($code) {
     imagedestroy($imgh);
  }
 }
- ?>
+?>

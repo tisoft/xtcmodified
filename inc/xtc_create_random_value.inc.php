@@ -1,22 +1,24 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_create_random_value.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(general.php,v 1.225 2003/05/29); www.oscommerce.com 
    (c) 2003	 nextcommerce (xtc_create_random_value.inc.php,v 1.5 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 // include needed functions
-require_once(DIR_FS_INC . 'xtc_rand.inc.php');
-function xtc_create_random_value($length, $type = 'mixed') {
+  require_once(DIR_FS_INC . 'xtc_rand.inc.php');
+  
+  function xtc_create_random_value($length, $type = 'mixed') {
     if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
 
     $rand_value = '';
@@ -37,4 +39,4 @@ function xtc_create_random_value($length, $type = 'mixed') {
 
     return $rand_value;
   }
- ?>
+?>
