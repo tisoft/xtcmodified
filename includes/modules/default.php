@@ -131,14 +131,14 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
   // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
       if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
   // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+  	//BOF - GTB - 2010-08-03 - Security Fix - Base
+  	$image = DIR_WS_CATALOG.$image;
+  	//EOF - GTB - 2010-08-03 - Security Fix - Base
     }
 
     $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'],
-                                   'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],
-                                   //BOF - GTB - 2010-08-03 - Security Fix - Base
-                                   'CATEGORIES_IMAGE' => DIR_WS_CATALOG.$image,
-                                   //'CATEGORIES_IMAGE' => $image,
-                                   //EOF - GTB - 2010-08-03 - Security Fix - Base
+                                   'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],                                   
+                                   'CATEGORIES_IMAGE' => $image,
                                    'CATEGORIES_LINK' => xtc_href_link(FILENAME_DEFAULT, $cPath_new),
                                    'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
     }
@@ -146,15 +146,18 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
     include (DIR_WS_MODULES.FILENAME_NEW_PRODUCTS);
 
     $image = '';
-    if ($category['categories_image'] != '') {
-      $image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
+    if ($categories['categories_image'] != '') {
+      $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
+  // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+      if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
+  // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+  	//BOF - GTB - 2010-08-03 - Security Fix - Base
+  	$image = DIR_WS_CATALOG.$image;
+  	//EOF - GTB - 2010-08-03 - Security Fix - Base
     }
     $default_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
     $default_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
-	//BOF - GTB - 2010-08-03 - Security Fix - Base
-    //$default_smarty->assign('CATEGORIES_IMAGE', $image);
-    $default_smarty->assign('CATEGORIES_IMAGE', DIR_WS_CATALOG.$image);
-    //EOF - GTB - 2010-08-03 - Security Fix - Base
+    $default_smarty->assign('CATEGORIES_IMAGE', $image);
     $default_smarty->assign('CATEGORIES_DESCRIPTION', $category['categories_description']);
 
     $default_smarty->assign('language', $_SESSION['language']);
