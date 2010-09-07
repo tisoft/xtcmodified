@@ -1,6 +1,6 @@
 <?php 
 /* -----------------------------------------------------------------------------------------
-  $Id
+  $Id$ 
    
    xtcModified - community made shopping
    http://www.xtc-modified.org
