@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(customers.php,v 1.76 2003/05/04); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(customers.php,v 1.76 2003/05/04); www.oscommerce.com
    (c) 2003	 nextcommerce (create_account.php,v 1.17 2003/08/24); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------
    Third Party contribution:
    Customers Status v3.x  (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
@@ -27,7 +27,6 @@ require_once (DIR_FS_CATALOG.DIR_WS_CLASSES.'class.phpmailer.php');
 require_once (DIR_FS_INC.'xtc_php_mail.inc.php');
 require_once (DIR_FS_INC.'xtc_create_password.inc.php');
 require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
-
 
 // initiate template engine for mail
 $smarty = new Smarty;
@@ -65,7 +64,7 @@ if ($_GET['action'] == 'edit') {
 	$customers_send_mail = xtc_db_prepare_input($_POST['customers_mail']);
 	$customers_password_encrypted = xtc_db_prepare_input($_POST['entry_password']);
 	$customers_password = xtc_encrypt_password($customers_password_encrypted);
-	
+
 	$customers_mail_comments = xtc_db_prepare_input($_POST['mail_comments']);
 
 	$payment_unallowed = xtc_db_prepare_input($_POST['payment_unallowed']);
@@ -123,13 +122,12 @@ if ($_GET['action'] == 'edit') {
 		}
 	}
 
+//BOF - DokuMan - 2010-09-07 - Fixed: Call to undefined function validate_vatid() in admin/create_account.php
+/*
 	// Vat Check
 	if (xtc_get_geo_zone_code($entry_country_id) != '6') {
-
 		if ($customers_vat_id != '') {
-
 			if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {
-
 				$validate_vatid = validate_vatid($customers_vat_id);
 
 				if ($validate_vatid == '0') {
@@ -159,13 +157,12 @@ if ($_GET['action'] == 'edit') {
 					}
 					$customers_vat_id_status = '9';
 				}
-
 			}
-
 		}
 	}
 	// Vat Check
-
+*/
+//EOF - DokuMan - 2010-09-07 - Fixed: Call to undefined function validate_vatid() in admin/create_account.php
 
 // New VAT Check
 	if (xtc_get_geo_zone_code($entry_country_id) != '6') {
@@ -278,7 +275,22 @@ if ($_GET['action'] == 'edit') {
 	}
 
 	if ($error == false) {
-		$sql_data_array = array ('customers_status' => $customers_status_c, 'customers_cid' => $customers_cid, 'customers_vat_id' => $customers_vat_id, 'customers_vat_id_status' => $customers_vat_id_status, 'customers_firstname' => $customers_firstname, 'customers_lastname' => $customers_lastname, 'customers_email_address' => $customers_email_address, 'customers_telephone' => $customers_telephone, 'customers_fax' => $customers_fax, 'payment_unallowed' => $payment_unallowed, 'shipping_unallowed' => $shipping_unallowed, 'customers_password' => $customers_password,'customers_date_added' => 'now()','customers_last_modified' => 'now()');
+		$sql_data_array = array (
+		'customers_status' => $customers_status_c,
+		'customers_cid' => $customers_cid,
+		'customers_vat_id' => $customers_vat_id,
+		'customers_vat_id_status' => $customers_vat_id_status,
+		'customers_firstname' => $customers_firstname,
+		'customers_lastname' => $customers_lastname,
+		'customers_email_address' => $customers_email_address,
+		'customers_telephone' => $customers_telephone,
+		'customers_fax' => $customers_fax,
+		'payment_unallowed' => $payment_unallowed,
+		'shipping_unallowed' => $shipping_unallowed,
+		'customers_password' => $customers_password,
+		'customers_date_added' => 'now()',
+		'customers_last_modified' => 'now()'
+		);
 
 		if (ACCOUNT_GENDER == 'true')
 			$sql_data_array['customers_gender'] = $customers_gender;
@@ -354,7 +366,7 @@ if ($_GET['action'] == 'edit') {
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
@@ -389,7 +401,6 @@ if ($_GET['action'] == 'edit') {
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
 <?php
-
 if (ACCOUNT_GENDER == 'true') {
 ?>
           <tr>
@@ -409,16 +420,11 @@ if (ACCOUNT_GENDER == 'true') {
 ?></td>
           </tr>
 <?php
-
 }
 ?>
           <tr>
             <td class="main"><?php echo ENTRY_CID; ?></td>
-            <td class="main"><?php
-
-
-echo xtc_draw_input_field('csID', $customers_cid, 'maxlength="32"');
-?></td>
+            <td class="main"><?php echo xtc_draw_input_field('csID', $customers_cid, 'maxlength="32"'); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo ENTRY_FIRST_NAME; ?></td>
@@ -451,7 +457,6 @@ if ($error == true) {
 ?></td>
           </tr>
 <?php
-
 if (ACCOUNT_DOB == 'true') {
 ?>
           <tr>
@@ -470,7 +475,6 @@ if (ACCOUNT_DOB == 'true') {
 ?></td>
           </tr>
 <?php
-
 }
 ?>
           <tr>
@@ -524,7 +528,6 @@ if (ACCOUNT_COMPANY == 'true') {
 ?></td>
           </tr>
 <?php
-
 	if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {
 ?>
           <tr>
@@ -543,14 +546,11 @@ if (ACCOUNT_COMPANY == 'true') {
 ?></td>
           </tr>
 <?php
-
 	}
 ?>
-
         </table></td>
       </tr>
 <?php
-
 }
 ?>
       <tr>
@@ -577,7 +577,6 @@ if ($error == true) {
 ?></td>
           </tr>
 <?php
-
 if (ACCOUNT_SUBURB == 'true') {
 ?>
           <tr>
@@ -596,7 +595,6 @@ if (ACCOUNT_SUBURB == 'true') {
 ?></td>
           </tr>
 <?php
-
 }
 ?>
           <tr>
@@ -630,7 +628,6 @@ if ($error == true) {
 ?></td>
           </tr>
 <?php
-
 if (ACCOUNT_STATE == 'true') {
 ?>
           <tr>
@@ -659,7 +656,6 @@ if (ACCOUNT_STATE == 'true') {
 ?></td>
          </tr>
 <?php
-
 }
 ?>
           <tr>
@@ -734,7 +730,6 @@ if ($processed == true) {
             <td class="main"><?php echo ENTRY_MAIL; ?></td>
             <td class="main">
 <?php
-
 if ($error == true) {
 	if ($entry_mail_error == true) {
 		echo xtc_draw_radio_field('customers_mail', 'yes', true, $customers_send_mail).'&nbsp;&nbsp;'.YES.'&nbsp;&nbsp;'.xtc_draw_radio_field('customers_mail', 'no', false, $customers_send_mail).'&nbsp;&nbsp;'.NO.'&nbsp;'.ENTRY_MAIL_ERROR;
