@@ -146,8 +146,8 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
     include (DIR_WS_MODULES.FILENAME_NEW_PRODUCTS);
 
     $image = '';
-    if ($categories['categories_image'] != '') {
-      $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
+    if ($category['categories_image'] != '') {
+      $image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
   // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
       if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
   // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
