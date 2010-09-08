@@ -266,9 +266,9 @@ if($_POST['install_cfg'] == 1) {$create_config = 1;};
 <br />
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <?php// BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
+    <?php // BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
     <td align="right"><a href="install_step1.php?db=<?php echo $install_db;?>&cfg=<?php echo $create_config;?>"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="images/button_continue.gif"></td>
-    <?php// EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
+    <?php // EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
   </tr>
 </table>
 

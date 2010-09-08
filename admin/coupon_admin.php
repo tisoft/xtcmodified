@@ -277,7 +277,7 @@
             <td valign="top">
 			 <table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
-				<td class="dataTableHeadingContent" align="left"><?php echo COUPON_ID; ?></td> <?php// web28 - 2010-07-23 - new table design ?>
+				<td class="dataTableHeadingContent" align="left"><?php echo COUPON_ID; ?></td> <?php // web28 - 2010-07-23 - new table design ?>
                 <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_ID; ?></td>
                 <td class="dataTableHeadingContent" align="left"><?php echo CUSTOMER_NAME; ?></td>
                 <td class="dataTableHeadingContent" align="left"><?php echo IP_ADDRESS; ?></td>
@@ -305,7 +305,7 @@ $customer_query = xtc_db_query("select customers_firstname, customers_lastname f
 $customer = xtc_db_fetch_array($customer_query);
 
 ?>
-                <td class="dataTableContent" align="left">&nbsp;<?php echo $_GET['cid']; ?></td><?php// web28 - 2010-07-23 - new table design ?>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $_GET['cid']; ?></td><?php // web28 - 2010-07-23 - new table design ?>
 				<td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['customer_id']; ?></td>
                 <td class="dataTableContent" align="left">&nbsp;<?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
                 <td class="dataTableContent" align="left">&nbsp;<?php echo $cc_list['redeem_ip']; ?></td>
@@ -448,7 +448,7 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
 
           <tr><?php echo xtc_draw_form('mail', FILENAME_COUPON_ADMIN, 'action=preview_email&cid='. $_GET['cid']); ?>
-            <td><table class="main" border="0" cellpadding="0" cellspacing="2"><?php// web28 - 2010-07-23 - new table design ?>
+            <td><table class="main" border="0" cellpadding="0" cellspacing="2"><?php // web28 - 2010-07-23 - new table design ?>
               <tr>
                 <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
@@ -539,7 +539,7 @@ $customer = xtc_db_fetch_array($customer_query);
       <tr>
       <td>
 <?php echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cid=' . $_GET['cid']); ?>
- <?php// BOF - web28 - 2010-07-23 - new table design ?>
+ <?php // BOF - web28 - 2010-07-23 - new table design ?>
 	  <table class="main" border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
 
 <?php
@@ -723,7 +723,7 @@ $customer = xtc_db_fetch_array($customer_query);
 <?php
     echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update&oldaction='.$_GET['action'] . '&cid=' . $_GET['cid'],'post', 'enctype="multipart/form-data"');
 ?>
-<?php// BOF - web28 - 2010-07-23 - new table design?>
+<?php // BOF - web28 - 2010-07-23 - new table design?>
       <table class="main" border="0" width="100%" cellspacing="0" cellpadding="6" style="border-collapse:collapse">
 <?php
         $languages = xtc_get_languages();
@@ -847,7 +847,7 @@ $customer = xtc_db_fetch_array($customer_query);
 		<td align="left">&nbsp;</td>
 	  </tr>
       </td></table>
-<?php// EOF - web28 - 2010-07-23 - new table design?>
+<?php // EOF - web28 - 2010-07-23 - new table design?>
 	  </form>
       </tr>
 
@@ -883,7 +883,7 @@ $customer = xtc_db_fetch_array($customer_query);
         <td><a class="button" onclick="this.blur();" href="<?php echo xtc_href_link('coupon_admin.php', 'action=new'); ?>"><?php echo BUTTON_INSERT; ?></a><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
-<?php// BOF - web28 - 2010-07-23 - new table design?>
+<?php // BOF - web28 - 2010-07-23 - new table design?>
 			<table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent" align="left" width="25"><?php echo COUPON_ID; ?></td>
@@ -959,7 +959,7 @@ $customer = xtc_db_fetch_array($customer_query);
                 <td align="right" colspan="2" class="smallText"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link('coupon_admin.php', 'page=' . $_GET['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
               </tr>
             </table>
-<?php// EOF - web28 - 2010-07-23 - new table design?>
+<?php // EOF - web28 - 2010-07-23 - new table design?>
 			</td>
           </tr>
         </table></td>

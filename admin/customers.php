@@ -626,7 +626,7 @@ function check_form() {
     <td class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
 
-if ($_GET['action'] == 'edit' || $_GET['action'] == 'update') {
+if (isset($_GET['action']) && ($_GET['action'] == 'edit' || $_GET['action'] == 'update')) {
 	if (!is_object($cInfo)) { //DokuMan - 2010-03-17 - check if $cinfo is an object
 		$customers_query = xtc_db_query("select c.payment_unallowed, c.shipping_unallowed, c.customers_gender, c.customers_vat_id, c.customers_status, c.member_flag, c.customers_firstname,c.customers_cid, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from ".TABLE_CUSTOMERS." c left join ".TABLE_ADDRESS_BOOK." a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '".$_GET['cID']."'");
 	
@@ -1106,9 +1106,9 @@ if ($error == true) {
                 <td class="dataTableHeadingContent" width="40"><?php echo TABLE_HEADING_ACCOUNT_TYPE; ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LASTNAME.xtc_sorting(FILENAME_CUSTOMERS,'customers_lastname'); ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FIRSTNAME.xtc_sorting(FILENAME_CUSTOMERS,'customers_firstname'); ?></td>
-				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address ?>
+				<?php // BOF - web28 - 2010-05-28 - added  customers_email_address ?>
 				<td class="dataTableHeadingContent"><?php echo TABLE_HEADING_EMAIL.xtc_sorting(FILENAME_CUSTOMERS,'customers_email_address'); ?></td>
-				<?php// EOF - web28 - 2010-05-28 - added  customers_email_address ?>
+				<?php // EOF - web28 - 2010-05-28 - added  customers_email_address ?>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_UMSATZ; ?></td>
                 <td class="dataTableHeadingContent" align="left"><?php echo HEADING_TITLE_STATUS; ?></td>
                 <?php if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {?>
@@ -1295,9 +1295,9 @@ if ($error == true) {
 </td>
                 <td class="dataTableContent"><b><?php echo $customers['customers_lastname']; ?></b></td>
                 <td class="dataTableContent"><?php echo $customers['customers_firstname']; ?></td>
-				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address ?>
+				<?php // BOF - web28 - 2010-05-28 - added  customers_email_address ?>
 				<td class="dataTableContent"><?php echo $customers['customers_email_address']; ?></td>
-				<?php// EOF - web28 - 2010-05-28 - added  customers_email_address ?>
+				<?php // EOF - web28 - 2010-05-28 - added  customers_email_address ?>
                 <?php if ($umsatz['ordersum'] !='') { ?>
                 <td class="dataTableContent"><?php if ($umsatz['ordersum']>0) { echo $currencies->format($umsatz['ordersum']);} ?></td>
                 <?php } else { ?>
@@ -1327,11 +1327,11 @@ if ($error == true) {
 	}
 ?>
               <tr>
-				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address 
+				<?php // BOF - web28 - 2010-05-28 - added  customers_email_address 
 			   //<td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 			   ?>
                 <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-				<?php// BOF - web28 - 2010-05-28 - added  customers_email_address ?>
+				<?php // BOF - web28 - 2010-05-28 - added  customers_email_address ?>
                   <tr>
                     <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_query_numrows, '100', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
                     <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_query_numrows, '100', MAX_DISPLAY_PAGE_LINKS, $_GET['page'], xtc_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
