@@ -1,5 +1,4 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id: amoneybookers.php 85 2007-01-14 15:19:44Z mzanier $
 
@@ -35,10 +34,11 @@ define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_3', '<b>100% data protection</b> 
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_4', '<b>Maximum comfort</b> -  Once you have a Moneybookers account, you only need your e-mail address and password for all future transactions');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_5', '<b>Broad acceptance</b> -  With Moneybookers, you can pay in serveral thousand shops');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_1', '<br /><br />Pay instantly by...');
-
-define('MB_TEXT_MBDATE', 'Last Change:');
-define('MB_TEXT_MBTID', 'TR ID:');
-define('MB_TEXT_MBERRTXT', 'Status:');
+//BOF - DokuMan - 2010-09-08 - already defined in english.php
+//define('MB_TEXT_MBDATE', 'Last Change:');
+//define('MB_TEXT_MBTID', 'TR ID:');
+//define('MB_TEXT_MBERRTXT', 'Status:');
+//BOF - DokuMan - 2010-09-08 - already defined in english.php
 
 define('MODULE_PAYMENT_AMONEYBOOKERS_PROCESSED_STATUS_ID_TITLE', 'Order status - Processed');
 define('MODULE_PAYMENT_AMONEYBOOKERS_PROCESSED_STATUS_ID_DESC', '');

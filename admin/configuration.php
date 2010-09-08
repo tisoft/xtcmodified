@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: configuration.php 229 2007-03-06 19:46:21Z mzanier $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(configuration.php,v 1.40 2002/12/29); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(configuration.php,v 1.40 2002/12/29); www.oscommerce.com
    (c) 2003	 nextcommerce (configuration.php,v 1.16 2003/08/19); www.nextcommerce.org
+   (c) 2006 XT-Commerce (configuration.php 229 2007-03-06)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
@@ -26,9 +27,9 @@
 
 				// email check
 				if (isset($_POST['_PAYMENT_MONEYBOOKERS_EMAILID'])) {
-					 
+
 					$url = 'https://www.moneybookers.com/app/email_check.pl?email='.$_POST['_PAYMENT_MONEYBOOKERS_EMAILID'].'&cust_id=8644877&password=1a28e429ac2fcd036aa7d789ebbfb3b0';
-					 
+
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $url);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -40,7 +41,7 @@
 					if ($result=='NOK') {
 						$messageStack->add_session(MB_ERROR_NO_MERCHANT, 'error');
 					}
-						
+
 					if (strstr($result,'OK,')) {
 						$data = explode(',',$result);
 						$_POST['_PAYMENT_MONEYBOOKERS_MERCHANTID'] = $data[1];
@@ -57,7 +58,7 @@
 
                xtc_redirect(FILENAME_CONFIGURATION. '?gID=' . (int)$_GET['gID']);
         break;
-	
+
 	//BOF - Dokuman - 2010-02-04 - delete cache files in admin section
     case 'delcache':
       $path = DIR_FS_CATALOG.'cache/';
@@ -123,7 +124,7 @@
 				<table border="0" width="100%" cellspacing="0" cellpadding="0">
 					<tr>
 						<td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_configuration.gif'); ?></td>
-						<td width="184" class="pageHeading"><?php 
+						<td width="184" class="pageHeading"><?php
 						// BOF - Hetfield - 2010-01-15 - multilanguage title in configuration
 						if (!@constant(BOX_CONFIGURATION_.$cfg_group['configuration_group_id'])) {
 							echo $cfg_group['configuration_group_title'];
@@ -134,13 +135,13 @@
 						?></td>
 						<?PHP //BOF - Dokuman - 2010-02-04 - delete cache files in admin section ?>
 					    <td rowspan="2" class="pageHeading">
-					    <?PHP				          
+					    <?PHP
 							if ($_GET['gID']==11) {
 								echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=delcache');
 								echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE_CACHE . '"/></form> ';
 								echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=deltempcache');
 								echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE_TEMP_CACHE . '"/></form>';
-							}						
+							}
 
 
 						?>
@@ -167,10 +168,10 @@
             //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
          		case 31:
             //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
-  
 
 
-            //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4        		
+
+            //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
          			echo '<table class="infoBoxHeading" width="100%">
             				<tr>
                 			<td width="150" align="center">
@@ -198,12 +199,12 @@
             				</tr>
         					</table>';
 						if ($_GET['gID']=='31') echo MB_INFO;
-//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers & paypal payment module version 2.4        		
+//EOF - Dokuman - 2009-10-02 - added entries for new moneybookers & paypal payment module version 2.4
          			break;
          	}
-         	?> 
-         
-          
+         	?>
+
+
           <tr>
             <td valign="top" align="right"><?php echo xtc_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . (int)$_GET['gID'] . '&action=save'); ?>
             <table width="100%"  border="0" cellspacing="0" cellpadding="8">
@@ -226,7 +227,7 @@
           if ($configuration['configuration_value'] != '') {
             $shipping_installed = explode(';', $configuration['configuration_value']);
             for ($i = 0, $n = sizeof($shipping_installed); $i < $n; $i++) {
-              include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/shipping/' . $shipping_installed[$i]);			
+              include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/shipping/' . $shipping_installed[$i]);
             }
           }
           break;
@@ -235,7 +236,7 @@
           if ($configuration['configuration_value'] != '') {
             $ot_installed = explode(';', $configuration['configuration_value']);
             for ($i = 0, $n = sizeof($ot_installed); $i < $n; $i++) {
-              include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/order_total/' . $ot_installed[$i]);			
+              include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/order_total/' . $ot_installed[$i]);
             }
           }
           break;
@@ -257,7 +258,7 @@
       $cfgValue = $configuration['configuration_value'];
     }
 
-    if (((!$_GET['cID']) || (@$_GET['cID'] == $configuration['configuration_id'])) && (!$cInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+    if ((!isset($_GET['cID']) || (@$_GET['cID'] == $configuration['configuration_id'])) && (!$cInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
       $cfg_extra_query = xtc_db_query("select configuration_key,configuration_value, date_added, last_modified, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_id = '" . $configuration['configuration_id'] . "'");
       $cfg_extra = xtc_db_fetch_array($cfg_extra_query);
 
@@ -273,7 +274,7 @@
 
    if (strstr($value_field,'configuration_value')) $value_field=str_replace('configuration_value',$configuration['configuration_key'],$value_field);
 
-  // BOF vr - 2010-02-04 admin configuration pages 3 column layout 
+  // BOF vr - 2010-02-04 admin configuration pages 3 column layout
   /* echo '
   <tr>
     <td width="300" valign="top" class="dataTableContent"><b>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</b></td>
@@ -286,7 +287,7 @@
     <br />'.constant(strtoupper( $configuration['configuration_key'].'_DESC')).'</td>
   </tr>
   ';*/
-  
+
   echo '
   <tr>
     <td style="min-width:20%; border-bottom: 1px solid #aaaaaa;" class="dataTableContent"><b>'.constant(strtoupper($configuration['configuration_key'].'_TITLE')).'</b></td>
@@ -294,7 +295,7 @@
     <td style="min-width:60%; border-bottom: 1px solid #aaaaaa;" class="dataTableContent">'.constant(strtoupper( $configuration['configuration_key'].'_DESC')).'</td>
   </tr>
   ';
-  // EOF vr - 2010-02-04 admin configuration pages 3 column layout 
+  // EOF vr - 2010-02-04 admin configuration pages 3 column layout
 
   }
 ?>

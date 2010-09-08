@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: customers.php 1296 2005-10-08 17:52:26Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(customers.php,v 1.76 2003/05/04); www.oscommerce.com 
    (c) 2003	 nextcommerce (customers.php,v 1.22 2003/08/24); www.nextcommerce.org
+   (c) 2006 XT-Commerce (customers.php 1296 2005-10-08)
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -1136,7 +1137,7 @@ if ($error == true) {
 	}
 	//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
 
-	if ($_GET['status'] && $_GET['status'] != '100' or $_GET['status'] == '0') {
+	if (isset($_GET['status']) && $_GET['status'] != '100' || $_GET['status'] == '0') {
 		$status = xtc_db_prepare_input($_GET['status']);
 		//  echo $status;
 		$search = "and c.customers_status = '".$status."'";
@@ -1263,7 +1264,7 @@ if ($error == true) {
 		$umsatz = xtc_db_fetch_array($umsatz_query);
 		// EOF - JUNG GESTALTEN - 27.11.2008 - KUNDENUMSÄTZE
 
-		if (((!$_GET['cID']) || (@ $_GET['cID'] == $customers['customers_id'])) && (!$cInfo)) {
+		if ((!isset($_GET['cID']) || (@ $_GET['cID'] == $customers['customers_id'])) && (!$cInfo)) {
 			$country_query = xtc_db_query("select countries_name from ".TABLE_COUNTRIES." where countries_id = '".$customers['entry_country_id']."'");
 			$country = xtc_db_fetch_array($country_query);
 

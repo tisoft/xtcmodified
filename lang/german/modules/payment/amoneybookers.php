@@ -1,5 +1,4 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id: amoneybookers.php 85 2007-01-14 15:19:44Z mzanier $
 
@@ -35,11 +34,11 @@ define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_3', '<b>100%-iger Datenschutz</b>
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_4', '<b>maximaler Komfort</b> -  Nachdem Sie einmalig bei Moneybookers registriert sind, reichen Ihre E-Mail-Adresse und Passwort f&uuml;r alle k&uuml;nftigen Zahlungen.');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_5', '<b>hohe Akzeptanz</b> -  Mit Moneybookers k&ouml;nnen Sie in mehreren tausend Shops einkaufen.');
 define('MODULE_PAYMENT_AMONEYBOOKERS_TEXT_INFO_1', '<br /><br />Direkt und bequem zahlen mit...');
-
-define('MB_TEXT_MBDATE', 'Letzte Aktualisierung:');
-define('MB_TEXT_MBTID', 'TR ID:');
-define('MB_TEXT_MBERRTXT', 'Status:');
-
+//BOF - DokuMan - 2010-09-08 - already defined in english.php
+//define('MB_TEXT_MBDATE', 'Letzte Aktualisierung:');
+//define('MB_TEXT_MBTID', 'TR ID:');
+//define('MB_TEXT_MBERRTXT', 'Status:');
+//EOF - DokuMan - 2010-09-08 - already defined in english.php
 define('MODULE_PAYMENT_AMONEYBOOKERS_PROCESSED_STATUS_ID_TITLE', 'Bestellstatus - Processed');
 define('MODULE_PAYMENT_AMONEYBOOKERS_PROCESSED_STATUS_ID_DESC', '');
 

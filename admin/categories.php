@@ -1,17 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(countries.php,v 1.26 2003/05/17); www.oscommerce.com 
-   (c) 2003	 nextcommerce (countries.php,v 1.9 2003/08/18); www.nextcommerce.org
-   (c) 2006 XT-Commerce (countries.php 1123 2005-07-27)
+   (c) 2002-2003 osCommerce(categories.php,v 1.26 2003/05/17); www.oscommerce.com
+   (c) 2003	 nextcommerce (categories.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (categories.php 1123 2005-07-27)
    --------------------------------------------------------------
    Third Party contribution:
    Enable_Disable_Categories 1.3               Autor: Mikel Williams | mikel@ladykatcostumes.com
@@ -107,7 +107,7 @@ if ($_GET['action']) {
 			}
 			break;
 			//EOB setpflag
-			
+
 		case 'setsflag' :
 			if (($_GET['flag'] == '0') || ($_GET['flag'] == '1')) {
 				if ($_GET['pID']) {
@@ -115,7 +115,7 @@ if ($_GET['action']) {
 					if ($_GET['flag'] == '1') $catfunc->link_product($_GET['pID'], 0);
 					//BOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
 					$catfunc->set_product_remove_startpage_sql($_GET['pID'], $_GET['flag']);
-					if ($_GET['flag'] == '0') xtc_redirect(xtc_href_link(FILENAME_CATEGORIES)); 
+					if ($_GET['flag'] == '0') xtc_redirect(xtc_href_link(FILENAME_CATEGORIES));
 					//EOF - Dokuman - 2009-11-12 - BUGFIX #0000351: When products disable display on startpage, should update table products_to_categories
 				}
 			}
@@ -152,7 +152,7 @@ if ($_GET['action']) {
 
 			// xs:booster start - multiauktion (v1.041)
 			if (isset($_POST['multi_xtb'])) {
-			
+
 				$_SESSION['xtb1']['multi_xtb']=array();
 
 				require_once("../".DIR_WS_CLASSES.'xtbooster.php');
@@ -163,7 +163,7 @@ if ($_GET['action']) {
 
 				$MULTI_REVERSECATS = $resx['MULTI_REVERSECATS'];
 				$MULTI_ONLYONSTOCK = $resx['MULTI_ONLYONSTOCK'];
-			
+
 				if (is_array($_POST['multi_products'])) {
 					$x=$_POST['multi_products'];
 					foreach($x as $products_id) {
@@ -199,10 +199,10 @@ if ($_GET['action']) {
 						if($MULTI_REVERSECATS=='true') _xtb_reverse($category_id);
 					}
 				}
-				
+
 				header("Location: xtbooster.php?xtb_module=add&mode=multi_xtb");
 				exit;
-			}		
+			}
 			// xs:booster end - multiauktion (v1.041)
 
 
@@ -250,7 +250,7 @@ if ($_GET['action']) {
 				}
 				xtc_redirect(xtc_href_link(FILENAME_CATEGORIES, 'cPath='.$dest_category_id.'&'.xtc_get_all_get_params(array ('cPath', 'action', 'pID', 'cID'))));
 			}
-			// --- MULTI MOVE ENDS ---	
+			// --- MULTI MOVE ENDS ---
 
 			// --- MULTI COPY ---
 			if (isset ($_POST['multi_copy_confirm'])) {
@@ -273,7 +273,7 @@ if ($_GET['action']) {
 						elseif (xtc_not_null($_POST['dest_category_id'])) {
 							//BOF - GTB - 2010-08-01 - categorie copy not to TOP - thanks to enricosh
 							$dest_category_id = xtc_db_prepare_input($_POST['dest_category_id']);
-							//EOF - GTB - 2010-08-01 - categorie copy not to TOP - thanks to enricosh					
+							//EOF - GTB - 2010-08-01 - categorie copy not to TOP - thanks to enricosh
 							if ($_POST['copy_as'] == 'link') {
 								$catfunc->copy_category($category_id, $dest_category_id, 'link');
 							}
@@ -318,11 +318,11 @@ if ($_GET['action']) {
 				}
 				xtc_redirect(xtc_href_link(FILENAME_CATEGORIES, 'cPath='.$dest_category_id.'&'.xtc_get_all_get_params(array ('cPath', 'action', 'pID', 'cID'))));
 			}
-			// --- MULTI COPY ENDS ---					
+			// --- MULTI COPY ENDS ---
 
 			xtc_redirect(xtc_href_link(FILENAME_CATEGORIES, 'cPath='.$_GET['cPath'].'&'.xtc_get_all_get_params(array ('cPath', 'action', 'pID', 'cID'))));
 			break;
-			#EOB multi_action_confirm			
+			#EOB multi_action_confirm
 
 	} //EOB switch action
 } //EOB if action
@@ -387,7 +387,7 @@ if (USE_WYSIWYG == 'true') {
 // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
 //		<div id="spiffycalendar" class="text"></div>
 // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
-?>		
+?>
 		<!-- header //-->
 		<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 		<!-- header_eof //-->

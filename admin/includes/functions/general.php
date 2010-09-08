@@ -923,6 +923,7 @@ function xtc_set_time_limit($limit) {
 ////
 // Alias function for Store configuration values in the Administration Tool
 function xtc_cfg_select_option($select_array, $key_value, $key = '') {
+  $string = '';
 	for ($i = 0, $n = sizeof($select_array); $i < $n; $i ++) {
 		$name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
 		// BOF vr - 2010-02-04 admin configuration pages 3 column layout - modified by web28 2010-06-09
@@ -1337,7 +1338,7 @@ function xtc_get_zone_class_title($zone_class_id) {
 }
 
 function xtc_cfg_pull_down_template_sets() {
-	$name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
+	$name = (isset($key) ? 'configuration['.$key.']' : 'configuration_value');
 	if ($dir = opendir(DIR_FS_CATALOG.'templates/')) {
 		while (($templates = readdir($dir)) !== false) {
 			if (is_dir(DIR_FS_CATALOG.'templates/'."//".$templates) and ($templates != "CVS") and ($templates != ".") and ($templates != "..")) {

@@ -1,28 +1,29 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: modules.php 7 2006-12-02 12:03:48Z mzanier $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/28); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/28); www.oscommerce.com
    (c) 2003	 nextcommerce (modules.php,v 1.23 2003/08/19); www.nextcommerce.org
+   (c) 2006 XT-Commerce (categories.php 1123 2005-07-27)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
 
   // include needed functions (for modules)
 
-	//Eingefügt um Fehler in CC Modul zu unterdrücken. 
+	//Eingefügt um Fehler in CC Modul zu unterdrücken.
    require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
-   $xtPrice = new xtcPrice($_SESSION['currency'],''); 
- 
+   $xtPrice = new xtcPrice($_SESSION['currency'],'');
+
   switch ($_GET['set']) {
     case 'shipping':
       $module_type = 'shipping';
@@ -78,7 +79,7 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
@@ -99,11 +100,11 @@
     <td class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr> 
+  <tr>
     <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_modules.gif'); ?></td>
     <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
   </tr>
-  <tr> 
+  <tr>
     <td class="main" valign="top">XT Modules</td>
   </tr>
 </table> </td>
@@ -151,13 +152,13 @@
             $installed_modules[$module->sort_order] = $file;
           else
             $installed_modules[] = $file;
-		// EOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list  
+		// EOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
         } else {
           $installed_modules[] = $file;
         }
       }
 
-      if (((!$_GET['module']) || ($_GET['module'] == $class)) && (!$mInfo)) {
+      if ((!isset($_GET['module']) || ($_GET['module'] == $class)) && (!$mInfo)) {
         $module_info = array('code' => $module->code,
                              'title' => $module->title,
                              'description' => $module->description,
@@ -191,13 +192,13 @@
         echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php 
-                
-                echo $module->title; 
-                
-                if ($module->icons_available!='') 
+                <td class="dataTableContent"><?php
+
+                echo $module->title;
+
+                if ($module->icons_available!='')
                 	echo '<br />'.$module->icons_available;
-                
+
                 ?></td>
 				<td class="dataTableContent"><?php echo str_replace('.php','',$file); ?></td>
                 <td class="dataTableContent" align="right"><?php if (is_numeric($module->sort_order)) echo $module->sort_order; ?>&nbsp;</td>
@@ -244,7 +245,7 @@
       $keys = '';
       reset($mInfo->keys);
       while (list($key, $value) = each($mInfo->keys)) {
-	 // if($value['description']!='_DESC' && $value['title']!='_TITLE'){ 
+	 // if($value['description']!='_DESC' && $value['title']!='_TITLE'){
         $keys .= '<b>' . $value['title'] . '</b><br />' .  $value['description'].'<br />';
 	//	}
         if ($value['set_function']) {

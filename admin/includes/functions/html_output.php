@@ -1,19 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(html_output.php,v 1.26 2002/08/06); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(html_output.php,v 1.26 2002/08/06); www.oscommerce.com
    (c) 2003	 nextcommerce (html_output.php,v 1.7 2003/08/18); www.nextcommerce.org
    (c) 2006	 xt-commerce (html_output.php 1125 2005-07-28)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   ////
@@ -153,7 +153,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   // Output a form input field
   function xtc_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" name="' . $name . '"';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+    if ( isset($GLOBALS[$name]) && ($reinsert_value) ) {
       $field .= ' value="' . htmlspecialchars(trim($GLOBALS[$name])) . '"';
     } elseif ($value != '') {
       $field .= ' value="' . htmlspecialchars(trim($value)) . '"';
@@ -170,7 +170,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   // Output a form small input field
   function xtc_draw_small_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" size="3" name="' . $name . '"';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+    if ( isset($GLOBALS[$name]) && ($reinsert_value) ) {
       $field .= ' value="' . htmlspecialchars(trim($GLOBALS[$name])) . '"';
     } elseif ($value != '') {
       $field .= ' value="' . htmlspecialchars(trim($value)) . '"';
@@ -208,7 +208,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     if ($value != '') {
       $selection .= ' value="' . $value . '"';
     }
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && ($GLOBALS[$name] == $value)) || ($value && ($value == $compare)) ) {
+    //BOF - DokuMan - 2010-09-08 - set undefined index
+    if ( ($checked == true) || (isset($GLOBALS[$name]) && ($GLOBALS[$name] == 'on')) || ($value && isset($GLOBALS[$name]) && ($GLOBALS[$name] == $value)) || ($value && ($value == $compare)) ) {
+    //if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && ($GLOBALS[$name] == $value)) || ($value && ($value == $compare)) ) {
+    //EOF - DokuMan - 2010-09-08 - set undefined index
       $selection .= ' CHECKED';
     }
     $selection .= '>';
@@ -234,7 +237,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     $field = '<textarea id="'.$name.'" name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
     if ($params) $field .= ' ' . $params;
     $field .= '>';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+    if ( isset($GLOBALS[$name]) && ($reinsert_value) ) {
       $field .= $GLOBALS[$name];
     } elseif ($text != '') {
       $field .= $text;
@@ -268,15 +271,15 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
    	{
          foreach ($values as $key=>$val) {
              $field .= '<option value="' .$val['id'] . '"';
-             //BOF - DokuMan - 2010-09-08 - set undefined index            
+             //BOF - DokuMan - 2010-09-08 - set undefined index
              if ( ((strlen($val['id']) > 0) && isset($GLOBALS[$name]) && ($GLOBALS[$name] == $val['id'])) || ($default == $val['id']) ) {
              //if ( ((strlen($val['id']) > 0) && ($GLOBALS[$name] == $val['id'])) || ($default == $val['id']) ) {
              //EOF - DokuMan - 2010-09-08 - set undefined index
-               $field .= ' SELECTED';    
-             }    
+               $field .= ' SELECTED';
+             }
              $field .= '>' . $val['text'] . '</option>';
          }
-   	} 
+   	}
     $field .= '</select>';
 
     if ($required) $field .= TEXT_FIELD_REQUIRED;
@@ -296,7 +299,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a>';
 
           break;
-          
+
           case FILENAME_CATEGORIES:
 
           $nav='<br /><div><a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
@@ -304,7 +307,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           $nav.='<a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'-desc&'.xtc_get_all_get_params(array('action','sorting'))).'">';
           $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a></div>';
 
-          break;          
+          break;
 
       }
 
