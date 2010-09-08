@@ -105,7 +105,10 @@ $order_total_modules->pre_confirmation_check();
 // GV Code End
 
 // GV Code line changed
-if ((is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && (!is_object($$_SESSION['payment'])) && (!isset ($_SESSION['credit_covers']))) || (is_object($$_SESSION['payment']) && ($$_SESSION['payment']->enabled == false))) {
+//BOF - DokuMan - 2010-09-08 - additional checks
+if ((is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && (!isset($$_SESSION['payment']) || !is_object($$_SESSION['payment'])) && (!isset($_SESSION['credit_covers']))) || (isset($$_SESSION['payment']) && is_object($$_SESSION['payment']) && ($$_SESSION['payment']->enabled == false))) {
+//if ((is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && (!is_object($$_SESSION['payment'])) && (!isset ($_SESSION['credit_covers']))) || (is_object($$_SESSION['payment']) && ($$_SESSION['payment']->enabled == false))) {
+//EOF - DokuMan - 2010-09-08 - additional checks
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
 }
 

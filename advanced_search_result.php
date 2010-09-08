@@ -197,7 +197,7 @@ if ($error == 1 && $keyerror != 1) {
 	if (SEARCH_IN_ATTR == 'true') { $from_str .= " LEFT OUTER JOIN ".TABLE_PRODUCTS_ATTRIBUTES." AS pa ON (p.products_id = pa.products_id) LEFT OUTER JOIN ".TABLE_PRODUCTS_OPTIONS_VALUES." AS pov ON (pa.options_values_id = pov.products_options_values_id) "; }
 	$from_str .= "LEFT OUTER JOIN ".TABLE_SPECIALS." AS s ON (p.products_id = s.products_id) AND s.status = '1'";
 
-	if (('DISPLAY_PRICE_WITH_TAX' == 'true') && ((isset ($_GET['pfrom']) && xtc_not_null($_GET['pfrom'])) || (isset ($_GET['pto']) && xtc_not_null($_GET['pto'])))) {
+	if ((DISPLAY_PRICE_WITH_TAX == 'true') && ((isset ($_GET['pfrom']) && xtc_not_null($_GET['pfrom'])) || (isset ($_GET['pto']) && xtc_not_null($_GET['pto'])))) {
 		if (!isset ($_SESSION['customer_country_id'])) {
 			$_SESSION['customer_country_id'] = STORE_COUNTRY;
 			$_SESSION['customer_zone_id'] = STORE_ZONE;
@@ -290,7 +290,7 @@ if ($error == 1 && $keyerror != 1) {
 }
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined('RM'))
+if (!defined(RM))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

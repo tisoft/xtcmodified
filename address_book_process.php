@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: address_book_process.php 1218 2005-09-16 11:38:37Z mz $   
+   $Id$   
 
    xtcModified - community made shopping
    http://www.xtc-modified.org

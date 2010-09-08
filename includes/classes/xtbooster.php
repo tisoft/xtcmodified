@@ -90,5 +90,4 @@ class xtbooster_base
 		return $r;
 	}
 }
-
 ?>

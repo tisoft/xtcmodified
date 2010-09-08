@@ -215,7 +215,7 @@
 		$KeyWords 	= 	WordArray($KeyWords);
 		$StopWords 	=	WordArray($metaStopWords);
 		$KeyWords 	= 	array_diff($KeyWords,$StopWords);
-		$KeyWords 	= 	array_filter($KeyWords,'filterKeyWordArray');
+		$KeyWords 	= 	array_filter($KeyWords,filterKeyWordArray);
 		return $KeyWords;
 	}
 // ---------------------------------------------------------------------------------------
@@ -273,7 +273,7 @@
 // ---------------------------------------------------------------------------------------
 	function metaTitle($Title=array()) {
 		$Title = func_get_args();
-		$Title = array_filter($Title,'metaClean');
+		$Title = array_filter($Title,metaClean);
 		return implode(' - ',$Title);
 	}
 // ---------------------------------------------------------------------------------------

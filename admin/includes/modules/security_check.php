@@ -10,12 +10,13 @@
    based on:
    (c) 2003	 nextcommerce (security_check.php,v 1.2 2003/08/23); www.nextcommerce.org
    (c) 2006  xt-commerce(security_check.php 1221 2005-09-20); www.xt-commerce.com
-   
+
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 
 $file_warning = '';
+$folder_warning = '';
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'includes/configure.php')), '444')) {
 	$file_warning .= '<br />'.DIR_FS_CATALOG.'includes/configure.php';
@@ -38,7 +39,7 @@ if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'includes/configure.org.php')), '444')
 if (!strpos(decoct(fileperms(DIR_FS_ADMIN.'rss/')), '777') and !strpos(decoct(fileperms(DIR_FS_ADMIN.'rss/')), '755')) {
 	$folder_warning .= '<br />'.DIR_FS_ADMIN.'rss/';
 }
-//EOF - web28- 2010-09-06 - FIX DIR_FS_ADMIN 
+//EOF - web28- 2010-09-06 - FIX DIR_FS_ADMIN
 
 if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'templates_c/')), '777') and !strpos(decoct(fileperms(DIR_FS_CATALOG.'templates_c/')), '755')) {
 	$folder_warning .= '<br />'.DIR_FS_CATALOG.'templates_c/';
@@ -80,7 +81,7 @@ if ($file_warning != '' or $folder_warning != '' or $installed_payment == '' or 
 <table style="border: 1px solid; border-color: #ff0000;" bgcolor="FDAC00" border="0" width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td>
-<div class="main"> 
+<div class="main">
         <table width="100%" border="0">
           <tr>
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
@@ -160,7 +161,5 @@ if ($file_warning != '' or $folder_warning != '' or $installed_payment == '' or 
 </tr>
 </table>
 <?php
-
 }
 ?>
-

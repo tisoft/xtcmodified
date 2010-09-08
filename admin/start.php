@@ -1,22 +1,22 @@
 <?php
-
 /* --------------------------------------------------------------
-   $Id: start.php 1235 2005-09-21 19:11:43Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
-   (c) 2000-2001 The Exchange Project 
+   based on:
+   (c) 2000-2001 The Exchange Project
    (c) 2002-2003 osCommerce coding standards (a typical file) www.oscommerce.com
    (c) 2003      nextcommerce (start.php,1.5 2004/03/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (start.php 1235 2005-09-21)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-  $xx_mins_ago = (time() - 900);
+$xx_mins_ago = (time() - 900);
 require ('includes/application_top.php');
 require_once ('includes/modules/carp/carp.php');
 require_once (DIR_FS_INC.'xtc_validate_vatid_status.inc.php');
@@ -33,7 +33,7 @@ xtc_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" .
 
 $language_id = (int) $_SESSION['languages_id'];
 // customer stats
-$customers_query = xtc_db_query('select cs.customers_status_name cust_group, count(*) cust_count   
+$customers_query = xtc_db_query('select cs.customers_status_name cust_group, count(*) cust_count
                      from ' . TABLE_CUSTOMERS . ' c
                      join ' . TABLE_CUSTOMERS_STATUS . ' cs on cs.customers_status_id = c.customers_status
                      --  exclude admin
@@ -42,7 +42,7 @@ $customers_query = xtc_db_query('select cs.customers_status_name cust_group, cou
                      and cs.language_id = ' . $language_id . '
                      group by 1
                      union
-                     select \'' . TOTAL_CUSTOMERS . '\', count(*)   
+                     select \'' . TOTAL_CUSTOMERS . '\', count(*)
                      from ' . TABLE_CUSTOMERS . '
                      order by 2 desc');
 // save query result
@@ -51,46 +51,46 @@ while ($row = xtc_db_fetch_array($customers_query))
   $customers[] = $row;
 
 // newsletter
-$newsletter_query = xtc_db_query("select count(*) as count 
+$newsletter_query = xtc_db_query("select count(*) as count
                     from " . TABLE_NEWSLETTER_RECIPIENTS. " where mail_status='1'");
 $newsletter = xtc_db_fetch_array($newsletter_query);
-  
-// products  
-$products_query = xtc_db_query('select 
+
+// products
+$products_query = xtc_db_query('select
                   count(if(products_status = 0, products_id, null)) inactive_count,
-                  count(if(products_status = 1, products_id, null)) active_count, 
-                  count(*) total_count 
+                  count(if(products_status = 1, products_id, null)) active_count,
+                  count(*) total_count
                   from ' . TABLE_PRODUCTS);
-$products = xtc_db_fetch_array($products_query);					  
-		
-// orders (status)		
+$products = xtc_db_fetch_array($products_query);
+
+// orders (status)
 $orders_query = xtc_db_query('select os.orders_status_name status, coalesce(o.order_count, 0) order_count
                 from ' . TABLE_ORDERS_STATUS . ' os
                 left join (select orders_status, count(*) order_count
-                           from ' . TABLE_ORDERS . ' 
+                           from ' . TABLE_ORDERS . '
                            group by 1) o on o.orders_status = os.orders_status_id
                 where os.language_id = ' . $language_id . '
                 order by os.orders_status_id');
 $orders = array();
 while ($row = xtc_db_fetch_array($orders_query))
   $orders[] = $row;
-	
-// specials	
+
+// specials
 $specials_query = xtc_db_query("select count(*) as specials_count from " . TABLE_SPECIALS);
-$specials = xtc_db_fetch_array($specials_query);	        
-	        
+$specials = xtc_db_fetch_array($specials_query);
+
 // turnover
-$turnover_query = xtc_db_query('select 
+$turnover_query = xtc_db_query('select
   round(coalesce(sum(if(date(o.date_purchased) = current_date, ot.value, null)), 0), 2) today,
-  round(coalesce(sum(if(date(o.date_purchased) = current_date - interval 1 day, ot.value, null)), 0), 2) yesterday, 
+  round(coalesce(sum(if(date(o.date_purchased) = current_date - interval 1 day, ot.value, null)), 0), 2) yesterday,
   round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date), ot.value, null)), 0), 2) this_month,
   round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month), ot.value, null)), 0), 2) last_month,
   round(coalesce(sum(if(extract(year_month from o.date_purchased) = extract(year_month from current_date - interval 1 year_month) and o.orders_status <> 1, ot.value, null)), 0), 2) last_month_paid,
-  round(coalesce(sum(ot.value), 0), 2) total   
-  from ' . TABLE_ORDERS . ' o 
-  join ' . TABLE_ORDERS_TOTAL . ' ot on ot.orders_id = o.orders_id 
+  round(coalesce(sum(ot.value), 0), 2) total
+  from ' . TABLE_ORDERS . ' o
+  join ' . TABLE_ORDERS_TOTAL . ' ot on ot.orders_id = o.orders_id
   where ot.class = \'ot_total\'');
-$turnover = xtc_db_fetch_array($turnover_query);	
+$turnover = xtc_db_fetch_array($turnover_query);
 ?>
 
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -148,8 +148,8 @@ h1 {
      <td width="100%" valign="top">
 	   <table border="0" width="100%" cellspacing="0" cellpadding="0">
 	 <tr>
-	 <td class="boxCenter" width="100%" valign="top"> 	 
-     <table border="0" width="100%" cellspacing="0" cellpadding="0">          
+	 <td class="boxCenter" width="100%" valign="top">
+     <table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
                <td><h1><?php echo HEADING_TITLE; ?></h1></td>
           </tr>
@@ -185,7 +185,7 @@ h1 {
 					</tr>
 			   </table></td>
 		  <td width="25%" valign="top"><table width="100%">
-		  
+
 		  <?php
 	         foreach ($customers as $customer) {
                 echo '<tr><td style="background:#e4e4e4"><strong>' . $customer['cust_group'] . ':</strong></td>';
@@ -222,18 +222,18 @@ h1 {
                 echo '<tr><td style="background:#e4e4e4"><strong>' . $order['status'] . ':</strong></td>';
                 echo '<td style="background:#e4e4e4">' . $order['order_count'] . '</td></tr>';
              }
-           ?>		
+           ?>
 		  </table>
 		  </td>
 	 </tr>
-</table>			   
+</table>
 			   <!--  EOF START INFOS STATISTIK -->
 			   </td>
           </tr>
-          <tr>          
+          <tr>
           <td>
-          
-          <table valign="top" width="100%" cellpadding="0" cellspacing="0">			
+
+          <table valign="top" width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 			  <td></td>
 			  </tr>
@@ -257,24 +257,23 @@ h1 {
             <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="33%"><strong><font face="Verdana"><?php echo TABLE_HEADING_USERS_ONLINE_INFO; ?></font></strong></td>
           </tr>
           <?php
-	
 	  $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
-	
-	  while ($whos_online = xtc_db_fetch_array($whos_online_query)) {	
-	    $time_online = (time() - $whos_online['time_entry']);	
-	    if ( ((!$_GET['info']) || (@$_GET['info'] == $whos_online['session_id'])) && (!$info) ) {	
-	      $info = $whos_online['session_id'];	
-	    }	    
-	?>
+    $info='';
+	  while ($whos_online = xtc_db_fetch_array($whos_online_query)) {
+	    $time_online = (time() - $whos_online['time_entry']);
+	    if ( ((!isset($_GET['info'])) || (@$_GET['info'] == $whos_online['session_id'])) && (!$info) ) {
+	      $info = $whos_online['session_id'];
+	    }
+    ?>
           <tr>
             <td class="dataTableContent" width="22%"><font face="Verdana"> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"><?php echo gmdate('H:i:s', $time_online); ?></a></font></td>
             <td class="dataTableContent" width="33%"><font face="Verdana"> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"><?php echo $whos_online['full_name']; ?></a></font></td>
             <td class="dataTableContent" align="center" width="33%"><font face="Verdana"> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></a></font></td>
             <td class="dataTableContent" align="center" width="33%"><font face="Verdana" color="#800000"><u><strong> <a href="whos_online.php?info=<?php echo $whos_online['session_id']; ?>"> <font color="#800000"><strong><?php echo TABLE_CELL_USERS_ONLINE_INFO; ?></strong></font></a></strong></u></font></td>
           </tr>
-    <?php	
-	  }	
-	?>          
+    <?php
+	  }
+	?>
         </table>
     </td>
 	  <td width="4%">&nbsp;</td>
@@ -288,9 +287,9 @@ h1 {
           <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_CUSTOMERS_ORDERS; ?></font></strong></td>
         </tr>
         <?php
-	
+
 	 // $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
-		    
+
 	?>
         <?php
 	  $abfrage = "SELECT * FROM " . TABLE_CUSTOMERS . " ORDER BY customers_date_added DESC LIMIT 15";
@@ -308,10 +307,10 @@ h1 {
           <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?cID=<?php  echo $row-> customers_id; ?>"><font color="#7691A2" face="Verdana"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_ORDERS; ?></strong></font></a></strong></td>
         </tr>
         <?php
-	
+
 	  }
-	
-	?>       
+
+	?>
       </table>
     </td>
 	</tr>
@@ -337,9 +336,9 @@ h1 {
           <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><p align="center"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_ORDERS_DELETE; ?></font></strong></td>
         </tr>
         <?php
-	
+
 	 // $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
-	    
+
 	?>
         <?php
 	  $abfrage = "SELECT * FROM " . TABLE_ORDERS . " ORDER BY orders_id DESC LIMIT 20";
@@ -360,9 +359,9 @@ h1 {
           <td class="dataTableContent" align="center" width="12%"><font face="Verdana" color="#800000"> <strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=delete"> <font color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_DELETE; ?></strong></font></a></strong></font></td>
         </tr>
         <?php
-	
+
 	  }
-	
+
 	?>
         <tr>
           <td class="smallText" colspan="5"><em> <font face="Verdana"></font></em></td>
@@ -383,10 +382,10 @@ CarpConf('iorder','link,date,desc');
         CarpConf('bca','<span>');
         CarpConf('aca','</span>');
 CarpConf('maxitems',3);
-        
+
         // before each item
         CarpConf('bi','<br /><div class="feedtitle" style="padding:5px;font-size:11px;" align="left">');
-        
+
         // after each item
         CarpConf('ai','</div><hr noshade="noshade" />');
 		CarpShow('http://www.xtc-modified.org/feed/');
@@ -401,7 +400,7 @@ CarpConf('maxitems',3);
   </tr>
 	<tr>
 	  <td colspan="3" style="padding:0px">
-	  
+
 <!--  BOF START INFOS GEBURTSTAGSLISTE -->
 	  <table cellpadding="5" cellspacing="0" width="100%" id="table1" class="contentTable">
 	<tr>
@@ -418,7 +417,7 @@ $ergebnis = xtc_db_query("select
                           customers_dob dob,
                           if(day(customers_dob) = day(current_date), true, false) today
                           from " . TABLE_CUSTOMERS . "
-                          where month(customers_dob) = month(current_date) and 
+                          where month(customers_dob) = month(current_date) and
                           day(customers_dob) >= day(current_date)
                           order by customers_dob");
 
@@ -451,16 +450,17 @@ foreach($this_month as $row) {
 			  <!--  EOF START INFOS USER ONLINE + NEUE KUNDEN  + LETZTE BESTELLUNGEN +  NEWSFEED-->
 			  </td>
 			 </tr>
-					  
+
           </table>
-		  
-          </td>          
-       </tr>          
+
+          </td>
+       </tr>
      </table>
 	 </td></tr></table>
-   </td>          
-  </tr>  
+   </td>
+  </tr>
 </table>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

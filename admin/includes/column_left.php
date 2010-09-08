@@ -7,12 +7,12 @@
 
    Copyright (c) 2003 XT-Commerce
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(column_left.php,v 1.15 2002/01/11); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(column_left.php,v 1.15 2002/01/11); www.oscommerce.com
    (c) 2003	 nextcommerce (column_left.php,v 1.25 2003/08/19); www.nextcommerce.org
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
  //#############################
  // HINWEIS FÜR MODULE EINBAU
@@ -20,12 +20,11 @@
  // Die Menüpunkte wurden auf "LISTE" geändert: <li>...</li>
  // Die Reihenfolge weicht von einem xtc Standard ab
  // Rubrik Konfiguration wurde in 2 Teile aufgeteilt
- // Durch die neuen Kommentare ist alles übersichtlicher 
+ // Durch die neuen Kommentare ist alles übersichtlicher
  //#############################
 
   $admin_access_query = xtc_db_query("select * from " . TABLE_ADMIN_ACCESS . " where customers_id = '" . $_SESSION['customer_id'] . "'");
-  $admin_access = xtc_db_fetch_array($admin_access_query); 
- 
+  $admin_access = xtc_db_fetch_array($admin_access_query);
 
 // BOF - Tomcraft - 2009-11-02 - NEW LISTSTYLE MENU
 echo '<div class="suckertreemenu">';
@@ -109,7 +108,7 @@ echo ('</li>');
 
 //BOF - Dokuman - 2009-11-03 - Remove "partner" links
 /*
-echo ('<li>');  
+echo ('<li>');
   echo ('<div class="dataTableHeadingContent"><strong>Partner</strong></div>');
 echo ('<ul>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['econda'] == '1')) echo '<li><a href="' . xtc_href_link('econda.php') . '" class="menuBoxContentLink"> -ECONDA Shop Monitor' . '</a></li>';
@@ -120,7 +119,7 @@ echo ('</li>');
 //EOF - Dokuman - 2009-11-03 - Remove "partner" links
 
 //---------------------------HILFSPROGRAMME
-echo ('<li>');   
+echo ('<li>');
   echo ('<div class="dataTableHeadingContent"><strong>'.BOX_HEADING_TOOLS.'</strong></div>');
 echo ('<ul>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['module_newsletter'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_MODULE_NEWSLETTER) . '" class="menuBoxContentLink"> -' . BOX_MODULE_NEWSLETTER . '</a></li>';
@@ -139,7 +138,7 @@ echo ('</li>');
 
 //---------------------------GUTSCHEINE
   if (ACTIVATE_GIFT_SYSTEM=='true') {
-echo ('<li>'); 
+echo ('<li>');
     echo ('<div class="dataTableHeadingContent"><strong>'.BOX_HEADING_GV_ADMIN.'</strong></div>');
   echo ('<ul>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['coupon_admin'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_COUPON_ADMIN, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_COUPON_ADMIN . '</a></li>';
@@ -147,11 +146,11 @@ echo ('<li>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['gv_mail'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_GV_MAIL, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_GV_ADMIN_MAIL . '</a></li>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['gv_sent'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_GV_SENT, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_GV_ADMIN_SENT . '</a></li>';
 echo ('</ul>');
-echo ('</li>');  
+echo ('</li>');
   }
 
 //---------------------------LAND / STEUER
-echo ('<li>');  
+echo ('<li>');
   echo ('<div class="dataTableHeadingContent"><strong>'.BOX_HEADING_ZONE.'</strong></div>');
 echo ('<ul>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['languages'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_LANGUAGES, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_LANGUAGES . '</a></li>';
@@ -165,7 +164,7 @@ echo ('</ul>');
 echo ('</li>');
 
 //---------------------------KONFIGURATION
-echo ('<li>');  
+echo ('<li>');
   echo ('<div class="dataTableHeadingContent"><strong>'.BOX_HEADING_CONFIGURATION.'</strong></div>');
 echo ('<ul>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['configuration'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_CONFIGURATION, 'gID=1', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_CONFIGURATION_1 . '</a></li>';
@@ -189,7 +188,7 @@ echo ('</ul>');
 echo ('</li>');
 
 //---------------------------KONFIGURATION2
-echo ('<li>');  
+echo ('<li>');
   echo ('<div class="dataTableHeadingContent"><strong>'.BOX_HEADING_CONFIGURATION2.'</strong></div>');
 echo ('<ul>');
 //######### BOF web28 -2010-07-07- SHOP OFFLINE/ONLINE ########
@@ -207,7 +206,7 @@ echo ('<ul>');
   echo ('</ul>');
 echo ('</li>');
 
-echo ('</ul>'); 
+echo ('</ul>');
 echo ('</div>');
 // EOF - Tomcraft - 2009-11-02 - NEW LISTSTYLE MENU
 ?>
