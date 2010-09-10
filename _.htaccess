@@ -2,15 +2,6 @@
 #
 # This is used with Apache WebServers
 #
-# For this to work, you must include the parameter 'Options' to
-# the AllowOverride configuration
-#
-# Example:
-#
-#<Directory "/usr/local/apache/htdocs">
-#   AllowOverride Options
-#</Directory>
-#
 # 'All' with also work. (This configuration is in the
 # apache/conf/httpd.conf file)
 # The following makes adjustments to the SSL protocol for Internet
@@ -23,9 +14,8 @@
   </IfDefine>
 </IfModule>
 
-# Fix certain PHP values
-# (commented out by default to prevent errors occuring on certain
-# servers)
+#-- Fix certain PHP values
+# (commented out by default to prevent errors occuring on certain servers)
 #<IfModule mod_php4.c>
 #  php_value session.use_trans_sid 0
 #  php_value register_globals 1
@@ -37,7 +27,28 @@
 #</FilesMatch>
 
 #-- Turn off ETags in HTTP-header
+#<ifmodule mod_headers.c>
+#   Header unset ETag
+#</ifmodule>
 #FileETag None
+
+#-- When caching of gzipped JS and CSS files is used, set this setting
+#<IfModule mod_headers.c>
+#Header set Vary Accept-Encoding
+#</IfModule>
+
+#-- BEGIN Cache-Control Headers
+#<ifmodule mod_headers.c>
+#  <filesmatch "\\.(ico|jpe?g|png|gif|swf)$">
+#        Header set Cache-Control "max-age=5184000, public"
+#  </filesmatch>
+#  <filesmatch "\\.(css)$">
+#        Header set Cache-Control "max-age=5184000, private"
+#  </filesmatch>
+#  <filesmatch "\\.(js)$">
+#        Header set Cache-Control "max-age=216000, private"
+#  </filesmatch>
+#</ifmodule>
 
 #-- Call time pass reference error ?!
 #php_flag  allow_call_time_pass_reference On
