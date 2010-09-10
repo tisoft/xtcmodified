@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_image_button.inc.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -18,9 +18,6 @@
    
 // Output a function button in the selected language
   function xtc_image_button($image, $alt = '', $parameters = '') {
-    //BOF - DokuMan - 2010-09-09 - Security Fix - Base
-    //return xtc_image('templates/'.CURRENT_TEMPLATE.'/buttons/' . $_SESSION['language'] . '/'. $image, $alt, '', '', $parameters);
-    return xtc_image(DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/buttons/' . $_SESSION['language'] . '/'. $image, $alt, '', '', $parameters);
-    //BOF - DokuMan - 2010-09-09 - Security Fix - Base
+    return xtc_image('templates/'.CURRENT_TEMPLATE.'/buttons/' . $_SESSION['language'] . '/'. $image, $alt, '', '', $parameters);
   }
 ?>
