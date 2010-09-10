@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: csv_backend.php 1030 2005-07-14 20:22:32Z novalis $
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -193,7 +193,7 @@
 </div>
 <?php
 
-  if ($import)
+  if (isset($import)) //DokuMan - 2010-09-10 - set Undefined variable: import 
   {
      if ($import[0])
      {
@@ -238,7 +238,7 @@
 ?>
 <table width="100%"  border="0" cellspacing="5" cellpadding="0">
   <tr>
-    <td class="pageHeading">IMPORT</td>
+    <td class="pageHeading"><?php echo IMPORT; ?></td>
   </tr>
   <tr>
     <td class="dataTableHeadingContent"><?php echo TEXT_IMPORT; ?>
@@ -293,7 +293,7 @@ echo '<br/><input type="submit" class="button" onclick="this.blur();" value="' .
 
 <table width="100%"  border="0" cellspacing="5" cellpadding="0">
   <tr>
-    <td class="pageHeading">Export</td>
+    <td class="pageHeading"><?php echo EXPORT; ?></td>
   </tr>
   <tr>
     <td class="dataTableHeadingContent">
@@ -321,7 +321,7 @@ echo '<br/><input type="submit" class="button" onclick="this.blur();" value="' .
 
 </td>
         </tr>
-      </table>      <p>&nbsp; </p></td>
+      </table>      <p>&nbsp;</p></td>
   </tr>
 </table>
 

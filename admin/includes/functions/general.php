@@ -219,7 +219,7 @@ function xtc_date_short($raw_date) {
 	if (@ date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
 		return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
 	} else {
-		return preg_replace('/2037$/', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037))); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+		return preg_replace('/2037/'.'$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037))); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 	}
 
 }
@@ -1096,7 +1096,7 @@ function xtc_reset_cache_block($cache_block) {
 						$cached_file = $cache_blocks[$i]['file'];
 						$languages = xtc_get_languages();
 						for ($j = 0, $k = sizeof($languages); $j < $k; $j ++) {
-							$cached_file_unlink = preg_replace('/-language/', '-'.$languages[$j]['directory'], $cached_file); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+							$cached_file_unlink = preg_replace('/-language/i', '-'.$languages[$j]['directory'], $cached_file); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 							if (preg_match('/^'.$cached_file_unlink.'/', $cache_file)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
 								@ unlink(DIR_FS_CACHE.$cache_file);
 							}
@@ -1108,7 +1108,7 @@ function xtc_reset_cache_block($cache_block) {
 				$cached_file = $cache_blocks[$i]['file'];
 				$languages = xtc_get_languages();
 				for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-					$cached_file = preg_replace('/-language/', '-'.$languages[$i]['directory'], $cached_file); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
+					$cached_file = preg_replace('/-language/i', '-'.$languages[$i]['directory'], $cached_file); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
 					@ unlink(DIR_FS_CACHE.$cached_file);
 				}
 			}
@@ -1691,6 +1691,4 @@ function xtc_button($value, $type='submit', $parameter='') {
 function xtc_button_link($value, $href='javascript:void(null)', $parameter='') {
    return '<a href="'.$href.'" class="button" onclick="this.blur()" '.$parameter.' >'.$value.'</a>';
 }
-
-//--------Ende
 ?>
