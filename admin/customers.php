@@ -477,6 +477,7 @@ if ($_GET['action']) {
                    c.customers_lastname,
                    c.customers_dob,
                    c.customers_email_address,
+                   c.customers_vat_id,
                    a.entry_company,
                    a.entry_street_address,
                    a.entry_suburb,
