@@ -20,7 +20,7 @@ if (MAX_DISPLAY_UPCOMING_PRODUCTS != '0') {
 //EOF - Dokuman - 2009-09-02: show upcoming products only when greater zero
   $module_smarty = new Smarty;
   //BOF - GTB - 2010-08-03 - Security Fix - Base
-  $module_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+  $module_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
   //$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
   //EOF - GTB - 2010-08-03 - Security Fix - Base
   // include needed functions

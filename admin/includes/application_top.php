@@ -59,6 +59,10 @@ define('XAJAX_BACKEND_SUPPORT_TEST',    'false'); // 'true' );     // this inclu
   }
 // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+  define('DIR_WS_BASE', DIR_WS_CATALOG);
+//EOF - GTB - 2010-08-03 - Security Fix - Base
+
   define('SQL_CACHEDIR',DIR_FS_CATALOG.'cache/');
 
   // Define the project version

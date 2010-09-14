@@ -69,7 +69,7 @@ if (file_exists('templates/'.CURRENT_TEMPLATE.'/css/general.css.php')) {
   else {
     
     //BOF - GTB - 2010-08-03 - Security Fix - Base
-	echo '<link rel="stylesheet" type="text/css" href="'.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
+	echo '<link rel="stylesheet" type="text/css" href="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
 	//echo '<link rel="stylesheet" type="text/css" href="templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
 	//EOF - GTB - 2010-08-03 - Security Fix - Base
 

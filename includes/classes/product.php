@@ -508,7 +508,7 @@ class product {
 					$name = $this->standardImage;
 			}
 			//BOF - GTB - 2010-08-03 - Security Fix - Base
-			return DIR_WS_CATALOG.$path.$name;
+			return DIR_WS_BASE.$path.$name;
 			//return $path.$name;
 			//EOF - GTB - 2010-08-03 - Security Fix - Base
 		}

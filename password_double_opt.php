@@ -46,7 +46,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
 	// assign language to template for caching
 	$smarty->assign('language', $_SESSION['language']);
 	//BOF - GTB - 2010-08-03 - Security Fix - Base
-	$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	$smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 	//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
@@ -96,7 +96,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'verified')) {
 		// assign language to template for caching
 		$smarty->assign('language', $_SESSION['language']);
 		//BOF - GTB - 2010-08-03 - Security Fix - Base
-		$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+		$smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 		//$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 		//EOF - GTB - 2010-08-03 - Security Fix - Base
 		$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');

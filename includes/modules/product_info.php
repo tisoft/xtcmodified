@@ -33,7 +33,7 @@ require_once (DIR_FS_INC.'xtc_date_short.inc.php');  // Für Anzeige Sonderangebo
 
 $info_smarty = new Smarty;
 //BOF - GTB - 2010-08-03 - Security Fix - Base
-$info_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+$info_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 //$info_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 //EOF - GTB - 2010-08-03 - Security Fix - Base
 $group_check = '';
@@ -185,7 +185,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			foreach ($mo_images as $img) {
 				$more_images_data[] = array (
 		  //BOF - GTB - 2010-08-03 - Security Fix - Base		
-		  'PRODUCTS_IMAGE' => DIR_WS_CATALOG.DIR_WS_INFO_IMAGES.$img['image_name'],		
+		  'PRODUCTS_IMAGE' => DIR_WS_BASE.DIR_WS_INFO_IMAGES.$img['image_name'],		
           //'PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
           //EOF - GTB - 2010-08-03 - Security Fix - Base
           'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE,
@@ -193,7 +193,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
           );
 				// BOF - Tomcraft - 2009-09-12 - needed for non modified templates
 				//BOF - GTB - 2010-08-03 - Security Fix - Base
-				$mo_img = DIR_WS_CATALOG.DIR_WS_INFO_IMAGES.$img['image_name'];
+				$mo_img = DIR_WS_BASE.DIR_WS_INFO_IMAGES.$img['image_name'];
 				//$mo_img = DIR_WS_INFO_IMAGES.$img['image_name'];
 				//EOF - GTB - 2010-08-03 - Security Fix - Base
 				$info_smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);

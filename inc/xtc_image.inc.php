@@ -27,7 +27,7 @@
 // alt is added to the img tag even if it is null to prevent browsers from outputting
 // the image filename as default
 	//BOF - GTB - 2010-08-03 - Security Fix - Base
-    $image = '<img src="' . xtc_parse_input_field_data(DIR_WS_CATALOG.$src, array('"' => '&quot;')) . '" alt="' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . '"';
+    $image = '<img src="' . xtc_parse_input_field_data(DIR_WS_BASE.$src, array('"' => '&quot;')) . '" alt="' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . '"';
     //$image = '<img src="' . xtc_parse_input_field_data($src, array('"' => '&quot;')) . '" alt="' . xtc_parse_input_field_data($alt, array('"' => '&quot;')) . '"';
 	//EOF - GTB - 2010-08-03 - Security Fix - Base
 

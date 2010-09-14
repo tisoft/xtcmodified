@@ -18,7 +18,7 @@
 
 $module_smarty = new Smarty;
 //BOF - GTB - 2010-08-03 - Security Fix - Base
-$module_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+$module_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 //$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 //EOF - GTB - 2010-08-03 - Security Fix - Base
 $result = true;
@@ -61,7 +61,7 @@ if ($listing_split->number_of_rows > 0) {
       if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
   // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
   	//BOF - GTB - 2010-08-03 - Security Fix - Base
-  	$image = DIR_WS_CATALOG.$image;
+  	$image = DIR_WS_BASE.$image;
   	//EOF - GTB - 2010-08-03 - Security Fix - Base
     }
 
@@ -72,7 +72,7 @@ if ($listing_split->number_of_rows > 0) {
 		$image = DIR_WS_IMAGES.$manu['manufacturers_image'];
 		if(!file_exists($image)) $image = '';
 		//BOF - GTB - 2010-08-03 - Security Fix - Base
-		if ($image != '') $image = DIR_WS_CATALOG.$image;
+		if ($image != '') $image = DIR_WS_BASE.$image;
 		//EOF - GTB - 2010-08-03 - Security Fix - Base
     }
 	//EOF -web28- 2010-08-06 - BUGFIX no manufacturers image displayed

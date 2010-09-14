@@ -59,7 +59,7 @@ if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check[
 	$smarty->assign('DATE', xtc_date_long($order->info['date_purchased']));
 	//BOF - GTB - 2010-08-03 - Security Fix - Base
 	//$path = DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/';
-	$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+	$smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 	//$smarty->assign('tpl_path', $path);
 	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	//BOF - web28 - 2010-08-17 - define missing charset

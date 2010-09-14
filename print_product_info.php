@@ -25,7 +25,7 @@ require_once (DIR_FS_INC.'xtc_get_vpe_name.inc.php');
 $smarty = new Smarty;
 //BOF - web28 - 2010-07-09 - define smarty template path
 //BOF - GTB - 2010-08-03 - Security Fix - Base
-$smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+$smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 //$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 //EOF - GTB - 2010-08-03 - Security Fix - Base
 //EOF - web28 - 2010-07-09 - define smarty template path

@@ -24,7 +24,7 @@
 
 $default_smarty = new smarty;
 //BOF - GTB - 2010-08-03 - Security Fix - Base
-$default_smarty->assign('tpl_path',DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/');
+$default_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 //$default_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 //EOF - GTB - 2010-08-03 - Security Fix - Base
 $default_smarty->assign('session', session_id());
@@ -132,7 +132,7 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
       if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
   // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
   	//BOF - GTB - 2010-08-03 - Security Fix - Base
-  	$image = DIR_WS_CATALOG.$image;
+  	$image = DIR_WS_BASE.$image;
   	//EOF - GTB - 2010-08-03 - Security Fix - Base
     }
 
@@ -152,7 +152,7 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
       if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
   // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
   	//BOF - GTB - 2010-08-03 - Security Fix - Base
-  	$image = DIR_WS_CATALOG.$image;
+  	$image = DIR_WS_BASE.$image;
   	//EOF - GTB - 2010-08-03 - Security Fix - Base
     }
     $default_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
