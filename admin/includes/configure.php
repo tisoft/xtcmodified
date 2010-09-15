@@ -20,7 +20,8 @@
   define('HTTP_SERVER', 'http://localhost'); // eg, http://localhost - should not be empty for productive servers
   define('HTTP_CATALOG_SERVER', 'http://localhost');
   define('HTTPS_CATALOG_SERVER', 'https://localhost'); // eg, https://localhost - should not be empty for productive servers
-  define('ENABLE_SSL_CATALOG', 'false'); // secure webserver for catalog module
+  define('ENABLE_SSL_CATALOG', false); // secure webserver for catalog module
+  define('USE_SSL_PROXY', false); // using SSL proxy?
   define('DIR_FS_DOCUMENT_ROOT', '/web1/xtc-modified/'); // where the pages are located on the server
   define('DIR_WS_ADMIN', '/xtc-modified/admin/'); // absolute path required
   define('DIR_FS_ADMIN', '/web1/xtc-modified/admin/'); // absolute pate required

@@ -22,6 +22,7 @@
   define('HTTP_SERVER', 'http://localhost'); // eg, http://localhost - should not be empty for productive servers
   define('HTTPS_SERVER', 'https://localhost'); // eg, https://localhost - should not be empty for productive servers
   define('ENABLE_SSL', false); // secure webserver for checkout procedure?
+  define('USE_SSL_PROXY', false); // using SSL proxy?
   define('DIR_WS_CATALOG', '/xtc-modified/'); // absolute path required
   define('DIR_FS_DOCUMENT_ROOT', '/web1/xtc-modified/');
   define('DIR_FS_CATALOG', '/xtc-modified/');
