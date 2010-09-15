@@ -84,11 +84,11 @@ if (preg_match("/\.html$/",$PHP_SELF) )
     }
 //--- SHOPSTAT -------------------------//
 
-//BOF - GTB - 2010-08-03 - Security Fix - Base
+//BOF - GTB/web28 - 2010-09-15 - Security Fix - Base
 $ssl_proxy = '';
-if ($request_type == 'SSL' && ENABLE_SSL == true) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
+if ($request_type == 'SSL' && ENABLE_SSL == true && strpos($_SERVER['HTTP_HOST'],'ssl')!== false) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
 define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
-//EOF - GTB - 2010-08-03 - Security Fix - Base
+//EOF - GTB/web28 - 2010-09-15 - Security Fix - Base
 
 // include the list of project filenames
 require (DIR_WS_INCLUDES.'filenames.php');
