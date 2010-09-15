@@ -758,7 +758,7 @@ echo xtc_draw_textarea_field('cont','','100%','35',$content['content_text']);
                                 products_id,
                                 products_name
                                 FROM ".TABLE_PRODUCTS_DESCRIPTION."
-                                WHERE language_id='".(int)$_SESSION['languages_id']."'");
+                                WHERE language_id='".(int)$_SESSION['languages_id']."' order by products_name"); // Tomcraft - 2010-09-15 - Added default sort order to products_name for product-content in content-manager
  $products_array=array();
 
  while ($products_data=xtc_db_fetch_array($products_query)) {
