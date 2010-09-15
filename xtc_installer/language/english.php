@@ -158,7 +158,7 @@ define('TEXT_SESS_DB','Store Sessions in the Database');
 define('TEXT_SESS_LONG','The location to store PHPs sessions files.');
 define('TITLE_CHECK_FILES','Please check your file information');
 //BOF - web28 - 2010-03-02 - New SSL-PROXY info
-define('TEXT_SSL_PROXY_LONG','<b>* SSL Proxy: </b><br />When using a SSL Proxy adjust the path to <b>HTTPS server</b>!');
+define('TEXT_SSL_PROXY_LONG','<b>* Enable SSL Proxy: </b><br />When using a SSL Proxy adjust the path to <b>HTTPS server</b>!');
 //BOF - GTB - 2010-08-31 - Layout correction
 define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy examples of some providers: </b><br /><br /><div class="prov">Hosteurope: </div><div class="proxy">https://ssl.webpack.de/nureinbeispiel.de</div><div class="clear"></div><div class="prov">ALL-INKL.COM: </div><div class="proxy">https://ssl-account.com/nureinbeispiel.de</div><div class="clear"></div><div class="prov">1und1: </div><div class="proxy">https://ssl.kundenserver.de/nureinbeispiel.de</div><div class="clear"></div><div class="prov">Strato: </div><div class="proxy">https://www.ssl-id.de/nureinbeispiel.de</div><div class="clear"></div>');
 //define('TEXT_SSL_PROXY_EXP','<b>SSL Proxy examples of some providers: </b><br /><span class="prov">Hosteurope: </span><span class="proxy">https://ssl.webpack.de/nureinbeispiel.de</span><br /><span class="prov">ALL-INKL.COM: </span><span class="proxy">https://ssl-account.com/nureinbeispiel.de</span><br /><span class="prov">1und1: </span><span class="proxy">https://ssl.kundenserver.de/nureinbeispiel.de</span><br /><span class="prov">Strato: </span><span class="proxy">https://www.ssl-id.de/nureinbeispiel.de</span>');

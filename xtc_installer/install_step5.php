@@ -1,6 +1,6 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: install_step5.php 1252 2005-09-27 22:20:09Z matthias $   
+   $Id$   
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -263,8 +263,11 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
                      '  define(\'HTTP_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
 					 '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .					 
-                     '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
+                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
+					 //BOF - web28 - 2010.09.15 - using SSL proxy
+					 '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                     //EOF - web28 - 2010.09.15 - using SSL proxy
+					 '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
                      //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
 					 '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\');' . "\n" .
@@ -318,7 +321,10 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
                      '  define(\'HTTP_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
 					 '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .					 
+                     '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
+					 //BOF - web28 - 2010.09.15 - using SSL proxy
+					 '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                     //EOF - web28 - 2010.09.15 - using SSL proxy
                      '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
 					 //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                      '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\');' . "\n" .
@@ -378,7 +384,10 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '  define(\'HTTP_CATALOG_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\');' . "\n" .
 					 '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
                      '  define(\'ENABLE_SSL_CATALOG\', \'' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
-                     //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+                     //BOF - web28 - 2010.09.15 - using SSL proxy
+					 '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                     //EOF - web28 - 2010.09.15 - using SSL proxy
+					 //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
 					 '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', \'' . $_POST['DIR_WS_CATALOG'] .'admin/' . '\'); // absolute path required' . "\n" .
                      '  define(\'DIR_FS_ADMIN\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path .'admin/' . '\'); // absolute pate required' . "\n" .
@@ -447,6 +456,9 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
                      '  define(\'HTTP_CATALOG_SERVER\', \'' . $_POST['HTTP_SERVER'] . '\');' . "\n" .
 					 '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
                      '  define(\'ENABLE_SSL_CATALOG\', \'' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
+					 //BOF - web28 - 2010.09.15 - using SSL proxy
+					 '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                     //EOF - web28 - 2010.09.15 - using SSL proxy
 					 //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                      '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', \'' . $_POST['DIR_WS_CATALOG'] .'admin/' . '\'); // absolute path required' . "\n" .

@@ -164,7 +164,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
               <p><?php echo xtc_draw_checkbox_field_installer('ENABLE_SSL', 'true'); ?> 
                 <b><?php echo TEXT_SSL; ?></b><br />
                <?php echo TEXT_SSL_LONG; ?></p>
-			   <p><?php echo TEXT_SSL_PROXY_LONG; ?></p>
+			   <p><?php echo xtc_draw_checkbox_field_installer('USE_SSL_PROXY', 'true'). TEXT_SSL_PROXY_LONG; ?></p>
 			   <?php //BOF - GTB - 2010-08-31 -  Layout correction ?>
 			   <div style="border: #a3a3a3 1px solid; padding: 3px; background-color: #f4f4f4;"><?php echo TEXT_SSL_PROXY_EXP; ?></div>			   
 			   <!-- <p span style="border: #a3a3a3 1px solid; padding: 3px; background-color: #f4f4f4;"><?php echo TEXT_SSL_PROXY_EXP; ?></p> -->
