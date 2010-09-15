@@ -30,7 +30,7 @@
   require(DIR_WS_BOXES . 'last_viewed.php');
   if (substr(basename($PHP_SELF), 0,8) != 'advanced') {require(DIR_WS_BOXES . 'whats_new.php'); }
   require(DIR_WS_BOXES . 'search.php');
- // require(DIR_WS_BOXES . 'content.php');
+  require(DIR_WS_BOXES . 'content.php');
   require(DIR_WS_BOXES . 'information.php');
   include(DIR_WS_BOXES . 'languages.php');
   if ($_SESSION['customers_status']['customers_status_id'] == 0) include(DIR_WS_BOXES . 'admin.php');

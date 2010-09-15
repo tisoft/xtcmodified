@@ -68,14 +68,6 @@ if (file_exists('includes/request_type.php')) {
 } else $request_type = 'NONSSL';
 //EOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 
-//BOF - GTB - 2010-08-03 - Security Fix - Base
-if (substr(HTTP_SERVER, 7) != substr(HTTPS_SERVER, 8) && ENABLE_SSL == true && $request_type == 'SSL') {
-	define('DIR_WS_BASE', substr(HTTP_SERVER, 6).DIR_WS_CATALOG);
-} else {
-	define('DIR_WS_BASE', DIR_WS_CATALOG);
-} 
-//EOF - GTB - 2010-08-03 - Security Fix - Base
-
 // set php_self in the local scope
 $PHP_SELF = $_SERVER['PHP_SELF'];
 //--- SHOPSTAT -------------------------//
@@ -91,6 +83,12 @@ if (preg_match("/\.html$/",$PHP_SELF) )
         }
     }
 //--- SHOPSTAT -------------------------//
+
+//BOF - GTB - 2010-08-03 - Security Fix - Base
+$ssl_proxy = '';
+if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
+define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
+//EOF - GTB - 2010-08-03 - Security Fix - Base
 
 // include the list of project filenames
 require (DIR_WS_INCLUDES.'filenames.php');
