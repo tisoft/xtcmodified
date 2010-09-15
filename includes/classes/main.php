@@ -54,10 +54,14 @@ class main {
  	}
  	
  	function getShippingLink() {
- 	  //BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
- 	  //return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
- 	  return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
-	  //EOF - DokuMan - 2009-05-31 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
+ 	  //BOF - GTB - 2010-08-15 fixed unsecure Links on SSL Pages
+ 		global $request_type;
+ 		return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+ 	  	//BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
+ 	  	//return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+ 	  	//return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+	  	//EOF - DokuMan - 2009-05-31 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
+	  //BOF - GTB - 2010-08-15 fixed unsecure Links on SSL Pages
 	}
 
 	function getTaxNotice() {
@@ -106,7 +110,7 @@ class main {
 	}
 	
    function getContentLink($coID,$text,$ssl='') {
- 	  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink and fixed wrong question mark on KeepThis=true	  
+ 	  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink and fixed wrong question mark on KeepThis=true	
 		if ($ssl != 'SSL' ) { $ssl = 'NONSSL'; }
 		return '<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.$coID.'&KeepThis=true&TB_iframe=true&height=400&width=600"', $ssl).' title="Information" class="thickbox"><font color="#ff0000">'.$text.'</font></a>';
 		//EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink and fixed wrong question mark on KeepThis=true	  
