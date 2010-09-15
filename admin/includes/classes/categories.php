@@ -393,8 +393,12 @@ class categories {
 		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id = '".xtc_db_input($product_id)."'");
 		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_DESCRIPTION." WHERE products_id = '".xtc_db_input($product_id)."'");
 		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_ATTRIBUTES." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." WHERE products_id = '".xtc_db_input($product_id)."'");
+//BOF - GTB - 2010-09-15 - delete also Products with attribs		
+		xtc_db_query("DELETE FROM " . TABLE_CUSTOMERS_BASKET . " where products_id = '" . xtc_db_input($product_id) . "' OR products_id LIKE '" . xtc_db_input($product_id) . "{%'");
+		xtc_db_query("DELETE FROM " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where products_id = '" . xtc_db_input($product_id) . "' OR products_id LIKE '" . xtc_db_input($product_id) . "{%'");
+		//xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET." WHERE products_id = '".xtc_db_input($product_id)."'");
+		//xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." WHERE products_id = '".xtc_db_input($product_id)."'");
+//EOF - GTB - 2010-09-15 - delete also Products with attribs
 
 //BOF - Dokuman - 2009-11-04 - fix typo customers_status_array -> customers_statuses_array
 		//$customers_status_array = xtc_get_customers_statuses();
