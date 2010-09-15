@@ -1,23 +1,18 @@
 <?php
+/* ----------------------------------------------------------------------------
+   $Id$
+ 
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-/*------------------------------------------------------------------------------
-  $Id: popup_cvv.php 1310 2005-10-17 10:06:32Z mz $
-
-  XTC-CC - Contribution for XT-Commerce http://www.xt-commerce.com
-  modified by http://www.netz-designer.de
-
-  Copyright (c) 2003 netz-designer
+   Copyright (c) 2010 xtcModified
   -----------------------------------------------------------------------------
   based on:
-  $Id: popup_cvv.php 1310 2005-10-17 10:06:32Z mz $
+  (c) 2003 netz-designer
+  (c) 2006 XT-Commerce
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-------------------------------------------------------------------------------*/
+  Released under the GNU General Public License 
+  ----------------------------------------------------------------------------*/
 
 require ('includes/application_top.php');
 
@@ -51,9 +46,20 @@ function resize() {
 </SCRIPT>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
 <meta http-equiv="Content-Style-Type" content="text/css" />
+<?php /*
+//BOF - GTB - 2010-08-03 - Security Fix - Base
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+//EOF - GTB - 2010-08-03 - Security Fix - Base
+*/ ?>
 <title><?php echo TITLE; ?></title>
+<?php /*
+//BOF - GTB - 2010-08-03 - Security Fix - Base
 <link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
+*/ ?>
+<link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
+<?php /*
+//EOF - GTB - 2010-08-03 - Security Fix - Base
+*/ ?>
 </head>
 
 <style type="text/css"><!--

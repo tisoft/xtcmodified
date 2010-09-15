@@ -1,15 +1,15 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: popup_content.php 1169 2005-08-22 16:07:09Z mz $   
+   $Id$
+ 
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+  -----------------------------------------------------------------------------------------  
    based on:
    (c) 2003	 nextcommerce (content_preview.php,v 1.2 2003/08/25); www.nextcommerce.org
+   (c) 2006 XT-Commerce
    
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -29,8 +29,15 @@ $content_data = xtc_db_fetch_array($content_query, true);
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <title><?php echo $content_data['content_heading']; ?></title>
+<?php /*
+//BOF - GTB - 2010-08-03 - Security Fix - Base
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
+*/ ?>
+<link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
+<?php /*
+//EOF - GTB - 2010-08-03 - Security Fix - Base
+*/ ?>
 </head>
 <body style="background:#fff; font-family:Arial, Helvetica, sans-serif;">
 <table width="100%" border="0" cellspacing="5" cellpadding="5">

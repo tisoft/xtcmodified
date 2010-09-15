@@ -60,8 +60,15 @@ if ($mo_images != false) {
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <title><?php echo $products_values['products_name']; ?></title>
+<?php /*
+//BOF - GTB - 2010-08-03 - Security Fix - Base
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
+*/ ?>
+<link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
+<?php /*
+//EOF - GTB - 2010-08-03 - Security Fix - Base
+*/ ?>
 <script type="text/javascript">
 <!--
 var i=0;
