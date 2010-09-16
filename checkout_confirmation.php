@@ -1,19 +1,19 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(checkout_confirmation.php,v 1.137 2003/05/07); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(checkout_confirmation.php,v 1.137 2003/05/07); www.oscommerce.com
    (c) 2003	nextcommerce (checkout_confirmation.php,v 1.21 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (checkout_confirmation.php 1277 2005-10-01)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contributions:
    agree_conditions_1.01        	Autor:	Thomas Ploenkers (webmaster@oscommerce.at)
@@ -27,7 +27,7 @@
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -39,6 +39,10 @@ require (DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/source/boxes.php')
 require_once (DIR_FS_INC . 'xtc_calculate_tax.inc.php');
 require_once (DIR_FS_INC . 'xtc_check_stock.inc.php');
 require_once (DIR_FS_INC . 'xtc_display_tax_value.inc.php');
+
+// BOF - DokuMan - 2010-09-16 - unset temporary order id when going back to confirmation to avoid order fraud
+unset($_SESSION['tmp_oID']);
+// EOF - DokuMan - 2010-09-16 - unset temporary order id when going back to confirmation to avoid order fraud
 
 //BOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
@@ -172,17 +176,17 @@ $data_products = '<table width="100%" border="0" cellspacing="0" cellpadding="0"
 // EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
 //BOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
 
-for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {   
-	
+for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
+
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
-//	$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";		 
+//	$data_products .= '<tr>' . "\n" . '            <td class="main" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . '</td>' . "\n" . '                <td class="main" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td></tr>' . "\n";
 	$data_products .= '<tr>' . "\n" . '  <td class="main_row" align="left" valign="top">' . $order->products[$i]['qty'] . ' x ' . '</td>'
 							 . "\n" . '  <td class="main_row" align="left" valign="top">' . $order->products[$i]['name'] . '</td>'
 							 . "\n"	. '  <td class="main_row" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['price'], true) . '</td>'
 							 . "\n"	. '  <td class="main_row" align="right" valign="top">' . $xtPrice->xtcFormat($order->products[$i]['final_price'], true) . '</td>
 					   </tr>' . "\n";
 // EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
-				   
+
 	if (ACTIVATE_SHIPPING_STATUS == 'true') {
 
 // BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
@@ -319,11 +323,11 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 
 	$smarty->assign('REVOCATION', $revocation);
 	$smarty->assign('REVOCATION_TITLE', $shop_content_data['content_heading']);
-	//BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink 
+	//BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
 	//$smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO));
 	$smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO,'SSL'));
 	//EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
-	
+
 	$shop_content_query = "SELECT
 		                           content_title,
 		                           content_heading,
@@ -335,9 +339,9 @@ if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 
 	$shop_content_query = xtc_db_query($shop_content_query);
 	$shop_content_data = xtc_db_fetch_array($shop_content_query);
-	
+
 	$smarty->assign('AGB_TITLE', $shop_content_data['content_heading']);
-  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink 
+  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
 	//$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
 	$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO,'SSL'));
   //EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
