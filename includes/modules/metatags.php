@@ -185,7 +185,10 @@
 	function prepareWordArray($Text) {
 		//$Text = str_replace(array('&nbsp;','\t','\r','\n','\b'),' ',strip_tags($Text));
 		$Text = str_replace(array('&nbsp;','\t','\r','\n','\b'),' ',preg_replace("/<[^>]*>/",' ',$Text)); // <-- Besser bei Zeilenumbrüchen
-		$Text = metaHtmlEntities(metaNoEntities(strtolower($Text)),ENT_QUOTES);
+		// BOF - web28 - 2010-09-16 - FIX html entities
+		//$Text = metaHtmlEntities(metaNoEntities(strtolower($Text)),ENT_QUOTES);
+		$Text = htmlentities(metaNoEntities(strtolower($Text)), ENT_QUOTES, strtoupper($_SESSION['language_charset']));
+		// EOF - web28 - 2010-09-16 - FIX html entities
 		$Text = preg_replace("/\s\-|\-\s/",' ',$Text); // <-- Gegen Trenn- und Gedankenstriche
 		$Text = preg_replace("/(&[^aoucizens][^;]*;)/",' ',$Text);
 		$Text = preg_replace("/[^0-9a-z|\-|&|;]/",' ',$Text); // <-- Bindestriche drin lassen
@@ -265,7 +268,10 @@
 	            $Text = substr($Text,0,$Length).$Abk;
 			}
 		}
-		return metaHtmlEntities($Text,ENT_QUOTES);
+		// BOF - web28 - 2010-09-16 - FIX html entities
+		//return metaHtmlEntities($Text,ENT_QUOTES);
+		return htmlentities($Text, ENT_QUOTES, strtoupper($_SESSION['language_charset']));
+		// EOF - web28 - 2010-09-16 - FIX html entities
 		//return metaHtmlEntities(utf8_decode($Text),ENT_QUOTES); //DokuMan - 2010-08-26 - for future use with UTF8
 	}
 // ---------------------------------------------------------------------------------------
