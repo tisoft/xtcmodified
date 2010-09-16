@@ -86,7 +86,7 @@ if (preg_match("/\.html$/",$PHP_SELF) )
 
 //BOF - GTB/web28 - 2010-09-15 - Security Fix - Base
 $ssl_proxy = '';
-if ($request_type == 'SSL' && ENABLE_SSL == true && defined(USE_SSL_PROXY) && USE_SSL_PROXY == true) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
+if ($request_type == 'SSL' && ENABLE_SSL == true && defined('USE_SSL_PROXY') && USE_SSL_PROXY == true) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
 define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
 //EOF - GTB/web28 - 2010-09-15 - Security Fix - Base
 
