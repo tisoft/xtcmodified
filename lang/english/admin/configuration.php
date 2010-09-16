@@ -1,21 +1,20 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: configuration.php 1286 2005-10-07 10:10:18Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(configuration.php,v 1.8 2002/01/04); www.oscommerce.com
-   (c) 2003	 nextcommerce (configuration.php,v 1.16 2003/08/25); www.nextcommerce.org 
-   
-   Released under the GNU General Public License 
+   (c) 2003	 nextcommerce (configuration.php,v 1.16 2003/08/25); www.nextcommerce.org
+   (c) 2006 XT-Commerce
+
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-   
-   // revised 12/2009 vr (tonne1@users.sourceforge.net)
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Title');
 define('TABLE_HEADING_CONFIGURATION_VALUE', 'Value');
@@ -478,7 +477,7 @@ define('META_PUBLISHER_TITLE' , 'Publisher');
 define('META_PUBLISHER_DESC' , '<meta name="publisher">');
 define('META_COMPANY_TITLE' , 'Company');
 define('META_COMPANY_DESC' , '<meta name="company">');
-define('META_TOPIC_TITLE' , 'Page Topic');
+define('META_TOPIC_TITLE' , 'page-topic');
 define('META_TOPIC_DESC' , '<meta name="page-topic">');
 define('META_REPLY_TO_TITLE' , 'Reply-To');
 define('META_REPLY_TO_DESC' , '<meta name="reply-to">');
@@ -648,7 +647,7 @@ define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Permits changing address data tra
 
 // BOF - Tomcraft - 2009-11-02 - New admin top menu
 define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Top Navigation');
-define('USE_ADMIN_TOP_MENU_DESC' , 'Activate Admin Top Navigation?');
+define('USE_ADMIN_TOP_MENU_DESC' , 'Activate Admin Top Navigation? Otherwise the menu will be displayed on the left (classic view)');
 // EOF - Tomcraft - 2009-11-02 - New admin top menu
 
 // BOF - Tomcraft - 2009-11-02 - Admin language tabs
@@ -658,7 +657,7 @@ define('USE_ADMIN_LANG_TABS_DESC' , 'Use language tabs with categories / article
 
 // BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 define('USE_ADMIN_THUMBS_IN_LIST_TITLE' , 'Admin products list images');
-define('USE_ADMIN_THUMBS_IN_LIST_DESC' , 'Admin products list with images?');
+define('USE_ADMIN_THUMBS_IN_LIST_DESC' , 'Show an extra column in Admin products list with images of the categories / products?');
 // EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 
 // BOF - Tomcraft - 2009-11-05 - Advanced contact form
