@@ -77,10 +77,11 @@ $smarty->assign('BUTTON_CONTINUE', xtc_image_submit('button_continue.gif', IMAGE
 //$smarty->assign('BUTTON_PRINT', '<img src="'.'templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/button_print.gif" style="cursor:pointer" onclick="window.open(\''.xtc_href_link(FILENAME_PRINT_ORDER, 'oID='.$orders['orders_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')" />');
 //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 //$smarty->assign('BUTTON_PRINT', '<a style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_ORDER, 'oID='.$orders['orders_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')"><img src="'.'templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/button_print.gif" alt="'.TEXT_PRINT.'" /></a>');
-//BOF - GTB - 2010-09-15 - change Button to xtc_image_button Function
+//BOF - GTB - 2010-09-15 - change Print Button to Form for Guests
 //$smarty->assign('BUTTON_PRINT', '<a style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_ORDER, 'oID='.$orders['orders_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')"><img src="'.'templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/button_print.gif" alt="'.TEXT_PRINT.'" /></a>');
-$smarty->assign('BUTTON_PRINT', xtc_image_button('print.gif', $array['products_name'], 'style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_ORDER, 'oID='.$orders['orders_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')"'));
-//EOF - GTB - 2010-09-15 - change Button to xtc_image_button Function
+$smarty->assign('FORM_ACTION_PRINT', xtc_draw_form('print_order', xtc_href_link(FILENAME_PRINT_ORDER, 'oID='.$orders['orders_id']), 'post', 'target="popup" onsubmit="javascript:window.open(\'this.href\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')"').xtc_draw_hidden_field('guest_print', $_SESSION['customer_id']));
+$smarty->assign('BUTTON_PRINT', xtc_image_submit('print.gif', TEXT_PRINT));
+//EOF - GTB - 2010-09-15 - change Print Button to Form for Guests
 //EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 //EOF - Dokuman - 2009-11-23 - Make the print preview clickable, i.e. change mouse cursor to hand symbol
 
@@ -116,9 +117,7 @@ if (($_SESSION['account_type'] == 1) && (DELETE_GUEST_ACCOUNT == 'true')) {
    xtc_db_query("DELETE FROM ".TABLE_ADDRESS_BOOK." WHERE customers_id = '".$_SESSION['customer_id']."'");
    xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_INFO." WHERE customers_info_id = '".$_SESSION['customer_id']."'");
    xtc_session_destroy();
-   //BOF - GTB - 2010-09-15 - do not unset the cusomer_id for printing
-   //unset ($_SESSION['customer_id']);
-   //EOF - GTB - 2010-09-15 - do not unset the cusomer_id for printing
+   unset ($_SESSION['customer_id']);
    unset ($_SESSION['customer_default_address_id']);
    unset ($_SESSION['customer_first_name']);
    unset ($_SESSION['customer_country_id']);

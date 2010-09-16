@@ -7,7 +7,9 @@
 	<li class="active"><span class="number">4.</span> <span class="title">{#title_success#}</span><br /><span class="description">{#desc_success#}</span></li>
 </ul>
 <div style="clear:both"></div>
-{$FORM_ACTION}
+<!-- BOF - GTB - 2010-09-15 - change Print Button to Form -->
+{*$FORM_ACTION*}
+<!-- EOF - GTB - 2010-09-15 - change Print Button to Form -->
 <h1>{#heading_success#}</h1>
 <p>{#text_success#}</p>
 <h2>{#title_printorder#}</h2>
@@ -21,8 +23,15 @@
 <p><div style="background: #f2f2f2; color: #ffffff; padding:5px; border: 2px solid #496686">{$PAYPAL_LINK}</div></p>
 {/if}
 <!-- EOF - web28 - 2010-03-27 PayPal Bezahl-Link -->
-
-<p>{$BUTTON_PRINT}&nbsp;{$BUTTON_CONTINUE}</p>
+<!-- BOF - GTB - 2010-09-15 - change Print Button to Form -->
+<!-- <p>{$BUTTON_PRINT}&nbsp;{$BUTTON_CONTINUE}</p> -->
+{$FORM_ACTION_PRINT}
+<div style="float:left;">{$BUTTON_PRINT}</div>
+{$FORM_END}
+{$FORM_ACTION}
+<div style="float:left; padding-left:5px;">{$BUTTON_CONTINUE}</div>
+<div style="clear:left;"></div>
+<!-- EOF - GTB - 2010-09-15 - change Print Button to Form -->
 {if $downloads_content neq ''}
 {if $title_downloadfiles!=''}
 <h1>{#title_downloadfiles#}</h1>
