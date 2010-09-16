@@ -42,8 +42,11 @@ $info_message = ''; //DokuMan - 2010-08-26 - set missing variable
 if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {    
 	
 	$vlcode = xtc_random_charcode(32);
-	$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'NONSSL');
-
+	//BOF - GTB - 2010-09-16 - set newsletter to SSL
+	$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'SSL');
+	//$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'NONSSL');
+	//EOF - GTB - 2010-09-16 - set newsletter to SSL
+	
 	// assign language to template for caching
 	$smarty->assign('language', $_SESSION['language']);
 	//BOF - GTB - 2010-08-03 - Security Fix - Base
@@ -188,18 +191,27 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'remove')) {
 	}
 }
 
-$breadcrumb->add(NAVBAR_TITLE_NEWSLETTER, xtc_href_link(FILENAME_NEWSLETTER, '', 'NONSSL'));
+//BOF - GTB - 2010-09-16 - set newsletter to SSL
+$breadcrumb->add(NAVBAR_TITLE_NEWSLETTER, xtc_href_link(FILENAME_NEWSLETTER, '', 'SSL'));
+//$breadcrumb->add(NAVBAR_TITLE_NEWSLETTER, xtc_href_link(FILENAME_NEWSLETTER, '', 'NONSSL'));
+//EOF - GTB - 2010-09-16 - set newsletter to SSL
 
 require (DIR_WS_INCLUDES.'header.php');
 
 //BOF - Dokuman - 2009-11-02 - Fix lost session on newsletter subscription
 //$smarty->assign('VVIMG', '<img src="'.DIR_WS_CATALOG.FILENAME_DISPLAY_VVCODES.'" alt="Captcha" />');
-$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES, 't='. time(), 'NONSSL') .'" alt="Captcha" />');
+//BOF - GTB - 2010-09-16 - set newsletter to SSL
+$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES, 't='. time(), 'SSL') .'" alt="Captcha" />');
+//$smarty->assign('VVIMG', '<img src="'.xtc_href_link(FILENAME_DISPLAY_VVCODES, 't='. time(), 'NONSSL') .'" alt="Captcha" />');
+//EOF - GTB - 2010-09-16 - set newsletter to SSL
 //EOF - Dokuman - 2009-11-02 - Fix lost session on newsletter subscription
 
 $smarty->assign('text_newsletter', TEXT_NEWSLETTER);
 $smarty->assign('info_message', $info_message);
-$smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_NEWSLETTER, 'action=process', 'NONSSL')));
+//BOF - GTB - 2010-09-16 - set newsletter to SSL
+$smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_NEWSLETTER, 'action=process', 'SSL')));
+//$smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_NEWSLETTER, 'action=process', 'NONSSL')));
+//EOF - GTB - 2010-09-16 - set newsletter to SSL
 
 //BOF - web28 - 2010-02-09: SHOW EMAIL IN INPUT FIELD
 //$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
