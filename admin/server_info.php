@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: server_info.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(server_info.php,v 1.4 2003/03/17); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(server_info.php,v 1.4 2003/03/17); www.oscommerce.com
    (c) 2003	 nextcommerce (server_info.php,v 1.7 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (server_info.php 899 2005-04-29)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
 require('includes/application_top.php');
@@ -27,7 +28,7 @@ $system = xtc_get_system_information();
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
@@ -116,26 +117,45 @@ $system = xtc_get_system_information();
 			    phpinfo();
 			    $phpinfo = ob_get_contents();
 			    ob_end_clean();
-
 			    $phpinfo = str_replace('border: 1px', '', $phpinfo);
+
+			    //BOF - DokuMan - 2010-09-16 - replace ereg by preg_match
+			    /*
 			    ereg("(<style type=\"text/css\">{1})(.*)(</style>{1})", $phpinfo, $regs);
-                //BOF css border and link  correction				
-				$regs[2] = str_replace('.e {', '.e {border: 1px solid #000000; ', $regs[2]);
-				$regs[2] = str_replace('.v {', '.v {border: 1px solid #000000; ', $regs[2]);
-				$regs[2] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[2]);
-				$regs[2] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[2]);
-				$regs[2] = str_replace('a:link', 'a.phpinfo:link', $regs[2]);
-				$regs[2] = str_replace('a:hover', 'a.phpinfo:hover', $regs[2]);
-				//EOF css border and link correction
+          //BOF css border and link  correction
+          $regs[2] = str_replace('.e {', '.e {border: 1px solid #000000; ', $regs[2]);
+          $regs[2] = str_replace('.v {', '.v {border: 1px solid #000000; ', $regs[2]);
+          $regs[2] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[2]);
+          $regs[2] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[2]);
+          $regs[2] = str_replace('a:link', 'a.phpinfo:link', $regs[2]);
+          $regs[2] = str_replace('a:hover', 'a.phpinfo:hover', $regs[2]);
+          //EOF css border and link correction
 			    echo '<style type="text/css">' . $regs[2] . '</style>';
-			    ereg("(<body>{1})(.*)(</body>{1})", $phpinfo, $regs);				
+			    ereg("(<body>{1})(.*)(</body>{1})", $phpinfo, $regs);
 			    echo $regs[2];
+			    */
+
+			    preg_match("/<style type=\"text\/css\">(.*)<\/style>/is", $phpinfo, $regs);
+          //BOF css border and link  correction
+          $regs[1] = str_replace('.e {', '.e {border: 1px solid #000000; ', $regs[1]);
+          $regs[1] = str_replace('.v {', '.v {border: 1px solid #000000; ', $regs[1]);
+          $regs[1] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[1]);
+          $regs[1] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[1]);
+          $regs[1] = str_replace('a:link', 'a.phpinfo:link', $regs[1]);
+          $regs[1] = str_replace('a:hover', 'a.phpinfo:hover', $regs[1]);
+          //EOF css border and link correction
+
+          echo '<style type="text/css">' . $regs[1] . '</style>';
+          preg_match("/<body>(.*)<\/body>/is", $phpinfo, $regs);
+          echo $regs[1];
+			    //EOF - DokuMan - 2010-09-16 - replace ereg by preg_match
+
 			  } else {
 			    phpinfo();
 			  }
 		   ?>
 		   </div>
-        </td>	
+        </td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
