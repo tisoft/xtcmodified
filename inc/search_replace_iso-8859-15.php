@@ -33,7 +33,7 @@ function shopstat_getRegExps(&$search, &$replace)
 						"'&(sup3|#179);|³'i", 		//Hoch-3-Zeichen 
 						"'&(acute|#180);'i", 		// Akut (accent aigu, acute) ### NICHT in iso-8859-15 enthalten ###
 						"'&(micro|#181);|µ'i",		//Mikro-Zeichen
-						"'&(trade|#8482)'i",   		//--Trademark wird zu -TM- ### NICHT in iso-8859-15 enthalten ###
+						"'&(trade|#8482);'i",   	//--Trademark wird zu -TM- ### NICHT in iso-8859-15 enthalten ###
 						"'&(euro|#8364);|¤'i",   	//--Eurozeichen wird zu EUR
 						"'&(laquo|#171);|«'i", 	 	//-- Left angle quotes Left Winkel Zitate
 						"'&(raquo|#187);|»'i", 		//--Right angle quotes Winkelgetriebe Zitate
