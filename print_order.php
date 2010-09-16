@@ -29,8 +29,11 @@ $order_query_check = xtc_db_query("SELECT
   					WHERE orders_id=".$oID);
 $order_check = xtc_db_fetch_array($order_query_check);
 //BOF - DokuMan - 2010-03-18 - check for set customer_id
+//BOF - GTB - 2010-09-15 - change Print Button to Form for Guests
 //if ($_SESSION['customer_id'] == $order_check['customers_id']) {
-if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check['customers_id']) {
+if ((isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check['customers_id']) || (isset($_POST['customer_id']) && $_POST['customer_id'] == $order_check['customers_id'])) {
+//if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check['customers_id']) {
+//EOF - GTB - 2010-09-15 - change Print Button to Form for Guests
 //EOF - DokuMan - 2010-03-18 - check for set customer_id
 
 	// get order data
