@@ -218,7 +218,7 @@
 		$KeyWords 	= 	WordArray($KeyWords);
 		$StopWords 	=	WordArray($metaStopWords);
 		$KeyWords 	= 	array_diff($KeyWords,$StopWords);
-		$KeyWords 	= 	array_filter($KeyWords,filterKeyWordArray);
+		$KeyWords 	= 	array_filter($KeyWords,"filterKeyWordArray");
 		return $KeyWords;
 	}
 // ---------------------------------------------------------------------------------------
@@ -249,7 +249,10 @@
 		//$GoWords = $metaGoWords.' '.META_KEYWORDS;
 		$GoWords = $metaGoWords.' '.ML_META_KEYWORDS.' '.ML_TITLE; // <-- MultiLanguage
 		$GoWords .= ' '.$categories_meta['categories_meta_keywords'];
-		$GoWords .= ' '.$product->data['products_meta_keywords'];
+		// BOF - DokuMan - 2010-09-17 - Undefined property: product::$data 
+		//$GoWords .= ' '.$product->data['products_meta_keywords'];
+		if (isset($product->data['products_meta_keywords'])) $GoWords .= ' '.$product->data['products_meta_keywords'];
+		// EOF - DokuMan - 2010-09-17 - Undefined property: product::$data 
 		return $GoWords;
 	}
 // ---------------------------------------------------------------------------------------
@@ -279,7 +282,7 @@
 // ---------------------------------------------------------------------------------------
 	function metaTitle($Title=array()) {
 		$Title = func_get_args();
-		$Title = array_filter($Title,metaClean);
+		$Title = array_filter($Title,"metaClean");
 		return implode(' - ',$Title);
 	}
 // ---------------------------------------------------------------------------------------
