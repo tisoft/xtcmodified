@@ -566,9 +566,14 @@ class categories {
 			$dup_check = xtc_db_fetch_array($dup_check_query);
 			if ($dup_check['total'] < 2)
 				@ xtc_del_image_file($products_data['del_pic']);
-			xtc_db_query("UPDATE ".TABLE_PRODUCTS."
-								                 SET products_image = ''
-								               WHERE products_id    = '".xtc_db_input($products_id)."'");
+				//BOF - DokuMan - 2010-09-17 - ticket #66: noimg.gif is not shown if product image is deleted
+        //xtc_db_query("UPDATE ".TABLE_PRODUCTS."
+        //					                 SET products_image = ''
+        //					               WHERE products_id    = '".xtc_db_input($products_id)."'");
+        xtc_db_query("UPDATE ".TABLE_PRODUCTS."
+                                   SET products_image = NULL
+                                 WHERE products_id    = '".xtc_db_input($products_id)."'");
+				//EOF - DokuMan - 2010-09-17 - ticket #66: noimg.gif is not shown if product image is deleted
 		}
 
 		if ($products_data['del_mo_pic'] != '') {
