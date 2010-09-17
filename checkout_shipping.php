@@ -1,15 +1,15 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(checkout_shipping.php,v 1.15 2003/04/08); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(checkout_shipping.php,v 1.15 2003/04/08); www.oscommerce.com
    (c) 2003 nextcommerce (checkout_shipping.php,v 1.20 2003/08/20); www.nextcommerce.org
    (c) 2006 xtCommerce (checkout_shipping.php 1037 2005-07-17)
 
@@ -51,7 +51,7 @@ if (!isset ($_SESSION['customer_id'])) {
 		xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 	}
 }
- 
+
 // if there is nothing in the customers cart, redirect them to the shopping cart page
 if ($_SESSION['cart']->count_contents() < 1) {
 	xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
@@ -227,7 +227,10 @@ if (xtc_count_shipping_modules() > 0) {
 							$quotes[$i]['tax'] = '';
 						if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0)
 							$quotes[$i]['tax'] = 0;
-
+						//BOF - DokuMan - 2010-09-17 - Undefined index: tax
+						if (!isset($quotes[$i]['tax']))
+							$quotes[$i]['tax'] = 0;
+						//EOF - DokuMan - 2010-09-17 - Undefined index: tax
 						$quotes[$i]['methods'][$j]['price'] = $xtPrice->xtcFormat(xtc_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax']), true, 0, true);
 						$quotes[$i]['methods'][$j]['radio_field'] = xtc_draw_radio_field('shipping', $quotes[$i]['id'].'_'.$quotes[$i]['methods'][$j]['id'], $checked);
 					} else {
