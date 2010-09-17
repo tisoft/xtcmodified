@@ -47,7 +47,10 @@ class main {
  		//if ($this->SHIPPING[$id]['image']) {
         if (isset($this->SHIPPING[$id]['image']) && $this->SHIPPING[$id]['image'] != '') {
  		//EOF - DokuMan - 2009-08-28 - set undefined index
- 		return 'admin/images/icons/'.$this->SHIPPING[$id]['image'];
+ 		//BOF - DokuMan - 2009-09-17 - corrected shipping image link due to (base href)
+    //return 'admin/images/icons/'.$this->SHIPPING[$id]['image'];
+    return DIR_WS_CATALOG.'admin/images/icons/'.$this->SHIPPING[$id]['image'];   
+ 		//EOF - DokuMan - 2009-09-17 - corrected shipping image link due to (base href)
  		} else {
  			return;
  		}
