@@ -1,15 +1,16 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_collect_posts.inc.php 803 2005-02-26 15:32:50Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce coding standards; www.oscommerce.com
+   (c) 2006 XT-Commerce (xtc_db_perform.inc.php 899 2005-04-29)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -22,16 +23,24 @@
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
-
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
 
     function xtc_collect_posts() {
       global $coupon_no, $REMOTE_ADDR,$xtPrice,$cc_id;
       if (!$REMOTE_ADDR) $REMOTE_ADDR=$_SERVER['REMOTE_ADDR'];
       if ($_POST['gv_redeem_code']) {
-        $gv_query = xtc_db_query("select coupon_id, coupon_amount, coupon_type, coupon_minimum_order,uses_per_coupon, uses_per_user, restrict_to_products,restrict_to_categories from " . TABLE_COUPONS . " where coupon_code='".$_POST['gv_redeem_code']."' and coupon_active='Y'");
+        $gv_query = xtc_db_query("select coupon_id,
+                                  coupon_amount,
+                                  coupon_type,
+                                  coupon_minimum_order,
+                                  uses_per_coupon,
+                                  uses_per_user,
+                                  restrict_to_products,
+                                  restrict_to_categories
+                                  from " . TABLE_COUPONS . "
+                                  where coupon_code='".$_POST['gv_redeem_code']."'
+                                  and coupon_active='Y'");
         $gv_result = xtc_db_fetch_array($gv_query);
 
         if (xtc_db_num_rows($gv_query) != 0) {
@@ -44,11 +53,8 @@
         xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, 'info_message=' . urlencode(ERROR_NO_INVALID_REDEEM_GV), 'SSL'));
         }
 
-
-
         // GIFT CODE G START
         if ($gv_result['coupon_type'] == 'G') {
-
           $gv_amount = $gv_result['coupon_amount'];
           // Things to set
           // ip address of claimant
@@ -74,11 +80,7 @@
           }
           xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, 'info_message=' . urlencode(REDEEMED_AMOUNT. $xtPrice->xtcFormat($gv_amount,true,0,true)), 'SSL'));
 
-
-
       } else {
-
-
 
         if (xtc_db_num_rows($gv_query)==0) {
             xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, 'info_message=' . urlencode(ERROR_NO_INVALID_REDEEM_COUPON), 'SSL'));
@@ -119,7 +121,6 @@
     }
 
      }
-     if ($_POST['submit_redeem_x'] && $gv_result['coupon_type'] == 'G') xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, 'info_message=' . urlencode(ERROR_NO_REDEEM_CODE), 'SSL'));
+     if (isset($_POST['submit_redeem_x']) && $gv_result['coupon_type'] == 'G') xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, 'info_message=' . urlencode(ERROR_NO_REDEEM_CODE), 'SSL'));
    }
-
 ?>

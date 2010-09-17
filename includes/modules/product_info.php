@@ -70,18 +70,24 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
 				if ($product->data['products_fsk18'] == '0') {
           // BOF - Tomcraft - 2009-11-28 - Included xs:booster
-					//$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
-				if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
-					$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
-				else
-					$info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+          //$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+          //BOF - DokuMan - 2010-09-18 - set undefined index
+          //if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
+          if((isset($xsb_tx['XTB_ALLOW_USER_CHQTY']) && $xsb_tx['XTB_ALLOW_USER_CHQTY']=='true') || ( isset($xsb_tx['products_id']) && $xsb_tx['products_id']!=$product->data['products_id']))
+          //EOF - DokuMan - 2010-09-18 - set undefined index
+          $info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
+        else
+          $info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
           // EOF - Tomcraft - 2009-11-28 - Included xs:booster
-					$info_smarty->assign('ADD_CART_BUTTON', xtc_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART));
+          $info_smarty->assign('ADD_CART_BUTTON', xtc_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART));
 				}
 			} else {
         // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 				//$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
-			if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
+        //BOF - DokuMan - 2010-09-18 - set undefined index
+        //if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
+        if((isset($xsb_tx['XTB_ALLOW_USER_CHQTY']) && $xsb_tx['XTB_ALLOW_USER_CHQTY']=='true') || ( isset($xsb_tx['products_id']) && $xsb_tx['products_id']!=$product->data['products_id']))
+    //EOF - DokuMan - 2010-09-18 - set undefined index
 				$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
 			else
 				$info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
@@ -135,10 +141,10 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
     //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 		//$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')" alt="" />');
 		//BOF - GTB - 2010-08-03 - Security Fix - Base
-    //BOF - DokuMan - 2010-09-09 - used xtc_image_button for correct image dimensions	
+    //BOF - DokuMan - 2010-09-18 - used xtc_image_button for correct image dimensions
 		//$info_smarty->assign('PRODUCTS_PRINT', '<img src="'.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')" alt="" />');
-		$info_smarty->assign('PRODUCTS_PRINT', xtc_image_button('print.gif', $array['products_name'], 'style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')"'));
-    //EOF - DokuMan - 2010-09-09 - used xtc_image_button for correct image dimensions
+		$info_smarty->assign('PRODUCTS_PRINT', xtc_image_button('print.gif', $product->data['products_name'], 'style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')"'));
+    //EOF - DokuMan - 2010-09-18 - used xtc_image_button for correct image dimensions
 		//$info_smarty->assign('PRODUCTS_PRINT', '<img src="templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/print.gif"  style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_PRINT_PRODUCT_INFO, 'products_id='.$product->data['products_id']).'\', \'popup\', \'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600\')" alt="" />');
 		//BOF - GTB - 2010-08-03 - Security Fix - Base
     //EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
@@ -184,8 +190,8 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			$more_images_data = array();
 			foreach ($mo_images as $img) {
 				$more_images_data[] = array (
-		  //BOF - GTB - 2010-08-03 - Security Fix - Base		
-		  'PRODUCTS_IMAGE' => DIR_WS_BASE.DIR_WS_INFO_IMAGES.$img['image_name'],		
+		  //BOF - GTB - 2010-08-03 - Security Fix - Base
+		  'PRODUCTS_IMAGE' => DIR_WS_BASE.DIR_WS_INFO_IMAGES.$img['image_name'],
           //'PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
           //EOF - GTB - 2010-08-03 - Security Fix - Base
           'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE,

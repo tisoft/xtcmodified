@@ -173,7 +173,7 @@ if (ACTIVATE_GIFT_SYSTEM == 'true') {
 $module_smarty->caching = 0;
 $payment_block = $module_smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_payment_block.html');
 
-$smarty->assign('COMMENTS', xtc_draw_textarea_field('comments', 'soft', '60', '5', $_SESSION['comments']) . xtc_draw_hidden_field('comments_added', 'YES'));
+$smarty->assign('COMMENTS', xtc_draw_textarea_field('comments', 'soft', '60', '5', isset($_SESSION['comments']) ? $_SESSION['comments'] : '') . xtc_draw_hidden_field('comments_added', 'YES'));
 
 //check if display conditions on checkout page is true
 if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {

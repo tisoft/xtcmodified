@@ -118,7 +118,7 @@ $smarty->assign('PRODUCTS_IMAGE', $image);
 $smarty->assign('PRODUCTS_PRICE', $products_price['formated']);
 if (ACTIVATE_SHIPPING_STATUS == 'true') {
 	$smarty->assign('SHIPPING_NAME', $main->getShippingStatusName($product_info['products_shippingtime']));
-	if ($shipping_status['image'] != '')
+	if (isset($shipping_status['image']) && $shipping_status['image'] != '')
 		$smarty->assign('SHIPPING_IMAGE', $main->getShippingStatusImage($product_info['products_shippingtime']));
 }
 if (SHOW_SHIPPING == 'true')
