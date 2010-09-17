@@ -1,28 +1,25 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: dhl.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtc-Modified 
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtc-Modified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(dhl.php,v 1.02 2003/02/18); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(dhl.php,v 1.02 2003/02/18); www.oscommerce.com
    (c) 2003	 nextcommerce (dhl.php,v 1.10 2003/08/24); www.nextcommerce.org
+   (c) 2006 xt:commerce (dhl.php 899 2005-04-29);
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contributions:
    dhl_austria_1.02       	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers | http://www.themedia.at & http://www.oscommerce.at
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-   
-   
-
-
 
   class dhl {
     var $code, $title, $description, $icon, $enabled, $num_dhl, $types;
@@ -136,7 +133,7 @@
           $n++;
         }
 
-        if ($dhl_cost_dox != '') {          
+        if ($dhl_cost_dox != '') {
 		  $dhl_table_dox = preg_split("/[:,]/" , $dhl_cost_dox);  // Hetfield - 2009-11-19 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
           if ( ($shipping_weight > 10) and ($shipping_weight <= 20) ) {
             $shipping_dox = number_format((($shipping_weight - 10)* 2 + 0.5), 0) * constant('MODULE_SHIPPING_DHL_STEP_DOX_20_' .$j) + $dhl_table_dox[count ($dhl_table_dox)-1];
@@ -167,7 +164,7 @@
                              'title' => 'Document Express Service',
                              'cost' => (MODULE_SHIPPING_DHL_HANDLING + $shipping_cost_2) * $shipping_num_boxes);
           $n++;
-        }  
+        }
 
         if ($dhl_cost_wpx != '') {
           $dhl_table_wpx = preg_split("/[:,]/" , $dhl_cost_wpx); // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
@@ -272,7 +269,10 @@
       $this->quotes = array('id' => $this->code,
                             'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . MODULE_SHIPPING_DHL_TEXT_UNITS .')');
 
-      $this->quotes['methods'] = $methods;
+      //BOF - DokuMan - 2010-09-17 - Undefined variable: methods
+      //$this->quotes['methods'] = $methods;
+      $this->quotes['methods'] = isset($methods) ? $methods : '';
+      //EOF - DokuMan - 2010-09-17 - Undefined variable: methods
 
       if ($this->tax_class > 0) {
         $this->quotes['tax'] = xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
