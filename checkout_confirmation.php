@@ -257,16 +257,15 @@ $smarty->assign('TOTAL_BLOCK', $total_block);
 if (is_array($payment_modules->modules)) {
 	if ($confirmation = $payment_modules->confirmation()) {
 		$payment_info = $confirmation['title'];
-		for ($i = 0, $n = sizeof($confirmation['fields']); $i < $n; $i++) {
-
-			$payment_info .= '<table>
-								<tr>
-						                <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
-						                <td class="main">' . $confirmation['fields'][$i]['title'] . '</td>
-						                <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
-						                <td class="main">' . stripslashes($confirmation['fields'][$i]['field']) . '</td>
-						              </tr></table>';
-
+    if (isset($confirmation['fields'])) { //DokuMan - 2010-09-17 - Undefined index
+      for ($i = 0, $n = sizeof($confirmation['fields']); $i < $n; $i++) {
+        $payment_info .= '<table><tr>
+                              <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
+                              <td class="main">' . $confirmation['fields'][$i]['title'] . '</td>
+                              <td>' . xtc_draw_separator('pixel_trans.gif', '10', '1') . '</td>
+                              <td class="main">' . stripslashes($confirmation['fields'][$i]['field']) . '</td>
+                            </tr></table>';
+      }
 		}
 		$smarty->assign('PAYMENT_INFORMATION', $payment_info);
 	}

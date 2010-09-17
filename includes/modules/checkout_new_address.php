@@ -29,12 +29,11 @@ if (!isset ($process))
 	$process = false;
 
 if (ACCOUNT_GENDER == 'true') {
-	$male = ($gender == 'm') ? true : false;
-	$female = ($gender == 'f') ? true : false;
+	$male = (isset($gender) && $gender == 'm') ? true : false;
+	$female = (isset($gender) && $gender == 'f') ? true : false;
 	$module_smarty->assign('gender', '1');
 	$module_smarty->assign('INPUT_MALE', xtc_draw_radio_field(array ('name' => 'gender', 'suffix' => MALE), 'm'));
 	$module_smarty->assign('INPUT_FEMALE', xtc_draw_radio_field(array ('name' => 'gender', 'suffix' => FEMALE, 'text' => (xtc_not_null(ENTRY_GENDER_TEXT) ? '<span class="inputRequirement">'.ENTRY_GENDER_TEXT.'</span>' : '')), 'f'));
-
 }
 $module_smarty->assign('INPUT_FIRSTNAME', xtc_draw_input_fieldNote(array ('name' => 'firstname', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="inputRequirement">'.ENTRY_FIRST_NAME_TEXT.'</span>' : ''))));
 $module_smarty->assign('INPUT_LASTNAME', xtc_draw_input_fieldNote(array ('name' => 'lastname', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="inputRequirement">'.ENTRY_LAST_NAME_TEXT.'</span>' : ''))));
@@ -78,7 +77,7 @@ if (ACCOUNT_STATE == 'true') {
 	$module_smarty->assign('state', '0');
 }
 
-if ($_POST['country']){
+if (isset($_POST['country']) && $_POST['country']) {
   $selected = $_POST['country'];
 } else {
   $selected = STORE_COUNTRY;
