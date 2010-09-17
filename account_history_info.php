@@ -1,19 +1,19 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: account_history_info.php 1309 2005-10-17 08:01:11Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(account_history_info.php,v 1.97 2003/05/19); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(account_history_info.php,v 1.97 2003/05/19); www.oscommerce.com
    (c) 2003	 nextcommerce (account_history_info.php,v 1.17 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (account_history_info.php 1309 2005-10-17)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -30,7 +30,7 @@ require_once (DIR_FS_INC.'xtc_format_price_order.inc.php');
 
 //security checks
 if (!isset ($_SESSION['customer_id'])) { xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL')); }
-if (!isset ($_GET['order_id']) || (isset ($_GET['order_id']) && !is_numeric($_GET['order_id']))) { 
+if (!isset ($_GET['order_id']) || (isset ($_GET['order_id']) && !is_numeric($_GET['order_id']))) {
    xtc_redirect(xtc_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
 }
 $customer_info_query = xtc_db_query("select customers_id from ".TABLE_ORDERS." where orders_id = '".(int) $_GET['order_id']."'");
@@ -51,7 +51,7 @@ if ($order->delivery != false) {
 	if ($order->info['shipping_method']) { $smarty->assign('SHIPPING_METHOD', $order->info['shipping_method']); }
 }
 
-$order_total = $order->getTotalData((int)$_GET['order_id']); 
+$order_total = $order->getTotalData((int)$_GET['order_id']);
 
 $smarty->assign('order_data', $order->getOrderData((int)$_GET['order_id']));
 $smarty->assign('order_total', $order_total['data']);
@@ -59,22 +59,21 @@ $smarty->assign('order_total', $order_total['data']);
 // Payment Method
 if ($order->info['payment_method'] != '' && $order->info['payment_method'] != 'no_payment') {
 	include (DIR_WS_LANGUAGES.'/'.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
-	$smarty->assign('PAYMENT_METHOD', constant(MODULE_PAYMENT_.strtoupper($order->info['payment_method'])._TEXT_TITLE));
+	$smarty->assign('PAYMENT_METHOD', constant('MODULE_PAYMENT_'.strtoupper($order->info['payment_method']).'_TEXT_TITLE'));
 }
 
 //BOF  - web28 - 2010-03-27 PayPal Bezahl-Link
-if ($order->info['payment_method'] == 'paypal_ipn' && MODULE_PAYMENT_PAYPAL_IPN_USE_ACCOUNT == 'True') {	
-	
-	$order_id= (int)$_GET['order_id'];	
+if ($order->info['payment_method'] == 'paypal_ipn' && MODULE_PAYMENT_PAYPAL_IPN_USE_ACCOUNT == 'True') {
+	$order_id = (int)$_GET['order_id'];
 	$paypal_link = array();
 	require (DIR_WS_CLASSES.'payment.php');
-	$payment_modules = new payment('paypal_ipn');	
-	$payment_modules->create_paypal_link();		
+	$payment_modules = new payment('paypal_ipn');
+	$payment_modules->create_paypal_link();
 	$smarty->assign('PAYPAL_LINK', $paypal_link['html']);
-	
 }
 //EOF  - web28 - 2010-03-27 PayPal Bezahl-Link
 
+$history_block = ''; //DokuMan - 2010-09-18 - set undefined variable
 // Order History
 //BOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 //$history_block = '<table summary="order history">';
@@ -87,7 +86,7 @@ $statuses_query = xtc_db_query("select os.orders_status_name,
                                      ".TABLE_ORDERS_STATUS_HISTORY." osh
                                 where osh.orders_id = '".(int) $_GET['order_id']."'
                                 and osh.orders_status_id = os.orders_status_id
-                                and os.language_id = '".(int) $_SESSION['languages_id']."' 
+                                and os.language_id = '".(int) $_SESSION['languages_id']."'
                                 order by osh.date_added");
 while ($statuses = xtc_db_fetch_array($statuses_query)) {
 //BOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
@@ -127,7 +126,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_history_info.ht
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM)) { $smarty->load_filter('output', 'note'); }
+if (!defined('RM')) { $smarty->load_filter('output', 'note'); }
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>
