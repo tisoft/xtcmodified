@@ -399,8 +399,9 @@ class shoppingCart {
 				'shipping_time' => $main->getShippingStatusName($products['products_shippingtime']),
 				'final_price' => ($products_price + $this->attributes_price($products_id)),
 				'tax_class_id' => $products['products_tax_class_id'],
+				'tax' => isset($xtPrice->TAX[$products['products_tax_class_id']]) ? $xtPrice->TAX[$products['products_tax_class_id']] : 0,
 				'attributes' => isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : '',
-				);
+				); //DokuMan - added missing attribute 'tax' to array in shopping cart
 			}
 			}
 		}
