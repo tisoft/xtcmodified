@@ -31,7 +31,7 @@
 define('XAJAX_SUPPORT',         'false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
 define('XAJAX_SUPPORT_TEST',    'false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
 // EOF - Hendrik - 2010-08-22 - xajax support
-   
+
 // start the timer for the page parse time log
 define('PAGE_PARSE_START_TIME', microtime());
 
@@ -295,10 +295,10 @@ $InputFilter = new InputFilter();
 //$_GET = $InputFilter->process($_GET, true);
 //$_POST = $InputFilter->process($_POST);
 $_GET = $InputFilter->process($_GET);
-$_POST = $InputFilter->process($_POST); 
+$_POST = $InputFilter->process($_POST);
 $_REQUEST = $InputFilter->process($_REQUEST);
 $_GET = $InputFilter->safeSQL($_GET);
-$_POST = $InputFilter->safeSQL($_POST); 
+$_POST = $InputFilter->safeSQL($_POST);
 $_REQUEST = $InputFilter->safeSQL($_REQUEST);
 // EOF - Hetfield - 2009-08-16 - correct inputfilter security-patch and remove double replacing
 
@@ -426,10 +426,19 @@ if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32
 if (!isset ($_SESSION['language']) || isset ($_GET['language'])) {
 
 	include (DIR_WS_CLASSES.'language.php');
+  //BOF - DokuMan - 2010-09-17 - Undefined index: language on first request
+	/*
 	$lng = new language(xtc_input_validation($_GET['language'], 'char', ''));
-
 	if (!isset ($_GET['language']))
 		$lng->get_browser_language();
+	*/
+  if (!isset ($_GET['language'])) {
+      $lng = new language(xtc_input_validation('', 'char', ''));
+      $lng->get_browser_language();
+  } else {
+      $lng = new language(xtc_input_validation($_GET['language'], 'char', ''));
+  }
+  //EOF - DokuMan - 2010-09-17 - Undefined index: language on first request
 
 	$_SESSION['language'] = $lng->language['directory'];
 	$_SESSION['languages_id'] = $lng->language['id'];
@@ -438,7 +447,7 @@ if (!isset ($_SESSION['language']) || isset ($_GET['language'])) {
 }
 
 if (isset($_SESSION['language']) && !isset($_SESSION['language_charset'])) {
-	
+
 	include (DIR_WS_CLASSES.'language.php');
 	$lng = new language(xtc_input_validation($_SESSION['language'], 'char', ''));
 
@@ -481,7 +490,7 @@ $xtPrice = new xtcPrice($_SESSION['currency'], $_SESSION['customers_status']['cu
 //--- SHOPSTAT -------------------------//
 
 // econda tracking
-if (TRACKING_ECONDA_ACTIVE=='true') {		
+if (TRACKING_ECONDA_ACTIVE=='true') {
 	require(DIR_WS_INCLUDES . 'econda/class.econda304SP2.php');
 	$econda = new econda();
 }
@@ -523,13 +532,13 @@ if (isset ($_GET['info'])) {
 elseif (isset($_GET['products_id'])) {
 	$actual_products_id = (int) $_GET['products_id'];
 	$product = new product($actual_products_id);
-	
+
 }
-//BOF - DokuMan - 2010-02-25 - check for defined variable: product 
+//BOF - DokuMan - 2010-02-25 - check for defined variable: product
 //if (!is_object($product)) {
 if (!isset($product) || !is_object($product)) {
-//EOF - DokuMan - 2010-02-25 - check for defined variable: product 
-	$product = new product();	
+//EOF - DokuMan - 2010-02-25 - check for defined variable: product
+	$product = new product();
 }
 
 // new c URLS
@@ -576,8 +585,8 @@ $breadcrumb = new breadcrumb;
 // BOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 if (DIR_WS_CATALOG == '/') {
 	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
-} else {	
-	$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER.'?'.session_name().'='.xtc_session_id()); 
+} else {
+	$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER.'?'.session_name().'='.xtc_session_id());
 	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
 	$breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
 }
@@ -665,8 +674,8 @@ if (isset ($_SESSION['customer_id'])) {
 unset ($_SESSION['actual_content']);
 
 // econda tracking
-if (TRACKING_ECONDA_ACTIVE=='true') {	
-	
+if (TRACKING_ECONDA_ACTIVE=='true') {
+
 	require(DIR_WS_INCLUDES . 'econda/emos.php');
 }
 
