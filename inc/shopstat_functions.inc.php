@@ -54,8 +54,8 @@ function shopstat_getSEO(   $page               = '',
                             $mode               = 'user')
 {
         global $languages_id;
-		$link = "";		
-		
+        $link = "";		
+        $maname = "";
         if($mode == 'admin')
             {
             require_once(DIR_FS_INC . 'xtc_parse_category_path.inc.php');
