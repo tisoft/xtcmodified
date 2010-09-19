@@ -27,6 +27,7 @@ require_once (DIR_FS_INC.'xtc_get_all_get_params.inc.php');
 require_once (DIR_FS_INC.'xtc_get_vpe_name.inc.php');
 $listing_split = new splitPageResults($listing_sql, (isset($_GET['page']) ? (int)$_GET['page'] : 1), MAX_DISPLAY_SEARCH_RESULTS, 'p.products_id');
 $module_content = array ();
+$category = array ();
 if ($listing_split->number_of_rows > 0) {
 
 	$navigation = '
