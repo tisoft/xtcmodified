@@ -1,20 +1,20 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: upgrade.php 2010-07-22 DokuMan $   
+   $Id: upgrade.php 2010-07-22 DokuMan $
 
-   xtc-Modified 
+   xtc-Modified
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtc-Modified
    Released under the GNU General Public License
    --------------------------------------------------------------
    based on:
-   (c) 2010 xtcModified (db_upgrade.php,v 1.00 2010/07/22); www.www.xtc-modified.org 
-   
-   Released under the GNU General Public License 
+   (c) 2010 xtcModified (db_upgrade.php,v 1.00 2010/07/22); www.www.xtc-modified.org
+
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-  require('../includes/configure.php'); 
+  require('../includes/configure.php');
   require('../includes/database_tables.php');
 
   require_once(DIR_FS_INC . 'xtc_db_connect.inc.php');
@@ -34,10 +34,11 @@
     define ('UPGRADE_NOT_NECESSARY', 'Kein Datenbankupgrade notwendig, sie sind auf dem aktuellesten Stand!');
     define ('USED_FILES', '<br /><br />Folgende Dateien werden für das Upgrade auf die neueste Datenbank-Version verwendet:<br /><br />');
     define ('CURRENT_DB_VERSION', '<br />Ihre aktuelle Datenbank-Version ist: ');
-    define ('FINAL_TEXT', '<br /><br /><strong>Bitte l&ouml;schen Sie jetzt aus Sicherheitsgr&uuml;nden die Upgrade-Datei vom Server:</strong><br /> ');
+    define ('FINAL_TEXT', 'Bitte l&ouml;schen Sie jetzt aus Sicherheitsgr&uuml;nden die Upgrade-Datei vom Server: ');
     define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
     define('TEXT_TITLE','xtcModified Datenbankupgrade');
-
+    define('OPTIMIZE_TABLE','(OPTIMIZE TABLE): Datenbanktabellen nach dem Upgrade optimieren (empfohlen)');
+    define('OPTIMIZE_TABLE_GAIN','Die Optimierung der Datenbank führte zu einem Speicherplatzgewinn von: ');
   } else {
     // English definitions
     define ('TITLE_UPGRADE','<br /><strong><h1>xtcModified database upgrade process</h1></strong>');
@@ -46,13 +47,15 @@
     define ('UPGRADE_NOT_NECESSARY', 'Database upgrade not necessary, you are up to date!');
     define ('USED_FILES', '<br /><br />The following files will be used for the upgrade to the newest database version:<br /><br />');
     define ('CURRENT_DB_VERSION', '<br />Your current database version is: ');
-    define ('FINAL_TEXT', '<br /><br /><strong>Please delete the update file from your server for security reasons now:</strong><br /> ');    
+    define ('FINAL_TEXT', 'Please delete the update file from your server for security reasons now: ');
     define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
     define('TEXT_TITLE','xtcModified database upgrade');
+    define('OPTIMIZE_TABLE','(OPTIMIZE TABLE): Optimize database tables after the upgrade (recommended)');
+    define('OPTIMIZE_TABLE_GAIN','The optimization of the database saved: ');
   }
 
   // get DB version
-  xtc_db_connect() or die('Unable to connect to database server!');  
+  xtc_db_connect() or die('Unable to connect to database server!');
   $version_query = xtc_db_query("select version from " . TABLE_DATABASE_VERSION);
   $version_array = xtc_db_fetch_array($version_query);
   $db_version = substr($version_array['version'], -7, 7); //return version, e.g. '1.0.5.0' when 'xtcM_1.0.5.0'
@@ -63,11 +66,11 @@
   while($datei = readdir($ordner)) {
     if(preg_match('/update_/i', $datei)) {
            $farray[] = $datei;
-     }   
+     }
   }
   closedir($ordner);
   sort($farray);
-  
+
   // drop unnecessary SQL update_files less than "$db_version"
   foreach($farray as $key => $item) {
     if(preg_match("/$db_version_update/", $item)){
@@ -85,7 +88,7 @@
     $restore_query .= fread($f,filesize($sqlFileToExecute));
     fclose($f);
   }
-  
+
   // SQL parsing taken from xtc_db_install.inc.php
   $sql_array = array();
   $sql_length = strlen($restore_query);
@@ -98,7 +101,7 @@
       continue;
     }
     if ($restore_query[($i+1)] == "\n") {
-      $next = '';    
+      $next = '';
       for ($j=($i+2); $j<$sql_length; $j++) {
         if (trim($restore_query[$j]) != '') {
           $next = substr($restore_query, $j, 6);
@@ -123,15 +126,15 @@
       }
 
       // compare first 6 letters, if it fits an SQL statement to start a new line
-      if ((strtoupper($next) == 'DROP T') 
-      || (strtoupper($next) == 'CREATE') 
+      if ((strtoupper($next) == 'DROP T')
+      || (strtoupper($next) == 'CREATE')
       || (strtoupper($next) == 'INSERT')
       || (strtoupper($next) == 'DELETE')
       || (strtoupper($next) == 'ALTER ')
-      || (strtoupper($next) == 'TRUNCA')      
+      || (strtoupper($next) == 'TRUNCA')
       || (strtoupper($next) == 'UPDATE')) {
         $next = '';
-        $sql_query = substr($restore_query, 0, $i);       
+        $sql_query = substr($restore_query, 0, $i);
         $sql_array[] = trim($sql_query);
         $restore_query = ltrim(substr($restore_query, $i+1));
         $sql_length = strlen($restore_query);
@@ -154,7 +157,7 @@ a {color:#893769;}
 </head>
 <body>
 <table width="800" style="border:30px solid #fff;" bgcolor="#f3f3f3" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr> 
+  <tr>
     <td height="95" colspan="2" >
       <table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
@@ -162,16 +165,16 @@ a {color:#893769;}
         </tr>
       </table>
   </tr>
-  <tr> 
-    <td align="center" valign="top"> 
+  <tr>
+    <td align="center" valign="top">
       <table width="95%" border="0" cellpadding="0" cellspacing="0">
          <tr>
           <td><br />
           <?php
           echo TITLE_UPGRADE;
 
-          if(isset($_POST['submit'])) { 
-            // Write SQL-statements to database 
+          if(isset($_POST['submit'])) {
+            // Write SQL-statements to database
             foreach ($sql_array as $stmt) {
               xtc_db_query($stmt);
             }
@@ -187,9 +190,22 @@ a {color:#893769;}
               echo htmlentities($stmt).'<br />';
             }
             echo '</div>';
-            echo FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']);
-            
-          } else {         
+
+            // OPTIMIZE TABLES
+            if (isset($_POST['submit']) && isset($_POST['optimizetables'])) {
+              $tables = xtc_db_query('SHOW TABLE STATUS FROM ' . DB_DATABASE);
+              while($row = xtc_db_fetch_array($tables)) {
+                if ( $row['Data_free'] > 0 ) {
+                xtc_db_query('OPTIMIZE TABLE '.$row['Name']);
+                $gain += $row['Data_free']/1024/1024;
+                }
+              }
+              echo '<br/><div style="border:1px solid #ccc; background:#fff; padding:10px;">';
+              echo '<strong>'.OPTIMIZE_TABLE_GAIN . number_format($gain,3).' MB</strong></div>';
+            }
+            echo '<p style="color:red">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).'<p>';
+
+          } else {
             echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
             echo USED_FILES ;
             echo '<div style="border:1px solid #ccc; background:#fff; padding:10px;">';
@@ -199,19 +215,22 @@ a {color:#893769;}
               else {
                 echo UPGRADE_NOT_NECESSARY;
               }
+            echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).'<p>';              
             echo '</div>';
           }
 
-          if (!isset($_POST['submit']) && $used_files_display != '') { 
-            echo '<br /><form method="post" action="'.basename($_SERVER['SCRIPT_FILENAME']) .'">
-            <input type="submit" name="submit" value="'.SUBMIT_VALUE.'"/><br />
+          //HTML-input form
+          if (!isset($_POST['submit']) && $used_files_display != '') {
+            echo '<br /><form method="post" action="'.basename($_SERVER['SCRIPT_FILENAME']) .'">';
+            echo '<input type="checkbox" name="optimizetables" value="1" checked="checked"/>'.OPTIMIZE_TABLE.'<br />';
+            echo '<input type="submit" name="submit" value="'.SUBMIT_VALUE.'"/><br />
             </form>';
-          } 
+          }
           ?>
           </td>
          </tr>
       </table>
-      <br />     
+      <br />
     </td>
   </tr>
 </table>
