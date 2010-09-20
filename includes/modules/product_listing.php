@@ -29,7 +29,6 @@ $listing_split = new splitPageResults($listing_sql, (isset($_GET['page']) ? (int
 $module_content = array ();
 $category = array ();
 if ($listing_split->number_of_rows > 0) {
-
 	$navigation = '
 		<table border="0" width="100%" cellspacing="0" cellpadding="2">
 		  <tr>
@@ -94,7 +93,7 @@ if ($listing_split->number_of_rows > 0) {
 	$result = false;
 }
 // get default template
-if ($category['listing_template'] == '' or $category['listing_template'] == 'default') {
+if (isset($category['listing_template']) && ($category['listing_template'] == '' || $category['listing_template'] == 'default')) {
 	$files = array ();
 	if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_listing/')) {
 		while (($file = readdir($dir)) !== false) {

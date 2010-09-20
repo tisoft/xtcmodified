@@ -1,17 +1,17 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: cart_actions.php 168 2007-02-06 14:11:42Z mzanier $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
-   (c) 2003         nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
+   (c) 2003 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
+   (c) 2006 XT-Commerce (cart_actions.php 168 2007-02-06)
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -24,7 +24,6 @@
    Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
-
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -82,19 +81,20 @@ if (isset ($_GET['action'])) {
 			for ($i = 0, $n = sizeof($_POST['products_id']); $i < $n; $i++) {
 			
 					$cart_quantity = xtc_remove_non_numeric($_POST['cart_quantity'][$i]);
-					
-					if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array ()))) {
+					//BOF - DokuMan - 2010-09-20 - set undefined index
+					//if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array ()))) {
+                    if (in_array($_POST['products_id'][$i], (isset($_POST['cart_delete']) && is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array ()))) {
+					//EOF - DokuMan - 2010-09-20 - set undefined index
 					$_SESSION['cart']->remove($_POST['products_id'][$i]);
 
-					if (is_object($econda))
+                            if (isset($econda) && is_object($econda))
 						$econda->_delArticle($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $_POST['old_qty'][$i]);
-
 				} else {
 					if ($cart_quantity > MAX_PRODUCTS_QTY)
 						$cart_quantity = MAX_PRODUCTS_QTY;
-					$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
+					$attributes = isset($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
 
-					if (is_object($econda)) {
+					if (isset($econda) && is_object($econda)) {
 						$old_quantity = $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'][$i], $_POST['id'][$i]));
 						$econda->_updateProduct($_POST['products_id'][$i], $cart_quantity, $old_quantity);
 					}
@@ -114,7 +114,7 @@ if (isset ($_GET['action'])) {
 				if ($cart_quantity > MAX_PRODUCTS_QTY)
 					$cart_quantity = MAX_PRODUCTS_QTY;
 
-				if (is_object($econda)) {
+				if (isset($econda) && is_object($econda)) {
 					$econda->_emptyCart();
 					$old_quantity = $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id']));
 					$econda->_addProduct($_POST['products_id'], $cart_quantity, $old_quantity);
@@ -213,7 +213,7 @@ if (isset ($_GET['action'])) {
 					if (isset ($_SESSION['cart'])) {
 
 
-						if (is_object($econda)) {
+                        if (isset($econda) && is_object($econda)) {
 							$econda->_emptyCart();
 							$old_quantity = $_SESSION['cart']->get_quantity((int) $_GET['BUYproducts_id']);
 							$econda->_addProduct($_GET['BUYproducts_id'], $old_quantity +1, $old_quantity);
@@ -230,6 +230,7 @@ if (isset ($_GET['action'])) {
 				'BUYproducts_id'
 			))));
 			break;
+
 		case 'cust_order' :
 			if (isset ($_SESSION['customer_id']) && isset ($_GET['pid'])) {
 				if (xtc_has_product_attributes((int) $_GET['pid'])) {
