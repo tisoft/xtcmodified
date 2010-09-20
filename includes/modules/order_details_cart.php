@@ -61,11 +61,11 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 
   //BOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
 	$del_button = '<a href="'
-				  . xtc_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&prd_id=' . $products[$i]['id'], 'SSL')
+				  . xtc_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&prd_id=' . $products[$i]['id'], 'NONSSL') // web28 - 2010-09-20 - change SSL -> NONSSL
 				  . '">' . xtc_image_button('cart_del.gif', IMAGE_BUTTON_DELETE) . '</a>';
 
 	$del_link = '<a href="'
-				  . xtc_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&prd_id=' . $products[$i]['id'], 'SSL')
+				  . xtc_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&prd_id=' . $products[$i]['id'], 'NONSSL') // web28 - 2010-09-20 - change SSL -> NONSSL
 				  . '">' . IMAGE_BUTTON_DELETE . '</a>';
   //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
 
