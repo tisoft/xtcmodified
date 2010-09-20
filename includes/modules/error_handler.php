@@ -27,7 +27,10 @@
   $module_smarty->assign('language', $_SESSION['language']);
 
   // search field
-  $module_smarty->assign('FORM_ACTION',xtc_draw_form('new_find', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get').xtc_hide_session_id());
+  // BOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
+  $module_smarty->assign('FORM_ACTION',xtc_draw_form('new_find', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', $request_type, false), 'get').xtc_hide_session_id());
+  //$module_smarty->assign('FORM_ACTION',xtc_draw_form('new_find', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get').xtc_hide_session_id());
+  // EOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
   $module_smarty->assign('INPUT_SEARCH',xtc_draw_input_field('keywords', '', 'size="30" maxlength="30"'));
   $module_smarty->assign('BUTTON_SUBMIT',xtc_image_submit('button_quick_find.gif', IMAGE_BUTTON_SEARCH));
   $module_smarty->assign('LINK_ADVANCED',xtc_href_link(FILENAME_ADVANCED_SEARCH));
