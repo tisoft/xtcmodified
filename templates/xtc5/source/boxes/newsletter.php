@@ -41,10 +41,10 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_newsletter.html', $cach
 	//EOF - GTB - 2010-08-03 - Security Fix - Base
 	$rebuild = true;
 
-//BOF - GTB - 2010-09-13 - Change Form to SSL
-$box_smarty->assign('FORM_ACTION', xtc_draw_form('sign_in', xtc_href_link(FILENAME_NEWSLETTER, '', 'SSL')));
+// BOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
+$box_smarty->assign('FORM_ACTION', xtc_draw_form('sign_in', xtc_href_link(FILENAME_NEWSLETTER, '', $request_type)));
 //$box_smarty->assign('FORM_ACTION', xtc_draw_form('sign_in', xtc_href_link(FILENAME_NEWSLETTER, '', 'NONSSL')));
-//EOF - GTB - 2010-09-13 - Change Form to SSL
+// EOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
 $box_smarty->assign('FIELD_EMAIL',xtc_draw_input_field('email', '', 'maxlength="50" style="width:170px;"'));
 $box_smarty->assign('BUTTON',xtc_image_submit('button_login_newsletter.gif', IMAGE_BUTTON_LOGIN));
 $box_smarty->assign('FORM_END','</form>');

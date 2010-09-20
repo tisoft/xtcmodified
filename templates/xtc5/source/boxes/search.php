@@ -25,7 +25,10 @@ $box_content = '';
 require_once (DIR_FS_INC . 'xtc_image_submit.inc.php');
 require_once (DIR_FS_INC . 'xtc_hide_session_id.inc.php');
 
-$box_smarty->assign('FORM_ACTION', xtc_draw_form('quick_find', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get') . xtc_hide_session_id());
+// BOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
+$box_smarty->assign('FORM_ACTION', xtc_draw_form('quick_find', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', $request_type, false), 'get') . xtc_hide_session_id());
+//$box_smarty->assign('FORM_ACTION', xtc_draw_form('quick_find', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get') . xtc_hide_session_id());
+// BOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
 //BOF - Dokuman - 14.08.2009 - Put dynamic "search"-text into box
 //$box_smarty->assign('INPUT_SEARCH', xtc_draw_input_field('keywords', '', 'size="20" maxlength="30"'));
 //BOF - web28 - 2010-04-11 - change input html size to css width

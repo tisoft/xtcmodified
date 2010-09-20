@@ -30,7 +30,10 @@ $breadcrumb->add(NAVBAR_TITLE_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_S
 
 require (DIR_WS_INCLUDES.'header.php');
 
-$smarty->assign('FORM_ACTION', xtc_draw_form('advanced_search', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get', 'onsubmit="return check_form(this);"').xtc_hide_session_id());
+// BOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
+$smarty->assign('FORM_ACTION', xtc_draw_form('advanced_search', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', $request_type, false), 'get', 'onsubmit="return check_form(this);"').xtc_hide_session_id());
+//$smarty->assign('FORM_ACTION', xtc_draw_form('advanced_search', xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get', 'onsubmit="return check_form(this);"').xtc_hide_session_id());
+// EOF - GTB - 2010-09-20 - correct the Formular in dependences of the request type SSL / NONSSL
 
 $smarty->assign('INPUT_KEYWORDS', xtc_draw_input_field('keywords', '', 'style="width: 100%"'));
 //BOF - DokuMan - 2009-05-31 - removed quotationmark 
