@@ -47,7 +47,7 @@ if ((isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) || (!isse
 
 if ($_SESSION['cart']->count_contents() > 0) {
 
-	$smarty->assign('FORM_ACTION', xtc_draw_form('cart_quantity', xtc_href_link(FILENAME_SHOPPING_CART, 'action=update_product', 'SSL')));
+	$smarty->assign('FORM_ACTION', xtc_draw_form('cart_quantity', xtc_href_link(FILENAME_SHOPPING_CART, 'action=update_product', 'NONSSL'))); // web28 - 2010-09-20 - change SSL -> NONSSL
 	$smarty->assign('FORM_END', '</form>');
 	$hidden_options = '';
 	$_SESSION['any_out_of_stock'] = 0;

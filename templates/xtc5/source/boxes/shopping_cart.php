@@ -104,7 +104,7 @@ if (isset ($_SESSION['cc_id'])) {
 	$box_smarty->assign('COUPON_HELP_LINK', '<a href="javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_COUPON_HELP, 'cID='.$_SESSION['cc_id']).'\')">');
 }
 // GV Code End
-$box_smarty->assign('LINK_CART', xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
+$box_smarty->assign('LINK_CART', xtc_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); // web28 - 2010-09-20 - change SSL -> NONSSL
 $box_smarty->assign('products', $products_in_cart);
 
 $box_smarty->caching = 0;

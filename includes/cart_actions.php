@@ -68,7 +68,7 @@ if (isset ($_GET['action'])) {
 		case 'remove_product':
 			$prd_id = preg_replace('/[^0-9\{\}]/', '', $_GET['prd_id']);
 			$_SESSION['cart'] -> remove($prd_id);
-			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'SSL'));
+			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'NONSSL')); // web28 - 2010-09-20 - change SSL -> NONSSL
 			break;
     //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
 	
@@ -239,7 +239,7 @@ if (isset ($_GET['action'])) {
 					$_SESSION['cart']->add_cart((int) $_GET['pid'], $_SESSION['cart']->get_quantity((int) $_GET['pid']) + 1);
 				}
 			}
-			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'SSL'));
+			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'NONSSL')); // web28 - 2010-09-20 - change SSL -> NONSSL
 			break;
 	}
 }
