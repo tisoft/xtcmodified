@@ -103,7 +103,7 @@ if (isset ($_GET['action'])) {
 					unset($cart_quantity);
 				}
 			}
-			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'SSL'));
+			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'NONSSL')); // web28 - 2010-09-20 - change SSL -> NONSSL
 			break;
 			// customer adds a product from the products page
 		case 'add_product' :
