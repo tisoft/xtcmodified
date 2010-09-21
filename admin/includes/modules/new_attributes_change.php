@@ -1,28 +1,29 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: new_attributes_change.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(new_attributes_change); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(new_attributes_change); www.oscommerce.com
    (c) 2003	 nextcommerce (new_attributes_change.php,v 1.8 2003/08/14); www.nextcommerce.org
+   (c) 2006  xt-commerce(new_attributes_select.php 901 2005-04-29); www.xt-commerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------
    Third Party contributions:
    New Attribute Manager v4b				Autor: Mike G | mp3man@internetwork.net | http://downloads.ephing.com
 
-   Released under the GNU General Public License 
-   --------------------------------------------------------------*/ 
+   Released under the GNU General Public License
+   --------------------------------------------------------------*/
    defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
    require_once(DIR_FS_INC .'xtc_get_tax_rate.inc.php');
    require_once(DIR_FS_INC .'xtc_get_tax_class_id.inc.php');
- //  require_once(DIR_FS_INC .'xtc_format_price.inc.php');
+  // require_once(DIR_FS_INC .'xtc_format_price.inc.php');
   // I found the easiest way to do this is just delete the current attributes & start over =)
   // download function start
   $delete_sql = xtc_db_query("SELECT products_attributes_id FROM ".TABLE_PRODUCTS_ATTRIBUTES." WHERE products_id = '" . $_POST['current_product_id'] . "'");
@@ -50,8 +51,7 @@
 
     $value_price= ($value_price/((xtc_get_tax_rate(xtc_get_tax_class_id($_POST['current_product_id'])))+100)*100);
     }
-          $value_price=xtc_round($value_price,PRICE_PRECISION);
-
+    $value_price=xtc_round($value_price,PRICE_PRECISION);
 
     $value_prefix = $_POST[$cv_id . '_prefix'];
     $value_sortorder = $_POST[$cv_id . '_sortorder'];
@@ -59,7 +59,6 @@
     $value_model =  $_POST[$cv_id . '_model'];
     $value_stock =  $_POST[$cv_id . '_stock'];
     $value_weight =  $_POST[$cv_id . '_weight'];
-
 
       xtc_db_query("INSERT INTO ".TABLE_PRODUCTS_ATTRIBUTES." (products_id, options_id, options_values_id, options_values_price, price_prefix ,attributes_model, attributes_stock, options_values_weight, weight_prefix,sortorder) VALUES ('" . $_POST['current_product_id'] . "', '" . $optionsID . "', '" . $_POST['optionValues'][$i] . "', '" . $value_price . "', '" . $value_prefix . "', '" . $value_model . "', '" . $value_stock . "', '" . $value_weight . "', '" . $value_weight_prefix . "','".$value_sortorder."')") or die(mysql_error());
 
@@ -73,5 +72,5 @@
         xtc_db_query("INSERT INTO ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." (products_attributes_id, products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount) VALUES ('" . $products_attributes_id . "', '" . $value_download_file . "', '" . $value_download_expire . "', '" . $value_download_count . "')") or die(mysql_error());
     }
   }
-
+xtc_db_query('UPDATE ' . TABLE_PRODUCTS . ' SET products_last_modified=now() WHERE products_id=' . (int)$_POST['current_product_id']); //DokuMan - 2010-09-21 - set modified date on product
 ?>
