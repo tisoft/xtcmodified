@@ -345,7 +345,7 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
 		<title><?php echo TITLE; ?></title>
 		<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 		<script type="text/javascript" src="includes/general.js"></script>
-		<script type="text/javascript" src="includes/javascript/categories.js"></script>
+		<!--script type="text/javascript" src="includes/javascript/categories.js"></script--><?php //web28 - 2010-09-21-  js-file not in folder ?>
 <?php
 
 
