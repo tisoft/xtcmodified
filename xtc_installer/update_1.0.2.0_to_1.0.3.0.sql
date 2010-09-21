@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------------------
+#  $Id$
+#
+#  xtc-Modified
+#  http://www.xtc-modified.org
+#
+#  Copyright (c) 2010 xtc-Modified
+#  -----------------------------------------------------------------------------------------
+
 #Tomcraft - 2009-09-08 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.3.0';
 
@@ -82,7 +91,7 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 #Tomcraft - 2009-11-07 - Added sortorder to products_options
 ALTER TABLE products_options ADD products_options_sortorder INT(11) NOT NULL AFTER products_options_name;
 
-#Tomcraft - 2009-11-08 - Added option to deactivate languages 
+#Tomcraft - 2009-11-08 - Added option to deactivate languages
 ALTER TABLE languages ADD status INT(1) NOT NULL AFTER language_charset;
 UPDATE languages SET status = 1 WHERE status = 0;
 

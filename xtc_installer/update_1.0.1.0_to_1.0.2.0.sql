@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------------------
+#  $Id$
+#
+#  xtc-Modified
+#  http://www.xtc-modified.org
+#
+#  Copyright (c) 2010 xtc-Modified
+#  -----------------------------------------------------------------------------------------
+
 #Tomcraft - 2009-09-09 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.2.0'
 

@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------------------
+#  $Id$
+#
+#  xtc-Modified
+#  http://www.xtc-modified.org
+#
+#  Copyright (c) 2010 xtc-Modified
+#  -----------------------------------------------------------------------------------------
+
 #Tomcraft - 2010-07-19 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.6.0';
 
@@ -5,7 +14,7 @@ UPDATE database_version SET version = 'xtcM_1.0.6.0';
 UPDATE configuration SET configuration_value = '<span style="color:red">***</span>' WHERE configuration_key = 'STOCK_MARK_PRODUCT_OUT_OF_STOCK';
 
 #Hendrik - 2010-08-11 - Thumbnails in admin products list
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),'); 
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #DokuMan - 2010-08-13 - Google RSS Feed REFID configuration
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GOOGLE_RSS_FEED_REFID', '', 17, 15, NULL, NOW(), NULL, NULL);
@@ -30,4 +39,8 @@ INSERT INTO address_format VALUES (6, '$firstname$lastname$cr$country$cr$postcod
 INSERT INTO address_format VALUES (7, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
 UPDATE countries SET address_format_id = 6 WHERE countries_id = 206;
 UPDATE countries SET address_format_id = 7 WHERE countries_id = 44;
+
+#DokuMan - 2010-09-21 - listing_template needs a default value
+ALTER TABLE categories MODIFY listing_template varchar(64) NOT NULL DEFAULT '';
+
 # Keep an empty line at the end of this file for the db_updater to work properly

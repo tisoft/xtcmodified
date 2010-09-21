@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------------------
+#  $Id$
+#
+#  xtc-Modified
+#  http://www.xtc-modified.org
+#
+#  Copyright (c) 2010 xtc-Modified
+#  -----------------------------------------------------------------------------------------
+
 #Tomcraft - 2010-02-03 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.5.0';
 
@@ -275,7 +284,7 @@ DROP TABLE IF EXISTS shop_configuration;
 CREATE TABLE shop_configuration (
   configuration_id int(11) NOT NULL AUTO_INCREMENT,
   configuration_key varchar(255) NOT NULL DEFAULT '',
-  configuration_value text NOT NULL,  
+  configuration_value text NOT NULL,
   PRIMARY KEY (configuration_id),
   KEY configuration_key (configuration_key)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;

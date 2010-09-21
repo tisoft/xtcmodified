@@ -253,7 +253,7 @@ CREATE TABLE categories (
   group_permission_1 TINYINT(1) NOT NULL,
   group_permission_2 TINYINT(1) NOT NULL,
   group_permission_3 TINYINT(1) NOT NULL,
-  listing_template VARCHAR(64),
+  listing_template VARCHAR(64) NOT NULL DEFAULT '',
   sort_order INT(3) DEFAULT 0 NOT NULL,
   products_sorting VARCHAR(32),
   products_sorting2 VARCHAR(32),

@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------------------
+#  $Id$
+#
+#  xtc-Modified
+#  http://www.xtc-modified.org
+#
+#  Copyright (c) 2010 xtc-Modified
+#  -----------------------------------------------------------------------------------------
+
 #Tomcraft - 2010-02-03 - changed database_version
 UPDATE database_version SET version = 'xtcM_1.0.4.0';
 
@@ -106,7 +115,7 @@ ALTER TABLE products_attributes
 ADD INDEX products_id (products_id),
 ADD INDEX options (options_id, options_values_id);
 
-#DokuMan - 2010-06-28 - Added http_referer to table whos_online 
+#DokuMan - 2010-06-28 - Added http_referer to table whos_online
 ALTER TABLE whos_online
 ADD http_referer varchar(255) NOT NULL DEFAULT '' AFTER last_page_url;
 
