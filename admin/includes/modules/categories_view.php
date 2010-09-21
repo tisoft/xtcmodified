@@ -249,14 +249,14 @@
 
            <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
            <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) {
-           //BOF - DokuMan - 2010-09-14 - show category thumbnail in products list, else show noimage.gif
+           //BOF - DokuMan - 2010-09-14 - show category thumbnail in products list, else show noimage.gif 
             /* <td class="categories_view_data">--</td> */
            ?>
             <td class="categories_view_data">
             <?php if (file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'categories/'.$categories['categories_image']) && $categories['categories_image'] != '') {
-            echo xtc_image(DIR_WS_CATALOG.DIR_WS_IMAGES.'categories/'.$categories['categories_image'], $categories['categories_name'], '50', '50');
+            echo xtc_image(DIR_WS_CATALOG.DIR_WS_IMAGES.'categories/'.$categories['categories_image'], $categories['categories_name'], '50%'); //web28 -2010-09-21- set image size to 50%
             } else {
-             echo xtc_image(DIR_WS_CATALOG.DIR_WS_IMAGES.'categories/noimage.gif', '', '50', '38');
+             echo xtc_image(DIR_WS_CATALOG.DIR_WS_IMAGES.'categories/noimage.gif', '', '50%'); //web28 -2010-09-21- set image size to 50%
             }?>
             </td>
            <?php
@@ -436,8 +436,8 @@
   	  	<?php
 		//BOF  web28 - add file_exists, (else show noimage.gif //DokuMan )
 		if (file_exists(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$products['products_image']) && $products['products_image']!='') {
-			echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50', '50');
-		} else echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.'noimage.gif', '', '50', '38');
+			echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50%'); //web28 -2010-09-21- set image size to 50%
+		} else echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.'noimage.gif', '', '50%'); //web28 -2010-09-21- set image size to 50%
 		//EOF  web28 - add file_exists, (else show noimage.gif //DokuMan )
 		?>
 	  </td>
