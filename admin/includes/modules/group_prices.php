@@ -175,6 +175,9 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 
 	}
 }
+// BOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules
+W4B_graduated_prices_edit_logic();
+// EOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules
 ?><!--/div--><?php // web28 - 2010-09-20 -  end tag correction ?>
           <tr>
             <td style="border-top: 1px solid; border-color: #cccccc;" class="main"><?php echo TEXT_PRODUCTS_DISCOUNT_ALLOWED; ?></td>
