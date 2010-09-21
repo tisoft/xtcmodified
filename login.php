@@ -93,7 +93,10 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 			if (isset($econda) && is_object($econda)) $econda->_loginUser();
 
 			if ($_SESSION['cart']->count_contents() > 0) {
-				xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
+				//BOF - web28 - 2010-09-20 redirect NONSSL
+				//xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
+				xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART), 'NONSSL');
+				//EOF - web28 - 2010-09-20 redirect NONSSL
 			} else {
 			    //BOF - web28 - 2010-08-11 redirect NONSSL
 				//xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
