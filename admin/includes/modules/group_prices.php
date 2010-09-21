@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: group_prices.php 1307 2005-10-14 10:36:37Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(based on original files from OSCommerce CVS 2.2 2002/08/28 02:14:35); www.oscommerce.com
    (c) 2003	 nextcommerce (group_prices.php,v 1.16 2003/08/21); www.nextcommerce.org
+   (c) 2006  xt-commerce (group_prices.php 1307 2005-10-14); www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------
@@ -52,6 +53,7 @@ while ($group_values = xtc_db_fetch_array($group_query)) {
 <?php
 
 
+
 // calculate brutto price for display
 
 if (PRICE_IS_BRUTTO == 'true') {
@@ -65,6 +67,7 @@ if (PRICE_IS_BRUTTO == 'true') {
 <?php
 
 
+
 if (PRICE_IS_BRUTTO == 'true') {
 	echo TEXT_NETTO.'<strong>'.$xtPrice->xtcFormat($pInfo->products_price, false).'</strong>  ';
 }
@@ -72,6 +75,7 @@ if (PRICE_IS_BRUTTO == 'true') {
 </td>
           </tr>
 <?php
+
 
 
 for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
@@ -82,6 +86,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 <?php
 
 
+
 		if (PRICE_IS_BRUTTO == 'true') {
 			$products_price = xtc_round(get_group_price($group_data[$col]['STATUS_ID'], $pInfo->products_id) * ((100 + xtc_get_tax_rate($pInfo->products_tax_class_id)) / 100), PRICE_PRECISION);
 
@@ -90,6 +95,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		}
 ?>
             <td style="border-top: 1px solid; border-color: #cccccc;" class="main"><?php
+
 
 
 		echo xtc_draw_input_field('products_price_'.$group_data[$col]['STATUS_ID'], $products_price);
@@ -111,6 +117,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 ?><div id="staffel_<?php echo $group_data[$col]['STATUS_ID']; ?>" class="longDescription"><br /><?php
 
 
+
 		// ok, lets check if there is already a staffelpreis
 		$staffel_query = xtc_db_query("SELECT
 				                                         products_id,
@@ -130,6 +137,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
                 <td width="5">&nbsp;</td>
                 <td nowrap width="142" class="main" style="border: 1px solid; border-color: #cccccc;">
 <?php
+
 
 
 			if (PRICE_IS_BRUTTO == 'true') {
@@ -156,6 +164,7 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 <?php
 
 
+
 		}
 
 		echo '</table>';
@@ -166,13 +175,14 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		echo xtc_draw_separator('pixel_trans.gif', '10', '10');
 		echo '<input type="submit" class="button" onclick="return confirm(\''.SAVE_ENTRY.'\')" value="' . BUTTON_INSERT . '"/>';
 ?><br /></td>
+</div><?php // web28 - 2010-09-20 -  end tag correction ?>
           </tr>
 <?php
 
 
 	}
 }
-?></div>
+?><!--/div--><?php // web28 - 2010-09-20 -  end tag correction ?>
           <tr>
             <td style="border-top: 1px solid; border-color: #cccccc;" class="main"><?php echo TEXT_PRODUCTS_DISCOUNT_ALLOWED; ?></td>
             <td style="border-top: 1px solid; border-color: #cccccc;" class="main"><?php echo xtc_draw_input_field('products_discount_allowed', $pInfo->products_discount_allowed); ?></td>
