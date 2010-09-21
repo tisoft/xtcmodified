@@ -53,7 +53,6 @@ while ($group_values = xtc_db_fetch_array($group_query)) {
 <?php
 
 
-
 // calculate brutto price for display
 
 if (PRICE_IS_BRUTTO == 'true') {
@@ -67,7 +66,6 @@ if (PRICE_IS_BRUTTO == 'true') {
 <?php
 
 
-
 if (PRICE_IS_BRUTTO == 'true') {
 	echo TEXT_NETTO.'<strong>'.$xtPrice->xtcFormat($pInfo->products_price, false).'</strong>  ';
 }
@@ -77,15 +75,12 @@ if (PRICE_IS_BRUTTO == 'true') {
 <?php
 
 
-
 for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 	if ($group_data[$col]['STATUS_NAME'] != '') {
 ?>
           <tr>
             <td style="border-top: 1px solid; border-color: #cccccc;" valign="top" class="main"><?php echo $group_data[$col]['STATUS_NAME']; ?></td>
 <?php
-
-
 
 		if (PRICE_IS_BRUTTO == 'true') {
 			$products_price = xtc_round(get_group_price($group_data[$col]['STATUS_ID'], $pInfo->products_id) * ((100 + xtc_get_tax_rate($pInfo->products_tax_class_id)) / 100), PRICE_PRECISION);
@@ -95,8 +90,6 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		}
 ?>
             <td style="border-top: 1px solid; border-color: #cccccc;" class="main"><?php
-
-
 
 		echo xtc_draw_input_field('products_price_'.$group_data[$col]['STATUS_ID'], $products_price);
 
@@ -109,14 +102,10 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		if ($_GET['pID'] != '') {
 			echo ' '.TXT_STAFFELPREIS;
 ?> <img onMouseOver="javascript:this.style.cursor='pointer';" src="images/arrow_down.gif" height="12" width="12" onclick="javascript:toggleBox('staffel_<?php echo $group_data[$col]['STATUS_ID']; ?>');"><?php
-
-
 		}
 		if ($_GET['pID'] != '') {
 		}
 ?><div id="staffel_<?php echo $group_data[$col]['STATUS_ID']; ?>" class="longDescription"><br /><?php
-
-
 
 		// ok, lets check if there is already a staffelpreis
 		$staffel_query = xtc_db_query("SELECT
@@ -138,8 +127,6 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
                 <td nowrap width="142" class="main" style="border: 1px solid; border-color: #cccccc;">
 <?php
 
-
-
 			if (PRICE_IS_BRUTTO == 'true') {
 				$tax_query = xtc_db_query("select tax_rate from ".TABLE_TAX_RATES." where tax_class_id = '".$pInfo->products_tax_class_id."' ");
 				$tax = xtc_db_fetch_array($tax_query);
@@ -155,14 +142,16 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 
 			}
 ?>
- </td>
-                <td width="80" align="left"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?><a class="button" href="<?php echo xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&function=delete&quantity=' . $staffel_values['quantity'] . '&statusID=' . $group_data[$col]['STATUS_ID'] . '&action=new_product&pID=' . $_GET['pID']); ?>"><?php echo BUTTON_DELETE; ?></a></td>
-              </tr>
+				</td>
+                <?php //BOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules ?>
+				<!--td width="80" align="left"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?><a class="button" href="<?php echo xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&function=delete&quantity=' . $staffel_values['quantity'] . '&statusID=' . $group_data[$col]['STATUS_ID'] . '&action=new_product&pID=' . $_GET['pID']); ?>"><?php echo BUTTON_DELETE; ?></a></td-->
+				<td width="80" align="left"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?><a class="button" onclick="W4B_graduated_prices_edit_removerow(this);" href="<?php echo xtc_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&function=delete&quantity=' . $staffel_values['quantity'] . '&statusID=' . $group_data[$col]['STATUS_ID'] . '&action=new_product&pID=' . $_GET['pID']); ?>"><?php echo BUTTON_DELETE; ?></a></td>
+				<?php //EOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules ?>
+			  </tr>
               <tr>
                 <td colspan="3" height="5"></td>
               </tr>
 <?php
-
 
 
 		}
@@ -173,9 +162,13 @@ for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 		echo TXT_PRICE;
 		echo xtc_draw_input_field('products_price_staffel_'.$group_data[$col]['STATUS_ID'], 0);
 		echo xtc_draw_separator('pixel_trans.gif', '10', '10');
-		echo '<input type="submit" class="button" onclick="return confirm(\''.SAVE_ENTRY.'\')" value="' . BUTTON_INSERT . '"/>';
-?><br /></td>
+		// BOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules
+		//echo '<input type="submit" class="button" onclick="return confirm(\''.SAVE_ENTRY.'\')" value="' . BUTTON_INSERT . '"/>';		
+		echo '<input type="submit" name="graduated_prices_edit" class="button" onclick="W4B_graduated_prices_edit_addrow(this, '.$group_data[$col]['STATUS_ID'].');" value="' . BUTTON_INSERT . '"/>';
+		// EOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules
+?><br />
 </div><?php // web28 - 2010-09-20 -  end tag correction ?>
+</td>
           </tr>
 <?php
 

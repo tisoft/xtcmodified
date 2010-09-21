@@ -30,6 +30,10 @@ require_once (DIR_FS_INC.'xtc_get_products_mo_images.inc.php');
 require_once (DIR_WS_CLASSES.'currencies.php');
 require_once (DIR_FS_INC.'xtc_wysiwyg.inc.php');
 
+//BOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules
+include_once (DIR_WS_MODULES.'graduated-prices-edit.php');
+//EOF - web28 - 2010-09-20 -  graduated-prices-edit by Web4Business GmbH - Designs - Modules
+
 $currencies = new currencies();
 $catfunc = new categories();
 
