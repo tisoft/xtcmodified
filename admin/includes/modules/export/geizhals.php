@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: geizhals.php 2008-09-01 16:00:00Z $
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
