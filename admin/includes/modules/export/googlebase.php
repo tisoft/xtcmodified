@@ -2,18 +2,18 @@
 /* -----------------------------------------------------------------------------------------
    $Id$
 
-   xtcModified - community made shopping
-   http://www.xtc-modified.org
+   XT-Commerce - community made shopping
+   http://www.xt-commerce.com
 
-   Copyright (c) 2010 xtcModified
+   Copyright (c) 2003 XT-Commerce
    -----------------------------------------------------------------------------------------
-   based on:
+   based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com
-   (c) 2003 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
-   (c) 2005 (froogle.php, v 1188 2005/08/28); matthias - www.xt-commerce.com
-   (c) 2006 xt-commerce; www.xt-commerce.com
-   -----------------------------------------------------------------------------------------
+   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
+   (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
+   (c) 2005  (froogle.php, v 1188 2005/08/28); matthias - www.xt-commerce.com
+   
+   -------------------------------------------------------------------------------------------------------------------------
    Erweiterung der googlebase.php (c)2009 by Hetfield - http://www.MerZ-IT-SerVice.de um folgende Funktionen:
    - Gewichts- oder preisabhängige Vesandkosten mit Berücksichtigung der Versandkostenfrei-Grenze
    - Beachtung des Mindermengenzuschlags
@@ -23,19 +23,18 @@
    - Anzeige EAN
    - Auswahl der verschiedenen suchmaschinenfreundlichen URL für den Exportlink (Original/keine, Shopstat oder DirectURL)
    - Umlautproblematik und str_replace-Wahnsinn beseitigt
+   -------------------------------------------------------------------------------------------------------------------------
 
-   updated version by franky_n
-
-   Released under the GNU General Public License
+   Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
+define('MODULE_GOOGLEBASE_TEXT_TITLE', 'Google Base - TXT / XML<br/>Exportmodul f&uuml;r Google Base / inkl. Felder "Zustand" und "Versandkosten"');
 define('MODULE_GOOGLEBASE_TEXT_DESCRIPTION', 'Export - Google Base (Tab getrennt)');
-define('MODULE_GOOGLEBASE_TEXT_TITLE', 'Google Base - TXT<br/>Exportmodul f&uuml;r Google Base / inkl. Felder "Zustand" und "Versandkosten"');
 define('MODULE_GOOGLEBASE_FILE_TITLE' , '<hr noshade>Dateiname');
 define('MODULE_GOOGLEBASE_FILE_DESC' , 'Geben Sie einen Dateinamen ein, falls die Exportdatei am Server gespeichert werden soll.<br />(Verzeichnis export/)');
-define('MODULE_GOOGLEBASE_STATUS_DESC','Modulstatus');
 define('MODULE_GOOGLEBASE_STATUS_TITLE','Status');
+define('MODULE_GOOGLEBASE_STATUS_DESC','Modulstatus');
 define('MODULE_GOOGLEBASE_CURRENCY_TITLE','W&auml;hrung');
 define('MODULE_GOOGLEBASE_CURRENCY_DESC','Welche W&auml;hrung soll exportiert werden?');
 define('MODULE_GOOGLEBASE_SHIPPING_COST_TITLE','<hr noshade><b>Versandkosten</b>');
@@ -120,7 +119,7 @@ class googlebase {
     }
 
     $schema_txt_de = "beschreibung".chr(9)."id".chr(9)."link".chr(9)."preis".chr(9)."w".chr(228)."hrung".chr(9)."titel".chr(9)."zustand".chr(9)."bild_url".chr(9)."ean".chr(9)."gewicht".chr(9)."marke".chr(9)."versand".chr(9)."zahlungsmethode".chr(9)."zahlungsrichtlinien".chr(13);
-
+    
     $schema_xml_de = '<?xml version="1.0" encoding="UTF-8"?>'."\n".
                      '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">'."\n".
                      "\t".'<channel>'."\n".
@@ -148,15 +147,18 @@ class googlebase {
         $installedpayments[$i] = str_replace('.php','',$installedpayments[$i]);
         if (!in_array($installedpayments[$i], $unallowed_payment_modules)) {
           if (in_array($installedpayments[$i], $creditcard_modules)) { $cc = true; } else
-          if (in_array($installedpayments[$i], $americanexpress_modules)) { $ae = true; } else
-          if (in_array($installedpayments[$i], $lastschrift_modules)) { $la = true; } else
-          if (in_array($installedpayments[$i], $ueberweisung_modules)) { $uw = true; } else
-          if (in_array($installedpayments[$i], $cash_modules)) { $ca = true; } else
-          if (in_array($installedpayments[$i], $scheck_modules)) { $sc = true; } else {
+          if (in_array($installedpayments[$i], $americanexpress_modules)) { $ae = true; } else 
+          if (in_array($installedpayments[$i], $lastschrift_modules)) { $la = true; } else 
+          if (in_array($installedpayments[$i], $ueberweisung_modules)) { $uw = true; } else 
+          if (in_array($installedpayments[$i], $cash_modules)) { $ca = true; } else 
+          if (in_array($installedpayments[$i], $scheck_modules)) { $sc = true; } else { 
+            $number_module_info = (count($module_info)-1);
             foreach ($module_info as $module_key) {
               foreach ($module_key as $module_attr => $module_desc) {
                 if ($installedpayments[$i] == $module_attr) {
-                  $other_payments .= $module_desc .' ';
+                  if ($number_module_info != $module_key) {
+                    $other_payments .= $module_desc .', '; 
+                  }
                 }
               }
             }
@@ -171,8 +173,8 @@ class googlebase {
       if ($sc == true) { $scheck = 'Scheck'; } else { $scheck = ''; }
       $zahlungsmethode = $creditcard.$americanexpress.$lastschrift.$ueberweisung.$cash.$scheck;
       if (substr($zahlungsmethode, -1) == ',') { $zahlungsmethode = substr($zahlungsmethode, 0, -1); }
-
-      $zahlungsrichtlinie = 'Wir unterstützen auch noch folgende Zahlungsarten: '.$other_payments;
+      if (substr($other_payments, -2) == ', ') { $other_payments = substr($other_payments, 0, -2); }
+      $zahlungsrichtlinie = 'Wir unterst&uuml;tzen neben den Zahlungsarten '.$zahlungsmethode.' auch noch folgende Zahlungsarten '.$other_payments;
     }
 
     $export_query = xtc_db_query("SELECT
@@ -212,7 +214,7 @@ class googlebase {
       }
 
       // remove trash
-      $products_description = strip_tags($products['products_description']);
+      $products_description = strip_tags($products['products_description']);         
       $products_description = html_entity_decode($products_description);
       $products_description = str_replace(";",", ",$products_description);
       $products_description = str_replace("'",", ",$products_description);
@@ -220,9 +222,9 @@ class googlebase {
       $products_description = str_replace("\r"," ",$products_description);
       $products_description = str_replace("\t"," ",$products_description);
       $products_description = str_replace("\v"," ",$products_description);
-      $products_description = str_replace(chr(13)," ",$products_description);
+      $products_description = str_replace(chr(13)," ",$products_description);            
       $products_description = substr($products_description, 0, 65536);
-      $products_name = strip_tags($products['products_name']);
+      $products_name = strip_tags($products['products_name']);         
       $products_name = html_entity_decode($products_name);
       $products_name = str_replace(";",", ",$products_name);
       $products_name = str_replace("'",", ",$products_name);
@@ -280,7 +282,7 @@ class googlebase {
               break;
             }
           }
-        }
+        }  
         if ($shipping == -1) {
           $shipping_cost = 0;
         } else {
@@ -306,7 +308,7 @@ class googlebase {
           $productURL .= '&'.$_POST['campaign'];
         }
       }
-
+      
       //create content
       $schema_txt_de .= $products_description."\t".
                         $products['products_id']."\t".
@@ -326,7 +328,7 @@ class googlebase {
       $schema_xml_de .= "\t"."\t".'<item>'."\n".
                         "\t"."\t"."\t".'<beschreibung>'.$products_description.'</beschreibung>'."\n".
                         "\t"."\t"."\t".'<g:id>'.$products['products_id'].'</g:id>'."\n".
-                        "\t"."\t"."\t".'<link>'.$productURL.'</link>'."\n".
+                        "\t"."\t"."\t".'<link>'.str_replace('&', '&amp;', $productURL).'</link>'."\n".
                         "\t"."\t"."\t".'<g:preis>'.number_format($products_price,2,'.','').'</g:preis>'."\n".
                         "\t"."\t"."\t".'<g:währung>'.$_POST['currencies'].'</g:währung>'."\n".
                         "\t"."\t"."\t".'<titel>'.$products_name.'</titel>'."\n".
@@ -369,7 +371,7 @@ class googlebase {
     }
 
   }
-
+    
   function buildCAT($catID) {
     if (isset($this->CAT[$catID])) {
       return  $this->CAT[$catID];
@@ -390,7 +392,7 @@ class googlebase {
       return $this->CAT[$tmpID];
     }
   }
-
+    
   function getParent($catID) {
     if (isset($this->PARENT[$catID])) {
       return $this->PARENT[$catID];
