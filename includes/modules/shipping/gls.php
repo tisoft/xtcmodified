@@ -130,6 +130,7 @@
          $shipping_cost_normal_formatted = xtc_format_price_order($shipping_cost_normal + (round(($shipping_cost_normal * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2)),1,$_SESSION['currency']);
          $shipping_cost_extra = $shipping_cost_extra + (round(($shipping_cost_extra * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2));
          $shipping_cost_extra_formatted = xtc_format_price_order($shipping_cost_extra + (round(($shipping_cost_extra * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2)),1,$_SESSION['currency']);
+         $shipping_cost = $shipping_cost + (round(($shipping_cost * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2));
          $tax_text = str_replace("%s", xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']) . '%', TAX_INFO_INCL);
       }
 
