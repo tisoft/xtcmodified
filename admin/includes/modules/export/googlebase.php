@@ -2,18 +2,18 @@
 /* -----------------------------------------------------------------------------------------
    $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
-   (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
-   (c) 2005  (froogle.php, v 1188 2005/08/28); matthias - www.xt-commerce.com
-   
-   -------------------------------------------------------------------------------------------------------------------------
+   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com
+   (c) 2003 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
+   (c) 2005 (froogle.php, v 1188 2005/08/28); matthias - www.xt-commerce.com
+   (c) 2006 xt-commerce; www.xt-commerce.com
+   -----------------------------------------------------------------------------------------
    Erweiterung der googlebase.php (c)2009 by Hetfield - http://www.MerZ-IT-SerVice.de um folgende Funktionen:
    - Gewichts- oder preisabhängige Vesandkosten mit Berücksichtigung der Versandkostenfrei-Grenze
    - Beachtung des Mindermengenzuschlags
@@ -23,9 +23,10 @@
    - Anzeige EAN
    - Auswahl der verschiedenen suchmaschinenfreundlichen URL für den Exportlink (Original/keine, Shopstat oder DirectURL)
    - Umlautproblematik und str_replace-Wahnsinn beseitigt
-   -------------------------------------------------------------------------------------------------------------------------
 
-   Released under the GNU General Public License 
+   updated version by franky_n
+
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
