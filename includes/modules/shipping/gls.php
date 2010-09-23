@@ -68,7 +68,7 @@
  */
     function quote($method = '') {
       global $order, $shipping_weight, $shipping_num_boxes;
-      require_once(DIR_FS_INC .'xtc_format_price_order.inc.php');
+      require_once(DIR_FS_INC .'xtc_format_price.inc.php');
 
       $dest_country = $order->delivery['country']['iso_code_2'];
       $dest_plz = $order->delivery['postcode'];
@@ -126,11 +126,11 @@
 
       $tax_text = "";
       if ($this->tax_class > 0) { // Tax or not
-         $shipping_cost_normal = $shipping_cost_normal + (round(($shipping_cost_normal * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2));
-         $shipping_cost_normal_formatted = xtc_format_price_order($shipping_cost_normal + (round(($shipping_cost_normal * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2)),1,$_SESSION['currency']);
-         $shipping_cost_extra = $shipping_cost_extra + (round(($shipping_cost_extra * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2));
-         $shipping_cost_extra_formatted = xtc_format_price_order($shipping_cost_extra + (round(($shipping_cost_extra * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2)),1,$_SESSION['currency']);
-         $shipping_cost = $shipping_cost + (round(($shipping_cost * (xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100)),2));
+         $tax_percent = xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id'])/100;
+         $shipping_cost_normal = $shipping_cost_normal + (round(($shipping_cost_normal * $tax_percent),2));
+         $shipping_cost_normal_formatted = xtc_format_price($shipping_cost_normal,1,$_SESSION['currency'],1);
+         $shipping_cost_extra = $shipping_cost_extra + (round(($shipping_cost_extra * $tax_percent),2));
+         $shipping_cost_extra_formatted = xtc_format_price($shipping_cost_extra,1,$_SESSION['currency'],1);
          $tax_text = str_replace("%s", xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']) . '%', TAX_INFO_INCL);
       }
 
