@@ -260,7 +260,12 @@ if ($_GET['action']) {
 			if (isset ($_POST['multi_copy_confirm'])) {
 				//copy multi_categories
 				if (is_array($_POST['multi_categories']) && (is_array($_POST['dest_cat_ids']) || xtc_not_null($_POST['dest_category_id']))) {
-					$_SESSION['copied'] = array ();
+					//BOF - DokuMan - 2010-09-27 - do not create copied categories under TOP-category, but in the chosen category
+					if (!isset($_POST['dest_cat_ids']) and isset($_POST['dest_category_id'])) {
+            $_POST['dest_cat_ids'] = array($_POST['dest_category_id']);
+          }
+					//EOF - DokuMan - 2010-09-27 - do not create copied categories under TOP-category, but in the chosen category          
+          $_SESSION['copied'] = array ();
 					foreach ($_POST['multi_categories'] AS $category_id) {
 						if (is_array($_POST['dest_cat_ids'])) {
 							foreach ($_POST['dest_cat_ids'] AS $dest_category_id) {
