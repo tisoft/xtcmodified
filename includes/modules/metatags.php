@@ -321,7 +321,7 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 			if(!empty($product->data['products_meta_title'])) {
 				$meta_title = $product->data['products_meta_title'].(($addProdShopTitle)?' - '.ML_TITLE:'');
 			} else {
-				$meta_title = metaTitle($product->data['products_name'],$product->data['manufacturers_name'],($addProdShopTitle)?ML_TITLE:'');
+				$meta_title = metaTitle($product->data['products_name'],isset($product->data['manufacturers_name']) ? $product->data['manufacturers_name'] : '',($addProdShopTitle)?ML_TITLE:'');
 			}
 
       //-- Canonical-URL
