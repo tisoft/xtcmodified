@@ -99,20 +99,6 @@ require (DIR_WS_INCLUDES.'database_tables.php');
 // SQL caching dir
 define('SQL_CACHEDIR', DIR_FS_CATALOG.'cache/');
 
-// Below are some defines which affect the way the discount coupon/gift voucher system work
-// Be careful when editing them.
-//
-// Set the length of the redeem code, the longer the more secure
-//define('SECURITY_CODE_LENGTH', '10');
-//
-// The settings below determine whether a new customer receives an incentive when they first signup
-//
-// Set the amount of a Gift Voucher that the new signup will receive, set to 0 for none
-//  define('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT', '10');  // placed in the admin configuration mystore
-//
-// Set the coupon ID that will be sent by email to a new signup, if no id is set then no email :)
-//  define('NEW_SIGNUP_DISCOUNT_COUPON', '3'); // placed in the admin configuration mystore
-
 // Store DB-Querys in a Log File
 //BOF - DokuMan - 2010-02-25 - Constant STORE_DB_TRANSACTIONS already defined in DB
 //define('STORE_DB_TRANSACTIONS', 'false');
@@ -203,11 +189,21 @@ $configuration_query = xtc_db_query('select configuration_key as cfgKey, configu
 while ($configuration = xtc_db_fetch_array($configuration_query)) {
 	define($configuration['cfgKey'], $configuration['cfgValue']);
 }
+
+// Below are some defines which affect the way the discount coupon/gift voucher system work
+// Be careful when editing them.
+//
 // Set the length of the redeem code, the longer the more secure
 // Kommt eigentlich schon aus der Table configuration
 if(SECURITY_CODE_LENGTH=='')
   define('SECURITY_CODE_LENGTH', '10');
-
+// The settings below determine whether a new customer receives an incentive when they first signup
+//
+// Set the amount of a Gift Voucher that the new signup will receive, set to 0 for none
+//  define('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT', '10');  // placed in the admin configuration mystore
+//
+// Set the coupon ID that will be sent by email to a new signup, if no id is set then no email :)
+//  define('NEW_SIGNUP_DISCOUNT_COUPON', '3'); // placed in the admin configuration mystore
 require_once (DIR_WS_CLASSES.'class.phpmailer.php');
 if (EMAIL_TRANSPORT == 'smtp')
 	require_once (DIR_WS_CLASSES.'class.smtp.php');
