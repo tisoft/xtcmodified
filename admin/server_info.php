@@ -136,11 +136,12 @@ $system = xtc_get_system_information();
 			    */
 
 			    preg_match("/<style type=\"text\/css\">(.*)<\/style>/is", $phpinfo, $regs);
-          //BOF css border and link  correction
+          //BOF css border and link correction
           $regs[1] = str_replace('.e {', '.e {border: 1px solid #000000; ', $regs[1]);
           $regs[1] = str_replace('.v {', '.v {border: 1px solid #000000; ', $regs[1]);
           $regs[1] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[1]);
           $regs[1] = str_replace('.h {', '.h {border: 1px solid #000000; ', $regs[1]);
+          $regs[1] = str_replace('img {float: right; border: 0px;}', '', $regs[1]);
           $regs[1] = str_replace('a:link', 'a.phpinfo:link', $regs[1]);
           $regs[1] = str_replace('a:hover', 'a.phpinfo:hover', $regs[1]);
           //EOF css border and link correction
