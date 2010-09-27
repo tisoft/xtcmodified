@@ -204,7 +204,7 @@ define('TEXT_PRODUCTS_VPE_VISIBLE','Anzeige VPE:');
 define('TEXT_PRODUCTS_VPE_VALUE',' Wert:');
 
 define('CROSS_SELLING','Cross Selling f&uuml;r Artikel');
-define('CROSS_SELLING_SEARCH','Produktsuche:');
+define('CROSS_SELLING_SEARCH','Produktsuche:<br/><small><i>Artikelnr. eingeben</i></small>');
 define('BUTTON_EDIT_CROSS_SELLING','Cross Selling');
 define('HEADING_DEL','L&ouml;schen');
 define('HEADING_ADD','Hinzuf&uuml;gen?');
