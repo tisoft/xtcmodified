@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 4.0 - $Date: 2010-03-19 12:54:13 +0100 (Fr, 19 Mrz 2010) $
+ * @version sofortueberweisung.de 4.0 - $Date: 2010-09-09 17:18:09 +0200 (Do, 09 Sep 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,11 +33,12 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
- * $Id: pn_sofortueberweisung.php 94 2010-03-19 11:54:13Z thoma $
+ * $Id: pn_sofortueberweisung.php 304 2010-09-09 15:18:09Z poser $
  *
  */
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE', 'DIRECTebanking.com');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_TEXT_TITLE', 'DIRECTebanking.com with customer protection');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION', '<div align="center">' . (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS != 'True' ? '<a class="button" href=' . xtc_href_link(FILENAME_MODULES, 'set=payment&module=pn_sofortueberweisung&action=install&autoinstall=1', 'SSL') . '>Autoinstaller (empfohlen)</a><br />' : ''). '<br /><b>DIRECTebanking.com</b></div>');
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGE', '
@@ -51,8 +52,8 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_I
     </table>');
 	
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_TEXT', 'DIRECTebanking.com is the free, ISO certified online payment system of the Payment Network AG. Your advantages: no additional registration, automatic debiting from your online bank account, highest safety standards and immediate shipping of stock goods. In order to pay with DIRECTebanking.com you need your eBanking login data, that is bank connection, account number, PIN and TAN.');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_TEXT', 'DIRECTebanking.com is the free, ISO certified online payment system of the Payment Network AG. Your advantages: customer protection, no additional registration, automatic debiting from your online bank account, highest safety standards and immediate shipping of stock goods. In order to pay with DIRECTebanking.com you need your eBanking login data, that is bank connection, account number, PIN and TAN.');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGEALT', 'DIRECTebanking.com is the free, ISO certified online payment system of the Payment Network AG. Your advantages: no additional registration, automatic debiting from your online bank account, highest safety standards and immediate shipping of stock goods. In order to pay with DIRECTebanking.com you need your eBanking login data, that is bank connection, account number, PIN and TAN.');
-
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED_TITLE' , 'Allowable zones');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED_DESC' , 'Please enter <b>separately</b> the zones, which should be allowed for this module. (z.B. AT,DE (if empty, all zones are allowed))');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS_TITLE' , 'Activate DIRECTebanking.com direct module');
@@ -80,6 +81,14 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID_TITLE','Temporary ord
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID_DESC','Order status for transactions that are not completed yet');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID_TITLE','Unconfirmed order status');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID_DESC','Order status after entry of an order, for which no or a faulty payment affirmation has been transfered');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_RECEIVED_STATUS_ID_TITLE', 'Order status upon receipt of the money');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_RECEIVED_STATUS_ID_DESC', 'Order status following the receipt of the money to your Sofort Bank account');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_LOSS_STATUS_ID_TITLE', 'Order status following no receipt of the money');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_LOSS_STATUS_ID_DESC', 'Order status when no money was credited to your Sofort Bank account');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS_TITLE', 'Customer protection acitvated');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS_DESC', 'You need a bank account with <u><a href="http://www.sofort-bank.com" target="_blank">Sofort Bank</a></u> and customer protection must be enabled in your project settings. Please check with <u><a href="https://kaeuferschutz.sofort-bank.com/consumerProtections/index/'.MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID.'">this link</a></u> if customer protection is activated and enabled before enabling it here.');
+
+
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1_TITLE','Reason line 1');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1_DESC', 'In the reason line 1 the following options are available');
@@ -90,9 +99,4 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE_DESC','Shown graphic / text i
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_HEADING', 'The following error has been announced by DIRECTebanking.com during the process:');
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_MESSAGE', 'Payment via DIRECTebanking.com is unfortunately not possible or has been cancelled by the customer. Please select another payment method.');
-
-// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
-define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
-// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 ?>

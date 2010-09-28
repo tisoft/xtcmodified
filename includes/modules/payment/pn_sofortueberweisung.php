@@ -1,6 +1,6 @@
 <?php
 /**
- * @version sofortüberweisung.de 4.0.2 - $Date: 2010-03-19 12:07:23 +0100 (Fr, 19 Mrz 2010) $
+ * @version sofortüberweisung.de 4.1.0 - $Date: 2010-09-09 17:18:09 +0200 (Do, 09 Sep 2010) $
  * @author Payment Network AG (integration@payment-network.com)
  * @link http://www.payment-network.com/
  *
@@ -33,23 +33,25 @@
  * Released under the GNU General Public License
  ***********************************************************************************
  *
- * $Id: pn_sofortueberweisung.php 92 2010-03-19 11:07:23Z thoma $
+ * $Id: pn_sofortueberweisung.php 304 2010-09-09 15:18:09Z poser $
  *
  */
 
-require (DIR_FS_CATALOG.'callback/pn_sofortueberweisung/classPnSofortueberweisung.php');
+require_once(DIR_FS_CATALOG.'callback/pn_sofortueberweisung/classPnSofortueberweisung.php');
 
 class pn_sofortueberweisung {
 
 	var $code, $title, $description, $enabled, $pnSofortueberweisung;
-	// BOF - Hendrik - 2010-08-11 - php5 compatible
-	// function pn_sofortueberweisung () {
-	function __construct() {
-	// EOF - Hendrik - 2010-08-11 - php5 compatible
+	function pn_sofortueberweisung () {
 		global $order;
 		$this->code = 'pn_sofortueberweisung';
-		$this->version = 'pn_xtcmodified_v1.05';
+		$this->version = 'pn_xtcmodified_v1.0.5';
 		$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_TITLE;
+		if(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS == 'True') {
+			$this->title = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_TEXT_TITLE;
+			$this->version .= 'k';
+		}
+			
 		$this->description = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER;
 		$this->enabled = ((MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS == 'True') ? true : false);
@@ -65,27 +67,13 @@ class pn_sofortueberweisung {
 
 		$this->defaultCurrency = DEFAULT_CURRENCY;
 		$this->pnSofortueberweisung = new classPnSofortueberweisung(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM);
-		$this->form_action_url = $this->pnSofortueberweisung->formActionUrl; 
+		$this->form_action_url = $this->pnSofortueberweisung->formActionUrl;
 		$this->pnSofortueberweisung->version = $this->version; 
 
 	}
 	function update_status ()
 	{
 		global $order;
-		
-		// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
-		if( MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING != '' ) {
-			$neg_shpmod_arr = explode(',',MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING);
-			foreach( $neg_shpmod_arr as $neg_shpmod ) {
-				$nd=$neg_shpmod.'_'.$neg_shpmod;
-				if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) { 
-					$this->enabled = false;
-					break;
-				}
-			}
-		} 
-		// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
-				
 		if (($this->enabled == true) && ((int) MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE > 0)) {
 			$check_flag = false;
 			$check_query = xtc_db_query("SELECT zone_id FROM " . TABLE_ZONES_TO_GEO_ZONES . " WHERE geo_zone_id = '" . MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' ORDER BY zone_id");
@@ -125,14 +113,20 @@ class pn_sofortueberweisung {
 		switch (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE) {
 			case 'Logo & Text':
 				$image = xtc_image(sprintf('lang/%s/modules/payment/images/sofortueberweisung_logo.gif', $_SESSION['language']), MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGEALT);
-				$title = str_replace('{{image}}', $image, sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGE, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_TEXT));
+				if(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS == 'True')
+					$title = str_replace('{{image}}', $image, sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGE, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_TEXT));
+				else
+					$title = str_replace('{{image}}', $image, sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGE, MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_TEXT));
 				break;
 			case 'Logo':
 				$image = xtc_image(sprintf('lang/%s/modules/payment/images/sofortueberweisung_logo.gif', $_SESSION['language']), MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGEALT);
 				$title = str_replace('{{image}}', $image, sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGE, ''));
 				break;
 			case 'Infographic':
-				$image = xtc_image(sprintf('lang/%s/modules/payment/images/sofortueberweisung_info.gif', $_SESSION['language']), MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGEALT);
+				if(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS == 'True')
+					$image = xtc_image(sprintf('lang/%s/modules/payment/images/sofortueberweisungk_banner.jpg', $_SESSION['language']), MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGEALT);
+				else
+					$image = xtc_image(sprintf('lang/%s/modules/payment/images/sofortueberweisung_info.gif', $_SESSION['language']), MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGEALT);
 				$title = str_replace('{{image}}', $image, sprintf(MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_DESCRIPTION_CHECKOUT_PAYMENT_IMAGE, ''));
 				break;
 		}
@@ -212,7 +206,7 @@ class pn_sofortueberweisung {
 		$user_variable_0 = $order_id;
 		$user_variable_1 = $customer_id;
 
-		$session = '&' . session_name() . '=' . session_id();
+		$session = session_name() . '=' . session_id();
 
 		if (ENABLE_SSL == true)
 			$server = HTTPS_SERVER;
@@ -224,10 +218,10 @@ class pn_sofortueberweisung {
 		
 
 		// success return url:
-		$user_variable_2 = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?transaction=-TRANSACTION-' . $session;
+		$user_variable_2 = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?' . $session;
 
 		// cancel return url:
-		$user_variable_3 = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PAYMENT . '?payment_error=pn_sofortueberweisung' . $session;
+		$user_variable_3 = $server . DIR_WS_CATALOG . FILENAME_CHECKOUT_PAYMENT . '?payment_error=pn_sofortueberweisung&' . $session;
 
 		// notification url: 
 		$user_variable_4 = $server . DIR_WS_CATALOG . 'callback/pn_sofortueberweisung/callback.php'; //deprecated
@@ -260,17 +254,23 @@ class pn_sofortueberweisung {
 		return false;
 	}
 	function check () {
-		if (! isset($this->_check)) {
+		if (!isset($this->_check)) {
 			$check_query = xtc_db_query("SELECT configuration_value FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS'");
 			$this->_check = xtc_db_num_rows($check_query);
 
 			//if old installation and notification password not set we need to upgrade the database
-			if (defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS')	&& (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS == 'True')
-			&& !defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD')) {
-				$check_query = xtc_db_query("SELECT configuration_value FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD'");
-				if(xtc_db_num_rows($check_query) < 1) {
-					xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', '".MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD."',  '6', '4', now())");
-					xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM', 'sha1',  '6', '4', now())");
+			if (defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS')	&& (MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS == 'True')) {
+				if(!defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD')) {
+					$check_query = xtc_db_query("SELECT configuration_value FROM " . TABLE_CONFIGURATION . " WHERE configuration_key = 'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD'");
+					if(xtc_db_num_rows($check_query) < 1) {
+						xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', '".MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD."',  '6', '4', now())");
+						xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM', 'sha1',  '6', '4', now())");
+					}
+				}
+				if(!defined('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_RECEIVED_STATUS_ID')) {
+					xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_RECEIVED_STATUS_ID', '0',  '6', '11', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
+					xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_LOSS_STATUS_ID', '0',  '6', '12', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
+					xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS', 'False', '6', '3', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
 				}
 			}
 		}
@@ -285,7 +285,6 @@ class pn_sofortueberweisung {
 	}
 
 	function autoinstall() {
-
 		$backlink = xtc_href_link(FILENAME_MODULES, 'set=payment&module=pn_sofortueberweisung&action=install', 'SSL');
 		
 		$header_redir_url = 'http://-USER_VARIABLE_2-';
@@ -325,7 +324,12 @@ class pn_sofortueberweisung {
 
 			$user_id = (! empty($_GET['user_id'])) ? xtc_db_prepare_input($_GET['user_id']) : '10000';
 			$project_id = (! empty($_GET['project_id'])) ? xtc_db_prepare_input($_GET['project_id']) : '500000';
-
+			if(!empty($_GET['consumer_protection']) && xtc_db_prepare_input($_GET['consumer_protection']) == '1') {
+				$consumer_protection = 'True';
+			} else {
+				$consumer_protection = 'False';
+			}
+			
 			if (isset($_SESSION['pn_sofortueberweisung_pw']) && !empty($_SESSION['pn_sofortueberweisung_pw'])) {
 				$project_password = $_SESSION['pn_sofortueberweisung_pw'];
 				unset($_SESSION['pn_sofortueberweisung_pw']);
@@ -341,24 +345,23 @@ class pn_sofortueberweisung {
 
 			
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS', 'True', '6', '3', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS', '".$consumer_protection."', '6', '3', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED', '', '6', '0', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID', '" . (int) $user_id . "',  '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID', '" . (int) $project_id . "',  '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_PASSWORD', '". $project_password ."',  '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_NOTIF_PASSWORD', '". $project_password2 ."',  '6', '4', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_HASH_ALGORITHM', '". $hashAlgorithm ."',  '6', '4', now())");
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER', '1', '6', '0', now())");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER', '1', '6', '20', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, use_function, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ZONE', '0', '6', '2', 'xtc_get_zone_class_title', 'xtc_cfg_pull_down_zone_classes(', now())");
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID', '0',  '6', '0', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID', '0',  '6', '10', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID', '0',  '6', '8', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID', '0',  '6', '8', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID', '0',  '6', '9', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_RECEIVED_STATUS_ID', '0',  '6', '11', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, use_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_LOSS_STATUS_ID', '0',  '6', '12', 'xtc_cfg_pull_down_order_statuses(', 'xtc_get_order_status_name', now())");
 			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_REASON_1', 'Nr. {{order_id}} Kd-Nr. {{customer_id}}',  '6', '4', 'xtc_cfg_select_option(array(\'Nr. {{order_id}} Kd-Nr. {{customer_id}}\',\'-TRANSACTION-\'), ', now())");
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2', '" . STORE_NAME . "', '6', '4', now())");
-			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE', 'Logo & Text',  '6', '6', 'xtc_cfg_select_option(array(\'Infographic\',\'Logo & Text\',\'Logo\'), ', now())");
-
-			// BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
-			xtc_db_query("insert into " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING', '', '6', '99', now())");
-			// EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_REASON_2', '" . addslashes(STORE_NAME) . "', '6', '4', now())");
+			xtc_db_query("INSERT INTO " . TABLE_CONFIGURATION . " ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_IMAGE', 'Infographic',  '6', '6', 'xtc_cfg_select_option(array(\'Infographic\',\'Logo & Text\',\'Logo\'), ', now())");
 		}
 	}
 	
@@ -368,7 +371,8 @@ class pn_sofortueberweisung {
 	}
 	
 	function keys () {
-		return array('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS' , 
+		return array('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_STATUS' ,
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_KS_STATUS', 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ALLOWED' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_USER_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_PROJECT_ID' , 
@@ -381,8 +385,9 @@ class pn_sofortueberweisung {
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TMP_STATUS_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_UNC_STATUS_ID' , 
 		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_ORDER_STATUS_ID' , 
-		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER',
-		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING' );		// Hendrik - 2010-08-11 - exlusion config for shipping modules
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_RECEIVED_STATUS_ID',
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_LOSS_STATUS_ID',
+		'MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_SORT_ORDER');
 	}
 
 	// xtc_remove_order() in admin/includes/functions/general.php
