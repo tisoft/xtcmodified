@@ -265,8 +265,8 @@ define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Please accept our terms and conditions 
 
 define('SUB_TITLE_OT_DISCOUNT','Discount:');
 
-define('TAX_ADD_TAX','incl. ');
-define('TAX_NO_TAX','plus ');
+define('TAX_ADD_TAX','incl. VAT '); //DokuMan - 2010-09-28 - display VAT description multilingually
+define('TAX_NO_TAX','plus VAT '); //DokuMan - 2010-09-28 - display VAT description multilingually
 
 define('NOT_ALLOWED_TO_SEE_PRICES','You do not have the permission to see the prices ');
 define('NOT_ALLOWED_TO_SEE_PRICES_TEXT','You do not have the permission to see the prices, please create an account.');

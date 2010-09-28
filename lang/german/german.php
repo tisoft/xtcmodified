@@ -265,8 +265,8 @@ define('ERROR_CONDITIONS_NOT_ACCEPTED', '* Sofern Sie unsere Allgemeinen Gesch&a
 
 define('SUB_TITLE_OT_DISCOUNT','Rabatt:');
 
-define('TAX_ADD_TAX','inkl. ');
-define('TAX_NO_TAX','zzgl. ');
+define('TAX_ADD_TAX','inkl. MwSt '); //DokuMan - 2010-09-28 - display VAT description multilingually
+define('TAX_NO_TAX','zzgl. MwSt '); //DokuMan - 2010-09-28 - display VAT description multilingually
 
 define('NOT_ALLOWED_TO_SEE_PRICES','Sie k&ouml;nnen als Gast (bzw mit Ihrem derzeitigen Status) keine Preise sehen');
 define('NOT_ALLOWED_TO_SEE_PRICES_TEXT','Sie haben keine Erlaubnis, Preise zu sehen. Erstellen Sie bitte ein Kundenkonto.');

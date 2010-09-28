@@ -43,4 +43,9 @@ UPDATE countries SET address_format_id = 7 WHERE countries_id = 44;
 #DokuMan - 2010-09-21 - listing_template needs a default value
 ALTER TABLE categories MODIFY listing_template varchar(64) NOT NULL DEFAULT '';
 
+#DokuMan - 2010-09-28 - display VAT description multilingually
+#Updating only the German tax rates here
+UPDATE tax_rates SET tax_description = '19%' WHERE tax_description = 'MwSt 19%';
+UPDATE tax_rates SET tax_description = '7%' WHERE tax_description = 'MwSt 7%';
+
 # Keep an empty line at the end of this file for the db_updater to work properly
