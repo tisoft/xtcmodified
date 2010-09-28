@@ -10,8 +10,8 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.32 2003/02/11); www.oscommerce.com
-   (c) 2003	 nextcommerce (shopping_cart.php,v 1.21 2003/08/17); www.nextcommerce.org
-   (c) 2006	 xt:Commerce (shopping_cart.php); www.xt-commerce.com
+   (c) 2003	nextcommerce (shopping_cart.php,v 1.21 2003/08/17); www.nextcommerce.org
+   (c) 2006	xt:Commerce (shopping_cart.php); www.xt-commerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
@@ -314,11 +314,18 @@ class shoppingCart {
 						  if (!isset($this->tax[$product['products_tax_class_id']])) $this->tax[$product['products_tax_class_id']]['value'] = 0; //DokuMan - 2010-03-26 - set undefined variable
 							if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
 							$this->tax[$product['products_tax_class_id']]['value'] += ((($products_price_tax+$attribute_price_tax) / (100 + $products_tax)) * $products_tax)*$qty;
-							$this->tax[$product['products_tax_class_id']]['desc'] = TAX_ADD_TAX."$products_tax_description";
+							//BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+							//$this->tax[$product['products_tax_class_id']]['desc'] = TAX_ADD_TAX."$products_tax_description";
+							//EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 						} else {
 							$this->tax[$product['products_tax_class_id']]['value'] += ((($products_price+$attribute_price) / (100 + $products_tax)) * $products_tax)*$qty;
-							$this->tax[$product['products_tax_class_id']]['desc'] = TAX_ADD_TAX."$products_tax_description";
+							//BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+							//$this->tax[$product['products_tax_class_id']]['desc'] = TAX_ADD_TAX."$products_tax_description";
+							//EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 						}
+						//BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+						$this->tax[$product['products_tax_class_id']]['desc'] = TAX_ADD_TAX."$products_tax_description".TAX_SHORT_DISPLAY;
+						//EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 
 					}
 					// excl tax + tax at checkout
@@ -326,12 +333,19 @@ class shoppingCart {
 						if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
 							$this->tax[$product['products_tax_class_id']]['value'] += (($products_price_tax+$attribute_price_tax) / 100) * ($products_tax)*$qty;
 							$this->total+=(($products_price_tax+$attribute_price_tax) / 100) * ($products_tax)*$qty;
-							$this->tax[$product['products_tax_class_id']]['desc'] = TAX_NO_TAX."$products_tax_description";
+							//BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+							//$this->tax[$product['products_tax_class_id']]['desc'] = TAX_NO_TAX."$products_tax_description";
+							//EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 						} else {
 							$this->tax[$product['products_tax_class_id']]['value'] += (($products_price+$attribute_price) / 100) * ($products_tax)*$qty;
 							$this->total+= (($products_price+$attribute_price) / 100) * ($products_tax)*$qty;
-							$this->tax[$product['products_tax_class_id']]['desc'] = TAX_NO_TAX."$products_tax_description";
+							//BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+							//$this->tax[$product['products_tax_class_id']]['desc'] = TAX_NO_TAX."$products_tax_description";
+							//EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 						}
+						//BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+						$this->tax[$product['products_tax_class_id']]['desc'] = TAX_NO_TAX."$products_tax_description".TAX_SHORT_DISPLAY;
+						//EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 					}
 				}
 			}

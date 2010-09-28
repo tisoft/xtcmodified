@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ot_cod_fee.php,v 1.02 2003/02/24); www.oscommerce.com
-   (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers ; http://www.themedia.at & http://www.oscommerce.at
+   (c) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers ; http://www.themedia.at & http://www.oscommerce.at
    (c) 2006 xt:Commerce (ot_cod_fee.php 1002 2005-07-10); www.xt-commerce.de
 
    Released under the GNU General Public License
@@ -22,7 +22,7 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
@@ -39,8 +39,6 @@
       $this->description = MODULE_ORDER_TOTAL_COD_FEE_DESCRIPTION;
       $this->enabled = ((MODULE_ORDER_TOTAL_COD_FEE_STATUS == 'true') ? true : false);
       $this->sort_order = MODULE_ORDER_TOTAL_COD_FEE_SORT_ORDER;
-
-
       $this->output = array();
     }
 
@@ -109,7 +107,10 @@
             $cod_tax_description = xtc_get_tax_description(MODULE_ORDER_TOTAL_COD_FEE_TAX_CLASS, $order->delivery['country']['id'], $order->delivery['zone_id']);
         if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 1) {
             $order->info['tax'] += xtc_add_tax($cod_cost, $cod_tax)-$cod_cost;
-            $order->info['tax_groups'][TAX_ADD_TAX . "$cod_tax_description"] += xtc_add_tax($cod_cost, $cod_tax)-$cod_cost;
+            //BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+            //$order->info['tax_groups'][TAX_ADD_TAX . "$cod_tax_description"] += xtc_add_tax($cod_cost, $cod_tax)-$cod_cost;
+            $order->info['tax_groups'][TAX_ADD_TAX . "$cod_tax_description".TAX_SHORT_DISPLAY] += xtc_add_tax($cod_cost, $cod_tax)-$cod_cost;
+            //EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
             $order->info['total'] += $cod_cost + (xtc_add_tax($cod_cost, $cod_tax)-$cod_cost);
             $cod_cost_value= xtc_add_tax($cod_cost, $cod_tax);
             $cod_cost= $xtPrice->xtcFormat($cod_cost_value,true);

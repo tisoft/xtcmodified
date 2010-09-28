@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ot_shipping.php,v 1.15 2003/02/07); www.oscommerce.com
-   (c) 2003	 nextcommerce (ot_shipping.php,v 1.13 2003/08/24); www.nextcommerce.org
+   (c) 2003	nextcommerce (ot_shipping.php,v 1.13 2003/08/24); www.nextcommerce.org
    (c) 2006 xt:Commerce (ot_shipping.php 1002 2005-07-10); www.xt-commerce.de
 
    Released under the GNU General Public License
@@ -70,10 +70,10 @@
           $tax = $xtPrice->xtcFormat($tax,false,0,true);
           $order->info['shipping_cost'] = xtc_add_tax($order->info['shipping_cost'], $shipping_tax);
           $order->info['tax'] += $tax;
-          //BOF - DokuMan - 2010-09-06 - Undefined index: inkl. Unbekannter Steuersatz
-          if (!isset($order->info['tax_groups'][TAX_ADD_TAX . $shipping_tax_description])) $order->info['tax_groups'][TAX_ADD_TAX . $shipping_tax_description] = 0;
-          //EOF - DokuMan - 2010-09-06 - Undefined index: inkl. Unbekannter Steuersatz
-          $order->info['tax_groups'][TAX_ADD_TAX . $shipping_tax_description] += $tax;
+          //BOF - DokuMan - 2010-09-06 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+          if (!isset($order->info['tax_groups'][TAX_ADD_TAX . $shipping_tax_description .TAX_SHORT_DISPLAY])) $order->info['tax_groups'][TAX_ADD_TAX . $shipping_tax_description .TAX_SHORT_DISPLAY] = 0;
+          $order->info['tax_groups'][TAX_ADD_TAX . $shipping_tax_description .TAX_SHORT_DISPLAY] += $tax;
+          //EOF - DokuMan - 2010-09-06 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
           $order->info['total'] += $tax;
 
         } else {
@@ -91,11 +91,10 @@
 	          $tax = $xtPrice->xtcFormat(xtc_add_tax($order->info['shipping_cost'], $shipping_tax),false,0,false)-$order->info['shipping_cost'];
 	          $tax = $xtPrice->xtcFormat($tax,false,0,true);
 	          $order->info['tax'] = $order->info['tax'] += $tax;
-	          //BOF - DokuMan - 2010-09-06 - Undefined index: inkl. Unbekannter Steuersatz
-	          if (!isset($order->info['tax_groups'][TAX_NO_TAX . $shipping_tax_description])) $order->info['tax_groups'][TAX_NO_TAX . $shipping_tax_description] = 0;
-	          $order->info['tax_groups'][TAX_NO_TAX . $shipping_tax_description] += $tax;
-	          //$order->info['tax_groups'][TAX_NO_TAX . $shipping_tax_description] = $order->info['tax_groups'][TAX_NO_TAX . "$shipping_tax_description"] += $tax;
-	          //EOF - DokuMan - 2010-09-06 - Undefined index: inkl. Unbekannter Steuersatz
+	          //BOF - DokuMan - 2010-09-06 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+	          if (!isset($order->info['tax_groups'][TAX_NO_TAX . $shipping_tax_description .TAX_SHORT_DISPLAY])) $order->info['tax_groups'][TAX_NO_TAX . $shipping_tax_description] = 0;
+	          $order->info['tax_groups'][TAX_NO_TAX . $shipping_tax_description .TAX_SHORT_DISPLAY] += $tax;
+	          //EOF - DokuMan - 2010-09-06 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 	        }
         }
         $this->output[] = array('title' => $order->info['shipping_method'] . ':',

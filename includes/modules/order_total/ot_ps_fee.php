@@ -2,15 +2,16 @@
 /* -----------------------------------------------------------------------------------------
    $Id: ot_ps_fee.php,v 1.0 
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ot_ps_fee.php,v 1.02 2003/02/24); www.oscommerce.com
-   (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers ; http://www.themedia.at & http://www.oscommerce.at
+   (c) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers ; http://www.themedia.at & http://www.oscommerce.at
+   (c) 2006 xt:Commerce (ot_ps_fee.php,v 1.0); www.xt-commerce.de
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -21,13 +22,12 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
 
   class ot_ps_fee {
     var $title, $output;
@@ -95,14 +95,20 @@
             $ps_tax_description = xtc_get_tax_description(MODULE_ORDER_TOTAL_PS_FEE_TAX_CLASS, $order->delivery['country']['id'], $order->delivery['zone_id']);
         if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 1) {
             $order->info['tax'] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
-            $order->info['tax_groups'][TAX_ADD_TAX . "$ps_tax_description"] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
+            //BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY            
+            //$order->info['tax_groups'][TAX_ADD_TAX . "$ps_tax_description"] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
+            $order->info['tax_groups'][TAX_ADD_TAX . "$ps_tax_description".TAX_SHORT_DISPLAY ] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
+            //EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY            
             $order->info['total'] += $ps_cost + (xtc_add_tax($ps_cost, $ps_tax)-$ps_cost);
             $ps_cost_value= xtc_add_tax($ps_cost, $ps_tax);
             $ps_cost= $xtPrice->xtcFormat($ps_cost_value,true);
         }
         if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
             $order->info['tax'] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
-            $order->info['tax_groups'][TAX_NO_TAX . "$ps_tax_description"] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
+            //BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY                        
+            //$order->info['tax_groups'][TAX_NO_TAX . "$ps_tax_description"] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
+            $order->info['tax_groups'][TAX_NO_TAX . "$ps_tax_description".TAX_SHORT_DISPLAY] += xtc_add_tax($ps_cost, $ps_tax)-$ps_cost;
+            //EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY            
             $ps_cost_value=$ps_cost;
             $ps_cost= $xtPrice->xtcFormat($ps_cost,true);
             $order->info['subtotal'] += $ps_cost_value;

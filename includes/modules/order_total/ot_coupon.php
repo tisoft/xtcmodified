@@ -7,15 +7,10 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(ot_coupon.php,v 1.1.2.37.3); www.oscommerce.com
-   (c) 2006 xt:Commerce (ot_cod_fee.php 1002 2005-07-10); www.xt-commerce.de
+   (c) 2006 xt:Commerce (ot_coupon.php 1002 2005-07-10); www.xt-commerce.de
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -24,7 +19,7 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
@@ -470,9 +465,18 @@ $order->info['tax'] -= $tod_amount;
 			while (list ($key, $value) = each($order->info['tax_groups'])) {
 
 				//Steuersumme aus Bestellung ermitteln - ACHTUNG - Unterscheidung mit TAX_ADD_TAX und  TAX_NO_TAX
-				$tax_rate_order = xtc_get_tax_rate_from_desc( str_replace(TAX_ADD_TAX, "", $key) );  //inkl. UST
-                if ($_SESSION['customers_status']['customers_status_show_price_tax'] != '1') {
-					$tax_rate_order = xtc_get_tax_rate_from_desc( str_replace(TAX_NO_TAX, "", $key) );  //exkl. UST
+				//BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+				//$tax_rate_order = xtc_get_tax_rate_from_desc( str_replace(TAX_ADD_TAX, "", $key) );  //inkl. UST
+				$replace_tax_txt = array(TAX_ADD_TAX, TAX_SHORT_DISPLAY);
+				$tax_rate_order = xtc_get_tax_rate_from_desc( str_replace($replace_tax_txt, "", $key) );  //inkl. UST
+				//EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+
+        if ($_SESSION['customers_status']['customers_status_show_price_tax'] != '1') {
+          //BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
+          //$tax_rate_order = xtc_get_tax_rate_from_desc( str_replace(TAX_NO_TAX, "", $key) );  //exkl. UST
+          $replace_tax_txt = array(TAX_ADD_TAX, TAX_SHORT_DISPLAY);
+          $tax_rate_order = xtc_get_tax_rate_from_desc( str_replace($replace_tax_txt, "", $key) );  //exkl. UST
+          //EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
 				}
 
 				//Steuer neu berechnen
