@@ -122,12 +122,15 @@ class ot_gv {
 	} */
 
 	function use_credit_amount() {
+    $output_string = ''.
 
-		//      $_SESSION['cot_gv'] = false;     // old code - Strider
 		$_SESSION['cot_gv'] = false;
 		if ($this->selection_test()) {
-			$output_string .= '    <td nowrap align="right" class="main">';
-			$output_string .= '<strong>'.$this->checkbox.'</strong>'.'</td>'."\n";
+			//BOF - DokuMan - 2010-09-29 - remove layout formatting from checkbox
+			//$output_string .= '    <td nowrap align="right" class="main">';
+			//$output_string .= '<strong>'.$this->checkbox.'</strong>'.'</td>'."\n";
+			$output_string = $this->checkbox;
+			//EOF - DokuMan - 2010-09-29 - remove layout formatting from checkbox
 		}
 		return $output_string;
 	}

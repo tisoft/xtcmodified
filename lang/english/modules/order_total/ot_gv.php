@@ -33,7 +33,7 @@
   //define('SHIPPING_NOT_INCLUDED', ' [Shipping not included]');
   //define('TAX_NOT_INCLUDED', ' [Tax not included]');
   //EOF - DokuMan - 2010-08-31 - constants already defined in english.php
-  define('MODULE_ORDER_TOTAL_GV_USER_PROMPT', 'Tick to use Gift Voucher account balance ->&nbsp;');
+  define('MODULE_ORDER_TOTAL_GV_USER_PROMPT', '<strong>Tick to use Gift Voucher account balance</strong>');
   define('TEXT_ENTER_GV_CODE', 'Enter Redeem Code&nbsp;&nbsp;');
   
   define('MODULE_ORDER_TOTAL_GV_STATUS_TITLE', 'Display Total');

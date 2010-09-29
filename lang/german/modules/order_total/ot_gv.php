@@ -33,7 +33,7 @@
   //define('SHIPPING_NOT_INCLUDED', ' [Versand nicht enthalten]');
   //define('TAX_NOT_INCLUDED', ' [MwSt. nicht enthalten]');
   //EOF - DokuMan - 2010-08-31 - constants already defined in german.php
-  define('MODULE_ORDER_TOTAL_GV_USER_PROMPT', 'Anw&auml;hlen, wenn Sie Ihr Guthaben verwenden m&ouml;chten');
+  define('MODULE_ORDER_TOTAL_GV_USER_PROMPT', '<strong>Anw&auml;hlen, wenn Sie Ihr Guthaben verwenden m&ouml;chten</strong>');
   define('TEXT_ENTER_GV_CODE', 'Geben Sie bitte hier Ihren Gutscheincode ein &nbsp;&nbsp;');
 
   define('MODULE_ORDER_TOTAL_GV_STATUS_TITLE', 'Wert anzeigen');
