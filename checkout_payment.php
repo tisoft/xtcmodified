@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -76,9 +76,8 @@ if ((STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true')) {
 		if (xtc_check_stock($products[$i]['id'], $products[$i]['quantity']))
 			$any_out_of_stock = 1;
 	}
-	if ($any_out_of_stock == 1) 
+	if ($any_out_of_stock == 1)
 		xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
-
 }
 
 // if no billing destination address was selected, use the customers own address as default
@@ -113,7 +112,7 @@ $total_count = $_SESSION['cart']->count_contents_virtual(); // GV Code ICW ADDED
 if ($order->billing['country']['iso_code_2'] != '' && $order->delivery['country']['iso_code_2'] == '') {
 	$_SESSION['delivery_zone'] = $order->billing['country']['iso_code_2'];
 } else {
-	$_SESSION['delivery_zone'] = $order->delivery['country']['iso_code_2']; 
+	$_SESSION['delivery_zone'] = $order->delivery['country']['iso_code_2'];
 }
 
 // load all enabled payment modules
@@ -144,9 +143,14 @@ if ($order->info['total'] > 0) {
 	for ($i = 0, $n = sizeof($selection); $i < $n; $i++) {
 
 		$selection[$i]['radio_buttons'] = $radio_buttons;
+
+		//BOF - DokuMan - 2010-09-29 - preallocating the first payment option is not necessary nor does it work
+		/*
 		if (($selection[$i]['id'] == $payment) || ($n == 1)) {
 			$selection[$i]['checked'] = 1;
 		}
+		*/
+		//EOF - DokuMan - 2010-09-29 - preallocating the first payment option is not necessary nor does it work
 
 		if (sizeof($selection) > 1) {
 			$selection[$i]['selection'] = xtc_draw_radio_field('payment', $selection[$i]['id'], (isset($_SESSION['payment']) && $selection[$i]['id'] == $_SESSION['payment']));
@@ -203,11 +207,11 @@ if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 	}
 
 	$smarty->assign('AGB', $conditions);
-  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink 
+  //BOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
 	//$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
 	$smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO,'SSL'));
   //EOF - Hetfield - 2009-07-29 - SSL for Content-Links per getContentLink
-	
+
 	// BOF - Tomcraft - 2009-10-01 - AGB checkbox re-implemented
 	if (isset ($_GET['step']) && $_GET['step'] == 'step2') {
 		$smarty->assign('AGB_checkbox', '<input type="checkbox" value="conditions" name="conditions" checked />');
