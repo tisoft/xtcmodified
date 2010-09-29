@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: stats_products_viewed.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(stats_products_viewed.php,v 1.27 2003/01/29); www.oscommerce.com 
-   (c) 2003	 nextcommerce (stats_products_viewed.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2003	nextcommerce (stats_products_viewed.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2006 xt:Commerce
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -82,10 +83,22 @@
 <?php
   //BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
   //if ($_GET['page'] > 1) $rows = $_GET['page'] * '20' - '20';
-  if ($_GET['page'] > 1) $rows = $_GET['page'] * $maxrows - $maxrows;
+  $rows = 0;
+  if (isset($_GET['page']) && $_GET['page'] > 1) $rows = $_GET['page'] * $maxrows - $maxrows;
   //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
 
-  $products_query_raw = "select p.products_id, pd.products_name, pd.products_viewed, l.name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_LANGUAGES . " l where p.products_id = pd.products_id and l.languages_id = pd.language_id order by pd.products_viewed DESC";
+  $products_query_raw = "select
+                          p.products_id,
+                          pd.products_name,
+                          pd.products_viewed,
+                          l.name
+                         from
+                          " . TABLE_PRODUCTS . " p,
+                          " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                          " . TABLE_LANGUAGES . " l
+                         where p.products_id = pd.products_id
+                         and l.languages_id = pd.language_id
+                         order by pd.products_viewed DESC";
 
   //BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
   //$products_split = new splitPageResults($_GET['page'], '20', $products_query_raw, $products_query_numrows);
@@ -94,17 +107,16 @@
   $products_query = xtc_db_query($products_query_raw);
   while ($products = xtc_db_fetch_array($products_query)) {
     $rows++;
-
     if (strlen($rows) < 2) {
       $rows = '0' . $rows;
     }
 ?>
               <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='pointer'" onmouseout="this.className='dataTableRow'">
                 <td class="dataTableContent"><?php echo $rows; ?>.</td>
-                <td class="dataTableContent"><?php echo  $products['products_name'] . '(' . $products['name'] . ')'; ?></td>
+                <td class="dataTableContent"><?php echo  $products['products_name'] . ' (' . $products['name'] . ')'; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $products['products_viewed']; ?>&nbsp;</td>
 <?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
-                <td class="dataTableContent" align="center"><?php echo '<a href="'.$_SERVER['PHP_SELF'].'?clear_id='.$products['products_id'].'&page='.$_GET['page'].'&maxrows='.$maxrows.'"><img src="images/icon_delete.gif" alt="reset" style="border:0px;" /> </a>'; ?></td>
+                <td class="dataTableContent" align="center"><?php echo '<a href="'.basename($_SERVER['SCRIPT_FILENAME']).'?clear_id='.$products['products_id'].'&page='.$_GET['page'].'&maxrows='.$maxrows.'"><img src="images/icon_delete.gif" alt="reset" style="border:0px;" /> </a>'; ?></td>
 <?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */ ?>
               </tr>
 <?php
