@@ -49,7 +49,7 @@
       $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
       }
 
-      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
       /*
       $expires_date = '';
       if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
@@ -62,7 +62,7 @@
       if (isset($_POST['specials_expires'])) {
         $expires_date = $_POST['specials_expires'];
       }
-      // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+      // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
 
       xtc_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_quantity, specials_new_products_price, specials_date_added, expires_date, status) values ('" . $_POST['products_id'] . "', '" . $_POST['specials_quantity'] . "', '" . $_POST['specials_price'] . "', now(), '" . $expires_date . "', '1')");
       xtc_redirect(xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page']));
@@ -80,7 +80,7 @@
       if (substr($_POST['specials_price'], -1) == '%')  {
       $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
       }
-      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
       /*
       $expires_date = '';
       if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
@@ -93,7 +93,7 @@
       if (isset($_POST['specials_expires'])) {
         $expires_date = $_POST['specials_expires'];
       }
-      // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+      // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
 
       xtc_db_query("update " . TABLE_SPECIALS . " set specials_quantity = '" . $_POST['specials_quantity'] . "', specials_new_products_price = '" . $_POST['specials_price'] . "', specials_last_modified = now(), expires_date = '" . $expires_date . "' where specials_id = '" . $_POST['specials_id'] . "'");
       xtc_redirect(xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials_id));
@@ -182,7 +182,7 @@
         </table></td>
       </tr>
 <?php
-  if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) {
+  if (isset($_GET['action']) && ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit'))) {
     $form_action = 'insert';
     if ( ($_GET['action'] == 'edit') && ($_GET['sID']) ) {
 	  $form_action = 'update';
@@ -205,16 +205,16 @@
 
       $sInfo = new objectInfo($product);
 
-      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+      // BOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
       // build the expires date in the format YYYY-MM-DD
       if ($sInfo->expires_date != 0) {
         $expires_date = substr($sInfo->expires_date, 0, 4)."-".
         substr($sInfo->expires_date, 5, 2)."-".
         substr($sInfo->expires_date, 8, 2);
-      }	else { 
-        $expires_date = ""; 
+      }	else {
+        $expires_date = "";
       }
-       // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field 
+       // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
 
     } else {
       $sInfo = new objectInfo(array());
@@ -312,7 +312,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-    $specials_query_raw = "select 
+    $specials_query_raw = "select
                           p.products_id,
                           pd.products_name,
                           p.products_tax_class_id,

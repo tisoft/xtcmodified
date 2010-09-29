@@ -1,25 +1,26 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: module_newsletter.php 1142 2005-08-11 08:19:55Z matthias $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommercecoding standards www.oscommerce.com 
+   (c) 2002-2003 osCommercecoding standards www.oscommerce.com
    (c) 2003  nextcommerce (templates_boxes.php,v 1.14 2003/08/18); www.nextcommerce.org
+   (c) 2006 xt:Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
 
   require_once(DIR_FS_CATALOG.DIR_WS_CLASSES.'class.phpmailer.php');
   require_once(DIR_FS_INC . 'xtc_php_mail.inc.php');
-  require_once(DIR_FS_INC . 'xtc_wysiwyg.inc.php'); 
+  require_once(DIR_FS_INC . 'xtc_wysiwyg.inc.php');
 
   switch ($_GET['action']) {  // actions for datahandling
 
@@ -29,7 +30,7 @@
      $status_all=xtc_db_prepare_input($_POST['status_all']);
      if ($newsletter_title=='') $newsletter_title='no title';
      $customers_status=xtc_get_customers_statuses();
-     
+
      $rzp='';
      for ($i=0,$n=sizeof($customers_status);$i<$n; $i++) {
          if (xtc_db_prepare_input($_POST['status'][$i])=='yes') {
@@ -37,8 +38,8 @@
              $rzp.=$customers_status[$i]['id'];
          }
      }
-     
-      if (xtc_db_prepare_input($_POST['status_all'])=='yes') $rzp.=',all';
+
+   if (xtc_db_prepare_input($_POST['status_all'])=='yes') $rzp.=',all';
 
    $error=false; // reset error flag
    if ($error == false) {
@@ -96,7 +97,7 @@
 
    for ($i=0,$n=sizeof($groups);$i<$n;$i++) {
    // check if customer wants newsletter
-   
+
    if (xtc_db_prepare_input($_POST['status_all'])=='yes') {
    $customers_query=xtc_db_query("SELECT
                                   customers_id,
@@ -112,7 +113,7 @@
                                   customers_id,
                                   customers_firstname,
                                   customers_lastname,
-                                  mail_key        
+                                  mail_key
                                   FROM ".TABLE_NEWSLETTER_RECIPIENTS."
                                   WHERE
                                   customers_status='".$groups[$i]."' and
@@ -156,9 +157,9 @@
 
 if ($_GET['send']) {
 
-$limits=explode(',',$_GET['send']);
-$limit_low = $limits['0'];
-$limit_up = $limits['1'];
+  $limits=explode(',',$_GET['send']);
+  $limit_low = $limits['0'];
+  $limit_up = $limits['1'];
 
 
 
@@ -269,16 +270,12 @@ $limit_up = $limits['1'];
  $limit_up=$limit_low+$package_size;
  xtc_redirect(xtc_href_link(FILENAME_MODULE_NEWSLETTER,'send='.$limit_low.','.$limit_up.'&ID='.(int)$_GET['ID']));
  }
-
-
 }
-
-
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <?php if (USE_WYSIWYG=='true') {
@@ -314,11 +311,10 @@ $limit_up = $limits['1'];
 </table></td>
       </tr>
 
- <?php
- if ($_GET['send'])
- {
- ?>
-
+<?php
+if (isset($_GET['send'])) //DokuMan - set undefined index
+{
+?>
       <tr><td>
       Sending
       </td></tr>
@@ -355,13 +351,10 @@ switch ($_GET['action']) {
                                 customers_status='".$customer_group_data['customers_status_id']."'");
      $group_data=xtc_db_fetch_array($group_query);
 
-
- $customer_group[]=array( 'ID'=>$customer_group_data['customers_status_id'],
+     $customer_group[]=array( 'ID'=>$customer_group_data['customers_status_id'],
                           'NAME'=>$customer_group_data['customers_status_name'],
                           'IMAGE'=>$customer_group_data['customers_status_image'],
                           'USERS'=>$group_data['count']);
-
-
  }
 
  ?>
@@ -394,8 +387,7 @@ for ($i=0,$n=sizeof($customer_group); $i<$n; $i++) {
   </tr>
 </table>
  <br />
- <?php
-
+<?php
  // get data for newsletter overwiev
 
  $newsletters_query=xtc_db_query("SELECT
@@ -405,7 +397,7 @@ for ($i=0,$n=sizeof($customer_group); $i<$n; $i++) {
  $news_data=array();
  while ($newsletters_data=xtc_db_fetch_array($newsletters_query)) {
 
- $news_data[]=array(    'id' => $newsletters_data['newsletter_id'],
+ $news_data[]=array(    'id' =>$newsletters_data['newsletter_id'],
                         'date'=>$newsletters_data['date'],
                         'title'=>$newsletters_data['title']);
  }
@@ -430,7 +422,7 @@ if ($news_data[$i]['id']!='') {
         </tr>
  <?php
 
-if ($_GET['ID']!='' && $_GET['ID']==$news_data[$i]['id']) {
+if (isset($_GET['ID']) && $_GET['ID']!='' && $_GET['ID']==$news_data[$i]['id']) {
 
 $total_query=xtc_db_query("SELECT
                            count(*) as count
@@ -450,15 +442,14 @@ $total_data=xtc_db_fetch_array($total_query);
 </td>
 <td colspan="2" class="dataTableContent" style="border-bottom: 1px solid; border-color: #999999; text-align: left;">
 <?php
-
- // get data
+// get data
     $newsletters_query=xtc_db_query("SELECT
                                    title,body,cc,bc
                                   FROM ".TABLE_MODULE_NEWSLETTER."
                                   WHERE newsletter_id='".(int)$_GET['ID']."'");
    $newsletters_data=xtc_db_fetch_array($newsletters_query);
 
-echo TEXT_TITLE.$newsletters_data['title'].'<br />';
+    echo TEXT_TITLE.$newsletters_data['title'].'<br />';
 
      $customers_status=xtc_get_customers_statuses();
      for ($i=0,$n=sizeof($customers_status);$i<$n; $i++) {
@@ -474,13 +465,8 @@ echo '<table style="border-color: #cccccc; border: 1px solid;" width="100%"><tr>
 </td></tr>
 <?php
 }
-?>
-
-<?php
 }
 }
-
-
 ?>
 </table>
 <br /><br />
@@ -505,46 +491,38 @@ echo '<table style="border-color: #cccccc; border: 1px solid;" width="100%"><tr>
         </tr>
 <?php
 for ($i=0,$n=sizeof($news_data); $i<$n; $i++) {
-if ($news_data[$i]['id']!='') {
+  if ($news_data[$i]['id']!='') {
 ?>
         <tr>
           <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" valign="middle" align="left"><?php echo $news_data[$i]['date'].'    '; ?><b><?php echo $news_data[$i]['title']; ?></b></td>
           <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left">
 
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?php /*BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons/*
+/*
   <a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=delete&ID='.$news_data[$i]['id']); ?>" onclick="return confirm('<?php echo CONFIRM_DELETE; ?>')">
   <?php
   echo xtc_image(DIR_WS_ICONS.'delete.gif','Delete','','','style="cursor:pointer" onclick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
   ?>
 <a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=edit&ID='.$news_data[$i]['id']); ?>">
 <?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif','Edit','','').'  '.TEXT_EDIT.'</a>'; ?>
--->
+*/
+?>
 	<a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=edit&ID='.$news_data[$i]['id']); ?>">
 	<?php echo xtc_image(DIR_WS_ICONS.'icon_edit.gif', ICON_EDIT,'','').'  '.TEXT_EDIT.'</a>'; ?>
   <a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=delete&ID='.$news_data[$i]['id']); ?>" onclick="return confirm('<?php echo CONFIRM_DELETE; ?>')">
   <?php
   echo xtc_image(DIR_WS_ICONS.'delete.gif', ICON_DELETE,'','','style="cursor:pointer" onclick="return confirm(\''.DELETE_ENTRY.'\')"').'  '.TEXT_DELETE.'</a>&nbsp;&nbsp;';
   ?>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-
-
-
-
-
+<?php /*EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons*/ ?>
           </td>
         </tr>
 <?php
+  }
 }
-}
-
-
 ?>
 </table>
 
 <?php
-
-
   break;       // end default page
 
   case 'edit':
@@ -555,11 +533,9 @@ if ($news_data[$i]['id']!='') {
   case 'safe':
   case 'new':  // action for NEW newsletter!
 
-$customers_status=xtc_get_customers_statuses();
-
-
-  echo xtc_draw_form('edit_newsletter',FILENAME_MODULE_NEWSLETTER,'action=save','post','enctype="multipart/form-data"').xtc_draw_hidden_field('ID',$_GET['ID']);
-  ?>
+    $customers_status=xtc_get_customers_statuses();
+    echo xtc_draw_form('edit_newsletter',FILENAME_MODULE_NEWSLETTER,'action=save','post','enctype="multipart/form-data"').xtc_draw_hidden_field('ID',$_GET['ID']);
+?>
 
   <br /><br />
  <table class="main" width="100%" border="0">
@@ -585,14 +561,13 @@ for ($i=0,$n=sizeof($customers_status);$i<$n; $i++) {
                                 customers_status='".$customers_status[$i]['id']."'");
      $group_data_all=xtc_db_fetch_array($group_query);
 
-     $bc_array = explode(',', $newsletters_data['bc']);
+     $bc_array = explode(',', isset($newsletters_data['bc']) ? $newsletters_data['bc'] : ''); //DokuMan - set undefined index
 
 echo xtc_draw_checkbox_field('status['.$i.']','yes', in_array($customers_status[$i]['id'], $bc_array)).' '.$customers_status[$i]['text'].'  <i>(<b>'.$group_data['count'].'</b>'.TEXT_USERS.$group_data_all['count'].TEXT_CUSTOMERS.'<br />';
 
 }
 echo xtc_draw_checkbox_field('status_all', 'yes',in_array('all', $bc_array)).' <b>'.TEXT_NEWSLETTER_ONLY.'</b>';
-
-       ?></td>
+?></td>
    </tr>
          <tr>
       <td width="10%"><?php echo TEXT_CC; ?></td>
@@ -604,9 +579,7 @@ echo xtc_draw_checkbox_field('status_all', 'yes',in_array('all', $bc_array)).' <
       <tr>
       <td width="10%" valign="top"><?php echo TEXT_BODY; ?></td>
       <td width="90%"><?php
-
-echo xtc_draw_textarea_field('newsletter_body', 'soft', '150', '45', stripslashes($newsletters_data['body']));
-
+       echo xtc_draw_textarea_field('newsletter_body', 'soft', '150', '45', stripslashes($newsletters_data['body']));
         ?></td>
    </tr>
    </table>
@@ -618,10 +591,7 @@ echo xtc_draw_textarea_field('newsletter_body', 'soft', '150', '45', stripslashe
   break;
 } // end switch
 ?>
-
-
 </td>
-
           </tr>
         </table></td>
       </tr>
