@@ -184,7 +184,7 @@ if( $shopstat_debug ){$shopstat_debug_msg .= '\nPARAS:\n------------\n';$shopsta
     $shoplog_useragent 	= $_SERVER['HTTP_USER_AGENT'];
 
     //shoplog_id : user-ID oder sess_id
-    $shoplog_id			= $_REQUEST[session_name()];
+    $shoplog_id			= isset($_REQUEST[session_name()]) ? $_REQUEST[session_name()] : ''; //DokuMan - set undefined session-id "xtcsid" on first shop visit
 
     //shoplog_referer : $HTTP_REFERER
     if(isset($_SERVER['HTTP_REFERER']))
