@@ -212,7 +212,7 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
-<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+<?php // BOF - DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI
 /*
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
@@ -221,25 +221,24 @@
 </script>
 */
 ?>
-<link type="text/css" href="includes/javascript/jquery.ui.core.css" rel="stylesheet" />
-<link type="text/css" href="includes/javascript/jquery.ui.datepicker.css" rel="stylesheet" />
-<link type="text/css" href="includes/javascript/jquery.ui.theme.min.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="includes/javascript/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="includes/javascript/ui/jquery.ui.core.min.js"></script>
-<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker.min.js"></script>
-<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-de.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery-ui-1.8.4.custom.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-<?php echo strtolower($_SESSION['language_code']); ?>.js"></script>
  <script type="text/javascript">
   $(function() {
-  /* set Datepicker for coupon_startdate (1) and coupon_finishdate (2) */
-  $('#hasDatepicker1').datepicker(
-  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
-  {dateFormat:'yy-mm-dd',});
-  $('#hasDatepicker2').datepicker(
-  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
-  {dateFormat:'yy-mm-dd',});
+  /* set Datepicker for coupon_startdate (1) and coupon_finishdate (2) */  
+	  $('#hasDatepicker1').datepicker(		
+		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
+		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
+	  );
+	  $('#hasDatepicker2').datepicker(
+		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
+		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}	
+	  );	  
 	});
 </script>
-<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
+<?php /* EOF - DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI */ ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI

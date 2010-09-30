@@ -118,7 +118,7 @@
 <?php
   if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) {
 ?>
-<?php // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
+<?php // BOF -  DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI
 /*
 <!--
 <link rel="stylesheet" type="text/css" href="includes/javascript/calendar.css">
@@ -128,21 +128,19 @@
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 */
 ?>
-<link type="text/css" href="includes/javascript/jquery.ui.core.css" rel="stylesheet" />
-<link type="text/css" href="includes/javascript/jquery.ui.datepicker.css" rel="stylesheet" />
-<link type="text/css" href="includes/javascript/jquery.ui.theme.min.css" rel="stylesheet" />
+<link type="text/css" href="includes/javascript/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="includes/javascript/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="includes/javascript/ui/jquery.ui.core.min.js"></script>
-<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker.min.js"></script>
-<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-de.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery-ui-1.8.4.custom.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-<?php echo strtolower($_SESSION['language_code']); ?>.js"></script>
  <script type="text/javascript">
-  $(function() {
-  $('#hasDatepicker').datepicker(
-  $.datepicker.regional['<?php if($_SESSION['language'] == 'german') { echo 'de'; } ?>'],
-  {dateFormat:'yy-mm-dd',});
+    $(function() {
+	  $('#hasDatepicker').datepicker(		
+		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
+		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
+	  );	  	  
 	});
 </script>
-<?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
+<?php /* EOF - DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI */ ?>
 <?php
   }
 ?>
