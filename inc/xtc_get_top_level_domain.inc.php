@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_get_top_level_domain.inc.php 1535 2006-08-20 21:38:20Z mz $   
+   $Id$   
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
