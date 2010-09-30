@@ -187,7 +187,7 @@ function showSpecialsBox() {
                 </noscript>
 */
 ?>
-            <?php echo xtc_draw_input_field('specials_expires', $expires_date ,'id="hasDatepicker2"'); ?>
+            <?php echo xtc_draw_input_field('specials_expires', $expires_date ,'id="hasDatepicker2" style="width: 135px"'); ?>
 <?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>               
           </td>				
 		  <td class="main">&nbsp;</td>
