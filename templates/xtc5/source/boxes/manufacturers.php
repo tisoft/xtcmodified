@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(manufacturers.php,v 1.18 2003/02/10); www.oscommerce.com
-   (c) 2003	 nextcommerce (manufacturers.php,v 1.9 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (manufacturers.php,v 1.9 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 $box_smarty = new smarty;
 $box_content = '';
@@ -51,7 +51,10 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_manufacturers.html', $c
 			$manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN).'..' : $manufacturers['manufacturers_name']);
 			if (isset ($_GET['manufacturers_id']) && ($_GET['manufacturers_id'] == $manufacturers['manufacturers_id']))
 				$manufacturers_name = '<strong>'.$manufacturers_name.'</strong>';
-			$manufacturers_list .= '<a href="'.xtc_href_link(FILENAME_DEFAULT, 'manufacturers_id='.$manufacturers['manufacturers_id']).'">'.$manufacturers_name.'</a><br />';
+      //BOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
+			//$manufacturers_list .= '<a href="'.xtc_href_link(FILENAME_DEFAULT, 'manufacturers_id='.$manufacturers['manufacturers_id']).'">'.$manufacturers_name.'</a><br />';
+			$manufacturers_list .= '<a href="'.xtc_href_link(DIR_WS_CATALOG . FILENAME_DEFAULT, 'manufacturers_id='.$manufacturers['manufacturers_id']).'">'.$manufacturers_name.'</a><br />';
+      //EOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
 		}
 		$box_content = $manufacturers_list;
 	} else {
@@ -63,7 +66,7 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_manufacturers.html', $c
 
 		while ($manufacturers = xtc_db_fetch_array($manufacturers_query, true)) {
 			$manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN).'..' : $manufacturers['manufacturers_name']);
-//BOF - Dokuman - 2009-11-18 - create manufacturers SEO links			
+//BOF - Dokuman - 2009-11-18 - create manufacturers SEO links
 /*
 			$manufacturers_array[] = array ('id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers_name);
 		}
@@ -76,7 +79,7 @@ $manufacturers_array[] = array ('id' => xtc_href_link(FILENAME_DEFAULT,xtc_manuf
 
 		$box_content = xtc_draw_form('manufacturers', xtc_href_link(FILENAME_DEFAULT, '', 'NONSSL', false), 'get').xtc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id'] : '', 'onchange="if (form.manufacturers_id.selectedIndex != 0)
       location = form.manufacturers_id.options[form.manufacturers_id.selectedIndex].value;" size="'.MAX_MANUFACTURERS_LIST.'" style="width: 100%"').xtc_hide_session_id().'</form>';
-//EOF - Dokuman - 2009-11-18 - create manufacturers SEO links			
+//EOF - Dokuman - 2009-11-18 - create manufacturers SEO links
 	}
 
 	if ($box_content != '')

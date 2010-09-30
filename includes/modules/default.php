@@ -137,7 +137,7 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
     }
 
     $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'],
-                                   'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],                                   
+                                   'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],
                                    'CATEGORIES_IMAGE' => $image,
                                    'CATEGORIES_LINK' => xtc_href_link(FILENAME_DEFAULT, $cPath_new),
                                    'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
@@ -269,7 +269,7 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                                     p.products_vpe_value,
                                     p.products_discount_allowed,
                                     p.products_tax_class_id
-                                    from ".TABLE_PRODUCTS_DESCRIPTION." pd, 
+                                    from ".TABLE_PRODUCTS_DESCRIPTION." pd,
                                     ".TABLE_MANUFACTURERS." m,
                                     ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
                                     ".TABLE_PRODUCTS." p
@@ -542,7 +542,10 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
     }
     $filterlist_query = xtDBquery($filterlist_sql);
     if (xtc_db_num_rows($filterlist_query, true) > 1) {
-      $manufacturer_dropdown = xtc_draw_form('filter', FILENAME_DEFAULT, 'get');
+      //BOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
+      //$manufacturer_dropdown = xtc_draw_form('filter', FILENAME_DEFAULT, 'get');
+      $manufacturer_dropdown = xtc_draw_form('filter', DIR_WS_CATALOG . FILENAME_DEFAULT, 'get');
+      //EOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
       if (isset ($_GET['manufacturers_id'])) {
         $manufacturer_dropdown .= xtc_draw_hidden_field('manufacturers_id', (int)$_GET['manufacturers_id']);
         $options = array (array ('text' => TEXT_ALL_CATEGORIES));
