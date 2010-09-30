@@ -151,7 +151,7 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
 <!-- EOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
 */
 ?>
-            <?php echo xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'id="hasDatepicker1"'); ?>
+            <?php echo xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'id="hasDatepicker1" style="width: 135px"'); ?>
 <?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
               </span></td>
             </tr>
