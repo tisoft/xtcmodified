@@ -12,7 +12,7 @@
 // 	
 //	Nähere Infos: http://www.gunnart.de?p=379
 //	
-//	v 0.14 changes by web28 - www.rpa-com.de
+//	v 0.13 
 // -----------------------------------------------------------------------------------------
 
 
@@ -29,34 +29,25 @@
 			$group_check = ''; //DokuMan - 2010-03-12 - set undefined variable
 			if(GROUP_CHECK == 'true') {
 				$group_check = "AND p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-			}			
-			
-			//BOF - web28- 2010-08-16 - better performance
-			if ($fsk_lock != '' || $group_check != '') {
-			
-				$dbQuery = xtDBquery("
-					SELECT 	p.products_id, 
-							pd.products_name
-					FROM 	".TABLE_PRODUCTS_DESCRIPTION." pd,
-							".TABLE_PRODUCTS." p
-					WHERE 	pd.products_id = '".$ProdID."'
-					AND 	pd.products_id = p.products_id
-					".$fsk_lock."
-					".$group_check."
-					AND		p.products_status = '1'
-					AND 	pd.language_id = '".(int)$_SESSION['languages_id']."' 
-				");
-				$dbQuery = xtc_db_fetch_array($dbQuery,true);
-				
-				if(!empty($dbQuery['products_id'])) {
-					return xtc_href_link(FILENAME_PRODUCT_INFO,xtc_product_link($ProdID,$dbQuery['products_name']));
-				}
-			} else {
-				return xtc_href_link(FILENAME_PRODUCT_INFO,xtc_product_link($ProdID));
 			}
-			//EOF - web28- 2010-08-16 - better performance	
+			$dbQuery = xtDBquery("
+				SELECT 	p.products_id, 
+						pd.products_name
+				FROM 	".TABLE_PRODUCTS_DESCRIPTION." pd,
+						".TABLE_PRODUCTS." p
+				WHERE 	pd.products_id = '".intval($ProdID)."'
+				AND 	pd.products_id = p.products_id
+				".$fsk_lock."
+				".$group_check."
+				AND		p.products_status = '1'
+				AND 	pd.language_id = '".(int)$_SESSION['languages_id']."' 
+			");
+			$dbQuery = xtc_db_fetch_array($dbQuery,true);
+			
+			if(!empty($dbQuery['products_id'])) {
+				return xtc_href_link(FILENAME_PRODUCT_INFO,xtc_product_link(intval($ProdID),$dbQuery['products_name']));
+			}
 		}
-		
 		return false;
 	}
 // -----------------------------------------------------------------------------------------
