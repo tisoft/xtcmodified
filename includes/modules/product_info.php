@@ -71,10 +71,10 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 				if ($product->data['products_fsk18'] == '0') {
           // BOF - Tomcraft - 2009-11-28 - Included xs:booster
           //$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
-          //BOF - DokuMan - 2010-09-18 - set undefined index
+          //BOF - DokuMan - 2010-09-18 - suppress undefined index message
           //if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
-          if((isset($xsb_tx['XTB_ALLOW_USER_CHQTY']) && $xsb_tx['XTB_ALLOW_USER_CHQTY']=='true') || ( isset($xsb_tx['products_id']) && $xsb_tx['products_id']!=$product->data['products_id']))
-          //EOF - DokuMan - 2010-09-18 - set undefined index
+          if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'|| @$xsb_tx['products_id']!=$product->data['products_id'])
+          //EOF - DokuMan - 2010-09-18 - suppress undefined index message
           $info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
         else
           $info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
@@ -84,10 +84,10 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			} else {
         // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 				//$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
-        //BOF - DokuMan - 2010-09-18 - set undefined index
+        //BOF - DokuMan - 2010-09-18 - suppress undefined index message
         //if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'||$xsb_tx['products_id']!=$product->data['products_id'])
-        if((isset($xsb_tx['XTB_ALLOW_USER_CHQTY']) && $xsb_tx['XTB_ALLOW_USER_CHQTY']=='true') || ( isset($xsb_tx['products_id']) && $xsb_tx['products_id']!=$product->data['products_id']))
-    //EOF - DokuMan - 2010-09-18 - set undefined index
+        if(@$xsb_tx['XTB_ALLOW_USER_CHQTY']=='true'|| @$xsb_tx['products_id']!=$product->data['products_id'])
+        //EOF - DokuMan - 2010-09-18 - suppress undefined index message
 				$info_smarty->assign('ADD_QTY', xtc_draw_input_field('products_qty', '1', 'size="3"').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
 			else
 				$info_smarty->assign('ADD_QTY', xtc_draw_hidden_field('products_qty', '1').' '.xtc_draw_hidden_field('products_id', $product->data['products_id']));
