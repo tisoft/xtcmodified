@@ -26,10 +26,20 @@
    347-352 / 365-366 / 384-389
    ---------------------------------------------------------------------------------------*/
 
+/**
+ * This class calculates and formates all prices within the shop frontend
+ *
+ */
 class xtcPrice {
 	var $currencies;
 
-	// class constructor
+    /**
+     * Constructor initialises all required values like currencies, tax classes, tax zones etc.
+     *
+     * @param String $currency
+     * @param Integer $cGroup
+     * @return xtcPrice
+     */
 	function xtcPrice($currency, $cGroup) {
 
 		$this->currencies = array ();
@@ -44,16 +54,41 @@ class xtcPrice {
 		$currencies_query = "SELECT * FROM ".TABLE_CURRENCIES;
 		$currencies_query = xtDBquery($currencies_query);
 		while ($currencies = xtc_db_fetch_array($currencies_query, true)) {
-			$this->currencies[$currencies['code']] = array ('title' => $currencies['title'], 'symbol_left' => $currencies['symbol_left'], 'symbol_right' => $currencies['symbol_right'], 'decimal_point' => $currencies['decimal_point'], 'thousands_point' => $currencies['thousands_point'], 'decimal_places' => $currencies['decimal_places'], 'value' => $currencies['value']);
+			$this->currencies[$currencies['code']] = array (
+			'title' => $currencies['title'],
+			'symbol_left' => $currencies['symbol_left'],
+			'symbol_right' => $currencies['symbol_right'],
+			'decimal_point' => $currencies['decimal_point'],
+			'thousands_point' => $currencies['thousands_point'],
+			'decimal_places' => $currencies['decimal_places'],
+			'value' => $currencies['value']
+			);
 		}
 		// select Customers Status data
 		$customers_status_query = "SELECT *
 				                        FROM ".TABLE_CUSTOMERS_STATUS."
-				                        WHERE customers_status_id = '".$this->actualGroup."' 
+				                        WHERE customers_status_id = '".$this->actualGroup."'
 				                        AND language_id = '".$_SESSION['languages_id']."'";
 		$customers_status_query = xtDBquery($customers_status_query);
 		$customers_status_value = xtc_db_fetch_array($customers_status_query, true);
-		$this->cStatus = array ('customers_status_id' => $this->actualGroup, 'customers_status_name' => $customers_status_value['customers_status_name'], 'customers_status_image' => $customers_status_value['customers_status_image'], 'customers_status_public' => $customers_status_value['customers_status_public'], 'customers_status_discount' => $customers_status_value['customers_status_discount'], 'customers_status_ot_discount_flag' => $customers_status_value['customers_status_ot_discount_flag'], 'customers_status_ot_discount' => $customers_status_value['customers_status_ot_discount'], 'customers_status_graduated_prices' => $customers_status_value['customers_status_graduated_prices'], 'customers_status_show_price' => $customers_status_value['customers_status_show_price'], 'customers_status_show_price_tax' => $customers_status_value['customers_status_show_price_tax'], 'customers_status_add_tax_ot' => $customers_status_value['customers_status_add_tax_ot'], 'customers_status_payment_unallowed' => $customers_status_value['customers_status_payment_unallowed'], 'customers_status_shipping_unallowed' => $customers_status_value['customers_status_shipping_unallowed'], 'customers_status_discount_attributes' => $customers_status_value['customers_status_discount_attributes'], 'customers_fsk18' => $customers_status_value['customers_fsk18'], 'customers_fsk18_display' => $customers_status_value['customers_fsk18_display']);
+		$this->cStatus = array (
+		'customers_status_id' => $this->actualGroup,
+		'customers_status_name' => $customers_status_value['customers_status_name'],
+		'customers_status_image' => $customers_status_value['customers_status_image'],
+		'customers_status_public' => $customers_status_value['customers_status_public'],
+		'customers_status_discount' => $customers_status_value['customers_status_discount'],
+		'customers_status_ot_discount_flag' => $customers_status_value['customers_status_ot_discount_flag'],
+		'customers_status_ot_discount' => $customers_status_value['customers_status_ot_discount'],
+		'customers_status_graduated_prices' => $customers_status_value['customers_status_graduated_prices'],
+		'customers_status_show_price' => $customers_status_value['customers_status_show_price'],
+		'customers_status_show_price_tax' => $customers_status_value['customers_status_show_price_tax'],
+		'customers_status_add_tax_ot' => $customers_status_value['customers_status_add_tax_ot'],
+		'customers_status_payment_unallowed' => $customers_status_value['customers_status_payment_unallowed'],
+		'customers_status_shipping_unallowed' => $customers_status_value['customers_status_shipping_unallowed'],
+		'customers_status_discount_attributes' => $customers_status_value['customers_status_discount_attributes'],
+		'customers_fsk18' => $customers_status_value['customers_fsk18'],
+		'customers_fsk18_display' => $customers_status_value['customers_fsk18_display']
+		);
 
 		// prefetch tax rates for standard zone
 		$zones_query = xtDBquery("SELECT tax_class_id as class FROM ".TABLE_TAX_CLASS);
@@ -61,21 +96,27 @@ class xtcPrice {
 
 			// calculate tax based on shipping or deliverey country (for downloads)
 			if (isset($_SESSION['billto']) && isset($_SESSION['sendto'])) {
-			//BOF - DokuMan - 2010-08-31 - correct content_type			
-			//$tax_address_query = xtc_db_query("select ab.entry_country_id, ab.entry_zone_id from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . ($this->content_type == 'virtual' ? $_SESSION['billto'] : $_SESSION['sendto']) . "'");
-            $tax_address_query = xtc_db_query("select ab.entry_country_id, ab.entry_zone_id from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . ($_SESSION['cart']->get_content_type() == 'virtual' ? $_SESSION['billto'] : $_SESSION['sendto']) . "'");
-			//EOF - DokuMan - 2010-08-31 - correct content_type			
+			$tax_address_query = xtc_db_query("select ab.entry_country_id, ab.entry_zone_id from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . ($this->content_type == 'virtual' ? $_SESSION['billto'] : $_SESSION['sendto']) . "'"); //DokuMan - leave content_type as it is
       		$tax_address = xtc_db_fetch_array($tax_address_query);
 			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class'],$tax_address['entry_country_id'], $tax_address['entry_zone_id']);
 			} else {
 			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class']);
 			}
-
 		}
-
 	}
 
-	// get products Price
+    /**
+     * This function searchs the inividual price for a product using the product id $pID
+     *
+     * @param Integer $pID product id
+     * @param Boolean $format Format the result?
+     * @param Double $qty quantity
+     * @param Integer $tax_class tax class id
+     * @param Double $pPrice product price
+     * @param Integer $vpeStatus vpe status
+     * @param Integer $cedit_id customer specify tax conditions
+     * @return String/Array Price (if format = true both plain and formatted)
+     */
 	function xtcGetPrice($pID, $format = true, $qty, $tax_class, $pPrice, $vpeStatus = 0, $cedit_id = 0) {
 
 			// check if group is allowed to see prices
@@ -87,10 +128,10 @@ class xtcPrice {
 			$cinfo = xtc_oe_customer_infos($cedit_id);
 			$products_tax = xtc_get_tax_rate($tax_class, $cinfo['country_id'], $cinfo['zone_id']);
 		} else {
-			//BOF - DokuMan - 2010-08-23 - set undefined index 
+			//BOF - DokuMan - 2010-08-23 - set undefined index
 			//$products_tax = $this->TAX[$tax_class];
 			$products_tax = isset($this->TAX[$tax_class]) ? $this->TAX[$tax_class] : 0;
-			//EOF - DokuMan - 2010-08-23 - set undefined index 		
+			//EOF - DokuMan - 2010-08-23 - set undefined index
 		}
 
 		if ($this->cStatus['customers_status_show_price_tax'] == '0')
@@ -101,11 +142,11 @@ class xtcPrice {
 			$pPrice = $this->getPprice($pID);
 		$pPrice = $this->xtcAddTax($pPrice, $products_tax);
 
-// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+    // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 		// xs:booster Auktionspreis pruefen
 		if ($sPrice = $this->xtcCheckXTBAuction($pID))
 			return $this->xtcFormatSpecial($pID, $sPrice, $pPrice, $format, $vpeStatus);
-// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+    // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
 		// check specialprice
 		if ($sPrice = $this->xtcCheckSpecial($pID))
@@ -129,6 +170,13 @@ class xtcPrice {
 
 	}
 
+    /**
+     * This function returns the reqular price of a product,
+     * no mather if its a special offer or has graduated prices
+     *
+     * @param Integer $pID product id
+     * @return Double price
+     */
 	function getPprice($pID) {
 		$pQuery = "SELECT products_price FROM ".TABLE_PRODUCTS." WHERE products_id='".$pID."'";
 		$pQuery = xtDBquery($pQuery);
@@ -137,22 +185,31 @@ class xtcPrice {
 
 	}
 
+    /**
+     * Adding a tax percentage to a price
+     * This function also converts the price with currency factor,
+     * so take care to avoid double conversions!
+     *
+     * @param Double $price net price
+     * @param Double $tax tax value(%)
+     * @return Double gross price
+     */
 	function xtcAddTax($price, $tax) {
 		$price += $price / 100 * $tax;
 		$price = $this->xtcCalculateCurr($price);
 		return round($price, $this->currencies[$this->actualCurr]['decimal_places']);
 	}
 
-// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+  // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 	// xs:booster start (v1.041)
 	function xtcCheckXTBAuction($pID)
 	{
 		if(($pos=strpos($pID,"{"))) $pID=substr($pID,0,$pos);
-    //BOF - DokuMan - 2010-08-23 - set undefined index xtb0	
-		//if(!is_array($_SESSION['xtb0']['tx'])) return false;   
-		if(!isset($_SESSION['xtb0']['tx']) || !is_array($_SESSION['xtb0']['tx'])) return false;
-    //EOF - DokuMan - 2010-08-23 - set undefined index xtb0		
-		foreach($_SESSION['xtb0']['tx'] as $tx) {  
+    //BOF - DokuMan - 2010-08-23 - suppress error php-notice on undefined index xtb0
+		//if(!is_array($_SESSION['xtb0']['tx'])) return false;
+		if(@!is_array($_SESSION['xtb0']['tx'])) return false;
+    //EOF - DokuMan - 2010-08-23 - suppress error php-notice on undefined index xtb0
+		foreach($_SESSION['xtb0']['tx'] as $tx) {
 			if($tx['products_id']==$pID&&$tx['XTB_QUANTITYPURCHASED']!=0) {
 				$this->actualCurr=$tx['XTB_AMOUNTPAID_CURRENCY'];
 				return round($tx['XTB_AMOUNTPAID'], $this->currencies[$this->actualCurr]['decimal_places']);
@@ -161,8 +218,14 @@ class xtcPrice {
 		return false;
 	}
 	// xs:booster end
-// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+  // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
+    /**
+     * Returns the product sepcific discount
+     *
+     * @param Integer $pID product id
+     * @return Mixed boolean false if not found or 0.00, double if found and > 0.00
+     */
 	function xtcCheckDiscount($pID) {
 
 		// check if group got discount
@@ -183,6 +246,13 @@ class xtcPrice {
 		return false;
 	}
 
+    /**
+     * Searches the graduated price of a product for a specified quantity
+     *
+     * @param Integer $pID product id
+     * @param Double $qty quantity
+     * @return Double graduated price
+     */
 	function xtcGetGraduatedPrice($pID, $qty) {
 		if (GRADUATED_ASSIGN == 'true')
 			if (xtc_get_qty($pID) > $qty)
@@ -211,6 +281,13 @@ class xtcPrice {
 
 	}
 
+    /**
+     * Searches the group price of a product
+     *
+     * @param Integer $pID product id
+     * @param Double $qty quantity
+     * @return Double group price
+     */
 	function xtcGetGroupPrice($pID, $qty) {
 
 		$graduated_price_query = "SELECT max(quantity) as qty
@@ -235,9 +312,28 @@ class xtcPrice {
 		}
 
 	}
-
+    /**
+     * Returns the option price of a selected option
+     *
+     * @param Integer $pID product id
+     * @param Integer $option option id
+     * @param Integer $value value id
+     * @return Double option price
+     */
 	function xtcGetOptionPrice($pID, $option, $value) {
-		$attribute_price_query = "select pd.products_discount_allowed,pd.products_tax_class_id, p.options_values_price, p.price_prefix, p.options_values_weight, p.weight_prefix from ".TABLE_PRODUCTS_ATTRIBUTES." p, ".TABLE_PRODUCTS." pd where p.products_id = '".$pID."' and p.options_id = '".$option."' and pd.products_id = p.products_id and p.options_values_id = '".$value."'";
+        $price = 0; //DokuMan - set variable $price
+		$attribute_price_query = "select pd.products_discount_allowed,
+                                    pd.products_tax_class_id,
+                                    p.options_values_price,
+                                    p.price_prefix,
+                                    p.options_values_weight,
+                                    p.weight_prefix
+                                    from ".TABLE_PRODUCTS_ATTRIBUTES." p,
+                                    ".TABLE_PRODUCTS." pd
+                                    where p.products_id = '".$pID."'
+                                    and p.options_id = '".$option."'
+                                    and pd.products_id = p.products_id
+                                    and p.options_values_id = '".$value."'";
 		$attribute_price_query = xtDBquery($attribute_price_query);
 		$attribute_price_data = xtc_db_fetch_array($attribute_price_query, true);
 		$dicount = 0;
@@ -260,12 +356,25 @@ class xtcPrice {
 		return array ('weight' => $attribute_price_data['options_values_weight'], 'price' => $price);
 	}
 
+    /**
+     * Returns the text info for customers, whose customer group isn't allowed to see prices
+     *
+     * @param Integer $vpeStatus
+     * @param Boolean $format
+     * @return String / Array of String
+     */
 	function xtcShowNote($vpeStatus, $vpeStatus = 0) {
 		if ($vpeStatus == 1)
 			return array ('formated' => NOT_ALLOWED_TO_SEE_PRICES, 'plain' => 0);
 		return NOT_ALLOWED_TO_SEE_PRICES;
 	}
 
+    /**
+     * Returns the special offer price of a product
+     *
+     * @param Integer $pID product id
+     * @return Double special offer
+     */
 	function xtcCheckSpecial($pID) {
 		$product_query = "select specials_new_products_price from ".TABLE_SPECIALS." where products_id = '".$pID."' and status=1";
 		$product_query = xtDBquery($product_query);
@@ -275,14 +384,33 @@ class xtcPrice {
 
 	}
 
+    /**
+     * Converts the price  with the currency factor
+     *
+     * @param Double $price
+     * @return Double converted price
+     */
 	function xtcCalculateCurr($price) {
 		return $this->currencies[$this->actualCurr]['value'] * $price;
 	}
 
+    /**
+     * Returns the tax part of a net price
+     *
+     * @param Double $price price
+     * @param Double $tax tax value
+     * @return Double tax part
+     */
 	function calcTax($price, $tax) {
 		return $price * $tax / 100;
 	}
 
+    /**
+     * Removes the currency factor of a price
+     *
+     * @param Double $price
+     * @return Double
+     */
 	function xtcRemoveCurr($price) {
 
 		// check if used Curr != DEFAULT curr
@@ -291,33 +419,63 @@ class xtcPrice {
 		} else {
 			return $price;
 		}
-
 	}
 
+    /**
+     * Removes the tax from a price, e.g. to calculate a net price from gross price
+     *
+     * @param Double $price price
+     * @param Double $tax tax value
+     * @return Double net price
+     */
 	function xtcRemoveTax($price, $tax) {
 		$price = ($price / (($tax +100) / 100));
 		return $price;
 	}
 
+    /**
+     * Returns the tax part of a gross price
+     *
+     * @param Double $price price
+     * @param Double $tax tax value
+     * @return Double tax part
+     */
 	function xtcGetTax($price, $tax) {
 		$tax = $price - $this->xtcRemoveTax($price, $tax);
 		return $tax;
 	}
 
+    /**
+     * Removes the discount part of a price
+     *
+     * @param Double $price price
+     * @param Double $dc discount
+     * @return Double discount part
+     */
 	function xtcRemoveDC($price,$dc) {
-
 		$price = $price - ($price/100*$dc);
-
 		return $price;
 	}
 
+    /**
+     * Returns the discount part of a price
+     *
+     * @param Double $price price
+     * @param Double $dc discount
+     * @return Double discount part
+     */
 	function xtcGetDC($price,$dc) {
-
 		$dc = $price/100*$dc;
-
 		return $dc;
 	}
 
+    /**
+     * Check if the product has attributes which can modify the price
+     * If so, it returns a prefix ' from '
+     *
+     * @param Integer $pID product id
+     * @return String
+     */
 	function checkAttributes($pID) {
 		if (!$this->showFrom_Attributes) return;
 		if ($pID == 0)
@@ -341,11 +499,7 @@ class xtcPrice {
 	}
 
 	/*
-	*
 	*    Format Functions
-	*
-	*
-	*
 	*/
 
 	function xtcFormat($price, $format, $tax_class = 0, $curr = false, $vpeStatus = 0, $pID = 0) {
@@ -361,10 +515,10 @@ class xtcPrice {
 		}
 
 		if ($format) {
-// BOF - Tomcraft - 2009-11-23 - Added flotval for PHP5.3 compatibility
+    // BOF - Tomcraft - 2009-11-23 - Added flotval for PHP5.3 compatibility
 			//$Pprice = number_format($price, $this->currencies[$this->actualCurr]['decimal_places'], $this->currencies[$this->actualCurr]['decimal_point'], $this->currencies[$this->actualCurr]['thousands_point']);
 			$Pprice = number_format(floatval($price), $this->currencies[$this->actualCurr]['decimal_places'], $this->currencies[$this->actualCurr]['decimal_point'], $this->currencies[$this->actualCurr]['thousands_point']);
-// EOF - Tomcraft - 2009-11-23 - Added flotval for PHP5.3 compatibility
+    // EOF - Tomcraft - 2009-11-23 - Added flotval for PHP5.3 compatibility
 			$Pprice = $this->checkAttributes($pID).$this->currencies[$this->actualCurr]['symbol_left'].' '.$Pprice.' '.$this->currencies[$this->actualCurr]['symbol_right'];
 			if ($vpeStatus == 0) {
 				return $Pprice;
@@ -382,14 +536,14 @@ class xtcPrice {
 	function xtcFormatSpecialDiscount($pID, $discount, $pPrice, $format, $vpeStatus = 0) {
 		$sPrice = $pPrice - ($pPrice / 100) * $discount;
 		if ($format) {
-//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+    //BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br />'.YOU_SAVE.$discount.'%';
-      $price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100).' % /'.$this->xtcFormat($pPrice-$sPrice, $format);			
+      $price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round(($pPrice-$sPrice) / $pPrice * 100).' % /'.$this->xtcFormat($pPrice-$sPrice, $format);
 			// Ausgabe des gültigen Kundengruppen-Rabatts (sofern vorhanden)
 			if ($discount != 0)
 					{ $price .= '<br />'.BOX_LOGINBOX_DISCOUNT.': '.round($discount).' %'; }
 				$price .= '</small>';
-//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+    //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -402,16 +556,16 @@ class xtcPrice {
 
 	function xtcFormatSpecial($pID, $sPrice, $pPrice, $format, $vpeStatus = 0) {
 		if ($format) {
-//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+    //BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			//$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
 			//BOF - vr - 2009-12-11 avoid div / 0 if product price is 0
-			if (!isset($pPrice) || $pPrice == 0) 
+			if (!isset($pPrice) || $pPrice == 0)
 			  $discount = 0;
 			else
 			  $discount = ($pPrice - $sPrice) / $pPrice * 100;
 			$price = '<span class="productOldPrice"><small>'.INSTEAD.'</small><del>'.$this->xtcFormat($pPrice, $format).'</del></span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br /><small>'.YOU_SAVE.round($discount).' % /'.$this->xtcFormat($pPrice-$sPrice, $format).'</small>';
-			//BOF - vr - 2009-12-11 avoid div / 0 if product price is 0
-//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+			//EOF - vr - 2009-12-11 avoid div / 0 if product price is 0
+    //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -422,53 +576,53 @@ class xtcPrice {
 		}
 	}
 
-function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus = 0, $pID) {
-//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
-	// NEU HINZUGEFÜGT "Steuerklasse ermitteln"
-	$tQuery = "SELECT products_tax_class_id
-		FROM ".TABLE_PRODUCTS." WHERE
-		products_id='".$pID."'";
-	$tQuery = xtc_db_query($tQuery);
-  $tQuery = xtc_db_fetch_array($tQuery);
-  $tax_class = $tQuery['products_tax_class_id'];
-	// ENDE "Steuerklasse ermitteln"
-//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
-	if ($pPrice == 0)
-		return $this->xtcFormat($sPrice, $format, 0, false, $vpeStatus);
-	if ($discount = $this->xtcCheckDiscount($pID))
-		$sPrice -= $sPrice / 100 * $discount;
-	if ($format) {
-//BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
-		$sQuery = "SELECT max(quantity) as qty
-			FROM ".TABLE_PERSONAL_OFFERS_BY.$this->actualGroup."
-			WHERE products_id='".$pID."'";
-		$sQuery = xtDBquery($sQuery);
-		$sQuery = xtc_db_fetch_array($sQuery, true);
-		// NEU! Damit "UVP"-Anzeige wieder möglich ist
-		// if ( ($this->cStatus['customers_status_graduated_prices'] == '1') || ($sQuery['qty'] > 1) ) {
-		if ( ($this->cStatus['customers_status_graduated_prices'] == '1') && ($sQuery['qty'] > 1) ) {
-			$bestPrice = $this->xtcGetGraduatedPrice($pID, $sQuery['qty']);
-			if ($discount)
-				$bestPrice -= $bestPrice / 100 * $discount;
-			$price .= FROM.$this->xtcFormat($bestPrice, $format, $tax_class)
-				.' <br /><small>' . UNIT_PRICE
-				.$this->xtcFormat($sPrice, $format)
-				.'</small>';
-		} else if ($sPrice != $pPrice) { // if ($sPrice != $pPrice) {
-			$price = '<span class="productOldPrice">'.MSRP.' '.$this->xtcFormat($pPrice, $format).'</span><br />'.YOUR_PRICE.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
-//EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
-			} else {
-			$price = FROM.$this->xtcFormat($sPrice, $format);
-		}
-		if ($vpeStatus == 0) {
-			return $price;
-		} else {
-			return array ('formated' => $price, 'plain' => $sPrice);
-		}
-	} else {
-		return round($sPrice, $this->currencies[$this->actualCurr]['decimal_places']);
-	}
-}
+  function xtcFormatSpecialGraduated($pID, $sPrice, $pPrice, $format, $vpeStatus = 0, $pID) {
+    //BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+    // NEU HINZUGEFÜGT "Steuerklasse ermitteln"
+    $tQuery = "SELECT products_tax_class_id
+      FROM ".TABLE_PRODUCTS." WHERE
+      products_id='".$pID."'";
+    $tQuery = xtc_db_query($tQuery);
+    $tQuery = xtc_db_fetch_array($tQuery);
+    $tax_class = $tQuery['products_tax_class_id'];
+    // ENDE "Steuerklasse ermitteln"
+    //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+    if ($pPrice == 0)
+      return $this->xtcFormat($sPrice, $format, 0, false, $vpeStatus);
+    if ($discount = $this->xtcCheckDiscount($pID))
+      $sPrice -= $sPrice / 100 * $discount;
+    if ($format) {
+    //BOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+      $sQuery = "SELECT max(quantity) as qty
+        FROM ".TABLE_PERSONAL_OFFERS_BY.$this->actualGroup."
+        WHERE products_id='".$pID."'";
+      $sQuery = xtDBquery($sQuery);
+      $sQuery = xtc_db_fetch_array($sQuery, true);
+      // NEU! Damit "UVP"-Anzeige wieder möglich ist
+      // if ( ($this->cStatus['customers_status_graduated_prices'] == '1') || ($sQuery['qty'] > 1) ) {
+      if ( ($this->cStatus['customers_status_graduated_prices'] == '1') && ($sQuery['qty'] > 1) ) {
+        $bestPrice = $this->xtcGetGraduatedPrice($pID, $sQuery['qty']);
+        if ($discount)
+          $bestPrice -= $bestPrice / 100 * $discount;
+        $price .= FROM.$this->xtcFormat($bestPrice, $format, $tax_class)
+          .' <br /><small>' . UNIT_PRICE
+          .$this->xtcFormat($sPrice, $format)
+          .'</small>';
+      } else if ($sPrice != $pPrice) { // if ($sPrice != $pPrice) {
+        $price = '<span class="productOldPrice">'.MSRP.' '.$this->xtcFormat($pPrice, $format).'</span><br />'.YOUR_PRICE.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
+    //EOF - Dokuman - 2009-06-03 - show 'ab' / 'from' for the lowest price, not for the highest!
+        } else {
+        $price = FROM.$this->xtcFormat($sPrice, $format);
+      }
+      if ($vpeStatus == 0) {
+        return $price;
+      } else {
+        return array ('formated' => $price, 'plain' => $sPrice);
+      }
+    } else {
+      return round($sPrice, $this->currencies[$this->actualCurr]['decimal_places']);
+    }
+  }
 
 	function get_decimal_places($code) {
 		return $this->currencies[$this->actualCurr]['decimal_places'];
