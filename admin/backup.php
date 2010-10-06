@@ -1,18 +1,28 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: backup.php 1023 2005-07-14 11:41:37Z novalis $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(backup.php,v 1.57 2003/03/22); www.oscommerce.com 
    (c) 2003	 nextcommerce (backup.php,v 1.11 2003/08/2); www.nextcommerce.org
+   (c) 2006	 xt-commerce (backup.php 1023 2005-07-14); www.xt-commerce.com
 
    Released under the GNU General Public License 
+   
+   Datenbank Backup Ver. 1.91e
+   modified by web28 - www.rpa-com.de 06.10.2010
+   //upload mit xtc_try_upload beschränkt auf sql und gz Dateien
+   
+   Datenbank Backup Ver. 1.91d
+   modified by web28 - www.rpa-com.de 09.09.2010
+   //Admin Rechte automatisch neu setzen bei Restore -> kompatibel mit alten Backups
+   
    Datenbank Backup Ver. 1.91b
    modified by web28 - www.rpa-com.de 05.06.2010
    //Rechte automatisch setzen für Unteradmin
@@ -27,7 +37,7 @@
    --------------------------------------------------------------*/
   define('BK_FILENAME', 'backup_db.php'); 
   
-  define ('VERSION', 'Database Backup Ver. 1.91b');
+  define ('VERSION', 'Database Backup Ver. 1.91e');
   
   require('includes/application_top.php');
   
@@ -84,12 +94,8 @@
         }
         break;
 	  case 'restorelocalnow':          
-		  $file = xtc_get_uploaded_file('sql_file');
-		  if (is_uploaded_file($file['tmp_name'])) {
-            xtc_copy_uploaded_file($file, DIR_FS_BACKUP);
-			$messageStack->add_session(SUCCESS_BACKUP_UPLOAD, 'success');
-			xtc_redirect(xtc_href_link(FILENAME_BACKUP));
-		  }
+		  $file = &xtc_try_upload('sql_file', DIR_FS_BACKUP, '777', array('sql','gz'));		
+		  xtc_redirect(xtc_href_link(FILENAME_BACKUP));		  
 	    break; 	
     }
   }

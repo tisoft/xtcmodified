@@ -1,10 +1,10 @@
 <?php
 /**************************************************************
-* XTC Datenbank Manager Version 1.91b
+* XTC Datenbank Manager Version 1.91d
 *(c) by  web28 - www.rpa-com.de
 * Backup pro Tabelle und limitierter Zeilenzahl (Neuladen der Seite) , einstellbar mit ANZAHL_ZEILEN_BKUP
 * Restore mit limitierter Zeilennanzahl aus SQL-Datei (Neuladen der Seite), einstellbar mit ANZAHL_ZEILEN
-* 2010-04-28
+* 2010-09-09 - add set_admin_access
 ***************************************************************/
 
 //#################################
@@ -19,7 +19,7 @@ define ('MAX_RELOADS', 600); //Anzahle der maximalen Seitenreloads beim Backup  
 
 //#################################
 
-define ('VERSION', 'Database Backup Ver. 1.91b');
+define ('VERSION', 'Database Backup Ver. 1.91d');
 
 require('includes/application_top.php');
 include ('includes/functions/db_restore.php');
@@ -146,6 +146,7 @@ if ($restore['file'] != '' && $_GET['action'] != 'restorenow'){
 		unset($_SESSION['restore']);
 		
 	} else {
+		set_admin_access;
 		$selbstaufruf='<script language="javascript" type="text/javascript">setTimeout("document.restore.submit()",10);</script>';
 	}
 

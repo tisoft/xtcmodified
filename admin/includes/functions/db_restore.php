@@ -3,8 +3,8 @@
 *Script von MySQLDumper 1.24 
 * Pfad und Dateiname MySQLDumper 1.24: inc/functions_restore.php
 * Angepasst für XTC Datenbank Manager von web28
-* Version 1.01
-* 2010-04-27
+* Version 1.0.2
+* 2010-09-09 - - add set_admin_access
 ***************************************************************/
 
 $lang['L_UNKNOWN_SQLCOMMAND']= 'Unbekannter SQL-Befehl';
@@ -536,4 +536,19 @@ function protokoll($sql) {
 		fclose($fp);
 	}
 	return;
+}
+
+function set_admin_access() {
+	//Adminrechte automatisch für backup_db setzen
+	$result = xtc_db_query("select * from ".TABLE_ADMIN_ACCESS."");
+	if ($result_array = xtc_db_fetch_array($result)) {
+		if (!isset($result_array['backup_db'])) {	
+			xtc_db_query("ALTER TABLE `". TABLE_ADMIN_ACCESS."` ADD `backup_db` INT( 1 ) DEFAULT '0' NOT NULL") ;
+			xtc_db_query("UPDATE `".TABLE_ADMIN_ACCESS."` SET `backup_db` = '1' WHERE `customers_id` = '1' LIMIT 1") ;
+			//Rechte automatisch setzen für Unteradmin
+			if ($_SESSION['customer_id'] > 1) {
+				xtc_db_query("UPDATE `".TABLE_ADMIN_ACCESS."` SET `backup_db` = '1' WHERE `customers_id` = '".$_SESSION['customer_id']."' LIMIT 1") ;
+			}
+		}
+	}  
 }
