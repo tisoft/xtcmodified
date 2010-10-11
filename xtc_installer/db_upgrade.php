@@ -32,12 +32,13 @@
     define ('SUCCESS_MESSAGE', '<br /><br /><strong>Datenbankupgrade erfolgreich!</strong><br /><br />Ausgef&uuml;hrte SQL-Befehle:<br /><br />');
     define ('UPGRADE_NOT_NECESSARY', 'Kein Datenbankupgrade notwendig, sie sind auf dem aktuellesten Stand!');
     define ('USED_FILES', '<br /><br />Folgende Dateien werden für das Upgrade auf die neueste Datenbank-Version verwendet:<br /><br />');
-    define ('CURRENT_DB_VERSION', '<br />Ihre aktuelle Datenbank-Version ist: ');
-    define ('FINAL_TEXT', 'Bitte l&ouml;schen Sie jetzt aus Sicherheitsgr&uuml;nden die Upgrade-Datei vom Server: ');
+    define ('CURRENT_DB_VERSION', '<br />Ihre derzeitige Datenbank-Version ist: ');
+    define ('FINAL_TEXT', 'Bitte l&ouml;schen Sie jetzt aus Sicherheitsgr&uuml;nden die Upgrade-Datei vom Server:<br /> ==> ');
     define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
     define('TEXT_TITLE','xtcModified Datenbankupgrade');
     define('OPTIMIZE_TABLE','(OPTIMIZE TABLE): Datenbanktabellen nach dem Upgrade optimieren (empfohlen)');
     define('OPTIMIZE_TABLE_GAIN','Die Optimierung der Datenbank führte zu einem Speicherplatzgewinn von: ');
+    define('REDIRECTED_FROM_INSTALLER','Ihre bereits bestehende Version von xtcModified muss noch auf das neueste Datenbank-Schema aktualisiert werden!');
   } else {
     // English definitions
     define ('TITLE_UPGRADE','<br /><strong><h1>xtcModified database upgrade process</h1></strong>');
@@ -46,11 +47,12 @@
     define ('UPGRADE_NOT_NECESSARY', 'Database upgrade not necessary, you are up to date!');
     define ('USED_FILES', '<br /><br />The following files will be used for the upgrade to the newest database version:<br /><br />');
     define ('CURRENT_DB_VERSION', '<br />Your current database version is: ');
-    define ('FINAL_TEXT', 'Please delete the update file from your server for security reasons now: ');
+    define ('FINAL_TEXT', 'Please delete the update file from your server now for security reasons:<br /> ==> ');
     define('TEXT_FOOTER','<a href="http://www.xtc-modified.org" target="_blank">xtcModified</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a>');
     define('TEXT_TITLE','xtcModified database upgrade');
     define('OPTIMIZE_TABLE','(OPTIMIZE TABLE): Optimize database tables after the upgrade (recommended)');
     define('OPTIMIZE_TABLE_GAIN','The optimization of the database saved: ');
+    define('REDIRECTED_FROM_INSTALLER','Your existing version of xtcModified has to be upgraded to the newest database schema first!');
   }
 
   // get DB version
@@ -172,12 +174,17 @@ a {color:#893769;}
           <?php
           echo TITLE_UPGRADE;
 
+          //User has been redirected from original installer script to db_upgrade.php
+          if ($_GET['upgrade_redir'] == 1) {
+            echo REDIRECTED_FROM_INSTALLER;
+          }
+
           if(isset($_POST['submit'])) {
             // Write SQL-statements to database
             foreach ($sql_array as $stmt) {
               xtc_db_query($stmt);
             }
-            // get new DB-Version
+            // get new(!) DB-Version from the database itself
             $version_query = xtc_db_query("select version from " . TABLE_DATABASE_VERSION);
             $version_array = xtc_db_fetch_array($version_query);
             echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
@@ -202,7 +209,7 @@ a {color:#893769;}
               echo '<br/><div style="border:1px solid #ccc; background:#fff; padding:10px;">';
               echo '<strong>'.OPTIMIZE_TABLE_GAIN . number_format($gain,3).' MB</strong></div>';
             }
-            echo '<p style="color:red">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).'<p>';
+            echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).'</p>';              
 
           } else {
             echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
@@ -213,8 +220,8 @@ a {color:#893769;}
               }
               else {
                 echo UPGRADE_NOT_NECESSARY;
+                echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).' <== </p>';              
               }
-            echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).'<p>';              
             echo '</div>';
           }
 

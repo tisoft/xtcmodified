@@ -27,8 +27,8 @@ include(DIR_FS_CATALOG.'/includes/configure.php');
 require_once(DIR_FS_INC . 'xtc_db_connect.inc.php');
 //check if database is accessible yet. If yes, redirect to db_upgrade.php?
 $link = @xtc_db_connect();
-if (!$link) {
-  header("Location: ".HTTP_SERVER.DIR_WS_CATALOG."xtc_installer/db_upgrade.php");
+if ($link == true) {
+  header("Location: ".HTTP_SERVER.DIR_WS_CATALOG."xtc_installer/db_upgrade.php?upgrade_redir=1");
 }
 //EOF - DokuMan - redirect to db_upgrade.php, if database is already set up (do an update instead of a new installation)
 
