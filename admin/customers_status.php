@@ -312,7 +312,7 @@
                     <td class="smallText" align="right"><?php echo $customers_status_split->display_links($customers_status_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
 <?php
-  if (isset($_GET['action']) && substr($_GET['action'], 0, 3) != 'new') {
+  if (substr($_GET['action'], 0, 3) != 'new') { //DokuMan - removed isset()
 ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
