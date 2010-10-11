@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -10,10 +10,10 @@
    based on:
    (c) 2003	nextcommerce (index.php,v 1.18 2003/08/17); www.nextcommerce.org
    (c) 2006 xt:Commerce (index.php 1220 2005-09-16); www.xtcommerce.com
-   
-   Released under the GNU General Public License 
+
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
-   
+
 require('includes/application.php');
 
 // include needed functions
@@ -21,6 +21,16 @@ require_once(DIR_FS_INC.'xtc_image.inc.php');
 require_once(DIR_FS_INC.'xtc_draw_separator.inc.php');
 require_once(DIR_FS_INC.'xtc_redirect.inc.php');
 require_once(DIR_FS_INC.'xtc_href_link.inc.php');
+
+//BOF - DokuMan - redirect to db_upgrade.php, if database is already set up (do an update instead of a new installation)
+include(DIR_FS_CATALOG.'/includes/configure.php');
+require_once(DIR_FS_INC . 'xtc_db_connect.inc.php');
+//check if database is accessible yet. If yes, redirect to db_upgrade.php?
+$link = @xtc_db_connect();
+if (!$link) {
+  header("Location: ".HTTP_SERVER.DIR_WS_CATALOG."xtc_installer/db_upgrade.php");
+}
+//EOF - DokuMan - redirect to db_upgrade.php, if database is already set up (do an update instead of a new installation)
 
 //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
 //include('language/english.php');
@@ -87,7 +97,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
             <br /><br /><div style="border:1px solid #ccc; background:#fff; padding:10px;"><?php echo TEXT_WELCOME_INDEX; ?><br /><br /><a href="http://www.xtc-modified.org/spenden" target="_blank"><img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="<?php echo TEXT_INFO_DONATIONS_IMG_ALT; ?>" border="0" /></a></div><br /><br />
          </td>
         </tr>
-        
+
 <?php
 // file and folder permission checks
 $error_flag=false;
@@ -127,7 +137,7 @@ if ($error_flag==true) $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</fo
 $ok_message.= TEXT_FILE_PERMISSION_STATUS .'.............................. '.$status.'<br /><hr noshade />';
 
 // smarty folders
-$folder_flag==false;    
+$folder_flag==false;
 
 if (!is_writeable(DIR_FS_CATALOG . 'admin/backups/')) {
   $error_flag=true;
@@ -148,11 +158,11 @@ if (!is_writeable(DIR_FS_CATALOG . 'cache/')) {
   $error_flag=true;
   $folder_flag=true;
   $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'cache/<br />';
-} 
+}
 if (!is_writeable(DIR_FS_CATALOG . 'export/')) {
   $error_flag=true;
   $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'export/<br />';
-} 
+}
  // image folders
 if (!is_writeable(DIR_FS_CATALOG . 'images/')) {
   $error_flag=true;
@@ -217,7 +227,7 @@ if (!is_writeable(DIR_FS_CATALOG . 'templates_c/')) {
   $error_flag=true;
   $folder_flag=true;
   $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'templates_c/<br />';
-}   
+}
 
 $status='<strong>OK</strong>';
 if ($folder_flag==true) $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
@@ -258,12 +268,12 @@ $status='<strong>OK</strong>';
 if ($php_flag==true) $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
 $ok_message.='PHP VERSION ............................... '.$status.' ('.phpversion().')<br /><hr noshade />';
 //EOF *************  check PHP-Version *************
- 
+
 //BOF *************  check fsockopen *************
- 
+
  //TODO
 
-//EOF *************  check fsockopen ************* 
+//EOF *************  check fsockopen *************
 
 $gd=gd_info();
 
@@ -287,7 +297,7 @@ if ($error_flag==true) {
 <h1><?php echo TEXT_CHMOD_REMARK_HEADLINE; ?>:</h1>
 <div style="background:#fff; padding:10px; border:1px solid #ccc">
 <?php echo TEXT_CHMOD_REMARK; ?>
-</div><br /> 
+</div><br />
 <div style="background:#ff0000; color:#ffffff; padding:10px; border:1px solid #cf0000">
 <?php echo $message; ?>
 </div>
@@ -342,7 +352,7 @@ if ($messageStack->size('index') > 0) {
               } ?>
               <br />
             </form>
-            
+
           </td>
         </tr>
       </table>

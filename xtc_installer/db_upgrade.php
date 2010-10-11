@@ -14,9 +14,8 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-  require('../includes/configure.php');
-  require('../includes/database_tables.php');
-
+  require_once('../includes/configure.php');
+  require_once(DIR_FS_CATALOG.'/includes/database_tables.php');
   require_once(DIR_FS_INC . 'xtc_db_connect.inc.php');
   require_once(DIR_FS_INC . 'xtc_db_query.inc.php');
   require_once(DIR_FS_INC . 'xtc_db_fetch_array.inc.php');
