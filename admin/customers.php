@@ -1,19 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(customers.php,v 1.76 2003/05/04); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(customers.php,v 1.76 2003/05/04); www.oscommerce.com
    (c) 2003	 nextcommerce (customers.php,v 1.22 2003/08/24); www.nextcommerce.org
    (c) 2006 XT-Commerce (customers.php 1296 2005-10-08)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------
    Third Party contribution:
    Customers Status v3.x  (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
@@ -92,7 +92,7 @@ if ($_GET['action']) {
                               'customers_ip' => '0',
                               'delivery_name' => xtc_db_prepare_input($customers['entry_firstname'].' '.$customers['entry_lastname']),
                               'delivery_lastname' => xtc_db_prepare_input($customers['entry_lastname']),
-                              'delivery_firstname' => xtc_db_prepare_input($customers['entry_firstname']),                             
+                              'delivery_firstname' => xtc_db_prepare_input($customers['entry_firstname']),
                               'delivery_company' => xtc_db_prepare_input($customers['entry_company']),
                               'delivery_street_address' => xtc_db_prepare_input($customers['entry_street_address']),
                               'delivery_suburb' => xtc_db_prepare_input($customers['entry_suburb']),
@@ -132,10 +132,7 @@ if ($_GET['action']) {
                               'shipping_method' => 'Pauschale Versandkosten',
                               'shipping_class' => 'flat_flat',
                               'customers_ip' => '',
-							  // BOF - web28- Fix  comma
-                              //'language' => 'german',
-							  'language' => 'german'
-							  //EOF - web28- Fix  comma
+                              'language' => 'german'
                               );
       // EOF - DokuMan - 2009-05-22 - BUGFIX: first and last name were not saved when creating manual orders
 
@@ -214,7 +211,7 @@ if ($_GET['action']) {
 			$payment_unallowed = xtc_db_prepare_input($_POST['payment_unallowed']);
 			$shipping_unallowed = xtc_db_prepare_input($_POST['shipping_unallowed']);
 			$password = xtc_db_prepare_input($_POST['entry_password']);
-			
+
 
 			if ($memo_text != '' && $memo_title != '') {
 				$sql_data_array = array ('customers_id' => $_GET['cID'], 'memo_date' => date("Y-m-d"), 'memo_title' => $memo_title, 'memo_text' => $memo_text, 'poster_id' => $_SESSION['customer_id']);
@@ -354,7 +351,7 @@ if ($_GET['action']) {
 				$entry_password_error = false;
 			}
 			*/
-			
+
 			// BOF - DokuMan - 2009-05-22 - Bugfix #0000218 - force to enter password when editing users
             if (strlen($password) > 0 && strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
 				$error = true;
@@ -363,7 +360,7 @@ if ($_GET['action']) {
 				$entry_password_error = false;
 			}
 			// EOF - DokuMan - 2009-05-22 - Bugfix #0000218 - force to enter password when editing users
-				
+
 			$check_email = xtc_db_query("select customers_email_address from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($customers_email_address)."' and customers_id <> '".xtc_db_input($customers_id)."'");
 			if (xtc_db_num_rows($check_email)) {
 				$error = true;
@@ -388,8 +385,8 @@ if ($_GET['action']) {
 				'customers_last_modified' => 'now()');
 
 				// if new password is set
-				if ($password != "") {			
-					$sql_data_array=array_merge($sql_data_array,array('customers_password' => xtc_encrypt_password($password)));						
+				if ($password != "") {
+					$sql_data_array=array_merge($sql_data_array,array('customers_password' => xtc_encrypt_password($password)));
 				}
 
 				if (ACCOUNT_GENDER == 'true')
@@ -415,8 +412,8 @@ if ($_GET['action']) {
 				'entry_city' => $entry_city,
 				'entry_country_id' => $entry_country_id,
 				'address_last_modified' => 'now()');
-				
-				
+
+
 				if (ACCOUNT_COMPANY == 'true')
 					$sql_data_array['entry_company'] = $entry_company;
 				if (ACCOUNT_SUBURB == 'true')
@@ -503,7 +500,7 @@ if ($_GET['action']) {
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
@@ -520,7 +517,7 @@ function check_form() {
   var customers_lastname = document.customers.customers_lastname.value;
 <?php if (ACCOUNT_COMPANY == 'true') echo 'var entry_company = document.customers.entry_company.value;' . "\n"; ?>
 <?php if (ACCOUNT_DOB == 'true') echo 'var customers_dob = document.customers.customers_dob.value;' . "\n"; ?>
-  var customers_email_address = document.customers.customers_email_address.value;  
+  var customers_email_address = document.customers.customers_email_address.value;
   var entry_street_address = document.customers.entry_street_address.value;
   var entry_postcode = document.customers.entry_postcode.value;
   var entry_city = document.customers.entry_city.value;
@@ -628,10 +625,10 @@ function check_form() {
     <td class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
 
-if (isset($_GET['action']) && ($_GET['action'] == 'edit' || $_GET['action'] == 'update')) {
+if ($_GET['action'] == 'edit' || $_GET['action'] == 'update') {
 	if (!is_object($cInfo)) { //DokuMan - 2010-03-17 - check if $cinfo is an object
 		$customers_query = xtc_db_query("select c.payment_unallowed, c.shipping_unallowed, c.customers_gender, c.customers_vat_id, c.customers_status, c.member_flag, c.customers_firstname,c.customers_cid, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from ".TABLE_CUSTOMERS." c left join ".TABLE_ADDRESS_BOOK." a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '".$_GET['cID']."'");
-	
+
 		$customers = xtc_db_fetch_array($customers_query);
 		$cInfo = new objectInfo($customers);
 	} //DokuMan - 2010-03-17 - check if $cinfo is an object
@@ -640,11 +637,11 @@ if (isset($_GET['action']) && ($_GET['action'] == 'edit' || $_GET['action'] == '
       <tr>
         <td>
         <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr> 
+  <tr>
     <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_customers.gif'); ?></td>
     <td class="pageHeading"><?php echo $cInfo->customers_lastname.' '.$cInfo->customers_firstname; ?></td>
   </tr>
-  <tr> 
+  <tr>
     <td class="main" valign="top">Customers</td>
   </tr>
 </table>
@@ -993,8 +990,8 @@ if (isset($_GET['action']) && ($_GET['action'] == 'edit' || $_GET['action'] == '
       </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-        
-        
+
+
                   <tr>
             <td class="main"><?php echo ENTRY_PAYMENT_UNALLOWED; ?></td>
             <td class="main"><?php
@@ -1029,12 +1026,12 @@ if ($error == true) {
 } else {
 	echo xtc_draw_input_field('entry_password');
 }
-?></td>      
-      
-      
-<?php      
+?></td>
+
+
+<?php
    // BOF - Christian - 2009-06-26 - delete Newsletter Funktion...
-    /*    
+    /*
           <tr>
             <td class="main"><?php echo ENTRY_NEWSLETTER; ?></td>
             <td class="main"><?php
@@ -1053,7 +1050,7 @@ if ($error == true) {
           </tr>
           */
 // EOF - Christian - 2009-06-26 - delete Newsletter Funktion...
-?>         
+?>
           <tr>
 <?php include(DIR_WS_MODULES . FILENAME_CUSTOMER_MEMO); ?>
           </tr>
@@ -1072,15 +1069,15 @@ if ($error == true) {
       <tr>
         <td>
         <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr> 
+  <tr>
     <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_customers.gif'); ?></td>
     <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
   </tr>
-  <tr> 
+  <tr>
     <td class="main" valign="top">Customers</td>
   </tr>
 </table>
-        
+
         <table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
           <?php echo xtc_draw_form('search', FILENAME_CUSTOMERS, '', 'get'); ?>
@@ -1095,7 +1092,7 @@ if ($error == true) {
 
           $select_data = array ();
           $select_data = array (array ('id' => '99', 'text' => TEXT_SELECT), array ('id' => '100', 'text' => TEXT_ALL_CUSTOMERS));
-          ?>          
+          ?>
             <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . xtc_draw_pull_down_menu('status',xtc_array_merge($select_data, $customers_statuses_array), '99', 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); ?></td>
           </form></tr>
         </table></td>
@@ -1131,14 +1128,14 @@ if ($error == true) {
 		}
 		//EOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
 	}
-	//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR	
+	//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
 	if (($_GET['search_email']) && (xtc_not_null($_GET['search_email']))) {
 		$keywords = xtc_db_input(xtc_db_prepare_input($_GET['search_email']));
-		$search = "and (c.customers_email_address like '%".$keywords."%')";	
+		$search = "and (c.customers_email_address like '%".$keywords."%')";
 	}
 	//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
 
-	if (isset($_GET['status']) && $_GET['status'] != '100' || $_GET['status'] == '0') {
+	if ($_GET['status'] && $_GET['status'] != '100' || $_GET['status'] == '0') {
 		$status = xtc_db_prepare_input($_GET['status']);
 		//  echo $status;
 		$search = "and c.customers_status = '".$status."'";
@@ -1187,7 +1184,7 @@ if ($error == true) {
 				break;
 // EOF - Tomcraft - 2009-10-22 - fixed sorting, replaced ASC with DESC
 
-// BOF - web28 - 2010-05-28 - added  customers_email_address			
+// BOF - web28 - 2010-05-28 - added  customers_email_address
 			case 'customers_email_address-desc' :
 				$sort = 'order by c.customers_email_address DESC';
 				break;
@@ -1252,20 +1249,20 @@ if ($error == true) {
 	                                and ci.customers_info_id = c.customers_id
 	                                ".$search."
 	                                ".$sort;
-// EOF - vr - 2010-02-22 - removed group by part to prevent folding of customers records with the same creation timestamp 
+// EOF - vr - 2010-02-22 - removed group by part to prevent folding of customers records with the same creation timestamp
 
 	$customers_split = new splitPageResults($_GET['page'], '100', $customers_query_raw, $customers_query_numrows);
 	$customers_query = xtc_db_query($customers_query_raw);
 	while ($customers = xtc_db_fetch_array($customers_query)) {
 		$info_query = xtc_db_query("select customers_info_date_account_created as date_account_created, customers_info_date_account_last_modified as date_account_last_modified, customers_info_date_of_last_logon as date_last_logon, customers_info_number_of_logons as number_of_logons from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".$customers['customers_id']."'");
 		$info = xtc_db_fetch_array($info_query);
-		
+
 		// BOF - JUNG GESTALTEN - 27.11.2008 - KUNDENUMSÄTZE
 		$umsatz_query = xtc_db_query("select sum(op.final_price) as ordersum from " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS . " o where '".$customers['customers_id']."' = o.customers_id and o.orders_id = op.orders_id");
 		$umsatz = xtc_db_fetch_array($umsatz_query);
 		// EOF - JUNG GESTALTEN - 27.11.2008 - KUNDENUMSÄTZE
 
-		if ((!isset($_GET['cID']) || (@ $_GET['cID'] == $customers['customers_id'])) && (!$cInfo)) {
+		if (((!$_GET['cID']) || (@ $_GET['cID'] == $customers['customers_id'])) && (!$cInfo)) {
 			$country_query = xtc_db_query("select countries_name from ".TABLE_COUNTRIES." where countries_id = '".$customers['entry_country_id']."'");
 			$country = xtc_db_fetch_array($country_query);
 
@@ -1329,7 +1326,7 @@ if ($error == true) {
 	}
 ?>
               <tr>
-				<?php // BOF - web28 - 2010-05-28 - added  customers_email_address 
+				<?php // BOF - web28 - 2010-05-28 - added  customers_email_address
 			   //<td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 			   ?>
                 <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -1425,7 +1422,22 @@ if ($error == true) {
 					$contents[] = array ('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ACCOUNTING, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$cInfo->customers_id).'">'.BUTTON_ACCOUNTING.'</a>');
 				}
 				// elari cs v3.x changed for added iplog module
-				$contents[] = array ('align' => 'center', 'text' => '<table><tr><td style="text-align: center;"><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS, 'cID='.$cInfo->customers_id).'">'.BUTTON_ORDERS.'</a></td><td style="text-align: center;"><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_MAIL, 'selected_box=tools&customer='.$cInfo->customers_email_address).'">'.BUTTON_EMAIL.'</a></td></tr><tr><td style="text-align: center;"><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$cInfo->customers_id.'&action=iplog').'">'.BUTTON_IPLOG.'</a></td><td style="text-align: center;"><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$cInfo->customers_id.'&action=new_order').'" onclick="return confirm(\''.NEW_ORDER.'\')">'.BUTTON_NEW_ORDER.'</a></td></tr></table>');
+				$contents[] = array (
+				'align' => 'center',
+				'text' => '<table><tr><td style="text-align: center;">
+				<a class="button" onclick="this.blur();"
+				href="'.xtc_href_link(FILENAME_ORDERS, 'cID='.$cInfo->customers_id).'">'.BUTTON_ORDERS.'</a>
+				</td><td style="text-align: center;">
+				<a class="button" onclick="this.blur();"
+				href="'.xtc_href_link(FILENAME_MAIL, 'selected_box=tools&customer='.$cInfo->customers_email_address).'">'.BUTTON_EMAIL.'</a>
+				</td></tr>
+				<tr><td style="text-align: center;">
+				<a class="button" onclick="this.blur();"
+				href="'.xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$cInfo->customers_id.'&action=iplog').'">'.BUTTON_IPLOG.'</a></td>
+				<td style="text-align: center;">
+				<a class="button" onclick="this.blur();"
+				href="'.xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$cInfo->customers_id.'&action=new_order').'" onclick="return confirm(\''.NEW_ORDER.'\')">'.BUTTON_NEW_ORDER.'</a>
+				</td></tr></table>');
 
 				$contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_CREATED.' '.xtc_date_short($cInfo->date_account_created));
 				$contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_LAST_MODIFIED.' '.xtc_date_short($cInfo->date_account_last_modified));

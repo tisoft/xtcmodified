@@ -134,10 +134,10 @@
 <script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-<?php echo strtolower($_SESSION['language_code']); ?>.js"></script>
  <script type="text/javascript">
     $(function() {
-	  $('#hasDatepicker').datepicker(		
+	  $('#hasDatepicker').datepicker(
 		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
 		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
-	  );	  	  
+	  );
 	});
 </script>
 <?php /* EOF - DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI */ ?>
@@ -180,7 +180,7 @@
         </table></td>
       </tr>
 <?php
-  if (isset($_GET['action']) && ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit'))) {
+  if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) {
     $form_action = 'insert';
     if ( ($_GET['action'] == 'edit') && ($_GET['sID']) ) {
 	  $form_action = 'update';
@@ -191,14 +191,14 @@
                                             p.products_price,
                                             s.specials_quantity,
                                             s.specials_new_products_price,
-                                            s.expires_date from
-                                            " . TABLE_PRODUCTS . " p,
+                                            s.expires_date
+                                       from " . TABLE_PRODUCTS . " p,
                                             " . TABLE_PRODUCTS_DESCRIPTION . " pd,
-                                            " . TABLE_SPECIALS . "
-                                            s where p.products_id = pd.products_id
-                                            and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'
+                                            " . TABLE_SPECIALS . " s
+                                            where p.products_id = pd.products_id
+                                            and pd.language_id = " . (int)$_SESSION['languages_id'] . "
                                             and p.products_id = s.products_id
-                                            and s.specials_id = '" . (int)$_GET['sID'] . "'");
+                                            and s.specials_id = " . (int)$_GET['sID']);
       $product = xtc_db_fetch_array($product_query);
 
       $sInfo = new objectInfo($product);
@@ -212,7 +212,7 @@
       }	else {
         $expires_date = "";
       }
-       // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
+      // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
 
     } else {
       $sInfo = new objectInfo(array());

@@ -1,15 +1,16 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: stats_campaigns.php 1179 2005-08-25 12:37:13Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2005 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce coding standards; www.oscommerce.com
+   (c) 2006 XT-Commerce (stats_campaigns.php 1179 2005-08-25)
 
    Released under the GNU General Public License
    --------------------------------------------------------------
@@ -107,14 +108,12 @@ if ($endDateG) {
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <?php
-
-
 require (DIR_WS_INCLUDES.'header.php');
 ?>
 <!-- header_eof //-->
@@ -122,31 +121,30 @@ require (DIR_WS_INCLUDES.'header.php');
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-
-<td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
+  <td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top">
+    <table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-    </table></td>
+    </table>
+  </td>
 <!-- body_text //-->
-
     <td class="boxCenter" width="100%" valign="top">
       <table border="0" width="100%" cellspacing="0" cellpadding="2">
         <tr>
           <td colspan=2>
             <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_statistic.gif'); ?></td>
-    <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-  </tr>
-  <tr>
-    <td class="main" valign="top">XT Statistics</td>
-  </tr>
-</table>
+            <tr>
+              <td width="80" rowspan="2"><?php echo xtc_image(DIR_WS_ICONS.'heading_statistic.gif'); ?></td>
+              <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            </tr>
+            <tr>
+              <td class="main" valign="top">XT Statistics</td>
+            </tr>
+          </table>
           </td>
         </tr>
 <?php
-
 if ($srExp < 1) {
 ?>
         <tr>
@@ -164,7 +162,6 @@ if ($srExp < 1) {
 <?php echo REPORT_START_DATE; ?><br />
                     <select name="startD" size="1">
 <?php
-
 	if ($startDate) {
 		$j = date("j", $startDate);
 	} else {
@@ -174,13 +171,11 @@ if ($srExp < 1) {
 ?>
                         <option<?php if ($j == $i) echo " selected"; ?>><?php echo $i; ?></option>
 <?php
-
 	}
 ?>
                     </select>
                     <select name="startM" size="1">
 <?php
-
 	if ($startDate) {
 		$m = date("n", $startDate);
 	} else {
@@ -190,13 +185,11 @@ if ($srExp < 1) {
 ?>
                       <option<?php if ($m == $i) echo " selected"; ?> value="<?php echo $i; ?>"><?php echo strftime("%B", mktime(0, 0, 0, $i, 1)); ?></option>
 <?php
-
 	}
 ?>
                     </select>
                     <select name="startY" size="1">
 <?php
-
 	if ($startDate) {
 		$y = date("Y") - date("Y", $startDate);
 	} else {
@@ -206,17 +199,15 @@ if ($srExp < 1) {
 ?>
                       <option<?php if ($y == $i) echo " selected"; ?>><?php echo date("Y") - $i; ?></option>
 <?php
-
 	}
 ?>
                     </select>
                   </td>
-                  <td rowspan="2" align="left" class="menuBoxHeading"> <?php echo REPORT_STATUS_FILTER; ?><br /> 
-                    <?php echo xtc_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $orders_statuses), $_GET['status']); ?> 
-                    
-                    <br /><?php echo REPORT_CAMPAIGN_FILTER; ?><br /> 
-<?php echo xtc_draw_pull_down_menu('campaign', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $campaigns), $_GET['campaign']); ?> 
-                    
+                  <td rowspan="2" align="left" class="menuBoxHeading"> <?php echo REPORT_STATUS_FILTER; ?><br />
+                    <?php echo xtc_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $orders_statuses), $_GET['status']); ?>
+
+                    <br /><?php echo REPORT_CAMPAIGN_FILTER; ?><br />
+<?php echo xtc_draw_pull_down_menu('campaign', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $campaigns), $_GET['campaign']); ?>
                     </td>
                   <td rowspan="2" align="left" class="menuBoxHeading"><br />
                   </td>
@@ -228,7 +219,6 @@ if ($srExp < 1) {
 <?php echo REPORT_END_DATE; ?><br />
                     <select name="endD" size="1">
 <?php
-
 	if ($endDate) {
 		$j = date("j", $endDate -60 * 60 * 24);
 	} else {
@@ -238,13 +228,11 @@ if ($srExp < 1) {
 ?>
                       <option<?php if ($j == $i) echo " selected"; ?>><?php echo $i; ?></option>
 <?php
-
 	}
 ?>
                     </select>
                     <select name="endM" size="1">
 <?php
-
 	if ($endDate) {
 		$m = date("n", $endDate -60 * 60 * 24);
 	} else {
@@ -254,13 +242,11 @@ if ($srExp < 1) {
 ?>
                       <option<?php if ($m == $i) echo " selected"; ?> value="<?php echo $i; ?>"><?php echo strftime("%B", mktime(0, 0, 0, $i, 1)); ?></option>
 <?php
-
 	}
 ?>
                     </select>
                     <select name="endY" size="1">
 <?php
-
 	if ($endDate) {
 		$y = date("Y") - date("Y", $endDate -60 * 60 * 24);
 	} else {
@@ -268,8 +254,8 @@ if ($srExp < 1) {
 	}
 	for ($i = 10; $i >= 0; $i --) {
 ?>
-                      <option<?php if ($y == $i) echo " selected"; ?>><?php
-
+                      <option<?php if ($y == $i) echo " selected"; ?>>
+<?php
 		echo date("Y") - $i;
 ?></option><?php
 
@@ -287,7 +273,6 @@ if ($srExp < 1) {
           </td>
         </tr>
 <?php
-
 } // end of ($srExp < 1)
 ?>
         <tr>
@@ -295,25 +280,18 @@ if ($srExp < 1) {
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td valign="top">
- <?php
-
+<?php
 if (count($campaign->result)) {
-?>               
-                
-                
-    
-    
-    
+?>
  <table border="0" width="100%" cellspacing="0" cellpadding="2">
- 
-   <tr class="dataTableHeadingRow"> 
+   <tr class="dataTableHeadingRow">
     <td class="dataTableHeadingContent" colspan="2" width="25%"><?php echo HEADING_TOTAL; ?></td>
     <td class="dataTableHeadingContent" width="10%">&nbsp;</td>
     <td class="dataTableHeadingContent" width="15%"><?php echo $campaign->total['leads']; ?></td>
     <td class="dataTableHeadingContent" colspan="2" width="30%"><?php echo $campaign->total['sells']; ?></td>
     <td class="dataTableHeadingContent" width="20%"><?php echo $campaign->total['sum']; ?></td>
   </tr>
-  <tr class="dataTableHeadingRow"> 
+  <tr class="dataTableHeadingRow">
     <td class="dataTableHeadingContent" colspan="2" width="25%">&nbsp;</td>
     <td class="dataTableHeadingContent" width="10%"><?php echo HEADING_HITS; ?></td>
     <td class="dataTableHeadingContent" width="15%"><?php echo HEADING_LEADS; ?></td>
@@ -321,27 +299,20 @@ if (count($campaign->result)) {
     <td class="dataTableHeadingContent" width="15%"><?php echo HEADING_LATESELLS; ?></td>
     <td class="dataTableHeadingContent" width="20%"><?php echo HEADING_SUM; ?></td>
   </tr>
-  
- <?php
 
+<?php
 	// show campaigns
-
 	for ($n = 0; $n < count($campaign->result); $n ++) {
 ?>
-  
-  
-  
-  
-  <tr class="dataTableRow"> 
+  <tr class="dataTableRow">
     <td class="main" colspan="7" style="border-bottom: 2px solid;"><br /><?php echo $campaign->result[$n]['text'].' '.TEXT_REFERER .' ('.$campaign->result[$n]['id'].')'; ?></td>
   </tr>
-  
-  <?php
+
+<?php
 		// show values
 		for ($nn = 0; $nn < count($campaign->result[$n]['result']); $nn ++) {
 ?>
-  
-  <tr class="dataTableRow"> 
+  <tr class="dataTableRow">
     <td class="dataTableContent">&nbsp;</td>
     <td class="dataTableContent"><?php echo $campaign->result[$n]['result'][$nn]['range']; ?></td>
     <td class="dataTableContent"><?php echo $campaign->result[$n]['result'][$nn]['hits']; ?></td>
@@ -350,14 +321,10 @@ if (count($campaign->result)) {
     <td class="dataTableContent"><?php echo $campaign->result[$n]['result'][$nn]['late_sells'].' ('.$campaign->result[$n]['result'][$nn]['late_sells_p'].'%)'; ?></td>
     <td class="dataTableContent"><?php echo $campaign->result[$n]['result'][$nn]['sum'].' ('.$campaign->result[$n]['result'][$nn]['sum_p'].'%)'; ?></td>
  </tr>
-  
-  <?php
-
+<?php
 		}
 ?>
-  
-  
-    <tr class="dataTableRow"> 
+    <tr class="dataTableRow">
     <td class="dataTableContent"><strong><?php echo HEADING_SUM; ?></strong></td>
     <td class="dataTableContent">&nbsp;</td>
     <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['hits_s']; ?></strong></td>
@@ -366,11 +333,7 @@ if (count($campaign->result)) {
     <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['late_sells_s'].' ('.($campaign->total['sells']> 0 ? ($campaign->result[$n]['late_sells_s']/$campaign->total['sells']*100):'0').'%)'; ?></strong></td>
     <td class="dataTableContent"><strong><?php echo $campaign->result[$n]['sum_s'].' ('.($campaign->total['sum_plain']> 0 ? round(($campaign->result[$n]['sum_s']/$campaign->total['sum_plain']*100),0):'0').'%)'; ?></strong></td>
   </tr>
-  
-  
-  <?php
-
-
+<?php
 	}
 ?>
 </table>
@@ -389,14 +352,11 @@ if (count($campaign->result)) {
 
 <!-- footer //-->
 <?php
-
-
 	require (DIR_WS_INCLUDES.'footer.php');
 ?>
 <!-- footer_eof //-->
 </body>
 </html>
 <?php
-
 	require (DIR_WS_INCLUDES.'application_bottom.php');
 ?>

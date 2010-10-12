@@ -100,9 +100,7 @@
         $content_file_name=$content_file->filename;
       }  // if
 
-
         // update data in table
-
           $sql_data_array = array(
                                 'languages_id' => $content_language,
                                 'content_title' => $content_title,
@@ -175,7 +173,6 @@
         }
 */
 if ($select_file=='default') {
-
         if ($content_file = &xtc_try_upload('file_upload', DIR_FS_CATALOG.'media/products/')) {
         $content_file_name=$content_file->filename;
         $old_filename=$content_file->filename;
@@ -280,7 +277,7 @@ if ($select_file=='default') {
           <tr>
             <td>
 <?php
-if (!isset($_GET['action'])) {
+if (!$_GET['action']) {
 ?>
 <div class="pageHeading"><br /><?php echo HEADING_CONTENT; ?><br /></div>
 <div class="main"><?php echo CONTENT_NOTE; ?></div>
@@ -316,7 +313,6 @@ for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
                                         order by sort_order
                                         ");
         while ($content_data=xtc_db_fetch_array($content_query)) {
-
          $content[]=array(
                         'CONTENT_ID' =>$content_data['content_id'] ,
                         'PARENT_ID' => $content_data['parent_id'],
@@ -432,7 +428,6 @@ echo xtc_image(DIR_WS_ICONS.'icon_edit.gif', ICON_EDIT,'','','style="cursor:poin
                                         order by sort_order
                                          ");
         while ($content_1_data=xtc_db_fetch_array($content_1_query)) {
-
          $content_1[]=array(
                         'CONTENT_ID' =>$content_1_data['content_id'] ,
                         'PARENT_ID' => $content_1_data['parent_id'],
@@ -883,7 +878,7 @@ if ($content['content_file']!='') {
  break;
 }
 }
-if (!isset($_GET['action'])) {
+if (!$_GET['action']) {
 ?>
 <br/>
 <a class="button" onclick="this.blur();" href="<?php echo xtc_href_link(FILENAME_CONTENT_MANAGER,'action=new'); ?>"><?php echo BUTTON_NEW_CONTENT; ?></a>
@@ -894,7 +889,7 @@ if (!isset($_GET['action'])) {
           </tr>
         </table>
  <?php
- if (!isset($_GET['action'])) {
+ if (!$_GET['action']) {
  // products content
  // load products_ids into array
 
@@ -1048,11 +1043,11 @@ if ( preg_match('/.gif/i',$content_array[$ii]['file'])
 ?>
  <a style="cursor:pointer" onclick="javascript:window.open('<?php echo xtc_href_link(FILENAME_CONTENT_PREVIEW,'pID=media&coID='.$content_array[$ii]['id']); ?>', 'popup', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600')">
 <?php
-//EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable 
+//EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 
 //BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
-//echo xtc_image(DIR_WS_ICONS.'preview.gif','Preview','','',' style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; 
-echo xtc_image(DIR_WS_ICONS.'preview.gif', ICON_PREVIEW,'','',' style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>'; 
+//echo xtc_image(DIR_WS_ICONS.'preview.gif','Preview','','',' style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>';
+echo xtc_image(DIR_WS_ICONS.'preview.gif', ICON_PREVIEW,'','',' style="cursor:pointer"').'&nbsp;&nbsp;'.TEXT_PREVIEW.'</a>';
 //EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 
 }
