@@ -1,21 +1,21 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(sessions.php,v 1.16 2003/04/02); www.oscommerce.com 
-   (c) 2003	 nextcommerce (sessions.php,v 1.5 2003/08/13); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(sessions.php,v 1.16 2003/04/02); www.oscommerce.com
+   (c) 2003	nextcommerce (sessions.php,v 1.5 2003/08/13); www.nextcommerce.org
    (c) 2006 XT-Commerce (sessions.php 1195 2005-08-28)
 
    Released under the GNU General Public License
 
-   Do not use 'xtc_db_input()' on variable '$key' as it breaks the db-session-entry
+   Do not use 'xtc_db_input()' on variable '$expiry' and '$value' as it breaks the db-session-entry
    ---------------------------------------------------------------------------------------*/
 
    @ini_set("session.gc_maxlifetime", 1440);
@@ -90,12 +90,12 @@
 // EOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
 
 // BOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
-  //BOF NEEDED FOR NON MODIFIED TEMPLATES 
+  //BOF NEEDED FOR NON MODIFIED TEMPLATES
   function xtc_session_is_registered($variable) {
     //return session_is_registered($variable);
-    return isset($_SESSION[$variable]); 
+    return isset($_SESSION[$variable]);
   }
-  //EOF NEEDED FOR NON MODIFIED TEMPLATES 
+  //EOF NEEDED FOR NON MODIFIED TEMPLATES
 // EOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
 
 // BOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
@@ -155,6 +155,6 @@
 
       $_SESSION = $session_backup;
       unset($session_backup);
-    
+
   }
 ?>
