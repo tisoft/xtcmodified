@@ -1,5 +1,4 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
    $Id: wpcallback.php,v 1.0
    XT-Commerce - community made shopping
@@ -25,7 +24,7 @@
 	        Now posting language code to WP, Redirect on failure now to Checkout Payment,
 			Reduced re-direct time to 8 seconds, added MD5, made callback dynamic
 			NOTE: YOU MUST CHANGE THE CALLBACK URL IN WP ADMIN TO <wpdisplay item="MC_callback">
-	Version 1.4 Removes boxes to prevent users from clicking away before update, 
+	Version 1.4 Removes boxes to prevent users from clicking away before update,
 			Fixes currency for Yen,
 			Redirects to Checkout_Process after 10 seconds or click by user
 	Version 1.3 Fixes problem with Multi Currency
@@ -74,7 +73,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/wpcallback.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

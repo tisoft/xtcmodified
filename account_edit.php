@@ -1,19 +1,19 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: account_edit.php 1314 2005-10-20 14:00:46Z mz $   
-   
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   $Id$
 
-   Copyright (c) 2003 XT-Commerce
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(account_edit.php,v 1.63 2003/05/19); www.oscommerce.com 
-   (c) 2003	 nextcommerce (account_edit.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(account_edit.php,v 1.63 2003/05/19); www.oscommerce.com
+   (c) 2003	nextcommerce (account_edit.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2006 xt:Commerce (account_edit.php 1314 2005-10-20); www.xt-commerce.de
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -81,13 +81,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
 	$customers_status = $vatID->vat_info['status'];
 	$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
-	
+
 	// BOF - DokuMan - 2009-05-26 - Code optimization
 	//$error = $vatID->vat_info['error'];
 	//if($error==1){
 	if($vatID->vat_info['error']==1){
 	// EOF - DokuMan - 2009-05-26 - Code optimization
-	
+
 	$messageStack->add('account_edit', ENTRY_VAT_ERROR);
 	$error = true;
   }
@@ -104,18 +104,23 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		$error = true;
 		$messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
   //BOF - Dokuman - 2009-08-19 - BUGFIX: #0000233 added check for emails in account_edit
-	} else { 
-        $check_email_query = xtc_db_query("select count(*) as total from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($email_address)."' and account_type = '0' and customers_id != '".$_SESSION['customer_id']."'"); 
-        $check_email = xtc_db_fetch_array($check_email_query); 
-        if ($check_email['total'] > 0) { 
-            $error = true; 
-            $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS); 
+	} else {
+        $check_email_query = xtc_db_query("SELECT
+                                          count(*) as total
+                                          FROM ".TABLE_CUSTOMERS."
+                                          WHERE customers_email_address = '".xtc_db_input($email_address)."'
+                                          AND account_type = 0
+                                          AND customers_id != " . (int)$_SESSION['customer_id']);
+        $check_email = xtc_db_fetch_array($check_email_query);
+        if ($check_email['total'] > 0) {
+            $error = true;
+            $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
         }
-  //EOF - Dokuman - 2009-08-19 - BUGFIX: #0000233 added check for emails in account_edit        
+  //EOF - Dokuman - 2009-08-19 - BUGFIX: #0000233 added check for emails in account_edit
     }
 	//BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
 	if ($email_address != $confirm_email_address) {
-   		$error = true;    
+   		$error = true;
    		$messageStack->add('create_account', ENTRY_EMAIL_ERROR_NOT_MATCHING);
 	}
 	//EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
@@ -126,13 +131,22 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
 
 	if ($error == false) {
-		$sql_data_array = array ('customers_vat_id' => $vat, 'customers_vat_id_status' => $customers_vat_id_status, 'customers_firstname' => $firstname, 'customers_lastname' => $lastname, 'customers_email_address' => $email_address, 'customers_telephone' => $telephone, 'customers_fax' => $fax,'customers_last_modified' => 'now()');
+		$sql_data_array = array (
+		'customers_vat_id' => $vat,
+		'customers_vat_id_status' => $customers_vat_id_status,
+		'customers_firstname' => $firstname,
+		'customers_lastname' => $lastname,
+		'customers_email_address' => $email_address,
+		'customers_telephone' => $telephone,
+		'customers_fax' => $fax,
+		'customers_last_modified' => 'now()'
+		);
 
 		if (ACCOUNT_GENDER == 'true')
 			$sql_data_array['customers_gender'] = $gender;
 		if (ACCOUNT_DOB == 'true')
 			$sql_data_array['customers_dob'] = xtc_date_raw($dob);
-		
+
 		xtc_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '".(int) $_SESSION['customer_id']."'");
 
 		xtc_db_query("update ".TABLE_CUSTOMERS_INFO." set customers_info_date_account_last_modified = now() where customers_info_id = '".(int) $_SESSION['customer_id']."'");
@@ -143,7 +157,19 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		xtc_redirect(xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 	}
 } else {
-	$account_query = xtc_db_query("select customers_gender, customers_cid, customers_vat_id, customers_vat_id_status, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone, customers_fax from ".TABLE_CUSTOMERS." where customers_id = '".(int) $_SESSION['customer_id']."'");
+	$account_query = xtc_db_query("select
+                                customers_gender,
+                                customers_cid,
+                                customers_vat_id,
+                                customers_vat_id_status,
+                                customers_firstname,
+                                customers_lastname,
+                                customers_dob,
+                                customers_email_address,
+                                customers_telephone,
+                                customers_fax
+                                from ".TABLE_CUSTOMERS."
+                                where customers_id = ".(int) $_SESSION['customer_id']);
 	$account = xtc_db_fetch_array($account_query);
 }
 
@@ -197,7 +223,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_edit.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

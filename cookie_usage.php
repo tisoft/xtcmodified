@@ -1,19 +1,19 @@
 <?php
-
 /* -----------------------------------------------------------------------------------------
-   $Id: cookie_usage.php 1238 2005-09-24 10:51:19Z mz $   
+   $Id: cookie_usage.php 1238 2005-09-24 10:51:19Z mz $
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(cookie_usage.php,v 1.1 2003/03/10); www.oscommerce.com 
-   (c) 2003	 nextcommerce (cookie_usage.php,v 1.9 2003/08/17); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(cookie_usage.php,v 1.1 2003/03/10); www.oscommerce.com
+   (c) 2003	nextcommerce (cookie_usage.php,v 1.9 2003/08/17); www.nextcommerce.org
+   (c) 2006 XT-Commerce (cookie_usage.php 1238 2005-09-24)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -44,7 +44,7 @@ $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

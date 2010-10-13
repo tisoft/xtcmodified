@@ -24,80 +24,83 @@ require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
 
 // include needed functions
 require_once (DIR_FS_INC.'xtc_validate_email.inc.php');
+//BOF - DokuMan - check for requested valid content, otherwise display FILENAME_DEFAULT
+if (isset($_GET['coID']) && is_numeric($_GET['coID'])) {
+//EOF - DokuMan - check for requested valid content, otherwise display FILENAME_DEFAULT
+	$content_body = ''; //DokuMan - set undefined variable
+	$group_check = ''; //DokuMan - set undefined variable
+	if (GROUP_CHECK == 'true') {
+		$group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
+	}
+	$shop_content_query = xtc_db_query("SELECT
+	                     content_id,
+	                     content_title,
+	                     content_heading,
+	                     content_text,
+	                     content_file
+	                     FROM ".TABLE_CONTENT_MANAGER."
+	                     WHERE content_group='".(int) $_GET['coID']."'"
+	                     .$group_check."
+	                     AND languages_id='".(int) $_SESSION['languages_id']."'");
+	$shop_content_data = xtc_db_fetch_array($shop_content_query);
 
-$content_body = ''; //DokuMan - set undefined variable
-$group_check = ''; //DokuMan - set undefined variable
-if (GROUP_CHECK == 'true') {
-	$group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
-}
+	// BOF - DokuMan - 2009-05-29 - added shopstat bugfix
+	//-- SHOPSTAT --//
+	//$breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CONTENT.'?coID='.(int) $_GET['coID']));
+	$breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CONTENT,'coID='.(int) $_GET['coID']));
+	//-- SHOPSTAT --//
+	// EOF - DokuMan - 2009-05-29 - added shopstat bugfix
 
-$shop_content_query = xtc_db_query("SELECT
-                     content_id,
-                     content_title,
-                     content_heading,
-                     content_text,
-                     content_file
-                     FROM ".TABLE_CONTENT_MANAGER."
-                     WHERE content_group='".(int) $_GET['coID']."'"
-                     .$group_check."
-                     AND languages_id='".(int) $_SESSION['languages_id']."'");
-$shop_content_data = xtc_db_fetch_array($shop_content_query);
+	if ($_GET['coID'] != 7) {
+		require (DIR_WS_INCLUDES.'header.php');
+	}
+	if ($_GET['coID'] == 7 && isset($_GET['action']) && $_GET['action'] == 'success') {
+		require (DIR_WS_INCLUDES.'header.php');
+	}
 
-// BOF - DokuMan - 2009-05-29 - added shopstat bugfix
-//-- SHOPSTAT --//
-//$breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CONTENT.'?coID='.(int) $_GET['coID']));
-$breadcrumb->add($shop_content_data['content_title'], xtc_href_link(FILENAME_CONTENT,'coID='.(int) $_GET['coID']));
-//-- SHOPSTAT --//
-// EOF - DokuMan - 2009-05-29 - added shopstat bugfix
+	$smarty->assign('CONTENT_HEADING', $shop_content_data['content_heading']);
 
-if ($_GET['coID'] != 7) {
-	require (DIR_WS_INCLUDES.'header.php');
-}
-if ($_GET['coID'] == 7 && isset($_GET['action']) && $_GET['action'] == 'success') {
-	require (DIR_WS_INCLUDES.'header.php');
-}
+	if ($_GET['coID'] == 7) {
+	    //BOF - web28 - 2010-04-03 - outsource email code
+		include (DIR_WS_INCLUDES.'contact_us.php');
 
-$smarty->assign('CONTENT_HEADING', $shop_content_data['content_heading']);
+		//EOF - web28 - 2010-04-03 - outsource email code
+	} else {
+		if ($shop_content_data['content_file'] != '') {
+			ob_start();
+			if (strpos($shop_content_data['content_file'], '.txt'))
+				echo '<pre>';
+			include (DIR_FS_CATALOG.'media/content/'.$shop_content_data['content_file']);
+			if (strpos($shop_content_data['content_file'], '.txt'))
+				echo '</pre>';
+			$smarty->assign('file', ob_get_contents());
+			ob_end_clean();
 
-if ($_GET['coID'] == 7) {
-    //BOF - web28 - 2010-04-03 - outsource email code
-	include (DIR_WS_INCLUDES.'contact_us.php');
-	//EOF - web28 - 2010-04-03 - outsource email code
+		} else {
+			$content_body = $shop_content_data['content_text'];
+		}
+		$smarty->assign('CONTENT_BODY', $content_body);
+		$smarty->assign('BUTTON_CONTINUE', '<a href="javascript:history.back(1)">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
+		$smarty->assign('language', $_SESSION['language']);
+
+		// set cache ID
+		 if (!CacheCheck()) {
+			$smarty->caching = 0;
+			$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/content.html');
+		} else {
+			$smarty->caching = 1;
+			$smarty->cache_lifetime = CACHE_LIFETIME;
+			$smarty->cache_modified_check = CACHE_CHECK;
+			$cache_id = $_SESSION['language'].$shop_content_data['content_id'];
+			$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/content.html', $cache_id);
+		}
+
+	}
+//BOF - DokuMan - check for requested valid content, otherwise display FILENAME_DEFAULT
 } else {
-
-	if ($shop_content_data['content_file'] != '') {
-		ob_start();
-
-		if (strpos($shop_content_data['content_file'], '.txt'))
-			echo '<pre>';
-		include (DIR_FS_CATALOG.'media/content/'.$shop_content_data['content_file']);
-		if (strpos($shop_content_data['content_file'], '.txt'))
-			echo '</pre>';
-		$smarty->assign('file', ob_get_contents());
-		ob_end_clean();
-
-	} else {
-		$content_body = $shop_content_data['content_text'];
-	}
-	$smarty->assign('CONTENT_BODY', $content_body);
-
-	$smarty->assign('BUTTON_CONTINUE', '<a href="javascript:history.back(1)">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
-	$smarty->assign('language', $_SESSION['language']);
-
-	// set cache ID
-	 if (!CacheCheck()) {
-		$smarty->caching = 0;
-		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/content.html');
-	} else {
-		$smarty->caching = 1;
-		$smarty->cache_lifetime = CACHE_LIFETIME;
-		$smarty->cache_modified_check = CACHE_CHECK;
-		$cache_id = $_SESSION['language'].$shop_content_data['content_id'];
-		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/content.html', $cache_id);
-	}
-
+    xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
 }
-
+//EOF - DokuMan - check for requested valid content, otherwise display FILENAME_DEFAULT
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;

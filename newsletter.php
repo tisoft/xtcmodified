@@ -7,16 +7,16 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce www.oscommerce.com 
+   (c) 2002-2003 osCommerce www.oscommerce.com
    (c) 2003	 nextcommerce www.nextcommerce.org
    (c) 2006 XT-Commerce (newsletter.php,v 1.0)
 
    XTC-NEWSLETTER_RECIPIENTS RC1 - Contribution for XT-Commerce http://www.xt-commerce.com
    by Matthias Hinsche http://www.gamesempire.de
-   
-   Released under the GNU General Public License 
+
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 require ('includes/application_top.php');
@@ -39,14 +39,14 @@ $inp = 'true';
 
 $info_message = ''; //DokuMan - 2010-08-26 - set missing variable
 
-if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {    
-	
+//if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
+if (isset ($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['email'])) {
 	$vlcode = xtc_random_charcode(32);
 	//BOF - GTB - 2010-09-16 - set newsletter to SSL
 	$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'SSL');
 	//$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'NONSSL');
 	//EOF - GTB - 2010-09-16 - set newsletter to SSL
-	
+
 	// assign language to template for caching
 	$smarty->assign('language', $_SESSION['language']);
 	//BOF - GTB - 2010-08-03 - Security Fix - Base
@@ -65,7 +65,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 	$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/newsletter_mail.html');
 	$txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/newsletter_mail.txt');
 
-	// Check if email exists 
+	// Check if email exists
 
   //BOF - Dokuman - 2009-09-04: convert uppercase Captchas to lowercase, to be more flexible on user input
 	//if (($_POST['check'] == 'inp') && ($_POST['vvcode'] == $_SESSION['vvcode'])) {
@@ -127,7 +127,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 	    //$info_message = TEXT_WRONG_CODE;
 	    $info_message = '';
 	    if (!xtc_validate_email(trim($_POST['email']))) $info_message .= ERROR_EMAIL;
-		if (strtoupper($_POST['vvcode']) != $_SESSION['vvcode']) $info_message .= ERROR_VVCODE;		
+		if (strtoupper($_POST['vvcode']) != $_SESSION['vvcode']) $info_message .= ERROR_VVCODE;
 		//EOF - web28 - 2010-02-09: NEWSLETTER ERROR HANDLING
 	}
 
@@ -145,8 +145,8 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 		} else {
 			$del_query = xtc_db_query("delete from ".TABLE_NEWSLETTER_RECIPIENTS." where customers_email_address ='".xtc_db_input($_POST['email'])."'");
 			$info_message = TEXT_EMAIL_DEL;
-		}	
-	}	
+		}
+	}
 }
 
 // Accountaktivierung per Emaillink
@@ -154,7 +154,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'activate')) {
 	$check_mail_query = xtc_db_query("select mail_key from ".TABLE_NEWSLETTER_RECIPIENTS." where customers_email_address = '".xtc_db_input($_GET['email'])."'");
 	if (!xtc_db_num_rows($check_mail_query)) {
 		$info_message = TEXT_EMAIL_NOT_EXIST;
-	} else {	    
+	} else {
 		$check_mail = xtc_db_fetch_array($check_mail_query);
 		//BOF - web28 - 2009-02-09 : FIX WRONG ACTIVATE HANDLING
 		//if (!$check_mail['mail_key'] == $_GET['key']) {
@@ -173,7 +173,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'remove')) {
 	$check_mail_query = xtc_db_query("select customers_email_address,
                                     mail_key
                                     from ".TABLE_NEWSLETTER_RECIPIENTS."
-                                    where customers_email_address = '".xtc_db_input($_GET['email'])."' 
+                                    where customers_email_address = '".xtc_db_input($_GET['email'])."'
                                     and mail_key = '".xtc_db_input($_GET['key'])."'");
 	if (!xtc_db_num_rows($check_mail_query)) {
 		$info_message = TEXT_EMAIL_NOT_EXIST;
@@ -213,10 +213,13 @@ $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_NEWS
 //$smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_NEWSLETTER, 'action=process', 'NONSSL')));
 //EOF - GTB - 2010-09-16 - set newsletter to SSL
 
+//BOF - DokuMan - 2010-10-13: Use $_POST-variable to show email in input field, Undefined index: email
 //BOF - web28 - 2010-02-09: SHOW EMAIL IN INPUT FIELD
 //$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
-$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', (xtc_db_input(isset($_GET['email'])) ? xtc_db_input($_GET['email']) : xtc_db_input($_POST['email']))));
+//$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', (xtc_db_input(isset($_GET['email'])) ? xtc_db_input($_GET['email']) : xtc_db_input($_POST['email']))));
+$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', isset($_POST['email']) ? xtc_db_prepare_input($_POST['email']) : ''));
 //EOF - web28 - 2010-02-09: SHOW EMAIL IN INPUT FIELD
+//EOF - DokuMan - 2010-10-13: Use $_POST-variable to show email in input field, Undefined index: email
 
 // BOF - Tomcraft - 2010-01-24 - unified the captcha field size.
 //$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', false));
@@ -225,7 +228,7 @@ $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxle
 
 //BOF - web28 - 2010-02-09: NEWSLETTER ERROR HANDLING
 if(isset($_POST['check']) && $_POST['check'] == 'inp') {$inp = 'true'; $del = '';}
-if(isset($_POST['check']) && $_POST['check'] == 'del') {$inp = ''; $del = 'true';}	
+if(isset($_POST['check']) && $_POST['check'] == 'del') {$inp = ''; $del = 'true';}
 $smarty->assign('CHECK_INP', xtc_draw_radio_field('check', 'inp', $inp));
 //EOF - web28 - 2010-02-09: NEWSLETTER ERROR HANDLING
 $smarty->assign('CHECK_DEL', xtc_draw_radio_field('check', 'del', isset($del) ? $del : ''));

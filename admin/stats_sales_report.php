@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: stats_sales_report.php 1311 2005-10-18 12:30:40Z mz $
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org

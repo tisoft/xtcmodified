@@ -1,19 +1,19 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(specials.php,v 1.47 2003/05/27); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(specials.php,v 1.47 2003/05/27); www.oscommerce.com
    (c) 2003	nextcommerce (specials.php,v 1.12 2003/08/17); www.nextcommerce.org
    (c) 2006	XT-Commerce (specials.php 1292 2005-10-07)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -43,11 +43,11 @@ $specials_query_raw = "select p.products_id,
                                 p.products_vpe_value,
                                 p.products_vpe,
                                 p.products_fsk18,"
-/* BOF DokuMan - 2010-08-13 - show expiry date of special products in specials.php */                           
+/* BOF DokuMan - 2010-08-13 - show expiry date of special products in specials.php */
                                 ."s.expires_date,".
-/* BOF DokuMan - 2010-08-13 - show expiry date of special products in specials.php */     
+/* BOF DokuMan - 2010-08-13 - show expiry date of special products in specials.php */
                                 "s.specials_new_products_price
-                                from 
+                                from
                                 ".TABLE_PRODUCTS." p,
                                 ".TABLE_PRODUCTS_DESCRIPTION." pd,
                                 ".TABLE_SPECIALS." s
@@ -81,7 +81,7 @@ if (($specials_split->number_of_rows > 0)) {
 	            <td align="right" class="smallText">'.TEXT_RESULT_PAGE.' '.$specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
 	          </tr>
 	        </table>
-  ');	        
+  ');
 */
 	$smarty->assign('NAVBAR', '
 	<div style="width:100%;font-size:smaller">
@@ -101,7 +101,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/specials.html');
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');

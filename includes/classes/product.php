@@ -1,15 +1,15 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$ 
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(Coding Standards); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(Coding Standards); www.oscommerce.com
    (c) 2006 XT-Commerce (product.php 1316 2005-10-21)
 
    Released under the GNU General Public License
@@ -18,9 +18,9 @@
 class product {
 
 	/**
-	 * 
+	 *
 	 * Constructor
-	 * 
+	 *
 	 */
 	function product($pID = 0) {
 		// BOF - DokuMan - 2010-08-28 - typecasting
@@ -51,7 +51,7 @@ class product {
 			$fsk_lock = ' and p.products_fsk18!=1';
 		}
 
-		$product_query = "select * FROM 
+		$product_query = "select * FROM
                                ".TABLE_PRODUCTS." p,
                                ".TABLE_PRODUCTS_DESCRIPTION." pd
                                where p.products_status = 1
@@ -73,9 +73,9 @@ class product {
 	}
 
 	/**
-	 * 
+	 *
 	 *  Query for attributes count
-	 * 
+	 *
 	 */
 
 	function getAttributesCount() {
@@ -93,9 +93,9 @@ class product {
 	}
 
 	/**
-	 * 
+	 *
 	 * Query for reviews count
-	 * 
+	 *
 	 */
 
 	function getReviewsCount() {
@@ -113,9 +113,9 @@ class product {
 	}
 
 	/**
-	 * 
+	 *
 	 * select reviews
-	 * 
+	 *
 	 */
 
 	function getReviews() {
@@ -154,9 +154,9 @@ class product {
 	}
 
 	/**
-	 * 
+	 *
 	 * return model if set, else return name
-	 * 
+	 *
 	 */
 
 	function getBreadcrumbModel() {
@@ -167,9 +167,9 @@ class product {
 	}
 
 	/**
-	 * 
+	 *
 	 * get also purchased products related to current
-	 * 
+	 *
 	 */
 
 	function getAlsoPurchased() {
@@ -187,7 +187,7 @@ class product {
 		}
 
 		// BOF - vr - 2010-04-21 make sql human readable, update to SQL-92-Standard
-		$orders_query = "select p.products_fsk18, 
+		$orders_query = "select p.products_fsk18,
                             p.products_id,
                             p.products_price,
                             p.products_tax_class_id,
@@ -197,10 +197,10 @@ class product {
                             p.products_vpe_status,
                             p.products_vpe_value,
                             pd.products_short_description
-                            from ".TABLE_ORDERS_PRODUCTS." op1 
+                            from ".TABLE_ORDERS_PRODUCTS." op1
                             join ".TABLE_ORDERS_PRODUCTS." op2 on op2.orders_id = op1.orders_id
                             join ".TABLE_ORDERS." o on o.orders_id = op2.orders_id
-                            join ".TABLE_PRODUCTS." p on p.products_id = op2.products_id 
+                            join ".TABLE_PRODUCTS." p on p.products_id = op2.products_id
                             join ".TABLE_PRODUCTS_DESCRIPTION." pd on pd.products_id = op2.products_id
                             where op1.products_id = ".$this->pID."
                             and op2.products_id != ".$this->pID."
@@ -208,8 +208,8 @@ class product {
                             and pd.language_id = ".(int) $_SESSION['languages_id']
                             .$group_check
                             .$fsk_lock."
-                            group by p.products_id 
-                            order by o.date_purchased desc 
+                            group by p.products_id
+                            order by o.date_purchased desc
                             limit ".MAX_DISPLAY_ALSO_PURCHASED;
 		// EOF - vr - 2010-04-21 make sql human readable
 		$orders_query = xtDBquery($orders_query);
@@ -221,11 +221,11 @@ class product {
 	}
 
 	/**
-	 * 
-	 * 
-	 *  Get Cross sells 
-	 * 
-	 * 
+	 *
+	 *
+	 *  Get Cross sells
+	 *
+	 *
 	 */
 	function getCrossSells() {
 		global $xtPrice;
@@ -264,7 +264,7 @@ class product {
 												and xp.xsell_id = p.products_id "
 												.$fsk_lock
 												.$group_check."
-												and p.products_id = pd.products_id 
+												and p.products_id = pd.products_id
 												and xp.products_xsell_grp_name_id='".$cross_sells['products_xsell_grp_name_id']."'
 												and pd.language_id = ".(int)$_SESSION['languages_id']."
 												and p.products_status = 1
@@ -282,17 +282,15 @@ class product {
 		return $cross_sell_data;
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * get reverse cross sells
-	 * 
+	 *
 	 */
-	 
+
 	 function getReverseCrossSells() {
-	 			global $xtPrice;
-
-
+			global $xtPrice;
 			$fsk_lock = '';
 			if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 				$fsk_lock = ' and p.products_fsk18!=1';
@@ -312,7 +310,7 @@ class product {
 																			 p.products_price,
 																			 p.products_vpe,
 																			 p.products_vpe_status,
-																			 p.products_vpe_value,  
+																			 p.products_vpe_value,
 																			 xp.sort_order
 																			 from ".TABLE_PRODUCTS_XSELL." xp,
 																			 ".TABLE_PRODUCTS." p,
@@ -333,12 +331,12 @@ class product {
 
 		return $cross_sell_data;
 	 }
-	
+
 
 	function getGraduated() {
 		global $xtPrice;
-		
-		$discount = $xtPrice->xtcCheckDiscount($this->pID);	// Hetfield - 2010-03-15 - BUGFIX show VPE with discount for graduated prices	
+
+		$discount = $xtPrice->xtcCheckDiscount($this->pID);	// Hetfield - 2010-03-15 - BUGFIX show VPE with discount for graduated prices
 		$staffel_query = xtDBquery("SELECT
 										quantity,
 										personal_offer
@@ -356,24 +354,26 @@ class product {
 		for ($i = 0, $n = sizeof($staffel); $i < $n; $i ++) {
 			//BOF - web28 - 2010-07-13 - BUGFIX display same quantity only once for graduated prices / FIX max value info for graduated prices
 			/*
-			if ($staffel[$i]['stk'] == 1) {			    
-				$quantity = $staffel[$i]['stk'];				
+			if ($staffel[$i]['stk'] == 1) {
+				$quantity = $staffel[$i]['stk'];
 				if ($staffel[$i +1]['stk'] != '')
 					$quantity = $staffel[$i]['stk'].'-'. ($staffel[$i +1]['stk'] - 1);
-			} else {			    
-				$quantity = ' > '.$staffel[$i]['stk'];				
+			} else {
+				$quantity = ' > '.$staffel[$i]['stk'];
 				if ($staffel[$i +1]['stk'] != '')
 					$quantity = $staffel[$i]['stk'].'-'. ($staffel[$i +1]['stk'] - 1);
 			}
 			*/
-            if ($staffel[$i]['stk'] == 1 || $staffel[$i +1]['stk'] != ''){
+            //if ($staffel[$i]['stk'] == 1 || $staffel[$i +1]['stk'] != ''){
+            if ($staffel[$i]['stk'] == 1 || (array_key_exists($i +1, $staffel) && $staffel[$i +1]['stk'] != '')){ //DokuMan - 2010-10-13 - added array_key_exists()
                 $quantity = $staffel[$i]['stk'];
-                if ($staffel[$i +1]['stk'] != '' && $staffel[$i +1]['stk'] != $staffel[$i]['stk'] + 1)
+                //if ($staffel[$i +1]['stk'] != '' && $staffel[$i +1]['stk'] != $staffel[$i]['stk'] + 1)
+                if (array_key_exists($i + 1, $staffel) && $staffel[$i +1]['stk'] != '' && $staffel[$i +1]['stk'] != $staffel[$i]['stk'] + 1) //DokuMan - 2010-10-13 - added array_key_exists()
                     $quantity .= ' - '. ($staffel[$i +1]['stk'] - 1);
             } else {
                 $quantity = GRADUATED_PRICE_MAX_VALUE.' '.$staffel[$i]['stk'];
             }
-            //EOF - web28 - 2010-07-13 - BUGFIX display same quantity only once for graduated prices	/FIX max value info for graduated prices		
+            //EOF - web28 - 2010-07-13 - BUGFIX display same quantity only once for graduated prices	/FIX max value info for graduated prices
 			$vpe = '';
 			// BOF - Hetfield - 2009-08-24 - BUGFIX show VPE for graduated prices
 			if (isset($this->data) && $this->data['products_vpe_status'] == 1 && $this->data['products_vpe_value'] != 0.0 && $staffel[$i]['price'] > 0) {
@@ -388,14 +388,14 @@ class product {
 	}
 
 	/**
-	 * 
+	 *
 	 * valid flag
-	 * 
+	 *
 	 */
 	function isProduct() {
 		return $this->isProduct;
 	}
-	
+
 	// beta
 	function getBuyNowButton($id, $name) {
 		global $PHP_SELF;
@@ -415,7 +415,7 @@ class product {
 		}
 		return;
 	}
-	
+
 	function buildDataArray(&$array,$image='thumbnail') {
 		global $xtPrice,$main;
 
@@ -434,7 +434,7 @@ class product {
           		$buy_now = $this->getBuyNowButton($array['products_id'], $array['products_name']);
         	}
 		}
-			
+
       //BOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
 			//$shipping_status_name = $main->getShippingStatusName($array['products_shippingtime']);
 			//$shipping_status_image = $main->getShippingStatusImage($array['products_shippingtime']);
@@ -446,18 +446,18 @@ class product {
             $shipping_status_image = '';
         }
       //EOF - DokuMan - 2010-02-26 - Set Undefined index: products_shippingtime
-		
+
 		$productData = array (
-				'PRODUCTS_NAME' => $array['products_name'], 
+				'PRODUCTS_NAME' => $array['products_name'],
 				'COUNT' => isset($array['ID']) ? $array['ID'] : 0,
 				'PRODUCTS_ID'=> $array['products_id'],
 				'PRODUCTS_MODEL'=> isset($array['products_model']) ? $array['products_model'] : '',
-				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']), 
+				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']),
 				'PRODUCTS_IMAGE' => $this->productImage($array['products_image'], $image),
-				'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])), 
-				'PRODUCTS_PRICE' => $products_price['formated'], 
-				'PRODUCTS_TAX_INFO' => $main->getTaxInfo($tax_rate), 
-				'PRODUCTS_SHIPPING_LINK' => $main->getShippingLink(), 
+				'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])),
+				'PRODUCTS_PRICE' => $products_price['formated'],
+				'PRODUCTS_TAX_INFO' => $main->getTaxInfo($tax_rate),
+				'PRODUCTS_SHIPPING_LINK' => $main->getShippingLink(),
 				'PRODUCTS_BUTTON_BUY_NOW' => $buy_now,
 				'PRODUCTS_SHIPPING_NAME'=>$shipping_status_name,
 				'PRODUCTS_SHIPPING_IMAGE'=>$shipping_status_image,
@@ -470,7 +470,7 @@ class product {
 				//BOF - GTB - 2010-08-27 make Button Details global
 				'PRODUCTS_BUTTON_DETAILS' => '<a href="'.xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($array['products_id'], $array['products_name'])).'">'.xtc_image_button('button_product_more.gif', $array['products_name'].TEXT_NOW).'</a>',
 				//EOF - GTB - 2010-08-27 make Button Details global
-				 
+
 				//BOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
 				'PRODUCTS_QUANTITY' => isset($array['products_quantity']) ? $array['products_quantity'] : '',
 				//EOF - Tomcraft - 2010-07-15 - Added PRODUCTS_QUANTITY for further use in template
@@ -478,7 +478,7 @@ class product {
 
         return $productData;
 	}
-	
+
 	function productImage($name, $type) {
 	    switch ($type) {
 			case 'info' :
@@ -513,6 +513,6 @@ class product {
 			//EOF - GTB - 2010-08-03 - Security Fix - Base
 		}
 	}
-	
+
 }
 ?>

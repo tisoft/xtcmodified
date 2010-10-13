@@ -33,8 +33,14 @@ require_once (DIR_FS_INC.'xtc_get_currencies_values.inc.php');
 $error = 0; // reset error flag to false
 $errorno = 0;
 $keyerror = 0;
-
+$_GET['keywords'] = trim($_GET['keywords']); //DokuMan - 2010-10-13
 if (isset ($_GET['keywords']) && empty ($_GET['keywords'])) {
+	$keyerror = 1;
+}
+
+if (isset($_GET['keywords']) && strlen($_GET['keywords']) < 3 && strlen($_GET['keywords']) > 0 && $error == 0) {
+	$errorno += 1;
+	$error = 1;
 	$keyerror = 1;
 }
 
@@ -45,12 +51,7 @@ if ((isset ($_GET['keywords']) && empty ($_GET['keywords'])) && (isset ($_GET['p
 elseif (isset ($_GET['keywords']) && empty ($_GET['keywords']) && !(isset ($_GET['pfrom'])) && !(isset ($_GET['pto']))) {
 	$errorno += 1;
 	$error = 1;
-}
-
-if (isset($_GET['keywords']) && strlen($_GET['keywords']) < 3 && strlen($_GET['keywords']) > 0 && $error == 0) {
-	$errorno += 1;
-	$error = 1;
-	$keyerror = 1;
+    $keyerror = 0; //DokuMan - 2010-10-13
 }
 
 if (isset($_GET['pfrom']) && strlen($_GET['pfrom']) > 0) {
@@ -84,8 +85,7 @@ if (isset($_GET['keywords']) && strlen($_GET['keywords']) > 0) {
 	}
 }
 
-if ($error == 1 && $keyerror != 1) {
-
+if ($error == 1) {
 	xtc_redirect(xtc_href_link(FILENAME_ADVANCED_SEARCH, 'errorno='.$errorno.'&'.xtc_get_all_get_params(array ('x', 'y'))));
 } else {
 	/*
@@ -94,13 +94,12 @@ if ($error == 1 && $keyerror != 1) {
 	$breadcrumb->add(NAVBAR_TITLE1_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH));
 	//BOF - DokuMan - 2010-08-31 - set multiple undefined index
 	//$breadcrumb->add(NAVBAR_TITLE2_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords='.htmlspecialchars(xtc_db_input($_GET['keywords'])) .'&search_in_description='.xtc_db_input($_GET['search_in_description']).'&categories_id='.(int)$_GET['categories_id'].'&inc_subcat='.xtc_db_input($_GET['inc_subcat']).'&manufacturers_id='.(int)$_GET['manufacturers_id'].'&pfrom='.xtc_db_input($_GET['pfrom']).'&pto='.xtc_db_input($_GET['pto']).'&dfrom='.xtc_db_input($_GET['dfrom']).'&dto='.xtc_db_input($_GET['dto'])));
-  $get_params = xtc_get_all_get_params(array('keywords'));
+	$get_params = xtc_get_all_get_params(array('keywords'));
 	$breadcrumb->add(NAVBAR_TITLE2_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords='.rawurlencode(htmlspecialchars(xtc_db_input($_GET['keywords']))).(strlen($get_params) > 0 ? '&' . $get_params : '')));
 	//EOF - DokuMan - 2010-08-31 - set multiple undefined index
 
-	require (DIR_WS_INCLUDES.'header.php');
+  // define additional filters //
 
-	// define additional filters //
   // default values
   $subcat_join = '';
   $subcat_where = '';
@@ -116,15 +115,11 @@ if ($error == 1 && $keyerror != 1) {
 	//fsk18 lock
 	if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 		$fsk_lock = " AND p.products_fsk18 != '1' ";
-	} else {
-		unset ($fsk_lock);
 	}
 
 	//group check
 	if (GROUP_CHECK == 'true') {
 		$group_check = " AND p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-	} else {
-		unset ($group_check);
 	}
 
 	//manufacturers if set
@@ -163,14 +158,10 @@ if ($error == 1 && $keyerror != 1) {
 	//price filters
 	if (($pfrom != '') && (is_numeric($pfrom))) {
 		$pfrom_check = " AND (IF(s.status = 1 AND p.products_id = s.products_id, s.specials_new_products_price, p.products_price) >= ".$pfrom.") ";
-	} else {
-		unset ($pfrom_check);
 	}
 
 	if (($pto != '') && (is_numeric($pto))) {
 		$pto_check = " AND (IF(s.status = 1 AND p.products_id = s.products_id, s.specials_new_products_price, p.products_price) <= ".$pto." ) ";
-	} else {
-		unset ($pto_check);
 	}
 
 	//build query
@@ -197,15 +188,13 @@ if ($error == 1 && $keyerror != 1) {
 	if (SEARCH_IN_ATTR == 'true') { $from_str .= " LEFT OUTER JOIN ".TABLE_PRODUCTS_ATTRIBUTES." AS pa ON (p.products_id = pa.products_id) LEFT OUTER JOIN ".TABLE_PRODUCTS_OPTIONS_VALUES." AS pov ON (pa.options_values_id = pov.products_options_values_id) "; }
 	$from_str .= "LEFT OUTER JOIN ".TABLE_SPECIALS." AS s ON (p.products_id = s.products_id) AND s.status = '1'";
 
-	if ((DISPLAY_PRICE_WITH_TAX == 'true') && ((isset ($_GET['pfrom']) && xtc_not_null($_GET['pfrom'])) || (isset ($_GET['pto']) && xtc_not_null($_GET['pto'])))) {
+	if ((defined('DISPLAY_PRICE_WITH_TAX') && DISPLAY_PRICE_WITH_TAX == 'true') && ((isset ($_GET['pfrom']) && xtc_not_null($_GET['pfrom'])) || (isset ($_GET['pto']) && xtc_not_null($_GET['pto'])))) {
 		if (!isset ($_SESSION['customer_country_id'])) {
 			$_SESSION['customer_country_id'] = STORE_COUNTRY;
 			$_SESSION['customer_zone_id'] = STORE_ZONE;
 		}
 		$from_str .= " LEFT OUTER JOIN ".TABLE_TAX_RATES." tr ON (p.products_tax_class_id = tr.tax_class_id) LEFT OUTER JOIN ".TABLE_ZONES_TO_GEO_ZONES." gz ON (tr.tax_zone_id = gz.geo_zone_id) ";
 		$tax_where = " AND (gz.zone_country_id IS NULL OR gz.zone_country_id = '0' OR gz.zone_country_id = '".(int) $_SESSION['customer_country_id']."') AND (gz.zone_id is null OR gz.zone_id = '0' OR gz.zone_id = '".(int) $_SESSION['customer_zone_id']."')";
-	} else {
-		unset ($tax_where);
 	}
 
 	//where-string
@@ -285,12 +274,14 @@ if ($error == 1 && $keyerror != 1) {
 	}
 
 	//glue together
+    $_GET['keywords'] = urlencode($_GET['keywords']);
 	$listing_sql = $select_str.$from_str.$where_str;
 	require (DIR_WS_MODULES.FILENAME_PRODUCT_LISTING);
+	require (DIR_WS_INCLUDES.'header.php');
 }
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
-if (!defined(RM))
+if (!defined('RM'))
 	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
