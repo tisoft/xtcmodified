@@ -96,7 +96,7 @@ CREATE TABLE campaigns (
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS campaigns_ip;
-CREATE TABLE  campaigns_ip (
+CREATE TABLE campaigns_ip (
   user_ip VARCHAR(15) NOT NULL,
   TIME DATETIME NOT NULL,
   campaign VARCHAR(32) NOT NULL
@@ -120,7 +120,6 @@ CREATE TABLE database_version (
 DROP TABLE IF EXISTS admin_access;
 CREATE TABLE admin_access (
   customers_id VARCHAR(32) NOT NULL DEFAULT '0',
-
   configuration INT(1) NOT NULL DEFAULT 0,
   modules INT(1) NOT NULL DEFAULT 0,
   countries INT(1) NOT NULL DEFAULT 0,
@@ -247,7 +246,7 @@ CREATE TABLE categories (
   categories_id INT NOT NULL AUTO_INCREMENT,
   categories_image VARCHAR(64),
   parent_id INT DEFAULT 0 NOT NULL,
-  categories_status TINYINT (1)  UNSIGNED DEFAULT 1 NOT NULL,
+  categories_status TINYINT (1) UNSIGNED DEFAULT 1 NOT NULL,
   categories_template VARCHAR(64),
   group_permission_0 TINYINT(1) NOT NULL,
   group_permission_1 TINYINT(1) NOT NULL,
@@ -435,7 +434,7 @@ CREATE TABLE customers_status (
   customers_status_add_tax_ot INT(1) NOT NULL DEFAULT 0,
   customers_status_payment_unallowed VARCHAR(255) NOT NULL,
   customers_status_shipping_unallowed VARCHAR(255) NOT NULL,
-  customers_status_discount_attributes  INT(1) NOT NULL DEFAULT 0,
+  customers_status_discount_attributes INT(1) NOT NULL DEFAULT 0,
   customers_fsk18 INT(1) NOT NULL DEFAULT 1,
   customers_fsk18_display INT(1) NOT NULL DEFAULT 1,
   customers_status_write_reviews INT(1) NOT NULL DEFAULT 1,
@@ -473,7 +472,7 @@ CREATE TABLE languages (
 DROP TABLE IF EXISTS manufacturers;
 CREATE TABLE manufacturers (
   manufacturers_id INT NOT NULL AUTO_INCREMENT,
-  manufacturers_name VARCHAR(32) NOT NULL,
+  manufacturers_name VARCHAR(64) NOT NULL,
   manufacturers_image VARCHAR(64),
   date_added DATETIME NULL,
   last_modified DATETIME NULL,
@@ -584,7 +583,7 @@ CREATE TABLE orders (
   cc_start VARCHAR(4) DEFAULT NULL,
   cc_issue VARCHAR(3) DEFAULT NULL,
   cc_cvv VARCHAR(4) DEFAULT NULL,
-  comments VARCHAR(255),
+  comments text,
   last_modified DATETIME,
   date_purchased DATETIME,
   orders_status INT(5) NOT NULL,
@@ -611,7 +610,7 @@ CREATE TABLE card_blacklist (
   blacklist_card_number VARCHAR(20) NOT NULL DEFAULT '',
   date_added DATETIME DEFAULT NULL,
   last_modified DATETIME DEFAULT NULL,
-  KEY blacklist_id (blacklist_id)
+  PRIMARY KEY blacklist_id (blacklist_id)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 # vr - 2010-04-21 add indices idx_orders_id, idx_products_id
@@ -848,7 +847,7 @@ CREATE TABLE products_to_categories (
   products_id INT NOT NULL,
   categories_id INT NOT NULL,
   PRIMARY KEY (products_id,categories_id),
-  KEY idx_categories_id (categories_id)  
+  KEY idx_categories_id (categories_id)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_vpe;
@@ -887,7 +886,6 @@ CREATE TABLE sessions (
   PRIMARY KEY (sesskey)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-
 # BOF - web28 - 2010-07-07 - set shop offline
 DROP TABLE IF EXISTS shop_configuration;
 CREATE TABLE shop_configuration (
@@ -901,7 +899,6 @@ CREATE TABLE shop_configuration (
 INSERT INTO shop_configuration (configuration_id, configuration_key, configuration_value) VALUES(NULL, 'SHOP_OFFLINE', '');
 INSERT INTO shop_configuration (configuration_id, configuration_key, configuration_value) VALUES(NULL, 'SHOP_OFFLINE_MSG', '<p style="text-align: center;"><span style="font-size: large;"><font face="Arial">Unser Shop ist aufgrund von Wartungsarbeiten im Moment nicht erreichbar.<br /></font><font face="Arial">Bitte besuchen Sie uns zu einem sp&auml;teren Zeitpunkt noch einmal.<br /><br /><br /><br /></font></span><font><font><a href="login_admin.php"><font color="#808080">Login</font></a></font></font><span style="font-size: large;"><font face="Arial"><br /></font></span></p>');
 # EOF - web28 - 2010-07-07 - set shop offline
-
 
 DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
@@ -1200,7 +1197,7 @@ INSERT INTO content_manager VALUES (18, 0, 0, '', 2, 'Widerrufsrecht', 'Widerruf
 
 # 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany , 6 - Taiwan , 7 - China
 INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
-INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state  $postcode$cr$country','$city, $state / $country');
+INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country','$city, $state / $country');
 INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$state / $country');
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
@@ -1209,28 +1206,28 @@ INSERT INTO address_format VALUES (6, '$firstname$lastname$cr$country$cr$postcod
 INSERT INTO address_format VALUES (7, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
 # EOF - DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
 
-INSERT  INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1);
-INSERT  INTO admin_access VALUES ( 'groups', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,1,1,1,1,1);
+INSERT INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1);
+INSERT INTO admin_access VALUES ( 'groups', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,1,1,1,1,1);
 
 # configuration_group_id 1
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_NAME', 'xtc:Modified',  1, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_NAME', 'xtc:Modified', 1, 1, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_OWNER', 'xtc:Modified', 1, 2, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_OWNER_EMAIL_ADDRESS', 'owner@your-shop.com', 1, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_FROM', 'xtc:Modified owner@your-shop.com',  1, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_COUNTRY', '81',  1, 6, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_FROM', 'xtc:Modified owner@your-shop.com', 1, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_COUNTRY', '81', 1, 6, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_ZONE', '', 1, 7, NULL, '', 'xtc_cfg_get_zone_name', 'xtc_cfg_pull_down_zone_list(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EXPECTED_PRODUCTS_SORT', 'desc',  1, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'asc\', \'desc\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EXPECTED_PRODUCTS_FIELD', 'date_expected',  1, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'products_name\', \'date_expected\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EXPECTED_PRODUCTS_SORT', 'desc', 1, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'asc\', \'desc\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EXPECTED_PRODUCTS_FIELD', 'date_expected', 1, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'products_name\', \'date_expected\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_DEFAULT_LANGUAGE_CURRENCY', 'false', 1, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_ENGINE_FRIENDLY_URLS', 'false',  16, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DISPLAY_CART', 'true',  1, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_ENGINE_FRIENDLY_URLS', 'false', 16, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DISPLAY_CART', 'true', 1, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and', 1, 15, NULL, '', NULL, 'xtc_cfg_select_option(array(\'and\', \'or\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_NAME_ADDRESS', 'Store Name\nAddress\nCountry\nPhone',  1, 16, NULL, '', NULL, 'xtc_cfg_textarea(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHOW_COUNTS', 'false',  1, 17, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CUSTOMERS_STATUS_ID_ADMIN', '0',  1, 20, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CUSTOMERS_STATUS_ID_GUEST', '1',  1, 21, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CUSTOMERS_STATUS_ID', '2',  1, 23, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ALLOW_ADD_TO_CART', 'false',  1, 24, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_NAME_ADDRESS', 'Store Name\nAddress\nCountry\nPhone', 1, 16, NULL, '', NULL, 'xtc_cfg_textarea(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHOW_COUNTS', 'false', 1, 17, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CUSTOMERS_STATUS_ID_ADMIN', '0', 1, 20, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CUSTOMERS_STATUS_ID_GUEST', '1', 1, 21, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CUSTOMERS_STATUS_ID', '2', 1, 23, NULL, '', 'xtc_get_customers_status_name', 'xtc_cfg_pull_down_customers_status_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ALLOW_ADD_TO_CART', 'false', 1, 24, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CURRENT_TEMPLATE', 'xtc5', 1, 26, NULL, '', NULL, 'xtc_cfg_pull_down_template_sets(');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRICE_IS_BRUTTO', 'false', 1, 27, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRICE_PRECISION', '4', 1, 28, NULL, '', NULL, NULL);
@@ -1247,44 +1244,44 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 # EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 
 # configuration_group_id 2
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_FIRST_NAME_MIN_LENGTH', '2',  2, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_LAST_NAME_MIN_LENGTH', '2',  2, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_DOB_MIN_LENGTH', '10',  2, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_EMAIL_ADDRESS_MIN_LENGTH', '6',  2, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_STREET_ADDRESS_MIN_LENGTH', '5',  2, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_COMPANY_MIN_LENGTH', '2',  2, 6, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_POSTCODE_MIN_LENGTH', '4',  2, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_CITY_MIN_LENGTH', '3',  2, 8, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_FIRST_NAME_MIN_LENGTH', '2', 2, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_LAST_NAME_MIN_LENGTH', '2', 2, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_DOB_MIN_LENGTH', '10', 2, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_EMAIL_ADDRESS_MIN_LENGTH', '6', 2, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_STREET_ADDRESS_MIN_LENGTH', '5', 2, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_COMPANY_MIN_LENGTH', '2', 2, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_POSTCODE_MIN_LENGTH', '4', 2, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_CITY_MIN_LENGTH', '3', 2, 8, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_STATE_MIN_LENGTH', '2', 2, 9, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_TELEPHONE_MIN_LENGTH', '3',  2, 10, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_PASSWORD_MIN_LENGTH', '5',  2, 11, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CC_OWNER_MIN_LENGTH', '3',  2, 12, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CC_NUMBER_MIN_LENGTH', '10',  2, 13, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'REVIEW_TEXT_MIN_LENGTH', '50',  2, 14, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MIN_DISPLAY_BESTSELLERS', '1',  2, 15, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_TELEPHONE_MIN_LENGTH', '3', 2, 10, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_PASSWORD_MIN_LENGTH', '5', 2, 11, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CC_OWNER_MIN_LENGTH', '3', 2, 12, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CC_NUMBER_MIN_LENGTH', '10', 2, 13, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'REVIEW_TEXT_MIN_LENGTH', '50', 2, 14, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MIN_DISPLAY_BESTSELLERS', '1', 2, 15, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MIN_DISPLAY_ALSO_PURCHASED', '1', 2, 16, NULL, '', NULL, NULL);
 
 # configuration_group_id 3
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_ADDRESS_BOOK_ENTRIES', '5',  3, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_SEARCH_RESULTS', '20',  3, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_PAGE_LINKS', '5',  3, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_ADDRESS_BOOK_ENTRIES', '5', 3, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_SEARCH_RESULTS', '20', 3, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_PAGE_LINKS', '5', 3, 3, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_SPECIAL_PRODUCTS', '9', 3, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_NEW_PRODUCTS', '9',  3, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_UPCOMING_PRODUCTS', '10',  3, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_NEW_PRODUCTS', '9', 3, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_UPCOMING_PRODUCTS', '10', 3, 6, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_MANUFACTURERS_IN_A_LIST', '0', 3, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_MANUFACTURERS_LIST', '1',  3, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_MANUFACTURER_NAME_LEN', '15',  3, 8, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_MANUFACTURERS_LIST', '1', 3, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_MANUFACTURER_NAME_LEN', '15', 3, 8, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_NEW_REVIEWS', '6', 3, 9, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_RANDOM_SELECT_REVIEWS', '10',  3, 10, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_RANDOM_SELECT_NEW', '10',  3, 11, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_RANDOM_SELECT_SPECIALS', '10',  3, 12, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_CATEGORIES_PER_ROW', '3',  3, 13, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_PRODUCTS_NEW', '10',  3, 14, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_BESTSELLERS', '10',  3, 15, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_ALSO_PURCHASED', '6',  3, 16, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX', '6',  3, 17, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_ORDER_HISTORY', '10',  3, 18, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_REVIEWS_VIEW', '5',  3, 19, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_RANDOM_SELECT_REVIEWS', '10', 3, 10, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_RANDOM_SELECT_NEW', '10', 3, 11, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_RANDOM_SELECT_SPECIALS', '10', 3, 12, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_CATEGORIES_PER_ROW', '3', 3, 13, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_PRODUCTS_NEW', '10', 3, 14, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_BESTSELLERS', '10', 3, 15, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_ALSO_PURCHASED', '6', 3, 16, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX', '6', 3, 17, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_ORDER_HISTORY', '10', 3, 18, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_REVIEWS_VIEW', '5', 3, 19, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_PRODUCTS_QTY', '1000', 3, 21, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MAX_DISPLAY_NEW_PRODUCTS_DAYS', '30', 3, 22, NULL, '', NULL, NULL);
 
@@ -1325,47 +1322,47 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'IMAGE_MANIPULATOR', 'image_manipulator_GD2.php', '4', '3', '', '0000-00-00 00:00:00', NULL , 'xtc_cfg_select_option(array(\'image_manipulator_GD2.php\', \'image_manipulator_GD1.php\'),');
 
 # configuration_group_id 5
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_GENDER', 'true',  5, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_DOB', 'true',  5, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_COMPANY', 'true',  5, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_GENDER', 'true', 5, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_DOB', 'true', 5, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_COMPANY', 'true', 5, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_SUBURB', 'true', 5, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_STATE', 'true',  5, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_OPTIONS', 'account',  5, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'account\', \'guest\', \'both\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DELETE_GUEST_ACCOUNT', 'true',  5, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_STATE', 'true', 5, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACCOUNT_OPTIONS', 'account', 5, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'account\', \'guest\', \'both\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DELETE_GUEST_ACCOUNT', 'true', 5, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 # configuration_group_id 6
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_PAYMENT_INSTALLED', '', 6, 0, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_INSTALLED', 'ot_subtotal.php;ot_shipping.php;ot_tax.php;ot_total.php', 6, 0, '2003-07-18 03:31:55', '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_SHIPPING_INSTALLED', '',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CURRENCY', 'EUR',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_LANGUAGE', 'de',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_ORDERS_STATUS_ID', '1',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_PRODUCTS_VPE_ID', '',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_SHIPPING_STATUS_ID', '1',  6, 0, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', '30',  6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_SHIPPING_INSTALLED', '', 6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_CURRENCY', 'EUR', 6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_LANGUAGE', 'de', 6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_ORDERS_STATUS_ID', '1', 6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_PRODUCTS_VPE_ID', '', 6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DEFAULT_SHIPPING_STATUS_ID', '1', 6, 0, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'true', 6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', '30', 6, 2, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING', 'false', 6, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', '50',  6, 4, NULL, '', 'currencies->format', NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', '50', 6, 4, NULL, '', 'currencies->format', NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION', 'national', 6, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'national\', \'international\', \'both\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER', '10',  6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TAX_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', '50',  6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TOTAL_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '99',  6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_DISCOUNT_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_STATUS', 'true', 6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER', '10', 6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TAX_STATUS', 'true', 6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', '50', 6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TOTAL_STATUS', 'true', 6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '99', 6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_DISCOUNT_STATUS', 'true', 6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_DISCOUNT_SORT_ORDER', '20', 6, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_STATUS', 'true',  6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_SORT_ORDER','40',  6, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_STATUS', 'true', 6, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'MODULE_ORDER_TOTAL_SUBTOTAL_NO_TAX_SORT_ORDER','40', 6, 2, NULL, '', NULL, NULL);
 
 # configuration_group_id 7
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_ORIGIN_COUNTRY', '81',  7, 1, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_ORIGIN_ZIP', '',  7, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_MAX_WEIGHT', '50',  7, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_BOX_WEIGHT', '3',  7, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_BOX_PADDING', '10',  7, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHOW_SHIPPING', 'true',  7, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_INFOS', '1',  7, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_ORIGIN_COUNTRY', '81', 7, 1, NULL, '', 'xtc_get_country_name', 'xtc_cfg_pull_down_country_list(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_ORIGIN_ZIP', '', 7, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_MAX_WEIGHT', '50', 7, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_BOX_WEIGHT', '3', 7, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_BOX_PADDING', '10', 7, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHOW_SHIPPING', 'true', 7, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHIPPING_INFOS', '1', 7, 5, NULL, '', NULL, NULL);
 
 # configuration_group_id 8
 # BOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
@@ -1374,30 +1371,30 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 # EOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
 
 # configuration_group_id 9
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_CHECK', 'true',  9, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ATTRIBUTE_STOCK_CHECK', 'true',  9, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_CHECK', 'true', 9, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ATTRIBUTE_STOCK_CHECK', 'true', 9, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_LIMITED', 'true', 9, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_ALLOW_CHECKOUT', 'true',  9, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_MARK_PRODUCT_OUT_OF_STOCK', '<span style="color:red">***</span>',  9, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_REORDER_LEVEL', '5',  9, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_ALLOW_CHECKOUT', 'true', 9, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_MARK_PRODUCT_OUT_OF_STOCK', '<span style="color:red">***</span>', 9, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STOCK_REORDER_LEVEL', '5', 9, 6, NULL, '', NULL, NULL);
 
 # configuration_group_id 10
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_PAGE_PARSE_TIME', 'false',  10, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_PAGE_PARSE_TIME_LOG', 'page_parse_time.log',  10, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_PAGE_PARSE_TIME', 'false', 10, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_PAGE_PARSE_TIME_LOG', 'page_parse_time.log', 10, 2, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S', 10, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DISPLAY_PAGE_PARSE_TIME', 'true',  10, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_DB_TRANSACTIONS', 'false',  10, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DISPLAY_PAGE_PARSE_TIME', 'true', 10, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_DB_TRANSACTIONS', 'false', 10, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 # configuration_group_id 11
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_CACHE', 'false',  11, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DIR_FS_CACHE', 'cache',  11, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CACHE_LIFETIME', '3600',  11, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CACHE_CHECK', 'true',  11, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DB_CACHE', 'false',  11, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DB_CACHE_EXPIRE', '3600',  11, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_CACHE', 'false', 11, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DIR_FS_CACHE', 'cache', 11, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CACHE_LIFETIME', '3600', 11, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CACHE_CHECK', 'true', 11, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DB_CACHE', 'false', 11, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DB_CACHE_EXPIRE', '3600', 11, 6, NULL, '', NULL, NULL);
 
 # configuration_group_id 12
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_TRANSPORT', 'mail',  12, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'sendmail\', \'smtp\', \'mail\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_TRANSPORT', 'mail', 12, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'sendmail\', \'smtp\', \'mail\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SENDMAIL_PATH', '/usr/sbin/sendmail', 12, 2, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SMTP_MAIN_SERVER', 'localhost', 12, 3, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SMTP_Backup_Server', 'localhost', 12, 4, NULL, '', NULL, NULL);
@@ -1405,70 +1402,69 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SMTP_USERNAME', 'Please Enter', 12, 6, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SMTP_PASSWORD', 'Please Enter', 12, 7, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SMTP_AUTH', 'false', 12, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_LINEFEED', 'LF',  12, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'LF\', \'CRLF\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_USE_HTML', 'true',  12, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_EMAIL_ADDRESS_CHECK', 'false',  12, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEND_EMAILS', 'true',  12, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_LINEFEED', 'LF', 12, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'LF\', \'CRLF\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_USE_HTML', 'true', 12, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_EMAIL_ADDRESS_CHECK', 'false', 12, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEND_EMAILS', 'true', 12, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # BOF - Tomcraft - 2009-11-05 - Advanced contact form
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_CONTACT_EMAIL_ADDRESS', 'false', 12, 13, NULL,  NOW( ), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_CONTACT_EMAIL_ADDRESS', 'false', 12, 13, NULL, NOW( ), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # EOF - Tomcraft - 2009-11-05 - Advanced contact form
 
 # Constants for contact_us
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_EMAIL_ADDRESS', 'contact@your-shop.com', 12, 20, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_NAME', 'Mail send by Contact_us Form',  12, 21, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_REPLY_ADDRESS',  '', 12, 22, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_REPLY_ADDRESS_NAME',  '', 12, 23, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_EMAIL_SUBJECT',  '', 12, 24, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_FORWARDING_STRING',  '', 12, 25, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_NAME', 'Mail send by Contact_us Form', 12, 21, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_REPLY_ADDRESS', '', 12, 22, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_REPLY_ADDRESS_NAME', '', 12, 23, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_EMAIL_SUBJECT', '', 12, 24, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CONTACT_US_FORWARDING_STRING', '', 12, 25, NULL, '', NULL, NULL);
 
 # Constants for support system
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_ADDRESS', 'support@your-shop.com', 12, 26, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_NAME', 'Mail send by support systems',  12, 27, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_REPLY_ADDRESS',  '', 12, 28, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_REPLY_ADDRESS_NAME',  '', 12, 29, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_SUBJECT',  '', 12, 30, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_FORWARDING_STRING',  '', 12, 31, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_NAME', 'Mail send by support systems', 12, 27, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_REPLY_ADDRESS', '', 12, 28, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_REPLY_ADDRESS_NAME', '', 12, 29, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_SUBJECT', '', 12, 30, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_SUPPORT_FORWARDING_STRING', '', 12, 31, NULL, '', NULL, NULL);
 
 # Constants for billing system
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_ADDRESS', 'billing@your-shop.com', 12, 32, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_NAME', 'Mail send by billing systems',  12, 33, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_REPLY_ADDRESS',  '', 12, 34, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_REPLY_ADDRESS_NAME',  '', 12, 35, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_SUBJECT',  '', 12, 36, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_FORWARDING_STRING',  '', 12, 37, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_SUBJECT_ORDER',  'Ihre Bestellung {$nr},am {$date}', 12, 38, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_NAME', 'Mail send by billing systems', 12, 33, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_REPLY_ADDRESS', '', 12, 34, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_REPLY_ADDRESS_NAME', '', 12, 35, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_SUBJECT', '', 12, 36, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_FORWARDING_STRING', '', 12, 37, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'EMAIL_BILLING_SUBJECT_ORDER', 'Ihre Bestellung {$nr},am {$date}', 12, 38, NULL, '', NULL, NULL);
 
 # configuration_group_id 13
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_ENABLED', 'false',  13, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_BY_REDIRECT', 'false',  13, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_UNALLOWED_PAYMENT', 'banktransfer,cod,invoice,moneyorder',  13, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_MIN_ORDERS_STATUS', '1',  13, 5, NULL, '', NULL, NULL);
-
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_ENABLED', 'false', 13, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_BY_REDIRECT', 'false', 13, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_UNALLOWED_PAYMENT', 'banktransfer,cod,invoice,moneyorder', 13, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DOWNLOAD_MIN_ORDERS_STATUS', '1', 13, 5, NULL, '', NULL, NULL);
 
 # configuration_group_id 14
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GZIP_COMPRESSION', 'false',  14, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GZIP_LEVEL', '5',  14, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GZIP_COMPRESSION', 'false', 14, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GZIP_LEVEL', '5', 14, 2, NULL, '', NULL, NULL);
 
 # configuration_group_id 15
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_WRITE_DIRECTORY', '/tmp',  15, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_FORCE_COOKIE_USE', 'False',  15, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_CHECK_SSL_SESSION_ID', 'False',  15, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_CHECK_USER_AGENT', 'False',  15, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_CHECK_IP_ADDRESS', 'False',  15, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_RECREATE', 'False',  15, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_WRITE_DIRECTORY', '/tmp', 15, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_FORCE_COOKIE_USE', 'False', 15, 2, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_CHECK_SSL_SESSION_ID', 'False', 15, 3, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_CHECK_USER_AGENT', 'False', 15, 4, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_CHECK_IP_ADDRESS', 'False', 15, 5, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SESSION_RECREATE', 'False', 15, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'True\', \'False\'),');
 
 # configuration_group_id 16
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_MIN_KEYWORD_LENGTH', '6', 16, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_KEYWORDS_NUMBER', '5',  16, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_AUTHOR', '',  16, 4, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_PUBLISHER', '',  16, 5, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_COMPANY', '',  16, 6, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_TOPIC', 'shopping',  16, 7, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_REPLY_TO', 'xx@xx.com',  16, 8, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_REVISIT_AFTER', '5',  16, 9, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_ROBOTS', 'index,follow',  16, 10, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_DESCRIPTION', '',  16, 11, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_KEYWORDS', '',  16, 12, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_KEYWORDS_NUMBER', '5', 16, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_AUTHOR', '', 16, 4, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_PUBLISHER', '', 16, 5, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_COMPANY', '', 16, 6, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_TOPIC', 'shopping', 16, 7, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_REPLY_TO', 'xx@xx.com', 16, 8, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_REVISIT_AFTER', '5', 16, 9, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_ROBOTS', 'index,follow', 16, 10, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_DESCRIPTION', '', 16, 11, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'META_KEYWORDS', '', 16, 12, NULL, '', NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'CHECK_CLIENT_AGENT', 'true',16, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 # configuration_group_id 17
@@ -1480,9 +1476,9 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACTIVATE_SHIPPING_STATUS', 'true', 17, 6, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DISPLAY_CONDITIONS_ON_CHECKOUT', 'true',17, 7, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SHOW_IP_LOG', 'false',17, 8, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GROUP_CHECK', 'false',  17, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACTIVATE_NAVIGATOR', 'false',  17, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'QUICKLINK_ACTIVATED', 'true',  17, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GROUP_CHECK', 'false', 17, 9, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACTIVATE_NAVIGATOR', 'false', 17, 10, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'QUICKLINK_ACTIVATED', 'true', 17, 11, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ACTIVATE_REVERSE_CROSS_SELLING', 'true', 17, 12, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'DISPLAY_REVOCATION_ON_CHECKOUT', 'true', 17, 13, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # BOF - Tomcraft - 2010-06-09 - predefined revocation_id
@@ -1526,17 +1522,17 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 
 #Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
 #configuration_group_id 31, Moneybookers
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '',  31, 1, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PWD','',  31, 2, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','',  31, 3, NULL, '', NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0',  31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0',  31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0',  31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0',  31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '', 31, 1, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PWD','', 31, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_MERCHANTID','', 31, 3, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_TMP_STATUS_ID','0', 31, 4, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0', 31, 5, NULL, '','xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0', 31, 6, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0', 31, 7, NULL, '', 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 
 #configuration econda
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ACTIVE', 'false',  23, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ID','',  23, 2, NULL, '', NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ACTIVE', 'false', 23, 1, NULL, '', NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ID','', 23, 2, NULL, '', NULL, NULL);
 
 INSERT INTO configuration_group VALUES (1,'My Store','General information about my store',1,1);
 INSERT INTO configuration_group VALUES (2,'Minimum Values','The minimum values for functions / data',2,1);
@@ -1545,7 +1541,7 @@ INSERT INTO configuration_group VALUES (4,'Images','Image parameters',4,1);
 INSERT INTO configuration_group VALUES (5,'Customer Details','Customer account configuration',5,1);
 INSERT INTO configuration_group VALUES (6,'Module Options','Hidden from configuration',6,0);
 INSERT INTO configuration_group VALUES (7,'Shipping/Packaging','Shipping options available at my store',7,1);
-INSERT INTO configuration_group VALUES (8,'Product Listing','Product Listing  configuration options',8,1);
+INSERT INTO configuration_group VALUES (8,'Product Listing','Product Listing configuration options',8,1);
 INSERT INTO configuration_group VALUES (9,'Stock','Stock configuration options',9,1);
 INSERT INTO configuration_group VALUES (10,'Logging','Logging configuration options',10,1);
 INSERT INTO configuration_group VALUES (11,'Cache','Caching configuration options',11,1);
@@ -1807,8 +1803,8 @@ INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR',1,1);
 INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB',1,1);
 INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE',1,1);
 # BOF - Tomcraft - 2010-07-02 - Added Serbia & Montenegro
-INSERT INTO countries VALUES (240, 'Serbia','RS','SRB',1,1);
-INSERT INTO countries VALUES (241, 'Montenegro','ME','MNE',1,1);
+INSERT INTO countries VALUES (240,'Serbia','RS','SRB',1,1);
+INSERT INTO countries VALUES (241,'Montenegro','ME','MNE',1,1);
 # EOF - Tomcraft - 2010-07-02 - Added Serbia & Montenegro
 
 INSERT INTO currencies VALUES (1,'Euro','EUR','','EUR',',','.','2','1.0000', now());
@@ -2048,48 +2044,48 @@ INSERT INTO zones VALUES (204,153,'Nelson','Nelson');
 INSERT INTO zones VALUES (205,153,'Marlborough','Marlborough');
 
 #Brazil
-INSERT INTO zones VALUES ('', 30, 'SP', 'São Paulo');
-INSERT INTO zones VALUES ('', 30, 'RJ', 'Rio de Janeiro');
-INSERT INTO zones VALUES ('', 30, 'PE', 'Pernanbuco');
-INSERT INTO zones VALUES ('', 30, 'BA', 'Bahia');
-INSERT INTO zones VALUES ('', 30, 'AM', 'Amazonas');
-INSERT INTO zones VALUES ('', 30, 'MG', 'Minas Gerais');
-INSERT INTO zones VALUES ('', 30, 'ES', 'Espirito Santo');
-INSERT INTO zones VALUES ('', 30, 'RS', 'Rio Grande do Sul');
-INSERT INTO zones VALUES ('', 30, 'PR', 'Paraná');
-INSERT INTO zones VALUES ('', 30, 'SC', 'Santa Catarina');
-INSERT INTO zones VALUES ('', 30, 'RG', 'Rio Grande do Norte');
-INSERT INTO zones VALUES ('', 30, 'MS', 'Mato Grosso do Sul');
-INSERT INTO zones VALUES ('', 30, 'MT', 'Mato Grosso');
-INSERT INTO zones VALUES ('', 30, 'GO', 'Goias');
-INSERT INTO zones VALUES ('', 30, 'TO', 'Tocantins');
-INSERT INTO zones VALUES ('', 30, 'DF', 'Distrito Federal');
-INSERT INTO zones VALUES ('', 30, 'RO', 'Rondonia');
-INSERT INTO zones VALUES ('', 30, 'AC', 'Acre');
-INSERT INTO zones VALUES ('', 30, 'AP', 'Amapa');
-INSERT INTO zones VALUES ('', 30, 'RO', 'Roraima');
-INSERT INTO zones VALUES ('', 30, 'AL', 'Alagoas');
-INSERT INTO zones VALUES ('', 30, 'CE', 'Ceará');
-INSERT INTO zones VALUES ('', 30, 'MA', 'Maranhão');
-INSERT INTO zones VALUES ('', 30, 'PA', 'Pará');
-INSERT INTO zones VALUES ('', 30, 'PB', 'Paraíba');
-INSERT INTO zones VALUES ('', 30, 'PI', 'Piauí');
-INSERT INTO zones VALUES ('', 30, 'SE', 'Sergipe');
+INSERT INTO zones VALUES ('',30,'SP','São Paulo');
+INSERT INTO zones VALUES ('',30,'RJ','Rio de Janeiro');
+INSERT INTO zones VALUES ('',30,'PE','Pernanbuco');
+INSERT INTO zones VALUES ('',30,'BA','Bahia');
+INSERT INTO zones VALUES ('',30,'AM','Amazonas');
+INSERT INTO zones VALUES ('',30,'MG','Minas Gerais');
+INSERT INTO zones VALUES ('',30,'ES','Espirito Santo');
+INSERT INTO zones VALUES ('',30,'RS','Rio Grande do Sul');
+INSERT INTO zones VALUES ('',30,'PR','Paraná');
+INSERT INTO zones VALUES ('',30,'SC','Santa Catarina');
+INSERT INTO zones VALUES ('',30,'RG','Rio Grande do Norte');
+INSERT INTO zones VALUES ('',30,'MS','Mato Grosso do Sul');
+INSERT INTO zones VALUES ('',30,'MT','Mato Grosso');
+INSERT INTO zones VALUES ('',30,'GO','Goias');
+INSERT INTO zones VALUES ('',30,'TO','Tocantins');
+INSERT INTO zones VALUES ('',30,'DF','Distrito Federal');
+INSERT INTO zones VALUES ('',30,'RO','Rondonia');
+INSERT INTO zones VALUES ('',30,'AC','Acre');
+INSERT INTO zones VALUES ('',30,'AP','Amapa');
+INSERT INTO zones VALUES ('',30,'RO','Roraima');
+INSERT INTO zones VALUES ('',30,'AL','Alagoas');
+INSERT INTO zones VALUES ('',30,'CE','Ceará');
+INSERT INTO zones VALUES ('',30,'MA','Maranhão');
+INSERT INTO zones VALUES ('',30,'PA','Pará');
+INSERT INTO zones VALUES ('',30,'PB','Paraíba');
+INSERT INTO zones VALUES ('',30,'PI','Piauí');
+INSERT INTO zones VALUES ('',30,'SE','Sergipe');
 
 #Chile
-INSERT INTO zones VALUES ('', 43, 'I', 'I Región de Tarapacá');
-INSERT INTO zones VALUES ('', 43, 'II', 'II Región de Antofagasta');
-INSERT INTO zones VALUES ('', 43, 'III', 'III Región de Atacama');
-INSERT INTO zones VALUES ('', 43, 'IV', 'IV Región de Coquimbo');
-INSERT INTO zones VALUES ('', 43, 'V', 'V Región de Valaparaíso');
-INSERT INTO zones VALUES ('', 43, 'RM', 'Región Metropolitana');
-INSERT INTO zones VALUES ('', 43, 'VI', 'VI Región de L. B. O´higgins');
-INSERT INTO zones VALUES ('', 43, 'VII', 'VII Región del Maule');
-INSERT INTO zones VALUES ('', 43, 'VIII', 'VIII Región del Bío Bío');
-INSERT INTO zones VALUES ('', 43, 'IX', 'IX Región de la Araucanía');
-INSERT INTO zones VALUES ('', 43, 'X', 'X Región de los Lagos');
-INSERT INTO zones VALUES ('', 43, 'XI', 'XI Región de Aysén');
-INSERT INTO zones VALUES ('', 43, 'XII', 'XII Región de Magallanes');
+INSERT INTO zones VALUES ('',43,'I','I Región de Tarapacá');
+INSERT INTO zones VALUES ('',43,'II','II Región de Antofagasta');
+INSERT INTO zones VALUES ('',43,'III','III Región de Atacama');
+INSERT INTO zones VALUES ('',43,'IV','IV Región de Coquimbo');
+INSERT INTO zones VALUES ('',43,'V','V Región de Valaparaíso');
+INSERT INTO zones VALUES ('',43,'RM','Región Metropolitana');
+INSERT INTO zones VALUES ('',43,'VI','VI Región de L. B. O´higgins');
+INSERT INTO zones VALUES ('',43,'VII','VII Región del Maule');
+INSERT INTO zones VALUES ('',43,'VIII','VIII Región del Bío Bío');
+INSERT INTO zones VALUES ('',43,'IX','IX Región de la Araucanía');
+INSERT INTO zones VALUES ('',43,'X','X Región de los Lagos');
+INSERT INTO zones VALUES ('',43,'XI','XI Región de Aysén');
+INSERT INTO zones VALUES ('',43,'XII','XII Región de Magallanes');
 
 #Columbia
 INSERT INTO zones VALUES ('',47,'AMA','Amazonas');
@@ -2237,41 +2233,41 @@ INSERT INTO zones VALUES ('',73,'987 (TOM)','Polynésie française');
 # EOF - web28 - 2010-07-07 - FIX special character
 
 #India
-INSERT INTO zones VALUES ('', 99, 'DL', 'Delhi');
-INSERT INTO zones VALUES ('', 99, 'MH', 'Maharashtra');
-INSERT INTO zones VALUES ('', 99, 'TN', 'Tamil Nadu');
-INSERT INTO zones VALUES ('', 99, 'KL', 'Kerala');
-INSERT INTO zones VALUES ('', 99, 'AP', 'Andhra Pradesh');
-INSERT INTO zones VALUES ('', 99, 'KA', 'Karnataka');
-INSERT INTO zones VALUES ('', 99, 'GA', 'Goa');
-INSERT INTO zones VALUES ('', 99, 'MP', 'Madhya Pradesh');
-INSERT INTO zones VALUES ('', 99, 'PY', 'Pondicherry');
-INSERT INTO zones VALUES ('', 99, 'GJ', 'Gujarat');
-INSERT INTO zones VALUES ('', 99, 'OR', 'Orrisa');
-INSERT INTO zones VALUES ('', 99, 'CA', 'Chhatisgarh');
-INSERT INTO zones VALUES ('', 99, 'JH', 'Jharkhand');
-INSERT INTO zones VALUES ('', 99, 'BR', 'Bihar');
-INSERT INTO zones VALUES ('', 99, 'WB', 'West Bengal');
-INSERT INTO zones VALUES ('', 99, 'UP', 'Uttar Pradesh');
-INSERT INTO zones VALUES ('', 99, 'RJ', 'Rajasthan');
-INSERT INTO zones VALUES ('', 99, 'PB', 'Punjab');
-INSERT INTO zones VALUES ('', 99, 'HR', 'Haryana');
-INSERT INTO zones VALUES ('', 99, 'CH', 'Chandigarh');
-INSERT INTO zones VALUES ('', 99, 'JK', 'Jammu & Kashmir');
-INSERT INTO zones VALUES ('', 99, 'HP', 'Himachal Pradesh');
-INSERT INTO zones VALUES ('', 99, 'UA', 'Uttaranchal');
-INSERT INTO zones VALUES ('', 99, 'LK', 'Lakshadweep');
-INSERT INTO zones VALUES ('', 99, 'AN', 'Andaman & Nicobar');
-INSERT INTO zones VALUES ('', 99, 'MG', 'Meghalaya');
-INSERT INTO zones VALUES ('', 99, 'AS', 'Assam');
-INSERT INTO zones VALUES ('', 99, 'DR', 'Dadra & Nagar Haveli');
-INSERT INTO zones VALUES ('', 99, 'DN', 'Daman & Diu');
-INSERT INTO zones VALUES ('', 99, 'SK', 'Sikkim');
-INSERT INTO zones VALUES ('', 99, 'TR', 'Tripura');
-INSERT INTO zones VALUES ('', 99, 'MZ', 'Mizoram');
-INSERT INTO zones VALUES ('', 99, 'MN', 'Manipur');
-INSERT INTO zones VALUES ('', 99, 'NL', 'Nagaland');
-INSERT INTO zones VALUES ('', 99, 'AR', 'Arunachal Pradesh');
+INSERT INTO zones VALUES ('',99,'DL','Delhi');
+INSERT INTO zones VALUES ('',99,'MH','Maharashtra');
+INSERT INTO zones VALUES ('',99,'TN','Tamil Nadu');
+INSERT INTO zones VALUES ('',99,'KL','Kerala');
+INSERT INTO zones VALUES ('',99,'AP','Andhra Pradesh');
+INSERT INTO zones VALUES ('',99,'KA','Karnataka');
+INSERT INTO zones VALUES ('',99,'GA','Goa');
+INSERT INTO zones VALUES ('',99,'MP','Madhya Pradesh');
+INSERT INTO zones VALUES ('',99,'PY','Pondicherry');
+INSERT INTO zones VALUES ('',99,'GJ','Gujarat');
+INSERT INTO zones VALUES ('',99,'OR','Orrisa');
+INSERT INTO zones VALUES ('',99,'CA','Chhatisgarh');
+INSERT INTO zones VALUES ('',99,'JH','Jharkhand');
+INSERT INTO zones VALUES ('',99,'BR','Bihar');
+INSERT INTO zones VALUES ('',99,'WB','West Bengal');
+INSERT INTO zones VALUES ('',99,'UP','Uttar Pradesh');
+INSERT INTO zones VALUES ('',99,'RJ','Rajasthan');
+INSERT INTO zones VALUES ('',99,'PB','Punjab');
+INSERT INTO zones VALUES ('',99,'HR','Haryana');
+INSERT INTO zones VALUES ('',99,'CH','Chandigarh');
+INSERT INTO zones VALUES ('',99,'JK','Jammu & Kashmir');
+INSERT INTO zones VALUES ('',99,'HP','Himachal Pradesh');
+INSERT INTO zones VALUES ('',99,'UA','Uttaranchal');
+INSERT INTO zones VALUES ('',99,'LK','Lakshadweep');
+INSERT INTO zones VALUES ('',99,'AN','Andaman & Nicobar');
+INSERT INTO zones VALUES ('',99,'MG','Meghalaya');
+INSERT INTO zones VALUES ('',99,'AS','Assam');
+INSERT INTO zones VALUES ('',99,'DR','Dadra & Nagar Haveli');
+INSERT INTO zones VALUES ('',99,'DN','Daman & Diu');
+INSERT INTO zones VALUES ('',99,'SK','Sikkim');
+INSERT INTO zones VALUES ('',99,'TR','Tripura');
+INSERT INTO zones VALUES ('',99,'MZ','Mizoram');
+INSERT INTO zones VALUES ('',99,'MN','Manipur');
+INSERT INTO zones VALUES ('',99,'NL','Nagaland');
+INSERT INTO zones VALUES ('',99,'AR','Arunachal Pradesh');
 
 #Italy
 INSERT INTO zones VALUES ('',105,'AG','Agrigento');
@@ -2379,38 +2375,38 @@ INSERT INTO zones VALUES ('',105,'VI','Vicenza');
 INSERT INTO zones VALUES ('',105,'VT','Viterbo');
 
 #Japan
-INSERT INTO zones VALUES ('', 107, 'Niigata', 'Niigata');
-INSERT INTO zones VALUES ('', 107, 'Toyama', 'Toyama');
-INSERT INTO zones VALUES ('', 107, 'Ishikawa', 'Ishikawa');
-INSERT INTO zones VALUES ('', 107, 'Fukui', 'Fukui');
-INSERT INTO zones VALUES ('', 107, 'Yamanashi', 'Yamanashi');
-INSERT INTO zones VALUES ('', 107, 'Nagano', 'Nagano');
-INSERT INTO zones VALUES ('', 107, 'Gifu', 'Gifu');
-INSERT INTO zones VALUES ('', 107, 'Shizuoka', 'Shizuoka');
-INSERT INTO zones VALUES ('', 107, 'Aichi', 'Aichi');
-INSERT INTO zones VALUES ('', 107, 'Mie', 'Mie');
-INSERT INTO zones VALUES ('', 107, 'Shiga', 'Shiga');
-INSERT INTO zones VALUES ('', 107, 'Kyoto', 'Kyoto');
-INSERT INTO zones VALUES ('', 107, 'Osaka', 'Osaka');
-INSERT INTO zones VALUES ('', 107, 'Hyogo', 'Hyogo');
-INSERT INTO zones VALUES ('', 107, 'Nara', 'Nara');
-INSERT INTO zones VALUES ('', 107, 'Wakayama', 'Wakayama');
-INSERT INTO zones VALUES ('', 107, 'Tottori', 'Tottori');
-INSERT INTO zones VALUES ('', 107, 'Shimane', 'Shimane');
-INSERT INTO zones VALUES ('', 107, 'Okayama', 'Okayama');
-INSERT INTO zones VALUES ('', 107, 'Hiroshima', 'Hiroshima');
-INSERT INTO zones VALUES ('', 107, 'Yamaguchi', 'Yamaguchi');
-INSERT INTO zones VALUES ('', 107, 'Tokushima', 'Tokushima');
-INSERT INTO zones VALUES ('', 107, 'Kagawa', 'Kagawa');
-INSERT INTO zones VALUES ('', 107, 'Ehime', 'Ehime');
-INSERT INTO zones VALUES ('', 107, 'Kochi', 'Kochi');
-INSERT INTO zones VALUES ('', 107, 'Fukuoka', 'Fukuoka');
-INSERT INTO zones VALUES ('', 107, 'Saga', 'Saga');
-INSERT INTO zones VALUES ('', 107, 'Nagasaki', 'Nagasaki');
-INSERT INTO zones VALUES ('', 107, 'Kumamoto', 'Kumamoto');
-INSERT INTO zones VALUES ('', 107, 'Oita', 'Oita');
-INSERT INTO zones VALUES ('', 107, 'Miyazaki', 'Miyazaki');
-INSERT INTO zones VALUES ('', 107, 'Kagoshima', 'Kagoshima');
+INSERT INTO zones VALUES ('',107,'Niigata', 'Niigata');
+INSERT INTO zones VALUES ('',107,'Toyama', 'Toyama');
+INSERT INTO zones VALUES ('',107,'Ishikawa', 'Ishikawa');
+INSERT INTO zones VALUES ('',107,'Fukui', 'Fukui');
+INSERT INTO zones VALUES ('',107,'Yamanashi', 'Yamanashi');
+INSERT INTO zones VALUES ('',107,'Nagano', 'Nagano');
+INSERT INTO zones VALUES ('',107,'Gifu', 'Gifu');
+INSERT INTO zones VALUES ('',107,'Shizuoka', 'Shizuoka');
+INSERT INTO zones VALUES ('',107,'Aichi', 'Aichi');
+INSERT INTO zones VALUES ('',107,'Mie', 'Mie');
+INSERT INTO zones VALUES ('',107,'Shiga', 'Shiga');
+INSERT INTO zones VALUES ('',107,'Kyoto', 'Kyoto');
+INSERT INTO zones VALUES ('',107,'Osaka', 'Osaka');
+INSERT INTO zones VALUES ('',107,'Hyogo', 'Hyogo');
+INSERT INTO zones VALUES ('',107,'Nara', 'Nara');
+INSERT INTO zones VALUES ('',107,'Wakayama', 'Wakayama');
+INSERT INTO zones VALUES ('',107,'Tottori', 'Tottori');
+INSERT INTO zones VALUES ('',107,'Shimane', 'Shimane');
+INSERT INTO zones VALUES ('',107,'Okayama', 'Okayama');
+INSERT INTO zones VALUES ('',107,'Hiroshima', 'Hiroshima');
+INSERT INTO zones VALUES ('',107,'Yamaguchi', 'Yamaguchi');
+INSERT INTO zones VALUES ('',107,'Tokushima', 'Tokushima');
+INSERT INTO zones VALUES ('',107,'Kagawa', 'Kagawa');
+INSERT INTO zones VALUES ('',107,'Ehime', 'Ehime');
+INSERT INTO zones VALUES ('',107,'Kochi', 'Kochi');
+INSERT INTO zones VALUES ('',107,'Fukuoka', 'Fukuoka');
+INSERT INTO zones VALUES ('',107,'Saga', 'Saga');
+INSERT INTO zones VALUES ('',107,'Nagasaki', 'Nagasaki');
+INSERT INTO zones VALUES ('',107,'Kumamoto', 'Kumamoto');
+INSERT INTO zones VALUES ('',107,'Oita', 'Oita');
+INSERT INTO zones VALUES ('',107,'Miyazaki', 'Miyazaki');
+INSERT INTO zones VALUES ('',107,'Kagoshima', 'Kagoshima');
 
 #Malaysia
 INSERT INTO zones VALUES ('',129,'JOH','Johor');
@@ -2430,38 +2426,38 @@ INSERT INTO zones VALUES ('',129,'TER','Terengganu');
 INSERT INTO zones VALUES ('',129,'LAB','W.P.Labuan');
 
 #Mexico
-INSERT INTO zones VALUES ('', 138, 'AGS', 'Aguascalientes');
-INSERT INTO zones VALUES ('', 138, 'BC', 'Baja California');
-INSERT INTO zones VALUES ('', 138, 'BCS', 'Baja California Sur');
-INSERT INTO zones VALUES ('', 138, 'CAM', 'Campeche');
-INSERT INTO zones VALUES ('', 138, 'COA', 'Coahuila');
-INSERT INTO zones VALUES ('', 138, 'COL', 'Colima');
-INSERT INTO zones VALUES ('', 138, 'CHI', 'Chiapas');
-INSERT INTO zones VALUES ('', 138, 'CHIH', 'Chihuahua');
-INSERT INTO zones VALUES ('', 138, 'DF', 'Distrito Federal');
-INSERT INTO zones VALUES ('', 138, 'DGO', 'Durango');
-INSERT INTO zones VALUES ('', 138, 'MEX', 'Estado de Mexico');
-INSERT INTO zones VALUES ('', 138, 'GTO', 'Guanajuato');
-INSERT INTO zones VALUES ('', 138, 'GRO', 'Guerrero');
-INSERT INTO zones VALUES ('', 138, 'HGO', 'Hidalgo');
-INSERT INTO zones VALUES ('', 138, 'JAL', 'Jalisco');
-INSERT INTO zones VALUES ('', 138, 'MCH', 'Michoacan');
-INSERT INTO zones VALUES ('', 138, 'MOR', 'Morelos');
-INSERT INTO zones VALUES ('', 138, 'NAY', 'Nayarit');
-INSERT INTO zones VALUES ('', 138, 'NL', 'Nuevo Leon');
-INSERT INTO zones VALUES ('', 138, 'OAX', 'Oaxaca');
-INSERT INTO zones VALUES ('', 138, 'PUE', 'Puebla');
-INSERT INTO zones VALUES ('', 138, 'QRO', 'Queretaro');
-INSERT INTO zones VALUES ('', 138, 'QR', 'Quintana Roo');
-INSERT INTO zones VALUES ('', 138, 'SLP', 'San Luis Potosi');
-INSERT INTO zones VALUES ('', 138, 'SIN', 'Sinaloa');
-INSERT INTO zones VALUES ('', 138, 'SON', 'Sonora');
-INSERT INTO zones VALUES ('', 138, 'TAB', 'Tabasco');
-INSERT INTO zones VALUES ('', 138, 'TMPS', 'Tamaulipas');
-INSERT INTO zones VALUES ('', 138, 'TLAX', 'Tlaxcala');
-INSERT INTO zones VALUES ('', 138, 'VER', 'Veracruz');
-INSERT INTO zones VALUES ('', 138, 'YUC', 'Yucatan');
-INSERT INTO zones VALUES ('', 138, 'ZAC', 'Zacatecas');
+INSERT INTO zones VALUES ('',138,'AGS','Aguascalientes');
+INSERT INTO zones VALUES ('',138,'BC','Baja California');
+INSERT INTO zones VALUES ('',138,'BCS','Baja California Sur');
+INSERT INTO zones VALUES ('',138,'CAM','Campeche');
+INSERT INTO zones VALUES ('',138,'COA','Coahuila');
+INSERT INTO zones VALUES ('',138,'COL','Colima');
+INSERT INTO zones VALUES ('',138,'CHI','Chiapas');
+INSERT INTO zones VALUES ('',138,'CHIH','Chihuahua');
+INSERT INTO zones VALUES ('',138,'DF','Distrito Federal');
+INSERT INTO zones VALUES ('',138,'DGO','Durango');
+INSERT INTO zones VALUES ('',138,'MEX','Estado de Mexico');
+INSERT INTO zones VALUES ('',138,'GTO','Guanajuato');
+INSERT INTO zones VALUES ('',138,'GRO','Guerrero');
+INSERT INTO zones VALUES ('',138,'HGO','Hidalgo');
+INSERT INTO zones VALUES ('',138,'JAL','Jalisco');
+INSERT INTO zones VALUES ('',138,'MCH','Michoacan');
+INSERT INTO zones VALUES ('',138,'MOR','Morelos');
+INSERT INTO zones VALUES ('',138,'NAY','Nayarit');
+INSERT INTO zones VALUES ('',138,'NL','Nuevo Leon');
+INSERT INTO zones VALUES ('',138,'OAX','Oaxaca');
+INSERT INTO zones VALUES ('',138,'PUE','Puebla');
+INSERT INTO zones VALUES ('',138,'QRO','Queretaro');
+INSERT INTO zones VALUES ('',138,'QR','Quintana Roo');
+INSERT INTO zones VALUES ('',138,'SLP','San Luis Potosi');
+INSERT INTO zones VALUES ('',138,'SIN','Sinaloa');
+INSERT INTO zones VALUES ('',138,'SON','Sonora');
+INSERT INTO zones VALUES ('',138,'TAB','Tabasco');
+INSERT INTO zones VALUES ('',138,'TMPS','Tamaulipas');
+INSERT INTO zones VALUES ('',138,'TLAX','Tlaxcala');
+INSERT INTO zones VALUES ('',138,'VER','Veracruz');
+INSERT INTO zones VALUES ('',138,'YUC','Yucatan');
+INSERT INTO zones VALUES ('',138,'ZAC','Zacatecas');
 
 #Norway
 INSERT INTO zones VALUES ('',160,'OSL','Oslo');
@@ -2485,180 +2481,180 @@ INSERT INTO zones VALUES ('',160,'OST','Østfold');
 INSERT INTO zones VALUES ('',160,'SVA','Svalbard');
 
 #Pakistan
-INSERT INTO zones VALUES ('', 99, 'KHI', 'Karachi');
-INSERT INTO zones VALUES ('', 99, 'LH', 'Lahore');
-INSERT INTO zones VALUES ('', 99, 'ISB', 'Islamabad');
-INSERT INTO zones VALUES ('', 99, 'QUE', 'Quetta');
-INSERT INTO zones VALUES ('', 99, 'PSH', 'Peshawar');
-INSERT INTO zones VALUES ('', 99, 'GUJ', 'Gujrat');
-INSERT INTO zones VALUES ('', 99, 'SAH', 'Sahiwal');
-INSERT INTO zones VALUES ('', 99, 'FSB', 'Faisalabad');
-INSERT INTO zones VALUES ('', 99, 'RIP', 'Rawal Pindi');
+INSERT INTO zones VALUES ('',99,'KHI','Karachi');
+INSERT INTO zones VALUES ('',99,'LH','Lahore');
+INSERT INTO zones VALUES ('',99,'ISB','Islamabad');
+INSERT INTO zones VALUES ('',99,'QUE','Quetta');
+INSERT INTO zones VALUES ('',99,'PSH','Peshawar');
+INSERT INTO zones VALUES ('',99,'GUJ','Gujrat');
+INSERT INTO zones VALUES ('',99,'SAH','Sahiwal');
+INSERT INTO zones VALUES ('',99,'FSB','Faisalabad');
+INSERT INTO zones VALUES ('',99,'RIP','Rawal Pindi');
 
 #Romania
-INSERT INTO zones VALUES ('', 175,'AB','Alba');
-INSERT INTO zones VALUES ('', 175,'AR','Arad');
-INSERT INTO zones VALUES ('', 175,'AG','Arges');
-INSERT INTO zones VALUES ('', 175,'BC','Bacau');
-INSERT INTO zones VALUES ('', 175,'BH','Bihor');
-INSERT INTO zones VALUES ('', 175,'BN','Bistrita-Nasaud');
-INSERT INTO zones VALUES ('', 175,'BT','Botosani');
-INSERT INTO zones VALUES ('', 175,'BV','Brasov');
-INSERT INTO zones VALUES ('', 175,'BR','Braila');
-INSERT INTO zones VALUES ('', 175,'B','Bucuresti');
-INSERT INTO zones VALUES ('', 175,'BZ','Buzau');
-INSERT INTO zones VALUES ('', 175,'CS','Caras-Severin');
-INSERT INTO zones VALUES ('', 175,'CL','Calarasi');
-INSERT INTO zones VALUES ('', 175,'CJ','Cluj');
-INSERT INTO zones VALUES ('', 175,'CT','Constanta');
-INSERT INTO zones VALUES ('', 175,'CV','Covasna');
-INSERT INTO zones VALUES ('', 175,'DB','Dimbovita');
-INSERT INTO zones VALUES ('', 175,'DJ','Dolj');
-INSERT INTO zones VALUES ('', 175,'GL','Galati');
-INSERT INTO zones VALUES ('', 175,'GR','Giurgiu');
-INSERT INTO zones VALUES ('', 175,'GJ','Gorj');
-INSERT INTO zones VALUES ('', 175,'HR','Harghita');
-INSERT INTO zones VALUES ('', 175,'HD','Hunedoara');
-INSERT INTO zones VALUES ('', 175,'IL','Ialomita');
-INSERT INTO zones VALUES ('', 175,'IS','Iasi');
-INSERT INTO zones VALUES ('', 175,'IF','Ilfov');
-INSERT INTO zones VALUES ('', 175,'MM','Maramures');
-INSERT INTO zones VALUES ('', 175,'MH','Mehedint');
-INSERT INTO zones VALUES ('', 175,'MS','Mures');
-INSERT INTO zones VALUES ('', 175,'NT','Neamt');
-INSERT INTO zones VALUES ('', 175,'OT','Olt');
-INSERT INTO zones VALUES ('', 175,'PH','Prahova');
-INSERT INTO zones VALUES ('', 175,'SM','Satu-Mare');
-INSERT INTO zones VALUES ('', 175,'SJ','Salaj');
-INSERT INTO zones VALUES ('', 175,'SB','Sibiu');
-INSERT INTO zones VALUES ('', 175,'SV','Suceava');
-INSERT INTO zones VALUES ('', 175,'TR','Teleorman');
-INSERT INTO zones VALUES ('', 175,'TM','Timis');
-INSERT INTO zones VALUES ('', 175,'TL','Tulcea');
-INSERT INTO zones VALUES ('', 175,'VS','Vaslui');
-INSERT INTO zones VALUES ('', 175,'VL','Valcea');
-INSERT INTO zones VALUES ('', 175,'VN','Vrancea');
+INSERT INTO zones VALUES ('',175,'AB','Alba');
+INSERT INTO zones VALUES ('',175,'AR','Arad');
+INSERT INTO zones VALUES ('',175,'AG','Arges');
+INSERT INTO zones VALUES ('',175,'BC','Bacau');
+INSERT INTO zones VALUES ('',175,'BH','Bihor');
+INSERT INTO zones VALUES ('',175,'BN','Bistrita-Nasaud');
+INSERT INTO zones VALUES ('',175,'BT','Botosani');
+INSERT INTO zones VALUES ('',175,'BV','Brasov');
+INSERT INTO zones VALUES ('',175,'BR','Braila');
+INSERT INTO zones VALUES ('',175,'B','Bucuresti');
+INSERT INTO zones VALUES ('',175,'BZ','Buzau');
+INSERT INTO zones VALUES ('',175,'CS','Caras-Severin');
+INSERT INTO zones VALUES ('',175,'CL','Calarasi');
+INSERT INTO zones VALUES ('',175,'CJ','Cluj');
+INSERT INTO zones VALUES ('',175,'CT','Constanta');
+INSERT INTO zones VALUES ('',175,'CV','Covasna');
+INSERT INTO zones VALUES ('',175,'DB','Dimbovita');
+INSERT INTO zones VALUES ('',175,'DJ','Dolj');
+INSERT INTO zones VALUES ('',175,'GL','Galati');
+INSERT INTO zones VALUES ('',175,'GR','Giurgiu');
+INSERT INTO zones VALUES ('',175,'GJ','Gorj');
+INSERT INTO zones VALUES ('',175,'HR','Harghita');
+INSERT INTO zones VALUES ('',175,'HD','Hunedoara');
+INSERT INTO zones VALUES ('',175,'IL','Ialomita');
+INSERT INTO zones VALUES ('',175,'IS','Iasi');
+INSERT INTO zones VALUES ('',175,'IF','Ilfov');
+INSERT INTO zones VALUES ('',175,'MM','Maramures');
+INSERT INTO zones VALUES ('',175,'MH','Mehedint');
+INSERT INTO zones VALUES ('',175,'MS','Mures');
+INSERT INTO zones VALUES ('',175,'NT','Neamt');
+INSERT INTO zones VALUES ('',175,'OT','Olt');
+INSERT INTO zones VALUES ('',175,'PH','Prahova');
+INSERT INTO zones VALUES ('',175,'SM','Satu-Mare');
+INSERT INTO zones VALUES ('',175,'SJ','Salaj');
+INSERT INTO zones VALUES ('',175,'SB','Sibiu');
+INSERT INTO zones VALUES ('',175,'SV','Suceava');
+INSERT INTO zones VALUES ('',175,'TR','Teleorman');
+INSERT INTO zones VALUES ('',175,'TM','Timis');
+INSERT INTO zones VALUES ('',175,'TL','Tulcea');
+INSERT INTO zones VALUES ('',175,'VS','Vaslui');
+INSERT INTO zones VALUES ('',175,'VL','Valcea');
+INSERT INTO zones VALUES ('',175,'VN','Vrancea');
 
 #South Africa
-INSERT INTO zones VALUES ('', 193, 'WP', 'Western Cape');
-INSERT INTO zones VALUES ('', 193, 'GP', 'Gauteng');
-INSERT INTO zones VALUES ('', 193, 'KZN', 'Kwazulu-Natal');
-INSERT INTO zones VALUES ('', 193, 'NC', 'Northern-Cape');
-INSERT INTO zones VALUES ('', 193, 'EC', 'Eastern-Cape');
-INSERT INTO zones VALUES ('', 193, 'MP', 'Mpumalanga');
-INSERT INTO zones VALUES ('', 193, 'NW', 'North-West');
-INSERT INTO zones VALUES ('', 193, 'FS', 'Free State');
-INSERT INTO zones VALUES ('', 193, 'NP', 'Northern Province');
+INSERT INTO zones VALUES ('',193,'WP','Western Cape');
+INSERT INTO zones VALUES ('',193,'GP','Gauteng');
+INSERT INTO zones VALUES ('',193,'KZN','Kwazulu-Natal');
+INSERT INTO zones VALUES ('',193,'NC','Northern-Cape');
+INSERT INTO zones VALUES ('',193,'EC','Eastern-Cape');
+INSERT INTO zones VALUES ('',193,'MP','Mpumalanga');
+INSERT INTO zones VALUES ('',193,'NW','North-West');
+INSERT INTO zones VALUES ('',193,'FS','Free State');
+INSERT INTO zones VALUES ('',193,'NP','Northern Province');
 
 #Turkey
-INSERT INTO zones VALUES ('', 215, 'ADANA','ADANA');
-INSERT INTO zones VALUES ('', 215, 'ADIYAMAN','ADIYAMAN');
-INSERT INTO zones VALUES ('', 215, 'AFYON','AFYON');
-INSERT INTO zones VALUES ('', 215, 'AGRI','AGRI');
-INSERT INTO zones VALUES ('', 215, 'AMASYA','AMASYA');
-INSERT INTO zones VALUES ('', 215, 'ANKARA','ANKARA');
-INSERT INTO zones VALUES ('', 215, 'ANTALYA','ANTALYA');
-INSERT INTO zones VALUES ('', 215, 'ARTVIN','ARTVIN');
-INSERT INTO zones VALUES ('', 215, 'AYDIN','AYDIN');
-INSERT INTO zones VALUES ('', 215, 'BALIKESIR','BALIKESIR');
-INSERT INTO zones VALUES ('', 215, 'BILECIK','BILECIK');
-INSERT INTO zones VALUES ('', 215, 'BINGÖL','BINGÖL');
-INSERT INTO zones VALUES ('', 215, 'BITLIS','BITLIS');
-INSERT INTO zones VALUES ('', 215, 'BOLU','BOLU');
-INSERT INTO zones VALUES ('', 215, 'BURDUR','BURDUR');
-INSERT INTO zones VALUES ('', 215, 'BURSA','BURSA');
-INSERT INTO zones VALUES ('', 215, 'ÇANAKKALE','ÇANAKKALE');
-INSERT INTO zones VALUES ('', 215, 'ÇANKIRI','ÇANKIRI');
-INSERT INTO zones VALUES ('', 215, 'ÇORUM','ÇORUM');
-INSERT INTO zones VALUES ('', 215, 'DENIZLI','DENIZLI');
-INSERT INTO zones VALUES ('', 215, 'DIYARBAKIR','DIYARBAKIR');
-INSERT INTO zones VALUES ('', 215, 'EDIRNE','EDIRNE');
-INSERT INTO zones VALUES ('', 215, 'ELAZIG','ELAZIG');
-INSERT INTO zones VALUES ('', 215, 'ERZINCAN','ERZINCAN');
-INSERT INTO zones VALUES ('', 215, 'ERZURUM','ERZURUM');
-INSERT INTO zones VALUES ('', 215, 'ESKISEHIR','ESKISEHIR');
-INSERT INTO zones VALUES ('', 215, 'GAZIANTEP','GAZIANTEP');
-INSERT INTO zones VALUES ('', 215, 'GIRESUN','GIRESUN');
-INSERT INTO zones VALUES ('', 215, 'GÜMÜSHANE','GÜMÜSHANE');
-INSERT INTO zones VALUES ('', 215, 'HAKKARI','HAKKARI');
-INSERT INTO zones VALUES ('', 215, 'HATAY','HATAY');
-INSERT INTO zones VALUES ('', 215, 'ISPARTA','ISPARTA');
-INSERT INTO zones VALUES ('', 215, 'IÇEL','IÇEL');
-INSERT INTO zones VALUES ('', 215, 'ISTANBUL','ISTANBUL');
-INSERT INTO zones VALUES ('', 215, 'IZMIR','IZMIR');
-INSERT INTO zones VALUES ('', 215, 'KARS','KARS');
-INSERT INTO zones VALUES ('', 215, 'KASTAMONU','KASTAMONU');
-INSERT INTO zones VALUES ('', 215, 'KAYSERI','KAYSERI');
-INSERT INTO zones VALUES ('', 215, 'KIRKLARELI','KIRKLARELI');
-INSERT INTO zones VALUES ('', 215, 'KIRSEHIR','KIRSEHIR');
-INSERT INTO zones VALUES ('', 215, 'KOCAELI','KOCAELI');
-INSERT INTO zones VALUES ('', 215, 'KONYA','KONYA');
-INSERT INTO zones VALUES ('', 215, 'KÜTAHYA','KÜTAHYA');
-INSERT INTO zones VALUES ('', 215, 'MALATYA','MALATYA');
-INSERT INTO zones VALUES ('', 215, 'MANISA','MANISA');
-INSERT INTO zones VALUES ('', 215, 'KAHRAMANMARAS','KAHRAMANMARAS');
-INSERT INTO zones VALUES ('', 215, 'MARDIN','MARDIN');
-INSERT INTO zones VALUES ('', 215, 'MUGLA','MUGLA');
-INSERT INTO zones VALUES ('', 215, 'MUS','MUS');
-INSERT INTO zones VALUES ('', 215, 'NEVSEHIR','NEVSEHIR');
-INSERT INTO zones VALUES ('', 215, 'NIGDE','NIGDE');
-INSERT INTO zones VALUES ('', 215, 'ORDU','ORDU');
-INSERT INTO zones VALUES ('', 215, 'RIZE','RIZE');
-INSERT INTO zones VALUES ('', 215, 'SAKARYA','SAKARYA');
-INSERT INTO zones VALUES ('', 215, 'SAMSUN','SAMSUN');
-INSERT INTO zones VALUES ('', 215, 'SIIRT','SIIRT');
-INSERT INTO zones VALUES ('', 215, 'SINOP','SINOP');
-INSERT INTO zones VALUES ('', 215, 'SIVAS','SIVAS');
-INSERT INTO zones VALUES ('', 215, 'TEKIRDAG','TEKIRDAG');
-INSERT INTO zones VALUES ('', 215, 'TOKAT','TOKAT');
-INSERT INTO zones VALUES ('', 215, 'TRABZON','TRABZON');
-INSERT INTO zones VALUES ('', 215, 'TUNCELI','TUNCELI');
-INSERT INTO zones VALUES ('', 215, 'SANLIURFA','SANLIURFA');
-INSERT INTO zones VALUES ('', 215, 'USAK','USAK');
-INSERT INTO zones VALUES ('', 215, 'VAN','VAN');
-INSERT INTO zones VALUES ('', 215, 'YOZGAT','YOZGAT');
-INSERT INTO zones VALUES ('', 215, 'ZONGULDAK','ZONGULDAK');
-INSERT INTO zones VALUES ('', 215, 'AKSARAY','AKSARAY');
-INSERT INTO zones VALUES ('', 215, 'BAYBURT','BAYBURT');
-INSERT INTO zones VALUES ('', 215, 'KARAMAN','KARAMAN');
-INSERT INTO zones VALUES ('', 215, 'KIRIKKALE','KIRIKKALE');
-INSERT INTO zones VALUES ('', 215, 'BATMAN','BATMAN');
-INSERT INTO zones VALUES ('', 215, 'SIRNAK','SIRNAK');
-INSERT INTO zones VALUES ('', 215, 'BARTIN','BARTIN');
-INSERT INTO zones VALUES ('', 215, 'ARDAHAN','ARDAHAN');
-INSERT INTO zones VALUES ('', 215, 'IGDIR','IGDIR');
-INSERT INTO zones VALUES ('', 215, 'YALOVA','YALOVA');
-INSERT INTO zones VALUES ('', 215, 'KARABÜK','KARABÜK');
-INSERT INTO zones VALUES ('', 215, 'KILIS','KILIS');
-INSERT INTO zones VALUES ('', 215, 'OSMANIYE','OSMANIYE');
-INSERT INTO zones VALUES ('', 215, 'DÜZCE','DÜZCE');
+INSERT INTO zones VALUES ('',215,'ADANA','ADANA');
+INSERT INTO zones VALUES ('',215,'ADIYAMAN','ADIYAMAN');
+INSERT INTO zones VALUES ('',215,'AFYON','AFYON');
+INSERT INTO zones VALUES ('',215,'AGRI','AGRI');
+INSERT INTO zones VALUES ('',215,'AMASYA','AMASYA');
+INSERT INTO zones VALUES ('',215,'ANKARA','ANKARA');
+INSERT INTO zones VALUES ('',215,'ANTALYA','ANTALYA');
+INSERT INTO zones VALUES ('',215,'ARTVIN','ARTVIN');
+INSERT INTO zones VALUES ('',215,'AYDIN','AYDIN');
+INSERT INTO zones VALUES ('',215,'BALIKESIR','BALIKESIR');
+INSERT INTO zones VALUES ('',215,'BILECIK','BILECIK');
+INSERT INTO zones VALUES ('',215,'BINGÖL','BINGÖL');
+INSERT INTO zones VALUES ('',215,'BITLIS','BITLIS');
+INSERT INTO zones VALUES ('',215,'BOLU','BOLU');
+INSERT INTO zones VALUES ('',215,'BURDUR','BURDUR');
+INSERT INTO zones VALUES ('',215,'BURSA','BURSA');
+INSERT INTO zones VALUES ('',215,'ÇANAKKALE','ÇANAKKALE');
+INSERT INTO zones VALUES ('',215,'ÇANKIRI','ÇANKIRI');
+INSERT INTO zones VALUES ('',215,'ÇORUM','ÇORUM');
+INSERT INTO zones VALUES ('',215,'DENIZLI','DENIZLI');
+INSERT INTO zones VALUES ('',215,'DIYARBAKIR','DIYARBAKIR');
+INSERT INTO zones VALUES ('',215,'EDIRNE','EDIRNE');
+INSERT INTO zones VALUES ('',215,'ELAZIG','ELAZIG');
+INSERT INTO zones VALUES ('',215,'ERZINCAN','ERZINCAN');
+INSERT INTO zones VALUES ('',215,'ERZURUM','ERZURUM');
+INSERT INTO zones VALUES ('',215,'ESKISEHIR','ESKISEHIR');
+INSERT INTO zones VALUES ('',215,'GAZIANTEP','GAZIANTEP');
+INSERT INTO zones VALUES ('',215,'GIRESUN','GIRESUN');
+INSERT INTO zones VALUES ('',215,'GÜMÜSHANE','GÜMÜSHANE');
+INSERT INTO zones VALUES ('',215,'HAKKARI','HAKKARI');
+INSERT INTO zones VALUES ('',215,'HATAY','HATAY');
+INSERT INTO zones VALUES ('',215,'ISPARTA','ISPARTA');
+INSERT INTO zones VALUES ('',215,'IÇEL','IÇEL');
+INSERT INTO zones VALUES ('',215,'ISTANBUL','ISTANBUL');
+INSERT INTO zones VALUES ('',215,'IZMIR','IZMIR');
+INSERT INTO zones VALUES ('',215,'KARS','KARS');
+INSERT INTO zones VALUES ('',215,'KASTAMONU','KASTAMONU');
+INSERT INTO zones VALUES ('',215,'KAYSERI','KAYSERI');
+INSERT INTO zones VALUES ('',215,'KIRKLARELI','KIRKLARELI');
+INSERT INTO zones VALUES ('',215,'KIRSEHIR','KIRSEHIR');
+INSERT INTO zones VALUES ('',215,'KOCAELI','KOCAELI');
+INSERT INTO zones VALUES ('',215,'KONYA','KONYA');
+INSERT INTO zones VALUES ('',215,'KÜTAHYA','KÜTAHYA');
+INSERT INTO zones VALUES ('',215,'MALATYA','MALATYA');
+INSERT INTO zones VALUES ('',215,'MANISA','MANISA');
+INSERT INTO zones VALUES ('',215,'KAHRAMANMARAS','KAHRAMANMARAS');
+INSERT INTO zones VALUES ('',215,'MARDIN','MARDIN');
+INSERT INTO zones VALUES ('',215,'MUGLA','MUGLA');
+INSERT INTO zones VALUES ('',215,'MUS','MUS');
+INSERT INTO zones VALUES ('',215,'NEVSEHIR','NEVSEHIR');
+INSERT INTO zones VALUES ('',215,'NIGDE','NIGDE');
+INSERT INTO zones VALUES ('',215,'ORDU','ORDU');
+INSERT INTO zones VALUES ('',215,'RIZE','RIZE');
+INSERT INTO zones VALUES ('',215,'SAKARYA','SAKARYA');
+INSERT INTO zones VALUES ('',215,'SAMSUN','SAMSUN');
+INSERT INTO zones VALUES ('',215,'SIIRT','SIIRT');
+INSERT INTO zones VALUES ('',215,'SINOP','SINOP');
+INSERT INTO zones VALUES ('',215,'SIVAS','SIVAS');
+INSERT INTO zones VALUES ('',215,'TEKIRDAG','TEKIRDAG');
+INSERT INTO zones VALUES ('',215,'TOKAT','TOKAT');
+INSERT INTO zones VALUES ('',215,'TRABZON','TRABZON');
+INSERT INTO zones VALUES ('',215,'TUNCELI','TUNCELI');
+INSERT INTO zones VALUES ('',215,'SANLIURFA','SANLIURFA');
+INSERT INTO zones VALUES ('',215,'USAK','USAK');
+INSERT INTO zones VALUES ('',215,'VAN','VAN');
+INSERT INTO zones VALUES ('',215,'YOZGAT','YOZGAT');
+INSERT INTO zones VALUES ('',215,'ZONGULDAK','ZONGULDAK');
+INSERT INTO zones VALUES ('',215,'AKSARAY','AKSARAY');
+INSERT INTO zones VALUES ('',215,'BAYBURT','BAYBURT');
+INSERT INTO zones VALUES ('',215,'KARAMAN','KARAMAN');
+INSERT INTO zones VALUES ('',215,'KIRIKKALE','KIRIKKALE');
+INSERT INTO zones VALUES ('',215,'BATMAN','BATMAN');
+INSERT INTO zones VALUES ('',215,'SIRNAK','SIRNAK');
+INSERT INTO zones VALUES ('',215,'BARTIN','BARTIN');
+INSERT INTO zones VALUES ('',215,'ARDAHAN','ARDAHAN');
+INSERT INTO zones VALUES ('',215,'IGDIR','IGDIR');
+INSERT INTO zones VALUES ('',215,'YALOVA','YALOVA');
+INSERT INTO zones VALUES ('',215,'KARABÜK','KARABÜK');
+INSERT INTO zones VALUES ('',215,'KILIS','KILIS');
+INSERT INTO zones VALUES ('',215,'OSMANIYE','OSMANIYE');
+INSERT INTO zones VALUES ('',215,'DÜZCE','DÜZCE');
 
 #Venezuela
-INSERT INTO zones VALUES ('', 229, 'AM', 'Amazonas');
-INSERT INTO zones VALUES ('', 229, 'AN', 'Anzoátegui');
-INSERT INTO zones VALUES ('', 229, 'AR', 'Aragua');
-INSERT INTO zones VALUES ('', 229, 'AP', 'Apure');
-INSERT INTO zones VALUES ('', 229, 'BA', 'Barinas');
-INSERT INTO zones VALUES ('', 229, 'BO', 'Bolívar');
-INSERT INTO zones VALUES ('', 229, 'CA', 'Carabobo');
-INSERT INTO zones VALUES ('', 229, 'CO', 'Cojedes');
-INSERT INTO zones VALUES ('', 229, 'DA', 'Delta Amacuro');
-INSERT INTO zones VALUES ('', 229, 'DC', 'Distrito Capital');
-INSERT INTO zones VALUES ('', 229, 'FA', 'Falcón');
-INSERT INTO zones VALUES ('', 229, 'GA', 'Guárico');
-INSERT INTO zones VALUES ('', 229, 'GU', 'Guayana');
-INSERT INTO zones VALUES ('', 229, 'LA', 'Lara');
-INSERT INTO zones VALUES ('', 229, 'ME', 'Mérida');
-INSERT INTO zones VALUES ('', 229, 'MI', 'Miranda');
-INSERT INTO zones VALUES ('', 229, 'MO', 'Monagas');
-INSERT INTO zones VALUES ('', 229, 'NE', 'Nueva Esparta');
-INSERT INTO zones VALUES ('', 229, 'PO', 'Portuguesa');
-INSERT INTO zones VALUES ('', 229, 'SU', 'Sucre');
-INSERT INTO zones VALUES ('', 229, 'TA', 'Táchira');
-INSERT INTO zones VALUES ('', 229, 'TU', 'Trujillo');
-INSERT INTO zones VALUES ('', 229, 'VA', 'Vargas');
-INSERT INTO zones VALUES ('', 229, 'YA', 'Yaracuy');
-INSERT INTO zones VALUES ('', 229, 'ZU', 'Zulia');
+INSERT INTO zones VALUES ('',229,'AM','Amazonas');
+INSERT INTO zones VALUES ('',229,'AN','Anzoátegui');
+INSERT INTO zones VALUES ('',229,'AR','Aragua');
+INSERT INTO zones VALUES ('',229,'AP','Apure');
+INSERT INTO zones VALUES ('',229,'BA','Barinas');
+INSERT INTO zones VALUES ('',229,'BO','Bolívar');
+INSERT INTO zones VALUES ('',229,'CA','Carabobo');
+INSERT INTO zones VALUES ('',229,'CO','Cojedes');
+INSERT INTO zones VALUES ('',229,'DA','Delta Amacuro');
+INSERT INTO zones VALUES ('',229,'DC','Distrito Capital');
+INSERT INTO zones VALUES ('',229,'FA','Falcón');
+INSERT INTO zones VALUES ('',229,'GA','Guárico');
+INSERT INTO zones VALUES ('',229,'GU','Guayana');
+INSERT INTO zones VALUES ('',229,'LA','Lara');
+INSERT INTO zones VALUES ('',229,'ME','Mérida');
+INSERT INTO zones VALUES ('',229,'MI','Miranda');
+INSERT INTO zones VALUES ('',229,'MO','Monagas');
+INSERT INTO zones VALUES ('',229,'NE','Nueva Esparta');
+INSERT INTO zones VALUES ('',229,'PO','Portuguesa');
+INSERT INTO zones VALUES ('',229,'SU','Sucre');
+INSERT INTO zones VALUES ('',229,'TA','Táchira');
+INSERT INTO zones VALUES ('',229,'TU','Trujillo');
+INSERT INTO zones VALUES ('',229,'VA','Vargas');
+INSERT INTO zones VALUES ('',229,'YA','Yaracuy');
+INSERT INTO zones VALUES ('',229,'ZU','Zulia');
 
 #UK
 INSERT INTO zones VALUES ('',222,'BAS','Bath and North East Somerset');

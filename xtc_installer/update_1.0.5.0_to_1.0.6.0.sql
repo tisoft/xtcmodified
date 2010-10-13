@@ -42,6 +42,10 @@ UPDATE countries SET address_format_id = 7 WHERE countries_id = 44;
 
 #DokuMan - 2010-09-21 - listing_template needs a default value
 ALTER TABLE categories MODIFY listing_template varchar(64) NOT NULL DEFAULT '';
+#DokuMan - 2010-10-13 - enlarge field 'manufacturers_name' from 32 characters to 64
+ALTER TABLE manufacturers MODIFY manufacturers_name varchar(64) NOT NULL;
+#DokuMan - 2010-10-13 - enlarge field 'comments' from carchar(255) to text
+ALTER TABLE orders MODIFY comments text;
 
 #DokuMan - 2010-09-28 - display VAT description multilingually
 #Updating only the German tax rates here
