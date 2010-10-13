@@ -2,14 +2,15 @@
 /* --------------------------------------------------------------
    $Id: stats_sales_report.php 1311 2005-10-18 12:30:40Z mz $
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce coding standards; www.oscommerce.com
+   (c) 2006 xt:Commerce (stats_sales_report.php 1311 2005-10-18)
 
    Released under the GNU General Public License
    --------------------------------------------------------------
@@ -18,33 +19,32 @@
    stats_sales_report (c) Charly Wilhelm  charly@yoshi.ch
 
    possible views (srView):
-  1 yearly
-  2 monthly
-  3 weekly
-  4 daily
+   1 yearly
+   2 monthly
+   3 weekly
+   4 daily
 
-  possible options (srDetail):
-  0 no detail
-  1 show details (products)
-  2 show details only (products)
+   possible options (srDetail):
+   0 no detail
+   1 show details (products)
+   2 show details only (products)
 
-  export
-  0 normal view
-  1 html view without left and right
-  2 csv
+   export
+   0 normal view
+   1 html view without left and right
+   2 csv
 
-  sort
-  0 no sorting
-  1 product description asc
-  2 product description desc
-  3 #product asc, product descr asc
-  4 #product desc, product descr desc
-  5 revenue asc, product descr asc
-  6 revenue desc, product descr des
+   sort
+   0 no sorting
+   1 product description asc
+   2 product description desc
+   3 #product asc, product descr asc
+   4 #product desc, product descr desc
+   5 revenue asc, product descr asc
+   6 revenue desc, product descr des
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
-
 
   require('includes/application_top.php');
 
@@ -59,31 +59,31 @@
   $srDefaultExp = 0;
   // default sort
   $srDefaultSort = 4;
-  
+
   // report views (1: yearly 2: monthly 3: weekly 4: daily)
-  if ( ($_GET['report']) && (xtc_not_null($_GET['report'])) )
-{    $srView = $_GET['report'];
+  if ( ($_GET['report']) && (xtc_not_null($_GET['report'])) ) {
+    $srView = $_GET['report'];
   }
   if ($srView < 1 || $srView > 4) {
     $srView = $srDefaultView;
   }
 
   // detail
-  if ( ($_GET['detail']) && (xtc_not_null($_GET['detail'])) )
-{    $srDetail = $_GET['detail'];
+  if ( ($_GET['detail']) && (xtc_not_null($_GET['detail'])) ) {
+    $srDetail = $_GET['detail'];
   }
   if ($srDetail < 0 || $srDetail > 2) {
     $srDetail = $srDefaultDetail;
   }
-  
+
   // report views (1: yearly 2: monthly 3: weekly 4: daily)
-  if ( ($_GET['export']) && (xtc_not_null($_GET['export'])) )
-{    $srExp = $_GET['export'];
+  if ( ($_GET['export']) && (xtc_not_null($_GET['export'])) ) {
+    $srExp = $_GET['export'];
   }
   if ($srExp < 0 || $srExp > 2) {
     $srExp = $srDefaultExp;
   }
-  
+
   // item_level
   if ( ($_GET['max']) && (xtc_not_null($_GET['max'])) ) {
     $srMax = $_GET['max'];
@@ -91,22 +91,22 @@
   if (!is_numeric($srMax)) {
     $srMax = 0;
   }
-      
+
   // order status
-  if ( ($_GET['status']) && (xtc_not_null($_GET['status'])) )
-{    $srStatus = $_GET['status'];
+  if ( ($_GET['status']) && (xtc_not_null($_GET['status'])) ) {
+    $srStatus = $_GET['status'];
   }
   if (!is_numeric($srStatus)) {
     $srStatus = 0;
   }
-  
+
    // paymenttype
-  if ( ($_GET['payment']) && (xtc_not_null($_GET['payment'])) )
-{    $srPayment = $_GET['payment'];
+  if ( ($_GET['payment']) && (xtc_not_null($_GET['payment'])) ) {
+    $srPayment = $_GET['payment'];
   } else {
  	$srPayment = 0;
   }
-  
+
   // sort
   if ( ($_GET['sort']) && (xtc_not_null($_GET['sort'])) ) {
     $srSort = $_GET['sort'];
@@ -114,24 +114,24 @@
   if ($srSort < 1 || $srSort > 6) {
     $srSort = $srDefaultSort;
   }
-    
+
   // check start and end Date
   $startDate = "";
   $startDateG = 0;
-  if ( ($_GET['startD']) && (xtc_not_null($_GET['startD'])) )
-{    $sDay = $_GET['startD'];
+  if ( ($_GET['startD']) && (xtc_not_null($_GET['startD'])) ) {
+    $sDay = $_GET['startD'];
     $startDateG = 1;
   } else {
     $sDay = 1;
   }
-  if ( ($_GET['startM']) && (xtc_not_null($_GET['startM'])) )
-{    $sMon = $_GET['startM'];
+  if ( ($_GET['startM']) && (xtc_not_null($_GET['startM'])) ) {
+    $sMon = $_GET['startM'];
     $startDateG = 1;
   } else {
     $sMon = 1;
   }
-  if ( ($_GET['startY']) && (xtc_not_null($_GET['startY'])) )
-{    $sYear = $_GET['startY'];
+  if ( ($_GET['startY']) && (xtc_not_null($_GET['startY'])) ) {
+    $sYear = $_GET['startY'];
     $startDateG = 1;
   } else {
     $sYear = date("Y");
@@ -141,7 +141,7 @@
   } else {
     $startDate = mktime(0, 0, 0, date("m"), 1, date("Y"));
   }
-    
+
   $endDate = "";
   $endDateG = 0;
   if ( ($_GET['endD']) && (xtc_not_null($_GET['endD'])) ) {
@@ -167,11 +167,11 @@
   } else {
     $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
   }
-  
+
   require(DIR_WS_CLASSES . 'sales_report.php');
-  $sr = new sales_report($srView, $startDate, $endDate, $srSort, $srStatus, $srFilter,$srPayment);  
+  $sr = new sales_report($srView, $startDate, $endDate, $srSort, $srStatus, $srFilter,$srPayment);
   $startDate = $sr->startDate;
-  $endDate = $sr->endDate;  
+  $endDate = $sr->endDate;
 
   if ($srExp < 2) {
     // not for csv export
@@ -179,7 +179,7 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
@@ -194,17 +194,19 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-<?php
+    <?php
     if ($srExp < 1) {
-?>
-<td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<!-- left_navigation //-->
-<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
-<!-- left_navigation_eof //-->
-    </table></td>
-<!-- body_text //-->
-<?php
-    } // end sr_exp
+        ?>
+		<td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top">
+		<table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
+		<!-- left_navigation //-->
+		<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
+		<!-- left_navigation_eof //-->
+        </table>
+        </td>
+		<!-- body_text //-->
+		<?php
+	    } // end sr_exp
 ?>
     <td class="boxCenter" width="100%" valign="top">
       <table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -312,30 +314,31 @@
                     </select><br />
                    <?php echo REPORT_PAYMENT_FILTER; ?><br />
                     <select name="payment" size="1">
-                      <?php // BOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
-                      <!-- <option value="0"><?php echo REPORT_ALL; ?></option> -->
-                      <option value="0" <?php if ($srPayment == '0') echo "selected='selected'"; ?>><?php echo REPORT_ALL; ?></option>                      
-                      <?php // EOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
+                      <?php // BOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X - modified by Dokuman 2010-10-13
+                      /* <option value="0"><?php echo REPORT_ALL; ?></option> */
+                      /* <option value="0" <?php if ($srPayment == '0') echo "selected='selected'"; ?>><?php echo REPORT_ALL; ?></option> */ ?>
+                      <option value="0" <?php if ($srPayment === 0) echo " selected"; ?>><?php echo REPORT_ALL; ?></option>
+                      <?php // EOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X - modified by Dokuman 2010-10-13 ?>
 <?php
 
   $payments = explode(';', MODULE_PAYMENT_INSTALLED); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
   for ($i=0; $i<count($payments); $i++){
-  
-  require(DIR_FS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $payments[$i]);	
-  
-  $payment = substr($payments[$i], 0, strrpos($payments[$i], '.'));	
+
+  require(DIR_FS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $payments[$i]);
+
+  $payment = substr($payments[$i], 0, strrpos($payments[$i], '.'));
   $payment_text = constant(MODULE_PAYMENT_.strtoupper($payment)._TEXT_TITLE);
-  
-                         
-?>                           
-    <?php // BOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
-    <!-- <option value="<?php echo $payment; ?>"<?php if ($srPayment == $payment) echo " selected"; ?>><?php echo $payment_text ; ?></option> -->
-    <option value="<?php echo $payment; ?>"<?php if (($srPayment == $payment) && ($srPayment != '0')) echo "selected='selected'"; ?>><?php echo $payment_text ; ?></option>
-    <?php // EOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X ?>
-                           
-  <?php                         
+
+?>
+    <?php // BOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X - modified by Dokuman 2010-10-13
+    /* <option value="<?php echo $payment; ?>"<?php if ($srPayment == $payment) echo " selected"; ?>><?php echo $payment_text ; ?></option> */
+    /*<option value="<?php echo $payment; ?>"<?php if (($srPayment == $payment) && ($srPayment != '0')) echo "selected='selected'"; ?>><?php echo $payment_text ; ?></option> */ ?>
+    <option value="<?php echo $payment; ?>"<?php if ($srPayment === $payment) echo " selected"; ?>><?php echo $payment_text ; ?></option>
+    <?php // EOF - Hendrik - 2010-08-06 - preselection bug found by Robert/Robo-X - modified by Dokuman 2010-10-13 ?>
+
+  <?php
   }
-                       
+
 ?>
                     </select><br />
                   </td>
@@ -399,7 +402,8 @@
     for ($i = 10; $i >= 0; $i--) {
 ?>
                       <option<?php if ($y == $i) echo " selected"; ?>><?php echo
-date("Y") - $i; ?></option><?php
+date("Y") - $i; ?></option>
+<?php
     }
 ?>
                     </select>
@@ -437,7 +441,7 @@ while ($sr->actDate < $sr->endDate) {
   $last = sizeof($info) - 1;
   if ($srExp < 2) {
 ?>
-                    <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='pointer'" onMouseOut="this.className='dataTableRow'">
+                    <tr class="dataTableRow"onMouseOver="this.className='dataTableRowOver';this.style.cursor='pointer'" onMouseOut="this.className='dataTableRow'">
 <?php
     switch ($srView) {
       case '3':
@@ -477,8 +481,9 @@ while ($sr->actDate < $sr->endDate) {
 ?>
                     <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='pointer'" onMouseOut="this.className='dataTableRow'">
                     <td class="dataTableContent">&nbsp;</td>
-                    <td class="dataTableContent" align="left"><a href="<?php echo xtc_catalog_href_link("product_info.php?products_id=" . $info[$i]['pid']) ?>" target="_blank"><?php echo $info[$i]['pmodel'].' : '.$info[$i]['pname']; ?></a>
-<?php
+                    <td class="dataTableContent" align="left"><a
+					href="<?php echo xtc_catalog_href_link("product_info.php?products_id=" . $info[$i]['pid']) ?>"
+					target="_blank"><?php echo $info[$i]['pmodel'].' : '.$info[$i]['pname']; ?></a><?php
   if (is_array($info[$i]['attr'])) {
     $attr_info = $info[$i]['attr'];
     foreach ($attr_info as $attr) {
