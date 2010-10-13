@@ -60,7 +60,7 @@ if( $shopstat_debug ){$shopstat_debug_msg .= '\nRESULT:\n------------\nNOTLOGGED
 
 //BOF - Dokuman - 2009-07-01 - disable shopstat logging
     //$logit = true;
-    $logit = false;    
+    $logit = false;
 //EOF - Dokuman - 2009-07-01 - disable shopstat logging
 
 //------------------------------------------------------------------------------
@@ -227,15 +227,21 @@ if( $shopstat_debug ){$shopstat_debug_msg .= '\nPARAS:\n------------\n';$shopsta
     	{
     	#-- article# & articlename
     	$shoplog_query =    $shopstat_prodartnr."&amp;".
-    	                    urlencode(strip_tags(xtc_get_products_name($shoplog_prodid,$languages_id)));
+    	//BOF - DokuMan - 2010-10-13 - languages_id in xtc_get_products_name can be empty, but returns nasty php notice
+    	                    //urlencode(strip_tags(xtc_get_products_name($shoplog_prodid,$languages_id)));
+    	                    urlencode(strip_tags(xtc_get_products_name($shoplog_prodid,$_SESSION['languages_id'])));
+    	//EOF - DokuMan - 2010-10-13 - languages_id in xtc_get_products_name can be empty, but returns nasty php notice
     	}
     #-- user look at a product
     elseif(isset($shoplog_method) && $shoplog_method == 'showitem')
     	{
     	#-- Art-Nr & Name & Kategorie
     	$shoplog_query =    $shopstat_prodartnr.'&amp;'.
-    	                    urlencode(strip_tags(xtc_get_products_name($shoplog_prodid,$languages_id))).'&amp;'.
-   	                    urlencode(strip_tags($shoplog_cat));
+    	                    //urlencode(strip_tags(xtc_get_products_name($shoplog_prodid,$languages_id))).'&amp;'.
+    	//BOF - DokuMan - 2010-10-13 - languages_id in xtc_get_products_name can be empty, but returns nasty php notice
+    	                    urlencode(strip_tags(xtc_get_products_name($shoplog_prodid,$_SESSION['languages_id']))).'&amp;'.
+    	                    urlencode(strip_tags($shoplog_cat));
+    	//EOF - DokuMan - 2010-10-13 - languages_id in xtc_get_products_name can be empty, but returns nasty php notice
     	}
     #-- user browse through the products
     elseif(isset($shoplog_method) && ($shoplog_method == 'listitems'))
