@@ -614,7 +614,7 @@ CREATE TABLE card_blacklist (
   KEY blacklist_id (blacklist_id)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
-# vr - 2010-04-21 add indices orders_id, products_id
+# vr - 2010-04-21 add indices idx_orders_id, idx_products_id
 DROP TABLE IF EXISTS orders_products;
 CREATE TABLE orders_products (
   orders_products_id INT NOT NULL AUTO_INCREMENT,
@@ -630,8 +630,8 @@ CREATE TABLE orders_products (
   products_quantity INT(2) NOT NULL,
   allow_tax INT(1) NOT NULL,
   PRIMARY KEY (orders_products_id),
-  KEY orders_id (orders_id),
-  KEY products_id (products_id)
+  KEY idx_orders_id (orders_id),
+  KEY idx_products_id (products_id)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS orders_status;
@@ -761,8 +761,8 @@ CREATE TABLE products_attributes (
   weight_prefix CHAR(1) NOT NULL,
   sortorder INT(11) NULL,
   PRIMARY KEY (products_attributes_id),
-  KEY products_id (products_id),
-  KEY options (options_id, options_values_id)
+  KEY idx_products_id (products_id),
+  KEY idx_options (options_id, options_values_id)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_attributes_download;
@@ -842,11 +842,13 @@ CREATE TABLE products_graduated_prices (
   KEY products_id (products_id)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
+# DokuMan - 2010-10-13 add index idx_categories_id
 DROP TABLE IF EXISTS products_to_categories;
 CREATE TABLE products_to_categories (
   products_id INT NOT NULL,
   categories_id INT NOT NULL,
-  PRIMARY KEY (products_id,categories_id)
+  PRIMARY KEY (products_id,categories_id),
+  KEY idx_categories_id (categories_id)  
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS products_vpe;

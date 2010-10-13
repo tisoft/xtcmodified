@@ -52,4 +52,8 @@ UPDATE tax_rates SET tax_description = '7%' WHERE tax_description = 'MwSt 7%';
 UPDATE configuration SET configuration_value = 'True' WHERE configuration_key = 'SESSION_RECREATE';
 UPDATE configuration SET configuration_value = 'True' WHERE configuration_key = 'SESSION_CHECK_USER_AGENT';
 
+# DokuMan - 2010-10-13 add index idx_categories_id
+ALTER TABLE products_to_categories
+ADD INDEX idx_categories_id (categories_id);
+
 # Keep an empty line at the end of this file for the db_updater to work properly

@@ -107,13 +107,13 @@ ADD INDEX idx_specials_products_id (products_id);
 
 #vr - 2010-04-21 - Additional indices on orders_products
 ALTER TABLE orders_products
-ADD INDEX orders_id (orders_id),
-ADD INDEX products_id (products_id);
+ADD INDEX idx_orders_id (orders_id),
+ADD INDEX idx_products_id (products_id);
 
 #vr - 2010-04-21 - Additional indices on products_attributes
 ALTER TABLE products_attributes
-ADD INDEX products_id (products_id),
-ADD INDEX options (options_id, options_values_id);
+ADD INDEX idx_products_id (products_id),
+ADD INDEX idx_options (options_id, options_values_id);
 
 #DokuMan - 2010-06-28 - Added http_referer to table whos_online
 ALTER TABLE whos_online
