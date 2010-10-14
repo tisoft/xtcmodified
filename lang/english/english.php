@@ -210,6 +210,7 @@ define('ICON_ARROW_RIGHT', 'Show more');
 define('ICON_CART', 'Add to cart'); //changed by electronica 2009-09-06
 define('ICON_SUCCESS', 'Success');
 define('ICON_WARNING', 'Warning');
+define('ICON_ERROR', 'Error');
 
 define('TEXT_PRINT', 'print'); //DokuMan - 2009-05-26 - Added description for 'account_history_info.php'
 
