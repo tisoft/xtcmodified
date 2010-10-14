@@ -60,4 +60,17 @@ UPDATE configuration SET configuration_value = 'True' WHERE configuration_key = 
 ALTER TABLE products_to_categories
 ADD INDEX idx_categories_id (categories_id);
 
+# DokuMan - 2010-10-14 keep index naming convention (idx_)
+ALTER TABLE orders_products
+DROP INDEX orders_id (orders_id),
+DROP INDEX products_id (products_id),
+ADD INDEX idx_orders_id (orders_id),
+ADD INDEX idx_products_id (products_id);
+
+ALTER TABLE products_attributes
+DROP INDEX products_id (products_id),
+DROP INDEX options (options_id, options_values_id),
+ADD INDEX idx_products_id (products_id),
+ADD INDEX idx_options (options_id, options_values_id);
+
 # Keep an empty line at the end of this file for the db_updater to work properly
