@@ -1,16 +1,16 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2006 XT-Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 //included by shop_content.php
@@ -20,35 +20,46 @@
   //  require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');
 	//EOF - web28 - 2010-07-17 - move language definition on top
   //EOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
-    
+
+  //BOF - DokuMan - 2010-10-14 - initialize variables
+  $customers_name = '';
+  $email_address = '';
+  $phone = '';
+  $company = '';
+  $street = '';
+  $postcode = '';
+  $city = '';
+  $fax = '';
+  //EOF - DokuMan - 2010-10-14 - initialize variables
+
 	$error = false;
 	if (isset ($_GET['action']) && ($_GET['action'] == 'send')) {
-		
+
 		//BOF - web28 - 2010-07-17 - move language definition on top
 		//require (DIR_WS_LANGUAGES.$_SESSION['language'].'/contact_us.php');
-		//EOF - web28 - 2010-07-17 - move language definition on top		
-	
+		//EOF - web28 - 2010-07-17 - move language definition on top
+
 		//BOF - web28 - 2010-04-03 - New error handling for required fileds
 		//jedes Feld kann hier auf die gewünschte Bedingung getestet und eine Fehlermeldung zugeordnet werden
 		//BOF error handling
-		$err_msg = '';		
+		$err_msg = '';
 		if (!xtc_validate_email(trim($_POST['email']))) $err_msg .= ERROR_EMAIL;
 		if ((strtoupper($_POST['vvcode']) != $_SESSION['vvcode']) || $_SESSION['vvcode']=='') $err_msg .= ERROR_VVCODE;
 		if (trim($_POST['message_body']) == '') $err_msg .= ERROR_MSG_BODY;
 		//EOF error handling
-			
+
 		$smarty->assign('error_message', ERROR_MAIL . $err_msg);
-		
+
 		if ($err_msg != '') $error = true;
-		
+
 		//Wenn kein Fehler Email formatieren und absenden
-		if (!$error) {			
+		if (!$error) {
 			// Datum und Uhrzeit
 			$datum= date("d.m.Y");
-			$uhrzeit= date("H:i");					
-			
+			$uhrzeit= date("H:i");
+
 			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
-			$additional_fields = '';			
+			$additional_fields = '';
 			if (isset($_POST['company']))  $additional_fields =  EMAIL_COMPANY. $_POST['company'] . "\n" ;
 			if (isset($_POST['street']))   $additional_fields .= EMAIL_STREET . $_POST['street'] . "\n" ;
 			if (isset($_POST['postcode'])) $additional_fields .= EMAIL_POSTCODE . $_POST['postcode'] . "\n" ;
@@ -56,21 +67,21 @@
 			if (isset($_POST['phone']))    $additional_fields .= EMAIL_PHONE . $_POST['phone'] . "\n" ;
 			if (isset($_POST['fax']))      $additional_fields .= EMAIL_FAX . $_POST['fax'] . "\n" ;
 			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
-			
+
 			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (check for USE_CONTACT_EMAIL_ADDRESS)
 			$use_contact_email_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'USE_CONTACT_EMAIL_ADDRESS'");
 			$use_contact_email = xtc_db_fetch_array($use_contact_email_query);
 			if ($use_contact_email['configuration_value'] == 'true') {
 			    $email = trim(CONTACT_US_EMAIL_ADDRESS);
 				$name = CONTACT_US_NAME;
-				$notify =  EMAIL_NOTIFY . "\n\n";				
+				$notify =  EMAIL_NOTIFY . "\n\n";
 			} else {
 				$email = trim($_POST['email']);
 				$name = $_POST['name'];
-				$notify =  '';                			
+				$notify =  '';
 			}
 			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (check for USE_CONTACT_EMAIL_ADDRESS)
-			
+
 			$email_layout = sprintf(EMAIL_SENT_BY, CONTACT_US_NAME, CONTACT_US_EMAIL_ADDRESS, $datum , $uhrzeit) . "\n" .
 							"--------------------------------------------------------------" . "\n" . $notify .
 							EMAIL_NAME. $_POST['name'] . "\n" .
@@ -80,20 +91,20 @@
 							// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 							"\n".EMAIL_MESSAGE."\n ". $_POST['message_body'] . "\n";
 
-			xtc_php_mail($email, 
-						 $name, 
-						 CONTACT_US_EMAIL_ADDRESS, 
-						 CONTACT_US_NAME, 
-						 CONTACT_US_FORWARDING_STRING, 
-						 $email, 
-						 $name, 				 						 
-						 '', 
-						 '', 
-						 CONTACT_US_EMAIL_SUBJECT, 
-						 nl2br($email_layout), 
+			xtc_php_mail($email,
+						 $name,
+						 CONTACT_US_EMAIL_ADDRESS,
+						 CONTACT_US_NAME,
+						 CONTACT_US_FORWARDING_STRING,
+						 $email,
+						 $name,
+						 '',
+						 '',
+						 CONTACT_US_EMAIL_SUBJECT,
+						 nl2br($email_layout),
 						 $email_layout
 						 );
-			
+
 			if (!isset ($mail_error)) {
 				xtc_redirect(xtc_href_link(FILENAME_CONTENT, 'action=success&coID='.(int) $_GET['coID']));
 			} else {
@@ -122,24 +133,39 @@
 			$contact_content = $shop_content_data['content_text'];
 		}
 		require (DIR_WS_INCLUDES.'header.php');
-		
+
 		// BOF - Tomcraft - 2009-11-05 - Advanced contact form (fix override by error request)
 		if (isset ($_SESSION['customer_id']) && !$error) {
 		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (fix override by error request)
 			$customers_name = $_SESSION['customer_first_name'].' '.$_SESSION['customer_last_name'];
 			// BOF - Dokuman - 2009-09-04: preallocate email address on contact form
 			//$email_address = $_SESSION['customer_email_address'];
-			$c_query = xtc_db_query("SELECT * FROM ".TABLE_CUSTOMERS." WHERE customers_id='".$_SESSION['customer_id']."'"); 
-			$c_data = xtc_db_fetch_array($c_query); 
+			$c_query = xtc_db_query("SELECT * FROM ".TABLE_CUSTOMERS." WHERE customers_id='".(int)$_SESSION['customer_id']."'");
+			$c_data  = xtc_db_fetch_array($c_query);
 			$email_address = stripslashes($c_data['customers_email_address']);
 			// EOF - Dokuman - 2009-09-04: preallocate email address on contact form
 			// BOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
-			$phone = stripslashes($c_data['customers_telephone']);
-			$company = stripslashes($c_data['entry_company']);
-			$street = stripslashes($c_data['entry_street_address']);
-			$postcode= stripslashes($c_data['entry_postcode']);
-			$city = stripslashes($c_data['entry_city']);
-			$fax= stripslashes($c_data['customers_fax']);
+			$phone   = stripslashes($c_data['customers_telephone']);
+			$fax     = stripslashes($c_data['customers_fax']);
+			// BOF - Dokuman - 2010-10-14: preallocate additional fields on contact form correctly
+			//$company  = stripslashes($c_data['entry_company']);
+			//$street   = stripslashes($c_data['entry_street_address']);
+			//$postcode = stripslashes($c_data['entry_postcode']);
+			//$city     = stripslashes($c_data['entry_city']);
+			$address_query = xtc_db_query("select
+                        entry_company,
+                        entry_street_address,
+                        entry_city,
+                        entry_postcode
+                        from " . TABLE_ADDRESS_BOOK . "
+                        where customers_id = '" . (int)$_SESSION['customer_id'] . "'
+                        and address_book_id = '" . (int)$_SESSION['customer_default_address_id'] . "'");
+			$address_data = xtc_db_fetch_array($address_query);
+			$company  = stripslashes($address_data['entry_company']);
+			$street   = stripslashes($address_data['entry_street_address']);
+			$postcode = stripslashes($address_data['entry_postcode']);
+			$city     = stripslashes($address_data['entry_city']);
+			// EOF - Dokuman - 2010-10-14: preallocate additional fields on contact form correctly
 			// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 		}
 
@@ -147,16 +173,16 @@
 		$products_info = '';
 		// BOF - web28 - 2010-07-14 -  false clamp fixing
 		//if (trim($_GET['products_name'] != '')) {$products_info= trim($_GET['products_name']);}
-		//if (trim($_GET['products_model'] != '')) {$products_info= trim($products_info . ' - ' . trim($_GET['products_model']));}		
+		//if (trim($_GET['products_model'] != '')) {$products_info= trim($products_info . ' - ' . trim($_GET['products_model']));}
 		//if ($products_info != '') {$products_info = trim($_GET['question'])."\n" . $products_info . "\n"; }
-		if (trim($_GET['products_name']) != '') {$products_info= trim($_GET['products_name']);}
-		if (trim($_GET['products_model']) != '') {$products_info= trim($products_info . ' - ' . trim($_GET['products_model']));}
-		if (trim($_GET['question']) != '') {$products_question= trim($_GET['products_name'])."\n";}
+		if (trim($_GET['products_name']) != '') {$products_info = trim($_GET['products_name']);}
+		if (trim($_GET['products_model']) != '') {$products_info = trim($products_info . ' - ' . trim($_GET['products_model']));}
+		if (trim($_GET['question']) != '') {$products_question = trim($_GET['products_name'])."\n";}
 		if ($products_info != '') {$products_info = $products_question . $products_info . "\n"; }
 		// EOF - web28 - 2010-07-14 -  false clamp fixing
 		if (!$error) $message_body = $products_info . "\n";
 		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (product question)
-		
+
 		$smarty->assign('CONTACT_CONTENT', $contact_content);
 		//BOF - Dokuman - 2009-12-23 - send contact form information with SSL
 		//$smarty->assign('FORM_ACTION', xtc_draw_form('contact_us', xtc_href_link(FILENAME_CONTENT, 'action=send&coID='.(int) $_GET['coID'])));
@@ -174,7 +200,7 @@
 		$smarty->assign('INPUT_STREET', xtc_draw_input_field('street', ($error ? $_POST['street'] : $street), 'size="30"'));
 		$smarty->assign('INPUT_POSTCODE', xtc_draw_input_field('postcode', ($error ? $_POST['postcode'] : $postcode), 'size="30"'));
 		$smarty->assign('INPUT_CITY', xtc_draw_input_field('city', ($error ? $_POST['city'] : $city), 'size="30"'));
-		$smarty->assign('INPUT_FAX', xtc_draw_input_field('fax', ($error ? $_POST['fax'] : $fax), 'size="30"'));			
+		$smarty->assign('INPUT_FAX', xtc_draw_input_field('fax', ($error ? $_POST['fax'] : $fax), 'size="30"'));
 		// EOF - Tomcraft - 2009-11-05 - Advanced contact form (additional fields)
 		// BOF - Tomcraft - 2009-09-29 - fixed word-wrap in contact-form
 		//$smarty->assign('INPUT_TEXT', xtc_draw_textarea_field('message_body', 'soft', 50, 15, ($error ? xtc_db_input($_POST['message_body']) : $first_name)));
@@ -188,7 +214,6 @@
 	}
 
 	$smarty->assign('language', $_SESSION['language']);
-
 	$smarty->caching = 0;
 	$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/contact_us.html');
 ?>
