@@ -43,7 +43,7 @@ class ot_gv {
 		$this->calculate_tax = MODULE_ORDER_TOTAL_GV_CALC_TAX;
 		$this->credit_tax = MODULE_ORDER_TOTAL_GV_CREDIT_TAX;
 		$this->tax_class = MODULE_ORDER_TOTAL_GV_TAX_CLASS;
-		$this->show_redeem_box = MODULE_ORDER_TOTAL_GV_REDEEM_BOX;
+		//$this->show_redeem_box = MODULE_ORDER_TOTAL_GV_REDEEM_BOX; //DokuMan - 2010-10-14 - remove unused constant MODULE_ORDER_TOTAL_GV_REDEEM_BOX
 		$this->credit_class = true;
 		// BOF - Tomcraft - 2010-01-29 - Fix display of voucher
 		//$this->checkbox = $this->user_prompt.'<input type="checkbox" onclick="submitFunction()" name="'.'c'.$this->code.'">';
