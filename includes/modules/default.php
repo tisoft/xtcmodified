@@ -553,12 +553,16 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
         $manufacturer_dropdown .= xtc_draw_hidden_field('cat', $current_category_id);
         $options = array (array ('text' => TEXT_ALL_MANUFACTURERS));
       }
+      if (isset($_GET['sort'])) //DokuMan - 2010-10-14 - check for set index 'sort'
       $manufacturer_dropdown .= xtc_draw_hidden_field('sort', $_GET['sort']);
       $manufacturer_dropdown .= xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
       while ($filterlist = xtc_db_fetch_array($filterlist_query, true)) {
         $options[] = array ('id' => $filterlist['id'], 'text' => $filterlist['name']);
       }
-      $manufacturer_dropdown .= xtc_draw_pull_down_menu('filter_id', $options, $_GET['filter_id'], 'onchange="this.form.submit()"');
+      //BOF - DokuMan - 2010-10-14 - check for set index 'filter_id'
+      //$manufacturer_dropdown .= xtc_draw_pull_down_menu('filter_id', $options, $_GET['filter_id'], 'onchange="this.form.submit()"');
+      $manufacturer_dropdown .= xtc_draw_pull_down_menu('filter_id', $options, isset($_GET['filter_id']) ? (int)$_GET['filter_id'] : '', 'onchange="this.form.submit()"');
+      //EOF - DokuMan - 2010-10-14 - check for set index 'filter_id'
       $manufacturer_dropdown .= '</form>'."\n";
     }
   }

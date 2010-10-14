@@ -82,7 +82,7 @@
             } else {
               $unallowed_zones = array();
             }
-            if (in_array($_SESSION['delivery_zone'], $unallowed_zones) == true || count($unallowed_zones) == 0) {
+            if ((isset($_SESSION['delivery_zone']) && in_array($_SESSION['delivery_zone'], $unallowed_zones) == true) || count($unallowed_zones) == 0) {
               if ($include_modules[$i]['file']!='' && $include_modules[$i]['file']!='no_payment') {
 
               include_once(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $include_modules[$i]['file']);

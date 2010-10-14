@@ -51,7 +51,6 @@ unset($_SESSION['tmp_oID']);
 //EOF - DokuMan - 2010-09-06 - contact_us.php language file not needed any more, added constants to main language file
 
 // if the customer is not logged on, redirect them to the login page
-
 if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 
@@ -91,7 +90,7 @@ if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
 
 // load the selected payment module
 require_once (DIR_WS_CLASSES . 'payment.php');
-if (isset ($_SESSION['credit_covers']))
+if (isset ($_SESSION['credit_covers']) || !isset($_SESSION['payment'])) //DokuMan - 2010-10-14 - check that payment is not yet set
 	$_SESSION['payment'] = 'no_payment'; // GV Code Start/End ICW added for CREDIT CLASS
 $payment_modules = new payment($_SESSION['payment']);
 
@@ -282,6 +281,7 @@ if (isset ($$_SESSION['payment']->form_action_url) && (!isset($$_SESSION['paymen
 }
 $smarty->assign('CHECKOUT_FORM', xtc_draw_form('checkout_confirmation', $form_action_url, 'post'));
 $payment_button = '';
+
 if (is_array($payment_modules->modules)) {
 	$payment_button .= $payment_modules->process_button();
 }
