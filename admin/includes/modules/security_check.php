@@ -73,7 +73,7 @@ if (!strpos(decoct(fileperms(DIR_FS_CATALOG.'media/content/')), '777') and !strp
 		$installed_shipping = $shipping_data['configuration_value'];
 
 	}
-if ($file_warning != '' or $folder_warning != '' or $installed_payment == '' or $installed_payment == '') {
+if ($file_warning != '' or $folder_warning != '' or $installed_payment == '' or $installed_shipping == '') {
 // EOF - Tomcraft - 2010-05-25 - Fixed display of error messages from security_check.php in admin area when file and folder-permissions are set correctly
 ?>
 
