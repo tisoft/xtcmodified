@@ -280,7 +280,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     	global $xtPrice,$db;
     	
     	// get order_total data
-		$oder_total_query = "SELECT
+		//BOF - web28 - 2010-10-27- Korrektur aller Tippfehler oder -> order
+		$order_total_query = "SELECT
 		  					title,
 		  					text,
 		                    class,
@@ -291,19 +292,17 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 		  					ORDER BY sort_order ASC";
 
 		$order_total = array ();
-		$oder_total_query = xtc_db_query($oder_total_query);
-		while ($oder_total_values = xtc_db_fetch_array($oder_total_query)) {
+		$order_total_query = xtc_db_query($order_total_query);
+		while ($order_total_values = xtc_db_fetch_array($order_total_query)) {
 
 			$order_total[] = array (
-									'TITLE' => $oder_total_values['title'], 
-									'CLASS' => $oder_total_values['class'], 
-									'VALUE' => $oder_total_values['value'], 
-									'TEXT' => $oder_total_values['text']
+									'TITLE' => $order_total_values['title'], 
+									'CLASS' => $order_total_values['class'], 
+									'VALUE' => $order_total_values['value'], 
+									'TEXT' => $order_total_values['text']
 									);
-			// BOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class
-			//if ($oder_total_values['class'] = 'ot_total')
-			if ($order_total_values['class'] == 'ot_total') 
-			// EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in oders class	
+			
+			if ($order_total_values['class'] == 'ot_total')			
 				$total = $order_total_values['value'];
 			
 			//BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin	
@@ -312,6 +311,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 			//EOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin			
 
 		}
+		//BOF - web28 - 2010-10-27- Korrektur aller Tippfehler oder -> order
 		
 		//BOF - web28 - 2010-06-10 - PayPal IPN Modul Email send by admin
 		//return array('data'=>$order_total,'total'=>$total);
