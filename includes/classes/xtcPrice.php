@@ -49,6 +49,9 @@ class xtcPrice {
 		$this->TAX = array ();
 		$this->SHIPPING = array();
 		$this->showFrom_Attributes = true;
+    //BOF - DokuMan - 2010-10-28 - added missing content_type definition for $tax_address_query
+    $this->content_type = $_SESSION['cart']->get_content_type();
+    //EOF - DokuMan - 2010-10-28 - added missing content_type definition for $tax_address_query
 
 		// select Currencies
 		$currencies_query = "SELECT * FROM ".TABLE_CURRENCIES;
