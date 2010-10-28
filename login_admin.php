@@ -1,13 +1,20 @@
 <?php
-/* --------------------------------------------------------------
-   login_admin.php 2008-08-10 gambio
+/* -----------------------------------------------------------------------------------------
+   $Id$   
+
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on: 
+   (c) 2008 Gambio OHG - login_admin.php 2008-08-10 gambio
    Gambio OHG
    http://www.gambio.de
    Copyright (c) 2008 Gambio OHG
+
    Released under the GNU General Public License
-   --------------------------------------------------------------
-*/
-?><?php
+   ---------------------------------------------------------------------------------------*/
 
 if(isset($_GET['repair'] )) {
 	$action = 'login_admin.php';
@@ -17,7 +24,7 @@ if(isset($_GET['repair'] )) {
 
 if(isset($_POST['repair'] )) {
 	include('includes/application_top.php');
-	
+
 	$result = mysql_query('
 		SELECT customers_id
 		FROM customers
@@ -26,7 +33,7 @@ if(isset($_POST['repair'] )) {
 			customers_password 			= md5("'. xtc_db_prepare_input($_POST['password']			) .'")	AND
 			customers_status				= 0
 	');
-	if(mysql_num_rows($result) > 0) 
+	if(mysql_num_rows($result) > 0)
 	{
 		switch($_POST['repair']) {
 			case 'se_friendly':
@@ -36,8 +43,8 @@ if(isset($_POST['repair'] )) {
 					WHERE	configuration_key 	= "SEARCH_ENGINE_FRIENDLY_URLS"
 				');
 				die('Report: Die Einstellung "Suchmaschinenfreundliche URLs verwenden" wurde deaktiviert.');
-				break;			
-			
+				break;
+
 			case 'sess_write':
 				mysql_query('
 					UPDATE configuration
@@ -46,7 +53,7 @@ if(isset($_POST['repair'] )) {
 				');
 				die('Report: SESSION_WRITE_DIRECTORY wurde auf das Cache-Verzeichnis gerichtet.');
 				break;
-				
+
 			case 'sess_default':
 				mysql_query('
 					UPDATE configuration
@@ -74,8 +81,8 @@ if(isset($_POST['repair'] )) {
 					WHERE	configuration_key 	= "SESSION_RECREATE"
 				');
 				die('Report: Die Session-Einstellungen wurden auf die Standardwerte zurückgesetzt.');
-				break;			
-				
+				break;
+
 			default:
 				die('Report: repair-Befehl ungültig.');
 		}
@@ -85,36 +92,33 @@ if(isset($_POST['repair'] )) {
 	}
 }
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xml:lang="de">
 <head>
-	<title>Admin-Login</title>	
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-15" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="content-language" content="de" />
+<meta http-equiv="cache-control" content="no-cache" />
+<title>Admin-Login</title>
 </head>
-
 <body>
 <br/><br/>
-<form name="login" method="post" action="<?php echo $action ?>">
-
-			<table border=0 align="center" cellpadding=5 cellspacing=0 bgcolor="#F0F0F0" style="border:1px #aaaaaa solid;">
-			<tr>
-				<td class="main"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Email</font></td>
-				<td><div><input type="text" name="email_address" style="width:150px" maxlength="50" /></div></td>
-			</tr>
-			<tr>
-				<td class="main"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Passwort</font>&nbsp;</td>
-				<td><div><input type="password" name="password" style="width:150px" maxlength="30" /></div></td>
-
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			  <td>			    <input type="submit" name="Submit" value="Anmelden">
-			  <input type="hidden" name="repair" value="<?php echo $_GET['repair'] ?>"></td>
-				
-			</tr>
+<form name="login" method="post" action="<?php echo $action; ?>">
+  <table border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F0F0F0" style="border:1px #aaaaaa solid;">
+    <tr>
+      <td class="main"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">E-Mail</font></td>
+      <td><div><input type="text" name="email_address" style="width:150px" maxlength="50" /></div></td>
+    </tr>
+    <tr>
+      <td class="main"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Passwort</font>&nbsp;</td>
+      <td><div><input type="password" name="password" style="width:150px" maxlength="30" /></div></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="Submit" value="Anmelden" />
+      <input type="hidden" name="repair" value="<?php echo $_GET['repair']; ?>" /></td>
+    </tr>
   </table>
-			
-			
-</FORM>
+</form>
 </body>
 </html>
