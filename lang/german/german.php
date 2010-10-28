@@ -447,6 +447,10 @@ define('TEXT_COUPON_HELP_DATE', '<br /><br />Dieser Kupon ist g&uuml;ltig vom %s
 define('TEXT_COUPON_HELP_RESTRICT', '<br /><br />Artikel / Kategorie Einschr&auml;nkungen');
 define('TEXT_COUPON_HELP_CATEGORIES', 'Kategorie');
 define('TEXT_COUPON_HELP_PRODUCTS', 'Artikel');
+//BOF - DokuMan - 2010-10-28 - Added text-constant for emailing voucher
+define('ERROR_ENTRY_AMOUNT_CHECK', 'Ung&uuml;ltiger Gutscheinbetrag');
+define('ERROR_ENTRY_EMAIL_ADDRESS_CHECK', 'Ung&uuml;ltige E-Mail Adresse');
+//EOF - DokuMan - 2010-10-28 - Added text-constant for emailing voucher
 
 // VAT Reg No
 define('ENTRY_VAT_TEXT', 'Nur f&uuml;r Deutschland und EU!');

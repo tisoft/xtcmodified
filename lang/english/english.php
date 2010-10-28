@@ -447,6 +447,10 @@ define('TEXT_COUPON_HELP_DATE', '<br /><br />This voucher is valid from: %s to %
 define('TEXT_COUPON_HELP_RESTRICT', '<br /><br />Product / Category Restrictions'); //changed by electronica 2009-09-06
 define('TEXT_COUPON_HELP_CATEGORIES', 'Category'); //changed by electronica 2009-09-06
 define('TEXT_COUPON_HELP_PRODUCTS', 'Product'); //changed by electronica 2009-09-06
+//BOF - DokuMan - 2010-10-28 - Added text-constant for emailing voucher
+define('ERROR_ENTRY_AMOUNT_CHECK', 'Invalid amount');
+define('ERROR_ENTRY_EMAIL_ADDRESS_CHECK', 'Invalid e-mail address');
+//EOF - DokuMan - 2010-10-28 - Added text-constant for emailing voucher
 
 // VAT Reg No
 define('ENTRY_VAT_TEXT','* for EU-Countries only'); //changed by electronica 2009-09-06 anmerkung: besser wenn laden im EU ausland ist

@@ -15,16 +15,17 @@
 {elseif $action eq ''}
 <p>{#heading_text#}</p>
 {$FORM_ACTION}
+{if $error!=''}<div class="errormessage">{$error}</div>{/if}
 <div class="highlightbox">
 <table border="0" width="100%" cellspacing="0" cellpadding="4">
 	<tr>
     	<td>{#entry_name#}<br />{$INPUT_TO_NAME}</td>
     </tr>
     <tr>
-         <td>{#entry_email#}<br />{$INPUT_EMAIL} {if $ERROR_EMAIL neq ''}{$ERROR_EMAIL}{/if}</td>
+         <td>{#entry_email#}<br />{$INPUT_EMAIL}</td>
        </tr>
        <tr>
-         <td>{#entry_amount#}<br />{$INPUT_AMOUNT} {if $ERROR_AMOUNT neq ''}{$ERROR_AMOUNT}{/if}</td>
+         <td>{#entry_amount#}<br />{$INPUT_AMOUNT}</td>
        </tr>
        <tr>
          <td>{#entry_message#}<br />{$TEXTAREA_MESSAGE}</td>
