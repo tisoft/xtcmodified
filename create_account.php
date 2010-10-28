@@ -1,19 +1,19 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(create_account.php,v 1.63 2003/05/28); www.oscommerce.com
-   (c) 2003  nextcommerce (create_account.php,v 1.27 2003/08/24); www.nextcommerce.org 
+   (c) 2003  nextcommerce (create_account.php,v 1.27 2003/08/24); www.nextcommerce.org
    (c) 2006 XT-Commerce (create_account.php 307 2007-03-30)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contribution:
 
@@ -23,7 +23,6 @@
    Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
-
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -59,7 +58,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	$lastname = xtc_db_prepare_input($_POST['lastname']);
 	if (ACCOUNT_DOB == 'true')
 		$dob = xtc_db_prepare_input($_POST['dob']);
-	$email_address = xtc_db_prepare_input($_POST['email_address']);	
+	$email_address = xtc_db_prepare_input($_POST['email_address']);
 	//BOF - Dokuman - 2010-03-19 - set undefined variable
 	//$confirm_email_address = xtc_db_prepare_input($_POST['confirm_email_address']); // Hetfield - 2009-08-15 - confirm e-mail at registration
 	$confirm_email_address = isset($_POST['confirm_email_address']) ? xtc_db_prepare_input($_POST['confirm_email_address']) : 0; // Hetfield - 2009-08-15 - confirm e-mail at registration
@@ -126,17 +125,17 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 // New VAT Check
 	require_once(DIR_WS_CLASSES.'vat_validation.php');
 	$vatID = new vat_validation($vat, '', '', $country);
-	
+
 	$customers_status = $vatID->vat_info['status'];
 	//BOF - Dokuman - 2010-08-31 - set undefined index
 	//$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
 	$customers_vat_id_status = isset($vatID->vat_info['vat_id_status']) ? $vatID->vat_info['vat_id_status'] : '';
 
-    //$vat_error = $vatID->vat_info['error'];
+  //$vat_error = $vatID->vat_info['error'];
 	$vat_error = isset($vatID->vat_info['error']) ? $vatID->vat_info['error'] : '';
 	//EOF - Dokuman - 2010-08-31 - set undefined index
 
-    if ($vat_error==1){
+	if ($vat_error==1){
 	$messageStack->add('create_account', ENTRY_VAT_ERROR);
 	$error = true;
   }
@@ -157,7 +156,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		$error = true;
 		$messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
 	} elseif ($email_address != $confirm_email_address) {
-   		$error = true;    
+   		$error = true;
    		$messageStack->add('create_account', ENTRY_EMAIL_ERROR_NOT_MATCHING);
 	} else {
 		$check_email_query = xtc_db_query("select count(*) as total
@@ -171,7 +170,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		}
 	}
 	//EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
-	
+
 	if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
 		$error = true;
 		$messageStack->add('create_account', ENTRY_STREET_ADDRESS_ERROR);
@@ -231,7 +230,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		$error = true;
 		$messageStack->add('create_account', ENTRY_PASSWORD_ERROR_NOT_MATCHING);
 	}
-	
+
 	if (DISPLAY_PRIVACY_CHECK == 'true') {
 		if(!isset($privacy) || empty($privacy) || $privacy!='privacy') {
 		$error = true;
@@ -324,7 +323,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
 		if (isset ($_SESSION['tracking']['refID'])) {
 			$campaign_check_query_raw = "SELECT *
-			                            FROM ".TABLE_CAMPAIGNS." 
+			                            FROM ".TABLE_CAMPAIGNS."
 			                            WHERE campaigns_refID = '".$_SESSION[tracking][refID]."'";
 			$campaign_check_query = xtc_db_query($campaign_check_query_raw);
 		if (xtc_db_num_rows($campaign_check_query) > 0) {
@@ -332,18 +331,17 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 			$refID = $campaign['campaigns_id'];
 			} else {
 			$refID = 0;
-		            }
-			
+		  }
+
 			 xtc_db_query("update " . TABLE_CUSTOMERS . " set
                                  refferers_id = '".$refID."'
                                  where customers_id = '".(int) $_SESSION['customer_id']."'");
-			
+
 			$leads = $campaign['campaigns_leads'] + 1 ;
 		     xtc_db_query("update " . TABLE_CAMPAIGNS . " set
-		                         campaigns_leads = '".$leads."'
-                                 where campaigns_id = '".$refID."'");		
-}
-
+                                 campaigns_leads = '".$leads."'
+                                 where campaigns_id = '".$refID."'");
+		}
 
 		if (ACTIVATE_GIFT_SYSTEM == 'true') {
 			// GV Code Start
@@ -392,7 +390,11 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		if (!isset ($mail_error)) {
 			xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
 		} else {
-			echo $mail_error;
+      //BOF - DokuMan - 2010-10-28 - use nicer smarty-output instead of direct echo output
+			//echo $mail_error;
+			$error = true;
+			$messageStack->add('create_account', $mail_error);
+      //EOF - DokuMan - 2010-10-28 - use nicer smarty-output instead of direct echo output
 		}
 	}
 }
@@ -405,15 +407,15 @@ require (DIR_WS_INCLUDES.'header.php');
 // xs:booster start (v1.041)
 if(@isset($_SESSION['xtb0']['tx'][0]))
 {
-	$GLOBALS['gender']=			'm';
-	$GLOBALS['firstname']=		substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],0,strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," "));
-	$GLOBALS['lastname']=		substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," ")+1,strlen($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']));
+	$GLOBALS['gender']= 'm';
+	$GLOBALS['firstname']= substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],0,strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," "));
+	$GLOBALS['lastname']= substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," ")+1,strlen($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']));
 	$GLOBALS['street_address']=	$_SESSION['xtb0']['tx'][0]['XTB_EBAY_STREET'];
-	$GLOBALS['postcode']=		$_SESSION['xtb0']['tx'][0]['XTB_EBAY_POSTALCODE'];
-	$GLOBALS['city']=			$_SESSION['xtb0']['tx'][0]['XTB_EBAY_CITY'];
-	$GLOBALS['country']=		$_SESSION['xtb0']['tx'][0]['XTB_EBAY_COUNTRYNAME'];
-	$GLOBALS['email_address']=	$_SESSION['xtb0']['tx'][0]['XTB_EBAY_EMAIL'];
-	$GLOBALS['telephone']=		$_SESSION['xtb0']['tx'][0]['XTB_EBAY_PHONE'];
+	$GLOBALS['postcode']= $_SESSION['xtb0']['tx'][0]['XTB_EBAY_POSTALCODE'];
+	$GLOBALS['city']= $_SESSION['xtb0']['tx'][0]['XTB_EBAY_CITY'];
+	$GLOBALS['country']= $_SESSION['xtb0']['tx'][0]['XTB_EBAY_COUNTRYNAME'];
+	$GLOBALS['email_address']= $_SESSION['xtb0']['tx'][0]['XTB_EBAY_EMAIL'];
+	$GLOBALS['telephone']= $_SESSION['xtb0']['tx'][0]['XTB_EBAY_PHONE'];
 }
 // xs:booster end
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
