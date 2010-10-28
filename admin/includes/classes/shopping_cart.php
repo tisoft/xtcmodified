@@ -1,18 +1,18 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: shopping_cart.php 950 2005-05-14 16:45:21Z mz $   
+   $Id: shopping_cart.php 950 2005-05-14 16:45:21Z mz $
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2003 XT-Commerce
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.7 2002/05/16); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.7 2002/05/16); www.oscommerce.com
    (c) 2003	 nextcommerce (shopping_cart.php,v 1.6 2003/08/18); www.nextcommerce.org
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class shoppingCart {
@@ -133,7 +133,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       }
     }
 
-    function count_contents() {  // get total number of items in cart 
+    function count_contents() {  // get total number of items in cart
         $total_items = 0;
         if (is_array($this->contents)) {
             reset($this->contents);
@@ -287,6 +287,68 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
       return $this->weight;
     }
+
+  //BOF - DokuMan - 2010-10-28 - added get_content_type method also in admin section to avoid errors due to xtcPrice.php
+	function get_content_type() {
+		$this->content_type = false;
+
+		if ((DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0)) {
+			reset($this->contents);
+			while (list ($products_id,) = each($this->contents)) {
+				if (isset ($this->contents[$products_id]['attributes'])) {
+					reset($this->contents[$products_id]['attributes']);
+					while (list (, $value) = each($this->contents[$products_id]['attributes'])) {
+						$virtual_check_query = xtc_db_query("select count(*) as total
+																from ".TABLE_PRODUCTS_ATTRIBUTES." pa,
+																".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
+																where pa.products_id = '".(int)$products_id."'
+																and pa.options_values_id = '".(int)$value."'
+																and pa.products_attributes_id = pad.products_attributes_id
+																");
+						$virtual_check = xtc_db_fetch_array($virtual_check_query);
+						if ($virtual_check['total'] > 0) {
+							switch ($this->content_type) {
+								case 'physical' :
+									$this->content_type = 'mixed';
+									return $this->content_type;
+									break;
+
+								default :
+									$this->content_type = 'virtual';
+									break;
+							}
+						} else {
+							switch ($this->content_type) {
+								case 'virtual' :
+									$this->content_type = 'mixed';
+									return $this->content_type;
+									break;
+
+								default :
+									$this->content_type = 'physical';
+									break;
+							}
+						}
+					}
+				} else {
+					switch ($this->content_type) {
+						case 'virtual' :
+							$this->content_type = 'mixed';
+							return $this->content_type;
+							break;
+
+						default :
+							$this->content_type = 'physical';
+							break;
+					}
+				}
+			}
+		} else {
+			$this->content_type = 'physical';
+		}
+		return $this->content_type;
+	}
+  //EOF - DokuMan - 2010-10-28 - added get_content_type method also in admin section to avoid errors due to xtcPrice.php
 
     function unserialize($broken) {
       for(reset($broken);$kv=each($broken);) {
