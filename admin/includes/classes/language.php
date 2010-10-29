@@ -65,7 +65,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                'zh-tw' => array('zh[-_]tw|chinese traditional', 'chinese_big5', 'zh-TW'),
                                'zh' => array('zh|chinese simplified', 'chinese_gb', 'zh'));
 
-
       $this->catalog_languages = array();
 	  //BOF - web28 - 2010-08-19 - added status
       $languages_query = xtc_db_query("select languages_id, name, code, image, directory, status from " . TABLE_LANGUAGES . " order by sort_order");
@@ -92,15 +91,17 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     function get_browser_language() {
       //BOF - DokuMan - 2010-08-04 - use $_SERVER here for better windows environment compatiblity
       //$this->browser_languages = explode(',', getenv('HTTP_ACCEPT_LANGUAGE'));
-      $this->browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+      if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+	      $this->browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
       //BOF - DokuMan - 2010-08-04 - use $_SERVER here for better windows environment compatiblity
 
-      for ($i=0, $n=sizeof($this->browser_languages); $i<$n; $i++) {
-        reset($this->languages);
-        while (list($key, $value) = each($this->languages)) {
-          if (preg_match('/^(' . $value[0] . ')(;q=[0-9]\\.[0-9])?$/i', $this->browser_languages[$i]) && isset($this->catalog_languages[$key])) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
-            $this->language = $this->catalog_languages[$key];
-            break 2;
+        for ($i=0, $n=sizeof($this->browser_languages); $i<$n; $i++) {
+          reset($this->languages);
+          while (list($key, $value) = each($this->languages)) {
+            if (preg_match('/^(' . $value[0] . ')(;q=[0-9]\\.[0-9])?$/i', $this->browser_languages[$i]) && isset($this->catalog_languages[$key])) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+              $this->language = $this->catalog_languages[$key];
+              break 2;
+            }
           }
         }
       }
