@@ -19,7 +19,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   class upload {
     var $file, $filename, $destination, $permissions, $extensions, $tmp_filename;
 
-    function upload($file = '', $destination = '', $permissions = '777', $extensions = '') {
+    function upload($file = '', $destination = '', $permissions = '644', $extensions = '') {
 
       $this->set_file($file);
       $this->set_destination($destination);
@@ -49,10 +49,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                       'size' => $_FILES[$this->file]['size'],
                       'tmp_name' => $_FILES[$this->file]['tmp_name']);
       } else {
-        $file = array('name' => $GLOBALS[$this->file . '_name'],
-                      'type' => $GLOBALS[$this->file . '_type'],
-                      'size' => $GLOBALS[$this->file . '_size'],
-                      'tmp_name' => $GLOBALS[$this->file]);
+        $file = array('name' => (isset($GLOBALS[$this->file . '_name']) ? $GLOBALS[$this->file . '_name'] : ''),
+                      'type' => (isset($GLOBALS[$this->file . '_type']) ? $GLOBALS[$this->file . '_type'] : ''),
+                      'size' => (isset($GLOBALS[$this->file . '_size']) ? $GLOBALS[$this->file . '_size'] : ''),
+                      'tmp_name' => (isset($GLOBALS[$this->file]) ? $GLOBALS[$this->file] : ''));
       }
 
       if ( xtc_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name']) ) {
