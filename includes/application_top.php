@@ -123,7 +123,6 @@ require_once (DIR_FS_INC.'xtc_db_fetch_fields.inc.php');
 require_once (DIR_FS_INC.'xtc_db_output.inc.php');
 require_once (DIR_FS_INC.'xtc_db_input.inc.php');
 require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
-require_once (DIR_FS_INC.'xtc_get_top_level_domain.inc.php');
 
 // html basics
 require_once (DIR_FS_INC.'xtc_href_link.inc.php');
@@ -153,7 +152,7 @@ require_once (DIR_FS_INC.'xtc_expire_banners.inc.php');
 require_once (DIR_FS_INC.'xtc_expire_specials.inc.php');
 require_once (DIR_FS_INC.'xtc_parse_category_path.inc.php');
 require_once (DIR_FS_INC.'xtc_get_product_path.inc.php');
-
+require_once (DIR_FS_INC.'xtc_get_top_level_domain.inc.php');
 require_once (DIR_FS_INC.'xtc_get_category_path.inc.php');
 
 require_once (DIR_FS_INC.'xtc_get_parent_categories.inc.php');
