@@ -14,10 +14,10 @@ UPDATE database_version SET version = 'xtcM_1.0.6.0';
 UPDATE configuration SET configuration_value = '<span style="color:red">***</span>' WHERE configuration_key = 'STOCK_MARK_PRODUCT_OUT_OF_STOCK';
 
 #Hendrik - 2010-08-11 - Thumbnails in admin products list
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, NULL , NOW( ) , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, '', NOW() , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
 #DokuMan - 2010-08-13 - Google RSS Feed REFID configuration
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GOOGLE_RSS_FEED_REFID', '', 17, 15, NULL, NOW(), NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'GOOGLE_RSS_FEED_REFID', '', 17, 15, '', NOW(), NULL, NULL);
 
 #DokuMan - 2010-08-17 - Replace GLS shipping module with newer version
 DELETE FROM configuration WHERE configuration_key = 'MODULE_SHIPPING_GLS_STATUS';
@@ -74,7 +74,7 @@ ADD INDEX idx_products_id (products_id),
 ADD INDEX idx_options (options_id, options_values_id);
 
 # DokuMan - 2010-10-29 - added missing HEADING_IMAGE_ definitions in Admin
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('','HEADING_IMAGE_WIDTH', '57', '4', '4', NOW( ) , NOW( ) , NULL, NULL);
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'HEADING_IMAGE_HEIGHT', '40', '4', '4', NOW( ) , NOW( ) , NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('','HEADING_IMAGE_WIDTH', '57', '4', '4', '', NOW() , NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'HEADING_IMAGE_HEIGHT', '40', '4', '4', '', NOW() , NULL, NULL);
 
 # Keep an empty line at the end of this file for the db_updater to work properly
