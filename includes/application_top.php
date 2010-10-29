@@ -100,9 +100,7 @@ require (DIR_WS_INCLUDES.'database_tables.php');
 define('SQL_CACHEDIR', DIR_FS_CATALOG.'cache/');
 
 // Store DB-Querys in a Log File
-//BOF - DokuMan - 2010-02-25 - Constant STORE_DB_TRANSACTIONS already defined in DB
-//define('STORE_DB_TRANSACTIONS', 'false');
-//EOF - DokuMan - 2010-02-25 - Constant STORE_DB_TRANSACTIONS already defined in DB
+//define('STORE_DB_TRANSACTIONS', 'false'); //DokuMan - 2010-10-29 - constant already defined in database
 
 // graduated prices model or products assigned ?
 define('GRADUATED_ASSIGN', 'true');
@@ -195,8 +193,8 @@ while ($configuration = xtc_db_fetch_array($configuration_query)) {
 //
 // Set the length of the redeem code, the longer the more secure
 // Kommt eigentlich schon aus der Table configuration
-if(SECURITY_CODE_LENGTH=='')
-  define('SECURITY_CODE_LENGTH', '10');
+//if(SECURITY_CODE_LENGTH=='') //DokuMan - 2010-10-29 - constant already defined in database
+//  define('SECURITY_CODE_LENGTH', '10'); //DokuMan - 2010-10-29 - constant already defined in database
 // The settings below determine whether a new customer receives an incentive when they first signup
 //
 // Set the amount of a Gift Voucher that the new signup will receive, set to 0 for none

@@ -39,7 +39,8 @@ define('XAJAX_BACKEND_SUPPORT_TEST',    'false'); // 'true' );     // this inclu
   define('_VALID_XTC',true);
 
   // Set the level of error reporting
-  error_reporting(E_ALL & ~E_NOTICE);
+  //error_reporting(E_ALL & ~E_NOTICE);
+  error_reporting(E_ALL);
 
   // Disable use_trans_sid as xtc_href_link() does this manually
   if (function_exists('ini_set')) {
@@ -80,7 +81,7 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
 // EOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
 
   // Set the length of the redeem code, the longer the more secure
-  define('SECURITY_CODE_LENGTH', '6');
+  //define('SECURITY_CODE_LENGTH', '6'); //DokuMan - 2010-10-29 - constant already defined in database
 
   // Used in the "Backup Manager" to compress backups
   define('LOCAL_EXE_GZIP', '/usr/bin/gzip');
@@ -212,10 +213,10 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
   define('CURRENCY_SERVER_BACKUP', 'xe');
   
   // Use the DB-Logger
-  define('STORE_DB_TRANSACTIONS', 'false');
+  //define('STORE_DB_TRANSACTIONS', 'false'); //DokuMan - 2010-10-29 - constant already defined in database
 
   // include the database functions
-//  require(DIR_WS_FUNCTIONS . 'database.php');
+  //require(DIR_WS_FUNCTIONS . 'database.php');
 
   // make a connection to the database... now
   xtc_db_connect() or die('Unable to connect to database server!');
