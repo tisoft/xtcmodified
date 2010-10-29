@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS gls_country_to_postal;
 DROP TABLE IF EXISTS gls_postal_to_weight;
 DROP TABLE IF EXISTS gls_weight;
 
-#Hendrik 2010-08-29 Xajax Support in Backend
+#Hendrik - 2010-08-29 - Xajax Support in Backend
 ALTER TABLE admin_access ADD xajax INT(1) DEFAULT 1 NOT NULL;
 
 #DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
@@ -56,11 +56,11 @@ UPDATE tax_rates SET tax_description = '7%' WHERE tax_description = 'MwSt 7%';
 UPDATE configuration SET configuration_value = 'True' WHERE configuration_key = 'SESSION_RECREATE';
 UPDATE configuration SET configuration_value = 'True' WHERE configuration_key = 'SESSION_CHECK_USER_AGENT';
 
-# DokuMan - 2010-10-13 add index idx_categories_id
+# DokuMan - 2010-10-13 - add index idx_categories_id
 ALTER TABLE products_to_categories
 ADD INDEX idx_categories_id (categories_id,products_id);
 
-# DokuMan - 2010-10-14 keep index naming convention (idx_)
+# DokuMan - 2010-10-14 - keep index naming convention (idx_)
 ALTER TABLE orders_products
 DROP INDEX orders_id (orders_id),
 DROP INDEX products_id (products_id),
@@ -72,5 +72,9 @@ DROP INDEX products_id (products_id),
 DROP INDEX options (options_id, options_values_id),
 ADD INDEX idx_products_id (products_id),
 ADD INDEX idx_options (options_id, options_values_id);
+
+# DokuMan - 2010-10-29 - added missing HEADING_IMAGE_ definitions in Admin
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('','HEADING_IMAGE_WIDTH', '57', '4', '4', NOW( ) , NOW( ) , NULL, NULL);
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'HEADING_IMAGE_HEIGHT', '40', '4', '4', NOW( ) , NOW( ) , NULL, NULL);
 
 # Keep an empty line at the end of this file for the db_updater to work properly
