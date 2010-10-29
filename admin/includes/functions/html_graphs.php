@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: html_graphs.php 950 2005-05-14 16:45:21Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(html_graphs.php,v 1.6 2002/11/25); www.oscommerce.com 
-   (c) 2003	 nextcommerce (html_graphs.php,v 1.6 2003/08/18); www.nextcommerce.org
+   (c) 2003	nextcommerce (html_graphs.php,v 1.6 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (html_graphs.php 950 2005-05-14)
 
    Released under the GNU General Public License 
    
@@ -515,8 +516,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   function xtc_banner_graph_daily($banner_id) {
     global $banner;
 
-    $year = (($_GET['year']) ? $_GET['year'] : date('Y'));
-    $month = (($_GET['month']) ? $_GET['month'] : date('n'));
+    $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+    $month = (isset($_GET['month']) ? $_GET['month'] : date('n'));
 
     $days = (date('t', mktime(0,0,0,$month))+1);
     $stats = array();

@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: compatibility.php 950 2005-05-14 16:45:21Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(compatibility.php,v 1.8 2003/04/09); www.oscommerce.com 
-   (c) 2003	 nextcommerce (compatibility.php,v 1.6 2003/08/18); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(compatibility.php,v 1.8 2003/04/09); www.oscommerce.com
+   (c) 2003	nextcommerce (compatibility.php,v 1.6 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (compatibility.php 950 2005-05-14)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   ////
@@ -21,7 +22,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   // $HTTP_xxx_VARS
   // Ie, products attributes
   function do_magic_quotes_gpc(&$ar) {
-    if (!is_array($ar)) return;
+    if (!is_array($ar)) return false; //DokuMan - "return false" instead of "return"
 
     while (list($key, $value) = each($ar)) {
       if (is_array($value)) {

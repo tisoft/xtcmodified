@@ -11,7 +11,7 @@
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(localization.php,v 1.12 2003/06/25); www.oscommerce.com
    (c) 2003	nextcommerce (localization.php,v 1.4 2003/08/14); www.nextcommerce.org
-   (c) 2005 XT-Commerce (sessions.php 950 2005-05-14)
+   (c) 2005 XT-Commerce (localization.php)
    (c) 2006 The zen-cart developers http://www.zen-cart.com/index.php
 
    Released under the GNU General Public License
