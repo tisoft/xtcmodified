@@ -9,7 +9,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(banner_manager.php,v 1.70 2003/03/22); www.oscommerce.com
-   (c) 2003	 nextcommerce (banner_manager.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2003	nextcommerce (banner_manager.php,v 1.9 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (banner_manager.php 1030 2005-07-14)
 
    Released under the GNU General Public License
@@ -17,10 +17,10 @@
 
   require('includes/application_top.php');
 
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
   $banner_extension = xtc_banner_image_extension();
 
-  if ($_GET['action']) {
-    switch ($_GET['action']) {
+    switch ($action) {
       case 'setflag':
         if ( ($_GET['flag'] == '0') || ($_GET['flag'] == '1') ) {
           xtc_set_banner_status($_GET['bID'], $_GET['flag']);
@@ -33,7 +33,7 @@
         break;
       case 'insert':
       case 'update':
-        $banners_id = xtc_db_prepare_input($_POST['banners_id']);
+        if (isset($_POST['banners_id'])) $banners_id = xtc_db_prepare_input($_POST['banners_id']);
         $banners_title = xtc_db_prepare_input($_POST['banners_title']);
         $banners_url = xtc_db_prepare_input($_POST['banners_url']);
         $new_banners_group = xtc_db_prepare_input($_POST['new_banners_group']);
@@ -68,14 +68,14 @@
                                   'banners_group' => $banners_group,
                                   'banners_html_text' => $html_text);
 
-          if ($_GET['action'] == 'insert') {
+          if ($action == 'insert') {
             $insert_sql_data = array('date_added' => 'now()',
                                       'status' => '1');
             $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
             xtc_db_perform(TABLE_BANNERS, $sql_data_array);
             $banners_id = xtc_db_insert_id();
             $messageStack->add_session(SUCCESS_BANNER_INSERTED, 'success');
-          } elseif ($_GET['action'] == 'update') {
+          } elseif ($action == 'update') {
             xtc_db_perform(TABLE_BANNERS, $sql_data_array, 'update', 'banners_id = \'' . $banners_id . '\'');
             $messageStack->add_session(SUCCESS_BANNER_UPDATED, 'success');
           }
@@ -113,7 +113,7 @@
 
           xtc_redirect(xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners_id));
         } else {
-          $_GET['action'] = 'new';
+          $action = 'new';
         }
         break;
       case 'deleteconfirm':
@@ -137,7 +137,7 @@
         xtc_db_query("delete from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($banners_id) . "'");
         xtc_db_query("delete from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . xtc_db_input($banners_id) . "'");
 
-        if ( (function_exists('imagecreate')) && ($banner_extension) ) {
+        if (function_exists('imagecreate') && xtc_not_null($banner_extension)) {
           if (is_file(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banners_id . '.' . $banner_extension)) {
             if (is_writeable(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banners_id . '.' . $banner_extension)) {
               unlink(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banners_id . '.' . $banner_extension);
@@ -168,11 +168,10 @@
         xtc_redirect(xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page']));
         break;
     }
-  }
 
 // check if the graphs directory exists
   $dir_ok = false;
-  if ( (function_exists('imagecreate')) && ($banner_extension) ) {
+  if (function_exists('imagecreate') && xtc_not_null($banner_extension)) {
     if (is_dir(DIR_WS_IMAGES . 'graphs')) {
       if (is_writeable(DIR_WS_IMAGES . 'graphs')) {
         $dir_ok = true;
@@ -225,9 +224,9 @@ function popupImageWindow(url) {
         </table></td>
       </tr>
 <?php
-  if ($_GET['action'] == 'new') {
+  if ($action == 'new') {
     $form_action = 'insert';
-    if ($_GET['bID']) {
+    if (isset($_GET['bID'])) {
       $bID = xtc_db_prepare_input($_GET['bID']);
       $form_action = 'update';
 
@@ -270,14 +269,14 @@ function popupImageWindow(url) {
  <script type="text/javascript">
   /* set Datepicker for dateExpires (1) and dateScheduled (2) */
   $(function() {
-	  $('#hasDatepicker1').datepicker(		
+	  $('#hasDatepicker1').datepicker(
 		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
 		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
 	  );
 	  $('#hasDatepicker2').datepicker(
 		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
-		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}	
-	  );	  
+		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
+	  );
 	});
 </script>
 <?php /* EOF - DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI */ ?>
@@ -285,7 +284,7 @@ function popupImageWindow(url) {
       <tr>
         <td><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo xtc_draw_form('new_banner', FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"'); if ($form_action == 'update') echo xtc_draw_hidden_field('banners_id', $bID); ?>
+      <tr><?php echo xtc_draw_form('new_banner', FILENAME_BANNER_MANAGER, (isset($_GET['page']) ? 'page=' . $_GET['page'] . '&' : '') . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"'); if ($form_action == 'update') echo xtc_draw_hidden_field('banners_id', $bID); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_TITLE; ?></td>
@@ -390,7 +389,7 @@ function popupImageWindow(url) {
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_BANNER_NOTE . '<br />' . TEXT_BANNERS_INSERT_NOTE . '<br />' . TEXT_BANNERS_EXPIRCY_NOTE . '<br />' . TEXT_BANNERS_SCHEDULE_NOTE; ?></td>
-            <td class="main" align="right" valign="top" nowrap><?php echo (($form_action == 'insert') ? '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_INSERT . '"/>' : '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_UPDATE . '"/>'). '&nbsp;&nbsp;<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $_GET['bID']) . '">' . BUTTON_CANCEL . '</a>'; ?></td>
+            <td class="main" align="right" valign="top" nowrap><?php echo (($form_action == 'insert') ? '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_INSERT . '"/>' : '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_UPDATE . '"/>'). '&nbsp;&nbsp;<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BANNER_MANAGER, (isset($_GET['page']) ? 'page=' . $_GET['page'] . '&' : '') . (isset($_GET['bID']) ? 'bID=' . $_GET['bID'] : '')) . '">' . BUTTON_CANCEL . '</a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -416,7 +415,7 @@ function popupImageWindow(url) {
       $info_query = xtc_db_query("select sum(banners_shown) as banners_shown, sum(banners_clicked) as banners_clicked from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banners['banners_id'] . "'");
       $info = xtc_db_fetch_array($info_query);
 
-      if (((!$_GET['bID']) || ($_GET['bID'] == $banners['banners_id'])) && (!$bInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+      if ((!isset($_GET['bID']) || (isset($_GET['bID']) && ($_GET['bID'] == $banners['banners_id']))) && !isset($bInfo) && (substr($action, 0, 3) != 'new')) {
         $bInfo_array = xtc_array_merge($banners, $info);
         $bInfo = new objectInfo($bInfo_array);
       }
@@ -424,7 +423,7 @@ function popupImageWindow(url) {
       $banners_shown = ($info['banners_shown'] != '') ? $info['banners_shown'] : '0';
       $banners_clicked = ($info['banners_clicked'] != '') ? $info['banners_clicked'] : '0';
 
-      if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) {
+      if (isset($bInfo) && (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) {
         echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id) . '\'">' . "\n";
       } else {
         echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '\'">' . "\n";
@@ -480,7 +479,7 @@ function popupImageWindow(url) {
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . $bInfo->banners_title . '</b>');
 
@@ -491,7 +490,7 @@ function popupImageWindow(url) {
       $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE . '"/>&nbsp;<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $_GET['bID']) . '">' . BUTTON_CANCEL . '</a>');
       break;
     default:
-      if (is_object($bInfo)) {
+      if (isset($bInfo) && is_object($bInfo)) {
         $heading[] = array('text' => '<b>' . $bInfo->banners_title . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id . '&action=new') . '">' . BUTTON_EDIT . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id . '&action=delete') . '">' . BUTTON_DELETE . '</a>');

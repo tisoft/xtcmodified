@@ -18,8 +18,10 @@
 
   require('includes/application_top.php');
 
-  if ($_GET['action']) {
-    switch ($_GET['action']) {
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  if (xtc_not_null($action)) {
+    switch ($action) {
       case 'save':
 
       //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
@@ -258,7 +260,7 @@
       $cfgValue = $configuration['configuration_value'];
     }
 
-    if ((!isset($_GET['cID']) || (@$_GET['cID'] == $configuration['configuration_id'])) && (!$cInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+    if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $configuration['configuration_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
       $cfg_extra_query = xtc_db_query("select configuration_key,configuration_value, date_added, last_modified, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_id = '" . $configuration['configuration_id'] . "'");
       $cfg_extra = xtc_db_fetch_array($cfg_extra_query);
 
