@@ -73,6 +73,11 @@ define('BOX_HEADING_CUSTOMERS','Customers');
 define('BOX_HEADING_PRODUCTS','Catalog');
 define('BOX_HEADING_STATISTICS','Statistics');
 define('BOX_HEADING_TOOLS','Tools');
+define('BOX_HEADING_LOCALIZATION', 'Languages/Currencies');
+define('BOX_HEADING_TEMPLATES','Templates');
+define('BOX_HEADING_LOCATION_AND_TAXES', 'Location / Tax');
+define('BOX_HEADING_CATALOG', 'Catalog');
+define('BOX_MODULE_NEWSLETTER','Newsletter');
 
 define('BOX_CONTENT','Content Manager');
 define('TEXT_ALLOWED', 'Permission');
@@ -139,9 +144,7 @@ define('BOX_CURRENCIES', 'Currencies');
 define('BOX_LANGUAGES', 'Languages');
 define('BOX_ORDERS_STATUS', 'Order Status');
 define('BOX_ATTRIBUTES_MANAGER','Attribute Manager');
-define('BOX_PRODUCTS_ATTRIBUTES','Option-Groups');
 define('BOX_MODULE_NEWSLETTER','Newsletter');
-define('BOX_ORDERS_STATUS','Orders Status');
 define('BOX_SHIPPING_STATUS','Shipping status');
 define('BOX_SALES_REPORT','Sales Report');
 define('BOX_MODULE_EXPORT','XT-Modules');
@@ -163,17 +166,6 @@ define('TXT_PRODUCTS','Products/Categories');
 define('TXT_STATISTICS','Statistics');
 define('TXT_TOOLS','Tools');
 define('TEXT_ACCOUNTING','Admin-access for:');
-
-//Dividers text for menu
-
-define('BOX_HEADING_MODULES', 'Modules');
-define('BOX_HEADING_LOCALIZATION', 'Languages/Currencies');
-define('BOX_HEADING_TEMPLATES','Templates');
-define('BOX_HEADING_TOOLS', 'Tools');
-define('BOX_HEADING_LOCATION_AND_TAXES', 'Location / Tax');
-define('BOX_HEADING_CUSTOMERS', 'Customers');
-define('BOX_HEADING_CATALOG', 'Catalog');
-define('BOX_MODULE_NEWSLETTER','Newsletter');
 
 // javascript messages
 define('JS_ERROR', 'Error have occured during the process of your form!\nPlease make the following corrections:\n\n');
@@ -389,7 +381,6 @@ define('NEW_SIGNUP_DISCOUNT_COUPON_DESC', 'Welcome Discount Coupon Code: if you 
 define('TXT_ALL','All');
 
 // UST ID
-define('HEADING_TITLE_VAT','Vat-ID');
 define('HEADING_TITLE_VAT','Vat-ID');
 define('ENTRY_VAT_ID','Vat-ID');
 define('ENTRY_CUSTOMERS_VAT_ID', 'Vat-ID:');

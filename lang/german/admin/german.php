@@ -73,6 +73,11 @@ define('BOX_HEADING_CUSTOMERS','Kunden');
 define('BOX_HEADING_PRODUCTS','Artikelkatalog');
 define('BOX_HEADING_STATISTICS','Statistiken');
 define('BOX_HEADING_TOOLS','Hilfsprogramme');
+define('BOX_HEADING_LOCALIZATION', 'Sprachen/W&auml;hrungen');
+define('BOX_HEADING_TEMPLATES','Templates');
+define('BOX_HEADING_LOCATION_AND_TAXES', 'Land / Steuer');
+define('BOX_HEADING_CATALOG', 'Katalog');
+define('BOX_MODULE_NEWSLETTER','Rundschreiben');
 
 define('BOX_CONTENT','Content Manager');
 define('TEXT_ALLOWED', 'Erlaubnis');
@@ -139,8 +144,6 @@ define('BOX_CURRENCIES', 'W&auml;hrungen');
 define('BOX_LANGUAGES', 'Sprachen');
 define('BOX_ORDERS_STATUS', 'Bestellstatus');
 define('BOX_ATTRIBUTES_MANAGER','Attribut Verwaltung');
-define('BOX_PRODUCTS_ATTRIBUTES','Optionsgruppen');
-define('BOX_ORDERS_STATUS','Bestellstatus');
 define('BOX_SHIPPING_STATUS','Lieferstatus');
 define('BOX_SALES_REPORT','Umsatzstatistik');
 define('BOX_MODULE_EXPORT','XT-Module');
@@ -163,17 +166,6 @@ define('TXT_PRODUCTS','Artikel/Kategorien');
 define('TXT_STATISTICS','Statistiktools');
 define('TXT_TOOLS','Zusatzprogramme');
 define('TEXT_ACCOUNTING','Zugriffseinstellungen f&uuml;r:');
-
-//Dividers text for menu
-
-define('BOX_HEADING_MODULES', 'Module');
-define('BOX_HEADING_LOCALIZATION', 'Sprachen/W&auml;hrungen');
-define('BOX_HEADING_TEMPLATES','Templates');
-define('BOX_HEADING_TOOLS', 'Hilfsprogramme');
-define('BOX_HEADING_LOCATION_AND_TAXES', 'Land / Steuer');
-define('BOX_HEADING_CUSTOMERS', 'Kunden');
-define('BOX_HEADING_CATALOG', 'Katalog');
-define('BOX_MODULE_NEWSLETTER','Rundschreiben');
 
 // javascript messages
 define('JS_ERROR', 'W&auml;hrend der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
@@ -389,7 +381,6 @@ define('NEW_SIGNUP_DISCOUNT_COUPON_DESC', 'Willkommens-Rabatt Kupon Code: Wenn S
 define('TXT_ALL','Alle');
 
 // UST ID
-define('HEADING_TITLE_VAT','USt-IdNr.');
 define('HEADING_TITLE_VAT','USt-IdNr.');
 define('ENTRY_VAT_ID','USt-IdNr.:');
 define('ENTRY_CUSTOMERS_VAT_ID', 'USt-IdNr.:');

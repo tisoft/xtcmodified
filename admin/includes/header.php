@@ -39,15 +39,15 @@
 // EOF - web28 - 2010-08-19 - Admin language switch
 
 // BOF - Tomcraft - 2009-11-02 - JavaScript WEICHE  - Admin Umschaltauswahl
-    if (USE_ADMIN_TOP_MENU != 'false') {
-  ?>
+  if (USE_ADMIN_TOP_MENU != 'false') {
+?>
    <script src="includes/liststyle_menu/topmenu.js" type="text/javascript"></script>
    <script language="javascript">
     <!--
 	document.write('<link href="includes/liststyle_menu/liststyle_top.css" rel="stylesheet" type="text/css" />');
 	//-->
 	</script>
-  <?php
+<?php
   } else echo '<link href="includes/liststyle_menu/liststyle_left.css" rel="stylesheet" type="text/css" />';
  // EOF - Tomcraft - 2009-11-02 - JavaScript WEICHE  - Admin Umschaltauswahl
 
@@ -61,7 +61,6 @@ if( XAJAX_BACKEND_SUPPORT=='true' ) {
 }
 // EOF - hendrik - 2010-08-29 - xajax in backend
 ?>
-
 <!-- BOF - Tomcraft - 2009-11-02 - JavaScript WEICHE //-->
 <noscript>
 	<link href="includes/liststyle_menu/liststyle_left.css" rel="stylesheet" type="text/css" />
@@ -111,23 +110,21 @@ if( XAJAX_BACKEND_SUPPORT=='true' ) {
 		</td>
 <!-- EOF - web28 - 2010-06-20 - added xtc_href_link to fastmenu //-->
 
-		<!-- BOF - hendrik - 2010-08-29 - xajax in backend //-->
-       	<?php if( XAJAX_BACKEND_SUPPORT_TEST=='true' ) {  ?>
-        <td class="fastmenu" align="center">
-		    <!-- ---- beginn xajax_support_test------------------------ -->
-		    <a href="#" onClick="xajax_xajax_support_test_get_servertime( new Date().toLocaleString() );">xajax_support_test</a>
-		    <!-- ---- end xajax_support_test------------------------ -->
-   		</td>
-   		<?php } ?>
-		<!-- EOF - hendrik - 2010-08-29 - xajax in backend //-->
-
+<!-- BOF - hendrik - 2010-08-29 - xajax in backend //-->
+    <?php if( XAJAX_BACKEND_SUPPORT_TEST=='true' ) {  ?>
+    <td class="fastmenu" align="center">
+    <!-- ---- beginn xajax_support_test------------------------ -->
+    <a href="#" onClick="xajax_xajax_support_test_get_servertime( new Date().toLocaleString() );">xajax_support_test</a>
+    <!-- ---- end xajax_support_test------------------------ -->
+  </td>
+  <?php } ?>
+<!-- EOF - hendrik - 2010-08-29 - xajax in backend //-->
       </tr>
     </table>
     </td>
   </tr>
 </table>
 </div>
-
 <div id="top2"></div>
 
 <?php
@@ -144,7 +141,4 @@ if (USE_ADMIN_TOP_MENU != 'false') {
 // EOF - Hetfield  2009-12-16 - rename $content in $menucontent because $content already exist
 // EOF - vr/web28 - 2009-12-13 - escape some characters
 }
-
-
-
 ?>

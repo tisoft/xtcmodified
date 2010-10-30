@@ -72,7 +72,6 @@
 	define('TABLE_HEADING_PRODUCTS', 'Artikel');
 	define('TABLE_HEADING_TAX', 'MwSt.');
 	define('TABLE_HEADING_TOTAL', 'Gesamtsumme');
-	define('TABLE_HEADING_STATUS', 'Status');
 	define('TABLE_HEADING_DATE_ADDED', 'hinzugef&uuml;gt am:');
 	define('ENTRY_CUSTOMER', 'Kunde:');
 	define('TEXT_DATE_ORDER_CREATED', 'Bestelldatum:');
@@ -82,10 +81,6 @@
 	define('TEXT_NO_ORDER_HISTORY', 'Keine Bestellhistorie verf&uuml;gbar');
 	define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte &Auml;nderung');
     
-// NEU HINZUGEFUEGT 04.12.2008 - Neue Startseite im Admin EOF
-
-define('TEXT_DATE_ORDER_LAST_MODIFIED','Letzte &Auml;nderung: ');
-
 // BOF - Tomcraft - 2009-11-25 - Added missing definitions for /admin/start.php/
 define('TOTAL_CUSTOMERS','Kunden gesamt');
 define('TOTAL_SUBSCRIBERS','Newsletter Abos');
@@ -124,6 +119,7 @@ define('TABLE_HEADING_NEW_CUSTOMERS_REGISTERED', 'angemeldet am');
 define('TABLE_HEADING_NEW_CUSTOMERS_EDIT', 'bearbeiten');
 define('TABLE_HEADING_NEW_CUSTOMERS_ORDERS', 'Bestellungen');
 define('TABLE_CELL_NEW_CUSTOMERS_EDIT', 'bearbeiten...');
+define('TABLE_CELL_NEW_CUSTOMERS_DELETE', 'l&ouml;schen...');
 define('TABLE_CELL_NEW_CUSTOMERS_ORDERS', 'anzeigen...');
 // new orders
 define('TABLE_CAPTION_NEW_ORDERS', 'Neue Bestellungen');
@@ -133,8 +129,6 @@ define('TABLE_HEADING_NEW_ORDERS_ORDER_DATE', 'Bestelldatum');
 define('TABLE_HEADING_NEW_ORDERS_CUSTOMERS_NAME', 'Kundenname');
 define('TABLE_HEADING_NEW_ORDERS_EDIT', 'bearbeiten');
 define('TABLE_HEADING_NEW_ORDERS_DELETE', 'l&ouml;schen');
-define('TABLE_CELL_NEW_CUSTOMERS_EDIT', 'bearbeiten...');
-define('TABLE_CELL_NEW_CUSTOMERS_DELETE', 'l&ouml;schen...');
 // newsfeed
 define('TABLE_CAPTION_NEWSFEED', 'Besuchen Sie den');
 // birthdays

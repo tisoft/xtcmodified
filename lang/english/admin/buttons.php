@@ -36,7 +36,6 @@ define('BUTTON_STATUS_OFF', 'Status inactive');
 define('BUTTON_EDIT_ATTRIBUTES', 'Edit Attributes');
 define('BUTTON_INSERT', 'Insert');
 define('BUTTON_UPDATE', 'Update');
-define('BUTTON_EXPORT', 'Export');
 define('BUTTON_REVIEW_APPROVE', 'OK');
 define('BUTTON_SEND_EMAIL', 'Send E-Mail');
 define('BUTTON_SEND_COUPON', 'Send Coupon');
