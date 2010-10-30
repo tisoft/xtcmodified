@@ -1,17 +1,17 @@
 <?php
 /* --------------------------------------------------------------
    $Id$
-    
+
     http://www.xtc-modified.org
-   Copyright (c) 2010 xtcModified    
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.158 2003/03/22); www.oscommerce.com
-   (c) 2003	 nextcommerce (application_top.php,v 1.46 2003/08/24); www.nextcommerce.org 
-   (c) 2006  XT-Commerce 8application_top.php 1323 2005-10-27) ; www.xt-commerce.com
+   (c) 2003	nextcommerce (application_top.php,v 1.46 2003/08/24); www.nextcommerce.org
+   (c) 2006 XT-Commerce 8application_top.php 1323 2005-10-27) ; www.xt-commerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------
    Third Party contribution:
 
@@ -27,20 +27,19 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-// BOF - hendrik - 2010-08-29 - xajax in backend
-define('XAJAX_BACKEND_SUPPORT',         'false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
-define('XAJAX_BACKEND_SUPPORT_TEST',    'false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
-// EOF - hendrik - 2010-08-29 - xajax in backend
-   
+  // BOF - hendrik - 2010-08-29 - xajax in backend
+  define('XAJAX_BACKEND_SUPPORT',         'false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
+  define('XAJAX_BACKEND_SUPPORT_TEST',    'false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
+  // EOF - hendrik - 2010-08-29 - xajax in backend
+
   // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
-  
+
   // security
   define('_VALID_XTC',true);
 
   // Set the level of error reporting
-  //error_reporting(E_ALL & ~E_NOTICE);
-  error_reporting(E_ALL);
+  error_reporting(E_ALL & ~E_NOTICE);
 
   // Disable use_trans_sid as xtc_href_link() does this manually
   if (function_exists('ini_set')) {
@@ -61,14 +60,14 @@ define('XAJAX_BACKEND_SUPPORT_TEST',    'false'); // 'true' );     // this inclu
 // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 
 //BOF - GTB - 2010-08-03 - Security Fix - Base
-if ($_SERVER['SCRIPT_NAME'] != $_SERVER['PHP_SELF']) {
-	$PHP_SELF = $_SERVER['SCRIPT_NAME'];
-} else {
-	$PHP_SELF = $_SERVER['PHP_SELF'];
-}
-$ssl_proxy = '';
-if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
-define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
+  if ($_SERVER['SCRIPT_NAME'] != $_SERVER['PHP_SELF']) {
+    $PHP_SELF = $_SERVER['SCRIPT_NAME'];
+  } else {
+    $PHP_SELF = $_SERVER['PHP_SELF'];
+  }
+  $ssl_proxy = '';
+  if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
+  define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
 //EOF - GTB - 2010-08-03 - Security Fix - Base
 
   define('SQL_CACHEDIR',DIR_FS_CATALOG.'cache/');
@@ -164,8 +163,8 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
   define('FILENAME_XSELL_GROUPS','cross_sell_groups.php');
 
   // GOOGLE SITEMAP - JUNG GESTALTEN - 07.10.2008
-  define('FILENAME_GOOGLE_SITEMAP', '../google_sitemap.php'); 
-  
+  define('FILENAME_GOOGLE_SITEMAP', '../google_sitemap.php');
+
   // BOF - web28 - 2010-05-06 - PayPal API Modul
   define('FILENAME_PAYPAL','paypal.php');
   define('FILENAME_PAYPAL_CHECKOUT', 'paypal_checkout.php');
@@ -202,7 +201,7 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
   require_once(DIR_FS_INC . 'xtc_get_qty.inc.php');
   require_once(DIR_FS_INC . 'xtc_product_link.inc.php');
   require_once(DIR_FS_INC . 'xtc_cleanName.inc.php');
-
+  require_once(DIR_FS_INC . 'xtc_get_top_level_domain.inc.php');
 
   // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
@@ -211,7 +210,7 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
   // Possible values are 'oanda' 'xe' or ''
   define('CURRENCY_SERVER_PRIMARY', 'oanda');
   define('CURRENCY_SERVER_BACKUP', 'xe');
-  
+
   // Use the DB-Logger
   //define('STORE_DB_TRANSACTIONS', 'false'); //DokuMan - 2010-10-29 - constant already defined in database
 
@@ -243,7 +242,6 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
     return $result;
   }
 
-
   // initialize the logger class
   require(DIR_WS_CLASSES . 'logger.php');
 
@@ -255,7 +253,6 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
 
   require(DIR_WS_FUNCTIONS . 'general.php');
 
-
   // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
 
@@ -265,6 +262,16 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
   // set the session name and save path
   session_name('XTCsid');
 	if (STORE_SESSIONS != 'mysql') session_save_path(SESSION_WRITE_DIRECTORY);
+
+  //BOF - DokuMan - 2010-10-29 - added missing variables for determining $current_domain
+  if (file_exists(DIR_WS_INCLUDES.'request_type.php')) {
+    include (DIR_WS_INCLUDES.'request_type.php');
+  } else $request_type = 'NONSSL';
+  // set the top level domains
+  $http_domain = xtc_get_top_level_domain(HTTP_SERVER);
+  $https_domain = xtc_get_top_level_domain(HTTPS_SERVER);
+  $current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+  //EOF - DokuMan - 2010-10-29 - added missing variables for determining $current_domain
 
   // set the session cookie parameters
   if (function_exists('session_set_cookie_params')) {
@@ -332,7 +339,7 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 	if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
 		session_destroy();
 		xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-	} 
+	}
 }
 
 
