@@ -869,7 +869,7 @@ function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
 	//return xtc_draw_textarea_field('configuration_value', false, 35, 5, $text);
 //}
 function xtc_cfg_textarea($text, $key = '') {
-    $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+    $name = (isset($key) ? 'configuration[' . $key . ']' : 'configuration_value'); //DokuMan - set undefined $key
     return xtc_draw_textarea_field($name, false, 35, 3, $text, 'class="textareaModule"');
 }
 //EOF - web28- 2010-07-06 - added missing code
@@ -1338,7 +1338,7 @@ function xtc_get_zone_class_title($zone_class_id) {
 }
 
 function xtc_cfg_pull_down_template_sets() {
-	$name = (isset($key) ? 'configuration['.$key.']' : 'configuration_value');
+	$name = (isset($key) ? 'configuration['.$key.']' : 'configuration_value'); //DokuMan - set undefined $key
 	if ($dir = opendir(DIR_FS_CATALOG.'templates/')) {
 		while (($templates = readdir($dir)) !== false) {
 			if (is_dir(DIR_FS_CATALOG.'templates/'."//".$templates) and ($templates != "CVS") and ($templates != ".") and ($templates != "..")) {
