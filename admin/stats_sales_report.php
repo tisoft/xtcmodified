@@ -60,6 +60,17 @@
   // default sort
   $srDefaultSort = 4;
 
+  //BOF - Dokuman - 2010-10-31 - set default variables
+  $srView = 0;
+  $srDetail = 0;
+  $srExp = 0;
+  $srMax = 0;
+  $srStatus = 0;
+  $srPayment = 0;
+  $srSort = 0;
+  $srFilter = 0;
+  //EOF - Dokuman - 2010-10-31 - set default variables
+
   // report views (1: yearly 2: monthly 3: weekly 4: daily)
   if ( ($_GET['report']) && (xtc_not_null($_GET['report'])) ) {
     $srView = $_GET['report'];
@@ -104,7 +115,7 @@
   if ( ($_GET['payment']) && (xtc_not_null($_GET['payment'])) ) {
     $srPayment = $_GET['payment'];
   } else {
- 	$srPayment = 0;
+    $srPayment = 0;
   }
 
   // sort
@@ -460,9 +471,10 @@ while ($sr->actDate < $sr->endDate) {
 <?php
     }
 ?>
-                      <td class="dataTableContent" align="right"><?php echo $info[0]['order']; ?></td>
-                      <td class="dataTableContent" align="right"><?php echo $info[$last - 1]['totitem']; ?></td>
-                      <td class="dataTableContent" align="right"><?php echo $currencies->format($info[$last - 1]['totsum']);?></td>
+                      <td class="dataTableContent" align="right"><?php echo /*$info[0]['order'];*/ (isset($info[0]['order']) ? $info[0]['order'] : '&nbsp;'); /*Dokuman - 2010-10-31 - fix empty <td>line without visible dashes*/ ?></td>
+                      <td class="dataTableContent" align="right"><?php echo /*$info[$last - 1]['totitem'];*/
+                       (isset($info[$last - 1]['totitem']) ? $info[$last - 1]['totitem'] : '&nbsp;'); /*Dokuman - 2010-10-31 - Undefined offset: -1 */ ?></td>
+                      <td class="dataTableContent" align="right"><?php echo /*$currencies->format($info[$last - 1]['totsum']);*/ (isset($info[$last - 1]['totsum']) ? $currencies->format($info[$last - 1]['totsum']) : '&nbsp;' ); /*Dokuman - 2010-10-31 - Undefined offset: -1 */?></td>
                       <td class="dataTableContent" align="right"><?php echo $currencies->format($info[0]['shipping']);?></td>
                     </tr>
 <?php

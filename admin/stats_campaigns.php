@@ -29,6 +29,12 @@ $currencies = new currencies();
 require (DIR_WS_CLASSES.'campaigns.php');
 $campaign = new campaigns($_GET);
 
+//BOF - Dokuman - 2010-10-31 - set default variables
+// default view (daily)
+$srDefaultView = 2;
+$srView = 0;
+//EOF - Dokuman - 2010-10-31 - set default variables
+
 $orders_statuses = array ();
 $orders_status_array = array ();
 $orders_status_query = xtc_db_query("select orders_status_id, orders_status_name from ".TABLE_ORDERS_STATUS." where language_id = '".$_SESSION['languages_id']."'");
@@ -351,12 +357,8 @@ if (count($campaign->result)) {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<?php
-	require (DIR_WS_INCLUDES.'footer.php');
-?>
+<?php require (DIR_WS_INCLUDES.'footer.php'); ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<?php
-	require (DIR_WS_INCLUDES.'application_bottom.php');
-?>
+<?php require (DIR_WS_INCLUDES.'application_bottom.php'); ?>

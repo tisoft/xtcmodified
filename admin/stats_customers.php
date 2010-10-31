@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: stats_customers.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
 
    Copyright (c) 2003 XT-Commerce
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(stats_customers.php,v 1.29 2002/05/16); www.oscommerce.com 
-   (c) 2003	 nextcommerce (stats_customers.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(stats_customers.php,v 1.29 2002/05/16); www.oscommerce.com
+   (c) 2003	nextcommerce (stats_customers.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (stats_customers.php 899 2005-04-29)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
@@ -23,7 +24,7 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
@@ -63,7 +64,8 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</td>
               </tr>
 <?php
-  if ($_GET['page'] > 1) $rows = $_GET['page'] * '20' - '20';
+  $rows = 0;
+  if (isset($_GET['page']) && $_GET['page'] > 1) $rows = $_GET['page'] * '20' - '20';
   $customers_query_raw = "select c.customers_firstname, c.customers_lastname, sum(op.final_price) as ordersum from " . TABLE_CUSTOMERS . " c, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS . " o where c.customers_id = o.customers_id and o.orders_id = op.orders_id group by c.customers_firstname, c.customers_lastname order by ordersum DESC";
   $customers_split = new splitPageResults($_GET['page'], '20', $customers_query_raw, $customers_query_numrows);
   // fix counted customers
