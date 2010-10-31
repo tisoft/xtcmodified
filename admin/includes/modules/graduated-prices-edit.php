@@ -1,13 +1,23 @@
 <?php
+/* --------------------------------------------------------------
+   $Id$
 
-// MOD graduated-prices-edit by Web4Business GmbH - Designs - Modules
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   --------------------------------------------------------------
+   based on Third Party contribution:
+   MOD graduated-prices-edit by Web4Business GmbH - Designs - Modules
+
+   Released under the GNU General Public License
+   --------------------------------------------------------------*/
 
 function W4B_graduated_prices_edit_logic() {
 
 	if(!isset($_GET['pID']))
 		return;
-
-	?>
+?>
 <tr style="display:none;"><td colspan="2">
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -205,7 +215,7 @@ W4B_graduated_prices_edit_makeToggleTextClickable();
 /*]]>*/
 </script>
 </td></tr>
-	<?php
+<?php
 }
 
 function W4B_graduated_prices_edit_unhtmlentities($text) {
@@ -281,14 +291,15 @@ function W4B_graduated_prices_save() {
 	die();
 }
 
-if(isset($_GET['action']) and $_GET['action'] == "update_product" and isset($_GET['pID']) and isset($_POST['graduated_prices_edit'])) {
+if(isset($_GET['action']) && $_GET['action'] == "update_product" && isset($_GET['pID']) && isset($_POST['graduated_prices_edit'])) {
 
 	W4B_graduated_prices_save();
 }
 
 //this is used only by group_prices
-if ($_GET['function']) {
-	switch ($_GET['function']) {
+$function = (isset($_GET['function']) ? $_GET['function'] : '');
+if (xtc_not_null($function)) {
+	switch ($function) {
 		case 'delete' :
 			xtc_db_query("DELETE FROM personal_offers_by_customers_status_".(int) $_GET['statusID']."
 						                     WHERE products_id = '".(int) $_GET['pID']."'
@@ -299,6 +310,4 @@ if ($_GET['function']) {
 	header("HTTP/1.0 204 No Content");
 	die();
 }
-
-
 ?>

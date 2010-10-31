@@ -38,8 +38,9 @@ $currencies = new currencies();
 $catfunc = new categories();
 
 //this is used only by group_prices
-if ($_GET['function']) {
-	switch ($_GET['function']) {
+$function = (isset($_GET['function']) ? $_GET['function'] : '');
+if (xtc_not_null($function)) {
+	switch ($function) {
 		case 'delete' :
 			xtc_db_query("DELETE FROM personal_offers_by_customers_status_".(int) $_GET['statusID']."
 						                     WHERE products_id = '".(int) $_GET['pID']."'
@@ -49,7 +50,7 @@ if ($_GET['function']) {
 	xtc_redirect(xtc_href_link(FILENAME_CATEGORIES, 'cPath='.$_GET['cPath'].'&action=new_product&pID='.(int) $_GET['pID']));
 }
 
-// Multi-Status Change, separated from $_GET['action']
+// Multi-Status Change, separated from $_GET['action'] //$action
 // --- MULTI STATUS ---
 if (isset ($_POST['multi_status_on'])) {
 	//set multi_categories status=on
@@ -85,8 +86,9 @@ if (isset ($_POST['multi_status_off'])) {
 // --- MULTI STATUS ENDS ---
 
 //regular actions
-if ($_GET['action']) {
-	switch ($_GET['action']) {
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+if (xtc_not_null($action)) {
+	switch ($action) {
 
 		case 'setcflag' :
 			if (($_GET['flag'] == '0') || ($_GET['flag'] == '1')) {
@@ -264,7 +266,7 @@ if ($_GET['action']) {
 					if (!isset($_POST['dest_cat_ids']) and isset($_POST['dest_category_id'])) {
             $_POST['dest_cat_ids'] = array($_POST['dest_category_id']);
           }
-					//EOF - DokuMan - 2010-09-27 - do not create copied categories under TOP-category, but in the chosen category          
+					//EOF - DokuMan - 2010-09-27 - do not create copied categories under TOP-category, but in the chosen category
           $_SESSION['copied'] = array ();
 					foreach ($_POST['multi_categories'] AS $category_id) {
 						if (is_array($_POST['dest_cat_ids'])) {
@@ -354,12 +356,10 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
 		<title><?php echo TITLE; ?></title>
 		<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 		<script type="text/javascript" src="includes/general.js"></script>
-		<!--script type="text/javascript" src="includes/javascript/categories.js"></script--><?php //web28 - 2010-09-21-  js-file not in folder ?>
+		<script type="text/javascript" src="includes/javascript/categories.js"></script><?php //web28 - 2010-09-21-  js-file not in folder // Dokuman - 2010-10-31 - file was missing -> functions relevant for buttons ins category_view?>
 <?php
 
-
 // Include WYSIWYG if is activated
-
 if (USE_WYSIWYG == 'true') {
 	$query = xtc_db_query("SELECT code FROM ".TABLE_LANGUAGES." WHERE languages_id='".$_SESSION['languages_id']."'");
 	$data = xtc_db_fetch_array($query);
@@ -372,14 +372,14 @@ if (USE_WYSIWYG == 'true') {
 		{<?php
 
 	// generate editor for categories
-	if ($_GET['action'] == 'new_category' || $_GET['action'] == 'edit_category') {
+	if ($action == 'new_category' || $action == 'edit_category') {
 		for ($i = 0; $i < sizeof($languages); $i ++) {
 			echo xtc_wysiwyg('categories_description', $data['code'], $languages[$i]['id']);
 		}
 	}
 
 	// generate editor for products
-	if ($_GET['action'] == 'new_product') {
+	if ($action == 'new_product') {
 		for ($i = 0; $i < sizeof($languages); $i ++) {
 			echo xtc_wysiwyg('products_description', $data['code'], $languages[$i]['id']);
 			echo xtc_wysiwyg('products_short_description', $data['code'], $languages[$i]['id']);
@@ -416,13 +416,13 @@ if (USE_WYSIWYG == 'true') {
                     <?php
 
 //----- new_category / edit_category (when ALLOW_CATEGORY_DESCRIPTIONS is 'true') -----
-if ($_GET['action'] == 'new_category' || $_GET['action'] == 'edit_category') {
+if ($action == 'new_category' || $action == 'edit_category') {
 	include (DIR_WS_MODULES.'new_category.php');
 }
-elseif ($_GET['action'] == 'new_product') {
+elseif ($action == 'new_product') {
 	include (DIR_WS_MODULES.'new_product.php');
 }
-elseif ($_GET['action'] == 'edit_crossselling') {
+elseif ($action == 'edit_crossselling') {
 	include (DIR_WS_MODULES.'cross_selling.php');
 } else {
 	//set $cPath to 0 if not set - FireFox workaround, didn't work when de/activating categories and $cPath wasn't set
