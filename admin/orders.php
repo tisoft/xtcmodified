@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com
    (c) 2003      nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
    (c) 2006      xt:Commerce; www.xt-commerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------
    Third Party contribution:
    OSC German Banktransfer v0.85a       	Autor:	Dominik Guder <osc@guder.org>
@@ -38,8 +38,8 @@ $smarty = new Smarty;
 require (DIR_WS_CLASSES.'currencies.php');
 $currencies = new currencies();
 
-
-if ((($_GET['action'] == 'edit') || ($_GET['action'] == 'update_order')) && ($_GET['oID'])) {
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+if ((($action == 'edit') || ($action == 'update_order')) && ($_GET['oID'])) {
 	$oID = xtc_db_prepare_input($_GET['oID']);
 
 	$orders_query = xtc_db_query("select orders_id from ".TABLE_ORDERS." where orders_id = '".xtc_db_input($oID)."'");
@@ -50,8 +50,8 @@ if ((($_GET['action'] == 'edit') || ($_GET['action'] == 'update_order')) && ($_G
 	}
 }
 //BOF - web28 - 2010-04-10 added for ADMIN SEARCH BAR
-if ($_GET['action'] == 'search' && $_GET['oID']) {
-	$oID = xtc_db_prepare_input($_GET['oID']);	
+if ($action == 'search' && $_GET['oID']) {
+	$oID = xtc_db_prepare_input($_GET['oID']);
 	$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.orders_status = s.orders_status_id and s.language_id = '".$_SESSION['languages_id']."' and o.orders_id LIKE '%".xtc_db_input($oID)."%' and ot.class = 'ot_total' order by o.orders_id DESC";
 	$orders_query = xtc_db_query($orders_query_raw);
 	$order_exists = false;
@@ -60,20 +60,24 @@ if ($_GET['action'] == 'search' && $_GET['oID']) {
 	   $oID_array = xtc_db_fetch_array($orders_query);
 	   $oID = $oID_array['orders_id'];
 	   $_GET['action'] = 'edit';
+	   $action = 'edit';
 	   $_GET['oID'] = $oID;
 	   //$messageStack->add('1 Treffer: ' . $oID, 'notice');
-    }	
+    }
 }
 //EOF  - web28 - 2010-04-10 added for ADMIN SEARCH BAR
 
 require (DIR_WS_CLASSES.'order.php');
-if ((($_GET['action'] == 'edit') || ($_GET['action'] == 'update_order')) && ($order_exists)) {
+if ((($action == 'edit') || ($action == 'update_order')) && ($order_exists)) {
 	$order = new order($oID);
 }
-
+//BOF - DokuMan - 2010-10-31 - Trying to get property of non-object $order->info
+if (isset($order) && is_object($order)) {
   $lang_query = xtc_db_query("select languages_id from " . TABLE_LANGUAGES . " where directory = '" . $order->info['language'] . "'");
   $lang = xtc_db_fetch_array($lang_query);
   $lang=$lang['languages_id'];
+}
+//EOF - DokuMan - 2010-10-31 - Trying to get property of non-object $order->info
 
 if (!isset($lang)) $lang=$_SESSION['languages_id'];
 $orders_statuses = array ();
@@ -83,21 +87,21 @@ while ($orders_status = xtc_db_fetch_array($orders_status_query)) {
 	$orders_statuses[] = array ('id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']);
 	$orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
 }
-switch ($_GET['action']) {
+switch ($action) {
 	//BOF - web28 - 2010-03-20 - Send Order by Admin
-    case 'send':	    
+    case 'send':
 		// set dirs manual
         $smarty->template_dir = DIR_FS_CATALOG.'templates';
         $smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
 		$smarty->config_dir = DIR_FS_CATALOG.'lang';
-		
+
  		$send_by_admin = true;
         $insert_id = xtc_db_prepare_input($_GET['oID']);
         define('SEND_BY_ADMIN_PATH', DIR_FS_CATALOG);
 		require_once(DIR_FS_CATALOG.DIR_WS_CLASSES.'xtcPrice.php');
-		
+
 		include (DIR_FS_CATALOG .'send_order.php');
-		
+
 		break;
 	//EOF - web28 - 2010-03-20 - Send Order by Admin
 	case 'update_order' :
@@ -223,7 +227,7 @@ require (DIR_WS_INCLUDES.'header.php');
     <td  class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
 
-if (($_GET['action'] == 'edit') && ($order_exists)) {
+if (($action == 'edit') && ($order_exists)) {
 	//    $order = new order($oID);
 ?>
       <tr>
@@ -234,7 +238,7 @@ if (($_GET['action'] == 'edit') && ($order_exists)) {
     <td class="pageHeading"><?php echo HEADING_TITLE . ' Nr : ' . $oID . ' - ' . $order->info['date_purchased'] ; ?></td>
   </tr>
   <tr>
-    <td class="main" valign="top">Customers</td>
+    <td class="main" valign="top"><?php echo TABLE_HEADING_CUSTOMERS ?></td>
   </tr>
 </table>
  <?php echo '<a class="button" href="' . xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array('action'))) . '">' . BUTTON_BACK . '</a>'; ?>
@@ -614,14 +618,14 @@ $payment->admin_order($_GET['oID']);
 		if (sizeof($order->products[$i]['attributes']) > 0) {
 			for ($j = 0, $k = sizeof($order->products[$i]['attributes']); $j < $k; $j ++) {
 
-			//BOF -web28- 2010-03-21 - format correction			
+			//BOF -web28- 2010-03-21 - format correction
 				//echo '<br /><nobr><small>&nbsp;<i> - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].': ';
-				echo '<br /><nobr><i>&nbsp; - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].'</i></nobr> ';				
-				
+				echo '<br /><nobr><i>&nbsp; - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].'</i></nobr> ';
+
 			}
 
             //echo '</i></small></nobr>';
-			//EOF -web28- 2010-03-21 - format correction		
+			//EOF -web28- 2010-03-21 - format correction
 		}
 
 		echo '            </td>'."\n".'            <td class="dataTableContent" valign="top">';
@@ -644,7 +648,7 @@ $payment->admin_order($_GET['oID']);
 				}
 			}
 		}
-		
+
     //BOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
 		//echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top">'.format_price($order->products[$i]['final_price'] / $order->products[$i]['qty'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</td>'."\n";
 		echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top">'.format_price($order->products[$i]['price'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</td>'."\n";
@@ -769,7 +773,7 @@ $payment->admin_order($_GET['oID']);
 <?php
 
 }
-elseif ($_GET['action'] == 'custom_action') {
+elseif ($action == 'custom_action') {
 
 	include ('orders_actions.php');
 
@@ -790,7 +794,7 @@ elseif ($_GET['action'] == 'custom_action') {
 </td>
   </tr>
   <tr>
-    <td class="main" valign="top">Customers</td>
+    <td class="main" valign="top"><?php echo TABLE_HEADING_CUSTOMERS ?></td>
     <td class="main" valign="top" align="right"><?php echo xtc_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
                 <?php echo HEADING_TITLE_STATUS . ' ' . xtc_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)),array(array('id' => '0', 'text' => TEXT_VALIDATING)), $orders_statuses), '', 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); ?>
               </form></td>
@@ -819,22 +823,22 @@ elseif ($_GET['action'] == 'custom_action') {
               </tr>
 <?php
 
-	if ($_GET['cID']) {
+	if (isset($_GET['cID'])) {
 		$cID = xtc_db_prepare_input($_GET['cID']);
 // BOF - Tomcraft - 2009-10-11 - BUGFIX: #0000247 view orders query bug in admin
 		//$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.customers_id = '".xtc_db_input($cID)."' and (o.orders_status = s.orders_status_id and s.language_id = '".$_SESSION['languages_id']."' and ot.class = 'ot_total') or (o.orders_status = '0' and ot.class = 'ot_total' and  s.orders_status_id = '1' and s.language_id = '".$_SESSION['languages_id']."') order by orders_id DESC";
 		$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.customers_id = '".xtc_db_input($cID)."' and ((o.orders_status = s.orders_status_id) or (o.orders_status = '0' and  s.orders_status_id = '1')) and ot.class = 'ot_total' and s.language_id = '".$_SESSION['languages_id']."' order by orders_id DESC";
 // EOF - Tomcraft - 2009-10-11 - BUGFIX: #0000247 view orders query bug in admin
 	}
-	elseif ($_GET['status']=='0') {
+	elseif (isset($_GET['status']) && $_GET['status']=='0') {
 			$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id) where o.orders_status = '0' and ot.class = 'ot_total' order by o.orders_id DESC";
 	}
-	elseif ($_GET['status']) {
+	elseif (isset($_GET['status'])) {
 			$status = xtc_db_prepare_input($_GET['status']);
 			$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.orders_status = s.orders_status_id and s.language_id = '".$_SESSION['languages_id']."' and s.orders_status_id = '".xtc_db_input($status)."' and ot.class = 'ot_total' order by o.orders_id DESC";
 	}
 	//BOF  - web28 - 2010-04-10 added for ADMIN SEARCH BAR
-	elseif ($_GET['action'] == 'search' && $_GET['oID']) {	      
+	elseif ($action == 'search' && $_GET['oID']) {
 		   //$orders_query_raw siehe oben
 	//EOF - web28 - 2010-04-10 added for ADMIN SEARCH BAR
 	} else {
@@ -843,7 +847,7 @@ elseif ($_GET['action'] == 'custom_action') {
 	$orders_split = new splitPageResults($_GET['page'], '20', $orders_query_raw, $orders_query_numrows);
 	$orders_query = xtc_db_query($orders_query_raw);
 	while ($orders = xtc_db_fetch_array($orders_query)) {
-		if (((!$_GET['oID']) || ($_GET['oID'] == $orders['orders_id'])) && (!$oInfo)) {
+		if ((!isset($_GET['oID']) || ($_GET['oID'] == $orders['orders_id'])) && !isset($oInfo)) {
 			$oInfo = new objectInfo($orders);
 		}
 
@@ -892,7 +896,7 @@ elseif ($_GET['action'] == 'custom_action') {
 
 	$heading = array ();
 	$contents = array ();
-	switch ($_GET['action']) {
+	switch ($action) {
 		case 'delete' :
 			$heading[] = array ('text' => '<b>'.TEXT_INFO_HEADING_DELETE_ORDER.'</b>');
 
@@ -904,7 +908,7 @@ elseif ($_GET['action'] == 'custom_action') {
 		default :
 			if (is_object($oInfo)) {
 				$heading[] = array ('text' => '<b>['.$oInfo->orders_id.']&nbsp;&nbsp;'.xtc_datetime_short($oInfo->date_purchased).'</b>');
-				
+
 				$contents[] = array ('align' => 'center', 'text' => '<a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=edit').'">'.BUTTON_EDIT.'</a> <a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=delete').'">'.BUTTON_DELETE.'</a>');
 				if (AFTERBUY_ACTIVATED == 'true') {
 					$contents[] = array ('align' => 'center', 'text' => '<a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=afterbuy_send').'">'.BUTTON_AFTERBUY_SEND.'</a>');
@@ -937,8 +941,8 @@ elseif ($_GET['action'] == 'custom_action') {
 	}
 
 // BOF - Tomcraft - 2009-10-22 - Added customer comments to default view on right column
-	if ($order->info[comments]<>'') {
-		$contents[] = array ('text' => '<br><strong>'.TABLE_HEADING_COMMENTS.':</strong><br>'.$order->info[comments]);
+	if ($order->info['comments']<>'') {
+		$contents[] = array ('text' => '<br><strong>'.TABLE_HEADING_COMMENTS.':</strong><br>'.$order->info['comments']);
 	}
 // EOF - Tomcraft - 2009-10-22 - Added customer comments to default view on right column
 
@@ -965,10 +969,7 @@ elseif ($_GET['action'] == 'custom_action') {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<?php
-
-require (DIR_WS_INCLUDES.'footer.php');
-?>
+<?php require (DIR_WS_INCLUDES.'footer.php'); ?>
 <!-- footer_eof //-->
 <br />
 </body>
