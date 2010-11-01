@@ -55,7 +55,7 @@
 
 // BOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
   if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
-	date_default_timezone_set('Europe/Berlin');
+    date_default_timezone_set('Europe/Berlin');
   }
 // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 
@@ -342,7 +342,6 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 	}
 }
 
-
   // verify the IP address if the feature is enabled
   if (SESSION_CHECK_IP_ADDRESS == 'True') {
     $ip_address = xtc_get_ip_address();
@@ -380,17 +379,15 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   // write customers status in session
   require('../' . DIR_WS_INCLUDES . 'write_customers_status.php');
 
-
   // for tracking of customers
   $_SESSION['user_info'] = array();
-  if (!$_SESSION['user_info']['user_ip']) {
+  if (!isset($_SESSION['user_info']['user_ip'])) {
     $_SESSION['user_info']['user_ip'] = $_SERVER['REMOTE_ADDR'];
 //    $user_info['user_ip_date'] =  value will be in fact added when login ;
     $_SESSION['user_info']['user_host'] = gethostbyaddr( $_SERVER['REMOTE_ADDR'] );;
-    $_SESSION['user_info']['advertiser'] = $_GET['ad'];
-    $_SESSION['user_info']['referer_url'] = $_SERVER['HTTP_REFERER'];
+    $_SESSION['user_info']['advertiser'] = isset($_GET['ad']) ? $_GET['ad'] : '';
+    $_SESSION['user_info']['referer_url'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
   }
-
 
   // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
