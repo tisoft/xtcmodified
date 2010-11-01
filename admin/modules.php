@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/28); www.oscommerce.com
-   (c) 2003	 nextcommerce (modules.php,v 1.23 2003/08/19); www.nextcommerce.org
+   (c) 2003	nextcommerce (modules.php,v 1.23 2003/08/19); www.nextcommerce.org
    (c) 2006 XT-Commerce (categories.php 1123 2005-07-27)
 
    Released under the GNU General Public License
@@ -21,8 +21,10 @@
   // include needed functions (for modules)
 
 	//Eingefügt um Fehler in CC Modul zu unterdrücken.
-   require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
-   $xtPrice = new xtcPrice($_SESSION['currency'],'');
+  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
+  $xtPrice = new xtcPrice($_SESSION['currency'],'');
+
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   switch ($_GET['set']) {
     case 'shipping':
@@ -51,7 +53,7 @@
       break;
   }
 
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'save':
       while (list($key, $value) = each($_POST['configuration'])) {
         xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
@@ -66,9 +68,9 @@
       if (file_exists($module_directory . $class . $file_extension)) {
         include($module_directory . $class . $file_extension);
         $module = new $class(0);
-        if ($_GET['action'] == 'install') {
+        if ($action == 'install') {
           $module->install();
-        } elseif ($_GET['action'] == 'remove') {
+        } elseif ($action == 'remove') {
           $module->remove();
         }
       }
@@ -196,17 +198,17 @@
 
                 echo $module->title;
 
-                if ($module->icons_available!='')
+                if (isset($module->icons_available))
                 	echo '<br />'.$module->icons_available;
 
                 ?></td>
 				<td class="dataTableContent"><?php echo str_replace('.php','',$file); ?></td>
-                <td class="dataTableContent" align="right"><?php if (is_numeric($module->sort_order)) echo $module->sort_order; ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($module->sort_order) && is_numeric($module->sort_order)) echo $module->sort_order; ?>&nbsp;</td>
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
-                <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 -->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 <!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
               </tr>
 <?php
@@ -231,7 +233,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
 // BOF - web28 - 2010-05-06 - PayPal API Modul
 		case 'removepaypal':
 			$heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
