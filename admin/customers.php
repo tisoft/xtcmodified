@@ -715,7 +715,6 @@ if ($action == 'edit' || $action == 'update') {
           </tr>
 <?php
 
-
 	}
 ?>
           <tr>
@@ -1031,9 +1030,7 @@ if ($action == 'edit' || $action == 'update') {
       </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-
-
-                  <tr>
+           <tr>
             <td class="main"><?php echo ENTRY_PAYMENT_UNALLOWED; ?></td>
             <td class="main"><?php
 
@@ -1044,7 +1041,7 @@ if ($action == 'edit' || $action == 'update') {
 	}
 ?></td>
           </tr>
-                    <tr>
+          <tr>
             <td class="main"><?php echo ENTRY_SHIPPING_UNALLOWED; ?></td>
             <td class="main"><?php
 
@@ -1068,7 +1065,6 @@ if ($error == true) {
 	echo xtc_draw_input_field('entry_password');
 }
 ?></td>
-
 
 <?php
    // BOF - Christian - 2009-06-26 - delete Newsletter Funktion...
@@ -1128,9 +1124,7 @@ if ($error == true) {
           </form>
           </tr>
           <tr>
-          <?php echo xtc_draw_form('status', FILENAME_CUSTOMERS, '', 'get'); ?>
-          <?php
-
+          <?php echo xtc_draw_form('status', FILENAME_CUSTOMERS, '', 'get');
           $select_data = array ();
           $select_data = array (array ('id' => '99', 'text' => TEXT_SELECT), array ('id' => '100', 'text' => TEXT_ALL_CUSTOMERS));
           ?>
@@ -1176,7 +1170,7 @@ if ($error == true) {
 	}
 	//BOF - web28 - 2010-05-29 added for ADMIN SEARCH BAR
 
-	if ($_GET['status'] && $_GET['status'] != '100' || $_GET['status'] == '0') {
+	if (isset($_GET['status']) && ($_GET['status'] != '100' || $_GET['status'] == '0')) {
 		$status = xtc_db_prepare_input($_GET['status']);
 		//  echo $status;
 		$search = "and c.customers_status = '".$status."'";
@@ -1430,19 +1424,23 @@ if ($error == true) {
 			break;
 
 		default :
-      if (isset($_GET['cID'])) {
-        $customer_status = xtc_get_customer_status($_GET['cID']);
-        $cs_id = $customer_status['customers_status'];
-        $cs_member_flag = $customer_status['member_flag'];
-        $cs_name = $customer_status['customers_status_name'];
-        $cs_image = $customer_status['customers_status_image'];
-        $cs_discount = $customer_status['customers_status_discount'];
-        $cs_ot_discount_flag = $customer_status['customers_status_ot_discount_flag'];
-        $cs_ot_discount = $customer_status['customers_status_ot_discount'];
-        $cs_staffelpreise = $customer_status['customers_status_staffelpreise'];
-        $cs_payment_unallowed = $customer_status['customers_status_payment_unallowed'];
-      }
-			      //echo 'customer_status ' . $_GET['cID'] . 'variables = ' . $cs_id . $cs_member_flag . $cs_name .  $cs_discount .  $cs_image . $cs_ot_discount;
+		//BOF - DokuMan - 2010-11-01 - seems to be for debugging purpoises only
+    /*
+    if (isset($_GET['cID'])) {
+      $customer_status = xtc_get_customer_status($_GET['cID']);
+      $cs_id = $customer_status['customers_status'];
+      $cs_member_flag = $customer_status['member_flag'];
+      $cs_name = $customer_status['customers_status_name'];
+      $cs_image = $customer_status['customers_status_image'];
+      $cs_discount = $customer_status['customers_status_discount'];
+      $cs_ot_discount_flag = $customer_status['customers_status_ot_discount_flag'];
+      $cs_ot_discount = $customer_status['customers_status_ot_discount'];
+      $cs_staffelpreise = $customer_status['customers_status_staffelpreise'];
+      $cs_payment_unallowed = $customer_status['customers_status_payment_unallowed'];
+    }
+    */
+    //echo 'customer_status ' . $_GET['cID'] . 'variables = ' . $cs_id . $cs_member_flag . $cs_name .  $cs_discount .  $cs_image . $cs_ot_discount;
+		//EOF - DokuMan - 2010-11-01 - seems to be for debugging purpoises only
 
 			if (isset($cInfo) && is_object($cInfo)) {
 				$heading[] = array ('text' => '<b>'.$cInfo->customers_firstname.' '.$cInfo->customers_lastname.'</b>');
