@@ -1,6 +1,7 @@
 <?php
 /* --------------------------------------------------------------
    $Id$
+
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
@@ -9,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(general.php,v 1.156 2003/05/29); www.oscommerce.com
-   (c) 2003	 nextcommerce (general.php,v 1.35 2003/08/1); www.nextcommerce.org
+   (c) 2003	nextcommerce (general.php,v 1.35 2003/08/1); www.nextcommerce.org
    (c) 2006 XT-Commerce (general.php 1316 2005-10-21)
 
    Released under the GNU General Public License
@@ -117,7 +118,6 @@ function xtc_check_permission($pagename) {
 	}
 }
 
-////
 // Redirect to another page or site
 function xtc_redirect($url) {
 	global $logger;
@@ -201,7 +201,6 @@ function xtc_date_long($raw_date) {
 	return strftime(DATE_FORMAT_LONG, mktime($hour, $minute, $second, $month, $day, $year));
 }
 
-////
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
 // NOTE: Includes a workaround for dates before 01/01/1970 that fail on windows servers
@@ -752,7 +751,6 @@ function xtc_get_products_url($product_id, $language_id) {
 	return $product['products_url'];
 }
 
-////
 // Return the manufacturers URL in the needed language
 // TABLES: manufacturers_info
 function xtc_get_manufacturer_url($manufacturer_id, $language_id) {
@@ -762,7 +760,6 @@ function xtc_get_manufacturer_url($manufacturer_id, $language_id) {
 	return $manufacturer['manufacturers_url'];
 }
 
-////
 // Wrapper for class_exists() function
 // This function is not available in all PHP versions so we test it before using it.
 function xtc_class_exists($class_name) {
@@ -773,7 +770,6 @@ function xtc_class_exists($class_name) {
 	}
 }
 
-////
 // Returns an array with countries
 // TABLES: countries
 function xtc_get_countries($default = '') {
@@ -789,9 +785,6 @@ function xtc_get_countries($default = '') {
 	return $countries_array;
 }
 
-
-
-////
 // return an array with country zones
 function xtc_get_country_zones($country_id) {
 	$zones_array = array ();
@@ -829,7 +822,6 @@ function xtc_prepare_country_zones_pull_down($country_id = '') {
 	return $zones;
 }
 
-////
 // Get list of address_format_id's
 function xtc_get_address_formats() {
 	$address_format_query = xtc_db_query("select address_format_id from ".TABLE_ADDRESS_FORMAT." order by address_format_id");
@@ -840,7 +832,6 @@ function xtc_get_address_formats() {
 	return $address_format_array;
 }
 
-////
 // Alias function for Store configuration values in the Administration Tool
 function xtc_cfg_pull_down_country_list($country_id) {
 	return xtc_draw_pull_down_menu('configuration_value', xtc_get_countries(), $country_id);
@@ -862,7 +853,6 @@ function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
 	return xtc_draw_pull_down_menu($name, $tax_class_array, $tax_class_id);
 }
 
-////
 // Function to read in text area in admin
 //BOF - web28- 2010-07-06 - added missing code
 //function xtc_cfg_textarea($text) {
@@ -885,7 +875,6 @@ function xtc_cfg_get_zone_name($zone_id) {
 	}
 }
 
-////
 // Sets the status of a banner
 function xtc_set_banner_status($banners_id, $status) {
 	if ($status == '1') {
@@ -898,7 +887,6 @@ function xtc_set_banner_status($banners_id, $status) {
 	}
 }
 
-////
 // Sets the status of a product on special
 function xtc_set_specials_status($specials_id, $status) {
 	if ($status == '1') {
@@ -911,7 +899,6 @@ function xtc_set_specials_status($specials_id, $status) {
 	}
 }
 
-////
 // Sets timeout for the current script.
 // Cant be used in safe mode.
 function xtc_set_time_limit($limit) {
@@ -920,7 +907,6 @@ function xtc_set_time_limit($limit) {
 	}
 }
 
-////
 // Alias function for Store configuration values in the Administration Tool
 function xtc_cfg_select_option($select_array, $key_value, $key = '') {
   $string = '';
@@ -944,7 +930,6 @@ function xtc_cfg_select_option($select_array, $key_value, $key = '') {
 	return $string;
 }
 
-////
 // Alias function for module configuration keys
 function xtc_mod_select_option($select_array, $key_name, $key_value) {
 	reset($select_array);
@@ -960,7 +945,6 @@ function xtc_mod_select_option($select_array, $key_name, $key_value) {
 	return $string;
 }
 
-////
 // Retreive server information
 function xtc_get_system_information() {
 
@@ -1220,7 +1204,6 @@ function xtc_remove($source) {
 	}
 }
 
-////
 // Wrapper for constant() function
 // Needed because its only available in PHP 4.0.4 and higher.
 function xtc_constant($constant) {
@@ -1232,7 +1215,6 @@ function xtc_constant($constant) {
 	return $temp;
 }
 
-////
 // Output the tax percentage with optional padded decimals
 function xtc_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
 	if (strpos($value, '.')) {
@@ -1302,21 +1284,16 @@ function xtc_banner_image_extension() {
 	return false;
 }
 
-////
 // Wrapper function for round()
 function xtc_round($value, $precision) {
 	return round($value, $precision);
 }
-
-
 
 // Calculates Tax rounding the result
 function xtc_calculate_tax($price, $tax) {
 	global $currencies;
 	return xtc_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
 }
-
-
 
 function xtc_call_function($function, $parameter, $object = '') {
 	if ($object == '') {
@@ -1390,7 +1367,6 @@ function xtc_get_order_status_name($order_status_id, $language_id = '') {
 	return $status['orders_status_name'];
 }
 
-////
 // Return a random value
 function xtc_rand($min = null, $max = null) {
 	static $seeded;
@@ -1425,11 +1401,34 @@ function xtc_convert_linefeeds($from, $to, $string) {
 function xtc_get_customers_statuses() {
 
 	$customers_statuses_array = array (array ());
-	$customers_statuses_query = xtc_db_query("select customers_status_id, customers_status_name, customers_status_image, customers_status_discount, customers_status_ot_discount_flag, customers_status_ot_discount from ".TABLE_CUSTOMERS_STATUS." where language_id = '".$_SESSION['languages_id']."' order by customers_status_id");
+	//BOF - DokuMan - 2010-11-01 - Added missing fields customers_status_public and customers_status_graduated_prices
+	$customers_statuses_query = xtc_db_query("select
+                                            customers_status_id,
+                                            customers_status_name,
+                                            customers_status_public,
+                                            customers_status_image,
+                                            customers_status_discount,
+                                            customers_status_ot_discount_flag,
+                                            customers_status_ot_discount,
+                                            customers_status_graduated_prices
+                                            from ".TABLE_CUSTOMERS_STATUS."
+                                            where language_id = '".$_SESSION['languages_id']."'
+                                            order by customers_status_id");
+	//EOF - DokuMan - 2010-11-01 - Added missing fields customers_status_public and customers_status_graduated_prices
+
 	$i = 1; // this is changed from 0 to 1 in cs v1.2
 	while ($customers_statuses = xtc_db_fetch_array($customers_statuses_query)) {
 		$i = $customers_statuses['customers_status_id'];
-		$customers_statuses_array[$i] = array ('id' => $customers_statuses['customers_status_id'], 'text' => $customers_statuses['customers_status_name'], 'csa_public' => $customers_statuses['customers_status_public'], 'csa_image' => $customers_statuses['customers_status_image'], 'csa_discount' => $customers_statuses['customers_status_discount'], 'csa_ot_discount_flag' => $customers_statuses['customers_status_ot_discount_flag'], 'csa_ot_discount' => $customers_statuses['customers_status_ot_discount'], 'csa_graduated_prices' => $customers_statuses['customers_status_graduated_prices']);
+		$customers_statuses_array[$i] = array (
+		'id' => $customers_statuses['customers_status_id'],
+		'text' => $customers_statuses['customers_status_name'],
+		'csa_public' => $customers_statuses['customers_status_public'],
+		'csa_image' => $customers_statuses['customers_status_image'],
+		'csa_discount' => $customers_statuses['customers_status_discount'],
+		'csa_ot_discount_flag' => $customers_statuses['customers_status_ot_discount_flag'],
+		'csa_ot_discount' => $customers_statuses['customers_status_ot_discount'],
+		'csa_graduated_prices' => $customers_statuses['customers_status_graduated_prices']
+		);
 	}
 	return $customers_statuses_array;
 }
