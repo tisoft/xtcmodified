@@ -21,7 +21,7 @@
   }
 
 // BOF - web28 - 2010-08-19 - Admin language switch
-  if (!isset($lng) && !is_object($lng)) {
+  if (!is_object($lng)) {
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language;
   }

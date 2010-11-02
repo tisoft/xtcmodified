@@ -46,7 +46,6 @@ define('TEXT_DATE','Date');
 define('TEXT_TITLE','Title');
 define('TEXT_POSTER','Poster');
 define('ENTRY_PASSWORD_CUSTOMER','Password:');
-define('TEXT_SELECT','--Select--');
 define('TABLE_HEADING_ACCOUNT_TYPE','Account');
 define('TEXT_ACCOUNT','Yes');
 define('TEXT_GUEST','No');

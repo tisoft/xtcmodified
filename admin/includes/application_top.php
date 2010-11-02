@@ -269,8 +269,9 @@
   } else $request_type = 'NONSSL';
   // set the top level domains
   $http_domain = xtc_get_top_level_domain(HTTP_SERVER);
-  $https_domain = xtc_get_top_level_domain(HTTPS_SERVER);
-  $current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+  //$https_domain = xtc_get_top_level_domain(HTTPS_SERVER);
+  //$current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+  $current_domain = $http_domain; //currently no https_domain support
   //EOF - DokuMan - 2010-10-29 - added missing variables for determining $current_domain
 
   // set the session cookie parameters
