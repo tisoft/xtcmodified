@@ -1317,10 +1317,8 @@ if ($error == true) {
 		}
 
 		if ($customers['account_type'] == 1) {
-
 			echo '<td class="dataTableContent">';
 			echo TEXT_GUEST;
-
 		} else {
 			echo '<td class="dataTableContent">';
 			echo TEXT_ACCOUNT;
@@ -1341,20 +1339,20 @@ if ($error == true) {
                 <?php if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {?>
                 <td class="dataTableContent" align="left">&nbsp;
                 <?php
-
-		if ($customers['customers_vat_id']) {
-			echo $customers['customers_vat_id'].'<br /><span style="font-size:8pt"><nobr>('.xtc_validate_vatid_status($customers['customers_id']).')</nobr></span>';
-		}
-?>
+                if ($customers['customers_vat_id']) {
+                  echo $customers['customers_vat_id'].'<br /><span style="font-size:8pt"><nobr>('.xtc_validate_vatid_status($customers['customers_id']).')</nobr></span>';
+                }
+                ?>
                 </td>
                 <?php } ?>
-                <td class="dataTableContent" align="right"><?php echo xtc_date_short($info['date_account_created']); ?></td>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+                <td class="dataTableContent" align="right"><?php echo xtc_date_short($info['date_account_created']); ?>&nbsp;</td>
+<?php /* BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons */
+/*
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/
+?>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+<?php /* EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons */ ?>
               </tr>
 <?php
 
@@ -1424,7 +1422,7 @@ if ($error == true) {
 			break;
 
 		default :
-		//BOF - DokuMan - 2010-11-01 - seems to be for debugging purpoises only
+		//BOF - DokuMan - 2010-11-01 - seems to be for debugging porpoises only
     /*
     if (isset($_GET['cID'])) {
       $customer_status = xtc_get_customer_status($_GET['cID']);
@@ -1440,7 +1438,7 @@ if ($error == true) {
     }
     */
     //echo 'customer_status ' . $_GET['cID'] . 'variables = ' . $cs_id . $cs_member_flag . $cs_name .  $cs_discount .  $cs_image . $cs_ot_discount;
-		//EOF - DokuMan - 2010-11-01 - seems to be for debugging purpoises only
+		//EOF - DokuMan - 2010-11-01 - seems to be for debugging porpoises only
 
 			if (isset($cInfo) && is_object($cInfo)) {
 				$heading[] = array ('text' => '<b>'.$cInfo->customers_firstname.' '.$cInfo->customers_lastname.'</b>');
@@ -1479,12 +1477,34 @@ if ($error == true) {
 				href="'.xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$cInfo->customers_id.'&action=new_order').'" onclick="return confirm(\''.NEW_ORDER.'\')">'.BUTTON_NEW_ORDER.'</a>
 				</td></tr></table>');
 
-				$contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_CREATED.' '.xtc_date_short($cInfo->date_account_created));
-				$contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_LAST_MODIFIED.' '.xtc_date_short($cInfo->date_account_last_modified));
-				$contents[] = array ('text' => '<br />'.TEXT_INFO_DATE_LAST_LOGON.' '.xtc_date_short($cInfo->date_last_logon));
-				$contents[] = array ('text' => '<br />'.TEXT_INFO_NUMBER_OF_LOGONS.' '.$cInfo->number_of_logons);
-				$contents[] = array ('text' => '<br />'.TEXT_INFO_COUNTRY.' '.$cInfo->countries_name);
-				$contents[] = array ('text' => '<br />'.TEXT_INFO_NUMBER_OF_REVIEWS.' '.$cInfo->number_of_reviews);
+        //BOF - DokuMan - 2010-11-02 - Workaround for customer details not showing on iplog-Box
+        if ($action == 'iplog') {
+          $info_query = xtc_db_query("select customers_info_date_account_created as date_account_created, customers_info_date_account_last_modified as date_account_last_modified, customers_info_date_of_last_logon as date_last_logon, customers_info_number_of_logons as number_of_logons from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".$cInfo->customers_id."'");
+          $info = xtc_db_fetch_array($info_query);
+
+          $country_query = xtc_db_query("select countries_name from ".TABLE_COUNTRIES." where countries_id = '".$cInfo->entry_country_id."'");
+          $country = xtc_db_fetch_array($country_query);
+
+          $reviews_query = xtc_db_query("select count(*) as number_of_reviews from ".TABLE_REVIEWS." where customers_id = '".$cInfo->customers_id."'");
+          $reviews = xtc_db_fetch_array($reviews_query);
+
+          $contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_CREATED.' '.xtc_date_short($info['date_account_created']));
+          $contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_LAST_MODIFIED.' '.xtc_date_short($info['date_account_last_modified']));
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_DATE_LAST_LOGON.' '.xtc_date_short($info['date_last_logon']));
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_NUMBER_OF_LOGONS.' '.$info['number_of_logons']);
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_COUNTRY.' '.$country['countries_name']);
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_NUMBER_OF_REVIEWS.' '.$reviews['number_of_reviews']);
+        } else {
+        //EOF - DokuMan - 2010-11-02 - Workaround for customer details not showing on iplog-Box
+          $contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_CREATED.' '.xtc_date_short($cInfo->date_account_created));
+          $contents[] = array ('text' => '<br />'.TEXT_DATE_ACCOUNT_LAST_MODIFIED.' '.xtc_date_short($cInfo->date_account_last_modified));
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_DATE_LAST_LOGON.' '.xtc_date_short($cInfo->date_last_logon));
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_NUMBER_OF_LOGONS.' '.$cInfo->number_of_logons);
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_COUNTRY.' '.$cInfo->countries_name);
+          $contents[] = array ('text' => '<br />'.TEXT_INFO_NUMBER_OF_REVIEWS.' '.$cInfo->number_of_reviews);
+        //BOF - DokuMan - 2010-11-02 - Workaround for customer details not showing on iplog-Box
+        }
+        //EOF - DokuMan - 2010-11-02 - Workaround for customer details not showing on iplog-Box
 			}
 
 			if ($action == 'iplog') {
