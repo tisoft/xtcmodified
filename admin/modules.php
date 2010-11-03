@@ -148,19 +148,19 @@
       $module = new $class();
       if ($module->check() > 0) {
         if ($module->sort_order > 0) {
-		// BOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
-         // $installed_modules[$module->sort_order] = $file;
-		 if (!$installed_modules[$module->sort_order])
+          // BOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
+          // $installed_modules[$module->sort_order] = $file;
+         if (!isset($installed_modules[$module->sort_order]))
             $installed_modules[$module->sort_order] = $file;
           else
             $installed_modules[] = $file;
-		// EOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
+          // EOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
         } else {
           $installed_modules[] = $file;
         }
       }
 
-      if ((!isset($_GET['module']) || ($_GET['module'] == $class)) && (!$mInfo)) {
+      if ((!isset($_GET['module']) || ($_GET['module'] == $class)) && !isset($mInfo)) {
         $module_info = array('code' => $module->code,
                              'title' => $module->title,
                              'description' => $module->description,
@@ -184,7 +184,7 @@
         $mInfo = new objectInfo($module_info);
       }
 
-      if ( (is_object($mInfo)) && ($class == $mInfo->code) ) {
+      if (isset($mInfo) && (is_object($mInfo)) && ($class == $mInfo->code) ) {
         if ($module->check() > 0) {
           echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
         } else {

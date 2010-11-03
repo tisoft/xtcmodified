@@ -17,7 +17,9 @@
 
   require('includes/application_top.php');
 
-  switch ($_GET['action']) {
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  switch ($action) {
     case 'insert':
     case 'save':
       $cross_sell_id = xtc_db_prepare_input($_GET['oID']);
@@ -29,7 +31,7 @@
 
         $sql_data_array = array('groupname' => xtc_db_prepare_input($cross_sell_name_array[$language_id]));
 
-        if ($_GET['action'] == 'insert') {
+        if ($action == 'insert') {
           if (!xtc_not_null($cross_sell_id)) {
             $next_id_query = xtc_db_query("select max(products_xsell_grp_name_id) as products_xsell_grp_name_id from " . TABLE_PRODUCTS_XSELL_GROUPS . "");
             $next_id = xtc_db_fetch_array($next_id_query);
@@ -40,7 +42,7 @@
                                    'language_id' => $language_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_PRODUCTS_XSELL_GROUPS, $sql_data_array);
-        } elseif ($_GET['action'] == 'save') {
+        } elseif ($action == 'save') {
 			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
 			$cross_sell_query = xtc_db_query("select * from ".TABLE_PRODUCTS_XSELL_GROUPS." where language_id = '".$language_id."' and products_xsell_grp_name_id = '".xtc_db_input($cross_sell_id)."'");
 			if (xtc_db_num_rows($cross_sell_query) == 0) xtc_db_perform(TABLE_PRODUCTS_XSELL_GROUPS, array ('products_xsell_grp_name_id' => xtc_db_input($cross_sell_id), 'language_id' => $language_id));
@@ -48,7 +50,6 @@
 			xtc_db_perform(TABLE_PRODUCTS_XSELL_GROUPS, $sql_data_array, 'update', "products_xsell_grp_name_id = '" . xtc_db_input($cross_sell_id) . "' and language_id = '" . $language_id . "'");
         }
       }
-
 
       xtc_redirect(xtc_href_link(FILENAME_XSELL_GROUPS, 'page=' . $_GET['page'] . '&oID=' . $cross_sell_id));
       break;
@@ -122,7 +123,7 @@
   $cross_sell_split = new splitPageResults($_GET['page'], '20', $cross_sell_query_raw, $cross_sell_query_numrows);
   $cross_sell_query = xtc_db_query($cross_sell_query_raw);
   while ($cross_sell = xtc_db_fetch_array($cross_sell_query)) {
-    if (((!$_GET['oID']) || ($_GET['oID'] == $cross_sell['products_xsell_grp_name_id'])) && (!$oInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+    if (((!$_GET['oID']) || ($_GET['oID'] == $cross_sell['products_xsell_grp_name_id'])) && !isset($oInfo) && (substr($action, 0, 3) != 'new')) {
       $oInfo = new objectInfo($cross_sell);
     }
 
@@ -152,7 +153,7 @@
                     <td class="smallText" align="right"><?php echo $cross_sell_split->display_links($cross_sell_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
 <?php
-  if (substr($_GET['action'], 0, 3) != 'new') {
+  if (substr($action, 0, 3) != 'new') {
 ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_XSELL_GROUPS, 'page=' . $_GET['page'] . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
@@ -166,7 +167,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_XSELL_GROUP . '</b>');
 
@@ -209,7 +210,7 @@
       break;
 
     default:
-      if (is_object($oInfo)) {
+      if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>' . $oInfo->orders_status_name . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_XSELL_GROUPS, 'page=' . $_GET['page'] . '&oID=' . $oInfo->products_xsell_grp_name_id . '&action=edit') . '">' . BUTTON_EDIT . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_XSELL_GROUPS, 'page=' . $_GET['page'] . '&oID=' . $oInfo->products_xsell_grp_name_id . '&action=delete') . '">' . BUTTON_DELETE . '</a>');

@@ -23,7 +23,9 @@
 
   require_once(DIR_FS_INC .'xtc_get_tax_rate.inc.php');
 
-  switch ($_GET['action']) {
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  switch ($action) {
     case 'setflag':
       xtc_set_specials_status($_GET['id'], $_GET['flag']);
       xtc_redirect(xtc_href_link(FILENAME_SPECIALS, '', 'NONSSL'));
@@ -116,7 +118,7 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
 <?php
-  if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) {
+  if ( ($action == 'new') || ($action == 'edit') ) {
 ?>
 <?php // BOF -  DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI
 /*
@@ -180,9 +182,10 @@
         </table></td>
       </tr>
 <?php
-  if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) {
+  if ( ($action == 'new') || ($action == 'edit') ) {
     $form_action = 'insert';
-    if ( ($_GET['action'] == 'edit') && ($_GET['sID']) ) {
+    $expires_date = '';
+    if ( ($action == 'edit') && ($_GET['sID']) ) {
 	  $form_action = 'update';
 
       $product_query = xtc_db_query("select p.products_tax_class_id,
@@ -210,7 +213,7 @@
         substr($sInfo->expires_date, 5, 2)."-".
         substr($sInfo->expires_date, 8, 2);
       }	else {
-        $expires_date = "";
+        $expires_date = '';
       }
       // EOF - Tomcraft - 2009-11-06 - preset expires_date for input-field
 
@@ -248,7 +251,7 @@
 		if (PRICE_IS_BRUTTO=='true'){
  			$price_netto=xtc_round($price,PRICE_PRECISION);
 			$new_price_netto=xtc_round($new_price,PRICE_PRECISION);
-            $price= ($price*(xtc_get_tax_rate($sInfo->products_tax_class_id)+100)/100);
+      $price= ($price*(xtc_get_tax_rate($sInfo->products_tax_class_id)+100)/100);
 			$new_price= ($new_price*(xtc_get_tax_rate($sInfo->products_tax_class_id)+100)/100);
 		}
 		$price=xtc_round($price,PRICE_PRECISION);
@@ -338,13 +341,13 @@
 		if (PRICE_IS_BRUTTO=='true'){
  			$price_netto=xtc_round($price,PRICE_PRECISION);
 			$new_price_netto=xtc_round($new_price,PRICE_PRECISION);
-            $price= ($price*(xtc_get_tax_rate($specials['products_tax_class_id'])+100)/100);
+      $price= ($price*(xtc_get_tax_rate($specials['products_tax_class_id'])+100)/100);
 			$new_price= ($new_price*(xtc_get_tax_rate($specials['products_tax_class_id'])+100)/100);
 		}
 		$specials['products_price']=xtc_round($price,PRICE_PRECISION);
 		$specials['specials_new_products_price']=xtc_round($new_price,PRICE_PRECISION);
 
-      if ( ((!$_GET['sID']) || ($_GET['sID'] == $specials['specials_id'])) && (!$sInfo) ) {
+      if ((!isset($_GET['sID']) || ($_GET['sID'] == $specials['specials_id'])) && !isset($sInfo) ) {
         $products_query = xtc_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $specials['products_id'] . "'");
         $products = xtc_db_fetch_array($products_query);
         $sInfo_array = xtc_array_merge($specials, $products);
@@ -353,7 +356,7 @@
         $sInfo->products_price = $specials['products_price'];
       }
 
-      if ( (is_object($sInfo)) && ($specials['specials_id'] == $sInfo->specials_id) ) {
+      if (isset($sInfo) && (is_object($sInfo)) && ($specials['specials_id'] == $sInfo->specials_id) ) {
         echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id . '&action=edit') . '\'">' . "\n";
       } else {
         echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials['specials_id']) . '\'">' . "\n";
@@ -376,9 +379,9 @@
 ?></td>
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
-                <td class="dataTableContent" align="right"><?php if ( (is_object($sInfo)) && ($specials['specials_id'] == $sInfo->specials_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials['specials_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && (is_object($sInfo)) && ($specials['specials_id'] == $sInfo->specials_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials['specials_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 -->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($sInfo)) && ($specials['specials_id'] == $sInfo->specials_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials['specials_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && (is_object($sInfo)) && ($specials['specials_id'] == $sInfo->specials_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $specials['specials_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 <!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
       </tr>
 <?php
@@ -391,7 +394,7 @@
                     <td class="smallText" align="right"><?php echo $specials_split->display_links($specials_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
 <?php
-  if (!$_GET['action']) {
+  if (!$action) {
 ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&action=new') . '">' . BUTTON_NEW_PRODUCTS . '</a>'; ?></td>
@@ -405,7 +408,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SPECIALS . '</b>');
 
@@ -421,7 +424,8 @@
         $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id . '&action=edit') . '">' . BUTTON_EDIT . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . '&sID=' . $sInfo->specials_id . '&action=delete') . '">' . BUTTON_DELETE . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . xtc_date_short($sInfo->specials_date_added));
         $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . xtc_date_short($sInfo->specials_last_modified));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . xtc_product_thumb_image($sInfo->products_image, $sInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));
+        $contents[] = array('align' => 'center', 'text' => '<br />' . xtc_product_thumb_image($sInfo->products_image, $sInfo->products_name, defined('SMALL_IMAGE_WIDTH') ? SMALL_IMAGE_WIDTH : '', defined('SMALL_IMAGE_HEIGHT') ? SMALL_IMAGE_HEIGHT : ''));
+
         $contents[] = array('text' => '<br />' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $xtPrice->xtcFormat($sInfo->products_price,true));
         $contents[] = array('text' => '' . TEXT_INFO_NEW_PRICE . ' ' . $xtPrice->xtcFormat($sInfo->specials_new_products_price,true));
         $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%');

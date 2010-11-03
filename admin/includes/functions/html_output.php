@@ -25,7 +25,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     if ($connection == 'NONSSL') {
       $link = HTTP_SERVER . DIR_WS_ADMIN;
     } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 'true') {
+      if (defined('ENABLE_SSL') && ENABLE_SSL == 'true') {
         $link = HTTPS_SERVER . DIR_WS_ADMIN;
       } else {
         $link = HTTP_SERVER . DIR_WS_ADMIN;
