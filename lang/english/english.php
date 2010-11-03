@@ -229,6 +229,7 @@ define('TEXT_DESCENDINGLY', 'descending');
 define('TEXT_ASCENDINGLY', 'ascending');
 define('TEXT_BY', ' after ');
 
+define('TEXT_OF_5_STARS', '%s of 5 Stars!');
 define('TEXT_REVIEW_BY', 'from %s');
 define('TEXT_REVIEW_WORD_COUNT', '%s words');
 define('TEXT_REVIEW_RATING', 'Review: %s [%s]');
