@@ -143,7 +143,9 @@ if ($_SESSION['customers_status']['customers_status_ot_discount'] != 0) {
 if (SHOW_SHIPPING == 'true') {
   //BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
 	//$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.'<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox""> '.SHIPPING_COSTS.'</a>');
-	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>');
+	//BOF - web28 - 2010-11-05 fixed unsecure Links on SSL Pages
+	//$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>');
+ 	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>');
  	//EOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
 }
 if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {

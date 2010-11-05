@@ -55,10 +55,10 @@ if (isset ($_SESSION['gv_id'])) {
 if (isset ($_SESSION['cc_id'])) {
 	//$gift_smarty->assign('COUPON_HELP_LINK', '<a style="cursor:pointer" onclick="javascript:window.open(\''.xtc_href_link(FILENAME_POPUP_COUPON_HELP, 'cID='.$_SESSION['cc_id']).'\', \'popup\', \'toolbar=0,scrollbars=yes, width=350, height=350\')">');
 	
-	//BOF - web28 - FIX LOST cID
+	//BOF - web28 - FIX LOST cID - 2010-11-05 - add SSL FIX -> $request_type
 	//$gift_smarty->assign('COUPON_HELP_LINK', '<a target="_blank" class="thickbox" href="'.xtc_href_link(FILENAME_POPUP_COUPON_HELP.'?KeepThis=true&TB_iframe=true&height=400&width=600').'">Information</a>');
-	$gift_smarty->assign('COUPON_HELP_LINK', '<a target="_blank" class="thickbox" href="'.xtc_href_link(FILENAME_POPUP_COUPON_HELP.'?cID='.$_SESSION['cc_id'].'&KeepThis=true&TB_iframe=true&height=400&width=600').'">Information</a>');
-	//EOF - web28 - FIX LOST cID
+	$gift_smarty->assign('COUPON_HELP_LINK', '<a target="_blank" class="thickbox" href="'.xtc_href_link(FILENAME_POPUP_COUPON_HELP.'?cID='.$_SESSION['cc_id'].'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'">Information</a>');
+	//EOF - web28 - FIX LOST cID - 2010-11-05 - add SSL FIX -> $request_type
 }
 if (isset ($_SESSION['customer_id'])) {
 	$gift_smarty->assign('C_FLAG', 'true');
