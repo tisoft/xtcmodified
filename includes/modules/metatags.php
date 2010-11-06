@@ -375,15 +375,7 @@ switch(basename($_SERVER['SCRIPT_NAME'])) { // Start Switch
 			is_array($manu_name) ? $manu_name = implode('',$manu_name) :  $manu_name = '';
 			//EOF - DokuMan - 2010-09-20 - check if query result is an array to avoid php warning
 			$metaGoWords .= ','.$manu_name; // <-- zu GoWords hinzufügen
-		}
-		
-		//BOF - web28- 2010-11-06 - FIX metatags site content: index
-		//Wenn wir auf der Startseite sind - Meta Description und Meta Kewords aus Seiten Content: index übernehmen
-		if (!$manu_id && empty($current_category_id)) {			
-			$categories_meta['categories_meta_description'] = ML_META_DESCRIPTION;
-			$categories_meta['categories_meta_keywords'] = ML_META_KEYWORDS;
-		}
-		//EOF - web28- 2010-11-06 - FIX metatags site: content index
+		}		
 		
 		// KeyWords ...
 		if(!empty($categories_meta['categories_meta_keywords'])) {
