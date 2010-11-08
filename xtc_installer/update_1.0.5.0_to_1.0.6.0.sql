@@ -77,4 +77,6 @@ ADD INDEX idx_options (options_id, options_values_id);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('','HEADING_IMAGE_WIDTH', '57', '4', '4', '', NOW() , NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'HEADING_IMAGE_HEIGHT', '40', '4', '4', '', NOW() , NULL, NULL);
 
+# DokuMan - 2010-11-08 - remove unsupported payment module qenta
+DROP TABLE IF EXISTS payment_qenta;
 # Keep an empty line at the end of this file for the db_updater to work properly

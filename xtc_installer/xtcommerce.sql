@@ -11,7 +11,6 @@
 #  Download area : www.unlockgsm.com/dload-osc/
 #  CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
 #  BMC 2003 for the CC CVV Module
-#  qenta v1.0    Andreas Oberzier <xtc@netz-designer.de>
 #  --------------------------------------------------------------
 #  based on:
 #  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
@@ -1142,17 +1141,6 @@ CREATE TABLE coupons_description (
   coupon_name VARCHAR(32) NOT NULL DEFAULT '',
   coupon_description text,
   KEY coupon_id (coupon_id)
-) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
-
-DROP TABLE IF EXISTS payment_qenta;
-CREATE TABLE payment_qenta (
-  q_TRID VARCHAR(255) NOT NULL DEFAULT '',
-  q_DATE DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  q_QTID BIGINT(18) unsigned NOT NULL DEFAULT 0,
-  q_ORDERDESC VARCHAR(255) NOT NULL DEFAULT '',
-  q_STATUS TINYINT(1) NOT NULL DEFAULT 0,
-  q_ORDERID INT(11) unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY (q_TRID)
 ) ENGINE=myisam DEFAULT CHARSET=latin1 COLLATE latin1_german1_ci;
 
 DROP TABLE IF EXISTS personal_offers_by_customers_status_0;
