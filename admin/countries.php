@@ -43,6 +43,10 @@
         $countries_id = xtc_db_prepare_input($_GET['cID']);
 
         xtc_db_query("delete from " . TABLE_COUNTRIES . " where countries_id = '" . xtc_db_input($countries_id) . "'");
+        //BOF - DokuMan - 2010-11-10 - delete appropriate tax zones when deleting a country
+        xtc_db_query("delete from " . TABLE_ZONES . " where zone_country_id = '" . xtc_db_input($countries_id) . "'");
+        xtc_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where zone_country_id = '" . xtc_db_input($countries_id) . "'");
+        //EOF - DokuMan - 2010-11-10 - delete appropriate tax zones when deleting a country
         xtc_redirect(xtc_href_link(FILENAME_COUNTRIES, 'page=' . $_GET['page']));
         break;
       case 'setlflag':
