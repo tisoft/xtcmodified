@@ -56,6 +56,7 @@ $group_check = ''; //DokuMan - 2010-02-28 - set undefined variable group_check
 if (GROUP_CHECK == 'true') {
 	$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 }
+//BOF - web - 2010-11-11 - Do not display empty catagorie names - add and trim(cd.categories_name) != ''
 $categories_query = "select c.categories_id,
                             cd.categories_name,
                             c.parent_id
@@ -66,7 +67,9 @@ $categories_query = "select c.categories_id,
                             ".$group_check."
                             and c.categories_id = cd.categories_id
                             and cd.language_id='".(int) $_SESSION['languages_id']."'
+							and trim(cd.categories_name) != ''
                             order by sort_order, cd.categories_name";
+//EOF - web - 2010-11-11 - Do not display empty catagorie names - add and trim(cd.categories_name) != ''
 $categories_query = xtDBquery($categories_query);
 
 while ($categories = xtc_db_fetch_array($categories_query, true)) {
@@ -97,6 +100,7 @@ if ($cPath) {
 	while (list ($key, $value) = each($id)) {
 		unset ($prev_id);
 		unset ($first_id);
+		//BOF - web - 2010-11-11 - Do not display empty catagorie names - add and trim(cd.categories_name) != ''
 		$categories_query = "select c.categories_id,
                                 cd.categories_name,
                                 c.parent_id
@@ -107,7 +111,9 @@ if ($cPath) {
                                 ".$group_check."
                                 and c.categories_id = cd.categories_id
                                 and cd.language_id='".$_SESSION['languages_id']."'
+								and trim(cd.categories_name) != ''
                                 order by sort_order, cd.categories_name";
+		//EOF - web - 2010-11-11 - Do not display empty catagorie names - add and trim(cd.categories_name) != ''
 		$categories_query = xtDBquery($categories_query);
 		$category_check = xtc_db_num_rows($categories_query, true);
 		if ($category_check > 0) {
@@ -141,7 +147,7 @@ if ($cPath) {
 
 xtc_show_category($first_element);
 
-$box_smarty->assign('BOX_CONTENT', $categories_string.'</li>'); //DokuMan - 2010-03-02 - BOX_CONTENT on wrong position
+$box_smarty->assign('BOX_CONTENT', $categories_string); //DokuMan - 2010-03-02 - BOX_CONTENT on wrong position
 
 }
 
