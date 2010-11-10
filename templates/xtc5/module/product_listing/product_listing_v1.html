@@ -23,7 +23,9 @@
 		{if $module_data.PRODUCTS_SHIPPING_NAME}<p class="shippingtime">{#text_shippingtime#}{if $module_data.PRODUCTS_SHIPPING_IMAGE}<img src="{$module_data.PRODUCTS_SHIPPING_IMAGE}" alt="{$module_data.PRODUCTS_SHIPPING_NAME}" />{/if}
 			{$module_data.PRODUCTS_SHIPPING_NAME}</p>
 		{/if}
-		<p>{$module_data.PRODUCTS_BUTTON_BUY_NOW}&nbsp;<a href="{$module_data.PRODUCTS_LINK}">{$module_data.PRODUCTS_BUTTON_DETAILS}</a></p>
+		{*BOF NEW PRODUCTS_BUTTON_DETAILS*}
+		<p>{$module_data.PRODUCTS_BUTTON_BUY_NOW}&nbsp;{$module_data.PRODUCTS_BUTTON_DETAILS}</p>
+		{*EOF NEW PRODUCTS_BUTTON_DETAILS*}
 	</td>
   </tr>
 </table>
