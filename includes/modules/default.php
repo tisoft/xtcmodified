@@ -55,7 +55,9 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                               cd.categories_name,
                               cd.categories_heading_title,
                               c.categories_template,
-                              c.categories_image from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+                              c.categories_image
+                              from ".TABLE_CATEGORIES." c,
+                              ".TABLE_CATEGORIES_DESCRIPTION." cd
                               where c.categories_id = '".$current_category_id."'
                               and cd.categories_id = '".$current_category_id."'
                               ".$group_check."
@@ -64,10 +66,43 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
 
     $category = xtc_db_fetch_array($category_query, true);
 
-    if (isset ($cPath) && preg_match('/_/', $cPath)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
-    // check to see if there are deeper categories within the current category
-    $category_links = array_reverse($cPath_array);
-    for ($i = 0, $n = sizeof($category_links); $i < $n; $i ++) {
+    if (MAX_DISPLAY_CATEGORIES_PER_ROW > 0) { //DokuMan - 2010-11-11 - avoid division by zero when set to 0
+      if (isset ($cPath) && preg_match('/_/', $cPath)) { // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
+      // check to see if there are deeper categories within the current category
+      $category_links = array_reverse($cPath_array);
+      for ($i = 0, $n = sizeof($category_links); $i < $n; $i ++) {
+        if (GROUP_CHECK == 'true') {
+          $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+        }
+        $categories_query = "select cd.categories_description,
+                                    c.categories_id,
+                                    cd.categories_name,
+                                    cd.categories_heading_title,
+                                    c.categories_image,
+                                    c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+                                    where c.categories_status = '1'
+                                    and c.parent_id = '".$category_links[$i]."'
+                                    and c.categories_id = cd.categories_id
+                                    ".$group_check."
+                                    and cd.language_id = '".(int) $_SESSION['languages_id']."'
+                                    order by sort_order, cd.categories_name";
+        $categories_query = xtDBquery($categories_query);
+
+        // BOF - Dokuman - 22.07.2009 - avoid else-condition
+        /*
+            if (xtc_db_num_rows($categories_query, true) < 1) {
+            // do nothing, go through the loop
+            } else {
+            break; // we've found the deepest category the customer is in
+            }
+        */
+        if ( xtc_db_num_rows($categories_query, true) >= 1 ) {
+          break; // we've found the deepest category the customer is in
+        }
+        // EOF - Dokuman - 22.07.2009 - avoid else-condition
+
+      }
+      } else {
       if (GROUP_CHECK == 'true') {
         $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
       }
@@ -78,70 +113,40 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                                   c.categories_image,
                                   c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
                                   where c.categories_status = '1'
-                                  and c.parent_id = '".$category_links[$i]."'
+                                  and c.parent_id = '".$current_category_id."'
                                   and c.categories_id = cd.categories_id
                                   ".$group_check."
                                   and cd.language_id = '".(int) $_SESSION['languages_id']."'
                                   order by sort_order, cd.categories_name";
       $categories_query = xtDBquery($categories_query);
-
-  // BOF - Dokuman - 22.07.2009 - avoid else-condition
-  /*
-      if (xtc_db_num_rows($categories_query, true) < 1) {
-      // do nothing, go through the loop
-      } else {
-      break; // we've found the deepest category the customer is in
       }
-  */
-      if ( xtc_db_num_rows($categories_query, true) >= 1 ) {
-        break; // we've found the deepest category the customer is in
+
+      $categories_content = array();
+      $rows = 0;
+      while ($categories = xtc_db_fetch_array($categories_query, true)) {
+      $rows ++;
+
+      $cPath_new = xtc_category_link($categories['categories_id'],$categories['categories_name']);
+
+      $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
+      $image = '';
+      if ($categories['categories_image'] != '') {
+        $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
+        // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+        if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
+        // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+      //BOF - GTB - 2010-08-03 - Security Fix - Base
+      $image = DIR_WS_BASE.$image;
+      //EOF - GTB - 2010-08-03 - Security Fix - Base
       }
-  // EOF - Dokuman - 22.07.2009 - avoid else-condition
 
-    }
-    } else {
-    if (GROUP_CHECK == 'true') {
-      $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-    }
-    $categories_query = "select cd.categories_description,
-                                c.categories_id,
-                                cd.categories_name,
-                                cd.categories_heading_title,
-                                c.categories_image,
-                                c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
-                                where c.categories_status = '1'
-                                and c.parent_id = '".$current_category_id."'
-                                and c.categories_id = cd.categories_id
-                                ".$group_check."
-                                and cd.language_id = '".(int) $_SESSION['languages_id']."'
-                                order by sort_order, cd.categories_name";
-    $categories_query = xtDBquery($categories_query);
-    }
-
-    $rows = 0;
-    while ($categories = xtc_db_fetch_array($categories_query, true)) {
-    $rows ++;
-
-    $cPath_new = xtc_category_link($categories['categories_id'],$categories['categories_name']);
-
-    $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
-    $image = '';
-    if ($categories['categories_image'] != '') {
-      $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
-  // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
-      if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
-  // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
-  	//BOF - GTB - 2010-08-03 - Security Fix - Base
-  	$image = DIR_WS_BASE.$image;
-  	//EOF - GTB - 2010-08-03 - Security Fix - Base
-    }
-
-    $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'],
-                                   'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],
-                                   'CATEGORIES_IMAGE' => $image,
-                                   'CATEGORIES_LINK' => xtc_href_link(FILENAME_DEFAULT, $cPath_new),
-                                   'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
-    }
+      $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'],
+                                     'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],
+                                     'CATEGORIES_IMAGE' => $image,
+                                     'CATEGORIES_LINK' => xtc_href_link(FILENAME_DEFAULT, $cPath_new),
+                                     'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
+      }
+    } //DokuMan - 2010-11-11 - avoid division by zero when set to 0
     $new_products_category_id = $current_category_id;
     include (DIR_WS_MODULES.FILENAME_NEW_PRODUCTS);
 
