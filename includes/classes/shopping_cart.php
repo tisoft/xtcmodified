@@ -76,8 +76,16 @@ class shoppingCart {
     //		$products_query = xtc_db_query("select products_id, customers_basket_quantity from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."'");
 		$products_query = xtc_db_query("select products_id, customers_basket_quantity from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".(int)$_SESSION['customer_id']."' order by customers_basket_id");
     // EOF - Tomcraft - 2009-10-08 - Fixed sort order was lost in cart after logout/login
+
 		while ($products = xtc_db_fetch_array($products_query)) {
-			$this->contents[$products['products_id']] = array ('qty' => $products['customers_basket_quantity']);
+			//BOF - DokuMan - 2010-11-11 - Undefined variable: qty
+			//$this->contents[$products['products_id']] = array ('qty' => $products['customers_basket_quantity']);
+      $qty = $products['customers_basket_quantity'];
+      $this->contents[$products['products_id']] = array (
+      'qty' => $qty
+      );
+			//EOF - DokuMan - 2010-11-11 - Undefined variable: qty
+
 			// attributes
       // BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 			//$attributes_query = xtc_db_query("select products_options_id, products_options_value_id from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products['products_id']."'");

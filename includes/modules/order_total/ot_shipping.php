@@ -58,7 +58,7 @@
         // price with tax
           //BOF - DokuMan - 2010-09-06 - Trying to get property of non-object
           $tax_class = 0;
-          if (isset($GLOBALS[$module]->tax_class) && isset($GLOBALS[$module]->tax_class)) {
+          if (isset($GLOBALS[$module]->tax_class)) {
             $tax_class = $GLOBALS[$module]->tax_class;
           }
           $shipping_tax = xtc_get_tax_rate($tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
@@ -80,7 +80,7 @@
 	        if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
             //BOF - DokuMan - 2010-09-06 - Trying to get property of non-object
 	          $tax_class = 0;
-	          if (isset($GLOBALS[$module]->tax_class) && isset($GLOBALS[$module]->tax_class)) {
+	          if (isset($GLOBALS[$module]->tax_class)) {
 	            $tax_class = $GLOBALS[$module]->tax_class;
 	          }
 	          $shipping_tax = xtc_get_tax_rate($tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);

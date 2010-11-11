@@ -94,7 +94,7 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 		reset($products[$i]['attributes']);
 
 		while (list ($option, $value) = each($products[$i]['attributes'])) {
-
+      $attribute_stock_check = false; //DokuMan - 2010-11-11 - set default value to false
 			if (ATTRIBUTE_STOCK_CHECK == 'true' && STOCK_CHECK == 'true') {
 				$attribute_stock_check = xtc_check_stock_attributes($products[$i][$option]['products_attributes_id'], $products[$i]['quantity']);
 				if ($attribute_stock_check)

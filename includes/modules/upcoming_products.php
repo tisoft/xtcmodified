@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(upcoming_products.php,v 1.23 2003/02/12); www.oscommerce.com 
-   (c) 2003	 nextcommerce (upcoming_products.php,v 1.7 2003/08/22); www.nextcommerce.org
-   (c) 2006 XT-Commerce
+   (c) 2002-2003 osCommerce(upcoming_products.php,v 1.23 2003/02/12); www.oscommerce.com
+   (c) 2003	nextcommerce (upcoming_products.php,v 1.7 2003/08/22); www.nextcommerce.org
+   (c) 2006 XT-Commerce (upcoming_products.php)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 //BOF - Dokuman - 2009-09-02: show upcoming products only when greater zero
 if (MAX_DISPLAY_UPCOMING_PRODUCTS != '0') {
@@ -32,12 +32,15 @@ if (MAX_DISPLAY_UPCOMING_PRODUCTS != '0') {
   if ($_SESSION['customers_status']['customers_fsk18_display'] == '0')
     $fsk_lock = ' and p.products_fsk18!=1';
 
+  $group_check = '';
   if (GROUP_CHECK == 'true')
     $group_check = "and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 
   $expected_query = xtDBquery("select p.products_id,
                                     pd.products_name,
-                                    products_date_available as date_expected from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
+                                    products_date_available as date_expected
+                                    from ".TABLE_PRODUCTS." p,
+                                    ".TABLE_PRODUCTS_DESCRIPTION." pd
                                     where to_days(products_date_available) >= to_days(now())
                                     and p.products_id = pd.products_id
                                     ".$group_check."
@@ -50,14 +53,16 @@ if (MAX_DISPLAY_UPCOMING_PRODUCTS != '0') {
     $row = 0;
     while ($expected = xtc_db_fetch_array($expected_query,true)) {
       $row ++;
-      $module_content[] = array ('PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($expected['products_id'], $expected['products_name'])), 'PRODUCTS_NAME' => $expected['products_name'], 'PRODUCTS_DATE' => xtc_date_short($expected['date_expected']));
-
+      $module_content[] = array (
+      'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($expected['products_id'], $expected['products_name'])),
+      'PRODUCTS_NAME' => $expected['products_name'],
+      'PRODUCTS_DATE' => xtc_date_short($expected['date_expected'])
+      );
     }
 
     $module_smarty->assign('language', $_SESSION['language']);
     $module_smarty->assign('module_content', $module_content);
     // set cache ID
-
     $module_smarty->caching = 0;
     $module = $module_smarty->fetch(CURRENT_TEMPLATE.'/module/upcoming_products.html');
 
