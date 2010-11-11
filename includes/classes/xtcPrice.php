@@ -259,9 +259,11 @@ class xtcPrice {
      * @return Double graduated price
      */
 	function xtcGetGraduatedPrice($pID, $qty) {
-		if (GRADUATED_ASSIGN == 'true')
-			if (xtc_get_qty($pID) > $qty)
+		if (GRADUATED_ASSIGN == 'true') {
+			if (xtc_get_qty($pID) > $qty) {
 				$qty = xtc_get_qty($pID);
+			}
+		}
 		//if (!is_int($this->cStatus['customers_status_id']) && $this->cStatus['customers_status_id']!=0) $this->cStatus['customers_status_id'] = DEFAULT_CUSTOMERS_STATUS_ID_GUEST;
 		$graduated_price_query = "SELECT max(quantity) as qty
 				                                FROM ".TABLE_PERSONAL_OFFERS_BY.$this->actualGroup."

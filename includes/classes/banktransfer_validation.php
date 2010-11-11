@@ -1,23 +1,23 @@
-<?php 
+<?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(banktransfer_validation.php,v 1.17 2003/02/18 18:33:15); www.oscommerce.com
    (c) 2003	 nextcommerce (banktransfer_validation.php,v 1.4 2003/08/1); www.nextcommerce.org
    (c) 2004 - 2006 fmce.de
    (c) 2004 - 2006 discus24.de
    (c) 2006 xt:Commerce
-   (c) 2004 - 2010 Frank Maroke 
+   (c) 2004 - 2010 Frank Maroke
    (c) 2010 Christian Rothe (banktransfer_validation.php 2010-01-05)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contributions:
    OSC German Banktransfer v0.85a       	Autor:	Dominik Guder <osc@guder.org>
@@ -28,8 +28,8 @@
    Methoden der Deutschen Bundesbank zur PRZ - Pruefung.
    Die jeweils aktuelle Version von "cpp_dd_de_check.php" finden Sie unter:
    http://www.payguard.de/download - Aktueller Stand: 07.12.2009.
-   
-   Released under the GNU General Public License 
+
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 class AccountCheck {
@@ -134,12 +134,12 @@ var $PRZ; //Enthält die Prüfziffer
   function Method00($AccountNo, $Significance, $Checkpoint, $Modulator=10, $LeaveCheckpoint=0, $DoNotExpand=0) {
     $Help = 0;
     $Method00 = 1;
-    
+
     // Methoden der Bundesbank C6 und D1 uebergeben die finale Kontonummer, $DoNotExpand = 1.
     if ($DoNotExpand == 0) {
       $AccountNo = $this->ExpandAccount($AccountNo);
     }
-    
+
     // Pruefziffer ermitteln..
     $PNumber = substr($AccountNo, $Checkpoint-1, 1);
 
@@ -1174,7 +1174,7 @@ var $PRZ; //Enthält die Prüfziffer
         // Variante 3: Methode 09 (Keine Berechnung).
         $PResult = $this->Mark09($AccountNo);;
         break;
-      case ($help01 >= 01 && $help <= 31):
+      case ($help01 >= 01 && $help01 <= 31):
         // Variante 4: Dritte und vierte Stelle zwischen 01 und 12
         // -UND- siebte bis neunte Stelle kleiner 500.
         $help03 = substr($AccountNo,2,2);

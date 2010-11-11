@@ -1,19 +1,19 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(shipping.php,v 1.22 2003/05/08); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(shipping.php,v 1.22 2003/05/08); www.oscommerce.com
    (c) 2003	 nextcommerce (shipping.php,v 1.9 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (shipping.php 1305 2005-10-14)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
   require_once(DIR_FS_INC . 'xtc_in_array.inc.php');
@@ -85,10 +85,10 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if (xtc_not_null($module)) {
-            if ( ($module == $class) && ($GLOBALS[$class]->enabled) ) {
+            if ( ($module == $class) && isset($GLOBALS[$class]) && ($GLOBALS[$class]->enabled) ) {
               $include_quotes[] = $class;
             }
-          } elseif ($GLOBALS[$class]->enabled) {
+          } elseif (isset($GLOBALS[$class]) && $GLOBALS[$class]->enabled) {
             $include_quotes[] = $class;
           }
         }
@@ -111,19 +111,18 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->enabled) {
+          if (isset($GLOBALS[$class]) && $GLOBALS[$class]->enabled) {
             $quotes = $GLOBALS[$class]->quotes;
             //BOF - Dokuman - 2009-10-02 - set undefined index
             //$size = sizeof($quotes['methods']);
             $size = isset($quotes['methods']) && is_array($quotes['methods']) ? sizeof($quotes['methods']) : 0;
-            //BOF - Dokuman - 2009-10-02 - set undefined index 
+            //BOF - Dokuman - 2009-10-02 - set undefined index
             for ($i=0; $i<$size; $i++) {
             if(array_key_exists("cost",$quotes['methods'][$i])) {
                 $rates[] = array('id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],
                                  'title' => $quotes['module'] . ' (' . $quotes['methods'][$i]['title'] . ')',
                                  'cost' => $quotes['methods'][$i]['cost']);
                                 // echo $quotes['methods'][$i]['cost'];
-
               }
             }
           }
