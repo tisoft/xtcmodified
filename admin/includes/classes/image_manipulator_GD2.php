@@ -1,23 +1,25 @@
 <?php
 /* ----------------------------------------------------------------------------------------
-   $Id: image_manipulator_GD2.php 950 2005-05-14 16:45:21Z mz $   
+   $Id: image_manipulator_GD2.php 950 2005-05-14 16:45:21Z mz $
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
+   based on:
+   (c) 2006 XT-Commerce (image_manipulator_GD2.php 950 2005-05-14)
+
    Third Party contributions:
    class thumbnail - proportional thumbnails with manipulations by mark@teckis.com
    You find more great scripts and some information at www.teckis.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 class image_manipulation
 	{
-	
+
 	function image_manipulation($resource_file, $max_width, $max_height, $destination_file="", $compression=IMAGE_QUALITY, $transform="")
 		{
 		$this->a = $resource_file;	// image to be thumbnailed
@@ -35,7 +37,7 @@ class image_manipulation
 			}
 		}
 	function compile()
-		{	
+		{
 		$this->h = getimagesize($this->a);
 		if(is_array($this->h))
 			{
@@ -56,8 +58,18 @@ class image_manipulation
 		$this->s = ($this->k < 4) ? ($this->k < 3) ? ($this->k < 2) ? ($this->k < 1) ? Null : imagecreatefromgif($this->a) : imagecreatefromjpeg($this->a) : imagecreatefrompng($this->a) : Null;
 		if($this->s !== Null)
 			{
-			$this->t = imagecreatetruecolor($this->q, $this->r); // created thumbnail reference
-			$this->u = imagecopyresampled($this->t, $this->s, 0, 0, 0, 0, $this->q, $this->r, $this->i, $this->j);
+        //BOF - DokuMan - 2010-11-11 - prevent enlarging an image beyond its original size
+        if ($this->i < $this->m && $this->j < $this->n) {
+            $this->q = $this->i; // width
+            $this->r = $this->j; // height
+            $this->t = $this->s;
+        } else {
+        //EOF - DokuMan - 2010-11-11 - prevent enlarging an image beyond its original size
+        $this->t = imagecreatetruecolor($this->q, $this->r); // created thumbnail reference
+        $this->u = imagecopyresampled($this->t, $this->s, 0, 0, 0, 0, $this->q, $this->r, $this->i, $this->j);
+        //BOF - DokuMan - 2010-11-11 - prevent enlarging an image beyond its original size
+        }
+        //EOF - DokuMan - 2010-11-11 - prevent enlarging an image beyond its original size
 			}
 		}
 
@@ -312,9 +324,17 @@ class image_manipulation
 			{
 			if($this->d !== "")
 				{
-				ob_start();
-				imagejpeg($this->t, $this->d, $this->e);
-				ob_end_clean();
+				//BOF - DokuMan - 2010-11-11 - support jpg, gif and png
+				//ob_start();
+				//imagejpeg($this->t, $this->d, $this->e);
+				//ob_end_clean();
+        if ($this->k == 1)
+        @imagegif($this->t, $this->d);
+        if ($this->k == 2)
+        @imagejpeg($this->t, $this->d, $this->e);
+        if ($this->k == 3)
+        @imagepng($this->t, $this->d);
+				//EOF - DokuMan - 2010-11-11 - support jpg, gif and png
 				}
 			imagedestroy($this->s);
 			imagedestroy($this->t);
