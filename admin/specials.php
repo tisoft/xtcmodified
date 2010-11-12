@@ -130,9 +130,10 @@
 <script type="text/javascript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 */
 ?>
-<link type="text/css" href="includes/javascript/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="includes/javascript/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="includes/javascript/ui/jquery-ui-1.8.4.custom.min.js"></script>
+<link type="text/css" href="includes/javascript/jquery-ui.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="includes/javascript/jquery.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker.min.js"></script>
 <script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-<?php echo strtolower($_SESSION['language_code']); ?>.js"></script>
  <script type="text/javascript">
     $(function() {
