@@ -22,7 +22,7 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
-    if ( ($_GET['cID']) && (!$_POST) ) {
+    if (isset($_GET['cID']) && (!$_POST) ) {
       $category_query = xtc_db_query("select * from " .
                                       TABLE_CATEGORIES . " c, " .
                                       TABLE_CATEGORIES_DESCRIPTION . " cd
@@ -32,7 +32,7 @@
       $category = xtc_db_fetch_array($category_query);
 
       $cInfo = new objectInfo($category);
-    } elseif ($_POST) {
+    } elseif (xtc_not_null($_POST)) {
       $cInfo = new objectInfo($_POST);
       $categories_name = $_POST['categories_name'];
       $categories_heading_title = $_POST['categories_heading_title'];
@@ -60,7 +60,7 @@
         <td><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <?php
-          $form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
+          $form_action = isset($_GET['cID']) ? 'update_category' : 'insert_category';
     echo xtc_draw_form('new_category', FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $_GET['cID'] . '&action='.$form_action, 'post', 'enctype="multipart/form-data"'); ?>
 
 
@@ -145,7 +145,7 @@ if ($dir= opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_
 }
 $default_array=array();
  // set default value in dropdown!
-if ($content['content_file']=='') {
+if (empty($content['content_file'])) {
 	$default_array[]=array('id' => 'default','text' => TEXT_SELECT);
 	$default_value=$cInfo->listing_template;
 	$files=array_merge($default_array,$files);
@@ -174,7 +174,7 @@ if ($dir= opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categori
 }
 $default_array=array();
 // set default value in dropdown!
-if ($content['content_file']=='') {
+if (empty($content['content_file'])) {
 	$default_array[]=array('id' => 'default','text' => TEXT_SELECT);
 	$default_value=$cInfo->categories_template;
 	$files=array_merge($default_array,$files);
@@ -305,12 +305,12 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
 		  <?php // EOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
 		  <tr>
             <td class="main" width="184"><?php echo TEXT_EDIT_CATEGORIES_NAME; ?></td>
-            <td class="main"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']) . '&nbsp;' . xtc_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', (($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : xtc_get_categories_name($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 200px"'); ?></td>
+            <td class="main"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']) . '&nbsp;' . xtc_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', (isset($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : xtc_get_categories_name($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 200px"'); ?></td>
           </tr>
 		  <tr><td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '2'); ?></td></tr>
 		  <tr>
             <td class="main"><?php echo TEXT_EDIT_CATEGORIES_HEADING_TITLE; ?></td>
-            <td class="main"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']) . '&nbsp;' . xtc_draw_input_field('categories_heading_title[' . $languages[$i]['id'] . ']', (($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : xtc_get_categories_heading_title($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 200px"'); ?></td>
+            <td class="main"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']) . '&nbsp;' . xtc_draw_input_field('categories_heading_title[' . $languages[$i]['id'] . ']', (isset($categories_name[$languages[$i]['id']]) ? stripslashes($categories_name[$languages[$i]['id']]) : xtc_get_categories_heading_title($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 200px"'); ?></td>
           </tr>
 		  <tr><td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td></tr>
           <tr>
@@ -318,7 +318,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
             <td><table border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="main" valign="top"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?>&nbsp;</td>
-                <td class="main"><?php echo xtc_draw_textarea_field('categories_description[' . $languages[$i]['id'] . ']', 'soft', '70', '25', (($categories_description[$languages[$i]['id']]) ? stripslashes($categories_description[$languages[$i]['id']]) : xtc_get_categories_description($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 600px"'); ?></td>
+                <td class="main"><?php echo xtc_draw_textarea_field('categories_description[' . $languages[$i]['id'] . ']', 'soft', '70', '25', (isset($categories_description[$languages[$i]['id']]) ? stripslashes($categories_description[$languages[$i]['id']]) : xtc_get_categories_description($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 600px"'); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -328,7 +328,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
             <td><table border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="main" valign="top"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?>&nbsp;</td>
-                <td class="main"><?php echo xtc_draw_input_field('categories_meta_title[' . $languages[$i]['id'] . ']',(($categories_meta_title[$languages[$i]['id']]) ? stripslashes($categories_meta_title[$languages[$i]['id']]) : xtc_get_categories_meta_title($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 600px"'); ?></td>
+                <td class="main"><?php echo xtc_draw_input_field('categories_meta_title[' . $languages[$i]['id'] . ']',(isset($categories_meta_title[$languages[$i]['id']]) ? stripslashes($categories_meta_title[$languages[$i]['id']]) : xtc_get_categories_meta_title($cInfo->categories_id, $languages[$i]['id'])), 'style="width: 600px"'); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -340,7 +340,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
             <td><table border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="main" valign="top"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?>&nbsp;</td>
-                <td class="main"><?php echo xtc_draw_input_field('categories_meta_description[' . $languages[$i]['id'] . ']', (($categories_meta_description[$languages[$i]['id']]) ? stripslashes($categories_meta_description[$languages[$i]['id']]) : xtc_get_categories_meta_description($cInfo->categories_id, $languages[$i]['id'])),'style="width:600px"'); ?></td>
+                <td class="main"><?php echo xtc_draw_input_field('categories_meta_description[' . $languages[$i]['id'] . ']', (isset($categories_meta_description[$languages[$i]['id']]) ? stripslashes($categories_meta_description[$languages[$i]['id']]) : xtc_get_categories_meta_description($cInfo->categories_id, $languages[$i]['id'])),'style="width:600px"'); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -352,7 +352,7 @@ for ($i=0;$n=sizeof($customers_statuses_array),$i<$n;$i++) {
             <td><table border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="main" valign="top"><?php echo xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?>&nbsp;</td>
-                <td class="main"><?php echo xtc_draw_input_field('categories_meta_keywords[' . $languages[$i]['id'] . ']',(($categories_meta_keywords[$languages[$i]['id']]) ? stripslashes($categories_meta_keywords[$languages[$i]['id']]) : xtc_get_categories_meta_keywords($cInfo->categories_id, $languages[$i]['id'])),'style="width: 600px"'); ?></td>
+                <td class="main"><?php echo xtc_draw_input_field('categories_meta_keywords[' . $languages[$i]['id'] . ']',(isset($categories_meta_keywords[$languages[$i]['id']]) ? stripslashes($categories_meta_keywords[$languages[$i]['id']]) : xtc_get_categories_meta_keywords($cInfo->categories_id, $languages[$i]['id'])),'style="width: 600px"'); ?></td>
               </tr>
             </table></td>
           </tr>

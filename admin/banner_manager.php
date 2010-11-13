@@ -1,6 +1,7 @@
 <?php
 /* --------------------------------------------------------------
    $Id$
+
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
@@ -18,8 +19,10 @@
   require('includes/application_top.php');
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
   $banner_extension = xtc_banner_image_extension();
 
+  if (xtc_not_null($action)) {
     switch ($action) {
       case 'setflag':
         if ( ($_GET['flag'] == '0') || ($_GET['flag'] == '1') ) {
@@ -60,7 +63,7 @@
           }
         }
 
-        if (!$banner_error) {
+        if ($banner_error == false) {
           $db_image_location = (xtc_not_null($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image->filename;
           $sql_data_array = array('banners_title' => $banners_title,
                                   'banners_url' => $banners_url,
@@ -76,39 +79,39 @@
             $banners_id = xtc_db_insert_id();
             $messageStack->add_session(SUCCESS_BANNER_INSERTED, 'success');
           } elseif ($action == 'update') {
-            xtc_db_perform(TABLE_BANNERS, $sql_data_array, 'update', 'banners_id = \'' . $banners_id . '\'');
+            xtc_db_perform(TABLE_BANNERS, $sql_data_array, 'update', 'banners_id = \'' . (int)$banners_id . '\'');
             $messageStack->add_session(SUCCESS_BANNER_UPDATED, 'success');
           }
 
           if ($_POST['expires_date']) {
             $expires_date = xtc_db_prepare_input($_POST['expires_date']);
-// BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
+            // BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
             //list($day, $month, $year) = explode('/', $expires_date);
             list($year, $month, $day) = explode('-', $expires_date);
-// EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
+            // EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
 
             $expires_date = $year .
                             ((strlen($month) == 1) ? '0' . $month : $month) .
                             ((strlen($day) == 1) ? '0' . $day : $day);
 
-            xtc_db_query("update " . TABLE_BANNERS . " set expires_date = '" . xtc_db_input($expires_date) . "', expires_impressions = null where banners_id = '" . $banners_id . "'");
+            xtc_db_query("update " . TABLE_BANNERS . " set expires_date = '" . xtc_db_input($expires_date) . "', expires_impressions = null where banners_id = '" . (int)$banners_id . "'");
           } elseif ($_POST['impressions']) {
             $impressions = xtc_db_prepare_input($_POST['impressions']);
-            xtc_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . xtc_db_input($impressions) . "', expires_date = null where banners_id = '" . $banners_id . "'");
+            xtc_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . xtc_db_input($impressions) . "', expires_date = null where banners_id = '" . (int)$banners_id . "'");
           }
 
           if ($_POST['date_scheduled']) {
             $date_scheduled = xtc_db_prepare_input($_POST['date_scheduled']);
-// BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
+            // BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
             //list($day, $month, $year) = explode('/', $date_scheduled);
             list($year, $month, $day) = explode('-', $date_scheduled);
-// EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
+            // EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
 
             $date_scheduled = $year .
                               ((strlen($month) == 1) ? '0' . $month : $month) .
                               ((strlen($day) == 1) ? '0' . $day : $day);
 
-            xtc_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . xtc_db_input($date_scheduled) . "' where banners_id = '" . $banners_id . "'");
+            xtc_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . xtc_db_input($date_scheduled) . "' where banners_id = '" . (int)$banners_id . "'");
           }
 
           xtc_redirect(xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners_id));
@@ -118,10 +121,9 @@
         break;
       case 'deleteconfirm':
         $banners_id = xtc_db_prepare_input($_GET['bID']);
-        $delete_image = xtc_db_prepare_input($_POST['delete_image']);
 
-        if ($delete_image == 'on') {
-          $banner_query = xtc_db_query("select banners_image from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($banners_id) . "'");
+        if (isset($_POST['delete_image']) && ($_POST['delete_image'] == 'on')) {
+          $banner_query = xtc_db_query("select banners_image from " . TABLE_BANNERS . " where banners_id = '" . (int)$banners_id . "'");
           $banner = xtc_db_fetch_array($banner_query);
           if (is_file(DIR_FS_CATALOG_IMAGES . $banner['banners_image'])) {
             if (is_writeable(DIR_FS_CATALOG_IMAGES . $banner['banners_image'])) {
@@ -134,8 +136,8 @@
           }
         }
 
-        xtc_db_query("delete from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($banners_id) . "'");
-        xtc_db_query("delete from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . xtc_db_input($banners_id) . "'");
+        xtc_db_query("delete from " . TABLE_BANNERS . " where banners_id = '" . (int)$banners_id . "'");
+        xtc_db_query("delete from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . (int)$banners_id . "'");
 
         if (function_exists('imagecreate') && xtc_not_null($banner_extension)) {
           if (is_file(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banners_id . '.' . $banner_extension)) {
@@ -168,6 +170,7 @@
         xtc_redirect(xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page']));
         break;
     }
+  }
 
 // check if the graphs directory exists
   $dir_ok = false;
@@ -232,12 +235,12 @@ function popupImageWindow(url) {
 
       // BOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
       //$banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%d/%m/%Y') as date_scheduled, date_format(expires_date, '%d/%m/%Y') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($bID) . "'");
-      $banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%Y-%m-%d') as date_scheduled, date_format(expires_date, '%Y-%m-%d') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($bID) . "'");
+      $banner_query = xtc_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_format(date_scheduled, '%Y-%m-%d') as date_scheduled, date_format(expires_date, '%Y-%m-%d') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . (int)$bID . "'");
       // EOF - Tomcraft - 2009-11-06 - Use "iso 8601" for the date format
       $banner = xtc_db_fetch_array($banner_query);
 
       $bInfo = new objectInfo($banner);
-    } elseif ($_POST) {
+    } elseif (xtc_not_null($_POST)) {
       $bInfo = new objectInfo($_POST);
     } else {
       $bInfo = new objectInfo(array());
@@ -285,7 +288,7 @@ function popupImageWindow(url) {
       <tr>
         <td><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo xtc_draw_form('new_banner', FILENAME_BANNER_MANAGER, (isset($_GET['page']) ? 'page=' . $_GET['page'] . '&' : '') . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"'); if ($form_action == 'update') echo xtc_draw_hidden_field('banners_id', $bID); ?>
+      <tr><?php echo xtc_draw_form('new_banner', FILENAME_BANNER_MANAGER, (isset($_GET['page']) ? 'page=' . $_GET['page'] . '&' : '') . 'action=' . $form_action, 'post', 'enctype="multipart/form-data"'); if ($form_action == 'update') echo xtc_draw_hidden_field('banners_id', $bID); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_TITLE; ?></td>
@@ -410,7 +413,7 @@ function popupImageWindow(url) {
               </tr>
 <?php
     $banners_query_raw = "select banners_id, banners_title, banners_image, banners_group, status, expires_date, expires_impressions, date_status_change, date_scheduled, date_added from " . TABLE_BANNERS . " order by banners_title, banners_group";
-    $banners_split = new splitPageResults($_GET['page'], '20', $banners_query_raw, $banners_query_numrows);
+    $banners_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $banners_query_raw, $banners_query_numrows);
     $banners_query = xtc_db_query($banners_query_raw);
     while ($banners = xtc_db_fetch_array($banners_query)) {
       $info_query = xtc_db_query("select sum(banners_shown) as banners_shown, sum(banners_clicked) as banners_clicked from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banners['banners_id'] . "'");
@@ -424,18 +427,17 @@ function popupImageWindow(url) {
       $banners_shown = ($info['banners_shown'] != '') ? $info['banners_shown'] : '0';
       $banners_clicked = ($info['banners_clicked'] != '') ? $info['banners_clicked'] : '0';
 
-      if (isset($bInfo) && (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) {
+      if (isset($bInfo) && is_object($bInfo) && ($banners['banners_id'] == $bInfo->banners_id) ) {
         echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id) . '\'">' . "\n";
       } else {
         echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '\'">' . "\n";
       }
 ?>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . xtc_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
--->
+*/ ?>
                 <td class="dataTableContent"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . xtc_image(DIR_WS_IMAGES . 'icon_popup.gif', ICON_POPUP) . '</a>&nbsp;' . $banners['banners_title']; ?></td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
                 <td class="dataTableContent" align="right"><?php echo $banners['banners_group']; ?></td>
                 <td class="dataTableContent" align="right"><?php echo $banners_shown . ' / ' . $banners_clicked; ?></td>
                 <td class="dataTableContent" align="right">
@@ -455,12 +457,11 @@ function popupImageWindow(url) {
       }
 // EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons
 ?></td>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php echo '<a href="' . xtc_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '">' . xtc_image(DIR_WS_ICONS . 'statistics.gif', ICON_STATISTICS) . '</a>&nbsp;'; if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
-                <td class="dataTableContent" align="right"><?php echo '<a href="' . xtc_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '">' . xtc_image(DIR_WS_ICONS . 'statistics.gif', ICON_STATISTICS) . '</a>&nbsp;'; if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/ ?>
+                <td class="dataTableContent" align="right"><?php echo '<a href="' . xtc_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '">' . xtc_image(DIR_WS_ICONS . 'statistics.gif', ICON_STATISTICS) . '</a>&nbsp;'; if (isset($bInfo) && is_object($bInfo) && ($banners['banners_id'] == $bInfo->banners_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
               </tr>
 <?php
     }
@@ -468,8 +469,8 @@ function popupImageWindow(url) {
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $banners_split->display_count($banners_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_BANNERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $banners_split->display_links($banners_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" valign="top"><?php echo $banners_split->display_count($banners_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_BANNERS); ?></td>
+                    <td class="smallText" align="right"><?php echo $banners_split->display_links($banners_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
                   <tr>
                     <td align="right" colspan="2"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BANNER_MANAGER, 'action=new') . '">' . BUTTON_NEW_BANNER . '</a>'; ?></td>

@@ -1,69 +1,72 @@
 <?php
-
 /* --------------------------------------------------------------
-   $Id: campaigns.php 1117 2005-07-25 21:02:11Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2005 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce coding standards; www.oscommerce.com
+   (c) 2006 xt:Commerce (campaigns.php 1117 2005-07-25)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
 require ('includes/application_top.php');
 
-  require(DIR_WS_CLASSES . 'currencies.php');
-  $currencies = new currencies();
+require(DIR_WS_CLASSES . 'currencies.php');
+$currencies = new currencies();
 
-switch ($_GET['action']) {
-	case 'insert' :
-	case 'save' :
-		$campaigns_id = xtc_db_prepare_input($_GET['cID']);
-		$campaigns_name = xtc_db_prepare_input($_POST['campaigns_name']);
-		$campaigns_refID = xtc_db_prepare_input($_POST['campaigns_refID']);
-		$sql_data_array = array ('campaigns_name' => $campaigns_name, 'campaigns_refID' => $campaigns_refID);
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-		if ($_GET['action'] == 'insert') {
-			$insert_sql_data = array ('date_added' => 'now()');
-			$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
-			xtc_db_perform(TABLE_CAMPAIGNS, $sql_data_array);
-			$campaigns_id = xtc_db_insert_id();
-		}
-		elseif ($_GET['action'] == 'save') {
-			$update_sql_data = array ('last_modified' => 'now()');
-			$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
-			xtc_db_perform(TABLE_CAMPAIGNS, $sql_data_array, 'update', "campaigns_id = '".xtc_db_input($campaigns_id)."'");
-		}
+if (xtc_not_null($action)) {
+  switch ($action) {
+    case 'insert' :
+    case 'save' :
+      $campaigns_id = xtc_db_prepare_input($_GET['cID']);
+      $campaigns_name = xtc_db_prepare_input($_POST['campaigns_name']);
+      $campaigns_refID = xtc_db_prepare_input($_POST['campaigns_refID']);
+      $sql_data_array = array ('campaigns_name' => $campaigns_name, 'campaigns_refID' => $campaigns_refID);
 
-		xtc_redirect(xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page'].'&cID='.$campaigns_id));
-		break;
+      if ($action == 'insert') {
+        $insert_sql_data = array ('date_added' => 'now()');
+        $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+        xtc_db_perform(TABLE_CAMPAIGNS, $sql_data_array);
+        $campaigns_id = xtc_db_insert_id();
+      }
+      elseif ($action == 'save') {
+        $update_sql_data = array ('last_modified' => 'now()');
+        $sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
+        xtc_db_perform(TABLE_CAMPAIGNS, $sql_data_array, 'update', "campaigns_id = '".xtc_db_input($campaigns_id)."'");
+      }
 
-	case 'deleteconfirm' :
+      xtc_redirect(xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page'].'&cID='.$campaigns_id));
+      break;
 
-		$campaigns_id = xtc_db_prepare_input($_GET['cID']);
+    case 'deleteconfirm' :
 
-		xtc_db_query("delete from ".TABLE_CAMPAIGNS." where campaigns_id = '".xtc_db_input($campaigns_id)."'");
-		xtc_db_query("delete from ".TABLE_CAMPAIGNS_IP." where campaign = '".xtc_db_input($campaigns_id)."'");
+      $campaigns_id = xtc_db_prepare_input($_GET['cID']);
 
-		if ($_POST['delete_refferers'] == 'on') {
+      xtc_db_query("delete from ".TABLE_CAMPAIGNS." where campaigns_id = '".xtc_db_input($campaigns_id)."'");
+      xtc_db_query("delete from ".TABLE_CAMPAIGNS_IP." where campaign = '".xtc_db_input($campaigns_id)."'");
 
-			xtc_db_query("update ".TABLE_ORDERS." set refferers_id = '' where refferers_id = '".xtc_db_input($campaigns_id)."'");
-			xtc_db_query("update ".TABLE_CUSTOMERS." set refferers_id = '' where refferers_id = '".xtc_db_input($campaigns_id)."'");
-		}
+      if (isset($_POST['delete_refferers']) && $_POST['delete_refferers'] == 'on') {
+        xtc_db_query("update ".TABLE_ORDERS." set refferers_id = '' where refferers_id = '".xtc_db_input($campaigns_id)."'");
+        xtc_db_query("update ".TABLE_CUSTOMERS." set refferers_id = '' where refferers_id = '".xtc_db_input($campaigns_id)."'");
+      }
 
-		xtc_redirect(xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page']));
-		break;
+      xtc_redirect(xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page']));
+      break;
+  }
 }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
@@ -105,23 +108,22 @@ $campaigns_query_raw = "select * from ".TABLE_CAMPAIGNS." order by campaigns_nam
 $campaigns_split = new splitPageResults($_GET['page'], '20', $campaigns_query_raw, $campaigns_query_numrows);
 $campaigns_query = xtc_db_query($campaigns_query_raw);
 while ($campaigns = xtc_db_fetch_array($campaigns_query)) {
-	if (((!$_GET['cID']) || (@ $_GET['cID'] == $campaigns['campaigns_id'])) && (!$cInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+	if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $campaigns['campaigns_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
 		$cInfo = new objectInfo($campaigns);
 	}
 
-	if ((is_object($cInfo)) && ($campaigns['campaigns_id'] == $cInfo->campaigns_id)) {
+	if (isset($cInfo) && is_object($cInfo) && ($campaigns['campaigns_id'] == $cInfo->campaigns_id)) {
 		echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\''.xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page'].'&cID='.$campaigns['campaigns_id'].'&action=edit').'\'">'."\n";
 	} else {
 		echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\''.xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page'].'&cID='.$campaigns['campaigns_id']).'\'">'."\n";
 	}
 ?>
                 <td class="dataTableContent"><?php echo $campaigns['campaigns_name']; ?></td>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?/*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($campaigns['campaigns_id'] == $cInfo->campaigns_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_CAMPAIGNS, 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($campaigns['campaigns_id'] == $cInfo->campaigns_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_CAMPAIGNS, 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/ ?>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($campaigns['campaigns_id'] == $cInfo->campaigns_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_CAMPAIGNS, 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+<?/*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
               </tr>
 <?php
 
@@ -136,8 +138,7 @@ while ($campaigns = xtc_db_fetch_array($campaigns_query)) {
                 </table></td>
               </tr>
 <?php
-
-if ($_GET['action'] != 'new') {
+  if (empty($action)) {
 ?>
               <tr>
                 <td align="right" colspan="2" class="smallText"><?php echo xtc_button_link(BUTTON_INSERT, xtc_href_link(FILENAME_CAMPAIGNS, 'page=' . $_GET['page'] . '&cID=' . $cInfo->campaigns_id . '&action=new')); ?></td>
@@ -151,7 +152,7 @@ if ($_GET['action'] != 'new') {
 
 $heading = array ();
 $contents = array ();
-switch ($_GET['action']) {
+switch ($action) {
 	case 'new' :
 		$heading[] = array ('text' => '<b>'.TEXT_HEADING_NEW_CAMPAIGN.'</b>');
 
@@ -188,7 +189,7 @@ switch ($_GET['action']) {
 		break;
 
 	default :
-		if (is_object($cInfo)) {
+		if (isset($cInfo) && is_object($cInfo)) {
 			$heading[] = array ('text' => '<b>'.$cInfo->campaigns_name.'</b>');
 
 			$contents[] = array ('align' => 'center', 'text' => xtc_button_link(BUTTON_EDIT, xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page'].'&cID='.$cInfo->campaigns_id.'&action=edit')).'&nbsp;'.xtc_button_link(BUTTON_DELETE, xtc_href_link(FILENAME_CAMPAIGNS, 'page='.$_GET['page'].'&cID='.$cInfo->campaigns_id.'&action=delete')));

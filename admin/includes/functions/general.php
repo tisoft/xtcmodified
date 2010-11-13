@@ -59,7 +59,7 @@ function check_stock($products_id) {
 			}
 		}
 	}
-	if ($stock_flag == 'true' && $products_id != '') {
+	if (isset($stock_flag) && $stock_flag == 'true' && $products_id != '') {
 		return '<div class="stock_warn">'.$stock_warn.'</div>';
 	} else {
 		return xtc_image(DIR_WS_IMAGES.'icon_status_green.gif', $stock_values['products_quantity'].' '.IMAGE_ICON_STATUS_GREEN_STOCK, 10, 10);

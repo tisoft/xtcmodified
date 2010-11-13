@@ -51,7 +51,7 @@ while ($campaign_data = xtc_db_fetch_array($campaign_query)) {
 }
 
 // report views (1: yearly 2: monthly 3: weekly 4: daily)
-if (($_GET['report']) && (xtc_not_null($_GET['report']))) {
+if (isset($_GET['report']) && (xtc_not_null($_GET['report']))) {
 	$srView = $_GET['report'];
 }
 if ($srView < 1 || $srView > 4) {
@@ -61,19 +61,19 @@ if ($srView < 1 || $srView > 4) {
 // check start and end Date
 $startDate = "";
 $startDateG = 0;
-if (($_GET['startD']) && (xtc_not_null($_GET['startD']))) {
+if (isset($_GET['startD']) && (xtc_not_null($_GET['startD']))) {
 	$sDay = $_GET['startD'];
 	$startDateG = 1;
 } else {
 	$sDay = 1;
 }
-if (($_GET['startM']) && (xtc_not_null($_GET['startM']))) {
+if (isset($_GET['startM']) && (xtc_not_null($_GET['startM']))) {
 	$sMon = $_GET['startM'];
 	$startDateG = 1;
 } else {
 	$sMon = 1;
 }
-if (($_GET['startY']) && (xtc_not_null($_GET['startY']))) {
+if (isset($_GET['startY']) && (xtc_not_null($_GET['startY']))) {
 	$sYear = $_GET['startY'];
 	$startDateG = 1;
 } else {
@@ -87,19 +87,19 @@ if ($startDateG) {
 
 $endDate = "";
 $endDateG = 0;
-if (($_GET['endD']) && (xtc_not_null($_GET['endD']))) {
+if (isset($_GET['endD']) && (xtc_not_null($_GET['endD']))) {
 	$eDay = $_GET['endD'];
 	$endDateG = 1;
 } else {
 	$eDay = 1;
 }
-if (($_GET['endM']) && (xtc_not_null($_GET['endM']))) {
+if (isset($_GET['endM']) && (xtc_not_null($_GET['endM']))) {
 	$eMon = $_GET['endM'];
 	$endDateG = 1;
 } else {
 	$eMon = 1;
 }
-if (($_GET['endY']) && (xtc_not_null($_GET['endY']))) {
+if (isset($_GET['endY']) && (xtc_not_null($_GET['endY']))) {
 	$eYear = $_GET['endY'];
 	$endDateG = 1;
 } else {
@@ -210,10 +210,10 @@ if ($srExp < 1) {
                     </select>
                   </td>
                   <td rowspan="2" align="left" class="menuBoxHeading"> <?php echo REPORT_STATUS_FILTER; ?><br />
-                    <?php echo xtc_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $orders_statuses), $_GET['status']); ?>
+                    <?php echo xtc_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $orders_statuses), isset($_GET['status']) ? $_GET['status'] : ''); ?>
 
                     <br /><?php echo REPORT_CAMPAIGN_FILTER; ?><br />
-<?php echo xtc_draw_pull_down_menu('campaign', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $campaigns), $_GET['campaign']); ?>
+<?php echo xtc_draw_pull_down_menu('campaign', array_merge(array(array('id' => '0', 'text' => REPORT_ALL)), $campaigns), isset($_GET['campaign']) ? $_GET['campaign'] : ''); ?>
                     </td>
                   <td rowspan="2" align="left" class="menuBoxHeading"><br />
                   </td>

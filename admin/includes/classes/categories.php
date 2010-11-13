@@ -134,7 +134,7 @@ class categories {
 				$permission[$b] = 1;
 			}
 		// build array
-		if ($permission['all']==1) {
+		if (isset($permission['all']) && $permission['all']==1) {
 			$permission = array ();
 			end($customers_statuses_array);
 			for ($i = 0; $n = key($customers_statuses_array), $i < $n+1; $i ++) {
@@ -176,7 +176,7 @@ class categories {
 		xtc_set_groups($categories_id, $permission_array);
 		$languages = xtc_get_languages();
 		foreach ($languages AS $lang) {
-			$categories_name_array = $categories_data['name'];
+			if (isset($categories_data['name'])) $categories_name_array = $categories_data['name'];
 			$sql_data_array = array (
 			'categories_name' => xtc_db_prepare_input($categories_data['categories_name'][$lang['id']]),
 			'categories_heading_title' => xtc_db_prepare_input($categories_data['categories_heading_title'][$lang['id']]),
@@ -211,7 +211,7 @@ class categories {
 						    		               WHERE categories_id = '".(int) $categories_id."'");
 		}
 
-		if ($categories_data['del_cat_pic'] == 'yes') {
+		if (isset($categories_data['del_cat_pic']) && $categories_data['del_cat_pic'] == 'yes') {
 			@ unlink(DIR_FS_CATALOG_IMAGES.'categories/'.$categories_data['categories_previous_image']);
 			xtc_db_query("UPDATE ".TABLE_CATEGORIES."
 						    		                 SET categories_image = ''

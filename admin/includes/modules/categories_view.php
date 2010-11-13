@@ -236,11 +236,11 @@
         $categories_count++;
         $rows++;
         if (xtc_not_null($search)) $cPath = $categories['parent_id'];
-        if ( ((!$_GET['cID']) && (!$_GET['pID']) || (@$_GET['cID'] == $categories['categories_id'])) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
+        if ((!isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
             $cInfo = new objectInfo($categories);
         }
 
-        if (isset($cInfo) && (is_object($cInfo)) && ($categories['categories_id'] == $cInfo->categories_id) ) {
+        if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) {
             echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'">' . "\n";
         } else {
             echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
@@ -392,7 +392,7 @@
       // Get categories_id for product if search
       if (xtc_not_null($search)) $cPath=$products['categories_id'];
 
-      if ( ((!$_GET['pID']) && (!$_GET['cID']) || (@$_GET['pID'] == $products['products_id'])) && (!$pInfo) && (!$cInfo) && (substr($action, 0, 4) != 'new_') ) {
+      if ((!isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
         // find out the rating average from customer reviews
         $reviews_query = xtc_db_query("select (avg(reviews_rating) / 5 * 100) as average_rating from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
         $reviews = xtc_db_fetch_array($reviews_query);
@@ -506,9 +506,10 @@
 // ----------------------------------------------------------------------------------------------------- //
 
     if ($cPath_array) {
-      unset($cPath_back);
+      //unset($cPath_back);
+      $cPath_back = '';
       for($i = 0, $n = sizeof($cPath_array) - 1; $i < $n; $i++) {
-        if ($cPath_back == '') {
+        if (empty($cPath_back)) {
           $cPath_back .= $cPath_array[$i];
         } else {
           $cPath_back .= '_' . $cPath_array[$i];
@@ -516,7 +517,7 @@
       }
     }
 
-    $cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
+    $cPath_back = isset($cPath_back) ? 'cPath=' . $cPath_back : '';
 ?>
 
         </tr>
@@ -721,7 +722,7 @@
 
       default:
         if ($rows > 0) {
-          if (is_object($cInfo)) {
+          if (isset($cInfo) && is_object($cInfo)) {
             // category info box contents
             $heading[]  = array('align' => 'center', 'text' => '<b>' . $cInfo->categories_name . '</b>');
             //Multi Element Actions
@@ -729,7 +730,7 @@
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_delete" onclick="this.blur();" value="'. BUTTON_DELETE . '">&nbsp;<input type="submit" class="button" onclick="this.blur();" name="multi_move" value="' . BUTTON_MOVE . '">&nbsp;<input type="submit" class="button" onclick="this.blur();" name="multi_copy" value="' . BUTTON_COPY . '">');
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_status_on" onclick="this.blur();" value="'. BUTTON_STATUS_ON . '">&nbsp;<input type="submit" class="button" onclick="this.blur();" name="multi_status_off" value="' . BUTTON_STATUS_OFF . '">');
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
-            if (MODULE_XTBOOSTER_STATUS=='True') {
+            if (defined('MODULE_XTBOOSTER_STATUS') && MODULE_XTBOOSTER_STATUS == 'True') {
             $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_XTBOOSTER_MULTI, 'submit', 'name="multi_xtb"'));
             }
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
@@ -747,7 +748,7 @@
             $contents[] = array('text'  => '<div style="padding-left: 50px;">' . TEXT_DATE_ADDED . ' ' . xtc_date_short($cInfo->date_added) . '</div>');
             if (xtc_not_null($cInfo->last_modified)) $contents[] = array('text' => '<div style="padding-left: 50px;">' . TEXT_LAST_MODIFIED . ' ' . xtc_date_short($cInfo->last_modified) . '</div>');
             $contents[] = array('align' => 'center', 'text' => '<div style="padding: 10px;">' . xtc_info_image_c($cInfo->categories_image, $cInfo->categories_name, 200)  . '</div><div style="padding-bottom: 10px;">' . $cInfo->categories_image . '</div>');
-          } elseif (is_object($pInfo)) {
+          } elseif (isset($pInfo) && is_object($pInfo)) {
             // product info box contents
             $heading[]  = array('align' => 'center', 'text' => '<b>' . xtc_get_products_name($pInfo->products_id, $_SESSION['languages_id']) . '</b>');
             //Multi Element Actions
@@ -755,7 +756,7 @@
             $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_DELETE, 'submit', 'name="multi_delete"').'&nbsp;'.xtc_button(BUTTON_MOVE, 'submit', 'name="multi_move"').'&nbsp;'.xtc_button(BUTTON_COPY, 'submit', 'name="multi_copy"'));
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_status_on" onclick="this.blur();" value="'. BUTTON_STATUS_ON . '">&nbsp;<input type="submit" class="button" onclick="this.blur();" name="multi_status_off" value="' . BUTTON_STATUS_OFF . '">');
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
-            if (MODULE_XTBOOSTER_STATUS=='True') {
+            if (defined('MODULE_XTBOOSTER_STATUS') && MODULE_XTBOOSTER_STATUS=='True') {
             $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_XTBOOSTER_MULTI, 'submit', 'name="multi_xtb"'));
             }
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
@@ -764,7 +765,7 @@
             $contents[] = array('align' => 'center', 'text' => '<div style="padding-top: 5px; font-weight: bold; width: 90%; border-top: 1px solid Black; margin-top: 5px;">' . TEXT_ACTIVE_ELEMENT . '</div>');
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 //            $contents[] = array('align' => 'center', 'text' => '<table><tr><td><a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . BUTTON_EDIT . '</a></td><td><form action="' . FILENAME_NEW_ATTRIBUTES . '" name="edit_attributes" method="post"><input type="hidden" name="action" value="edit"><input type="hidden" name="current_product_id" value="' . $pInfo->products_id . '"><input type="hidden" name="cpath" value="' . $cPath . '"><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_EDIT_ATTRIBUTES . '"></form></td></tr><tr><td colspan="2" style="text-align: center;"><form action="' . FILENAME_CATEGORIES . '" name="edit_crossselling" method="GET"><input type="hidden" name="action" value="edit_crossselling"><input type="hidden" name="current_product_id" value="' . $pInfo->products_id . '"><input type="hidden" name="cpath" value="' . $cPath  . '"><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_EDIT_CROSS_SELLING . '"></form></td></tr></table>');
-            if (MODULE_XTBOOSTER_STATUS=='True') {
+            if (defined('MODULE_XTBOOSTER_STATUS') && MODULE_XTBOOSTER_STATUS=='True') {
             $contents[] = array('align' => 'center', 'text' => '<table><tr><td><a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . BUTTON_EDIT . '</a></td><td><form action="' . FILENAME_NEW_ATTRIBUTES . '" name="edit_attributes" method="post"><input type="hidden" name="action" value="edit"><input type="hidden" name="current_product_id" value="' . $pInfo->products_id . '"><input type="hidden" name="cpath" value="' . $cPath . '"><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_EDIT_ATTRIBUTES . '"></form></td></tr><tr><td colspan="2" style="text-align: center;"><form action="' . FILENAME_CATEGORIES . '" name="edit_crossselling" method="GET"><input type="hidden" name="action" value="edit_crossselling"><input type="hidden" name="current_product_id" value="' . $pInfo->products_id . '"><input type="hidden" name="cpath" value="' . $cPath  . '"><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_EDIT_CROSS_SELLING . '"></form>&nbsp;<form action="' . FILENAME_XTBOOSTER . '" name="edit_xtbooster" method="POST"><input type="hidden" name="action" value="edit_xtbooster"><input type="hidden" name="xtb_module" value="add"><input type="hidden" name="current_product_id" value="' . $pInfo->products_id . '"><input type="hidden" name="cpath" value="' . $cPath  . '"><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_EDIT_XTBOOSTER . '"></form></td></tr></table>');
             }
             else {

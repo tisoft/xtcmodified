@@ -72,7 +72,7 @@
   //EOF - Dokuman - 2010-10-31 - set default variables
 
   // report views (1: yearly 2: monthly 3: weekly 4: daily)
-  if ( ($_GET['report']) && (xtc_not_null($_GET['report'])) ) {
+  if (isset($_GET['report']) && (xtc_not_null($_GET['report'])) ) {
     $srView = $_GET['report'];
   }
   if ($srView < 1 || $srView > 4) {
@@ -80,7 +80,7 @@
   }
 
   // detail
-  if ( ($_GET['detail']) && (xtc_not_null($_GET['detail'])) ) {
+  if (isset($_GET['detail']) && (xtc_not_null($_GET['detail'])) ) {
     $srDetail = $_GET['detail'];
   }
   if ($srDetail < 0 || $srDetail > 2) {
@@ -88,7 +88,7 @@
   }
 
   // report views (1: yearly 2: monthly 3: weekly 4: daily)
-  if ( ($_GET['export']) && (xtc_not_null($_GET['export'])) ) {
+  if (isset($_GET['export']) && (xtc_not_null($_GET['export'])) ) {
     $srExp = $_GET['export'];
   }
   if ($srExp < 0 || $srExp > 2) {
@@ -96,7 +96,7 @@
   }
 
   // item_level
-  if ( ($_GET['max']) && (xtc_not_null($_GET['max'])) ) {
+  if (isset($_GET['max']) && (xtc_not_null($_GET['max'])) ) {
     $srMax = $_GET['max'];
   }
   if (!is_numeric($srMax)) {
@@ -104,7 +104,7 @@
   }
 
   // order status
-  if ( ($_GET['status']) && (xtc_not_null($_GET['status'])) ) {
+  if (isset($_GET['status']) && (xtc_not_null($_GET['status'])) ) {
     $srStatus = $_GET['status'];
   }
   if (!is_numeric($srStatus)) {
@@ -112,14 +112,14 @@
   }
 
    // paymenttype
-  if ( ($_GET['payment']) && (xtc_not_null($_GET['payment'])) ) {
+  if (isset($_GET['payment']) && (xtc_not_null($_GET['payment'])) ) {
     $srPayment = $_GET['payment'];
   } else {
     $srPayment = 0;
   }
 
   // sort
-  if ( ($_GET['sort']) && (xtc_not_null($_GET['sort'])) ) {
+  if (isset($_GET['sort']) && (xtc_not_null($_GET['sort'])) ) {
     $srSort = $_GET['sort'];
   }
   if ($srSort < 1 || $srSort > 6) {
@@ -129,19 +129,19 @@
   // check start and end Date
   $startDate = "";
   $startDateG = 0;
-  if ( ($_GET['startD']) && (xtc_not_null($_GET['startD'])) ) {
+  if (isset($_GET['startD']) && (xtc_not_null($_GET['startD'])) ) {
     $sDay = $_GET['startD'];
     $startDateG = 1;
   } else {
     $sDay = 1;
   }
-  if ( ($_GET['startM']) && (xtc_not_null($_GET['startM'])) ) {
+  if (isset($_GET['startM']) && (xtc_not_null($_GET['startM'])) ) {
     $sMon = $_GET['startM'];
     $startDateG = 1;
   } else {
     $sMon = 1;
   }
-  if ( ($_GET['startY']) && (xtc_not_null($_GET['startY'])) ) {
+  if (isset($_GET['startY']) && (xtc_not_null($_GET['startY'])) ) {
     $sYear = $_GET['startY'];
     $startDateG = 1;
   } else {
@@ -155,19 +155,19 @@
 
   $endDate = "";
   $endDateG = 0;
-  if ( ($_GET['endD']) && (xtc_not_null($_GET['endD'])) ) {
+  if (isset($_GET['endD']) && (xtc_not_null($_GET['endD'])) ) {
     $eDay = $_GET['endD'];
     $endDateG = 1;
   } else {
     $eDay = 1;
   }
-  if ( ($_GET['endM']) && (xtc_not_null($_GET['endM'])) ) {
+  if (isset($_GET['endM']) && (xtc_not_null($_GET['endM'])) ) {
     $eMon = $_GET['endM'];
     $endDateG = 1;
   } else {
     $eMon = 1;
   }
-  if ( ($_GET['endY']) && (xtc_not_null($_GET['endY'])) ) {
+  if (isset($_GET['endY']) && (xtc_not_null($_GET['endY'])) ) {
     $eYear = $_GET['endY'];
     $endDateG = 1;
   } else {

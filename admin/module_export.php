@@ -9,7 +9,7 @@
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/28); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(modules.php,v 1.45 2003/05/28); www.oscommerce.com
    (c) 2003	 nextcommerce (modules.php,v 1.23 2003/08/19); www.nextcommerce.org
    (c) 2006 xt:Commerce
    --------------------------------------------------------------
@@ -27,78 +27,83 @@
 
   require_once(DIR_WS_FUNCTIONS . 'export_functions.php');
 
-      if (!is_writeable(DIR_FS_CATALOG . 'export/')) {
-      		$messageStack->add(ERROR_EXPORT_FOLDER_NOT_WRITEABLE, 'error');
-      }
-      $module_type = 'export';
-      $module_directory = DIR_WS_MODULES . 'export/';
-      $module_key = 'MODULE_EXPORT_INSTALLED';
-      $file_extension = '.php';
-      define('HEADING_TITLE', HEADING_TITLE_MODULES_EXPORT);
-      if (isset($_GET['error'])) {
-      $map='error';
-      if ($_GET['kind']=='success') $map='success';
-      $messageStack->add($_GET['error'], $map);
-      }
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+  $set = (isset($_GET['set']) ? $_GET['set'] : '');
 
-  switch ($_GET['action']) {
-    case 'save':
-    if (is_array($_POST['configuration'])) {
-    if (count($_POST['configuration'])) {
-      while (list($key, $value) = each($_POST['configuration'])) {
-        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
-       //BOF - GTB - 2010-08-06 - start Download Problem PHP > 5.3 
-       if (strpos($key,'FILE') !== false) $file=$value;
-        //if (substr($key,'FILE')) $file=$value;
-       //BOF - GTB - 2010-08-06 - start Download Problem PHP > 5.3 
-      }
-    }
-    }
+  if (!is_writeable(DIR_FS_CATALOG . 'export/')) {
+      $messageStack->add(ERROR_EXPORT_FOLDER_NOT_WRITEABLE, 'error');
+  }
+  $module_type = 'export';
+  $module_directory = DIR_WS_MODULES . 'export/';
+  $module_key = 'MODULE_EXPORT_INSTALLED';
+  $file_extension = '.php';
+  define('HEADING_TITLE', HEADING_TITLE_MODULES_EXPORT);
+  if (isset($_GET['error'])) {
+    $map='error';
+    if ($_GET['kind']=='success') $map='success';
+    $messageStack->add($_GET['error'], $map);
+  }
 
-    $class = basename($_GET['module']);
-    include($module_directory . $class . $file_extension);
-// BOF - image_processing by steps
-    if($class == 'image_processing_step'){
-    $start = $_GET['start'];
-    if($start == '') {
-       $start = 0;
-    }
-    $module = new $class;
-    $module->process($file, $start);
-    } elseif($class == 'image_processing_new_step') {
-    $start = $_GET['start'];
-    if($start == '') {
-       $start = 0;
-    }
-    $module = new $class;
-    $module->process($file, $start);
-    } elseif($class == 'image_processing_new_step2') {
-    $module = new $class;
-    $module->process($file);
-    } else {
-    $module = new $class;
-    $module->process($file);
-    xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class));
-    }
-// EOF - image_processing by steps
-      break;
-
-    case 'install':
-    case 'remove':
-      $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-      $class = basename($_GET['module']);
-      if (file_exists($module_directory . $class . $file_extension)) {
-        include($module_directory . $class . $file_extension);
-        $module = new $class;
-        if ($_GET['action'] == 'install') {
-          $module->install();
-        } elseif ($_GET['action'] == 'remove') {
-          $module->remove();
+  if (xtc_not_null($action)) {
+    switch ($action) {
+      case 'save':
+      if (is_array($_POST['configuration'])) {
+        if (count($_POST['configuration'])) {
+          while (list($key, $value) = each($_POST['configuration'])) {
+            xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
+           //BOF - GTB - 2010-08-06 - start Download Problem PHP > 5.3
+           if (strpos($key,'FILE') !== false) $file=$value;
+           //if (substr($key,'FILE')) $file=$value;
+           //BOF - GTB - 2010-08-06 - start Download Problem PHP > 5.3
+          }
         }
       }
-      xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class));
-      break;
-  }
+
+      $class = basename($_GET['module']);
+      include($module_directory . $class . $file_extension);
+      // BOF - image_processing by steps
+      if($class == 'image_processing_step'){
+        $start = $_GET['start'];
+        if($start == '') {
+           $start = 0;
+        }
+        $module = new $class;
+        $module->process($file, $start);
+      } elseif($class == 'image_processing_new_step') {
+        $start = $_GET['start'];
+        if($start == '') {
+           $start = 0;
+        }
+        $module = new $class;
+        $module->process($file, $start);
+      } elseif($class == 'image_processing_new_step2') {
+        $module = new $class;
+        $module->process($file);
+      } else {
+        $module = new $class;
+        $module->process($file);
+        xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $class));
+      }
+      // EOF - image_processing by steps
+        break;
+
+      case 'install':
+      case 'remove':
+        $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+        $class = basename($_GET['module']);
+        if (file_exists($module_directory . $class . $file_extension)) {
+          include($module_directory . $class . $file_extension);
+          $module = new $class;
+          if ($action == 'install') {
+            $module->install();
+          } elseif ($action == 'remove') {
+            $module->remove();
+          }
+        }
+        xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $class));
+        break;
+    }
+}
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -174,7 +179,7 @@
         }
       }
 
-      if (((!$_GET['module']) || ($_GET['module'] == $class)) && (!$mInfo)) {
+      if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
         $module_info = array('code' => $module->code,
                              'title' => $module->title,
                              'description' => $module->description,
@@ -199,21 +204,20 @@
 
       if ( (is_object($mInfo)) && ($class == $mInfo->code) ) {
         if ($module->check() > 0) {
-          echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
+          echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
         } else {
           echo '              <tr class="dataTableRowSelected">' . "\n";
         }
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class) . '\'">' . "\n";
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent"><?php echo $module->title; ?></td>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<? /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?> </td>
--->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?> </td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/ ?>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?> </td>
+<?php /* <!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */?>
               </tr>
 <?php
     }
@@ -237,7 +241,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'edit':
       $keys = '';
       reset($mInfo->keys);
@@ -257,7 +261,7 @@
       $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
       $class = substr($file, 0, strrpos($file, '.'));
       $module = new $_GET['module'];
-      $contents = array('form' => xtc_draw_form('modules', FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=save','post'));
+      $contents = array('form' => xtc_draw_form('modules', FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $_GET['module'] . '&action=save','post'));
       $contents[] = array('text' => $keys);
       // display module fields
       $contents[] = $module->display();
@@ -295,11 +299,11 @@
         }
         $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
 
-        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $mInfo->code . '&action=remove') . '">' . BUTTON_MODULE_REMOVE . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $mInfo->code . '&action=edit') . '">' . BUTTON_START . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $mInfo->code . '&action=remove') . '">' . BUTTON_MODULE_REMOVE . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set . '&module=' . $mInfo->code . '&action=edit') . '">' . BUTTON_START . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
         $contents[] = array('text' => '<br />' . $keys);
       } else {
-        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=' . $mInfo->code . '&action=install') . '">' . BUTTON_MODULE_INSTALL . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $set. '&module=' . $mInfo->code . '&action=install') . '">' . BUTTON_MODULE_INSTALL . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
       }
       break;

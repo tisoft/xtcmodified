@@ -20,17 +20,18 @@
   //BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
   require(DIR_FS_INC. 'xtc_remove_non_numeric.inc.php');
   
-  if ($_POST['maxrows']){
+  $maxrows = '';
+  if (isset($_POST['maxrows'])){
     $maxrows = xtc_remove_non_numeric(xtc_db_prepare_input($_POST['maxrows']));
-  } else {
+  } elseif(isset($_GET['maxrows']))  {
     $maxrows = $_GET['maxrows'];
   }
   if ($maxrows <= '20') $maxrows=20;
   
-  if ($_GET['clear_id']){
+  if (isset($_GET['clear_id'])){
       xtc_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = '0' where products_id ='".$_GET['clear_id']."'");
   }
-  if ($_GET['clear_all']=='true'){
+  if (isset($_GET['clear_id']) && $_GET['clear_all']=='true'){
     xtc_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = '0' ");
   }  
   //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics

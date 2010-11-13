@@ -24,141 +24,141 @@
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  switch ($action) {  // actions for datahandling
+  if (xtc_not_null($action)) {
+    switch ($action) {  // actions for datahandling
 
-    case 'save': // save newsletter
+      case 'save': // save newsletter
 
-     $id=xtc_db_prepare_input((int)$_POST['ID']);
-     $status_all=xtc_db_prepare_input($_POST['status_all']);
-     $newsletter_title = xtc_db_prepare_input($_POST['title']); //DokuMan - 2010-11-13 - set newsletter_title properly
-     if ($newsletter_title=='') $newsletter_title='no title';
-     $customers_status=xtc_get_customers_statuses();
+       $id=xtc_db_prepare_input((int)$_POST['ID']);
+       $status_all=xtc_db_prepare_input($_POST['status_all']);
+       $newsletter_title = xtc_db_prepare_input($_POST['title']); //DokuMan - 2010-11-13 - set newsletter_title properly
+       if ($newsletter_title=='') $newsletter_title='no title';
+       $customers_status=xtc_get_customers_statuses();
 
-     $rzp='';
-     for ($i=0,$n=sizeof($customers_status);$i<$n; $i++) {
-         if (xtc_db_prepare_input($_POST['status'][$i])=='yes') {
-             if ($rzp!='') $rzp.=',';
-             $rzp.=$customers_status[$i]['id'];
+       $rzp='';
+       for ($i=0,$n=sizeof($customers_status);$i<$n; $i++) {
+           if (xtc_db_prepare_input($_POST['status'][$i])=='yes') {
+               if ($rzp!='') $rzp.=',';
+               $rzp.=$customers_status[$i]['id'];
+           }
+       }
+
+       if (xtc_db_prepare_input($_POST['status_all'])=='yes') $rzp.=',all';
+
+       $error=false; // reset error flag
+       if ($error == false) {
+
+          $sql_data_array = array( 'title'=> $newsletter_title,
+                                   'status' => '0',
+                                   'bc'=>$rzp,
+                                   'cc'=>xtc_db_prepare_input($_POST['cc']),
+                                   'date' => 'now()',
+                                   'body' => xtc_db_prepare_input($_POST['newsletter_body']));
+
+       if ($id!='') {
+       xtc_db_perform(TABLE_MODULE_NEWSLETTER, $sql_data_array, 'update', "newsletter_id = '" . $id . "'");
+       // create temp table
+       xtc_db_query("DROP TABLE IF EXISTS module_newsletter_temp_".$id);
+       xtc_db_query("CREATE TABLE module_newsletter_temp_".$id."
+                      (
+                         id int(11) NOT NULL auto_increment,
+                        customers_id int(11) NOT NULL default '0',
+                        customers_status int(11) NOT NULL default '0',
+                        customers_firstname varchar(64) NOT NULL default '',
+                        customers_lastname varchar(64) NOT NULL default '',
+                        customers_email_address text NOT NULL,
+                        mail_key varchar(32) NOT NULL,
+                        date datetime NOT NULL default '0000-00-00 00:00:00',
+                        comment varchar(64) NOT NULL default '',
+                        PRIMARY KEY  (id)
+                        )");
+       } else {
+       xtc_db_perform(TABLE_MODULE_NEWSLETTER, $sql_data_array);
+       // create temp table
+       $id=xtc_db_insert_id();
+       xtc_db_query("DROP TABLE IF EXISTS module_newsletter_temp_".$id);
+       xtc_db_query("CREATE TABLE module_newsletter_temp_".$id."
+                      (
+                         id int(11) NOT NULL auto_increment,
+                        customers_id int(11) NOT NULL default '0',
+                        customers_status int(11) NOT NULL default '0',
+                        customers_firstname varchar(64) NOT NULL default '',
+                        customers_lastname varchar(64) NOT NULL default '',
+                        customers_email_address text NOT NULL,
+                        mail_key varchar(32) NOT NULL,
+                        date datetime NOT NULL default '0000-00-00 00:00:00',
+                        comment varchar(64) NOT NULL default '',
+                        PRIMARY KEY  (id)
+                        )");
+       }
+
+       // filling temp table with data!
+       $flag='';
+       if (!strpos($rzp,'all')) $flag='true';
+       $rzp=str_replace(',all','',$rzp);
+       $groups=explode(',',$rzp);
+       $sql_data_array='';
+
+       for ($i=0,$n=sizeof($groups);$i<$n;$i++) {
+       // check if customer wants newsletter
+
+         if (xtc_db_prepare_input($_POST['status_all'])=='yes') {
+         $customers_query=xtc_db_query("SELECT
+                                        customers_id,
+                                        customers_firstname,
+                                        customers_lastname,
+                                        customers_email_address
+                                        FROM ".TABLE_CUSTOMERS."
+                                        WHERE
+                                        customers_status='".$groups[$i]."'");
+         } else {
+            $customers_query=xtc_db_query("SELECT
+                                        customers_email_address,
+                                        customers_id,
+                                        customers_firstname,
+                                        customers_lastname,
+                                        mail_key
+                                        FROM ".TABLE_NEWSLETTER_RECIPIENTS."
+                                        WHERE
+                                        customers_status='".$groups[$i]."' and
+                                        mail_status='1'");
          }
-     }
+         while ($customers_data=xtc_db_fetch_array($customers_query)){
+                $sql_data_array=array(
+                                     'customers_id'=>$customers_data['customers_id'],
+                                     'customers_status'=>$groups[$i],
+                                     'customers_firstname'=>$customers_data['customers_firstname'],
+                                     'customers_lastname'=>$customers_data['customers_lastname'],
+                                     'customers_email_address'=>$customers_data['customers_email_address'],
+                                     'mail_key'=>$customers_data['mail_key'],
+                                     'date'=>'now()');
 
-   if (xtc_db_prepare_input($_POST['status_all'])=='yes') $rzp.=',all';
+         xtc_db_perform('module_newsletter_temp_'.$id, $sql_data_array);
+         }
 
-   $error=false; // reset error flag
-   if ($error == false) {
+       }
 
-      $sql_data_array = array( 'title'=> $newsletter_title,
-                               'status' => '0',
-                               'bc'=>$rzp,
-                               'cc'=>xtc_db_prepare_input($_POST['cc']),
-                               'date' => 'now()',
-                               'body' => xtc_db_prepare_input($_POST['newsletter_body']));
+       xtc_redirect(xtc_href_link(FILENAME_MODULE_NEWSLETTER));
+       }
 
-   if ($id!='') {
-   xtc_db_perform(TABLE_MODULE_NEWSLETTER, $sql_data_array, 'update', "newsletter_id = '" . $id . "'");
-   // create temp table
-   xtc_db_query("DROP TABLE IF EXISTS module_newsletter_temp_".$id);
-   xtc_db_query("CREATE TABLE module_newsletter_temp_".$id."
-                  (
-                     id int(11) NOT NULL auto_increment,
-                    customers_id int(11) NOT NULL default '0',
-                    customers_status int(11) NOT NULL default '0',
-                    customers_firstname varchar(64) NOT NULL default '',
-                    customers_lastname varchar(64) NOT NULL default '',
-                    customers_email_address text NOT NULL,
-                    mail_key varchar(32) NOT NULL,
-                    date datetime NOT NULL default '0000-00-00 00:00:00',
-                    comment varchar(64) NOT NULL default '',
-                    PRIMARY KEY  (id)
-                    )");
-   } else {
-   xtc_db_perform(TABLE_MODULE_NEWSLETTER, $sql_data_array);
-   // create temp table
-   $id=xtc_db_insert_id();
-   xtc_db_query("DROP TABLE IF EXISTS module_newsletter_temp_".$id);
-   xtc_db_query("CREATE TABLE module_newsletter_temp_".$id."
-                  (
-                     id int(11) NOT NULL auto_increment,
-                    customers_id int(11) NOT NULL default '0',
-                    customers_status int(11) NOT NULL default '0',
-                    customers_firstname varchar(64) NOT NULL default '',
-                    customers_lastname varchar(64) NOT NULL default '',
-                    customers_email_address text NOT NULL,
-                    mail_key varchar(32) NOT NULL,
-                    date datetime NOT NULL default '0000-00-00 00:00:00',
-                    comment varchar(64) NOT NULL default '',
-                    PRIMARY KEY  (id)
-                    )");
-   }
+       break;
 
-   // filling temp table with data!
-   $flag='';
-   if (!strpos($rzp,'all')) $flag='true';
-   $rzp=str_replace(',all','',$rzp);
-   $groups=explode(',',$rzp);
-   $sql_data_array='';
+     case 'delete':
 
-   for ($i=0,$n=sizeof($groups);$i<$n;$i++) {
-   // check if customer wants newsletter
+       xtc_db_query("DELETE FROM ".TABLE_MODULE_NEWSLETTER." WHERE   newsletter_id='".(int)$_GET['ID']."'");
+       xtc_redirect(xtc_href_link(FILENAME_MODULE_NEWSLETTER));
 
-   if (xtc_db_prepare_input($_POST['status_all'])=='yes') {
-   $customers_query=xtc_db_query("SELECT
-                                  customers_id,
-                                  customers_firstname,
-                                  customers_lastname,
-                                  customers_email_address
-                                  FROM ".TABLE_CUSTOMERS."
-                                  WHERE
-                                  customers_status='".$groups[$i]."'");
-   } else {
-      $customers_query=xtc_db_query("SELECT
-                                  customers_email_address,
-                                  customers_id,
-                                  customers_firstname,
-                                  customers_lastname,
-                                  mail_key
-                                  FROM ".TABLE_NEWSLETTER_RECIPIENTS."
-                                  WHERE
-                                  customers_status='".$groups[$i]."' and
-                                  mail_status='1'");
-   }
-   while ($customers_data=xtc_db_fetch_array($customers_query)){
-          $sql_data_array=array(
-                               'customers_id'=>$customers_data['customers_id'],
-                               'customers_status'=>$groups[$i],
-                               'customers_firstname'=>$customers_data['customers_firstname'],
-                               'customers_lastname'=>$customers_data['customers_lastname'],
-                               'customers_email_address'=>$customers_data['customers_email_address'],
-                               'mail_key'=>$customers_data['mail_key'],
-                               'date'=>'now()');
+       break;
 
-   xtc_db_perform('module_newsletter_temp_'.$id, $sql_data_array);
-   }
-
-
-   }
-
-   xtc_redirect(xtc_href_link(FILENAME_MODULE_NEWSLETTER));
-   }
-
-   break;
-
-   case 'delete':
-
-   xtc_db_query("DELETE FROM ".TABLE_MODULE_NEWSLETTER." WHERE   newsletter_id='".(int)$_GET['ID']."'");
-   xtc_redirect(xtc_href_link(FILENAME_MODULE_NEWSLETTER));
-
-   break;
-
-   case 'send':
-   // max email package  -> should be in admin area!
-   $package_size='30';
-   xtc_redirect(xtc_href_link(FILENAME_MODULE_NEWSLETTER,'send=0,'.$package_size.'&ID='.(int)$_GET['ID']));
-   }
-
+     case 'send':
+       // max email package  -> should be in admin area!
+       $package_size='30';
+       xtc_redirect(xtc_href_link(FILENAME_MODULE_NEWSLETTER,'send=0,'.$package_size.'&ID='.(int)$_GET['ID']));
+    }
+  }
 // action for sending mails!
 
-if ($_GET['send']) {
+if (isset($_GET['send'])) {
 
   $limits=explode(',',$_GET['send']);
   $limit_low = $limits['0'];
@@ -410,7 +410,7 @@ for ($i=0,$n=sizeof($customer_group); $i<$n; $i++) {
         <tr class="dataTableHeadingRow">
         <td class="dataTableHeadingContent" width="30" ><?php echo TITLE_DATE; ?></td>
           <td class="dataTableHeadingContent" width="80%" ><?php echo TITLE_NOT_SEND; ?></td>
-          <td class="dataTableHeadingContent"  >.</td>
+          <td class="dataTableHeadingContent">&nbsp;</td>
         </tr>
 <?php
 for ($i=0,$n=sizeof($news_data); $i<$n; $i++) {
@@ -543,7 +543,7 @@ for ($i=0,$n=sizeof($news_data); $i<$n; $i++) {
    </tr>
       <tr>
       <td width="10%"><?php echo TEXT_TITLE; ?></td>
-      <td width="90%"><?php echo xtc_draw_input_field('title',$newsletters_data['title'],'size=100'); ?></td>
+      <td width="90%"><?php echo xtc_draw_input_field('title',isset($newsletters_data['title']) ? $newsletters_data['title'] : '','size=100'); ?></td>
    </tr>
    <tr>
       <td width="10%"><?php echo TEXT_TO; ?></td>
@@ -574,13 +574,13 @@ echo xtc_draw_checkbox_field('status_all', 'yes',in_array('all', $bc_array)).' <
       <td width="10%"><?php echo TEXT_CC; ?></td>
       <td width="90%"><?php
 
-       echo xtc_draw_input_field('cc',$newsletters_data['cc'],'size=100'); ?></td>
+       echo xtc_draw_input_field('cc',isset($newsletters_data['cc']) ? $newsletters_data['cc'] : '','size=100'); ?></td>
    </tr>
       </tr>
       <tr>
       <td width="10%" valign="top"><?php echo TEXT_BODY; ?></td>
       <td width="90%"><?php
-       echo xtc_draw_textarea_field('newsletter_body', 'soft', '150', '45', stripslashes($newsletters_data['body']));
+       echo xtc_draw_textarea_field('newsletter_body', 'soft', '150', '45', stripslashes(isset($newsletters_data['body']) ? $newsletters_data['body'] : ''));
         ?></td>
    </tr>
    </table>
