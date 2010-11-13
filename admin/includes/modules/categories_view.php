@@ -249,6 +249,8 @@
             <td class="categories_view_data"><input type="checkbox" name="multi_categories[]" value="<?php echo $categories['categories_id'] . '" '; if (isset($_POST['multi_categories']) && is_array($_POST['multi_categories'])) { if (in_array($categories['categories_id'], $_POST['multi_categories'])) { echo 'checked="checked"'; } } ?>></td>
             <td class="categories_view_data">--</td>    <td class="categories_view_data"><?php echo $categories['sort_order']; ?></td>
 
+
+
            <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
            <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) {
            //BOF - DokuMan - 2010-09-14 - show category thumbnail in products list, else show noimage.gif
@@ -269,12 +271,12 @@
 
              <td class="categories_view_data" style="text-align: left; padding-left: 5px;">
              <?php
-              //BOF - web28 - 2010-08-21 - added edit icon - thanks to user pq
+              //BOF - web28 - 2010-08-21 - added edit icon - thanks to user pq // 2010-11-13 FIX wrong clamps
               //echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . xtc_get_path($categories['categories_id'])) . '">' . xtc_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '<a>&nbsp;<b><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) .'">' . $categories['categories_name'] . '</a></b>';
-              echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . xtc_get_path($categories['categories_id']) . '">' . xtc_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '</a>');
-              echo '&nbsp;<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']. '&action=edit_category' . '">' . xtc_image(DIR_WS_ICONS . 'icon_edit.gif', ICON_EDIT) . '</a>');
+              echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . xtc_get_path($categories['categories_id'])) . '">' . xtc_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '</a>';
+              echo '&nbsp;<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']. '&action=edit_category') . '">' . xtc_image(DIR_WS_ICONS . 'icon_edit.gif', ICON_EDIT) . '</a>';
               echo '&nbsp;&nbsp;<b><a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) .'">' . $categories['categories_name'] . '</a></b>';
-              //EOF - web28 - 2010-08-21 - added edit icon - thanks to user pq
+              //EOF - web28 - 2010-08-21 - added edit icon - thanks to user pq // 2010-11-13 FIX wrong clamps
              ?>
              </td>
 
