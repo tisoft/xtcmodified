@@ -588,7 +588,7 @@ if (DIR_WS_CATALOG == '/') {
 	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link 
 	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
 	$title_top = explode('://', HTTP_SERVER);
-	$breadcrumb->add($bc_domain[1], HTTP_SERVER,'target="_blank"');
+	$breadcrumb->add($title_top[1], HTTP_SERVER,'target="_blank"');
 	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link	
 	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
 }
