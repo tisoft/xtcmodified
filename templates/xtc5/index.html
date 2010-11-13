@@ -16,7 +16,7 @@
     </div>
     <div id="topmenuwrap">
         <ul id="topmenu">
-            <li><a href="{$index}">{#link_index#}</a></li>
+            <li><a href="{$index}">{if $LINK_INDEX}{$LINK_INDEX}{else}{#link_index#}{/if}</a></li>
             <li><a href="{$cart}">{#link_cart#}</a></li>
             {if $account}
             <li><a href="{$account}">{#link_account#}</a></li>

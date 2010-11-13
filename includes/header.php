@@ -371,6 +371,10 @@ if (isset($_SESSION['customer_id'])) {
 }
 $smarty->assign('index',xtc_href_link(FILENAME_DEFAULT));
 // EOF - Hetfield - 2009-12-17 - added new links index and login for index.html
+
+//web28 - 2010-11-13 - define link_index
+$smarty->assign('LINK_INDEX',$link_index);
+
 if ( $_SESSION['account_type']=='0') {
 	$smarty->assign('account',xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 }

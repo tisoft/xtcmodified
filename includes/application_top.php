@@ -578,13 +578,14 @@ $breadcrumb = new breadcrumb;
 // BOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 if (DIR_WS_CATALOG == '/') {
 	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
+	$link_index = HEADER_TITLE_TOP; //web28 - 2010-11-13 - define link_index
 } else {
 	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link 
-	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
-	$title_top = explode('://', HTTP_SERVER);
-	$breadcrumb->add($title_top[1], HTTP_SERVER,'target="_blank"');
+	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);	
+	$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER,'target="_blank"');
 	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link	
-	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
+	$breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
+	$link_index = HEADER_TITLE_CATALOG; //web28 - 2010-11-13 - define link_index
 }
 // EOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 
