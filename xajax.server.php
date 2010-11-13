@@ -7,17 +7,17 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce; www.oscommerce.com 
+   (c) 2002-2003 osCommerce; www.oscommerce.com
    (c) 2003      nextcommerce; www.nextcommerce.org
    (c) 2006      xt:Commerce; www.xt-commerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ----------------------------------------------------------------------------------------- */
-   
-include ('includes/application_top.php');
-require("xajax.common.php"); 
+
+include('includes/application_top.php');
+require('xajax.common.php');
 
 if( $handle=opendir (IMDXAJAX_MODULE_INCLUDES) ) {
   while (false !== ($file = readdir ($handle))) {
@@ -27,9 +27,6 @@ if( $handle=opendir (IMDXAJAX_MODULE_INCLUDES) ) {
   }
   closedir($handle);
 }
-  
 
 $imdxajax->processRequest();
-
-
 ?>

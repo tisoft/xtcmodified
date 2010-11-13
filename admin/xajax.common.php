@@ -1,4 +1,4 @@
-<?
+<?php
 /* -----------------------------------------------------------------------------------------
    $Id$
 
@@ -7,18 +7,19 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce; www.oscommerce.com 
+   (c) 2002-2003 osCommerce; www.oscommerce.com
    (c) 2003      nextcommerce; www.nextcommerce.org
    (c) 2006      xt:Commerce; www.xt-commerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ----------------------------------------------------------------------------------------- */
-define( 'XAJAX_SUPPORT_VERSION', 'XAjax Support v1.3.0 - 08.2010' );
-define( 'IMDXAJAX_MODULE_INCLUDES', DIR_WS_INCLUDES.'xajax_imd' );
 
-require_once ("includes/xajax_core/xajax.inc.php");
+define('XAJAX_SUPPORT_VERSION', 'XAjax Support v1.3.0 - 08.2010' );
+define('IMDXAJAX_MODULE_INCLUDES', DIR_WS_INCLUDES.'xajax_imd' );
+
+require_once('includes/xajax_core/xajax.inc.php');
 if (defined('SID') && xtc_not_null(SID)) {
   $sid = '?'.SID;
 }
@@ -34,7 +35,4 @@ if( $handle=opendir (IMDXAJAX_MODULE_INCLUDES) ) {
   }
   closedir($handle);
 }
-
-
-
 ?>

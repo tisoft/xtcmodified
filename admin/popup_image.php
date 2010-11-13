@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: popup_image.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(popup_image.php,v 1.6 2002/05/20); www.oscommerce.com 
-   (c) 2003	 nextcommerce (popup_image.php,v 1.7 2003/08/18); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(popup_image.php,v 1.6 2002/05/20); www.oscommerce.com
+   (c) 2003	nextcommerce (popup_image.php,v 1.7 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (popup_image.php 899 2005-04-29)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application_top.php');
@@ -23,7 +24,7 @@
       case 'banner':
         $banners_id = xtc_db_prepare_input($_GET['banner']);
 
-        $banner_query = xtc_db_query("select banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where banners_id = '" . xtc_db_input($banners_id) . "'");
+        $banner_query = xtc_db_query("select banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where banners_id = '" . (int)$banners_id . "'");
         $banner = xtc_db_fetch_array($banner_query);
 
         $page_title = $banner['banners_title'];

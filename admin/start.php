@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project
    (c) 2002-2003 osCommerce coding standards (a typical file) www.oscommerce.com
-   (c) 2003      nextcommerce (start.php,1.5 2004/03/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (start.php,1.5 2004/03/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (start.php 1235 2005-09-21)
 
    Released under the GNU General Public License
@@ -24,22 +24,19 @@ require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC.'xtc_js_lang.php');
 
-require_once(DIR_WS_CLASSES . 'currencies.php');
+require_once (DIR_WS_CLASSES.'currencies.php');
 $currencies = new currencies();
 
 $customers_statuses_array = xtc_get_customers_statuses();
 // remove entries that have expired
 xtc_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
 
-$language_id = (int) $_SESSION['languages_id'];
-// customer stats
+// get customer stats (exclude admin, restrict to current language
 $customers_query = xtc_db_query('select cs.customers_status_name cust_group, count(*) cust_count
                      from ' . TABLE_CUSTOMERS . ' c
                      join ' . TABLE_CUSTOMERS_STATUS . ' cs on cs.customers_status_id = c.customers_status
-                     --  exclude admin
                      where c.customers_status > 0
-                     -- restrict to current language setting
-                     and cs.language_id = ' . $language_id . '
+                     and cs.language_id = ' . (int)$_SESSION['languages_id'] . '
                      group by 1
                      union
                      select \'' . TOTAL_CUSTOMERS . '\', count(*)
@@ -67,9 +64,9 @@ $products = xtc_db_fetch_array($products_query);
 $orders_query = xtc_db_query('select os.orders_status_name status, coalesce(o.order_count, 0) order_count
                 from ' . TABLE_ORDERS_STATUS . ' os
                 left join (select orders_status, count(*) order_count
-                           from ' . TABLE_ORDERS . '
-                           group by 1) o on o.orders_status = os.orders_status_id
-                where os.language_id = ' . $language_id . '
+                from ' . TABLE_ORDERS . '
+                group by 1) o on o.orders_status = os.orders_status_id
+                where os.language_id = ' .  (int)$_SESSION['languages_id'] . '
                 order by os.orders_status_id');
 $orders = array();
 while ($row = xtc_db_fetch_array($orders_query))
@@ -186,12 +183,12 @@ h1 {
 			   </table></td>
 		  <td width="25%" valign="top"><table width="100%">
 
-		  <?php
-	         foreach ($customers as $customer) {
-                echo '<tr><td style="background:#e4e4e4"><strong>' . $customer['cust_group'] . ':</strong></td>';
-                echo '<td style="background:#e4e4e4" align="center">' . $customer['cust_count'] . '</td></tr>';
-             }
-           ?>
+<?php
+    foreach ($customers as $customer) {
+      echo '<tr><td style="background:#e4e4e4"><strong>' . $customer['cust_group'] . ':</strong></td>';
+      echo '<td style="background:#e4e4e4" align="center">' . $customer['cust_count'] . '</td></tr>';
+    }
+?>
 					<tr>
 						 <td style="background:#e4e4e4"><strong><?php echo TOTAL_SUBSCRIBERS; ?>:</strong></td>
 						 <td style="background:#e4e4e4" align="center"><?php echo $newsletter['count']; ?></td>
@@ -217,12 +214,12 @@ h1 {
 			   </table></td>
 		  <td width="25%" valign="top">
 		  <table width="100%">
-		  <?php
-	         foreach ($orders as $order) {
-                echo '<tr><td style="background:#e4e4e4"><strong>' . $order['status'] . ':</strong></td>';
-                echo '<td style="background:#e4e4e4">' . $order['order_count'] . '</td></tr>';
-             }
-           ?>
+<?php
+    foreach ($orders as $order) {
+      echo '<tr><td style="background:#e4e4e4"><strong>' . $order['status'] . ':</strong></td>';
+      echo '<td style="background:#e4e4e4">' . $order['order_count'] . '</td></tr>';
+    }
+?>
 		  </table>
 		  </td>
 	 </tr>
@@ -232,7 +229,6 @@ h1 {
           </tr>
           <tr>
           <td>
-
           <table valign="top" width="100%" cellpadding="0" cellspacing="0">
 			<tr>
 			  <td></td>
@@ -261,7 +257,7 @@ h1 {
     $info='';
 	  while ($whos_online = xtc_db_fetch_array($whos_online_query)) {
 	    $time_online = (time() - $whos_online['time_entry']);
-	    if ( ((!isset($_GET['info'])) || (@$_GET['info'] == $whos_online['session_id'])) && (!$info) ) {
+	    if ((!isset($_GET['info']) || (isset($_GET['info']) && ($_GET['info'] == $whos_online['session_id']))) && !isset($info) ) {
 	      $info = $whos_online['session_id'];
 	    }
     ?>
@@ -287,15 +283,13 @@ h1 {
           <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_CUSTOMERS_ORDERS; ?></font></strong></td>
         </tr>
         <?php
-
-	 // $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
-
-	?>
+       // $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
+        ?>
         <?php
 	  $abfrage = "SELECT * FROM " . TABLE_CUSTOMERS . " ORDER BY customers_date_added DESC LIMIT 15";
 	  $ergebnis = mysql_query($abfrage);
 	  while($row = mysql_fetch_object($ergebnis)){
-	?>
+        ?>
         <tr>
           <td class="dataTableContent" width="25%"><?php  echo $row-> customers_lastname; ?>
           </td>
@@ -307,9 +301,7 @@ h1 {
           <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?cID=<?php  echo $row-> customers_id; ?>"><font color="#7691A2" face="Verdana"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_ORDERS; ?></strong></font></a></strong></td>
         </tr>
         <?php
-
 	  }
-
 	?>
       </table>
     </td>
@@ -336,9 +328,7 @@ h1 {
           <td class="dataTableHeadingContent" align="center" bgcolor="#D9D9D9" height="20" width="12%"><p align="center"><strong><font face="Verdana"><?php echo TABLE_HEADING_NEW_ORDERS_DELETE; ?></font></strong></td>
         </tr>
         <?php
-
 	 // $whos_online_query = xtc_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE ." order by time_last_click desc");
-
 	?>
         <?php
 	  $abfrage = "SELECT * FROM " . TABLE_ORDERS . " ORDER BY orders_id DESC LIMIT 20";
@@ -359,9 +349,7 @@ h1 {
           <td class="dataTableContent" align="center" width="12%"><font face="Verdana" color="#800000"> <strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=delete"> <font color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_DELETE; ?></strong></font></a></strong></font></td>
         </tr>
         <?php
-
 	  }
-
 	?>
         <tr>
           <td class="smallText" colspan="5"><em> <font face="Verdana"></font></em></td>
@@ -371,25 +359,23 @@ h1 {
 	  <td>&nbsp;</td>
 	  <td style="background: #F9F0F1; border: 1px solid #b40076;" height="200" valign="top">
 	  <table border="0" width="98%" cellspacing="0" cellpadding="0">
-        <?php
+    <?php
+    CarpConf('iorder','link,date,desc');
+    CarpConf('cborder','link,desc');
+    CarpConf('caorder','image');
+    CarpConf('bcb','<div style="background:#F0F1F1;font-size:11px; border:1px solid #999; padding:5px; font-weight: 700" align="left">');
+    CarpConf('acb','</div>');
+    CarpConf('bca','<span>');
+    CarpConf('aca','</span>');
+    CarpConf('maxitems',3);
 
-CarpConf('iorder','link,date,desc');
+    // before each item
+    CarpConf('bi','<br /><div class="feedtitle" style="padding:5px;font-size:11px;" align="left">');
 
-        CarpConf('cborder','link,desc');
-        CarpConf('caorder','image');
-        CarpConf('bcb','<div style="background:#F0F1F1;font-size:11px; border:1px solid #999; padding:5px; font-weight: 700" align="left">');
-        CarpConf('acb','</div>');
-        CarpConf('bca','<span>');
-        CarpConf('aca','</span>');
-CarpConf('maxitems',3);
-
-        // before each item
-        CarpConf('bi','<br /><div class="feedtitle" style="padding:5px;font-size:11px;" align="left">');
-
-        // after each item
-        CarpConf('ai','</div><hr noshade="noshade" />');
-		CarpShow('http://www.xtc-modified.org/feed/');
-?>
+    // after each item
+    CarpConf('ai','</div><hr noshade="noshade" />');
+    CarpShow('http://www.xtc-modified.org/feed/');
+    ?>
       </table>
     </td>
 	</tr>
