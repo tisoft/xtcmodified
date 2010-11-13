@@ -786,13 +786,19 @@ $customer = xtc_db_fetch_array($customer_query);
       </tr>
        <tr>
         <td class="td_left"><?php echo COUPON_PRODUCTS; ?></td>
-        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <A HREF="validproducts.php" TARGET="_blank" ONCLICK="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
-        <td class="td_right"><?php echo COUPON_PRODUCTS_HELP; ?></td>
+		<?php // BOF - web28 - 2010-11-13 - FIX popup link ?>
+        <!--td class="td_middle"><?php //echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <A HREF="validproducts.php" TARGET="_blank" ONCLICK="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td-->
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <a href="<?php echo xtc_href_link('validproducts.php', '' , 'NONSSL');?>" target="_blank" onclick="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false"><?php echo TEXT_VIEW_SHORT;?></a></td>
+        <?php // EOF - web28 - 2010-11-13 - FIX popup link ?>
+		<td class="td_right"><?php echo COUPON_PRODUCTS_HELP; ?></td>
       </tr>
       <tr>
         <td class="td_left"><?php echo COUPON_CATEGORIES; ?></td>
-        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
-        <td class="td_right"><?php echo COUPON_CATEGORIES_HELP; ?></td>
+		<?php // BOF - web28 - 2010-11-13 - FIX popup link ?>
+        <!--td class="td_middle"><?php //echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td-->
+        <td class="td_middle"><?php echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <a href="<?php echo xtc_href_link('validcategories.php', '' , 'NONSSL');?>" target="_blank" onclick="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false"><?php echo TEXT_VIEW_SHORT;?></a></td>
+        <?php //EOF - web28 - 2010-11-13 - FIX popup link ?>
+		<td class="td_right"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
 <?php

@@ -116,6 +116,7 @@ CREATE TABLE database_version (
 
 # Tomcraft - 2009-11-02 - set global customers-group-permissions (customers_group)
 # web28 - 2010-07-07 - set shop_offline parameter
+# Web28 - 2010-11-13 - add missing listproducts
 DROP TABLE IF EXISTS admin_access;
 CREATE TABLE admin_access (
   customers_id VARCHAR(32) NOT NULL DEFAULT '0',
@@ -148,6 +149,7 @@ CREATE TABLE admin_access (
   print_order INT(1) NOT NULL DEFAULT 0,
   popup_memo INT(1) NOT NULL DEFAULT 0,
   coupon_admin INT(1) NOT NULL DEFAULT 0,
+  listproducts INT(1) NOT NULL DEFAULT 0,
   listcategories INT(1) NOT NULL DEFAULT 0,
   gv_queue INT(1) NOT NULL DEFAULT 0,
   gv_mail INT(1) NOT NULL DEFAULT 0,
@@ -1194,8 +1196,9 @@ INSERT INTO address_format VALUES (6, '$firstname$lastname$cr$country$cr$postcod
 INSERT INTO address_format VALUES (7, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
 # EOF - DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
 
-INSERT INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1);
-INSERT INTO admin_access VALUES ( 'groups', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,1,1,1,1,1);
+# Web28 - 2010-11-13 - add entry for listproducts
+INSERT INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO admin_access VALUES ( 'groups', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 2, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1);
 
 # configuration_group_id 1
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'STORE_NAME', 'xtc:Modified', 1, 1, '', NOW(), NULL, NULL);

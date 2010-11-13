@@ -362,12 +362,12 @@ define('TEXT_NEWSLETTER_REMOVE', 'Um sich von unserem Newsletter abzumelden klic
 define('TEXT_DISPLAY_NUMBER_OF_GIFT_VOUCHERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Gutscheinen)');
 define('TEXT_DISPLAY_NUMBER_OF_COUPONS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> ((von insgesamt <b>%d</b> Kupons)');
 define('TEXT_VALID_PRODUCTS_LIST', 'Artikelliste');
-define('TEXT_VALID_PRODUCTS_ID', 'Artikelnummer');
+define('TEXT_VALID_PRODUCTS_ID', 'Artikel-ID');
 define('TEXT_VALID_PRODUCTS_NAME', 'Artikelname');
-define('TEXT_VALID_PRODUCTS_MODEL', 'Artikelmodell');
+define('TEXT_VALID_PRODUCTS_MODEL', 'Artikel-Nr.');
 
 define('TEXT_VALID_CATEGORIES_LIST', 'Kategorieliste');
-define('TEXT_VALID_CATEGORIES_ID', 'Kategorienummer');
+define('TEXT_VALID_CATEGORIES_ID', 'Kategorie-ID');
 define('TEXT_VALID_CATEGORIES_NAME', 'Kategoriename');
 
 define('SECURITY_CODE_LENGTH_TITLE', 'L&auml;nge des Gutscheincodes');
@@ -459,4 +459,8 @@ define('BUTTON_UNSET','Alle deaktivieren');
 define('TEXT_ROWS','Zeile');
 define('TABLE_HEADING_RESET','Statistik zur&uuml;cksetzen');
 //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+
+//BOF - web28 - 2010-11-13 - added BUTTON_CLOSE_WINDOW
+define('BUTTON_CLOSE_WINDOW' , 'Fenster schliessen');
+//EOF - web28 - 2010-11-13 - added BUTTON_CLOSE_WINDOW
 ?>

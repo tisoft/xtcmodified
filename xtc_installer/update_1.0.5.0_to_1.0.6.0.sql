@@ -80,3 +80,8 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 # DokuMan - 2010-11-08 - remove unsupported payment module qenta
 DROP TABLE IF EXISTS payment_qenta;
 # Keep an empty line at the end of this file for the db_updater to work properly
+
+# Web28 - 2010-11-13 - add missing listproducts to admin_access
+ALTER TABLE admin_access ADD listproducts INT( 1 ) NOT NULL DEFAULT '0' AFTER coupon_admin;
+UPDATE admin_access SET listproducts = '1' WHERE customers_id = '1' LIMIT 1 ;
+UPDATE admin_access SET listproducts = '3' WHERE customers_id = 'groups' LIMIT 1 ;

@@ -458,4 +458,8 @@ define('BUTTON_UNSET','Uncheck All');
 define('TEXT_ROWS','Row');
 define('TABLE_HEADING_RESET','Reset statistics');
 //EOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics
+
+//BOF - web28 - 2010-11-13 - add BUTTON_CLOSE_WINDOW
+define('BUTTON_CLOSE_WINDOW' , 'Close Window');
+//EOF - web28 - 2010-11-13 - add BUTTON_CLOSE_WINDOW
 ?>

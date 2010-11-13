@@ -2,14 +2,15 @@
    /* -----------------------------------------------------------------------------------------
    $Id: validproducts.php 1313 2005-10-18 15:49:15Z mz $
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project (earlier name of osCommerce)
    (c) 2002-2003 osCommerce (validproducts.php,v 0.01 2002/08/17); www.oscommerce.com
+   (c) 2003 XT-Commerce (validproducts.php 1313 2005-10-18); www.xt-commerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -33,7 +34,7 @@ require('includes/application_top.php');
 ?>
 <html>
 <head>
-<title>Valid Categories/Products List</title>
+<title><?php echo TEXT_VALID_PRODUCTS_LIST; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body>
@@ -44,16 +45,23 @@ require('includes/application_top.php');
 </td>
 </tr>
 <?php
-    echo "<tr><th class=\"dataTableHeadingContent\">". TEXT_VALID_PRODUCTS_ID . "</th><th class=\"dataTableHeadingContent\">" . TEXT_VALID_PRODUCTS_NAME . "</th><th class=\"dataTableHeadingContent\">" . TEXT_VALID_PRODUCTS_MODEL . "</th></tr><tr>";
+    echo "<tr><th class=\"dataTableHeadingContent\">". TEXT_VALID_PRODUCTS_ID . "</th>
+			  <th class=\"dataTableHeadingContent\">" . TEXT_VALID_PRODUCTS_NAME . "</th>
+			  <th class=\"dataTableHeadingContent\">" . TEXT_VALID_PRODUCTS_MODEL . "</th>
+		  </tr>";
    
   //BOF JUNG GESTALTEN.com - BUGFIX: #0000255 ungültige SQL-Abfrage (pd undefiniert)
   //$result = xtc_db_query("SELECT * FROM ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." WHERE p.products_id = pd.products_id and pd.language_id = '" . $_SESSION['languages_id'] . "' ORDER BY pd.products_name"); 
-    $result = xtc_db_query("SELECT * FROM ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd WHERE p.products_id = pd.products_id and pd.language_id = '" . $_SESSION['languages_id'] . "' ORDER BY pd.products_name");
+    $result = xtc_db_query("SELECT * FROM ".TABLE_PRODUCTS." p, 
+										  ".TABLE_PRODUCTS_DESCRIPTION." pd 
+									WHERE p.products_id = pd.products_id 
+									  and pd.language_id = '" . $_SESSION['languages_id'] . "' 
+								 ORDER BY pd.products_name");
   //EOF JUNG GESTALTEN.com - BUGFIX: #0000255 ungültige SQL-Abfrage (pd undefiniert)
    
     if ($row = xtc_db_fetch_array($result)) {
         do {
-            echo "<td class=\"dataTableHeadingContent\">".$row["products_id"]."</td>\n";
+            echo "<tr><td class=\"dataTableHeadingContent\">".$row["products_id"]."</td>\n";
             echo "<td class=\"dataTableHeadingContent\">".$row["products_name"]."</td>\n";
             echo "<td class=\"dataTableHeadingContent\">".$row["products_model"]."</td>\n";
             echo "</tr>\n";
@@ -65,7 +73,7 @@ require('includes/application_top.php');
 <br />
 <table width="550" border="0" cellspacing="1">
 <tr>
-<td align=middle><input type="button" value="Close Window" onclick="window.close()"></td>
+<td align=middle><input type="button" value="<?php echo BUTTON_CLOSE_WINDOW;?>" onclick="window.close()"></td>
 </tr></table>
 </body>
 </html>
