@@ -18,64 +18,68 @@
 
   require('includes/application_top.php');
 
-  // include needed functions (for modules)
-
 	//Eingefügt um Fehler in CC Modul zu unterdrücken.
   require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'xtcPrice.php');
   $xtPrice = new xtcPrice($_SESSION['currency'],'');
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+  $set = (isset($_GET['set']) ? $_GET['set'] : '');
 
-  switch ($_GET['set']) {
-    case 'shipping':
-      $module_type = 'shipping';
-      $module_directory = DIR_FS_CATALOG_MODULES . 'shipping/';
-      $module_key = 'MODULE_SHIPPING_INSTALLED';
-      define('HEADING_TITLE', HEADING_TITLE_MODULES_SHIPPING);
-      break;
+  if (xtc_not_null($set)) {
+    switch ($set) {
+      case 'shipping':
+        $module_type = 'shipping';
+        $module_directory = DIR_FS_CATALOG_MODULES . 'shipping/';
+        $module_key = 'MODULE_SHIPPING_INSTALLED';
+        define('HEADING_TITLE', HEADING_TITLE_MODULES_SHIPPING);
+        break;
 
-    case 'ordertotal':
-      $module_type = 'order_total';
-      $module_directory = DIR_FS_CATALOG_MODULES . 'order_total/';
-      $module_key = 'MODULE_ORDER_TOTAL_INSTALLED';
-      define('HEADING_TITLE', HEADING_TITLE_MODULES_ORDER_TOTAL);
-      break;
+      case 'ordertotal':
+        $module_type = 'order_total';
+        $module_directory = DIR_FS_CATALOG_MODULES . 'order_total/';
+        $module_key = 'MODULE_ORDER_TOTAL_INSTALLED';
+        define('HEADING_TITLE', HEADING_TITLE_MODULES_ORDER_TOTAL);
+        break;
 
-    case 'payment':
-    default:
-      $module_type = 'payment';
-      $module_directory = DIR_FS_CATALOG_MODULES . 'payment/';
-      $module_key = 'MODULE_PAYMENT_INSTALLED';
-      define('HEADING_TITLE', HEADING_TITLE_MODULES_PAYMENT);
-      if (isset($_GET['error'])) {
-          $messageStack->add($_GET['error'], 'error');
-        }
-      break;
+      case 'payment':
+      default:
+        $module_type = 'payment';
+        $module_directory = DIR_FS_CATALOG_MODULES . 'payment/';
+        $module_key = 'MODULE_PAYMENT_INSTALLED';
+        define('HEADING_TITLE', HEADING_TITLE_MODULES_PAYMENT);
+        if (isset($_GET['error'])) {
+            $messageStack->add($_GET['error'], 'error');
+          }
+        break;
+    }
   }
 
-  switch ($action) {
-    case 'save':
-      while (list($key, $value) = each($_POST['configuration'])) {
-        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
-      }
-      xtc_redirect(xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module']));
-      break;
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-    case 'install':
-    case 'remove':
-      $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-      $class = basename($_GET['module']);
-      if (file_exists($module_directory . $class . $file_extension)) {
-        include($module_directory . $class . $file_extension);
-        $module = new $class(0);
-        if ($action == 'install') {
-          $module->install();
-        } elseif ($action == 'remove') {
-          $module->remove();
+  if (xtc_not_null($action)) {
+    switch ($action) {
+      case 'save':
+        while (list($key, $value) = each($_POST['configuration'])) {
+          xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
         }
-      }
-      xtc_redirect(xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class));
-      break;
+        xtc_redirect(xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module']));
+        break;
+
+      case 'install':
+      case 'remove':
+        $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
+        $class = basename($_GET['module']);
+        if (file_exists($module_directory . $class . $file_extension)) {
+          include($module_directory . $class . $file_extension);
+          $module = new $class(0);
+          if ($action == 'install') {
+            $module->install();
+          } elseif ($action == 'remove') {
+            $module->remove();
+          }
+        }
+        xtc_redirect(xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class));
+        break;
+    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -122,7 +126,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+  $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
   $directory_array = array();
   if ($dir = @dir($module_directory)) {
     while ($file = $dir->read()) {
@@ -139,7 +143,7 @@
   $installed_modules = array();
   for ($i = 0, $n = sizeof($directory_array); $i < $n; $i++) {
     $file = $directory_array[$i];
-
+    if (file_exists(DIR_FS_LANGUAGES . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file)) {
     include(DIR_FS_LANGUAGES . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file);
     include($module_directory . $file);
 
@@ -160,7 +164,7 @@
         }
       }
 
-      if ((!isset($_GET['module']) || ($_GET['module'] == $class)) && !isset($mInfo)) {
+      if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
         $module_info = array('code' => $module->code,
                              'title' => $module->title,
                              'description' => $module->description,
@@ -184,14 +188,14 @@
         $mInfo = new objectInfo($module_info);
       }
 
-      if (isset($mInfo) && (is_object($mInfo)) && ($class == $mInfo->code) ) {
+      if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) {
         if ($module->check() > 0) {
-          echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
+          echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
         } else {
           echo '              <tr class="dataTableRowSelected">' . "\n";
         }
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '\'">' . "\n";
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
       }
 ?>
                 <td class="dataTableContent"><?php
@@ -206,9 +210,9 @@
                 <td class="dataTableContent" align="right"><?php if (isset($module->sort_order) && is_numeric($module->sort_order)) echo $module->sort_order; ?>&nbsp;</td>
 <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
 <!--
-                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 -->
-                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 <!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
               </tr>
 <?php
@@ -234,29 +238,29 @@
   $heading = array();
   $contents = array();
   switch ($action) {
-// BOF - web28 - 2010-05-06 - PayPal API Modul
+    // BOF - web28 - 2010-05-06 - PayPal API Modul
 		case 'removepaypal':
 			$heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
-			$contents = array ('form' => xtc_draw_form('modules', FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=remove'));
+			$contents = array ('form' => xtc_draw_form('modules', FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module'] . '&action=remove'));
 			$contents[] = array ('text' => '<br />'.TEXT_INFO_DELETE_PAYPAL.'<br /><br />'.$mInfo->description);
 			$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.BUTTON_MODULE_REMOVE);
-			$contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" onclick="this.blur();" value="'. BUTTON_START .'"><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module']).'">' . BUTTON_CANCEL . '</a>');
+			$contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" onclick="this.blur();" value="'. BUTTON_START .'"><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module']).'">' . BUTTON_CANCEL . '</a>');
 			break;
-// EOF  - web28 - 2010-05-06 - PayPal API Modul
+    // EOF  - web28 - 2010-05-06 - PayPal API Modul
     case 'edit':
       $keys = '';
       reset($mInfo->keys);
       while (list($key, $value) = each($mInfo->keys)) {
-	 // if($value['description']!='_DESC' && $value['title']!='_TITLE'){
+       // if($value['description']!='_DESC' && $value['title']!='_TITLE'){
         $keys .= '<b>' . $value['title'] . '</b><br />' .  $value['description'].'<br />';
-	//	}
+      //	}
         if ($value['set_function']) {
           eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
         } else {
-		  //BOF -web28- 2010-05-17 - set css definition
-          //$keys .= xtc_draw_input_field('configuration[' . $key . ']', $value['value']);
-		  $keys .= xtc_draw_input_field('configuration[' . $key . ']', $value['value'], 'class="inputModule"');
-		  //EOF -web28- 2010-05-17 - set css definition
+        //BOF -web28- 2010-05-17 - set css definition
+        //$keys .= xtc_draw_input_field('configuration[' . $key . ']', $value['value']);
+        $keys .= xtc_draw_input_field('configuration[' . $key . ']', $value['value'], 'class="inputModule"');
+        //EOF -web28- 2010-05-17 - set css definition
         }
         $keys .= '<br /><br />';
       }
@@ -264,9 +268,9 @@
 
       $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
 
-      $contents = array('form' => xtc_draw_form('modules', FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=save'));
+      $contents = array('form' => xtc_draw_form('modules', FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module'] . '&action=save'));
       $contents[] = array('text' => $keys);
-      $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_UPDATE . '"/> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module']) . '">' . BUTTON_CANCEL . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_UPDATE . '"/> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module']) . '">' . BUTTON_CANCEL . '</a>');
       break;
 
     default:
@@ -290,21 +294,21 @@
               $keys .= xtc_call_function($use_function, $value['value']);
             }
           } else {
-		  if(strlen($value['value']) > 30) {
-		  $keys .=  substr($value['value'],0,30) . ' ...';
-		  } else {
-            $keys .=  $value['value'];
-			}
+            if(strlen($value['value']) > 30) {
+            $keys .=  substr($value['value'],0,30) . ' ...';
+            } else {
+                  $keys .=  $value['value'];
+            }
           }
           $keys .= '<br /><br />';
         }
         $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
 
-        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $mInfo->code . '&action=remove') . '">' . BUTTON_MODULE_REMOVE . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=edit') . '">' . BUTTON_EDIT . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $mInfo->code . '&action=remove') . '">' . BUTTON_MODULE_REMOVE . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module'] . '&action=edit') . '">' . BUTTON_EDIT . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
         $contents[] = array('text' => '<br />' . $keys);
       } else {
-        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $_GET['set'] . '&module=' . $mInfo->code . '&action=install') . '">' . BUTTON_MODULE_INSTALL . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $mInfo->code . '&action=install') . '">' . BUTTON_MODULE_INSTALL . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
       }
       break;

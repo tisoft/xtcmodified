@@ -103,7 +103,8 @@
   }
 
   if ($_GET['mail_sent_to']) {
-    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
+    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'success');
+    $_GET['mail_sent_to'] = '';
   }
 
   switch ($_GET['action']) {
@@ -118,16 +119,21 @@
 	break;
 	//EOF - web28 - 2010-07-23 - new coupon actions
     case 'update':
+      $update_errors = 0;
       // get all _POST and validate
       $_POST['coupon_code'] = trim($_POST['coupon_code']);
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
           $language_id = $languages[$i]['id'];
           $_POST['coupon_name'][$language_id] = trim($_POST['coupon_name'][$language_id]);
+          if (!$_POST['coupon_name'][$language_id]) {
+            $update_errors = 1;
+            $messageStack->add(ERROR_NO_COUPON_NAME . $languages[$i]['name'], 'error');
+          }
           $_POST['coupon_desc'][$language_id] = trim($_POST['coupon_desc'][$language_id]);
         }
       $_POST['coupon_amount'] = trim($_POST['coupon_amount']);
-      $update_errors = 0;
+      $_POST['coupon_amount'] = preg_replace('/[^0-9.%]/', '', $_POST['coupon_amount']); //DokuMan - 2010-11-13 - allow numbers only
       if (!$_POST['coupon_name']) {
         $update_errors = 1;
         $messageStack->add(ERROR_NO_COUPON_NAME, 'error');
@@ -157,12 +163,13 @@
       } else {
         $coupon_type = "F";
         if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type='P';
+        $_POST['coupon_amount'] = preg_replace('/[^0-9.]/', '', $_POST['coupon_amount']); //DokuMan - 2010-11-13 - allow numbers only
         if ($_POST['coupon_free_ship']) $coupon_type = 'S';
         $sql_data_array = array('coupon_code' => xtc_db_prepare_input($_POST['coupon_code']),
                                 'coupon_amount' => xtc_db_prepare_input($_POST['coupon_amount']),
                                 'coupon_type' => xtc_db_prepare_input($coupon_type),
-                                'uses_per_coupon' => xtc_db_prepare_input($_POST['coupon_uses_coupon']),
-                                'uses_per_user' => xtc_db_prepare_input($_POST['coupon_uses_user']),
+                                'uses_per_coupon' => xtc_db_prepare_input((int)$_POST['coupon_uses_coupon']),
+                                'uses_per_user' => xtc_db_prepare_input((int)$_POST['coupon_uses_user']),
                                 'coupon_minimum_order' => xtc_db_prepare_input($_POST['coupon_min_order']),
                                 'restrict_to_products' => xtc_db_prepare_input($_POST['coupon_products']),
                                 'restrict_to_categories' => xtc_db_prepare_input($_POST['coupon_categories']),
@@ -177,18 +184,15 @@
                                  'coupon_description' => xtc_db_prepare_input($_POST['coupon_desc'][$language_id])
                                  );
         }
-//        $query = xtc_db_query("select coupon_code from " . TABLE_COUPONS . " where coupon_code = '" . xtc_db_prepare_input($_POST['coupon_code']) . "'");
-//        if (!xtc_db_num_rows($query)) {
         if ($_GET['oldaction']=='voucheredit') {
           xtc_db_perform(TABLE_COUPONS, $sql_data_array, 'update', "coupon_id='" . $_GET['cid']."'");
           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
           $language_id = $languages[$i]['id'];
-			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
-			$coupon_query = xtc_db_query("select * from ".TABLE_COUPONS_DESCRIPTION." where language_id = '".$language_id."' and coupon_id = '".xtc_db_input($coupon_id)."'");
-			if (xtc_db_num_rows($coupon_query) == 0) xtc_db_perform(TABLE_COUPONS_DESCRIPTION, array ('coupon_id' => xtc_db_input($coupon_id), 'language_id' => $language_id));
-			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+          //BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+          $coupon_query = xtc_db_query("select * from ".TABLE_COUPONS_DESCRIPTION." where language_id = '".$language_id."' and coupon_id = '".xtc_db_input($coupon_id)."'");
+          if (xtc_db_num_rows($coupon_query) == 0) xtc_db_perform(TABLE_COUPONS_DESCRIPTION, array ('coupon_id' => xtc_db_input($coupon_id), 'language_id' => $language_id));
+          //EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
             $update = xtc_db_query("update " . TABLE_COUPONS_DESCRIPTION . " set coupon_name = '" . xtc_db_prepare_input($_POST['coupon_name'][$language_id]) . "', coupon_description = '" . xtc_db_prepare_input($_POST['coupon_desc'][$language_id]) . "' where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $language_id . "'");
-//            tep_db_perform(TABLE_COUPONS_DESCRIPTION, $sql_data_marray[$i], 'update', "coupon_id='" . $_GET['cid']."'");
           }
         } else {
           $query = xtc_db_perform(TABLE_COUPONS, $sql_data_array);
@@ -200,7 +204,6 @@
             $sql_data_marray[$i]['language_id'] = $language_id;
             xtc_db_perform(TABLE_COUPONS_DESCRIPTION, $sql_data_marray[$i]);
           }
-//        }
       }
     }
   }
@@ -228,15 +231,15 @@
 <script type="text/javascript" src="includes/javascript/ui/jquery.ui.datepicker-<?php echo strtolower($_SESSION['language_code']); ?>.js"></script>
  <script type="text/javascript">
   $(function() {
-  /* set Datepicker for coupon_startdate (1) and coupon_finishdate (2) */  
-	  $('#hasDatepicker1').datepicker(		
+  /* set Datepicker for coupon_startdate (1) and coupon_finishdate (2) */
+	  $('#hasDatepicker1').datepicker(
 		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
 		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
 	  );
 	  $('#hasDatepicker2').datepicker(
 		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
-		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}	
-	  );	  
+		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
+	  );
 	});
 </script>
 <?php /* EOF - DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI */ ?>
@@ -647,8 +650,8 @@ $customer = xtc_db_fetch_array($customer_query);
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
           $language_id = $languages[$i]['id'];
-          echo xtc_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);
-          echo xtc_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$language_id]);
+          echo xtc_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', stripslashes($_POST['coupon_name'][$language_id]));
+          echo xtc_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', stripslashes($_POST['coupon_desc'][$language_id]));
        }
     echo xtc_draw_hidden_field('coupon_amount', $_POST['coupon_amount']);
     echo xtc_draw_hidden_field('coupon_min_order', $_POST['coupon_min_order']);
@@ -976,7 +979,7 @@ $customer = xtc_db_fetch_array($customer_query);
       $heading[] = array('text' => '<b>' . TEXT_HEADING_COUPON_REPORT . '</b>');
       $contents[] = array('text' => TEXT_NEW_INTRO);
       break;
-    case 'neww':
+    case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_COUPON . '</b>');
       $contents[] = array('text' => TEXT_NEW_INTRO);
       $contents[] = array('text' => '<br />' . COUPON_NAME . '<br />' . xtc_draw_input_field('name'));
@@ -986,7 +989,6 @@ $customer = xtc_db_fetch_array($customer_query);
       break;
     default:
       $heading[] = array('text'=>'['.$cInfo->coupon_id.']  '.$cInfo->coupon_code);
-
 
       $amount = $cInfo->coupon_amount;
       if ($cInfo->coupon_type == 'P') {
@@ -1015,43 +1017,40 @@ $customer = xtc_db_fetch_array($customer_query);
         }
         $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cInfo->coupon_id . "' and language_id = '" . $_SESSION['languages_id'] . "'");
         $coupon_name = xtc_db_fetch_array($coupon_name_query);
-									  // BOF - web28 - 2010-07-23 - new table design / Abfrage ob Coupon aktiv ist
-                                      $coupon_active_query = xtc_db_query("select coupon_active from " . TABLE_COUPONS . " where coupon_id = '" . $cInfo->coupon_id . "'");
-                                      $coupon_active = xtc_db_fetch_array($coupon_active_query);
+        // BOF - web28 - 2010-07-23 - new table design / Abfrage ob Coupon aktiv ist
+        $coupon_active_query = xtc_db_query("select coupon_active from " . TABLE_COUPONS . " where coupon_id = '" . $cInfo->coupon_id . "'");
+        $coupon_active = xtc_db_fetch_array($coupon_active_query);
 
-                                      $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
-                                      COUPON_AMOUNT . ':&nbsp;<strong><font color="red">' . $amount . '</font></strong><br /><br />' .
+        $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
+        COUPON_AMOUNT . ':&nbsp;<strong><font color="red">' . $amount . '</font></strong><br /><br />' .
+        COUPON_STARTDATE . ':&nbsp;' . xtc_date_short($cInfo->coupon_start_date) . '<br />' .
+        COUPON_FINISHDATE . ':&nbsp;' . xtc_date_short($cInfo->coupon_expire_date) . '<br /><br />' .
+        COUPON_USES_COUPON . ':&nbsp;<strong>' . $cInfo->uses_per_coupon . '</strong><br />' .
+        COUPON_USES_USER . ':&nbsp;<strong>' . $cInfo->uses_per_user . '</strong><br /><br />' .
+        COUPON_PRODUCTS . ':&nbsp;' . $prod_details . '<br />' .
+        COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br /><br />' .
+        DATE_CREATED . ':&nbsp;' . xtc_date_short($cInfo->date_created) . '<br />' .
+        DATE_MODIFIED . ':&nbsp;' . xtc_date_short($cInfo->date_modified) . '<br /><br />');
 
-                                      COUPON_STARTDATE . ':&nbsp;' . xtc_date_short($cInfo->coupon_start_date) . '<br />' .
-                                      COUPON_FINISHDATE . ':&nbsp;' . xtc_date_short($cInfo->coupon_expire_date) . '<br /><br />' .
-                                      COUPON_USES_COUPON . ':&nbsp;<strong>' . $cInfo->uses_per_coupon . '</strong><br />' .
-                                      COUPON_USES_USER . ':&nbsp;<strong>' . $cInfo->uses_per_user . '</strong><br /><br />' .
-                                      COUPON_PRODUCTS . ':&nbsp;' . $prod_details . '<br />' .
-                                      COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br /><br />' .
-                                      DATE_CREATED . ':&nbsp;' . xtc_date_short($cInfo->date_created) . '<br />' .
-                                      DATE_MODIFIED . ':&nbsp;' . xtc_date_short($cInfo->date_modified) . '<br /><br />');
-
-                                      // WM Buttons ausgeblendet, wenn kein Coupon vorhanden oder der Coupon inaktiv ist. Dann sind die
-                                      // Buttons unnütz oder verwirren nur
-                                      //if ($coupon_desc['coupon_name'] != '') {
-                                      //  if ($coupon_active['coupon_active'] != 'N') {
-                                      $contents[] = array('text'=>'<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=email&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EMAIL.'</a>' .
-                                      '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucheredit&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EDIT.'</a>' .
-                                      '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherdelete&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_STATUS_OFF.'</a>' .
-                                      '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherreport&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_REPORT.'</a>');
-                                      //}
-                                     //}
-									 // EOF - web28 - 2010-07-23 - new table design / Abfrage ob Coupon aktiv ist
-
-                                    }
-                                    break;
+        // WM Buttons ausgeblendet, wenn kein Coupon vorhanden oder der Coupon inaktiv ist. Dann sind die
+        // Buttons unnütz oder verwirren nur
+        //if ($coupon_desc['coupon_name'] != '') {
+        //  if ($coupon_active['coupon_active'] != 'N') {
+        $contents[] = array('text'=>'<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=email&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EMAIL.'</a>' .
+        '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucheredit&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_EDIT.'</a>' .
+        '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherdelete&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_STATUS_OFF.'</a>' .
+        '<a class="button" onclick="this.blur();" href="'.xtc_href_link('coupon_admin.php','action=voucherreport&cid='.$cInfo->coupon_id,'NONSSL').'">'.BUTTON_REPORT.'</a>');
+        //}
+       //}
+       // EOF - web28 - 2010-07-23 - new table design / Abfrage ob Coupon aktiv ist
       }
+      break;
+    }
 ?>
     <td width="25%" valign="top">
 <?php
       $box = new box;
       echo $box->infoBox($heading, $contents);
-
     echo '            </td>' . "\n";
     }
 ?>

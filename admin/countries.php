@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(countries.php,v 1.26 2003/05/17); www.oscommerce.com
-   (c) 2003	 nextcommerce (countries.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2003	nextcommerce (countries.php,v 1.9 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (countries.php 1123 2005-07-27)
 
    Released under the GNU General Public License
@@ -18,15 +18,22 @@
 
   require('includes/application_top.php');
 
-  if (isset($_GET['action'])) {
-    switch ($_GET['action']) {
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  if (xtc_not_null($action)) {
+    switch ($action) {
       case 'insert':
         $countries_name = xtc_db_prepare_input($_POST['countries_name']);
         $countries_iso_code_2 = xtc_db_prepare_input($_POST['countries_iso_code_2']);
         $countries_iso_code_3 = xtc_db_prepare_input($_POST['countries_iso_code_3']);
         $address_format_id = xtc_db_prepare_input($_POST['address_format_id']);
 
-        xtc_db_query("insert into " . TABLE_COUNTRIES . " (countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('" . xtc_db_input($countries_name) . "', '" . xtc_db_input($countries_iso_code_2) . "', '" . xtc_db_input($countries_iso_code_3) . "', '" . xtc_db_input($address_format_id) . "')");
+        xtc_db_query("insert into " . TABLE_COUNTRIES . "
+        (countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id)
+        values ('" . xtc_db_input($countries_name) . "',
+                '" . xtc_db_input($countries_iso_code_2) . "',
+                '" . xtc_db_input($countries_iso_code_3) . "',
+                '" . (int)$address_format_id . "')");
         xtc_redirect(xtc_href_link(FILENAME_COUNTRIES));
         break;
       case 'save':
@@ -36,7 +43,12 @@
         $countries_iso_code_3 = xtc_db_prepare_input($_POST['countries_iso_code_3']);
         $address_format_id = xtc_db_prepare_input($_POST['address_format_id']);
 
-        xtc_db_query("update " . TABLE_COUNTRIES . " set countries_name = '" . xtc_db_input($countries_name) . "', countries_iso_code_2 = '" . xtc_db_input($countries_iso_code_2) . "', countries_iso_code_3 = '" . xtc_db_input($countries_iso_code_3) . "', address_format_id = '" . xtc_db_input($address_format_id) . "' where countries_id = '" . xtc_db_input($countries_id) . "'");
+        xtc_db_query("update " . TABLE_COUNTRIES . "
+                      set countries_name = '" . xtc_db_input($countries_name) . "',
+                      countries_iso_code_2 = '" . xtc_db_input($countries_iso_code_2) . "',
+                      countries_iso_code_3 = '" . xtc_db_input($countries_iso_code_3) . "',
+                      address_format_id = '" . (int)$address_format_id . "'
+                      where countries_id = '" . (int)$countries_id . "'");
         xtc_redirect(xtc_href_link(FILENAME_COUNTRIES, 'page=' . $_GET['page'] . '&cID=' . $countries_id));
         break;
       case 'deleteconfirm':
@@ -123,11 +135,11 @@
   $countries_split = new splitPageResults($_GET['page'], '20', $countries_query_raw, $countries_query_numrows);
   $countries_query = xtc_db_query($countries_query_raw);
   while ($countries = xtc_db_fetch_array($countries_query)) {
-    if ((!isset($_GET['cID']) || (@$_GET['cID'] == $countries['countries_id'])) && (!$cInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+    if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $countries['countries_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
       $cInfo = new objectInfo($countries);
     }
 
-    if ( (isset($cInfo) && (is_object($cInfo)) && ($countries['countries_id'] == $cInfo->countries_id) ) ) {
+    if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id)) {
       echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_COUNTRIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->countries_id . '&action=edit') . '\'">' . "\n";
     } else {
       echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_COUNTRIES, 'page=' . $_GET['page'] . '&cID=' . $countries['countries_id']) . '\'">' . "\n";
@@ -162,7 +174,7 @@
                     <td class="smallText" align="right"><?php echo $countries_split->display_links($countries_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
 <?php
-  if (!$_GET['action']) {
+  if (empty($action)) {
 ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_COUNTRIES, 'page=' . $_GET['page'] . '&action=new') . '">' . BUTTON_NEW_COUNTRY . '</a>'; ?></td>
@@ -176,7 +188,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_COUNTRY . '</b>');
 

@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(manufacturers.php,v 1.52 2003/03/22); www.oscommerce.com
-   (c) 2003	 nextcommerce (manufacturers.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2003	nextcommerce (manufacturers.php,v 1.9 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (manufacturers.php 901 2005-04-29)
 
    Released under the GNU General Public License
@@ -18,88 +18,94 @@
 
   require('includes/application_top.php');
 
-  switch ($_GET['action']) {
-    case 'insert':
-    case 'save':
-      $manufacturers_id = xtc_db_prepare_input($_GET['mID']);
-      $manufacturers_name = xtc_db_prepare_input($_POST['manufacturers_name']);
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-      $sql_data_array = array('manufacturers_name' => $manufacturers_name);
+  if (xtc_not_null($action)) {
+    switch ($action) {
+      case 'insert':
+      case 'save':
+        if (isset($_GET['mID'])) $manufacturers_id = xtc_db_prepare_input($_GET['mID']);
+        $manufacturers_name = xtc_db_prepare_input($_POST['manufacturers_name']);
 
-      if ($_GET['action'] == 'insert') {
-        $insert_sql_data = array('date_added' => 'now()');
-        $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
-        xtc_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
-        $manufacturers_id = xtc_db_insert_id();
-      } elseif ($_GET['action'] == 'save') {
-        $update_sql_data = array('last_modified' => 'now()');
-        $sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
-        xtc_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
-      }
+        $sql_data_array = array('manufacturers_name' => $manufacturers_name);
 
-	$dir_manufacturers=DIR_FS_CATALOG_IMAGES."/manufacturers";
-    if ($manufacturers_image = &xtc_try_upload('manufacturers_image', $dir_manufacturers)) {
-        xtc_db_query("update " . TABLE_MANUFACTURERS . " set
-                                 manufacturers_image ='manufacturers/".$manufacturers_image->filename . "'
-                                 where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
-    }
-
-      $languages = xtc_get_languages();
-      for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-        $manufacturers_url_array = $_POST['manufacturers_url'];
-        $language_id = $languages[$i]['id'];
-
-        $sql_data_array = array('manufacturers_url' => xtc_db_prepare_input($manufacturers_url_array[$language_id]));
-
-        if ($_GET['action'] == 'insert') {
-          $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
-                                   'languages_id' => $language_id);
+        if ($action == 'insert') {
+          $insert_sql_data = array('date_added' => 'now()');
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
-          xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
-        } elseif ($_GET['action'] == 'save') {
-			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
-			$manufacturers_query = xtc_db_query("select * from ".TABLE_MANUFACTURERS_INFO." where languages_id = '".$language_id."' and manufacturers_id = '".xtc_db_input($manufacturers_id)."'");
-			if (xtc_db_num_rows($manufacturers_query) == 0) xtc_db_perform(TABLE_MANUFACTURERS_INFO, array ('manufacturers_id' => xtc_db_input($manufacturers_id), 'languages_id' => $language_id));
-			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
-			xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . xtc_db_input($manufacturers_id) . "' and languages_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
+          $manufacturers_id = xtc_db_insert_id();
+        } elseif ($action == 'save') {
+          $update_sql_data = array('last_modified' => 'now()');
+          $sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
+          xtc_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "'");
         }
-      }
 
-      if (USE_CACHE == 'true') {
-        xtc_reset_cache_block('manufacturers');
-      }
-
-      xtc_redirect(xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers_id));
-      break;
-
-    case 'deleteconfirm':
-      $manufacturers_id = xtc_db_prepare_input($_GET['mID']);
-
-      if ($_POST['delete_image'] == 'on') {
-        $manufacturer_query = xtc_db_query("select manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
-        $manufacturer = xtc_db_fetch_array($manufacturer_query);
-        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_IMAGES . $manufacturer['manufacturers_image'];
-        if (file_exists($image_location)) @unlink($image_location);
-      }
-
-      xtc_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
-      xtc_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
-
-      if ($_POST['delete_products'] == 'on') {
-        $products_query = xtc_db_query("select products_id from " . TABLE_PRODUCTS . " where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
-        while ($products = xtc_db_fetch_array($products_query)) {
-          xtc_remove_product($products['products_id']);
+        $dir_manufacturers=DIR_FS_CATALOG_IMAGES."/manufacturers";
+        if ($manufacturers_image = &xtc_try_upload('manufacturers_image', $dir_manufacturers)) {
+            xtc_db_query("update " . TABLE_MANUFACTURERS . " set
+                                     manufacturers_image ='manufacturers/".$manufacturers_image->filename . "'
+                                     where manufacturers_id = '" . (int)$manufacturers_id . "'");
         }
-      } else {
-        xtc_db_query("update " . TABLE_PRODUCTS . " set manufacturers_id = '' where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
-      }
 
-      if (USE_CACHE == 'true') {
-        xtc_reset_cache_block('manufacturers');
-      }
+        $languages = xtc_get_languages();
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
+          $manufacturers_url_array = $_POST['manufacturers_url'];
+          $language_id = $languages[$i]['id'];
 
-      xtc_redirect(xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page']));
-      break;
+          $sql_data_array = array('manufacturers_url' => xtc_db_prepare_input($manufacturers_url_array[$language_id]));
+
+          if ($action == 'insert') {
+            $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
+                                     'languages_id' => $language_id);
+            $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+            xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
+          } elseif ($action == 'save') {
+            //BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+            $manufacturers_query = xtc_db_query("select * from ".TABLE_MANUFACTURERS_INFO." where languages_id = '".(int)$language_id."' and manufacturers_id = '".(int)$manufacturers_id."'");
+            if (xtc_db_num_rows($manufacturers_query) == 0) xtc_db_perform(TABLE_MANUFACTURERS_INFO, array ('manufacturers_id' => (int)$manufacturers_id, 'languages_id' => (int)$language_id));
+            //EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+            xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "' and languages_id = '" . (int)$language_id . "'");
+          }
+        }
+
+        if (USE_CACHE == 'true') {
+          xtc_reset_cache_block('manufacturers');
+        }
+
+        xtc_redirect(xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers_id));
+        break;
+
+      case 'deleteconfirm':
+        $manufacturers_id = xtc_db_prepare_input($_GET['mID']);
+
+        if ($_POST['delete_image'] == 'on') {
+          $manufacturer_query = xtc_db_query("select manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . (int)$manufacturers_id . "'");
+          $manufacturer = xtc_db_fetch_array($manufacturer_query);
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_IMAGES . $manufacturer['manufacturers_image'];
+          if (file_exists($image_location)) @unlink($image_location);
+        }
+
+        xtc_db_query("delete from " . TABLE_MANUFACTURERS . "
+            where manufacturers_id = '" . (int)$manufacturers_id . "'");
+        xtc_db_query("delete from " . TABLE_MANUFACTURERS_INFO . "
+            where manufacturers_id = '" . (int)$manufacturers_id . "'");
+
+        if (isset($_POST['delete_products']) && $_POST['delete_products'] == 'on') {
+          $products_query = xtc_db_query("select products_id from " . TABLE_PRODUCTS . " where manufacturers_id = '" . (int)$manufacturers_id . "'");
+          while ($products = xtc_db_fetch_array($products_query)) {
+            xtc_remove_product($products['products_id']);
+          }
+        } else {
+          xtc_db_query("update " . TABLE_PRODUCTS . " set manufacturers_id = '' where manufacturers_id = '" . (int)$manufacturers_id . "'");
+        }
+
+        if (USE_CACHE == 'true') {
+          xtc_reset_cache_block('manufacturers');
+        }
+
+        xtc_redirect(xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page']));
+        break;
+    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -143,30 +149,29 @@
               </tr>
 <?php
   $manufacturers_query_raw = "select manufacturers_id, manufacturers_name, manufacturers_image, date_added, last_modified from " . TABLE_MANUFACTURERS . " order by manufacturers_name";
-  $manufacturers_split = new splitPageResults($_GET['page'], '20', $manufacturers_query_raw, $manufacturers_query_numrows);
+  $manufacturers_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_query_raw, $manufacturers_query_numrows);
   $manufacturers_query = xtc_db_query($manufacturers_query_raw);
   while ($manufacturers = xtc_db_fetch_array($manufacturers_query)) {
-    if ((!isset($_GET['mID']) || (@$_GET['mID'] == $manufacturers['manufacturers_id'])) && (!$mInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
-      $manufacturer_products_query = xtc_db_query("select count(*) as products_count from " . TABLE_PRODUCTS . " where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
+    if ((!isset($_GET['mID']) || (isset($_GET['mID']) && ($_GET['mID'] == $manufacturers['manufacturers_id']))) && !isset($mInfo) && (substr($action, 0, 3) != 'new')) {
+      $manufacturer_products_query = xtc_db_query("select count(*) as products_count from " . TABLE_PRODUCTS . " where manufacturers_id = '" . (int)$manufacturers['manufacturers_id'] . "'");
       $manufacturer_products = xtc_db_fetch_array($manufacturer_products_query);
 
       $mInfo_array = xtc_array_merge($manufacturers, $manufacturer_products);
       $mInfo = new objectInfo($mInfo_array);
     }
 
-    if ( (is_object($mInfo)) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) {
+    if (isset($mInfo) && (is_object($mInfo)) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) {
       echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers['manufacturers_id'] . '&action=edit') . '\'">' . "\n";
     } else {
       echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers['manufacturers_id']) . '\'">' . "\n";
     }
 ?>
                 <td class="dataTableContent"><?php echo $manufacturers['manufacturers_name']; ?></td>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers['manufacturers_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers['manufacturers_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/ ?>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && (is_object($mInfo)) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers['manufacturers_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
               </tr>
 <?php
   }
@@ -174,13 +179,13 @@
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $manufacturers_split->display_count($manufacturers_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $manufacturers_split->display_links($manufacturers_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" valign="top"><?php echo $manufacturers_split->display_count($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS); ?></td>
+                    <td class="smallText" align="right"><?php echo $manufacturers_split->display_links($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
                 </table></td>
               </tr>
 <?php
-  if ($_GET['action'] != 'new') {
+  if (empty($action)) {
 ?>
               <tr>
                 <td align="right" colspan="2" class="smallText"><?php echo xtc_button_link(BUTTON_INSERT, xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=new')); ?></td>
@@ -192,7 +197,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_MANUFACTURER . '</b>');
 
@@ -246,7 +251,7 @@
       break;
 
     default:
-      if (is_object($mInfo)) {
+      if (isset($mInfo) && is_object($mInfo)) {
         $heading[] = array('text' => '<b>' . $mInfo->manufacturers_name . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => xtc_button_link(BUTTON_EDIT, xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=edit')) . '&nbsp;' . xtc_button_link(BUTTON_DELETE, xtc_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=delete')));

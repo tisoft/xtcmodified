@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommercecoding standards www.oscommerce.com
-   (c) 2003  nextcommerce (templates_boxes.php,v 1.14 2003/08/18); www.nextcommerce.org
+   (c) 2003 nextcommerce (templates_boxes.php,v 1.14 2003/08/18); www.nextcommerce.org
    (c) 2006 xt:Commerce
 
    Released under the GNU General Public License
@@ -22,12 +22,15 @@
   require_once(DIR_FS_INC . 'xtc_php_mail.inc.php');
   require_once(DIR_FS_INC . 'xtc_wysiwyg.inc.php');
 
-  switch ($_GET['action']) {  // actions for datahandling
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  switch ($action) {  // actions for datahandling
 
     case 'save': // save newsletter
 
      $id=xtc_db_prepare_input((int)$_POST['ID']);
      $status_all=xtc_db_prepare_input($_POST['status_all']);
+     $newsletter_title = xtc_db_prepare_input($_POST['title']); //DokuMan - 2010-11-13 - set newsletter_title properly
      if ($newsletter_title=='') $newsletter_title='no title';
      $customers_status=xtc_get_customers_statuses();
 
@@ -44,7 +47,7 @@
    $error=false; // reset error flag
    if ($error == false) {
 
-      $sql_data_array = array( 'title'=> xtc_db_prepare_input($_POST['title']),
+      $sql_data_array = array( 'title'=> $newsletter_title,
                                'status' => '0',
                                'bc'=>$rzp,
                                'cc'=>xtc_db_prepare_input($_POST['cc']),
@@ -281,7 +284,7 @@ if ($_GET['send']) {
 <?php if (USE_WYSIWYG=='true') {
  $query=xtc_db_query("SELECT code FROM ". TABLE_LANGUAGES ." WHERE languages_id='".$_SESSION['languages_id']."'");
  $data=xtc_db_fetch_array($query);
- if ($_GET['action']!='') echo xtc_wysiwyg('newsletter',$data['code']);
+ if ($action !='') echo xtc_wysiwyg('newsletter',$data['code']);
  } ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -315,9 +318,9 @@ if ($_GET['send']) {
 if (isset($_GET['send'])) //DokuMan - set undefined index
 {
 ?>
-      <tr><td>
-      Sending
-      </td></tr>
+      <tr>
+        <td>Sending</td>
+      </tr>
 <?php
 }
 ?>
@@ -329,7 +332,7 @@ if (isset($_GET['send'])) //DokuMan - set undefined index
  <?php
 
  // Default seite
-switch ($_GET['action']) {
+switch ($action) {
 
     default:
 
@@ -391,15 +394,15 @@ for ($i=0,$n=sizeof($customer_group); $i<$n; $i++) {
  // get data for newsletter overwiev
 
  $newsletters_query=xtc_db_query("SELECT
-                                   newsletter_id,date,title
+                                  newsletter_id,date,title
                                   FROM ".TABLE_MODULE_NEWSLETTER."
                                   WHERE status='0'");
  $news_data=array();
  while ($newsletters_data=xtc_db_fetch_array($newsletters_query)) {
 
- $news_data[]=array(    'id' =>$newsletters_data['newsletter_id'],
-                        'date'=>$newsletters_data['date'],
-                        'title'=>$newsletters_data['title']);
+ $news_data[]=array('id' =>$newsletters_data['newsletter_id'],
+                     'date'=>$newsletters_data['date'],
+                     'title'=>$newsletters_data['title']);
  }
 
 ?>
@@ -411,76 +414,74 @@ for ($i=0,$n=sizeof($customer_group); $i<$n; $i++) {
         </tr>
 <?php
 for ($i=0,$n=sizeof($news_data); $i<$n; $i++) {
-if ($news_data[$i]['id']!='') {
-?>
-        <tr>
-        <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left"><?php echo $news_data[$i]['date']; ?></td>
-          <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" valign="middle" align="left"><?php echo xtc_image(DIR_WS_CATALOG.'images/icons/arrow.gif'); ?><a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'ID='.$news_data[$i]['id']); ?>"><b><?php echo $news_data[$i]['title']; ?></b></a></td>
-          <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left">
+  if ($news_data[$i]['id']!='') {
+  ?>
+          <tr>
+          <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left"><?php echo $news_data[$i]['date']; ?></td>
+            <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" valign="middle" align="left"><?php echo xtc_image(DIR_WS_CATALOG.'images/icons/arrow.gif'); ?><a href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'ID='.$news_data[$i]['id']); ?>"><b><?php echo $news_data[$i]['title']; ?></b></a></td>
+            <td class="dataTableContent" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left">
+            </td>
+          </tr>
+   <?php
+    if (isset($_GET['ID']) && $_GET['ID']!='' && $_GET['ID']==$news_data[$i]['id']) {
 
-          </td>
-        </tr>
- <?php
+    $total_query=xtc_db_query("SELECT
+                               count(*) as count
+                               FROM module_newsletter_temp_".(int)$_GET['ID']."");
+    $total_data=xtc_db_fetch_array($total_query);
+    ?>
+    <tr>
+    <td class="dataTableContent_products" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left"></td>
+    <td colspan="2" class="dataTableContent_products" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left"><?php echo TEXT_SEND_TO.$total_data['count']; ?></td>
+    </tr>
+    <td class="dataTableContent" valign="top" style="border-bottom: 1px solid; border-color: #999999;" align="left">
+      <a class="button" href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=delete&ID='.$news_data[$i]['id']); ?>" onclick="return confirm('<?php echo CONFIRM_DELETE; ?>')"><?php echo BUTTON_DELETE.'</a><br />'; ?>
+      <a class="button" href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=edit&ID='.$news_data[$i]['id']); ?>"><?php echo BUTTON_EDIT.'</a>'; ?>
+      <br /><br /><div style="height: 1px; background: Black; margin: 3px 0;"></div>
+      <a class="button" href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=send&ID='.$news_data[$i]['id']); ?>"><?php echo BUTTON_SEND.'</a>'; ?>
 
-if (isset($_GET['ID']) && $_GET['ID']!='' && $_GET['ID']==$news_data[$i]['id']) {
+    </td>
+    <td colspan="2" class="dataTableContent" style="border-bottom: 1px solid; border-color: #999999; text-align: left;">
+    <?php
+    // get data
+        $newsletters_query=xtc_db_query("SELECT
+                                        title,body,cc,bc
+                                        FROM ".TABLE_MODULE_NEWSLETTER."
+                                        WHERE newsletter_id='".(int)$_GET['ID']."'");
+       $newsletters_data=xtc_db_fetch_array($newsletters_query);
 
-$total_query=xtc_db_query("SELECT
-                           count(*) as count
-                           FROM module_newsletter_temp_".(int)$_GET['ID']."");
-$total_data=xtc_db_fetch_array($total_query);
-?>
-<tr>
-<td class="dataTableContent_products" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left"></td>
-<td colspan="2" class="dataTableContent_products" style="border-bottom: 1px solid; border-color: #f1f1f1;" align="left"><?php echo TEXT_SEND_TO.$total_data['count']; ?></td>
-</tr>
-<td class="dataTableContent" valign="top" style="border-bottom: 1px solid; border-color: #999999;" align="left">
-  <a class="button" href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=delete&ID='.$news_data[$i]['id']); ?>" onclick="return confirm('<?php echo CONFIRM_DELETE; ?>')"><?php echo BUTTON_DELETE.'</a><br />'; ?>
-  <a class="button" href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=edit&ID='.$news_data[$i]['id']); ?>"><?php echo BUTTON_EDIT.'</a>'; ?>
-  <br /><br /><div style="height: 1px; background: Black; margin: 3px 0;"></div>
-  <a class="button" href="<?php echo xtc_href_link(FILENAME_MODULE_NEWSLETTER,'action=send&ID='.$news_data[$i]['id']); ?>"><?php echo BUTTON_SEND.'</a>'; ?>
+        echo TEXT_TITLE.$newsletters_data['title'].'<br />';
 
-</td>
-<td colspan="2" class="dataTableContent" style="border-bottom: 1px solid; border-color: #999999; text-align: left;">
-<?php
-// get data
-    $newsletters_query=xtc_db_query("SELECT
-                                   title,body,cc,bc
-                                  FROM ".TABLE_MODULE_NEWSLETTER."
-                                  WHERE newsletter_id='".(int)$_GET['ID']."'");
-   $newsletters_data=xtc_db_fetch_array($newsletters_query);
+         $customers_status=xtc_get_customers_statuses();
+         for ($i=0,$n=sizeof($customers_status);$i<$n; $i++) {
 
-    echo TEXT_TITLE.$newsletters_data['title'].'<br />';
+         $newsletters_data['bc']=str_replace($customers_status[$i]['id'],$customers_status[$i]['text'],$newsletters_data['bc']);
 
-     $customers_status=xtc_get_customers_statuses();
-     for ($i=0,$n=sizeof($customers_status);$i<$n; $i++) {
+         }
 
-     $newsletters_data['bc']=str_replace($customers_status[$i]['id'],$customers_status[$i]['text'],$newsletters_data['bc']);
-
-     }
-
-echo TEXT_TO.$newsletters_data['bc'].'<br />';
-echo TEXT_CC.$newsletters_data['cc'].'<br /><br />'.TEXT_PREVIEW;
-echo '<table style="border-color: #cccccc; border: 1px solid;" width="100%"><tr><td>'.$newsletters_data['body'].'</td></tr></table>';
-?>
-</td></tr>
-<?php
-}
-}
+    echo TEXT_TO.$newsletters_data['bc'].'<br />';
+    echo TEXT_CC.$newsletters_data['cc'].'<br /><br />'.TEXT_PREVIEW;
+    echo '<table style="border-color: #cccccc; border: 1px solid;" width="100%"><tr><td>'.$newsletters_data['body'].'</td></tr></table>';
+    ?>
+    </td></tr>
+    <?php
+    }
+  }
 }
 ?>
 </table>
 <br /><br />
 <?php
  $newsletters_query=xtc_db_query("SELECT
-                                   newsletter_id,date,title
+                                  newsletter_id,date,title
                                   FROM ".TABLE_MODULE_NEWSLETTER."
                                   WHERE status='1'");
  $news_data=array();
  while ($newsletters_data=xtc_db_fetch_array($newsletters_query)) {
 
- $news_data[]=array(    'id' => $newsletters_data['newsletter_id'],
-                        'date'=>$newsletters_data['date'],
-                        'title'=>$newsletters_data['title']);
+ $news_data[]=array('id' => $newsletters_data['newsletter_id'],
+                     'date'=>$newsletters_data['date'],
+                     'title'=>$newsletters_data['title']);
  }
 
 ?>

@@ -1,30 +1,32 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(currencies.php,v 1.46 2003/05/02); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(currencies.php,v 1.46 2003/05/02); www.oscommerce.com
    (c) 2003	 nextcommerce (currencies.php,v 1.9 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (currencies.php 1123 2005-07-27)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
   require('includes/application_top.php');
 
   require(DIR_WS_CLASSES . 'currencies.php');
   $currencies = new currencies();
 
-  if (isset($_GET['action'])) {
-    switch ($_GET['action']) {
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  if (xtc_not_null($action)) {
+    switch ($action) {
       case 'insert':
       case 'save':
-        $currency_id = xtc_db_prepare_input($_GET['cID']);
+        if (isset($_GET['cID'])) $currency_id = xtc_db_prepare_input($_GET['cID']);
         $title = xtc_db_prepare_input($_POST['title']);
         $code = xtc_db_prepare_input($_POST['code']);
         $symbol_left = xtc_db_prepare_input($_POST['symbol_left']);
@@ -43,14 +45,14 @@
                                 'decimal_places' => $decimal_places,
                                 'value' => $value);
 
-        if ($_GET['action'] == 'insert') {
+        if ($action == 'insert') {
           xtc_db_perform(TABLE_CURRENCIES, $sql_data_array);
           $currency_id = xtc_db_insert_id();
-        } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_CURRENCIES, $sql_data_array, 'update', "currencies_id = '" . xtc_db_input($currency_id) . "'");
+        } elseif ($action == 'save') {
+          xtc_db_perform(TABLE_CURRENCIES, $sql_data_array, 'update', "currencies_id = '" . (int)$currency_id . "'");
         }
 
-        if (isset($_POST['default']) && $_POST['default'] == 'on') {
+        if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
           xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($code) . "' where configuration_key = 'DEFAULT_CURRENCY'");
         }
         xtc_redirect(xtc_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $currency_id));
@@ -75,11 +77,11 @@
         while ($currency = xtc_db_fetch_array($currency_query)) {
           $quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
           $rate = $quote_function($currency['code']);
-          if ( (!$rate) && (CURRENCY_SERVER_BACKUP != '') ) {
+          if ( empty($rate) && (xtc_not_null(CURRENCY_SERVER_BACKUP) )) {
             $quote_function = 'quote_' . CURRENCY_SERVER_BACKUP . '_currency';
             $rate = $quote_function($currency['code']);
           }
-          if ($rate) {
+          if (xtc_not_null($rate) && $rate > 0) {
             xtc_db_query("update " . TABLE_CURRENCIES . " set value = '" . $rate . "', last_updated = now() where currencies_id = '" . (int)$currency['currencies_id'] . "'");
             $messageStack->add_session(sprintf(TEXT_INFO_CURRENCY_UPDATED, $currency['title'], $currency['code']), 'success');
           } else {
@@ -92,7 +94,7 @@
       case 'delete':
         $currencies_id = xtc_db_prepare_input($_GET['cID']);
 
-        $currency_query = xtc_db_query("select code from " . TABLE_CURRENCIES . " where currencies_id = '" . xtc_db_input($currencies_id) . "'");
+        $currency_query = xtc_db_query("select code from " . TABLE_CURRENCIES . " where currencies_id = '" . (int)$currencies_id . "'");
         $currency = xtc_db_fetch_array($currency_query);
 
         $remove_currency = true;
@@ -107,7 +109,7 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>"> 
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script type="text/javascript" src="includes/general.js"></script>
@@ -153,7 +155,7 @@
   $currency_split = new splitPageResults($_GET['page'], '20', $currency_query_raw, $currency_query_numrows);
   $currency_query = xtc_db_query($currency_query_raw);
   while ($currency = xtc_db_fetch_array($currency_query)) {
-    if (((!$_GET['cID']) || (@$_GET['cID'] == $currency['currencies_id'])) && (!$cInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+    if (((!$_GET['cID']) || (@$_GET['cID'] == $currency['currencies_id'])) && (!$cInfo) && (substr($action, 0, 3) != 'new')) {
       $cInfo = new objectInfo($currency);
     }
 
@@ -188,7 +190,7 @@
                     <td class="smallText" align="right"><?php echo $currency_split->display_links($currency_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
 <?php
-  if (!$_GET['action']) {
+  if (empty($action)) {
 ?>
                   <tr>
                     <td><?php if (CURRENCY_SERVER_PRIMARY) { echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=update') . '">' . BUTTON_UPDATE . '</a>'; } ?></td>
@@ -203,7 +205,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CURRENCY . '</b>');
 
