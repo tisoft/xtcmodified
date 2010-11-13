@@ -77,7 +77,6 @@ define('BOX_HEADING_LOCALIZATION', 'Languages/Currencies');
 define('BOX_HEADING_TEMPLATES','Templates');
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Location / Tax');
 define('BOX_HEADING_CATALOG', 'Catalog');
-define('BOX_MODULE_NEWSLETTER','Newsletter');
 
 define('BOX_CONTENT','Content Manager');
 define('TEXT_ALLOWED', 'Permission');
