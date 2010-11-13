@@ -69,6 +69,8 @@ function xtc_get_products($session) {
 }
     
 function attributes_price($products_id,$session) {
+      $attributes_price = 0; //DokuMan - 2010-11-13 - set default value
+
       $xtPrice = new xtcPrice($session['currency'],$session['customers_status']['customers_status_id']);
       if (isset($session['contents'][$products_id]['attributes'])) {
         reset($session['contents'][$products_id]['attributes']);
