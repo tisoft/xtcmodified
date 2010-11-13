@@ -259,7 +259,7 @@ class xtcPrice {
      * @return Double graduated price
      */
 	function xtcGetGraduatedPrice($pID, $qty) {
-		if (GRADUATED_ASSIGN == 'true') {
+		if (defined('GRADUATED_ASSIGN') && GRADUATED_ASSIGN == 'true') {
 			if (xtc_get_qty($pID) > $qty) {
 				$qty = xtc_get_qty($pID);
 			}
