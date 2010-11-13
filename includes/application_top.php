@@ -575,12 +575,6 @@ if (xtc_not_null($cPath)) {
 require (DIR_WS_CLASSES.'breadcrumb.php');
 $breadcrumb = new breadcrumb;
 
-// BOF - web28 - 2010-11-13 -  add session id if needed
-if ( ($session_started == true) && defined('SID') && xtc_not_null(SID) && strlen(DIR_WS_CATALOG) <= 1) {
-	$add_sid = '?'. xtc_session_name() .'='. xtc_session_id();
-} else $add_sid = '';
-// EOF - web28 - 2010-11-13 -  add session id if needed
-
 // BOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 if (DIR_WS_CATALOG == '/') {
 	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
