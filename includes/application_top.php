@@ -575,12 +575,21 @@ if (xtc_not_null($cPath)) {
 require (DIR_WS_CLASSES.'breadcrumb.php');
 $breadcrumb = new breadcrumb;
 
+// BOF - web28 - 2010-11-13 -  add session id if needed
+if ( ($session_started == true) && defined('SID') && xtc_not_null(SID) && strlen(DIR_WS_CATALOG) <= 1) {
+	$add_sid = '?'. xtc_session_name() .'='. xtc_session_id();
+} else $add_sid = '';
+// EOF - web28 - 2010-11-13 -  add session id if needed
+
 // BOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 if (DIR_WS_CATALOG == '/') {
 	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
 } else {
-	$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER.'?'.session_name().'='.xtc_session_id());
+	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link 
 	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
+	$title_top = explode('://', HTTP_SERVER);
+	$breadcrumb->add($title_top[1], HTTP_SERVER);
+	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link	
 	$breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
 }
 // EOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb

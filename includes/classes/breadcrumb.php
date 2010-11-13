@@ -1,17 +1,18 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: breadcrumb.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(breadcrumb.php,v 1.3 2003/02/11); www.oscommerce.com 
    (c) 2003	 nextcommerce (breadcrumb.php,v 1.5 2003/08/13); www.nextcommerce.org
-
+   (c) 2006 XT-Commerce (breadcrumb.php 899 2005-04-29); www.xt-commerce.com
+   
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
@@ -25,17 +26,25 @@
     function reset() {
       $this->_trail = array();
     }
-
-    function add($title, $link = '') {
-      $this->_trail[] = array('title' => $title, 'link' => $link);
+	
+	//BOF - web28 - 2010-11-13 - add target parameter
+    //function add($title, $link = '') {
+      //$this->_trail[] = array('title' => $title, 'link' => $link);
+    //}
+	function add($title, $link = '', $target = '') {
+      $this->_trail[] = array('title' => $title, 'link' => $link, 'target' => $target );
     }
+	//BOF - web28 - 2010-11-13 - add target parameter
 
     function trail($separator = ' - ') {
       $trail_string = '';
 
       for ($i=0, $n=sizeof($this->_trail); $i<$n; $i++) {
         if (isset($this->_trail[$i]['link']) && xtc_not_null($this->_trail[$i]['link'])) {
-          $trail_string .= '<a href="' . $this->_trail[$i]['link'] . '" class="headerNavigation">' . $this->_trail[$i]['title'] . '</a>';
+		  //BOF - web28 - 2010-11-13 - add target parameter
+          //$trail_string .= '<a href="' . $this->_trail[$i]['link'] . '" class="headerNavigation">' . $this->_trail[$i]['title'] . '</a>';
+		  $trail_string .= '<a href="' . $this->_trail[$i]['link'] . '" class="headerNavigation" '. $this->_trail[$i]['target'] .'>' . $this->_trail[$i]['title'] . '</a>';
+		  //BOF - web28 - 2010-11-13 - add target parameter
         } else {
           $trail_string .= $this->_trail[$i]['title'];
         }
