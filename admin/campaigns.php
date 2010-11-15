@@ -105,7 +105,7 @@ if (xtc_not_null($action)) {
 <?php
 
 $campaigns_query_raw = "select * from ".TABLE_CAMPAIGNS." order by campaigns_name";
-$campaigns_split = new splitPageResults($_GET['page'], '20', $campaigns_query_raw, $campaigns_query_numrows);
+$campaigns_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $campaigns_query_raw, $campaigns_query_numrows);
 $campaigns_query = xtc_db_query($campaigns_query_raw);
 while ($campaigns = xtc_db_fetch_array($campaigns_query)) {
 	if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $campaigns['campaigns_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
@@ -119,11 +119,11 @@ while ($campaigns = xtc_db_fetch_array($campaigns_query)) {
 	}
 ?>
                 <td class="dataTableContent"><?php echo $campaigns['campaigns_name']; ?></td>
-<?/*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($campaigns['campaigns_id'] == $cInfo->campaigns_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_CAMPAIGNS, 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 */ ?>
                 <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($campaigns['campaigns_id'] == $cInfo->campaigns_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_CAMPAIGNS, 'page=' . $_GET['page'] . '&cID=' . $campaigns['campaigns_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<?/*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
+<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
               </tr>
 <?php
 
@@ -132,8 +132,8 @@ while ($campaigns = xtc_db_fetch_array($campaigns_query)) {
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $campaigns_split->display_count($campaigns_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CAMPAIGNS); ?></td>
-                    <td class="smallText" align="right"><?php echo $campaigns_split->display_links($campaigns_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" valign="top"><?php echo $campaigns_split->display_count($campaigns_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CAMPAIGNS); ?></td>
+                    <td class="smallText" align="right"><?php echo $campaigns_split->display_links($campaigns_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
                 </table></td>
               </tr>

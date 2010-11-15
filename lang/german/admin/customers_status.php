@@ -43,9 +43,6 @@ define('ERROR_REMOVE_DEFAULT_CUSTOMERS_STATUS','ACHTUNG! Eine Standard Kundengru
 define('ERROR_STATUS_USED_IN_CUSTOMERS', 'Error: Diese Kundengruppe ist zur Zeit bei Kunden in Verwendung.');
 define('ERROR_STATUS_USED_IN_HISTORY', 'Error: Diese Kundengruppe wird zur Zeit in der Bestell&uuml;bersicht verwendet.');
 
-define('YES','ja');
-define('NO','nein');
-
 define('TABLE_HEADING_ACTION','Aktion');
 define('TABLE_HEADING_CUSTOMERS_GRADUATED','Staffelpreis');
 define('TABLE_HEADING_CUSTOMERS_STATUS','Kundengruppe');
@@ -92,6 +89,4 @@ define('TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS', 'Neue Kundengruppe');
 
 define('TEXT_INFO_CUSTOMERS_STATUS_BASE', '<strong>Basis Kundengruppe f&uuml;r Artikelpreise</strong>');
 define('ENTRY_CUSTOMERS_STATUS_BASE', 'wird als Grundlage f&uuml;r die Preise der neuen Kundengruppe gew&auml;hlt. Wenn Auswahl = Admin werden keine Preise f&uuml;r die neue Kundengruppe angelegt.');
-
-define('IMAGE_ICON_INFO','Aktion');
 ?>

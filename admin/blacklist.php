@@ -1,62 +1,64 @@
 <?php
 /*------------------------------------------------------------------------------
-  $Id: blacklist.php 1023 2005-07-14 11:41:37Z novalis $
+  $Id$
 
-  XTC-CC - Contribution for XT-Commerce http://www.xt-commerce.com
-  modified by http://www.netz-designer.de
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-  Copyright (c) 2003 netz-designer
+   Copyright (c) 2010 xtcModified
   -----------------------------------------------------------------------------
   based on:
-  $Id: blacklist.php,v 1.00 2003/04/10 BMC
-
-  Copyright (c) 2003 BMC
-  http://www.mainframes.co.uk
+  (c) 2003 BMC (blacklist.php,v 1.00 2003/04/10) http://www.mainframes.co.uk
+  (c) 2003 netz-designer, http://www.netz-designer.de
+  (c) 2006 XT-Commerce (countries.php 1123 2005-07-27)
 
   Released under the GNU General Public License
 ------------------------------------------------------------------------------*/
 
   require('includes/application_top.php');
 
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  switch ($_GET['action']) {
-    case 'insert':
-    case 'save':
-      $blacklist_id = xtc_db_prepare_input($_GET['bID']);
-      $blacklist_card_number = xtc_db_prepare_input($_POST['blacklist_card_number']);
+  if (xtc_not_null($action)) {
+    switch ($action) {
+      case 'insert':
+      case 'save':
+        $blacklist_id = xtc_db_prepare_input($_GET['bID']);
+        $blacklist_card_number = xtc_db_prepare_input($_POST['blacklist_card_number']);
 
-      $sql_data_array = array('blacklist_card_number' => $blacklist_card_number);
+        $sql_data_array = array('blacklist_card_number' => $blacklist_card_number);
 
-      if ($_GET['action'] == 'insert') {
-        $insert_sql_data = array('date_added' => 'now()');
-        $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
-        xtc_db_perform(TABLE_BLACKLIST, $sql_data_array);
-        $blacklist_id = xtc_db_insert_id();
-      } elseif ($_GET['action'] == 'save') {
-        $update_sql_data = array('last_modified' => 'now()');
-        $sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
-        xtc_db_perform(TABLE_BLACKLIST, $sql_data_array, 'update', "blacklist_id = '" . xtc_db_input($blacklist_id) . "'");
-      }
-
-
-      if (USE_CACHE == 'true') {
-        xtc_reset_cache_block('blacklist');
-      }
-
-      xtc_redirect(xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $blacklist_id));
-      break;
-    case 'deleteconfirm':
-      $blacklist_id = xtc_db_prepare_input($_GET['bID']);
+        if ($action == 'insert') {
+          $insert_sql_data = array('date_added' => 'now()');
+          $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+          xtc_db_perform(TABLE_BLACKLIST, $sql_data_array);
+          $blacklist_id = xtc_db_insert_id();
+        } elseif ($action == 'save') {
+          $update_sql_data = array('last_modified' => 'now()');
+          $sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
+          xtc_db_perform(TABLE_BLACKLIST, $sql_data_array, 'update', "blacklist_id = '" . xtc_db_input($blacklist_id) . "'");
+        }
 
 
-      xtc_db_query("delete from " . TABLE_BLACKLIST . " where blacklist_id = '" . xtc_db_input($blacklist_id) . "'");
+        if (USE_CACHE == 'true') {
+          xtc_reset_cache_block('blacklist');
+        }
 
-      if (USE_CACHE == 'true') {
-        xtc_reset_cache_block('manufacturers');
-      }
+        xtc_redirect(xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $blacklist_id));
+        break;
+      case 'deleteconfirm':
+        $blacklist_id = xtc_db_prepare_input($_GET['bID']);
 
-      xtc_redirect(xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page']));
-      break;
+
+        xtc_db_query("delete from " . TABLE_BLACKLIST . " where blacklist_id = '" . xtc_db_input($blacklist_id) . "'");
+
+        if (USE_CACHE == 'true') {
+          xtc_reset_cache_block('manufacturers');
+        }
+
+        xtc_redirect(xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page']));
+        break;
+    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -100,10 +102,10 @@
               </tr>
 <?php
   $blacklist_query_raw = "select blacklist_id, blacklist_card_number, date_added, last_modified from " . TABLE_BLACKLIST . " order by blacklist_id";
-  $blacklist_split = new splitPageResults($_GET['page'], '20', $blacklist_query_raw, $blacklist_query_numrows);
+  $blacklist_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $blacklist_query_raw, $blacklist_query_numrows);
   $blacklist_query = xtc_db_query($blacklist_query_raw);
   while ($blacklist = xtc_db_fetch_array($blacklist_query)) {
-    if (((!$_GET['bID']) || (@$_GET['bID'] == $blacklist['blacklist_id'])) && (!$bInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+    if ((!isset($_GET['bID']) || (isset($_GET['bID']) && ($_GET['bID'] == $blacklist['blacklist_id']))) && !isset($bInfo) && (substr($action, 0, 3) != 'new')) {
       $blacklist_numbers_query = xtc_db_query("select count(*) as blacklist_count from " . TABLE_BLACKLIST . " where blacklist_id = '" . $blacklist['blacklist_id'] . "'");
       $blacklist_numbers = xtc_db_fetch_array($blacklist_numbers_query);
 
@@ -111,19 +113,18 @@
       $bInfo = new objectInfo($bInfo_array);
     }
 
-    if ( (is_object($bInfo)) && ($blacklist['blacklist_id'] == $bInfo->blacklist_id) ) {
+    if (isset($bInfo) && is_object($bInfo) && ($blacklist['blacklist_id'] == $bInfo->blacklist_id) ) {
       echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $blacklist['blacklist_id'] . '&action=edit') . '\'">' . "\n";
     } else {
       echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $blacklist['blacklist_id']) . '\'">' . "\n";
     }
 ?>
                 <td class="dataTableContent"><?php echo $blacklist['blacklist_card_number']; ?></td>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($bInfo)) && ($blacklist['blacklist_id'] == $bInfo->blacklist_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $blacklist['blacklist_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($bInfo)) && ($blacklist['blacklist_id'] == $bInfo->blacklist_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $blacklist['blacklist_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/ ?>
+                <td class="dataTableContent" align="right"><?php if (isset($bInfo) && is_object($bInfo) && ($blacklist['blacklist_id'] == $bInfo->blacklist_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $blacklist['blacklist_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
               </tr>
 <?php
   }
@@ -131,13 +132,13 @@
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $blacklist_split->display_count($blacklist_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_BLACKLIST_CARDS); ?></td>
-                    <td class="smallText" align="right"><?php echo $blacklist_split->display_links($blacklist_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" valign="top"><?php echo $blacklist_split->display_count($blacklist_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_BLACKLIST_CARDS); ?></td>
+                    <td class="smallText" align="right"><?php echo $blacklist_split->display_links($blacklist_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
                 </table></td>
               </tr>
 <?php
-  if ($_GET['action'] != 'new') {
+  if (empty($action)) {
 ?>
               <tr>
                 <td align="right" colspan="2" class="smallText"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $bInfo->blacklist_id . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
@@ -149,7 +150,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_BLACKLIST_CARD . '</b>');
 
@@ -183,7 +184,7 @@
       $contents[] = array('align' => 'center', 'text' => '<br /><input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE . '"/> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $bInfo->blacklist_id) . '">' . BUTTON_CANCEL . '</a>');
       break;
     default:
-      if (is_object($bInfo)) {
+      if (isset($bInfo) && is_object($bInfo)) {
         $heading[] = array('text' => '<b>' . $bInfo->blacklist_card_number . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $bInfo->blacklist_id . '&action=edit') . '">' . BUTTON_EDIT . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_BLACKLIST, 'page=' . $_GET['page'] . '&bID=' . $bInfo->blacklist_id . '&action=delete') . '">' . BUTTON_DELETE . '</a>');

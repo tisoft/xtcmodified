@@ -23,145 +23,149 @@
 
   require('includes/application_top.php');
 
-  switch ($_GET['action']) {
-    case 'insert':
-    case 'save':
-      $customers_status_id = xtc_db_prepare_input($_GET['cID']);
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-      $languages = xtc_get_languages();
-      for ($i=0; $i<sizeof($languages); $i++) {
-        $customers_status_name_array = $_POST['customers_status_name'];
-        $customers_status_public = $_POST['customers_status_public'];
-        $customers_status_show_price = $_POST['customers_status_show_price'];
-        $customers_status_show_price_tax = $_POST['customers_status_show_price_tax'];
-        $customers_status_min_order = $_POST['customers_status_min_order'];
-        $customers_status_max_order = $_POST['customers_status_max_order'];
-        $customers_status_discount = $_POST['customers_status_discount'];
-        $customers_status_ot_discount_flag = $_POST['customers_status_ot_discount_flag'];
-        $customers_status_ot_discount = $_POST['customers_status_ot_discount'];
-        $customers_status_graduated_prices = $_POST['customers_status_graduated_prices'];
-        $customers_status_discount_attributes = $_POST['customers_status_discount_attributes'];
-        $customers_status_add_tax_ot = $_POST['customers_status_add_tax_ot'];
-        $customers_status_payment_unallowed = $_POST['customers_status_payment_unallowed'];
-        $customers_status_shipping_unallowed = $_POST['customers_status_shipping_unallowed'];
-        $customers_fsk18 = $_POST['customers_fsk18'];
-        $customers_fsk18_display = $_POST['customers_fsk18_display'];
-        $customers_status_write_reviews = $_POST['customers_status_write_reviews'];
-        $customers_status_read_reviews = $_POST['customers_status_read_reviews'];
-        $customers_base_status = $_POST['customers_base_status'];
+  if (xtc_not_null($action)) {
+    switch ($action) {
+      case 'insert':
+      case 'save':
+        $customers_status_id = xtc_db_prepare_input($_GET['cID']);
 
-        $language_id = $languages[$i]['id'];
+        $languages = xtc_get_languages();
+        for ($i=0; $i<sizeof($languages); $i++) {
+          $customers_status_name_array = $_POST['customers_status_name'];
+          $customers_status_public = $_POST['customers_status_public'];
+          $customers_status_show_price = $_POST['customers_status_show_price'];
+          $customers_status_show_price_tax = $_POST['customers_status_show_price_tax'];
+          $customers_status_min_order = $_POST['customers_status_min_order'];
+          $customers_status_max_order = $_POST['customers_status_max_order'];
+          $customers_status_discount = $_POST['customers_status_discount'];
+          $customers_status_ot_discount_flag = $_POST['customers_status_ot_discount_flag'];
+          $customers_status_ot_discount = $_POST['customers_status_ot_discount'];
+          $customers_status_graduated_prices = $_POST['customers_status_graduated_prices'];
+          $customers_status_discount_attributes = $_POST['customers_status_discount_attributes'];
+          $customers_status_add_tax_ot = $_POST['customers_status_add_tax_ot'];
+          $customers_status_payment_unallowed = $_POST['customers_status_payment_unallowed'];
+          $customers_status_shipping_unallowed = $_POST['customers_status_shipping_unallowed'];
+          $customers_fsk18 = $_POST['customers_fsk18'];
+          $customers_fsk18_display = $_POST['customers_fsk18_display'];
+          $customers_status_write_reviews = $_POST['customers_status_write_reviews'];
+          $customers_status_read_reviews = $_POST['customers_status_read_reviews'];
+          $customers_base_status = $_POST['customers_base_status'];
 
-        $sql_data_array = array(
-          'customers_status_name' => xtc_db_prepare_input($customers_status_name_array[$language_id]),
-          'customers_status_public' => xtc_db_prepare_input($customers_status_public),
-          'customers_status_show_price' => xtc_db_prepare_input($customers_status_show_price),
-          'customers_status_show_price_tax' => xtc_db_prepare_input($customers_status_show_price_tax),
-          'customers_status_min_order' => xtc_db_prepare_input($customers_status_min_order),
-          'customers_status_max_order' => xtc_db_prepare_input($customers_status_max_order),
-          'customers_status_discount' => xtc_db_prepare_input($customers_status_discount),
-          'customers_status_ot_discount_flag' => xtc_db_prepare_input($customers_status_ot_discount_flag),
-          'customers_status_ot_discount' => xtc_db_prepare_input($customers_status_ot_discount),
-          'customers_status_graduated_prices' => xtc_db_prepare_input($customers_status_graduated_prices),
-          'customers_status_add_tax_ot' => xtc_db_prepare_input($customers_status_add_tax_ot),
-          'customers_status_payment_unallowed' => xtc_db_prepare_input($customers_status_payment_unallowed),
-          'customers_status_shipping_unallowed' => xtc_db_prepare_input($customers_status_shipping_unallowed),
-          'customers_fsk18' => xtc_db_prepare_input($customers_fsk18),
-          'customers_fsk18_display' => xtc_db_prepare_input($customers_fsk18_display),
-          'customers_status_write_reviews' => xtc_db_prepare_input($customers_status_write_reviews),
-          'customers_status_read_reviews' => xtc_db_prepare_input($customers_status_read_reviews),
-          'customers_status_discount_attributes' => xtc_db_prepare_input($customers_status_discount_attributes)
-        );
-        if ($_GET['action'] == 'insert') {
-          if (!xtc_not_null($customers_status_id)) {
-            $next_id_query = xtc_db_query("select max(customers_status_id) as customers_status_id from " . TABLE_CUSTOMERS_STATUS . "");
-            $next_id = xtc_db_fetch_array($next_id_query);
-            $customers_status_id = $next_id['customers_status_id'] + 1;
-            // We want to create a personal offer table corresponding to each customers_status
-            xtc_db_query("create table personal_offers_by_customers_status_" . $customers_status_id . " (price_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, products_id int NOT NULL, quantity int, personal_offer decimal(15,4))");
-		   xtc_db_query("ALTER TABLE  `products` ADD  `group_permission_" . $customers_status_id . "` TINYINT( 1 ) NOT NULL");
-		   xtc_db_query("ALTER TABLE  `categories` ADD  `group_permission_" . $customers_status_id . "` TINYINT( 1 ) NOT NULL");
+          $language_id = $languages[$i]['id'];
 
-        $products_query = xtc_db_query("select price_id, products_id, quantity, personal_offer from personal_offers_by_customers_status_" . $customers_base_status ."");
-        while($products = xtc_db_fetch_array($products_query)){
-        $product_data_array = array(
-          'price_id' => xtc_db_prepare_input($products['price_id']),
-          'products_id' => xtc_db_prepare_input($products['products_id']),
-          'quantity' => xtc_db_prepare_input($products['quantity']),
-          'personal_offer' => xtc_db_prepare_input($products['personal_offer'])
-         );
-         xtc_db_perform('personal_offers_by_customers_status_' . $customers_status_id, $product_data_array);
-         }
+          $sql_data_array = array(
+            'customers_status_name' => xtc_db_prepare_input($customers_status_name_array[$language_id]),
+            'customers_status_public' => xtc_db_prepare_input($customers_status_public),
+            'customers_status_show_price' => xtc_db_prepare_input($customers_status_show_price),
+            'customers_status_show_price_tax' => xtc_db_prepare_input($customers_status_show_price_tax),
+            'customers_status_min_order' => xtc_db_prepare_input($customers_status_min_order),
+            'customers_status_max_order' => xtc_db_prepare_input($customers_status_max_order),
+            'customers_status_discount' => xtc_db_prepare_input($customers_status_discount),
+            'customers_status_ot_discount_flag' => xtc_db_prepare_input($customers_status_ot_discount_flag),
+            'customers_status_ot_discount' => xtc_db_prepare_input($customers_status_ot_discount),
+            'customers_status_graduated_prices' => xtc_db_prepare_input($customers_status_graduated_prices),
+            'customers_status_add_tax_ot' => xtc_db_prepare_input($customers_status_add_tax_ot),
+            'customers_status_payment_unallowed' => xtc_db_prepare_input($customers_status_payment_unallowed),
+            'customers_status_shipping_unallowed' => xtc_db_prepare_input($customers_status_shipping_unallowed),
+            'customers_fsk18' => xtc_db_prepare_input($customers_fsk18),
+            'customers_fsk18_display' => xtc_db_prepare_input($customers_fsk18_display),
+            'customers_status_write_reviews' => xtc_db_prepare_input($customers_status_write_reviews),
+            'customers_status_read_reviews' => xtc_db_prepare_input($customers_status_read_reviews),
+            'customers_status_discount_attributes' => xtc_db_prepare_input($customers_status_discount_attributes)
+          );
+          if ($action == 'insert') {
+            if (!xtc_not_null($customers_status_id)) {
+              $next_id_query = xtc_db_query("select max(customers_status_id) as customers_status_id from " . TABLE_CUSTOMERS_STATUS . "");
+              $next_id = xtc_db_fetch_array($next_id_query);
+              $customers_status_id = $next_id['customers_status_id'] + 1;
+              // We want to create a personal offer table corresponding to each customers_status
+              xtc_db_query("create table personal_offers_by_customers_status_" . $customers_status_id . " (price_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, products_id int NOT NULL, quantity int, personal_offer decimal(15,4))");
+         xtc_db_query("ALTER TABLE  `products` ADD  `group_permission_" . $customers_status_id . "` TINYINT( 1 ) NOT NULL");
+         xtc_db_query("ALTER TABLE  `categories` ADD  `group_permission_" . $customers_status_id . "` TINYINT( 1 ) NOT NULL");
 
+          $products_query = xtc_db_query("select price_id, products_id, quantity, personal_offer from personal_offers_by_customers_status_" . $customers_base_status ."");
+          while($products = xtc_db_fetch_array($products_query)){
+          $product_data_array = array(
+            'price_id' => xtc_db_prepare_input($products['price_id']),
+            'products_id' => xtc_db_prepare_input($products['products_id']),
+            'quantity' => xtc_db_prepare_input($products['quantity']),
+            'personal_offer' => xtc_db_prepare_input($products['personal_offer'])
+           );
+           xtc_db_perform('personal_offers_by_customers_status_' . $customers_status_id, $product_data_array);
+           }
+
+            }
+
+            $insert_sql_data = array('customers_status_id' => xtc_db_prepare_input($customers_status_id), 'language_id' => xtc_db_prepare_input($language_id));
+            $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+            xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array);
+
+          } elseif ($action == 'save') {
+        //BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+        $customers_status_query = xtc_db_query("select * from ".TABLE_CUSTOMERS_STATUS." where language_id = '".$language_id."' and customers_status_id = '".xtc_db_input($customers_status_id)."'");
+        if (xtc_db_num_rows($customers_status_query) == 0) xtc_db_perform(TABLE_CUSTOMERS_STATUS, array ('customers_status_id' => xtc_db_input($customers_status_id), 'language_id' => $language_id));
+        //EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
+        xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and language_id = '" . $language_id . "'");
           }
-
-          $insert_sql_data = array('customers_status_id' => xtc_db_prepare_input($customers_status_id), 'language_id' => xtc_db_prepare_input($language_id));
-          $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
-          xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array);
-
-        } elseif ($_GET['action'] == 'save') {
-			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
-			$customers_status_query = xtc_db_query("select * from ".TABLE_CUSTOMERS_STATUS." where language_id = '".$language_id."' and customers_status_id = '".xtc_db_input($customers_status_id)."'");
-			if (xtc_db_num_rows($customers_status_query) == 0) xtc_db_perform(TABLE_CUSTOMERS_STATUS, array ('customers_status_id' => xtc_db_input($customers_status_id), 'language_id' => $language_id));
-			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
-			xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and language_id = '" . $language_id . "'");
         }
-      }
 
-      if ($customers_status_image = &xtc_try_upload('customers_status_image', DIR_WS_ICONS)) {
-        xtc_db_query("update " . TABLE_CUSTOMERS_STATUS . " set customers_status_image = '" . $customers_status_image->filename . "' where customers_status_id = '" . xtc_db_input($customers_status_id) . "'");
-      }
-
-      if ($_POST['default'] == 'on') {
-        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($customers_status_id) . "' where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
-      }
-
-      xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $customers_status_id));
-      break;
-
-    case 'deleteconfirm':
-      $cID = xtc_db_prepare_input($_GET['cID']);
-
-      $customers_status_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
-      $customers_status = xtc_db_fetch_array($customers_status_query);
-      if ($customers_status['configuration_value'] == $cID) {
-        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
-      }
-
-      xtc_db_query("delete from " . TABLE_CUSTOMERS_STATUS . " where customers_status_id = '" . xtc_db_input($cID) . "'");
-
-      // We want to drop the existing corresponding personal_offers table
-      xtc_db_query("drop table IF EXISTS personal_offers_by_customers_status_" . xtc_db_input($cID) . "");
-      xtc_db_query("ALTER TABLE `products` DROP `group_permission_" . xtc_db_input($cID) . "`");
-      xtc_db_query("ALTER TABLE `categories` DROP `group_permission_" . xtc_db_input($cID) . "`");
-      xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page']));
-      break;
-
-    case 'delete':
-      $cID = xtc_db_prepare_input($_GET['cID']);
-
-      $status_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS . " where customers_status = '" . xtc_db_input($cID) . "'");
-      $status = xtc_db_fetch_array($status_query);
-
-      $remove_status = true;
-      if (($cID == DEFAULT_CUSTOMERS_STATUS_ID) || ($cID == DEFAULT_CUSTOMERS_STATUS_ID_GUEST) || ($cID == DEFAULT_CUSTOMERS_STATUS_ID_NEWSLETTER)) {
-        $remove_status = false;
-        $messageStack->add(ERROR_REMOVE_DEFAULT_CUSTOMERS_STATUS, 'error');
-      } elseif ($status['count'] > 0) {
-        $remove_status = false;
-        $messageStack->add(ERROR_STATUS_USED_IN_CUSTOMERS, 'error');
-      } else {
-        $history_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS_STATUS_HISTORY . " where '" . xtc_db_input($cID) . "' in (new_value, old_value)");
-        $history = xtc_db_fetch_array($history_query);
-        if ($history['count'] > 0) {
-          // delete from history
-          xtc_db_query("DELETE FROM " . TABLE_CUSTOMERS_STATUS_HISTORY . "
-                        where '" . xtc_db_input($cID) . "' in (new_value, old_value)");
-          $remove_status = true;
-          // $messageStack->add(ERROR_STATUS_USED_IN_HISTORY, 'error');
+        if ($customers_status_image = &xtc_try_upload('customers_status_image', DIR_WS_ICONS)) {
+          xtc_db_query("update " . TABLE_CUSTOMERS_STATUS . " set customers_status_image = '" . $customers_status_image->filename . "' where customers_status_id = '" . xtc_db_input($customers_status_id) . "'");
         }
-      }
-      break;
+
+        if ($_POST['default'] == 'on') {
+          xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($customers_status_id) . "' where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
+        }
+
+        xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $customers_status_id));
+        break;
+
+      case 'deleteconfirm':
+        $cID = xtc_db_prepare_input($_GET['cID']);
+
+        $customers_status_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
+        $customers_status = xtc_db_fetch_array($customers_status_query);
+        if ($customers_status['configuration_value'] == $cID) {
+          xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
+        }
+
+        xtc_db_query("delete from " . TABLE_CUSTOMERS_STATUS . " where customers_status_id = '" . xtc_db_input($cID) . "'");
+
+        // We want to drop the existing corresponding personal_offers table
+        xtc_db_query("drop table IF EXISTS personal_offers_by_customers_status_" . xtc_db_input($cID) . "");
+        xtc_db_query("ALTER TABLE `products` DROP `group_permission_" . xtc_db_input($cID) . "`");
+        xtc_db_query("ALTER TABLE `categories` DROP `group_permission_" . xtc_db_input($cID) . "`");
+        xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page']));
+        break;
+
+      case 'delete':
+        $cID = xtc_db_prepare_input($_GET['cID']);
+
+        $status_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS . " where customers_status = '" . xtc_db_input($cID) . "'");
+        $status = xtc_db_fetch_array($status_query);
+
+        $remove_status = true;
+        if (($cID == DEFAULT_CUSTOMERS_STATUS_ID) || ($cID == DEFAULT_CUSTOMERS_STATUS_ID_GUEST) || ($cID == DEFAULT_CUSTOMERS_STATUS_ID_NEWSLETTER)) {
+          $remove_status = false;
+          $messageStack->add(ERROR_REMOVE_DEFAULT_CUSTOMERS_STATUS, 'error');
+        } elseif ($status['count'] > 0) {
+          $remove_status = false;
+          $messageStack->add(ERROR_STATUS_USED_IN_CUSTOMERS, 'error');
+        } else {
+          $history_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS_STATUS_HISTORY . " where '" . xtc_db_input($cID) . "' in (new_value, old_value)");
+          $history = xtc_db_fetch_array($history_query);
+          if ($history['count'] > 0) {
+            // delete from history
+            xtc_db_query("DELETE FROM " . TABLE_CUSTOMERS_STATUS_HISTORY . "
+                          where '" . xtc_db_input($cID) . "' in (new_value, old_value)");
+            $remove_status = true;
+            // $messageStack->add(ERROR_STATUS_USED_IN_HISTORY, 'error');
+          }
+        }
+        break;
+    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -228,14 +232,14 @@
 
   $customers_status_query_raw = "select * from " . TABLE_CUSTOMERS_STATUS . " where language_id = '" . $_SESSION['languages_id'] . "' order by customers_status_id";
 
-  $customers_status_split = new splitPageResults($_GET['page'], '20', $customers_status_query_raw, $customers_status_query_numrows);
+  $customers_status_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_status_query_raw, $customers_status_query_numrows);
   $customers_status_query = xtc_db_query($customers_status_query_raw);
   while ($customers_status = xtc_db_fetch_array($customers_status_query)) {
-    if ((!isset($_GET['cID']) || ($_GET['cID'] == $customers_status['customers_status_id'])) && (!$cInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+    if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $customers_status['customers_status_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
       $cInfo = new objectInfo($customers_status);
     }
 
-    if ( (is_object($cInfo)) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) {
+    if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) {
       echo '<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '\'">' . "\n";
     } else {
       echo '<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $customers_status['customers_status_id']) . '\'">' . "\n";
@@ -295,12 +299,11 @@
     echo '<td nowrap class="dataTableContent" align="center">' . $customers_status['customers_status_shipping_unallowed'] . '&nbsp;</td>';
     echo "\n";
 ?>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $customers_status['customers_status_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $customers_status['customers_status_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/ ?>
+                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $customers_status['customers_status_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */?>
               </tr>
 <?php
   }
@@ -308,11 +311,11 @@
               <tr>
                 <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $customers_status_split->display_count($customers_status_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_STATUS); ?></td>
-                    <td class="smallText" align="right"><?php echo $customers_status_split->display_links($customers_status_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="smallText" valign="top"><?php echo $customers_status_split->display_count($customers_status_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_STATUS); ?></td>
+                    <td class="smallText" align="right"><?php echo $customers_status_split->display_links($customers_status_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
                   </tr>
 <?php
-  if (substr($_GET['action'], 0, 3) != 'new') { //DokuMan - removed isset()
+  if (empty($action)) {
 ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&action=new') . '">' . BUTTON_INSERT . '</a>'; ?></td>
@@ -326,7 +329,7 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($_GET['action']) {
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS . '</b>');
       $contents = array('form' => xtc_draw_form('status', FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&action=insert', 'post', 'enctype="multipart/form-data"'));
@@ -408,7 +411,7 @@
       break;
 
     default:
-      if (is_object($cInfo)) {
+      if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . $cInfo->customers_status_name . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '">' . BUTTON_EDIT . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $cInfo->customers_status_id . '&action=delete') . '">' . BUTTON_DELETE . '</a>');

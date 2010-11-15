@@ -39,6 +39,7 @@ require (DIR_WS_CLASSES.'currencies.php');
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
 if ((($action == 'edit') || ($action == 'update_order')) && ($_GET['oID'])) {
 	$oID = xtc_db_prepare_input($_GET['oID']);
 
@@ -49,6 +50,7 @@ if ((($action == 'edit') || ($action == 'update_order')) && ($_GET['oID'])) {
 		$messageStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $oID), 'error');
 	}
 }
+
 //BOF - web28 - 2010-04-10 added for ADMIN SEARCH BAR
 if ($action == 'search' && $_GET['oID']) {
 	$oID = xtc_db_prepare_input($_GET['oID']);
@@ -63,7 +65,7 @@ if ($action == 'search' && $_GET['oID']) {
 	   $action = 'edit';
 	   $_GET['oID'] = $oID;
 	   //$messageStack->add('1 Treffer: ' . $oID, 'notice');
-    }
+	}
 }
 //EOF  - web28 - 2010-04-10 added for ADMIN SEARCH BAR
 
@@ -89,17 +91,16 @@ while ($orders_status = xtc_db_fetch_array($orders_status_query)) {
 }
 switch ($action) {
 	//BOF - web28 - 2010-03-20 - Send Order by Admin
-    case 'send':
+	case 'send':
 		// set dirs manual
-        $smarty->template_dir = DIR_FS_CATALOG.'templates';
-        $smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
+    $smarty->template_dir = DIR_FS_CATALOG.'templates';
+    $smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
 		$smarty->config_dir = DIR_FS_CATALOG.'lang';
 
  		$send_by_admin = true;
-        $insert_id = xtc_db_prepare_input($_GET['oID']);
-        define('SEND_BY_ADMIN_PATH', DIR_FS_CATALOG);
+    $insert_id = xtc_db_prepare_input($_GET['oID']);
+    define('SEND_BY_ADMIN_PATH', DIR_FS_CATALOG);
 		require_once(DIR_FS_CATALOG.DIR_WS_CLASSES.'xtcPrice.php');
-
 		include (DIR_FS_CATALOG .'send_order.php');
 
 		break;
@@ -194,9 +195,7 @@ switch ($action) {
 		$aBUY = new xtc_afterbuy_functions($oID);
 		if ($aBUY->order_send())
 			$aBUY->process_order();
-
 		break;
-
 		// BMC Delete CC Info End
 }
 ?>
@@ -210,7 +209,6 @@ switch ($action) {
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php
-
 require (DIR_WS_INCLUDES.'header.php');
 ?>
 <!-- header_eof //-->
@@ -226,7 +224,6 @@ require (DIR_WS_INCLUDES.'header.php');
 <!-- body_text //-->
     <td  class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-
 if (($action == 'edit') && ($order_exists)) {
 	//    $order = new order($oID);
 ?>
@@ -272,7 +269,6 @@ if (($action == 'edit') && ($order_exists)) {
               <tr>
                 <td class="main" valign="top"><b><?php echo CUSTOMERS_MEMO; ?></b></td>
 <?php
-
 	// memoquery
 	$memo_query = xtc_db_query("SELECT count(*) as count FROM ".TABLE_CUSTOMERS_MEMO." where customers_id='".$order->customer['ID']."'");
 	$memo_count = xtc_db_fetch_array($memo_query);
@@ -340,7 +336,6 @@ if (($action == 'edit') && ($order_exists)) {
             <td class="main"><?php echo $order->info['cc_owner']; ?></td>
           </tr>
 <?php
-
 		// BMC CC Mod Start
 		if ($order->info['cc_number'] != '0000000000000000') {
 			if (strtolower(CC_ENC) == 'true') {
@@ -363,9 +358,7 @@ if (($action == 'edit') && ($order_exists)) {
             <td class="main"><?php echo $order->info['cc_expires']; ?></td>
           </tr>
 <?php
-
 	}
-
 
 // BOF - Tomcraft - 2009-11-03 - commented out the old sofortueberweisung.de payment module
 /*
@@ -571,13 +564,13 @@ if (($action == 'edit') && ($order_exists)) {
 	// end modification for banktransfer
 
 if ($order->info['payment_method'] == 'amoneybookers') {
-if (file_exists(DIR_FS_CATALOG.DIR_WS_MODULES.'payment/'.$order->info['payment_method'].'.php')) {
-include(DIR_FS_CATALOG.DIR_WS_MODULES.'payment/'.$order->info['payment_method'].'.php');
-include(DIR_FS_CATALOG.'lang/'.$order->info['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
-$class = $order->info['payment_method'];
-$payment = new $class();
-$payment->admin_order($_GET['oID']);
-}
+  if (file_exists(DIR_FS_CATALOG.DIR_WS_MODULES.'payment/'.$order->info['payment_method'].'.php')) {
+    include(DIR_FS_CATALOG.DIR_WS_MODULES.'payment/'.$order->info['payment_method'].'.php');
+    include(DIR_FS_CATALOG.'lang/'.$order->info['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
+    $class = $order->info['payment_method'];
+    $payment = new $class();
+    $payment->admin_order($_GET['oID']);
+  }
 }
 ?>
         </table></td>
@@ -592,19 +585,17 @@ $payment->admin_order($_GET['oID']);
             <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
             <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
 <?php
-
 	if ($order->products[0]['allow_tax'] == 1) {
 ?>
             <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
             <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
 <?php
-
 	}
 ?>
             <td class="dataTableHeadingContent" align="right"><?php
 
 	echo TABLE_HEADING_TOTAL_INCLUDING_TAX;
-	if ($order->products[$i]['allow_tax'] == 1) {
+	if (isset($order->products[$i]['allow_tax']) && $order->products[$i]['allow_tax'] == 1) {
 		echo ' (excl.)';
 	}
 ?></td>
@@ -615,7 +606,7 @@ $payment->admin_order($_GET['oID']);
 
 		echo '          <tr class="dataTableRow">'."\n".'            <td class="dataTableContent" valign="top" align="right">'.$order->products[$i]['qty'].'&nbsp;x&nbsp;</td>'."\n".'            <td class="dataTableContent" valign="top">'.$order->products[$i]['name'];
 
-		if (sizeof($order->products[$i]['attributes']) > 0) {
+		if (isset($order->products[$i]['attributes']) && sizeof($order->products[$i]['attributes']) > 0) {
 			for ($j = 0, $k = sizeof($order->products[$i]['attributes']); $j < $k; $j ++) {
 
 			//BOF -web28- 2010-03-21 - format correction
@@ -637,7 +628,7 @@ $payment->admin_order($_GET['oID']);
 		}
 
 		// attribute models
-		if (sizeof($order->products[$i]['attributes']) > 0) {
+		if (isset($order->products[$i]['attributes']) && sizeof($order->products[$i]['attributes']) > 0) {
 			for ($j = 0, $k = sizeof($order->products[$i]['attributes']); $j < $k; $j ++) {
 
 				$model = xtc_get_attributes_model($order->products[$i]['id'], $order->products[$i]['attributes'][$j]['value'],$order->products[$i]['attributes'][$j]['option']);
@@ -757,14 +748,13 @@ $payment->admin_order($_GET['oID']);
 		echo '<a class="button" href="'.xtc_href_link(FILENAME_GV_MAIL, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$order->customer['ID']).'">'.BUTTON_SEND_COUPON.'</a>';
 	}
 ?>
-<!-- BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //->
    <a class="button" href="Javascript:void()" onclick="window.open('<?php echo xtc_href_link(FILENAME_PRINT_ORDER,'oID='.$_GET['oID']); ?>', 'popup', 'toolbar=0, width=640, height=600')"><?php echo BUTTON_INVOICE; ?></a>
    <a class="button" href="Javascript:void()" onclick="window.open('<?php echo xtc_href_link(FILENAME_PRINT_PACKINGSLIP,'oID='.$_GET['oID']); ?>', 'popup', 'toolbar=0, width=640, height=600')"><?php echo BUTTON_PACKINGSLIP; ?></a>
-//-->
+*/ ?>
    <a class="button" href="Javascript:void()" onclick="window.open('<?php echo xtc_href_link(FILENAME_PRINT_ORDER,'oID='.$_GET['oID']); ?>', 'popup', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600')"><?php echo BUTTON_INVOICE; ?></a>
    <a class="button" href="Javascript:void()" onclick="window.open('<?php echo xtc_href_link(FILENAME_PRINT_PACKINGSLIP,'oID='.$_GET['oID']); ?>', 'popup', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width=640, height=600')"><?php echo BUTTON_PACKINGSLIP; ?></a>
-<!-- EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //->
+<?php /*<!-- EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable //-> */?>
 	<!-- BMC Delete CC Info -->
 	<a class="button" href="<?php echo xtc_href_link(FILENAME_ORDERS, 'oID='.$_GET['oID'].'&action=deleteccinfo').'">'.BUTTON_REMOVE_CC_INFO;?></a>&nbsp;
    <a class="button" href="<?php echo xtc_href_link(FILENAME_ORDERS, 'page='.$_GET['page'].'&oID='.$_GET['oID']).'">'.BUTTON_BACK;?></a>
@@ -800,9 +790,6 @@ elseif ($action == 'custom_action') {
               </form></td>
   </tr>
 </table>
-
-
-
 
         </td>
       </tr>
@@ -844,14 +831,14 @@ elseif ($action == 'custom_action') {
 	} else {
 		$orders_query_raw = "select o.orders_id, o.orders_status, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where (o.orders_status = s.orders_status_id and s.language_id = '".$_SESSION['languages_id']."' and ot.class = 'ot_total') or (o.orders_status = '0' and ot.class = 'ot_total' and  s.orders_status_id = '1' and s.language_id = '".$_SESSION['languages_id']."') order by o.orders_id DESC";
 	}
-	$orders_split = new splitPageResults($_GET['page'], '20', $orders_query_raw, $orders_query_numrows);
+	$orders_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_query_raw, $orders_query_numrows);
 	$orders_query = xtc_db_query($orders_query_raw);
 	while ($orders = xtc_db_fetch_array($orders_query)) {
-		if ((!isset($_GET['oID']) || ($_GET['oID'] == $orders['orders_id'])) && !isset($oInfo)) {
+		if ((!isset($_GET['oID']) || (isset($_GET['oID']) && ($_GET['oID'] == $orders['orders_id']))) && !isset($oInfo)) {
 			$oInfo = new objectInfo($orders);
 		}
 
-		if ((is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id)) {
+		if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
 			echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\''.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=edit').'\'">'."\n";
 		} else {
 			echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\''.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID')).'oID='.$orders['orders_id']).'\'">'."\n";
@@ -872,12 +859,11 @@ elseif ($action == 'custom_action') {
 		}
 ?></td>
                 <?php } ?>
-<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
                 <td class="dataTableContent" align="right"><?php if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
--->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+*/ ?>
+                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
               </tr>
 <?php
 
@@ -886,14 +872,13 @@ elseif ($action == 'custom_action') {
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $orders_split->display_count($orders_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $orders_split->display_links($orders_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page'], xtc_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
+                    <td class="smallText" valign="top"><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                    <td class="smallText" align="right"><?php echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], xtc_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
                   </tr>
                 </table></td>
               </tr>
             </table></td>
 <?php
-
 	$heading = array ();
 	$contents = array ();
 	switch ($action) {
@@ -906,7 +891,7 @@ elseif ($action == 'custom_action') {
 			$contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" value="'. BUTTON_DELETE .'"><a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id).'">' . BUTTON_CANCEL . '</a>');
 			break;
 		default :
-			if (is_object($oInfo)) {
+			if (isset($oInfo) && is_object($oInfo)) {
 				$heading[] = array ('text' => '<b>['.$oInfo->orders_id.']&nbsp;&nbsp;'.xtc_datetime_short($oInfo->date_purchased).'</b>');
 
 				$contents[] = array ('align' => 'center', 'text' => '<a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=edit').'">'.BUTTON_EDIT.'</a> <a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=delete').'">'.BUTTON_DELETE.'</a>');
@@ -929,7 +914,7 @@ elseif ($action == 'custom_action') {
 				for ($i = 0; $i < sizeof($order->products); $i ++) {
 					$contents[] = array ('text' => $order->products[$i]['qty'].'&nbsp;x'.$order->products[$i]['name']);
 
-					if (sizeof($order->products[$i]['attributes']) > 0) {
+					if (isset($order->products[$i]['attributes']) && sizeof($order->products[$i]['attributes']) > 0) {
 						for ($j = 0; $j < sizeof($order->products[$i]['attributes']); $j ++) {
 							$contents[] = array ('text' => '<small>&nbsp;<i> - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].'</i></small></nobr>');
 						}

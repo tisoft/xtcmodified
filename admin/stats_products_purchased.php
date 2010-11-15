@@ -130,8 +130,8 @@
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><?php echo $products_split->display_count($products_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-                <td class="smallText" align="right"><?php echo $products_split->display_links($products_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
+                <td class="smallText" valign="top"><?php echo $products_split->display_count($products_query_numrows, $maxrows, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+                <td class="smallText" align="right"><?php echo $products_split->display_links($products_query_numrows, $maxrows, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
               </tr>
 <?php /* BOF - DokuMan - 2010-08-12 - added possibility to reset admin statistics */?>
               <tr>
