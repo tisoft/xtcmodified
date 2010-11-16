@@ -8,7 +8,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(categories.php,v 1.140 2003/03/24); www.oscommerce.com
-   (c) 2003  nextcommerce (categories.php,v 1.37 2003/08/18); www.nextcommerce.org
+   (c) 2003 nextcommerce (categories.php,v 1.37 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
@@ -21,8 +21,8 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
- defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
- 
+  defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
+
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
   $search = (isset($_GET['search']) ? $_GET['search'] : '');
 
@@ -226,7 +226,7 @@
 
     $categories_count = 0;
     $rows = 0;
-    if (xtc_not_null($search)) {
+    if (isset($search)) {
       $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "' and cd.categories_name like '%" . $search . "%' order by " . $catsort);
     } else {
       $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by " . $catsort);
@@ -236,7 +236,7 @@
         $categories_count++;
         $rows++;
         if (xtc_not_null($search)) $cPath = $categories['parent_id'];
-        if ((!isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
+        if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
             $cInfo = new objectInfo($categories);
         }
 
@@ -248,7 +248,6 @@
     ?>
             <td class="categories_view_data"><input type="checkbox" name="multi_categories[]" value="<?php echo $categories['categories_id'] . '" '; if (isset($_POST['multi_categories']) && is_array($_POST['multi_categories'])) { if (in_array($categories['categories_id'], $_POST['multi_categories'])) { echo 'checked="checked"'; } } ?>></td>
             <td class="categories_view_data">--</td>    <td class="categories_view_data"><?php echo $categories['sort_order']; ?></td>
-
 
 
            <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
@@ -392,7 +391,7 @@
       // Get categories_id for product if search
       if (xtc_not_null($search)) $cPath=$products['categories_id'];
 
-      if ((!isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
+      if ((!isset($_GET['pID']) && !isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
         // find out the rating average from customer reviews
         $reviews_query = xtc_db_query("select (avg(reviews_rating) / 5 * 100) as average_rating from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
         $reviews = xtc_db_fetch_array($reviews_query);
@@ -548,7 +547,6 @@
   $contents = array();
 
     switch ($action) {
-
       case 'copy_to':
         //close multi-action form, not needed here
         $heading[] = array('text' => '</form><b>' . TEXT_INFO_HEADING_COPY_TO . '</b>');
