@@ -21,15 +21,17 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+
 // Shopping cart actions
-if (isset ($_GET['action'])) {
+if (xtc_not_null($action)) {
 	// redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled
 	if ($session_started == false) {
 		xtc_redirect(xtc_href_link(FILENAME_COOKIE_USAGE));
@@ -45,7 +47,7 @@ if (isset ($_GET['action'])) {
 		);
 	} else {
 		$goto = basename($PHP_SELF);
-		if ($_GET['action'] == 'buy_now') {
+		if ($action == 'buy_now') {
 			$parameters = array (
 				'action',
 				'pid',
@@ -62,7 +64,13 @@ if (isset ($_GET['action'])) {
 		}
 	}
 
-	switch ($_GET['action']) {
+  //BOF - Dokuman - 2010-11-16 - fix 'Fatal error: Call to a member function remove(), add_cart() for all actions
+  if (!is_object($_SESSION['cart'])) {
+    $_SESSION['cart'] = new shoppingCart();
+  }
+  //EOF - Dokuman - 2010-11-16 - fix 'Fatal error: Call to a member function remove(), add_cart()	for all actions
+
+	switch ($action) {
 
     //BOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
 		case 'remove_product':
@@ -71,7 +79,7 @@ if (isset ($_GET['action'])) {
 			xtc_redirect(xtc_href_link($goto, xtc_get_all_get_params($parameters), 'NONSSL')); // web28 - 2010-09-20 - change SSL -> NONSSL
 			break;
     //EOF - Dokuman - 15.08.2009 - show 'delete button' in shopping cart
-	
+
 		// customer wants to update the product quantity in their shopping cart
 		case 'update_product' :
 
@@ -79,16 +87,14 @@ if (isset ($_GET['action'])) {
 				$econda->_emptyCart();
 		//BOF - Hetfield - 2009.08.18 - Bugfix for numeric quantitys
 			for ($i = 0, $n = sizeof($_POST['products_id']); $i < $n; $i++) {
-			
+
 					$cart_quantity = xtc_remove_non_numeric($_POST['cart_quantity'][$i]);
-					//BOF - DokuMan - 2010-09-20 - set undefined index
-					//if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array ()))) {
-                    if (in_array($_POST['products_id'][$i], (isset($_POST['cart_delete']) && is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array ()))) {
-					//EOF - DokuMan - 2010-09-20 - set undefined index
+          if (in_array($_POST['products_id'][$i], (isset($_POST['cart_delete']) && is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array ()))) {
 					$_SESSION['cart']->remove($_POST['products_id'][$i]);
 
-                            if (isset($econda) && is_object($econda))
-						$econda->_delArticle($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $_POST['old_qty'][$i]);
+          if (isset($econda) && is_object($econda))
+          $econda->_delArticle($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $_POST['old_qty'][$i]);
+
 				} else {
 					if ($cart_quantity > MAX_PRODUCTS_QTY)
 						$cart_quantity = MAX_PRODUCTS_QTY;
@@ -98,7 +104,6 @@ if (isset ($_GET['action'])) {
 						$old_quantity = $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'][$i], $_POST['id'][$i]));
 						$econda->_updateProduct($_POST['products_id'][$i], $cart_quantity, $old_quantity);
 					}
-
 					$_SESSION['cart']->add_cart($_POST['products_id'][$i], $cart_quantity, $attributes, false);
 					unset($cart_quantity);
 				}
@@ -108,9 +113,9 @@ if (isset ($_GET['action'])) {
 			// customer adds a product from the products page
 		case 'add_product' :
 			if (isset ($_POST['products_id']) && is_numeric($_POST['products_id'])) {
-			
+
 				$cart_quantity = xtc_remove_non_numeric($_POST['products_qty']);
-				
+
 				if ($cart_quantity > MAX_PRODUCTS_QTY)
 					$cart_quantity = MAX_PRODUCTS_QTY;
 
@@ -119,19 +124,22 @@ if (isset ($_GET['action'])) {
 					$old_quantity = $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id']));
 					$econda->_addProduct($_POST['products_id'], $cart_quantity, $old_quantity);
 				}
-				
+
         //BOF - Dokuman - 2010-02-25 - fix 'Fatal error: Call to a member function add_cart()'
 				//$_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + $cart_quantity, $_POST['id']);
-        if (!is_object($_SESSION['cart'])) {
-          $_SESSION['cart'] = new shoppingCart();
-        }
+        //BOF - Dokuman - 2010-11-16 - fix 'Fatal error: Call to a member function remove(), add_cart() for all actions
+        //if (!is_object($_SESSION['cart'])) {
+        //  $_SESSION['cart'] = new shoppingCart();
+        //}
+        //BOF - Dokuman - 2010-11-16 - fix 'Fatal error: Call to a member function remove(), add_cart() for all actions
         $_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty']), $_POST['id']);
         //EOF - Dokuman - 2010-02-25 - fix 'Fatal error: Call to a member function add_cart()'
-				
+
 			}
 			xtc_redirect(xtc_href_link($goto, 'products_id=' . (int) $_POST['products_id'] . '&' . xtc_get_all_get_params($parameters)));
 			break;
 		//EOF - Hetfield - 2009.08.18 - Bugfix for numeric quantitys
+		
 		case 'check_gift' :
 			require_once (DIR_FS_INC . 'xtc_collect_posts.inc.php');
 			xtc_collect_posts();
@@ -145,18 +153,20 @@ if (isset ($_GET['action'])) {
 			}
 
 			$quickie_query = xtc_db_query("select
-						                                        products_fsk18,
-						                                        products_id from " . TABLE_PRODUCTS . "
-						                                        where products_model = '" . $quicky . "' " . "AND products_status = '1' " . $group_check);
+                                    products_fsk18,
+                                    products_id from " . TABLE_PRODUCTS . "
+                                    where products_model = '" . $quicky . "' " . "
+                                    AND products_status = '1' " . $group_check);
 
 			if (!xtc_db_num_rows($quickie_query)) {
 				if (GROUP_CHECK == 'true') {
 					$group_check = "and group_permission_" . $_SESSION['customers_status']['customers_status_id'] . "=1 ";
 				}
 				$quickie_query = xtc_db_query("select
-								                                                 products_fsk18,
-								                                                 products_id from " . TABLE_PRODUCTS . "
-								                                                 where products_model LIKE '%" . $quicky . "%' " . "AND products_status = '1' " . $group_check);
+                                       products_fsk18,
+                                       products_id from " . TABLE_PRODUCTS . "
+                                       where products_model LIKE '%" . $quicky . "%' " . "
+                                       AND products_status = '1' " . $group_check);
 			}
 			if (xtc_db_num_rows($quickie_query) != 1) {
 				xtc_redirect(xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $quicky, 'NONSSL'));
@@ -185,12 +195,16 @@ if (isset ($_GET['action'])) {
 			}
 			break;
 
-			// performed by the 'buy now' button in product listings and review page
+		// performed by the 'buy now' button in product listings and review page
 		case 'buy_now' :
-			if (isset ($_GET['BUYproducts_id'])) {
+			if (isset($_GET['BUYproducts_id'])) {
 				// check permission to view product
 
-				$permission_query = xtc_db_query("SELECT group_permission_" . $_SESSION['customers_status']['customers_status_id'] . " as customer_group, products_fsk18 from " . TABLE_PRODUCTS . " where products_id='" . (int) $_GET['BUYproducts_id'] . "'");
+				$permission_query = xtc_db_query("SELECT 
+                                          group_permission_" . $_SESSION['customers_status']['customers_status_id'] . " as customer_group,
+                                          products_fsk18
+                                          from " . TABLE_PRODUCTS . "
+                                          where products_id='" . (int)$_GET['BUYproducts_id'] . "'");
 				$permission = xtc_db_fetch_array($permission_query);
 
 				// check for FSK18
@@ -211,14 +225,11 @@ if (isset ($_GET['action'])) {
 					xtc_redirect(xtc_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . (int) $_GET['BUYproducts_id']));
 				} else {
 					if (isset ($_SESSION['cart'])) {
-
-
-                        if (isset($econda) && is_object($econda)) {
+            if (isset($econda) && is_object($econda)) {
 							$econda->_emptyCart();
 							$old_quantity = $_SESSION['cart']->get_quantity((int) $_GET['BUYproducts_id']);
 							$econda->_addProduct($_GET['BUYproducts_id'], $old_quantity +1, $old_quantity);
 						}
-
 						$_SESSION['cart']->add_cart((int) $_GET['BUYproducts_id'], $_SESSION['cart']->get_quantity((int) $_GET['BUYproducts_id']) + 1);
 					} else {
 						xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
