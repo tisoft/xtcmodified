@@ -40,7 +40,7 @@
                                     );
       $value = xtc_db_fetch_array($value_query);
 
-      if (isset($value['value'])) && $value['value']!='' {
+      if (isset($value['value']) && $value['value']!='') {
         $value['value'] = base64_decode($value['value']); //DokuMan - 2010-11-16 addded base64_decode
         return $value['value'];
       }
