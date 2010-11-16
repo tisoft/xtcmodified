@@ -1,14 +1,14 @@
 <?php
 /* --------------------------------------------------------------
    $Id$
-   
+
    http://www.xtc-modified.org
-   Copyright (c) 2010 xtcModified   
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(categories.php,v 1.140 2003/03/24); www.oscommerce.com
-   (c) 2003  nextcommerce (categories.php,v 1.37 2003/08/18); www.nextcommerce.org
+   (c) 2003 nextcommerce (categories.php,v 1.37 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (new_product.php 1193 2010-08-21)
 
    Released under the GNU General Public License
@@ -22,8 +22,8 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-if (($_GET['pID']) && (!$_POST)) {
-	$product_query = xtc_db_query("select *, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available 
+if (isset($_GET['pID']) && (!$_POST)) {
+	$product_query = xtc_db_query("select *, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available
 	                               from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
                                   where p.products_id = '".(int) $_GET['pID']."'
                                   and p.products_id = pd.products_id
@@ -105,20 +105,20 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
  <script type="text/javascript">
   /* set Datepicker for new_products (1) and products_specials (2) */
   $(function() {
-	  $('#hasDatepicker1').datepicker(		
+	  $('#hasDatepicker1').datepicker(
 		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
 		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
 	  );
 	  $('#hasDatepicker2').datepicker(
 		$.datepicker.regional['<?php echo strtolower($_SESSION['language_code']); ?>'],
-		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}	
-	  );	  
+		{dateFormat:'yy-mm-dd', changeMonth: true,	changeYear: true}
+	  );
 	});
 </script>
 <?php /* EOF - DokuMan/Web28 - 2010-09-20 - Replace SPIFFY CAL by JqueryUI */ ?>
 <tr><td>
-<?php $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product'; ?>
-<?php $fsk18_array=array(array('id'=>0,'text'=>NO),array('id'=>1,'text'=>YES)); ?>
+<?php $form_action = isset($_GET['pID']) ? 'update_product' : 'insert_product'; ?>
+<?php $fsk18_array = array(array('id'=>0,'text'=>NO),array('id'=>1,'text'=>YES)); ?>
 <?php echo xtc_draw_form('new_product', FILENAME_CATEGORIES, 'cPath=' . $_GET['cPath'] . '&pID=' . $_GET['pID'] . '&action='.$form_action, 'post', 'enctype="multipart/form-data"'); ?>
 <span class="pageHeading"><?php echo sprintf(TEXT_NEW_PRODUCT, xtc_output_generated_category_path($current_category_id)); ?></span><br />
 
@@ -152,13 +152,13 @@ $product_status_array = array(array('id'=>0,'text'=>TEXT_PRODUCT_NOT_AVAILABLE),
 <!-- EOF - Tomcraft - 2009-11-06 - Modified Section for use without Javascript //-->
 */
 ?>
-            <?php echo xtc_draw_input_field('products_date_available', $pInfo->products_date_available ,'id="hasDatepicker1" style="width: 135px"'); ?>
+            <?php echo xtc_draw_input_field('products_date_available', isset($pInfo->products_date_available) ? $pInfo->products_date_available : '','id="hasDatepicker1" style="width: 135px"'); ?>
 <?php /* EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI */ ?>
               </span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_STARTPAGE; ?></span></td>
-              <td><span class="main"><?php echo xtc_draw_selection_field('products_startpage', 'checkbox', '1',$pInfo->products_startpage==1 ? true : false); ?></span></td>
+              <td><span class="main"><?php echo xtc_draw_selection_field('products_startpage', 'checkbox', '1',isset($pInfo->products_startpage) && $pInfo->products_startpage==1 ? true : false); ?></span></td>
             </tr>
             <tr>
               <td><span class="main"><?php echo TEXT_PRODUCTS_STARTPAGE_SORT; ?></span></td>
@@ -256,7 +256,7 @@ if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product
 }
 $default_array = array ();
 // set default value in dropdown!
-if ($content['content_file'] == '') {
+if (empty($content['content_file'])) {
 	$default_array[] = array ('id' => 'default', 'text' => TEXT_SELECT);
 	$default_value = $pInfo->product_template;
 	$files = array_merge($default_array, $files);
@@ -270,7 +270,7 @@ if ($content['content_file'] == '') {
         <td><span class="main"><?php echo TEXT_CHOOSE_INFO_TEMPLATE; ?>:</span></td>
         <td><span class="main"><?php echo xtc_draw_pull_down_menu('info_template', $files, $default_value, 'style="width: 220px"'); ?></span></td>
       </tr>
-	  
+
 	  <?php
 $files = array ();
 if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product_options/')) {
@@ -286,7 +286,7 @@ if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/product
 }
 // set default value in dropdown!
 $default_array = array ();
-if ($content['content_file'] == '') {
+if (empty($content['content_file'])) {
 	$default_array[] = array ('id' => 'default', 'text' => TEXT_SELECT);
 	$default_value = $pInfo->options_template;
 	$files = array_merge($default_array, $files);
@@ -304,17 +304,17 @@ if ($content['content_file'] == '') {
         <td><span class="main">&nbsp;</span></td>
         <td><span class="main">&nbsp;</span></td>
       </tr>
-	  
+
     </table></td>
   </tr>
 </table>
 
   <!-- BOF - Tomcraft - 2009-11-06 - Included specials //-->
  <?php
- if (file_exists("includes/modules/categories_specials.php")) { 
+ if (file_exists("includes/modules/categories_specials.php")) {
 	require_once("includes/modules/categories_specials.php");
 	showSpecialsBox();
- }	
+ }
  ?>
   <!-- EOF - Tomcraft - 2009-11-06 - Included specials //-->
 
@@ -330,14 +330,14 @@ if ($content['content_file'] == '') {
 	  </script>
 	  <?php } ?>
   <!-- EOF - Tomcraft - 2009-11-06 - Included specials //-->
-      <td class="main" align="right">      	
+      <td class="main" align="right">
       	<input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
 		<!-- BOF - web28- 2010-08-20 - add update & view product button //-->
 		&nbsp;&nbsp;
 		<input type="submit" class="button" name="prod_update" value="<?php echo BUTTON_UPDATE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
 		<?php if (isset($_GET['pID']) && $_GET['pID'] > 0) { ?>
 		&nbsp;&nbsp;
-		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_VIEW_PRODUCT . '</a>'; 
+		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_VIEW_PRODUCT . '</a>';
 		} ?>
 		<!-- EOF - web28- 2010-08-20 - add update & view product button //-->
       	&nbsp;&nbsp;
@@ -346,69 +346,68 @@ if ($content['content_file'] == '') {
     </tr>
   </table>
   <!-- EOF - Tomcraft - 2009-11-02 - TOP SAVE AND CANCEL BUTTON //-->
-</div> 
-<!-- EOF - Tomcraft - 2009-11-02 - Block1 //--> 
+</div>
+<!-- EOF - Tomcraft - 2009-11-02 - Block1 //-->
 
-<!-- BOF - Tomcraft - 2009-11-02 - Block2 //--> 
-<div style="width: 860px; padding:5px;">  
+<!-- BOF - Tomcraft - 2009-11-02 - Block2 //-->
+<div style="width: 860px; padding:5px;">
   <?php // BOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
-  
+
   <link rel="stylesheet" type="text/css" href="includes/lang_tabs_menu/lang_tabs_menu.css">
   <script type="text/javascript" src="includes/lang_tabs_menu/lang_tabs_menu.js"></script>
-  <?php  
+  <?php
   $langtabs = '<div class="tablangmenu"><ul>';
   $csstabstyle = 'border: 1px solid #aaaaaa; padding: 5px; width: 850px; margin-top: -1px; margin-bottom: 10px; float: left;background: #F3F3F3;';
   $csstab = '<style type="text/css">' .  '#tab_lang_0' . '{display: block;' . $csstabstyle . '}';
   $csstab_nojs = '<style type="text/css">';
   for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-    $tabtmp = "\'tab_lang_$i\'," ; 
+    $tabtmp = "\'tab_lang_$i\'," ;
 // BOF - Tomcraft - 2009-11-17 - changed path to show language-flag
 //	$langtabs.= '<li onclick="showTab('. $tabtmp. $n.')" style="cursor: pointer;" id="tabselect_' . $i .'">' .xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . $languages[$i]['name'].  '</li>';
 	$langtabs.= '<li onclick="showTab('. $tabtmp. $n.')" style="cursor: pointer;" id="tabselect_' . $i .'">' .xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . $languages[$i]['name'].  '</li>';
 // EOF - Tomcraft - 2009-11-17 - changed path to show language-flag
     if($i > 0) $csstab .= '#tab_lang_' . $i .'{display: none;' . $csstabstyle . '}';
-    $csstab_nojs .= '#tab_lang_' . $i .'{display: block;' . $csstabstyle . '}';	
+    $csstab_nojs .= '#tab_lang_' . $i .'{display: block;' . $csstabstyle . '}';
   }
   $csstab .= '</style>';
-  $csstab_nojs .= '</style>';  
-  $langtabs.= '</ul></div>';  
+  $csstab_nojs .= '</style>';
+  $langtabs.= '</ul></div>';
   //echo $csstab;
-  //echo $langtabs;  
-  ?>   
-  <?php if (USE_ADMIN_LANG_TABS != 'false') { ?>  
+  //echo $langtabs;
+  ?>
+  <?php if (USE_ADMIN_LANG_TABS != 'false') { ?>
   <script type="text/javascript">
-    
+
 	document.write('<?php echo ($csstab);?>');
     document.write('<?php echo ($langtabs);?>');
-    //alert ("TEST");	
-   
+    //alert ("TEST");
+
   </script>
   <?php } else echo ($csstab_nojs);?>
   <noscript>
     <?php echo ($csstab_nojs);?>
-  </noscript>  
+  </noscript>
   <?php // EOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
-  
+
   <?php for ($i = 0, $n = sizeof($languages); $i < $n; $i++) { ?>
-  
+
   <?php // BOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
   <?php echo ('<div id="tab_lang_' . $i . '">');?>
   <?php // EOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
-  
+
   <table width="100%" border="0">
   <tr>
   <td bgcolor="#000000" height="10"></td>
   </tr>
   <tr>
-<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
     <td bgcolor="#FFCC33" valign="top" class="main"><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;<STRONG><?php echo TEXT_PRODUCTS_NAME; ?>&nbsp;</STRONG><?php echo xtc_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : xtc_get_products_name($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
-//-->
-    <td bgcolor="#FFCC33" valign="top" class="main"><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;<STRONG><?php echo TEXT_PRODUCTS_NAME; ?>&nbsp;</STRONG><?php echo xtc_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : xtc_get_products_name($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
-<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
+*/ ?>
+    <td bgcolor="#FFCC33" valign="top" class="main"><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;<STRONG><?php echo TEXT_PRODUCTS_NAME; ?>&nbsp;</STRONG><?php echo xtc_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (isset($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : xtc_get_products_name($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
+<?php /*<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //--> */ ?>
   </tr>
   <tr>
-    <td class="main"><?php echo TEXT_PRODUCTS_URL . '&nbsp;<small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?><?php echo xtc_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (($products_url[$languages[$i]['id']]) ? stripslashes($products_url[$languages[$i]['id']]) : xtc_get_products_url($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
+    <td class="main"><?php echo TEXT_PRODUCTS_URL . '&nbsp;<small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?><?php echo xtc_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (isset($products_url[$languages[$i]['id']]) ? stripslashes($products_url[$languages[$i]['id']]) : xtc_get_products_url($pInfo->products_id, $languages[$i]['id'])),'size=60'); ?></td>
   </tr>
 </table>
 
@@ -416,13 +415,12 @@ if ($content['content_file'] == '') {
 <table width="100%" border="0">
   <tr>
     <td class="main">
-<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
         <STRONG><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_DESCRIPTION; ?></STRONG><br />
-//-->
+*/?>
         <STRONG><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_DESCRIPTION; ?></STRONG><br />
-<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
-        <?php echo xtc_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '103', '30', (($products_description[$languages[$i]['id']]) ? stripslashes($products_description[$languages[$i]['id']]) : xtc_get_products_description($pInfo->products_id, $languages[$i]['id']))); ?>
+<?php /*<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //--> */ ?>
+        <?php echo xtc_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '103', '30', (isset($products_description[$languages[$i]['id']]) ? stripslashes($products_description[$languages[$i]['id']]) : xtc_get_products_description($pInfo->products_id, $languages[$i]['id']))); ?>
     </td>
   </tr>
 <!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
@@ -434,43 +432,42 @@ if ($content['content_file'] == '') {
 <table width="100%" border="0">
 <!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
     <tr>
-<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
-<!--
+<?php /*<!-- BOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
      <td width="60%" valign="top" class="main">        <strong><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></strong><br />
-//-->
+*/ ?>
 <!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
 	 <!--td width="100%" valign="top" class="main"-->
      <td width="100%" valign="top" class="main">
-<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	 
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
 		<strong><?php echo xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']) . ' ' . TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></strong><br />
-<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //-->
-       <?php echo xtc_draw_textarea_field('products_short_description_' . $languages[$i]['id'], 'soft', '103', '20', (($products_short_description[$languages[$i]['id']]) ? stripslashes($products_short_description[$languages[$i]['id']]) : xtc_get_products_short_description($pInfo->products_id, $languages[$i]['id']))); ?> 
-<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	 
+<?php /*<!-- EOF - Tomcraft - 2009-11-17 - changed path to show language-flag //--> */ ?>
+       <?php echo xtc_draw_textarea_field('products_short_description_' . $languages[$i]['id'], 'soft', '103', '20', (isset($products_short_description[$languages[$i]['id']]) ? stripslashes($products_short_description[$languages[$i]['id']]) : xtc_get_products_short_description($pInfo->products_id, $languages[$i]['id']))); ?>
+<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
 	 </td>
 	 </tr>
 	 <tr>
-<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	 
-<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs form size=25 to css width 100%//-->   
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
+<!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs form size=25 to css width 100%//-->
      <!--td class="main" valign="top" style="padding: 15px;"-->
      <td class="main" valign="top" style="padding: 3px;">
 		<?php $img_flag=  xtc_image(DIR_WS_LANGUAGES . $languages[$i]['directory'] .'/admin/images/'. $languages[$i]['image'], $languages[$i]['name']);?>
         <?php echo $img_flag. '&nbsp;'. TEXT_PRODUCTS_KEYWORDS . ' (max. 255 '. TEXT_CHARACTERS .')'; ?> <br/>
-        <?php echo xtc_draw_input_field('products_keywords[' . $languages[$i]['id'] . ']',(($products_keywords[$languages[$i]['id']]) ? stripslashes($products_keywords[$languages[$i]['id']]) : xtc_get_products_keywords($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="255"'); ?><br/>     
+        <?php echo xtc_draw_input_field('products_keywords[' . $languages[$i]['id'] . ']',(isset($products_keywords[$languages[$i]['id']]) ? stripslashes($products_keywords[$languages[$i]['id']]) : xtc_get_products_keywords($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="255"'); ?><br/>
         <?php echo $img_flag. '&nbsp;'. TEXT_META_TITLE. ' (max. 50 '. TEXT_CHARACTERS .')'; ?> <br/>
-        <?php echo xtc_draw_input_field('products_meta_title[' . $languages[$i]['id'] . ']',(($products_meta_title[$languages[$i]['id']]) ? stripslashes($products_meta_title[$languages[$i]['id']]) : xtc_get_products_meta_title($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="50"'); ?><br/>
+        <?php echo xtc_draw_input_field('products_meta_title[' . $languages[$i]['id'] . ']',(isset($products_meta_title[$languages[$i]['id']]) ? stripslashes($products_meta_title[$languages[$i]['id']]) : xtc_get_products_meta_title($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="50"'); ?><br/>
         <?php echo $img_flag. '&nbsp;'. TEXT_META_DESCRIPTION. ' (max. 140 '. TEXT_CHARACTERS .')'; ?> <br/>
-        <?php echo xtc_draw_input_field('products_meta_description[' . $languages[$i]['id'] . ']',(($products_meta_description[$languages[$i]['id']]) ? stripslashes($products_meta_description[$languages[$i]['id']]) : xtc_get_products_meta_description($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="140"'); ?><br/>
+        <?php echo xtc_draw_input_field('products_meta_description[' . $languages[$i]['id'] . ']',(isset($products_meta_description[$languages[$i]['id']]) ? stripslashes($products_meta_description[$languages[$i]['id']]) : xtc_get_products_meta_description($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="140"'); ?><br/>
         <?php echo $img_flag. '&nbsp;'. TEXT_META_KEYWORDS. ' (max. 180 '. TEXT_CHARACTERS .')'; ?> <br/>
-        <?php echo xtc_draw_input_field('products_meta_keywords[' . $languages[$i]['id'] . ']', (($products_meta_keywords[$languages[$i]['id']]) ? stripslashes($products_meta_keywords[$languages[$i]['id']]) : xtc_get_products_meta_keywords($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="180"'); ?> 
-<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs form size=25 to css width 100%//-->	
+        <?php echo xtc_draw_input_field('products_meta_keywords[' . $languages[$i]['id'] . ']', (isset($products_meta_keywords[$languages[$i]['id']]) ? stripslashes($products_meta_keywords[$languages[$i]['id']]) : xtc_get_products_meta_keywords($pInfo->products_id, $languages[$i]['id'])), 'style="width:100%" maxlength="180"'); ?>
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs form size=25 to css width 100%//-->
      </td>
     </tr>
     </table>
 <!-- BOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
 <!--/td>
-    </tr>    
-</table-->	
-<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->	
+    </tr>
+</table-->
+<!-- EOF - web28 - 2010-07-21 - changed  to show meta inputs to 100%//-->
 
 <?php // BOF - Tomcraft - 2009-11-02 - LANGUAGE TABS ?>
 <?php echo ('</div>');?>
@@ -519,11 +516,11 @@ if (GROUP_CHECK == 'true') {
 	for ($i = 0; $n = sizeof($customers_statuses_array), $i < $n; $i ++) {
 		$code = '$id=$pInfo->group_permission_'.$customers_statuses_array[$i]['id'].';';
 		eval ($code);
-		
+
 		if ($id==1) {
 
 			$checked = 'checked ';
-			
+
 		} else {
 			$checked = '';
 		}
@@ -563,7 +560,7 @@ echo xtc_draw_hidden_field('products_id', $pInfo->products_id);
 		<input type="submit" class="button" name="prod_update" value="<?php echo BUTTON_UPDATE; ?>" onClick="return confirm('<?php echo SAVE_ENTRY; ?>')">
 		<?php if (isset($_GET['pID']) && $_GET['pID'] > 0) { ?>
 		&nbsp;&nbsp;
-		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_VIEW_PRODUCT . '</a>'; 
+		<?php echo '<a class="button" href="' . xtc_href_link('../product_info.php', 'products_id=' . $_GET['pID']) . '" target="_blank">' . BUTTON_VIEW_PRODUCT . '</a>';
 		} ?>
 		<!-- EOF - web28- 2010-08-20 - add update & view product button //-->
       	&nbsp;&nbsp;
@@ -573,7 +570,7 @@ echo xtc_draw_hidden_field('products_id', $pInfo->products_id);
 </table>
 <!-- EOF - Tomcraft - 2009-11-02 - Save //-->
 </form>
-	
+
 <?php // BOF - Tomcraft - 2009-11-02 - NEW WIDTH ?>
 </div>
 <?php // EOF - Tomcraft - 2009-11-02 - NEW WIDTH ?>
