@@ -14,8 +14,6 @@
    (c) 2006 XT-Commerce (sessions.php 1195 2005-08-28)
 
    Released under the GNU General Public License
-
-   Do not use 'xtc_db_input()' on variable '$expiry' and '$value' as it breaks the db-session-entry
    ---------------------------------------------------------------------------------------*/
 
    @ini_set("session.gc_maxlifetime", 1440);
@@ -35,38 +33,58 @@
     }
 
     function _sess_read($key) {
-      $value_query = xtc_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "' and expiry > '" . time() . "'");
+      $value_query = xtc_db_query("select value
+                                    from " . TABLE_SESSIONS . "
+                                    where sesskey = '" . xtc_db_input($key) . "'
+                                    and expiry > '" . time() . "'"
+                                    );
       $value = xtc_db_fetch_array($value_query);
 
-      if (isset($value['value'])) {
+      if (isset($value['value'])) && $value['value']!='' {
+        $value['value'] = base64_decode($value['value']); //DokuMan - 2010-11-16 addded base64_decode
         return $value['value'];
       }
 
-      return false;
+      //return false;
+      return ("");
     }
 
     function _sess_write($key, $val) {
       global $SESS_LIFE;
 
       $expiry = time() + $SESS_LIFE;
-      $value = addslashes($val);
+      //$value = addslashes($val);
+      $value = base64_encode($val); //DokuMan - 2010-11-16 addded base64_encode
 
-      $check_query = xtc_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "'");
+      $check_query = xtc_db_query("select count(*) as total
+                                    from " . TABLE_SESSIONS . "
+                                    where sesskey = '" . xtc_db_input($key) . "'"
+                                    );
       $total = xtc_db_fetch_array($check_query);
 
       if ($total['total'] > 0) {
-        return xtc_db_query("update " . TABLE_SESSIONS . " set expiry = '" . (int)$expiry . "', value = '" . $value . "' where sesskey = '" . xtc_db_input($key) . "'");
+        return xtc_db_query("update " . TABLE_SESSIONS . "
+                              set expiry = '" . (int)$expiry . "',
+                              value = '" . xtc_db_input($value) . "'
+                              where sesskey = '" . xtc_db_input($key) . "'"
+                              );
       } else {
-        return xtc_db_query("insert into " . TABLE_SESSIONS . " values ('" . xtc_db_input($key) . "', '" . (int)$expiry . "', '" . $value . "')");
+        return xtc_db_query("insert into " . TABLE_SESSIONS . "
+                              values (
+                              '" . xtc_db_input($key) . "',
+                              '" . (int)$expiry . "', '" . xtc_db_input($value) . "')"
+                              );
       }
     }
 
     function _sess_destroy($key) {
-      return xtc_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "'");
+      return xtc_db_query("delete from " . TABLE_SESSIONS . "
+                            where sesskey = '" . xtc_db_input($key) . "'");
     }
 
     function _sess_gc($maxlifetime) {
-      xtc_db_query("delete from " . TABLE_SESSIONS . " where expiry < '" . time() . "'");
+      xtc_db_query("delete from " . TABLE_SESSIONS . "
+                    where expiry < '" . time() . "'");
 
       return true;
     }

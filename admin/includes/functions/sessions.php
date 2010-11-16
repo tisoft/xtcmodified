@@ -1,23 +1,20 @@
 <?php
-/* --------------------------------------------------------------
-   $Id$   
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
-   --------------------------------------------------------------
-   based on: 
+   -----------------------------------------------------------------------------------------
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(sessions.php,v 1.16 2003/04/02); www.oscommerce.com 
-   (c) 2003	 nextcommerce (sessions.php,v 1.7 2003/08/18); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(sessions.php,v 1.16 2003/04/02); www.oscommerce.com
+   (c) 2003	nextcommerce (sessions.php,v 1.7 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (sessions.php 950 2005-05-14)
 
-   Released under the GNU General Public License 
-
-   Do not use 'xtc_db_input()' on variable '$key' as it breaks the db-session-entry
-   --------------------------------------------------------------*/
-
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------------------------*/
 
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   if (STORE_SESSIONS == 'mysql') {
@@ -34,38 +31,58 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function _sess_read($key) {
-      $value_query = xtc_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "' and expiry > '" . time() . "'");
+      $value_query = xtc_db_query("select value
+                                    from " . TABLE_SESSIONS . "
+                                    where sesskey = '" . xtc_db_input($key) . "'
+                                    and expiry > '" . time() . "'"
+                                    );
       $value = xtc_db_fetch_array($value_query);
-      
-      if (isset($value['value'])) {
+
+      if (isset($value['value']) && $value['value']!='') {
+        $value['value'] = base64_decode($value['value']); //DokuMan - 2010-11-16 addded base64_decode
         return $value['value'];
       }
 
-      return false;
+      //return false;
+      return ("");
     }
 
     function _sess_write($key, $val) {
       global $SESS_LIFE;
 
       $expiry = time() + $SESS_LIFE;
-      $value = addslashes($val);
+      //$value = addslashes($val);
+      $value = base64_encode($val); //DokuMan - 2010-11-16 addded base64_encode
 
-      $check_query = xtc_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "'");
+      $check_query = xtc_db_query("select count(*) as total
+                                    from " . TABLE_SESSIONS . "
+                                    where sesskey = '" . xtc_db_input($key) . "'"
+                                    );
       $total = xtc_db_fetch_array($check_query);
 
       if ($total['total'] > 0) {
-        return xtc_db_query("update " . TABLE_SESSIONS . " set expiry = '" . (int)$expiry . "', value = '" . $value . "' where sesskey = '" . xtc_db_input($key) . "'");
+        return xtc_db_query("update " . TABLE_SESSIONS . "
+                              set expiry = '" . (int)$expiry . "',
+                              value = '" . xtc_db_input($value) . "'
+                              where sesskey = '" . xtc_db_input($key) . "'"
+                              );
       } else {
-        return xtc_db_query("insert into " . TABLE_SESSIONS . " values ('" . xtc_db_input($key) . "', '" . (int)$expiry . "', '" . $value . "')");
+        return xtc_db_query("insert into " . TABLE_SESSIONS . "
+                              values (
+                              '" . xtc_db_input($key) . "',
+                              '" . (int)$expiry . "', '" . xtc_db_input($value) . "')"
+                              );
       }
     }
 
     function _sess_destroy($key) {
-      return xtc_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . xtc_db_input($key) . "'");
+      return xtc_db_query("delete from " . TABLE_SESSIONS . "
+                            where sesskey = '" . xtc_db_input($key) . "'");
     }
 
     function _sess_gc($maxlifetime) {
-      xtc_db_query("delete from " . TABLE_SESSIONS . " where expiry < '" . time() . "'");
+      xtc_db_query("delete from " . TABLE_SESSIONS . "
+                    where expiry < '" . time() . "'");
 
       return true;
     }
@@ -77,7 +94,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     return session_start();
   }
 // BOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
-/*  
+/*
 function xtc_session_register($variable) {
     global $session_started;
 
@@ -87,6 +104,7 @@ function xtc_session_register($variable) {
   }
 */
 // EOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
+
 // BOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
 /*
   function xtc_session_is_registered($variable) {
@@ -94,13 +112,14 @@ function xtc_session_register($variable) {
   }
 */
 // EOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
-// BOF - Hetfield - 2009-08-19 - removed deprecated function xtc_session_unregister to be ready for PHP >= 5.3
+
+// BOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
 /*
   function xtc_session_unregister($variable) {
     return session_unregister($variable);
   }
 */
-// EOF - Hetfield - 2009-08-19 - removed deprecated function xtc_session_unregister to be ready for PHP >= 5.3
+// EOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
   function xtc_session_id($sessid = '') {
     if (!empty($sessid)) {
       return session_id($sessid);
