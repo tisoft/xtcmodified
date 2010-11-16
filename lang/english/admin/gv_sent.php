@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: gv_sent.php 899 2005-04-29 02:40:57Z hhgag $
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -26,18 +26,17 @@
    ---------------------------------------------------------------------------------------*/
 
 define('HEADING_TITLE', 'Gift Voucher\'s Sent');
-
+define('TABLE_HEADING_ID', 'cID');
 define('TABLE_HEADING_SENDERS_NAME', 'Senders Name');
 define('TABLE_HEADING_VOUCHER_VALUE', 'Voucher Value');
 define('TABLE_HEADING_VOUCHER_CODE', 'Voucher Code');
 define('TABLE_HEADING_DATE_SENT', 'Date Sent');
 define('TABLE_HEADING_ACTION', 'Action');
-
 define('TEXT_INFO_SENDERS_ID', 'Senders ID:');
 define('TEXT_INFO_AMOUNT_SENT', 'Amount Sent:');
 define('TEXT_INFO_DATE_SENT', 'Date Sent:');
 define('TEXT_INFO_VOUCHER_CODE', 'Voucher Code:');
-define('TEXT_INFO_EMAIL_ADDRESS', 'E-Mail Address:');
+define('TEXT_INFO_EMAIL_ADDRESS', 'email Address:');
 define('TEXT_INFO_DATE_REDEEMED', 'Date Redeemed:');
 define('TEXT_INFO_IP_ADDRESS', 'IP Address:');
 define('TEXT_INFO_CUSTOMERS_ID', 'Customer Id:');
@@ -45,4 +44,10 @@ define('TEXT_INFO_NOT_REDEEMED', 'Not Redeemed');
 //BOF - DokuMan - 2010-08-10 - show customer's remaining credit
 define('TEXT_INFO_REMAINING_CREDIT', 'Remaining credit:');
 //EOF - DokuMan - 2010-08-10 - show customer's remaining credit
+define('TEXT_INFO_HEADING_DELETE_GV', 'Delete Voucher');
+define('TEXT_DELETE_INTRO', 'Would you like to delete the selected voucher?');
+define('TABLE_HEADING_ADDRESSEE', 'Addressee');
+define('TEXT_VOUCHER_STATUS', 'Status');
+define('STATUS_ICON_STATUS_GREEN', 'redeemed');
+define('STATUS_ICON_STATUS_RED', 'until today not redeemed');
 ?>

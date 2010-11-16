@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: gv_queue.php 899 2005-04-29 02:40:57Z hhgag $
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -26,9 +26,9 @@
    ---------------------------------------------------------------------------------------*/
 
 
-define('HEADING_TITLE', 'Gutschein Freigabe Warteschlange');
+define('HEADING_TITLE', 'Gutschein Freigabe Warteschlange <i>(Bestellung)</i>');
 
-define('TABLE_HEADING_CUSTOMERS', 'Kunden');
+define('TABLE_HEADING_CUSTOMERS', 'Kunde');
 define('TABLE_HEADING_ORDERS_ID', 'Bestell-Nr.');
 define('TABLE_HEADING_VOUCHER_VALUE', 'Gutscheinwert');
 define('TABLE_HEADING_DATE_PURCHASED', 'Bestelldatum');

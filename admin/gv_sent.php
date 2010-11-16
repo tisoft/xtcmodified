@@ -31,6 +31,19 @@
   require(DIR_WS_CLASSES . 'currencies.php');
   $currencies = new currencies();
 
+//BOF - DokuMan - 2010-11-16 - delete sent vouchers 
+$gv_id = xtc_db_prepare_input($_GET['gid']);
+if ( $_GET['action'] && $gv_id != '' ) {
+  switch ($_GET['action']) {
+    case 'deleteconfirm' :
+    xtc_db_query("delete from ".TABLE_COUPONS." where coupon_id = '".xtc_db_input($gv_id)."'");
+    xtc_db_query("delete from ".TABLE_COUPON_EMAIL_TRACK." where coupon_id = '".xtc_db_input($gv_id)."'");
+    xtc_db_query("delete from ".TABLE_COUPON_REDEEM_TRACK." where coupon_id = '".xtc_db_input($gv_id)."'");
+    xtc_redirect(xtc_href_link(FILENAME_GV_SENT, xtc_get_all_get_params(array ('gid', 'action'))));
+    break;
+  }
+}
+//EOF - DokuMan - 2010-11-16 - delete sent vouchers 
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -66,16 +79,20 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_ID; ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_SENDERS_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_VOUCHER_CODE; ?></td>
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ADDRESSEE; ?></td>
+                <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></td>
+                <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_VOUCHER_CODE; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_DATE_SENT; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo TEXT_VOUCHER_STATUS; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $gv_query_raw = "select c.coupon_amount, c.coupon_code, c.coupon_id, et.sent_firstname, et.sent_lastname, et.customer_id_sent, et.emailed_to, et.date_sent, c.coupon_id from " . TABLE_COUPONS . " c, " . TABLE_COUPON_EMAIL_TRACK . " et where c.coupon_id = et.coupon_id";
+  $gv_query_raw = "select c.coupon_amount, c.coupon_code, c.coupon_id, c.coupon_active, et.sent_firstname, et.sent_lastname, et.customer_id_sent, et.emailed_to, et.date_sent, c.coupon_id from " . TABLE_COUPONS . " c, " . TABLE_COUPON_EMAIL_TRACK . " et where c.coupon_id = et.coupon_id";
   $gv_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $gv_query_raw, $gv_query_numrows);
   $gv_query = xtc_db_query($gv_query_raw);
+
   while ($gv_list = xtc_db_fetch_array($gv_query)) {
     if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['coupon_id']))) && !isset($gInfo)) {
     $gInfo = new objectInfo($gv_list);
@@ -86,15 +103,19 @@
       echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('gv_sent.php', xtc_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo $gv_list['sent_firstname'] . ' ' . $gv_list['sent_lastname']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $currencies->format($gv_list['coupon_amount']); ?></td>
-                <td class="dataTableContent" align="center"><?php echo $gv_list['coupon_code']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo xtc_date_short($gv_list['date_sent']); ?></td>
-<?php /* <!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($gInfo)) && ($gv_list['coupon_id'] == $gInfo->coupon_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_GV_SENT, 'page=' . $_GET['page'] . '&gid=' . $gv_list['coupon_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-*/ ?>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $gv_list['coupon_id']; ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $gv_list['sent_firstname'] . ' ' . $gv_list['sent_lastname']; ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $gv_list['emailed_to']; ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $currencies->format($gv_list['coupon_amount']); ?></td>
+                <td class="dataTableContent" align="left">&nbsp;<?php echo $gv_list['coupon_code']; ?></td>
+                <td class="dataTableContent" align="right"><?php echo xtc_date_short($gv_list['date_sent']); ?>&nbsp;</td>
+                <td class="dataTableContent" align="center"><?php
+                  if ($gv_list['coupon_active'] == 'N') {
+                    echo xtc_image(DIR_WS_ICONS . 'icon_status_green.gif', STATUS_ICON_STATUS_GREEN, 10, 10);
+                   } else { echo xtc_image(DIR_WS_ICONS . 'icon_status_red.gif', STATUS_ICON_STATUS_RED, 10, 10);
+                  } ?></td>
+
                 <td class="dataTableContent" align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_GV_SENT, 'page=' . $_GET['page'] . '&gid=' . $gv_list['coupon_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
               </tr>
 <?php
   }
@@ -117,6 +138,11 @@
     $redeem_query = xtc_db_query("select * from " . TABLE_COUPON_REDEEM_TRACK . " where coupon_id = '" . $gInfo->coupon_id . "'");
     $redeemed = 'No';
     if (xtc_db_num_rows($redeem_query) > 0) $redeemed = 'Yes';
+
+	//BOF - DokuMan - 2010-11-16 - delete sent vouchers 
+    $contents = array('form' => xtc_draw_form('gv', FILENAME_GV_SENT, xtc_get_all_get_params(array ('gid', 'action')).'gid='.$_GET['gid'].'&action=confirm'));
+	//EOF - DokuMan - 2010-11-16 - delete sent vouchers 
+
     $contents[] = array('text' => TEXT_INFO_SENDERS_ID . ' ' . $gInfo->customer_id_sent);
     $contents[] = array('text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($gInfo->coupon_amount));
     $contents[] = array('text' => TEXT_INFO_DATE_SENT . ' ' . xtc_date_short($gInfo->date_sent));
@@ -135,16 +161,26 @@
       //BOF - DokuMan - 2010-08-10 - show customer's remaining credit
     } else {
       $contents[] = array('text' => '<br />' . TEXT_INFO_NOT_REDEEMED);
+	//BOF - DokuMan - 2010-11-16 - delete sent vouchers 
+      $contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" value="'.BUTTON_DELETE.'">');
     }
- }
-
+      if ( $_GET['action'] && $gv_id != '' ) {
+        switch ($_GET['action']) {
+        case 'confirm' :
+        $heading[]  = array ('text'  => '<strong>'.TEXT_INFO_HEADING_DELETE_GV.'<strong>');
+        $contents   = array('form'   => xtc_draw_form('gv', FILENAME_GV_SENT, xtc_get_all_get_params(array ('gid', 'action')).'gid='.$_GET['gid'].'&action=deleteconfirm'));
+        $contents[] = array ('text'  => TEXT_DELETE_INTRO.'<br /><br />');
+        $contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" value="'.BUTTON_DELETE.'"><a class="button" href="'.xtc_href_link(FILENAME_GV_SENT, xtc_get_all_get_params(array ('gid', 'action')).'gid='.$gv_id).'">'.BUTTON_CANCEL.'</a>');
+        break;
+      }
+    }
+	//BOF - DokuMan - 2010-11-16 - delete sent vouchers 
+}
   if ( (xtc_not_null($heading)) && (xtc_not_null($contents)) ) {
     echo '            <td width="25%" valign="top">' . "\n";
-
     $box = new box;
     echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
+   echo '            </td>' . "\n";
   }
 ?>
           </tr>
@@ -155,7 +191,6 @@
   </tr>
 </table>
 <!-- body_eof //-->
-
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->

@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: coupon_admin.php 899 2005-04-29 02:40:57Z hhgag $
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -61,10 +61,9 @@ define('TEXT_REDEMPTIONS_TOTAL', 'In Total');
 define('TEXT_REDEMPTIONS_CUSTOMER', 'For this Customer');
 define('TEXT_NO_FREE_SHIPPING', 'No Free Shipping');
 
-define('NOTICE_EMAIL_SENT_TO', 'Notice: E-Mail sent to: %s');
+define('NOTICE_EMAIL_SENT_TO', 'Notice: email sent to: %s');
 define('ERROR_NO_CUSTOMER_SELECTED', 'Error: No customer has been selected.');
 define('COUPON_NAME', 'Coupon Name');
-//define('COUPON_VALUE', 'Coupon Value');
 define('COUPON_AMOUNT', 'Coupon Amount');
 define('COUPON_CODE', 'Coupon Code');
 define('COUPON_STARTDATE', 'Start Date');
@@ -96,15 +95,15 @@ define('COUPON_USES_USER_HELP', 'Number of times a user can use the coupon, leav
 define('COUPON_PRODUCTS_HELP', 'A comma separated list of product_ids that this coupon can be used with. Leave blank for no restrictions.');
 define('COUPON_CATEGORIES_HELP', 'A comma separated list of cpaths that this coupon can be used with, leave blank for no restrictions.');
 define('COUPON_ID', 'cID');
-define('BUTTON_DELETE_NO_CONFIRM', 'Delete without confirm');
+define('BUTTON_DELETE_NO_CONFIRM', 'Delete without confirmation');
 define('TEXT_NONE', 'no restrictions');
 define('TEXT_COUPON_DELETE', 'Delete');
-define('TEXT_COUPON_STATUS', 'Statuses');
+define('TEXT_COUPON_STATUS', 'Status');
 define('TEXT_COUPON_DETAILS', 'Coupon details');
-define('TEXT_COUPON_EMAIL', 'E-mail delivery');
+define('TEXT_COUPON_EMAIL', 'send email');
 define('TEXT_COUPON_OVERVIEW', 'Overview');
-define('TEXT_COUPON_EMAIL_PREVIEW', 'Confirm');
-define('TEXT_COUPON_MINORDER', 'Coupon Minimum Order');
+define('TEXT_COUPON_EMAIL_PREVIEW', 'Confirmation');
+define('TEXT_COUPON_MINORDER', 'min. Order Value');
 define('TEXT_VIEW', 'List view');
-define('TEXT_VIEW_SHORT', 'View');
+define('TEXT_VIEW_SHORT', 'Show');
 ?>

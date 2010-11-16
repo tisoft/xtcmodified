@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: coupon_admin.php 899 2005-04-29 02:40:57Z hhgag $
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
@@ -57,14 +57,13 @@ define('REDEEM_DATE', 'eingel&ouml;st am');
 define('IP_ADDRESS', 'IP Adresse');
 
 define('TEXT_REDEMPTIONS', 'Einl&ouml;sung');
-define('TEXT_REDEMPTIONS_TOTAL', 'Insgesamt');
-define('TEXT_REDEMPTIONS_CUSTOMER', 'F&uuml;r diesen Kunden');
+define('TEXT_REDEMPTIONS_TOTAL', 'Insgesamt:');
+define('TEXT_REDEMPTIONS_CUSTOMER', 'F&uuml;r diesen Kunden:');
 define('TEXT_NO_FREE_SHIPPING', 'Nicht Versandkostenfrei');
 
 define('NOTICE_EMAIL_SENT_TO', 'Notiz: E-Mail versendet an: %s');
 define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Kein Kunde ausgew&auml;hlt.');
 define('COUPON_NAME', 'Kupon Name');
-//define('Kupon_VALUE', 'Kupon Wert');
 define('COUPON_AMOUNT', 'Kupon Wert');
 define('COUPON_CODE', 'Kupon Code');
 define('COUPON_STARTDATE', 'g&uuml;ltig ab');
@@ -81,7 +80,6 @@ define('DATE_CREATED', 'erstellt am');
 define('DATE_MODIFIED', 'ge&auml;ndert am');
 define('TEXT_HEADING_NEW_COUPON', 'Neuen Kupon erstellen');
 define('TEXT_NEW_INTRO', 'Bitte geben Sie die folgende Informationen f&uuml;r den neuen Kupon an.<br />');
-
 
 define('COUPON_NAME_HELP', 'Eine Kurzbezeichnung f&uuml;r den Kupon');
 define('COUPON_AMOUNT_HELP', 'Tragen Sie hier den Rabatt f&uuml;r diesen Kupon ein. Entweder einen festen Betrag oder einen prozentualen Rabatt wie z.B. 10%');
