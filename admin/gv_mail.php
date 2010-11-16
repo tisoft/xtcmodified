@@ -19,14 +19,12 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
-
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
 
   require('includes/application_top.php');
   require_once(DIR_FS_INC . 'xtc_wysiwyg.inc.php');
@@ -40,7 +38,9 @@
   // initiate template engine for mail
   $smarty = new Smarty;
 
-  if ( ($_GET['action'] == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!$_POST['back_x']) ) {
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!$_POST['back_x']) ) {
     switch ($_POST['customers_email_address']) {
       case '***':
         $mail_query = xtc_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS);
@@ -86,9 +86,7 @@
       $smarty->assign('GIFT_ID', $id1);
       $smarty->assign('WEBSITE', HTTP_SERVER  . DIR_WS_CATALOG);
 
-
       $link = HTTP_SERVER  . DIR_WS_CATALOG . 'gv_redeem.php' . '?gv_no='.$id1;
-
 
       $smarty->assign('GIFT_LINK',$link);
 
@@ -97,7 +95,6 @@
 
       if ($subject=='') $subject=EMAIL_BILLING_SUBJECT;
       xtc_php_mail(EMAIL_BILLING_ADDRESS,EMAIL_BILLING_NAME, $mail['customers_email_address'] , $mail['customers_firstname'] . ' ' . $mail['customers_lastname'] , '', EMAIL_BILLING_REPLY_ADDRESS, EMAIL_BILLING_REPLY_ADDRESS_NAME, '', '', $subject, $html_mail , $txt_mail);
-
 
 	  // Now create the coupon main and email entry
       $insert_query = xtc_db_query("insert into " . TABLE_COUPONS . " (coupon_code, coupon_type, coupon_amount, date_created) values ('" . $id1 . "', 'G', '" . $_POST['amount'] . "', now())");
@@ -117,11 +114,9 @@
       $smarty->config_dir=DIR_FS_CATALOG.'lang';
 
       //BOF - GTB - 2010-08-03 - Security Fix - Base
-	  $smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
-	  //$smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
-	  //EOF - GTB - 2010-08-03 - Security Fix - Base
+      //$smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
+      //EOF - GTB - 2010-08-03 - Security Fix - Base
       $smarty->assign('logo_path',HTTP_SERVER  . DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
-
       $smarty->assign('AMMOUNT', $currencies->format($_POST['amount']));
       $smarty->assign('MESSAGE', $_POST['message']);
       $smarty->assign('GIFT_ID', $id1);
@@ -135,14 +130,13 @@
         $link = HTTP_SERVER  . DIR_WS_CATALOG . 'gv_redeem.php' . '?gv_no='.$id1;
       }
 */
-    $link = HTTP_SERVER  . DIR_WS_CATALOG . 'gv_redeem.php' . '?gv_no='.$id1;
+      $link = HTTP_SERVER  . DIR_WS_CATALOG . 'gv_redeem.php' . '?gv_no='.$id1;
 //-- SEO ShopStat
 
       $smarty->assign('GIFT_LINK',$link);
 
       $html_mail=$smarty->fetch(CURRENT_TEMPLATE . '/admin/mail/'.$_SESSION['language'].'/send_gift.html');
       $txt_mail=$smarty->fetch(CURRENT_TEMPLATE . '/admin/mail/'.$_SESSION['language'].'/send_gift.txt');
-
 
       xtc_php_mail(EMAIL_BILLING_ADDRESS,EMAIL_BILLING_NAME, $_POST['email_to'] , '' , '', EMAIL_BILLING_REPLY_ADDRESS, EMAIL_BILLING_REPLY_ADDRESS_NAME, '', '', EMAIL_BILLING_SUBJECT, $html_mail , $txt_mail);
 
@@ -155,16 +149,16 @@
     xtc_redirect(xtc_href_link(FILENAME_GV_MAIL, 'mail_sent_to=' . urlencode($mail_sent_to)));
   }
 
-  if ( ($_GET['action'] == 'preview') && (!$_POST['customers_email_address']) && (!$_POST['email_to']) ) {
+  if ( ($action == 'preview') && (!$_POST['customers_email_address']) && (!$_POST['email_to']) ) {
     $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
   }
 
-  if ( ($_GET['action'] == 'preview') && (!$_POST['amount']) ) {
+  if ( ($action == 'preview') && (!$_POST['amount']) ) {
     $messageStack->add(ERROR_NO_AMOUNT_SELECTED, 'error');
   }
 
-  if ($_GET['mail_sent_to']) {
-    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
+  if (isset($_GET['mail_sent_to'])) {
+    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'success');
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -173,7 +167,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<?php if (USE_WYSIWYG=='true' && $_GET['action'] != 'preview') {
+<?php if (USE_WYSIWYG=='true' && $action != 'preview') {
  $query=xtc_db_query("SELECT code FROM ". TABLE_LANGUAGES ." WHERE languages_id='".$_SESSION['languages_id']."'");
  $data=xtc_db_fetch_array($query);
  echo xtc_wysiwyg('gv_mail',$data['code']);
@@ -205,7 +199,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  if ( ($_GET['action'] == 'preview') && ($_POST['customers_email_address'] || $_POST['email_to']) ) {
+  if ( ($action == 'preview') && ($_POST['customers_email_address'] || $_POST['email_to']) ) {
     switch ($_POST['customers_email_address']) {
       case '***':
         $mail_sent_to = TEXT_ALL_CUSTOMERS;
@@ -285,9 +279,10 @@
                 <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
 <?php
-    if ($_GET['cID']) {
+    if (isset($_GET['cID'])) {
     $select='where customers_id='.$_GET['cID'];
     } else {
+    $select = '';
     $customers = array();
     $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
     $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
@@ -301,7 +296,7 @@
 ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
-                <td><?php echo xtc_draw_pull_down_menu('customers_email_address', $customers, $_GET['customer']);?></td>
+                <td><?php echo xtc_draw_pull_down_menu('customers_email_address', $customers, isset($_GET['customer']) ? $_GET['customer'] : '');?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
