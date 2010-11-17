@@ -45,6 +45,11 @@ if (file_exists('includes/local/configure.php')) {
 	include ('includes/configure.php');
 }
 
+//BOF - DokuMan - 2010-11-17 - Added Debug-Log-Class - thx to franky
+include(DIR_WS_CLASSES.'class.debug.php');
+$log = new debug;
+//EOF - DokuMan - 2010-11-17 - Added Debug-Log-Class - thx to franky
+
 // BOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
 date_default_timezone_set('Europe/Berlin');
@@ -580,10 +585,10 @@ if (DIR_WS_CATALOG == '/') {
 	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
 	$link_index = HEADER_TITLE_TOP; //web28 - 2010-11-13 - define link_index
 } else {
-	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link 
-	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);	
+	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link
+	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
 	$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER,'target="_blank"');
-	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link	
+	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link
 	$breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
 	$link_index = HEADER_TITLE_CATALOG; //web28 - 2010-11-13 - define link_index
 }

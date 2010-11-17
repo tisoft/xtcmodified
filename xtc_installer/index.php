@@ -207,6 +207,10 @@ if (!is_writeable(DIR_FS_CATALOG . 'import/')) {
   $error_flag=true;
   $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'import/<br />';
 }
+if (!is_writeable(DIR_FS_CATALOG . 'log/')) {
+  $error_flag=true;
+  $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'log/<br />';
+}
 if (!is_writeable(DIR_FS_CATALOG . 'media/content/')) {
   $error_flag=true;
   $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'media/content/<br />';
