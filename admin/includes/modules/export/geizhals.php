@@ -15,8 +15,8 @@
 
    based on:
    billiger.php
-      added fields for geizhals specific export and included zip capability;
-      named module geizhals.php
+   added fields for geizhals specific export and included zip capability;
+   named module geizhals.php
 
    updated version by franky_n
 
@@ -238,10 +238,10 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 
     ################## added by geizhals
     function getShipCost($table, $weight) {
-      $vals=split(',',$table);
+      $vals=explode(',',$table); //Dokuman - 2010-11-20 - replace deprecated function split() with explode()
       $ret='n/a';
       foreach($vals as &$val) {
-        list($kg,$cost)=split(':',$val);
+        list($kg,$cost)=explode(':',$val); //Dokuman - 2010-11-20 - replace deprecated function split() with explode()
         if($weight <= $kg) {
           $ret = $cost;
           break;

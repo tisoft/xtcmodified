@@ -77,7 +77,7 @@
 
       for ($i=1; $i<=$this->num_gls; $i++) {
         $countries_table = constant('MODULE_SHIPPING_GLS_COUNTRIES_' . $i);
-        $country_zones = split("[,]", $countries_table);
+        $country_zones = preg_split("/[,]/", $countries_table); // DokuMan - 2010-11-20 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $i;
           break;
@@ -85,7 +85,7 @@
       }
 
       $plz_table = constant('MODULE_SHIPPING_GLS_POSTCODE');
-      $plz_zones = split("[,]",$plz_table);
+      $plz_zones = preg_split("/[,]/",$plz_table); // DokuMan - 2010-11-20 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
         if (in_array($dest_plz, $plz_zones)) {
           $dest_plz_in = $dest_plz;
         }
@@ -96,7 +96,7 @@
       } else {
         $shipping = -1;
         $gls_cost = constant('MODULE_SHIPPING_GLS_COST_' . $i);
-        $gls_table = split("[:,]" , $gls_cost);
+        $gls_table = preg_split("/[:,]/" , $gls_cost); // DokuMan - 2010-11-20 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
         for ($i=0; $i<sizeof($gls_table); $i+=2) {
           if ($shipping_weight <= $gls_table[$i]) {
             $shipping = $gls_table[$i+1];
