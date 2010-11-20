@@ -25,7 +25,7 @@ require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
 require_once (DIR_FS_INC.'xtc_row_number_format.inc.php');
 require_once (DIR_FS_INC.'xtc_date_short.inc.php');
 
-// lets retrieve all $HTTP_GET_VARS keys and values..
+// lets retrieve all $_GET keys and values..
 $get_params = xtc_get_all_get_params();
 $get_params_back = xtc_get_all_get_params(array ('reviews_id')); // for back button
 $get_params = substr($get_params, 0, -1); //remove trailing &

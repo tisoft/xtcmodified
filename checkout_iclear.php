@@ -79,10 +79,10 @@ if (!isset ($_SESSION['customer_id'])) {
   require(DIR_WS_CLASSES . 'order_total.php');
   $order_total_modules = new order_total;
 // check if this is a call from checkout confirmation and redirect 2 iclear login page if
-  if(isset($HTTP_POST_VARS['targetURI'])) {
-    xtc_redirect($HTTP_POST_VARS['targetURI']);
-  } elseif (isset($HTTP_POST_VARS['error_message'])) {
-    print '<div style="width: 100%; text-align: center; color: red; font-size:14px; font-weight: 900; font-family:sans-serif">Bei der Kommunikation mit dem iclear Paymentsystem trat folgender Fehler auf: <br />' . nl2br($HTTP_POST_VARS['error_message']) . '</div>';
+  if(isset($_POST['targetURI'])) {
+    xtc_redirect($_POST['targetURI']);
+  } elseif (isset($_POST['error_message'])) {
+    print '<div style="width: 100%; text-align: center; color: red; font-size:14px; font-weight: 900; font-family:sans-serif">Bei der Kommunikation mit dem iclear Paymentsystem trat folgender Fehler auf: <br />' . nl2br($_POST['error_message']) . '</div>';
 
   }
 ?>

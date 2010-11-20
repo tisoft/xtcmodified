@@ -50,7 +50,7 @@ if (file_exists('includes/request_type.php')) {
 } else $request_type = 'NONSSL';
 //EOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 
-  if (!isset($PHP_SELF)) $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
+  if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
   if ($request_type == 'NONSSL') {
     define('DIR_WS_CATALOG', DIR_WS_HTTP_CATALOG);
   } else {

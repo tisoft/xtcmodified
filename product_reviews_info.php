@@ -26,7 +26,7 @@ require_once (DIR_FS_INC.'xtc_break_string.inc.php');
 require_once (DIR_FS_INC.'xtc_date_long.inc.php');
 
 
-// lets retrieve all $HTTP_GET_VARS keys and values..
+// lets retrieve all $_GET keys and values..
 $get_params = xtc_get_all_get_params(array ('reviews_id'));
 $get_params = substr($get_params, 0, -1); //remove trailing &
 
