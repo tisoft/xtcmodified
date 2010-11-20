@@ -118,15 +118,18 @@
                 </form>
              </td>
             </tr>
+            <!-- BOF - DokuMan - 2010-11-20 - remove dropdown field due to performance issues on many categories
             <tr>
              <td class="smallText" align="right">
-                <?php
-                    echo xtc_draw_form('goto', FILENAME_CATEGORIES, '', 'get');
-                    echo HEADING_TITLE_GOTO . ' ' . xtc_draw_pull_down_menu('cPath', xtc_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
-                ?>
+                <?php /*
+                //BOF - DokuMan - 2010-11-20 - remove dropdown field due to performance issues on many categories
+                  echo xtc_draw_form('goto', FILENAME_CATEGORIES, '', 'get');
+                  echo HEADING_TITLE_GOTO . ' ' . xtc_draw_pull_down_menu('cPath', xtc_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
+                //EOF - DokuMan - 2010-11-20 - remove dropdown field due to performance issues on many categories
+                */ ?>
                 </form>
              </td>
-            </tr>
+            </tr> EOF - DokuMan - 2010-11-20 - remove dropdown field due to performance issues on many categories -->
             </table>
         </td>
        </tr>
