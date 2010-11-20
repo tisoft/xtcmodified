@@ -540,7 +540,7 @@ if ($_GET['action'] == "save_order") {
 				$module_tmp_name = $module_tmp_name[0];
 				//BOF - Dokuman - 2010-06-07 - fix error "MODULE SHIPPING FREE TAX CLASS"
 				//if ($module_tmp_name != 'selfpickup') {
-				if ($module_tmp_name != 'selfpickup' && $module_tmp_name != 'free') {
+				if ($module_tmp_name != 'selfpickup' && $module_tmp_name != 'freeamount') { //set 'freeamount' instead of just 'free'
 				//EOF - Dokuman - 2010-06-07 - fix error "MODULE SHIPPING FREE TAX CLASS"
 					$module_tax_class = constant(MODULE_SHIPPING_.strtoupper($module_tmp_name)._TAX_CLASS);
 				} else {
