@@ -31,6 +31,8 @@ if($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
 	$fsk_lock = ' and p.products_fsk18!=1';
 }
 
+//BOF - Dokuman - 2010-11-22 - optimized SQL-statement for special price, thx to franky_n
+/*
 $query = "SELECT
 			p.products_id,
 			p.products_ean,
@@ -43,11 +45,9 @@ $query = "SELECT
 			p.products_weight,
 			p.products_model,
 			p.products_quantity,".
-			/*
 			// BOF - DokuMan - 2010-08-13 - set "PRODUCTS_ZUSTAND" by definition
-			p.products_zustand,
+			//p.products_zustand,
 			// BOF - DokuMan - 2010-08-13 - set "PRODUCTS_ZUSTAND" by definition
-			*/
 			"p.group_permission_1,
 			p.products_date_added,
 			p.products_tax_class_id,
@@ -58,6 +58,35 @@ $query = "SELECT
 			AND IF(s.specials_new_products_price>0, s.status = '1', '1') 
 			".$group_check.$fsk_lock."
 			ORDER BY p.products_date_added DESC" ;
+*/
+$query = "SELECT
+          p.products_id,
+          p.products_ean,
+          pd.products_name,
+          pd.products_short_description,
+          pd.products_description,
+          p.products_price,
+          p.products_image,
+          p.manufacturers_id,
+          p.products_weight,
+          p.products_model,
+          p.products_quantity,
+          p.group_permission_1,
+          p.products_date_added,
+          p.products_tax_class_id,
+          s.specials_new_products_price,
+          s.status
+          FROM products AS p
+          LEFT JOIN products_description AS pd
+          ON (p.products_id = pd.products_id)
+          LEFT JOIN specials AS s
+          ON (p.products_id = s.products_id)
+          WHERE p.products_status = '1'
+          AND pd.language_id = '2'
+          ".$group_check."
+          ".$fsk_lock."
+          ORDER BY p.products_date_added DESC" ;
+//EOF - Dokuman - 2010-11-22 - optimized SQL-statement for special price, thx to franky_n
 
 $listing_query = xtDBquery($query);
 
@@ -124,8 +153,16 @@ while ($listing = xtc_db_fetch_array($listing_query, true)) {
 	$quotes = $shipping->quote();
 
 	$link = xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($listing['products_id'],$listing['products_name']),'NONSSL', false);
-	
-	$price = $xtPrice->xtcGetPrice($listing['products_id'], $format = false, 1, $listing['products_tax_class_id'], $listing['products_price']);
+
+  //BOF - Dokuman - 2010-11-22 - optimized SQL-statement for special price, thx to franky_n
+  //$price = $xtPrice->xtcGetPrice($listing['products_id'], $format = false, 1, $listing['products_tax_class_id'], $listing['products_price']);
+	if ($listing['specials_new_products_price'] > 0 && $listing['status'] == 1) {
+    $price = $xtPrice->xtcGetPrice($listing['products_id'], $format = false, 1, $listing['products_tax_class_id'], $listing['specials_new_products_price']);
+  } else {
+    $price = $xtPrice->xtcGetPrice($listing['products_id'], $format = false, 1, $listing['products_tax_class_id'], $listing['products_price']);
+  }
+  //EOF - Dokuman - 2010-11-22 - optimized SQL-statement for special price, thx to franky_n
+
 	$price = str_replace('0,00','0,01',$price); // Google akzeptiert keine Preise wie 0,00	
 	$price = $xtPrice->xtcFormat($price,true);
 	$price = str_replace('&euro;','EUR',$price);
