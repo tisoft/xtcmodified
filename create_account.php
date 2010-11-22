@@ -123,21 +123,23 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 	}
 
 // New VAT Check
-	require_once(DIR_WS_CLASSES.'vat_validation.php');
-	$vatID = new vat_validation($vat, '', '', $country);
+	if (ACCOUNT_COMPANY_VAT_CHECK == 'true'){
+    require_once(DIR_WS_CLASSES.'vat_validation.php');
+    $vatID = new vat_validation($vat, '', '', $country);
 
-	$customers_status = $vatID->vat_info['status'];
-	//BOF - Dokuman - 2010-08-31 - set undefined index
-	//$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
-	$customers_vat_id_status = isset($vatID->vat_info['vat_id_status']) ? $vatID->vat_info['vat_id_status'] : '';
+    $customers_status = $vatID->vat_info['status'];
+    //BOF - Dokuman - 2010-08-31 - set undefined index
+    //$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
+    $customers_vat_id_status = isset($vatID->vat_info['vat_id_status']) ? $vatID->vat_info['vat_id_status'] : '';
 
-  //$vat_error = $vatID->vat_info['error'];
-	$vat_error = isset($vatID->vat_info['error']) ? $vatID->vat_info['error'] : '';
-	//EOF - Dokuman - 2010-08-31 - set undefined index
+    //$vat_error = $vatID->vat_info['error'];
+    $vat_error = isset($vatID->vat_info['error']) ? $vatID->vat_info['error'] : '';
+    //EOF - Dokuman - 2010-08-31 - set undefined index
 
-	if ($vat_error==1){
-	$messageStack->add('create_account', ENTRY_VAT_ERROR);
-	$error = true;
+    if ($vat_error==1){
+      $messageStack->add('create_account', ENTRY_VAT_ERROR);
+      $error = true;
+    }
   }
 // New VAT CHECK END
 
@@ -238,7 +240,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 		}
 	}
 
-	if ($customers_status == 0 || !$customers_status)
+	if (!isset($customers_status) || $customers_status == 0)
 		$customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
 	if (!$newsletter)
 		$newsletter = '';
