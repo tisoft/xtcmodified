@@ -1,19 +1,19 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_shipping_address.php,v 1.14 2003/05/27); www.oscommerce.com
-   (c) 2003	nextcommerce (checkout_shipping_address.php,v 1.14 2003/08/17); www.nextcommerce.org 
+   (c) 2003	nextcommerce (checkout_shipping_address.php,v 1.14 2003/08/17); www.nextcommerce.org
    (c) 2006	xtcommerce (checkout_shipping_address.php 867 2005-04-21)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -235,7 +235,7 @@ if ($process == false) {
                                             entry_firstname as firstname,
                                             entry_lastname as lastname,
                                             entry_company as company,
-                                            entry_street_address as street_address, 
+                                            entry_street_address as street_address,
                                             entry_suburb as suburb,
                                             entry_city as city,
                                             entry_postcode as postcode,
@@ -245,10 +245,10 @@ if ($process == false) {
                                      from ".TABLE_ADDRESS_BOOK."
                                      where customers_id = '".$_SESSION['customer_id']."'");
 		while ($addresses = xtc_db_fetch_array($addresses_query)) {
-//BOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses		
+//BOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses
 		//$format_id = xtc_get_address_format_id($address['country_id']);
-			$format_id = xtc_get_address_format_id($addresses['country_id']);			
-//EOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses			
+			$format_id = xtc_get_address_format_id($addresses['country_id']);
+//EOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses
 
 			$address_content .= ' <tr>
 			                <td>'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>
@@ -288,7 +288,7 @@ if ($process == false) {
 
 		$address_content = '<ol id="address_block">';
 		$radio_buttons = 0;
- 
+
 		$addresses_query = xtc_db_query("select address_book_id,
                                             entry_firstname as firstname,
                                             entry_lastname as lastname,
@@ -304,7 +304,7 @@ if ($process == false) {
                                        where customers_id = '".$_SESSION['customer_id']."'");
 		while ($addresses = xtc_db_fetch_array($addresses_query)) {
 			$format_id = xtc_get_address_format_id($addresses['country_id']);
- 
+
 			$address_content .= sprintf('<li>%s<label for="field_addresses_%s"> %s %s</label><br /><span class="address">%s</span></li>', xtc_draw_radio_field('address',$addresses['address_book_id'], ($addresses['address_book_id'] == $_SESSION['sendto'])), $addresses['address_book_id'], $addresses['firstname'], $addresses['lastname'],xtc_address_format($format_id, $addresses, true, ' ', ', '));
 			$radio_buttons ++;
 		}
@@ -322,19 +322,14 @@ $smarty->assign('BUTTON_CONTINUE', xtc_draw_hidden_field('action', 'submit').xtc
 
 if ($process == true) {
 	$smarty->assign('BUTTON_BACK', '<a href="'.xtc_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL').'">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
-
 }
 $smarty->assign('FORM_END', '</form>');
 $smarty->assign('language', $_SESSION['language']);
-
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_shipping_address.html');
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

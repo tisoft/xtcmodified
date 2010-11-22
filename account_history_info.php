@@ -119,14 +119,12 @@ $smarty->assign('BUTTON_PRINT', '<a style="cursor:pointer" onclick="javascript:w
 $from_history = preg_match("/page=/i", xtc_get_all_get_params()); // referer from account_history yes/no // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
 $back_to = $from_history ? FILENAME_ACCOUNT_HISTORY : FILENAME_ACCOUNT; // if from account_history => return to account_history
 $smarty->assign('BUTTON_BACK','<a href="' . xtc_href_link($back_to,xtc_get_all_get_params(array ('order_id')), 'SSL') . '">' . xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>');
-
 $smarty->assign('language', $_SESSION['language']);
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_history_info.html');
-$smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined('RM')) { $smarty->load_filter('output', 'note'); }
+if (!defined('RM'))
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

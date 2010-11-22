@@ -122,16 +122,12 @@ $smarty->assign('INPUT_MAIL', xtc_draw_input_field('email_address'));
 $smarty->assign('INPUT_PASSWORD', xtc_draw_password_field('password'));
 $smarty->assign('LINK_LOST_PASSWORD', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, '', 'SSL'));
 $smarty->assign('FORM_END', '</form>');
-
 $smarty->assign('language', $_SESSION['language']);
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/login.html');
 $smarty->assign('main_content', $main_content);
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

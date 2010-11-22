@@ -1,19 +1,19 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(address_book_process.php,v 1.77 2003/05/27); www.oscommerce.com
-   (c) 2003	 nextcommerce (address_book_process.php,v 1.13 2003/08/17); www.nextcommerce.org 
+   (c) 2003	 nextcommerce (address_book_process.php,v 1.13 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (address_book_process.php 1218 2005-09-16)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
@@ -29,7 +29,7 @@ require_once (DIR_FS_INC.'xtc_get_country_name.inc.php');
 if (!isset ($_SESSION['customer_id']))
 	xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 
-if (isset ($_GET['action']) && ($_GET['action'] == 'deleteconfirm') && isset ($_GET['delete']) && is_numeric($_GET['delete'])) {
+if (isset ($_GET['action']) && ($_GET['action'] == 'deleteconfirm') && isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 	xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where address_book_id = '".(int) $_GET['delete']."' and customers_id = '".(int) $_SESSION['customer_id']."'");
 
 	$messageStack->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_DELETED, 'success');
@@ -63,44 +63,37 @@ if (isset ($_POST['action']) && (($_POST['action'] == 'process') || ($_POST['act
 	if (ACCOUNT_GENDER == 'true') {
 		if (($gender != 'm') && ($gender != 'f')) {
 			$error = true;
-
 			$messageStack->add('addressbook', ENTRY_GENDER_ERROR);
 		}
 	}
 
 	if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
 		$error = true;
-
 		$messageStack->add('addressbook', ENTRY_FIRST_NAME_ERROR);
 	}
 
 	if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
 		$error = true;
-
 		$messageStack->add('addressbook', ENTRY_LAST_NAME_ERROR);
 	}
 
 	if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
 		$error = true;
-
 		$messageStack->add('addressbook', ENTRY_STREET_ADDRESS_ERROR);
 	}
 
 	if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
 		$error = true;
-
 		$messageStack->add('addressbook', ENTRY_POST_CODE_ERROR);
 	}
 
 	if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
 		$error = true;
-
 		$messageStack->add('addressbook', ENTRY_CITY_ERROR);
 	}
 
 	if (is_numeric($country) == false) {
 		$error = true;
-
 		$messageStack->add('addressbook', ENTRY_COUNTRY_ERROR);
 	}
 
@@ -116,13 +109,11 @@ if (isset ($_POST['action']) && (($_POST['action'] == 'process') || ($_POST['act
 				$zone_id = $zone['zone_id'];
 			} else {
 				$error = true;
-
 				$messageStack->add('addressbook', ENTRY_STATE_ERROR_SELECT);
 			}
 		} else {
 			if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
 				$error = true;
-
 				$messageStack->add('addressbook', ENTRY_STATE_ERROR);
 			}
 		}
@@ -301,16 +292,12 @@ if (isset ($_GET['delete'])) {
 	}
 	$smarty->assign('FORM_END', '</form>');
 }
-
 $smarty->assign('language', $_SESSION['language']);
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/address_book_process.html');
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

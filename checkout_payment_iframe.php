@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -66,28 +66,17 @@ $order_total_modules = new order_total();
 $order_total_modules->process();
 
 $iframe_url = $payment_modules->iframeAction();
-
 if ($iframe_url =='') {
 	xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 }
 
 $smarty->assign('iframe_url', $iframe_url);
-
-/*
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-*/
 $smarty->assign('language', $_SESSION['language']);
-$smarty->caching = 0;
 $main_content = '<iframe src="'.$iframe_url.'" width="100%" height="750" name="_top" frameborder="0"></iframe>';
-
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 include ('includes/application_bottom.php');
 ?>

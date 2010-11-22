@@ -2,13 +2,9 @@
 
 {* -- this part is only for test the xajax-support ------------------ *}
 {* -- ignore or remove this part in your final project -------------- *}
-    {php} if( XAJAX_SUPPORT=='true' && XAJAX_SUPPORT_TEST=='true' ) { {/php}
-        <!-- ---- beginn xajax_support_test------------------------ -->
-        <a href="#" onClick="xajax_xajax_support_test_get_servertime( new Date().toLocaleString() );">xajax_support_test</a>
-        <!-- ---- end xajax_support_test------------------------ -->
-    {php} } {/php}
+{if $_XAJAX_SUPPORT_VARIABLE}$_XAJAX_SUPPORT_VARIABLE{/if}
 {* -- end of test xajax-support ------------------------------------- *}
-    
+
 <div id="wrap">
     <div id="header">
         <div id="logo"><img src="{$tpl_path}img/spacer.png" width="400" height="115" alt="{$store_name}" /></div>
@@ -35,7 +31,7 @@
     </div>
     <div id="breadcrumb">{$navtrail}</div>
     <div id="contentwrap"> 
-	   {if !strstr ($smarty.server.PHP_SELF, 'checkout')}
+	   {if !strstr($smarty.server.PHP_SELF, 'checkout')}
         <div id="leftcol">
 			{$box_CATEGORIES}
 			{$box_ADD_QUICKIE}
@@ -48,19 +44,19 @@
 		</div>
         {/if}
         <div
-		{if !strstr ($smarty.server.PHP_SELF, 'checkout')}
+		{if !strstr($smarty.server.PHP_SELF, 'checkout')}
 			id="content"
 		{else}
 			id="contentfull"
 		{/if}
 		 >
-        {if strstr ($smarty.server.PHP_SELF, 'index')}
+        {if strstr($smarty.server.PHP_SELF, 'index')}
             {if $smarty.get.cPath==null and $smarty.get.manufacturers_id==''}
                  {if $BANNER}{$BANNER}{/if}
            {/if}
         {/if}
         {$main_content}</div>
-    {if !strstr ($smarty.server.PHP_SELF, 'checkout')}
+    {if !strstr($smarty.server.PHP_SELF, 'checkout')}
     <div id="rightcol">
 		{$box_CART}
 		{$box_LOGIN}

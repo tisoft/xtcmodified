@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: cookie_usage.php 1238 2005-09-24 10:51:19Z mz $
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -20,7 +20,6 @@ include ('includes/application_top.php');
 $smarty = new Smarty;
 // include boxes
 require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
-
 
 $breadcrumb->add(NAVBAR_TITLE_COOKIE_USAGE, xtc_href_link(FILENAME_COOKIE_USAGE));
 
@@ -43,9 +42,8 @@ $smarty->assign('language', $_SESSION['language']);
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
-$smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

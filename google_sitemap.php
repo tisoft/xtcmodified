@@ -286,7 +286,8 @@ $smarty->assign('CONTENT_BODY',$main_content);
 $smarty->assign('BUTTON_CONTINUE','<a href="' . xtc_href_link(FILENAME_START) . '">' . xtc_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>');
 $main_content = $smarty->fetch(CURRENT_TEMPLATE . '/module/google_sitemap.html');
 $smarty->assign('main_content',$main_content);
-if (!defined('RM')) $smarty->load_filter('output', 'note');
+if (!defined('RM'))
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE . '/index.html');
 
 // < PHP5

@@ -134,7 +134,7 @@ if ($_SESSION['customer_id'] == $order_check['customers_id'] || $send_by_admin) 
 	}
 
 	// dont allow cache
-	$smarty->caching = false;
+	$smarty->caching = 0;
 
 	$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/order_mail.html');
 	$txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/order_mail.txt');

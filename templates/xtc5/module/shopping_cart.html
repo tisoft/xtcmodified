@@ -1,22 +1,5 @@
 {config_load file="$language/lang_$language.conf" section="shopping_cart"}
 
-{php}
-global $breadcrumb, $cPath_array, $actual_products_id;
-if(!empty($cPath_array)) {
-	$this->assign('CONTINUE_NAME',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['title']);	
-	$this->assign('CONTINUE_LINK',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['link']);
-    $ct_shopping = $breadcrumb->_trail[count($breadcrumb->_trail)-2]['link'];	
-}
-if(!empty($actual_products_id)) {
-	$this->assign('CONTINUE_NAME',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['title']);	
-	$this->assign('CONTINUE_LINK',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['link']);
-    $ct_shopping = $breadcrumb->_trail[count($breadcrumb->_trail)-2]['link'];	
-}
-if(!empty($ct_shopping)) $_SESSION['continue_link'] = $ct_shopping; 
-if(!empty($_SESSION['continue_link'])) $this->assign('CONTINUE_LINK',$_SESSION['continue_link']);
-$this->assign('BUTTON_CONTINUE_SHOPPING', xtc_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING));
-{/php}
-
 <h1>{#heading_cart#}</h1>
 {if $info_message!=''}<div class="errormessage">{$info_message}</div>{/if}
 {if $cart_empty==true}

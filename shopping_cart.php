@@ -166,14 +166,30 @@ $_SESSION['allow_checkout'] = 'true';
 }
 if (isset($_GET['info_message']))
   $smarty->assign('info_message', str_replace('+', ' ', htmlspecialchars($_GET['info_message'])));
+
+global $breadcrumb, $cPath_array, $actual_products_id;
+if(!empty($cPath_array)) {
+  $smarty->assign('CONTINUE_NAME',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['title']);
+  $smarty->assign('CONTINUE_LINK',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['link']);
+  $ct_shopping = $breadcrumb->_trail[count($breadcrumb->_trail)-2]['link'];
+}
+if(!empty($actual_products_id)) {
+  $smarty->assign('CONTINUE_NAME',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['title']);
+  $smarty->assign('CONTINUE_LINK',$breadcrumb->_trail[count($breadcrumb->_trail)-2]['link']);
+  $ct_shopping = $breadcrumb->_trail[count($breadcrumb->_trail)-2]['link'];
+}
+if(!empty($ct_shopping))
+  $_SESSION['continue_link'] = $ct_shopping;
+if(!empty($_SESSION['continue_link']))
+  $smarty->assign('CONTINUE_LINK',$_SESSION['continue_link']);
+  
+$smarty->assign('BUTTON_CONTINUE_SHOPPING', xtc_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING));
 $smarty->assign('language', $_SESSION['language']);
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/shopping_cart.html');
 $smarty->assign('main_content', $main_content);
-$smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 if (!defined('RM'))
-        $smarty->load_filter('output', 'note');
+  $smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 
 include ('includes/application_bottom.php');

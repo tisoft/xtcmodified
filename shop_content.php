@@ -103,9 +103,8 @@ if (isset($_GET['coID']) && is_numeric($_GET['coID'])) {
 //EOF - DokuMan - check for requested valid content, otherwise display FILENAME_DEFAULT
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
-$smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

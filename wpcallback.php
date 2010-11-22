@@ -64,17 +64,13 @@ $smarty->assign('URL', $url);
 $smarty->assign('META', $meta);
 $smarty->assign('TEXT', $text);
 $smarty->assign('LINK', $link);
-
 $smarty->assign('language', $_SESSION['language']);
 //  $smarty->assign('module_content',$module_content);
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/wpcallback.html');
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

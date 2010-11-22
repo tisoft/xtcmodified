@@ -28,8 +28,11 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 // BOF - Hendrik - 2010-08-22 - xajax support
-define('XAJAX_SUPPORT',         'false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
-define('XAJAX_SUPPORT_TEST',    'false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
+define('XAJAX_SUPPORT','false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
+define('XAJAX_SUPPORT_TEST','false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
+if( XAJAX_SUPPORT=='true' && XAJAX_SUPPORT_TEST=='true' ) {
+  $_XAJAX_SUPPORT_VARIABLE = '<a href="#" onClick="xajax_xajax_support_test_get_servertime( new Date().toLocaleString() );">xajax_support_test</a>'; // DokuMan - assign $_XAJAX_SUPPORT_VARIABLE to template -> index.html
+}
 // EOF - Hendrik - 2010-08-22 - xajax support
 
 // start the timer for the page parse time log
@@ -647,7 +650,7 @@ define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 // Include Template Engine
 // BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
 //require (DIR_WS_CLASSES.'Smarty_2.6.22/Smarty.class.php');
-require (DIR_WS_CLASSES.'Smarty_2.6.26/Smarty.class.php');
+require (DIR_WS_CLASSES.'Smarty_3.0.5/Smarty.class.php');
 // EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
 
 if (isset ($_SESSION['customer_id'])) {

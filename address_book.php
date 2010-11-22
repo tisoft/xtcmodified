@@ -68,25 +68,19 @@ while ($addresses = xtc_db_fetch_array($addresses_query)) {
                              'PRIMARY' => $primary);
 
 }
+
 $smarty->assign('addresses_data', $addresses_data);
-
 $smarty->assign('BUTTON_BACK', '<a href="'.xtc_href_link(FILENAME_ACCOUNT, '', 'SSL').'">'.xtc_image_button('button_back.gif', IMAGE_BUTTON_BACK).'</a>');
-
 if (xtc_count_customer_address_book_entries() < MAX_ADDRESS_BOOK_ENTRIES) {
 	$smarty->assign('BUTTON_NEW', '<a href="'.xtc_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL').'">'.xtc_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS).'</a>');
 }
-
 $smarty->assign('ADDRESS_COUNT', sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES));
-
 $smarty->assign('language', $_SESSION['language']);
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/address_book.html');
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

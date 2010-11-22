@@ -70,8 +70,7 @@ if ((isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check
 	//EOF - web28 - 2010-08-17 - define missing charset
 
 	// dont allow cache
-	$smarty->caching = false;
-
+	$smarty->caching = 0;
 	$smarty->display(CURRENT_TEMPLATE.'/module/print_order.html');
 } else {
 	$smarty->assign('ERROR', 'You are not allowed to view this order!');

@@ -36,7 +36,6 @@ require_once (DIR_FS_INC.'xtc_rand.inc.php');
 $case = 'double_opt';
 $info_message = TEXT_PASSWORD_FORGOTTEN;
 if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
-
 	$check_customer_query = xtc_db_query("select customers_email_address, customers_id from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($_POST['email'])."'");
 	$check_customer = xtc_db_fetch_array($check_customer_query);
 
@@ -126,8 +125,6 @@ switch ($case) {
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		//$smarty->assign('info_message', $info_message); //DokuMan - 2010-08-26 - unnecessary assign
 		$smarty->assign('info_message', TEXT_LINK_MAIL_SENDED);
-		$smarty->assign('language', $_SESSION['language']);
-		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
 		break;
 
@@ -135,8 +132,6 @@ switch ($case) {
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
 		//    $smarty->assign('info_message', TEXT_PASSWORD_MAIL_SENDED);
-		$smarty->assign('language', $_SESSION['language']);
-		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
 		break;
 
@@ -166,8 +161,6 @@ switch ($case) {
 		// BOF - web28 - 2010-05-23 - FIX missing form end
 		$smarty->assign('FORM_END', '</form>');
 		//EOF - web28 - 2010-05-23 - FIX missing form end
-		$smarty->assign('language', $_SESSION['language']);
-		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
 		break;
 
@@ -197,16 +190,12 @@ switch ($case) {
 		// BOF - web28 - 2010-05-23 - FIX missing form end
 		$smarty->assign('FORM_END', '</form>');
 		//EOF - web28 - 2010-05-23 - FIX missing form end
-		$smarty->assign('language', $_SESSION['language']);
-		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
 		break;
 
 	case 'no_account' :
 		$smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
 		$smarty->assign('info_message', $info_message);
-		$smarty->assign('language', $_SESSION['language']);
-		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
 		break;
 
@@ -234,8 +223,6 @@ switch ($case) {
 		// BOF - DokuMan - 2009-05-29 - typo fixed, specify type
 		$smarty->assign('BUTTON_SEND', xtc_image_submit('button_continue.gif', IMAGE_BUTTON_LOGIN));
 		$smarty->assign('FORM_END', '</form>');
-		$smarty->assign('language', $_SESSION['language']);
-		$smarty->caching = 0;
 		$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
 		break;
 }
@@ -244,7 +231,7 @@ $smarty->assign('main_content', $main_content);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

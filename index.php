@@ -1,6 +1,6 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -53,12 +53,12 @@ if (isset ($cPath) && xtc_not_null($cPath)) {
 
 require (DIR_WS_INCLUDES.'header.php');
 include (DIR_WS_MODULES.'default.php');
-$smarty->assign('language', $_SESSION['language']);
 
+$smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 
-include ('includes/application_bottom.php');  
+include ('includes/application_bottom.php');
 ?>

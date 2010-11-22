@@ -44,23 +44,17 @@
 
   // dont show box if there's only 1 language
   if ($count_lng > 1 ) {
-
- $box_smarty = new smarty;
- //BOF - GTB - 2010-08-03 - Security Fix - Base
- $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
- //$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
- //EOF - GTB - 2010-08-03 - Security Fix - Base
- $box_content='';
- $box_smarty->assign('BOX_CONTENT', $languages_string);
- $box_smarty->assign('language', $_SESSION['language']);
-
-
-    	  // set cache ID
-
-  $box_smarty->caching = 0;
-  $box_languages= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_languages.html');
-  	
-
+    $box_smarty = new smarty;
+    //BOF - GTB - 2010-08-03 - Security Fix - Base
+    $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
+    //$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
+    //EOF - GTB - 2010-08-03 - Security Fix - Base
+    $box_content='';
+    $box_smarty->assign('BOX_CONTENT', $languages_string);
+    $box_smarty->assign('language', $_SESSION['language']);
+    // set cache ID
+    $box_smarty->caching = 0;
+    $box_languages= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_languages.html');
     $smarty->assign('box_LANGUAGES',$box_languages);
   }
-   ?>
+?>

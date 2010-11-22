@@ -250,14 +250,11 @@ if (xtc_count_shipping_modules() > 0) {
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('SHIPPING_BLOCK', $shipping_block);
-$smarty->caching = 0;
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_shipping.html');
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

@@ -143,15 +143,12 @@ if (($products_new_split->number_of_rows > 0)) {
 }
 //EOF - Hetfield - 2009-08-11 - no longer empty site products_new.php
 $smarty->assign('language', $_SESSION['language']);
-$smarty->caching = 0;
 $smarty->assign('module_content', $module_content);
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/new_products_overview.html');
 $smarty->assign('main_content', $main_content);
-
-$smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->load_filter('output', 'note');
+	$smarty->loadfilter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

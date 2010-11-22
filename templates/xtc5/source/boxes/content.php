@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(information.php,v 1.6 2003/02/10); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(information.php,v 1.6 2003/02/10); www.oscommerce.com
    (c) 2003	 nextcommerce (content.php,v 1.2 2003/08/21); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 $box_smarty = new smarty;
 $content_string = '';
@@ -32,7 +32,7 @@ if (!CacheCheck()) {
 	$cache_id = $_SESSION['language'].$_SESSION['customers_status']['customers_status_id'];
 }
 
-if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_id) || !$cache) {
+if (!$box_smarty->iscached(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_id) || !$cache) {
 	//BOF - GTB - 2010-08-03 - Security Fix - Base
 	$box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 	//$box_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
@@ -67,8 +67,6 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_content.html', $cache_i
 		$content_string.='</ul>';
 		$box_smarty->assign('BOX_CONTENT', $content_string);
 	}
-		
-	
 
 }
 //BOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink

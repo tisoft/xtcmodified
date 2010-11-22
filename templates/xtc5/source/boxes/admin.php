@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommercebased on original files from OSCommerce CVS 2.2 2002/08/28 02:14:35 www.oscommerce.com 
+   (c) 2002-2003 osCommercebased on original files from OSCommerce CVS 2.2 2002/08/28 02:14:35 www.oscommerce.com
    (c) 2003	 nextcommerce (admin.php,v 1.12 2003/08/13); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 // reset var
@@ -29,11 +29,10 @@ $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
   require_once(DIR_FS_INC . 'xtc_image_button.inc.php');
 
   $orders_contents = '';
-  
+
   $orders_status_validating = xtc_db_num_rows(xtc_db_query("select orders_status from " . TABLE_ORDERS ." where orders_status ='0'"));
   $orders_contents .='<a href="' . xtc_href_link_admin(FILENAME_ORDERS, 'selected_box=customers&amp;status=0', 'NONSSL') . '">' . TEXT_VALIDATING . '</a>: ' . $orders_status_validating . '<br />'; //web28 - 2010-06-23 change unnecessary SSL to NONSSL
- 
-  
+
   $orders_status_query = xtc_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$_SESSION['languages_id'] . "'");
   while ($orders_status = xtc_db_fetch_array($orders_status_query)) {
     $orders_pending_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . $orders_status['orders_status_id'] . "'");
@@ -63,10 +62,8 @@ $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 
     if ($flag==true) define('SEARCH_ENGINE_FRIENDLY_URLS',true);
     $box_smarty->assign('BOX_CONTENT', $box_content);
-
     $box_smarty->caching = 0;
     $box_smarty->assign('language', $_SESSION['language']);
     $box_admin= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_admin.html');
     $smarty->assign('box_ADMIN',$box_admin);
-
 ?>

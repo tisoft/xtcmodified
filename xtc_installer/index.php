@@ -247,7 +247,7 @@ if (xtc_check_version()!=1) {
     $message .='<strong>ATTENTION!, your PHP Version is to old, xtc:Modified requires atleast PHP 4.1.3.</strong><br /><br />Your php Version: <strong><?php echo phpversion(); ?></strong><br /><br />xtc:Modified wont work on this server, update PHP or change Server.';
 }
 */
-$php_min = '5.0.0';
+$php_min = '5.1.0';
 $php_max = '6.0.0';
 if (function_exists('version_compare')) {
 	if(version_compare(phpversion(), $php_min, "<=")){
@@ -356,7 +356,6 @@ if ($messageStack->size('index') > 0) {
               } ?>
               <br />
             </form>
-
           </td>
         </tr>
       </table>

@@ -167,6 +167,5 @@ if (is_array($mo_images)) {
 	$smarty->cache_modified_check = CACHE_CHECK;
 }
 $cache_id = $_SESSION['language'].'_'.$product_info['products_id'];
-
 $smarty->display(CURRENT_TEMPLATE.'/module/print_product_info.html', $cache_id);
 ?>

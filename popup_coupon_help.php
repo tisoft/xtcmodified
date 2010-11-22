@@ -82,7 +82,6 @@ $text_coupon_help .= $prods;
 $smarty->assign('TEXT_HELP', $text_coupon_help);
 $smarty->assign('link_close', 'javascript:window.close()');
 $smarty->assign('language', $_SESSION['language']);
-
 $smarty->caching = 0;
 $smarty->display(CURRENT_TEMPLATE.'/module/popup_coupon_help.html');
 //include ('includes/application_bottom.php');
