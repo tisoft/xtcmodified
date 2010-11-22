@@ -648,10 +648,10 @@ define('WARN_SESSION_AUTO_START', 'true');
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 
 // Include Template Engine
-// BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
+// BOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
 //require (DIR_WS_CLASSES.'Smarty_2.6.22/Smarty.class.php');
 require (DIR_WS_CLASSES.'Smarty_3.0.5/Smarty.class.php');
-// EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
+// EOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
 
 if (isset ($_SESSION['customer_id'])) {
 	$account_type_query = xtc_db_query("SELECT account_type,

@@ -468,10 +468,10 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 
 
     // Include Template Engine
-// BOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
+// BOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
 //  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');
-  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
-// EOF - Tomcraft - 2009-05-26 - update smarty template engine to 2.6.26
+  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_3.0.5/Smarty.class.php');
+// EOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
   define('FILENAME_XTBOOSTER','xtbooster.php');
