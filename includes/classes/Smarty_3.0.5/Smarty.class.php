@@ -123,7 +123,7 @@ class Smarty extends Smarty_Internal_Data {
 	* variables
 	*/
     // auto literal on delimiters with whitspace
-    public $auto_literal = true; 
+    public $auto_literal = false; 
     // display error on not assigned variables
     public $error_unassigned = false; 
     // template directory
@@ -177,7 +177,7 @@ class Smarty extends Smarty_Internal_Data {
     public $smarty_debug_id = 'SMARTY_DEBUG';
     public $debug_tpl = null; 
     // When set, smarty does uses this value as error_reporting-level.
-    public $error_reporting = null; 
+    public $error_reporting = 'E_ALL & ~E_NOTICE'; 
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
