@@ -144,16 +144,18 @@ if ($order->info['total'] > 0) {
 
 		$selection[$i]['radio_buttons'] = $radio_buttons;
 
-		//BOF - DokuMan - 2010-09-29 - preallocating the first payment option is not necessary nor does it work
-		/*
-		if (($selection[$i]['id'] == $payment) || ($n == 1)) {
+		//BOF - web28 - 2010-11-23 - FIX pre-selection the first payment option	
+		//if (($selection[$i]['id'] == $payment) || ($n == 1)) {
+		if ((isset($_SESSION['payment']) && $selection[$i]['id'] == $_SESSION['payment']) || ($i == 0)) {
 			$selection[$i]['checked'] = 1;
-		}
-		*/
-		//EOF - DokuMan - 2010-09-29 - preallocating the first payment option is not necessary nor does it work
+		}		
+		//EOF - web28 - 2010-11-23 - FIX pre-selection the first payment option 
 
 		if (sizeof($selection) > 1) {
-			$selection[$i]['selection'] = xtc_draw_radio_field('payment', $selection[$i]['id'], (isset($_SESSION['payment']) && $selection[$i]['id'] == $_SESSION['payment']));
+			//BOF - web28 - 2010-11-23 - FIX pre-selection the first payment option
+			//$selection[$i]['selection'] = xtc_draw_radio_field('payment', $selection[$i]['id'], ($selection[$i]['id'] == $_SESSION['payment']));
+			$selection[$i]['selection'] = xtc_draw_radio_field('payment', $selection[$i]['id'], ($selection[$i]['checked']));
+			//EOF - web28 - 2010-11-23 - FIX pre-selection the first payment option
 		} else {
 			$selection[$i]['selection'] = xtc_draw_hidden_field('payment', $selection[$i]['id']);
 		}
