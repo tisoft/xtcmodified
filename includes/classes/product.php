@@ -425,6 +425,9 @@ class product {
 		$products_price = $xtPrice->xtcGetPrice($array['products_id'], $format = true, 1, $array['products_tax_class_id'], $array['products_price'], 1);
 
 		$buy_now = ''; //DokuMan: Undefined variable: buy_now
+		//BOF - DokuMan - 2010-11-23 - mask quotation marks in products_name
+		$array['products_name'] = htmlentities($array['products_name'],  ENT_QUOTES);
+    //EOF - DokuMan - 2010-11-23 - mask quotation marks in products_name
 
 		if ($_SESSION['customers_status']['customers_status_show_price'] != '0') {
         	if ($_SESSION['customers_status']['customers_fsk18'] == '1') {
