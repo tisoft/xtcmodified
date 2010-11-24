@@ -520,7 +520,7 @@
     }
 	//$cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
     if ($cPath_back != '') $cPath_back = 'cPath=' . $cPath_back;
-	//BOF - web28- 2010-11-24 FIX undefined $cPath_back
+	//EOF - web28- 2010-11-24 FIX undefined $cPath_back
 ?>
 
         </tr>
