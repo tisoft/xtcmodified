@@ -511,7 +511,7 @@
     if ($cPath_array) {
       //unset($cPath_back);      
       for($i = 0, $n = sizeof($cPath_array) - 1; $i < $n; $i++) {
-        if ($cPath_back == '')) {
+        if ($cPath_back == '') {
           $cPath_back .= $cPath_array[$i];
         } else {
           $cPath_back .= '_' . $cPath_array[$i];
