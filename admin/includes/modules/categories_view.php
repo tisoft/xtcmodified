@@ -506,20 +506,21 @@
 // ----------------------------------------------------------------------------------------------------- //
     } //WHILE loop to display products ENDS
 // ----------------------------------------------------------------------------------------------------- //
-
+	//BOF - web28- 2010-11-24 FIX undefined $cPath_back
+	$cPath_back = '';
     if ($cPath_array) {
-      //unset($cPath_back);
-      $cPath_back = '';
+      //unset($cPath_back);      
       for($i = 0, $n = sizeof($cPath_array) - 1; $i < $n; $i++) {
-        if (empty($cPath_back)) {
+        if ($cPath_back == '')) {
           $cPath_back .= $cPath_array[$i];
         } else {
           $cPath_back .= '_' . $cPath_array[$i];
         }
       }
     }
-
-    $cPath_back = isset($cPath_back) ? 'cPath=' . $cPath_back : '';
+	//$cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
+    if ($cPath_back != '') $cPath_back = 'cPath=' . $cPath_back;
+	//BOF - web28- 2010-11-24 FIX undefined $cPath_back
 ?>
 
         </tr>
