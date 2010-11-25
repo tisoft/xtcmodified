@@ -120,11 +120,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		if ($product->data['products_vpe_status'] == 1 && $product->data['products_vpe_value'] != 0.0 && $products_price['plain'] > 0)
 			$info_smarty->assign('PRODUCTS_VPE', $xtPrice->xtcFormat($products_price['plain'] * (1 / $product->data['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product->data['products_vpe']));
 		$info_smarty->assign('PRODUCTS_ID', $product->data['products_id']);
-		//BOF - DokuMan - 2010-11-23 - mask quotation marks in products_name
-		//$info_smarty->assign('PRODUCTS_NAME', $product->data['products_name']);
-		$info_smarty->assign('PRODUCTS_NAME', htmlentities($product->data['products_name'],  ENT_QUOTES));
-		//EOF - DokuMan - 2010-11-23 - mask quotation marks in products_name
-		
+		$info_smarty->assign('PRODUCTS_NAME', $product->data['products_name']);
 		//BOF - DokuMan - 2010-08-24 - set Undefined index: 0
 		//if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {
 		if ($_SESSION['customers_status']['customers_status_show_price'] != 0 && isset($xtPrice->TAX[$product->data['products_tax_class_id']])) {
