@@ -1,31 +1,23 @@
-                                                       <?php
+<?php
+/* -----------------------------------------------------------------------------------------
+   $Id$
 
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
+
+   Copyright (c) 2010 xtcModified
+   -----------------------------------------------------------------------------------------
+   based on:
+   (c) 2006 xt:Commerce (campaigns.php 1117 2005-07-25)
+
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------------------------*/
 
 # SIE SIND IM BEGRIFF ETWAS ZU ÄNDERN, WAS NICHT FAIR IST. SIE MÖCHTEN MIT
 # DIESER SOFTWARE GELD VERDIENEN ODER KUNDEN GEWINNEN. SIE HABEN NICHT STUNDEN 
 # UND MONATE VERBRACHT DIESE SOFTWARE ZU ENTWICKELN UND ZU VERBESSEREN. ALS
 # DANKESCHÖN AN DIE ENTWICKLER UND CODER LASSEN SIE DIESE DATEI, WIE SIE IST 
 # ODER KRATZEN SIE AUCH VON IHREN ELEKTROGERÄTEN IM HAUS DIE MARKENZEICHEN AB!!!!
-
-?>
-
-<?php
-
-/* -----------------------------------------------------------------------------------------
-
-   $Id$
-
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-   Copyright (c) 2003 XT-Commerce
-
-   -----------------------------------------------------------------------------------------
-
-   Released under the GNU General Public License
-
-   ---------------------------------------------------------------------------------------*/
-
-
 
 function smarty_outputfilter_note($tpl_output, &$smarty) {
 
@@ -50,20 +42,19 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
     $tpl_output = preg_replace_callback("/(<[^>]*['\"])(http[s]?\:\/\/[^'\"]*)(['\"][^<]*>)/Usi","AmpReplace",$tpl_output);
 //EOF - Dokuman - 2009-05-03 - Produce Valid Links
 
+//BOF - Dokuman - 2010-11-25 - html output minify (thanks to DJ-Ready)
+/* Uncomment the following 2 lines to remove linebreaks and comments from html-output */
+/* lines commented for easier template debugging */
+//$regex = array('{\t|\r|\n}', '{(/\*(.*?)\*/)}', '/<!--(.*)-->/Uis',);
+//$tpl_output = preg_replace($regex, '', $tpl_output);
+//EOF - Dokuman - 2010-11-25 - html output minify (thanks to DJ-Ready)
+
     return $tpl_output.$cop;
-
 }
-
-?>
-
-
-<?php
-
 
 # SIE SIND IM BEGRIFF ETWAS ZU ÄNDERN, WAS NICHT FAIR IST. SIE MÖCHTEN MIT
 # DIESER SOFTWARE GELD VERDIENEN ODER KUNDEN GEWINNEN. SIE HABEN NICHT STUNDEN 
 # UND MONATE VERBRACHT DIESE SOFTWARE ZU ENTWICKELN UND ZU VERBESSEREN. ALS
 # DANKESCHÖN AN DIE ENTWICKLER UND CODER LASSEN SIE DIESE DATEI, WIE SIE IST 
 # ODER KRATZEN SIE AUCH VON IHREN ELEKTROGERÄTEN IM HAUS DIE MARKENZEICHEN AB!!!!
-
 ?>
