@@ -2,17 +2,18 @@
 /* --------------------------------------------------------------
    $Id: orders_edit.php,v 1.1
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(orders.php,v 1.27 2003/02/16); www.oscommerce.com
-   (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2003 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2006 xt:Commerce; www.xt-commerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
 
    To do: Rabatte berücksichtigen
    --------------------------------------------------------------*/
@@ -36,8 +37,10 @@ require_once (DIR_FS_INC.'xtc_oe_get_options_values_name.inc.php');
 require_once (DIR_FS_INC.'xtc_oe_customer_infos.inc.php');
 // Benötigte Funktionen und Klassen Ende
 
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+
 // Adressbearbeitung Anfang
-if ($_GET['action'] == "address_edit") {
+if ($action == 'address_edit') {
 
 	$lang_query = xtc_db_query("select languages_id from ".TABLE_LANGUAGES." where directory = '".$order->info['language']."'");
 	$lang = xtc_db_fetch_array($lang_query);
@@ -58,7 +61,7 @@ if ($_GET['action'] == "address_edit") {
 // Artikeldaten einfügen / bearbeiten Anfang:
 
 // Artikel bearbeiten Anfang:
-if ($_GET['action'] == "product_edit") {
+if ($action == 'product_edit') {
 	$status_query = xtc_db_query("select customers_status_show_price_tax from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$order->info['status']."'");
 	$status = xtc_db_fetch_array($status_query);
 
@@ -70,13 +73,18 @@ if ($_GET['action'] == "product_edit") {
 	$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
 	xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array, 'update', 'orders_products_id = \''.xtc_db_input($_POST['opID']).'\'');
 
+  //BOF - Dokuman - 2010-11-25 - calculate stock correctly when editing orders
+    $new_qty = (double)$_POST['old_qty'] - (double)$_POST['products_quantity'];
+    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity + " . $new_qty . " WHERE products_id = " . xtc_db_input($_POST['old_pID']));
+  //EOF - Dokuman - 2010-11-25 - calculate stock correctly when editing orders
+
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
 // Artikel bearbeiten Ende:
 
 // Artikel einfügen Anfang
 
-if ($_GET['action'] == "product_ins") {
+if ($action == 'product_ins') {
 
 	$status_query = xtc_db_query("select customers_status_show_price_tax from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$order->info['status']."'");
 	$status = xtc_db_fetch_array($status_query);
@@ -96,19 +104,19 @@ if ($_GET['action'] == "product_ins") {
 	$insert_sql_data = array ('products_model' => xtc_db_prepare_input($product['products_model']));
 	$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
 	xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array);
-    
-  //BOF - Dokuman - 2010-06-02 - calculate stock correctly when editing orders
+
+  //BOF - Dokuman - 2010-11-25 - calculate stock correctly when editing orders
   if ($_POST['products_quantity'] != 0) {
-    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity - " . xtc_db_prepare_input($_POST['products_quantity']) . " WHERE products_id= " . xtc_db_prepare_input($_POST['products_id']));
+    xtc_db_query("UPDATE " . TABLE_PRODUCTS . " SET products_quantity = products_quantity - " . (double)$_POST['products_quantity'] . " WHERE products_id= " . (int)$_POST['products_id']);
   }
-  //EOF - Dokuman - 2010-06-02 - calculate stock correctly when editing orders
+  //EOF - Dokuman - 2010-11-25 - calculate stock correctly when editing orders
 
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
 // Artikel einfügen Ende
 
 // Produkt Optionen bearbeiten Anfang
-if ($_GET['action'] == "product_option_edit") {
+if ($action == 'product_option_edit') {
 
 	$sql_data_array = array ('products_options' => xtc_db_prepare_input($_POST['products_options']), 'products_options_values' => xtc_db_prepare_input($_POST['products_options_values']), 'options_values_price' => xtc_db_prepare_input($_POST['options_values_price']));
 
@@ -143,7 +151,7 @@ if ($_GET['action'] == "product_option_edit") {
 // Produkt Optionen bearbeiten Ende
 
 // Produkt Optionen einfügen Anfang
-if ($_GET['action'] == "product_option_ins") {
+if ($action == 'product_option_ins') {
 
 	$products_attributes_query = xtc_db_query("select options_id, options_values_id, options_values_price, price_prefix from ".TABLE_PRODUCTS_ATTRIBUTES." where products_attributes_id = '".$_POST['aID']."'");
 	$products_attributes = xtc_db_fetch_array($products_attributes_query);
@@ -170,21 +178,6 @@ if ($_GET['action'] == "product_option_ins") {
 
 	if (DOWNLOAD_ENABLED == 'true') {
 		$attributes_query = "select popt.products_options_name,
-										                               poval.products_options_values_name,
-										                               pa.options_values_price,
-										                               pa.price_prefix,
-										                               pad.products_attributes_maxdays,
-										                               pad.products_attributes_maxcount,
-										                               pad.products_attributes_filename
-										                               from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, ".TABLE_PRODUCTS_ATTRIBUTES." pa
-										                               left join ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
-										                                on pa.products_attributes_id=pad.products_attributes_id
-										                               where pa.products_id = '".$products['products_id']."'
-										                                and pa.options_id = '".$products_attributes['options_id']."'
-										                                and pa.options_id = popt.products_options_id
-										                                and pa.options_values_id = '".$products_attributes['options_values_id']."'
-										                                and pa.options_values_id = poval.products_options_values_id
-										                                and popt.language_id = '".$_SESSION['languages_id']."'
 										                                and poval.language_id = '".$_SESSION['languages_id']."'";
 		$attributes = xtc_db_query($attributes_query);
 
@@ -219,7 +212,7 @@ if ($_GET['action'] == "product_option_ins") {
 // Artikeldaten einfügen / bearbeiten Ende:
 
 // Zahlung Anfang
-if ($_GET['action'] == "payment_edit") {
+if ($action == 'payment_edit') {
 
 	$sql_data_array = array ('payment_method' => xtc_db_prepare_input($_POST['payment']), 'payment_class' => xtc_db_prepare_input($_POST['payment']),);
 	xtc_db_perform(TABLE_ORDERS, $sql_data_array, 'update', 'orders_id = \''.xtc_db_input($_POST['oID']).'\'');
@@ -229,7 +222,7 @@ if ($_GET['action'] == "payment_edit") {
 // Zahlung Ende
 
 // Versandkosten Anfang
-if ($_GET['action'] == "shipping_edit") {
+if ($action == 'shipping_edit') {
 
 	$module = $_POST['shipping'].'.php';
 	require (DIR_FS_LANGUAGES.$order->info['language'].'/modules/shipping/'.$module);
@@ -255,7 +248,7 @@ if ($_GET['action'] == "shipping_edit") {
 // Versandkosten Ende
 
 // OT Module Anfang:
-if ($_GET['action'] == "ot_edit") {
+if ($action== 'ot_edit') {
 
 	$check_total_query = xtc_db_query("select orders_total_id from ".TABLE_ORDERS_TOTAL." where orders_id = '".$_POST['oID']."' and class = '".$_POST['class']."'");
 	if (xtc_db_num_rows($check_total_query)) {
@@ -282,7 +275,7 @@ if ($_GET['action'] == "ot_edit") {
 
 // Sprachupdate Anfang
 
-if ($_GET['action'] == "lang_edit") {
+if ($action == 'lang_edit') {
 
 	// Daten für Sprache wählen
 	$lang_query = xtc_db_query("select languages_id, name, directory from ".TABLE_LANGUAGES." where languages_id = '".$_POST['lang']."'");
@@ -299,7 +292,7 @@ if ($_GET['action'] == "lang_edit") {
 		$sql_data_array = array ('products_name' => xtc_db_prepare_input($products['products_name']));
 		xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array, 'update', 'orders_products_id  = \''.xtc_db_input($order_products['orders_products_id']).'\'');
 	};
-	// Produkte Ende	
+	// Produkte Ende
 
 	// OT Module
 
@@ -327,7 +320,7 @@ if ($_GET['action'] == "lang_edit") {
 
 // Währungswechsel Anfang
 
-if ($_GET['action'] == "curr_edit") {
+if ($action == 'curr_edit') {
 
 	$curr_query = xtc_db_query("select currencies_id, title, code, value from ".TABLE_CURRENCIES." where currencies_id = '".$_POST['currencies_id']."' ");
 	$curr = xtc_db_fetch_array($curr_query);
@@ -367,7 +360,7 @@ if ($_GET['action'] == "curr_edit") {
 
 		xtc_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array, 'update', 'orders_products_id  = \''.xtc_db_input($order_products['orders_products_id']).'\'');
 	};
-	// Produkte Ende		
+	// Produkte Ende
 
 	// OT
 	$order_total_query = xtc_db_query("select orders_total_id, value from ".TABLE_ORDERS_TOTAL." where orders_id = '".$_POST['oID']."'");
@@ -396,7 +389,7 @@ if ($_GET['action'] == "curr_edit") {
 
 		xtc_db_perform(TABLE_ORDERS_TOTAL, $sql_data_array, 'update', 'orders_total_id  = \''.xtc_db_input($order_total['orders_total_id']).'\'');
 	};
-	// OT Ende	
+	// OT Ende
 
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=other&oID='.$_POST['oID']));
 }
@@ -406,21 +399,21 @@ if ($_GET['action'] == "curr_edit") {
 // Löschfunktionen Anfang:
 
 // Löschen eines Artikels aus der Bestellung Anfang:
-if ($_GET['action'] == "product_delete") {
+if ($action == 'product_delete') {
 
 	xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_products_id = '".xtc_db_input($_POST['opID'])."'");
 	xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($_POST['oID'])."' and orders_products_id = '".xtc_db_input($_POST['opID'])."'");
 
-    //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
-    xtc_db_query("UPDATE ".TABLE_PRODUCTS." SET products_quantity = products_quantity + ".xtc_db_input($_POST['del_qty'])." WHERE products_id = " . (int)$_POST['del_pID']);
-    //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+  //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+  xtc_db_query("UPDATE ".TABLE_PRODUCTS." SET products_quantity = products_quantity + ".xtc_db_input($_POST['del_qty'])." WHERE products_id = " . (int)$_POST['del_pID']);
+  //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
 
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_POST['oID']));
 }
 // Löschen eines Artikels aus der Bestellung Ende:
 
 // Löschen einer Artikeloption aus der Bestellung Anfang:
-if ($_GET['action'] == "product_option_delete") {
+if ($action == 'product_option_delete') {
 
 	xtc_db_query("delete from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_products_attributes_id = '".xtc_db_input($_POST['opAID'])."'");
 
@@ -447,10 +440,10 @@ if ($_GET['action'] == "product_option_delete") {
 
 	xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=options&oID='.$_POST['oID'].'&pID='.$products['products_id'].'&opID='.$_POST['opID']));
 }
-// Löschen einer Artikeloptions aus der Bestellung Ende:   
+// Löschen einer Artikeloptions aus der Bestellung Ende:
 
 // Löschen eines OT Moduls aus der Bestellung Anfang:
-if ($_GET['action'] == "ot_delete") {
+if ($action == 'ot_delete') {
 
 	xtc_db_query("delete from ".TABLE_ORDERS_TOTAL." where orders_total_id = '".xtc_db_input($_POST['otID'])."'");
 
@@ -462,7 +455,7 @@ if ($_GET['action'] == "ot_delete") {
 
 // Rückberechnung Anfang
 
-if ($_GET['action'] == "save_order") {
+if ($action == 'save_order') {
 
 	// Errechne neue Zwischensumme für Artikel Anfang
 	$products_query = xtc_db_query("select SUM(final_price) as subtotal_final from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".$_POST['oID']."' ");
@@ -561,8 +554,8 @@ if ($_GET['action'] == "save_order") {
 		if ($status['customers_status_show_price_tax'] == 1) {
 			$module_b_price = $module_value['value'];
 	    	//BOF - Dokuman - 2010-03-17 - use module_tax_class here
-            if ($module_tax_class == '0') {
-			//if ($module_tax == '0') {
+        if ($module_tax_class == '0') {
+        //if ($module_tax == '0') {
 	    	//EOF - Dokuman - 2010-03-17 - use module_tax_class here
 				$module_n_price = $module_value['value'];
 			} else {
@@ -587,7 +580,7 @@ if ($_GET['action'] == "save_order") {
 		$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
 		xtc_db_perform(TABLE_ORDERS_RECALCULATE, $sql_data_array);
 	}
-	// Module Ende  
+	// Module Ende
 
 	// Alte UST Löschen ANFANG
 	xtc_db_query("delete from ".TABLE_ORDERS_TOTAL." where orders_id = '".xtc_db_input($_POST['oID'])."' and class='ot_tax'");
@@ -600,7 +593,7 @@ if ($_GET['action'] == "save_order") {
     FROM ".TABLE_ORDERS_RECALCULATE."
     WHERE orders_id = '".$_POST['oID']."'
     AND tax !='0'
-    GROUP BY tax_rate ");
+    GROUP BY tax_rate");
 
 	while ($ust = xtc_db_fetch_array($ust_query)) {
 		$ust_desc_query = xtc_db_query("select tax_description from ".TABLE_TAX_RATES." where tax_rate = '".$ust['tax_rate']."'");
@@ -610,7 +603,7 @@ if ($_GET['action'] == "save_order") {
 
 		if ($ust['tax_value_new']) {
 			$text = $xtPrice->xtcFormat($ust['tax_value_new'], true);
-			
+
 			//BOF - Dokuman - 2010-03-17 - added sort order directly to array
 			$sql_data_array = array (
 			'orders_id' => xtc_db_prepare_input($_POST['oID']),
@@ -618,7 +611,7 @@ if ($_GET['action'] == "save_order") {
 			'text' => xtc_db_prepare_input($text),
 			'value' => xtc_db_prepare_input($ust['tax_value_new']),
 			'class' => 'ot_tax',
-            'sort_order' => MODULE_ORDER_TOTAL_TAX_SORT_ORDER
+			'sort_order' => MODULE_ORDER_TOTAL_TAX_SORT_ORDER
 			);
 
 			//$insert_sql_data = array ('sort_order' => MODULE_ORDER_TOTAL_TAX_SORT_ORDER);
@@ -680,8 +673,6 @@ if ($_GET['action'] == "save_order") {
 <td class="main">
 <b>
 <?php
-
-
 if ($_GET['text'] == 'address') {
 	echo TEXT_EDIT_ADDRESS_SUCCESS;
 }
@@ -693,8 +684,6 @@ if ($_GET['text'] == 'address') {
 
 <!-- Meldungen Ende //-->
 <?php
-
-
 if ($_GET['edit_action'] == 'address') {
 	include ('orders_edit_address.php');
 }
@@ -715,13 +704,11 @@ elseif ($_GET['edit_action'] == 'options') {
 <tr class="dataTableRow">
 <td class="dataTableContent" align="right">
 <?php
-
-
 echo TEXT_SAVE_ORDER;
 echo xtc_draw_form('save_order', FILENAME_ORDERS_EDIT, 'action=save_order', 'post');
 echo xtc_draw_hidden_field('customers_status_id', $address[customers_status]);
 echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo xtc_draw_hidden_field('cID', $_GET[cID]);
+echo xtc_draw_hidden_field('cID', $_GET['cID']);
 echo '<input type="submit" class="button" onclick="this.blur();" value="'.BUTTON_SAVE.'"/>';
 ?>
 </form>
@@ -732,15 +719,12 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="'.BUTTON
 <br /><br />
 <!-- Bestellung Sichern Ende //-->
 
-
 <!-- Ende //-->
 </td>
 <?php
-
-
 $heading = array ();
 $contents = array ();
-switch ($_GET['action']) {
+switch ($action) {
 
 	default :
 		if (is_object($order)) {
@@ -749,7 +733,6 @@ switch ($_GET['action']) {
 			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_ADDRESS.'<br /><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=address&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
 			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_PRODUCTS.'<br /><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
 			$contents[] = array ('align' => 'center', 'text' => '<br />'.TEXT_EDIT_OTHER.'<br /><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=other&oID='.$_GET['oID']).'">'.BUTTON_EDIT.'</a><br /><br />');
-
 		}
 		break;
 }
