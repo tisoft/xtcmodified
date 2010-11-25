@@ -42,7 +42,7 @@ switch ($_GET['action']) {
 				$product = xtc_db_fetch_array($product_query);
 
 				//BOF - Hetfield - 2010-11-24 - product links with http or ftp
-				if ((strtolower(substr($product['products_url'],0,7))=="http://")) or (strtolower(substr($product['products_url'],0,6))=="ftp://")) {
+				if (strtolower(substr($product['products_url'],0,7))=="http://" or strtolower(substr($product['products_url'],0,6))=="ftp://") {
 					xtc_redirect($product['products_url']);
 				} else {
 					xtc_redirect('http://'.$product['products_url']);
