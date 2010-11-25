@@ -17,8 +17,8 @@
             {if $account}
             <li><a href="{$account}">{#link_account#}</a></li>
             {/if}
-            {if $smarty.session.customers_status.customers_status_id == '1'}             
-            <li><a href="{php}echo xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL');{/php}">{#new_customer#}</a></li>             
+            {if $smarty.session.customers_status.customers_status_id == '1'}
+            <li><a href="{php}echo xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL');{/php}">{#new_customer#}</a></li>
             {/if}
             <li><a href="{$checkout}">{#link_checkout#}</a></li>
             {if $smarty.session.customer_id}
@@ -30,44 +30,44 @@
         <div id="languages">{$box_LANGUAGES}</div>
     </div>
     <div id="breadcrumb">{$navtrail}</div>
-    <div id="contentwrap"> 
-	   {if !strstr($smarty.server.PHP_SELF, 'checkout')}
-        <div id="leftcol">
-			{$box_CATEGORIES}
-			{$box_ADD_QUICKIE}
-			{$box_CONTENT}
-			{$box_INFORMATION}
-			{$box_LAST_VIEWED}
-			{$box_REVIEWS}
-			{$box_SPECIALS}
-			{$box_WHATSNEW}
-		</div>
-        {/if}
-        <div
-		{if !strstr($smarty.server.PHP_SELF, 'checkout')}
-			id="content"
-		{else}
-			id="contentfull"
-		{/if}
-		 >
-        {if strstr($smarty.server.PHP_SELF, 'index')}
-            {if $smarty.get.cPath==null and $smarty.get.manufacturers_id==''}
-                 {if $BANNER}{$BANNER}{/if}
-           {/if}
-        {/if}
-        {$main_content}</div>
+    <div id="contentwrap">
+    {if !strstr($smarty.server.PHP_SELF, 'checkout')}
+      <div id="leftcol">
+      {$box_CATEGORIES}
+      {$box_ADD_QUICKIE}
+      {$box_CONTENT}
+      {$box_INFORMATION}
+      {$box_LAST_VIEWED}
+      {$box_REVIEWS}
+      {$box_SPECIALS}
+      {$box_WHATSNEW}
+      </div>
+    {/if}
+    <div
+    {if !strstr($smarty.server.PHP_SELF, 'checkout')}
+      id="content"
+    {else}
+      id="contentfull"
+    {/if}
+    >
+    {if strstr($smarty.server.PHP_SELF, 'index')}
+        {if $smarty.get.cPath==null and $smarty.get.manufacturers_id==''}
+             {if $BANNER}{$BANNER}{/if}
+       {/if}
+    {/if}
+    {$main_content}</div>
     {if !strstr($smarty.server.PHP_SELF, 'checkout')}
     <div id="rightcol">
-		{$box_CART}
-		{$box_LOGIN}
-		{$box_ADMIN}
-		{$box_NEWSLETTER}
-		{$box_BESTSELLERS}
-		{$box_INFOBOX}
-		{$box_CURRENCIES}
-		{$box_MANUFACTURERS_INFO}
-		{$box_MANUFACTURERS}
-	</div>
-    {/if} </div>
+    {$box_CART}
+    {$box_LOGIN}
+    {$box_ADMIN}
+    {$box_NEWSLETTER}
+    {$box_BESTSELLERS}
+    {$box_INFOBOX}
+    {$box_CURRENCIES}
+    {$box_MANUFACTURERS_INFO}
+    {$box_MANUFACTURERS}
+    </div>
+    {/if}</div>
 <p class="footer">{$smarty.const.TITLE} &copy; {$smarty.now|date_format:"%Y"} | Template &copy; 2009 by xtcModified eCommerce Shopsoftware</p>
 </div>
