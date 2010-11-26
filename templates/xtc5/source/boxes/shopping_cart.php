@@ -101,8 +101,12 @@ if (isset ($_SESSION['gv_id'])) {
 	$box_smarty->assign('COUPON_AMOUNT2', $xtPrice->xtcFormat($coupon['coupon_amount'], true, 0, true));
 }
 if (isset ($_SESSION['cc_id'])) {
-	$box_smarty->assign('COUPON_HELP_LINK', '<a href="javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_COUPON_HELP, 'cID='.$_SESSION['cc_id']).'\')">');
+	//BOF - DokuMan - 2010-11-26 - FIX LOST cID - 2010-11-05 - add SSL FIX -> $request_type and correct href and added title tag
+	//$box_smarty->assign('COUPON_HELP_LINK', '<a href="javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_COUPON_HELP, 'cID='.$_SESSION['cc_id']).'\')">');
+	$box_smarty->assign('COUPON_HELP_LINK', '<a target="_blank" class="thickbox" title="Information" href="'.xtc_href_link(FILENAME_POPUP_COUPON_HELP, 'cID='.$_SESSION['cc_id'].'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'">Information</a>');
+	//EOF - DokuMan - 2010-11-26 - FIX LOST cID - 2010-11-05 - add SSL FIX -> $request_type and correct href and added title tag
 }
+
 // GV Code End
 $box_smarty->assign('LINK_CART', xtc_href_link(FILENAME_SHOPPING_CART, '', $request_type)); // web28 - 2010-11-05 - change SSL -> $request_type
 $box_smarty->assign('products', $products_in_cart);
