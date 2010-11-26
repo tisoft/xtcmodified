@@ -1,14 +1,15 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: econda.php ???? 2005-11-29 14:50:00Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2005 osCommerce(econda.php,v 1.42 2003/06/10); www.econda.de
+   (c) 2003 XT-Commerce
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
@@ -88,7 +89,10 @@ if ($_SESSION['login_success']) {
 
 // $current_page = basename($PHP_SELF);
 // $current_page = split('\?', basename($_SERVER['PHP_SELF'])); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility
-$current_page = join('',preg_grep("/.+\.php$/", preg_split("/\?|\//", $_SERVER['PHP_SELF'])));
+//BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
+//$current_page = join('',preg_grep("/.+\.php$/", preg_split("/\?|\//", $_SERVER['PHP_SELF'])));
+$current_page = join('',preg_grep("/.+\.php$/", preg_split("/\?|\//", basename($PHP_SELF))));
+//EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 switch ($current_page) {
 	case FILENAME_PRODUCT_INFO:
 		if (is_object($product) && $product->isProduct()) {

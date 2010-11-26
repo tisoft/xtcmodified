@@ -57,7 +57,10 @@ if (file_exists('includes/request_type.php')) {
 //EOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 
   // set php_self in the local scope
-  $PHP_SELF = $_SERVER['PHP_SELF'];
+  //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
+  $PHP_SELF = $_SERVER['SCRIPT_FILENAME'];
+  //$PHP_SELF = $_SERVER['PHP_SELF'];
+  //EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 
 //BOF - GTB/web28 - 2010-09-15 - Security Fix - Base
 $ssl_proxy = '';

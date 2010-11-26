@@ -1,17 +1,18 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: new_attributes_include.php 901 2005-04-29 10:32:14Z novalis $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(new_attributes_functions); www.oscommerce.com 
    (c) 2003	 nextcommerce (new_attributes_include.php,v 1.11 2003/08/21); www.nextcommerce.org
-
+   (c) 2003 XT-Commerce
+   
    Released under the GNU General Public License 
    --------------------------------------------------------------
    Third Party contributions:
@@ -69,8 +70,11 @@ function go_option() {
 	</td></tr>
 <!-- EOF - vr - 2010-02-16 - assign *all* option values to product, thx to web28 //-->
 <!-- EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION //-->
-	
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change">
+
+<!-- BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change"> //-->
+<form action="<?php echo basename($PHP_SELF); ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change">
+<!-- EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF //-->
 <?php
 echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
 //BOF - DokuMan - 2010-03-19 - Artikelattribute nach bearbeiten zurück zur Kategorie
@@ -194,7 +198,10 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
 echo xtc_button(BUTTON_SAVE) . '&nbsp;';
 // BOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 //echo xtc_button_link(BUTTON_CANCEL,'javascript:history.back()');
-echo xtc_button_link(BUTTON_CANCEL,$_SERVER['PHP_SELF']);
+// BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
+//echo xtc_button_link(BUTTON_CANCEL,$_SERVER['PHP_SELF']);
+echo xtc_button_link(BUTTON_CANCEL,basename($PHP_SELF);
+// EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
 // EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 ?>
 </td>

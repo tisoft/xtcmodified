@@ -60,11 +60,15 @@
 // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 
 //BOF - GTB - 2010-08-03 - Security Fix - Base
-  if ($_SERVER['SCRIPT_NAME'] != $_SERVER['PHP_SELF']) {
+  //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
+  $PHP_SELF = $_SERVER['SCRIPT_FILENAME'];
+  /*if ($_SERVER['SCRIPT_NAME'] != $_SERVER['PHP_SELF']) {
     $PHP_SELF = $_SERVER['SCRIPT_NAME'];
   } else {
     $PHP_SELF = $_SERVER['PHP_SELF'];
-  }
+  }*/
+  //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
+  
   $ssl_proxy = '';
   if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
   define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
