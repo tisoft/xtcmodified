@@ -2,12 +2,16 @@
 
 {* -- this part is only for test the xajax-support ------------------ *}
 {* -- ignore or remove this part in your final project -------------- *}
-{if $_XAJAX_SUPPORT_VARIABLE}$_XAJAX_SUPPORT_VARIABLE{/if}
+{php}
+if(XAJAX_SUPPORT=='true' && XAJAX_SUPPORT_TEST=='true')
+  echo '<a href="#" onClick="xajax_xajax_support_test_get_servertime(new Date().toLocaleString());">xajax_support_test</a>';
+{/php}
 {* -- end of test xajax-support ------------------------------------- *}
 
 <div id="wrap">
     <div id="header">
-        <div id="logo"><img src="{$tpl_path}img/spacer.png" width="400" height="115" alt="{$store_name}" /></div>
+        <div id="logo"><a href="{$index}"><img src="{$tpl_path}img/spacer.png" width="400" height="115" alt="{$store_name}" /></a></div>
+
         <div id="search">{$box_SEARCH}</div>
     </div>
     <div id="topmenuwrap">

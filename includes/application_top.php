@@ -30,9 +30,6 @@
 // BOF - Hendrik - 2010-08-22 - xajax support
 define('XAJAX_SUPPORT','false'); // 'true' );     // if you extend the system with features needed xajax support switch on 'true'
 define('XAJAX_SUPPORT_TEST','false'); // 'true' );     // this includes any little test feature to checkout xajax is woking properly, switch it on 'false' for regular running
-if( XAJAX_SUPPORT=='true' && XAJAX_SUPPORT_TEST=='true' ) {
-  $_XAJAX_SUPPORT_VARIABLE = '<a href="#" onClick="xajax_xajax_support_test_get_servertime( new Date().toLocaleString() );">xajax_support_test</a>'; // DokuMan - assign $_XAJAX_SUPPORT_VARIABLE to template -> index.html
-}
 // EOF - Hendrik - 2010-08-22 - xajax support
 
 // start the timer for the page parse time log
