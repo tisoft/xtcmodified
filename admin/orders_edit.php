@@ -178,7 +178,25 @@ if ($action == 'product_option_ins') {
 
 	if (DOWNLOAD_ENABLED == 'true') {
 		$attributes_query = "select popt.products_options_name,
-										                                and poval.language_id = '".$_SESSION['languages_id']."'";
+                       poval.products_options_values_name,
+                       pa.options_values_price,
+                       pa.price_prefix,
+                       pad.products_attributes_maxdays,
+                       pad.products_attributes_maxcount,
+                       pad.products_attributes_filename
+                       from ".TABLE_PRODUCTS_OPTIONS." popt,
+                       ".TABLE_PRODUCTS_OPTIONS_VALUES." poval,
+                       ".TABLE_PRODUCTS_ATTRIBUTES." pa
+                       left join ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
+                       on pa.products_attributes_id=pad.products_attributes_id
+                       where pa.products_id = '".$products['products_id']."'
+                       and pa.options_id = '".$products_attributes['options_id']."'
+                       and pa.options_id = popt.products_options_id
+                       and pa.options_values_id = '".$products_attributes['options_values_id']."'
+                       and pa.options_values_id = poval.products_options_values_id
+                       and popt.language_id = '".$_SESSION['languages_id']."'
+										   and poval.language_id = '".$_SESSION['languages_id']."'";
+
 		$attributes = xtc_db_query($attributes_query);
 
 		$attributes_values = xtc_db_fetch_array($attributes);
