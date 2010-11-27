@@ -200,7 +200,7 @@ echo xtc_button(BUTTON_SAVE) . '&nbsp;';
 //echo xtc_button_link(BUTTON_CANCEL,'javascript:history.back()');
 // BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
 //echo xtc_button_link(BUTTON_CANCEL,$_SERVER['PHP_SELF']);
-echo xtc_button_link(BUTTON_CANCEL,basename($PHP_SELF);
+echo xtc_button_link(BUTTON_CANCEL,basename($PHP_SELF));
 // EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
 // EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 ?>
