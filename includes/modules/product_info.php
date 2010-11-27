@@ -189,19 +189,17 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
       */
 			$more_images_data = array();
 			foreach ($mo_images as $img) {
-				$more_images_data[] = array (
-		  //BOF - GTB - 2010-08-03 - Security Fix - Base
-		  'PRODUCTS_IMAGE' => DIR_WS_BASE.DIR_WS_INFO_IMAGES.$img['image_name'],
-          //'PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
-          //EOF - GTB - 2010-08-03 - Security Fix - Base
-          'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE,
-          'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')'
-          );
+				$more_images_data[] = array ( // BOF - web28 - 2010-11-27 - use allready defined function from product.php
+											  //'PRODUCTS_IMAGE' => DIR_WS_INFO_IMAGES.$img['image_name'],
+											  'PRODUCTS_IMAGE' => $product->productImage($img['image_name'], 'info'),           
+											  // BOF - web28 - 2010-11-27 - use allready defined function from product.php
+											  'PRODUCTS_POPUP_LINK' => 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')'
+											  );
 				// BOF - Tomcraft - 2009-09-12 - needed for non modified templates
-				//BOF - GTB - 2010-08-03 - Security Fix - Base
-				$mo_img = DIR_WS_BASE.DIR_WS_INFO_IMAGES.$img['image_name'];
+				// BOF - web28 - 2010-11-27 - use allready defined function from product.php
 				//$mo_img = DIR_WS_INFO_IMAGES.$img['image_name'];
-				//EOF - GTB - 2010-08-03 - Security Fix - Base
+				$mo_img = $product->productImage($img['image_name'], 'info');				
+				//EOF - web28 - 2010-11-27 - use allready defined function from product.php
 				$info_smarty->assign('PRODUCTS_IMAGE_'.$img['image_nr'], $mo_img);
 				$info_smarty->assign('PRODUCTS_POPUP_LINK_'.$img['image_nr'], 'javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_IMAGE, 'pID='.$product->data['products_id'].$connector.'imgID='.$img['image_nr']).'\')');
 				// EOF - Tomcraft - 2009-09-12 - needed for non modified templates
