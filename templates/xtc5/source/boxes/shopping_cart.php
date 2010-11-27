@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.18 2003/02/10); www.oscommerce.com
-   (c) 2003	 nextcommerce (shopping_cart.php,v 1.15 2003/08/17); www.nextcommerce.org 
+   (c) 2003	 nextcommerce (shopping_cart.php,v 1.15 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (shopping_cart.php 1281 2005-10-03)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 $box_smarty = new smarty;
 //BOF - GTB - 2010-08-03 - Security Fix - Base
@@ -28,8 +28,11 @@ $qty = 0; //DokuMan - 2010-02-28 - Undefined variable: qty
 // include needed files
 require_once (DIR_FS_INC.'xtc_recalculate_price.inc.php');
 
-if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT) or strstr($PHP_SELF, FILENAME_CHECKOUT_CONFIRMATION) or strstr($PHP_SELF, FILENAME_CHECKOUT_SHIPPING))
+if (strstr($PHP_SELF, FILENAME_CHECKOUT_PAYMENT) || strstr($PHP_SELF, FILENAME_CHECKOUT_CONFIRMATION) || strstr($PHP_SELF, FILENAME_CHECKOUT_SHIPPING)){
 	$box_smarty->assign('deny_cart', 'true');
+} else {
+	$box_smarty->assign('deny_cart', 'false');
+}
 
 if ($_SESSION['cart']->count_contents() > 0) {
 	$products = $_SESSION['cart']->get_products();
@@ -37,10 +40,10 @@ if ($_SESSION['cart']->count_contents() > 0) {
 	//$qty = 0; //DokuMan - 2010-02-28 - Undefined variable: qty
 	for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 		$qty += $products[$i]['quantity'];
-		$products_in_cart[] = array ('QTY' => $products[$i]['quantity'], 
-									 'LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products[$i]['id'],$products[$i]['name'])), 
-									 'NAME' => $products[$i]['name']);
-
+		$products_in_cart[] = array (
+		'QTY' => $products[$i]['quantity'],
+		'LINK' => xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products[$i]['id'],$products[$i]['name'])),
+		'NAME' => $products[$i]['name']);
 	}
 	$box_smarty->assign('PRODUCTS', $qty);
 	$box_smarty->assign('empty', 'false');
@@ -50,38 +53,36 @@ if ($_SESSION['cart']->count_contents() > 0) {
 }
 
 if ($_SESSION['cart']->count_contents() > 0) {
-	
-	$total =$_SESSION['cart']->show_total();
+
+	$total = $_SESSION['cart']->show_total();
 	$discount = 0; //DokuMan - 2010-03-01 - set undefined variable
-if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == '1' && $_SESSION['customers_status']['customers_status_ot_discount'] != '0.00') {
-	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
-		$price = $total-$_SESSION['cart']->show_tax(false);
-	} else {
-		$price = $total;
-	}
-	$discount = $xtPrice->xtcGetDC($price, $_SESSION['customers_status']['customers_status_ot_discount']);
-	$box_smarty->assign('DISCOUNT', $xtPrice->xtcFormat(($discount * (-1)), $price_special = 1, $calculate_currencies = false));
-	
-}
+  if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == '1' && $_SESSION['customers_status']['customers_status_ot_discount'] != '0.00') {
+    if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
+      $price = $total-$_SESSION['cart']->show_tax(false);
+    } else {
+      $price = $total;
+    }
+    $discount = $xtPrice->xtcGetDC($price, $_SESSION['customers_status']['customers_status_ot_discount']);
+    $box_smarty->assign('DISCOUNT', $xtPrice->xtcFormat(($discount * (-1)), $price_special = 1, $calculate_currencies = false));
+  }
 
-
-if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
-	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 0) $total-=$discount;
-	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) $total-=$discount;
-	if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 1) $total-=$discount;
-	$box_smarty->assign('TOTAL', $xtPrice->xtcFormat($total, true));
-} 
-	
+  if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
+    if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 0) $total-=$discount;
+    if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) $total-=$discount;
+    if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 1) $total-=$discount;
+    $box_smarty->assign('TOTAL', $xtPrice->xtcFormat($total, true));
+  }
 
 	$box_smarty->assign('UST', $_SESSION['cart']->show_tax());
-	
-	if (SHOW_SHIPPING=='true') { 
+
+	if (SHOW_SHIPPING=='true') {
 		//BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
-		//$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.'<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"">'.SHIPPING_COSTS.'</a>');	
-		$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>'); // web28 - 2010-11-05 - change SSL -> $request_type	
+		//$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.'<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"">'.SHIPPING_COSTS.'</a>');
+		$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>'); // web28 - 2010-11-05 - change SSL -> $request_type
  	  	//EOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
 	}
 }
+
 if (ACTIVATE_GIFT_SYSTEM == 'true') {
 	$box_smarty->assign('ACTIVATE_GIFT', 'true');
 }

@@ -56,7 +56,7 @@ if(XAJAX_SUPPORT=='true' && XAJAX_SUPPORT_TEST=='true')
     >
     {if strstr($smarty.server.PHP_SELF, 'index')}
         {if $smarty.get.cPath==null and $smarty.get.manufacturers_id==''}
-             {if $BANNER}{$BANNER}{/if}
+             {if isset($BANNER)}{$BANNER}{/if}
        {/if}
     {/if}
     {$main_content}</div>
