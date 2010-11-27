@@ -249,7 +249,16 @@ if ($action == 'shipping_edit') {
 
 	$text = $xtPrice->xtcFormat($_POST['value'], true);
 
-	$sql_data_array = array ('orders_id' => xtc_db_prepare_input($_POST['oID']), 'title' => xtc_db_prepare_input($shipping_text), 'text' => xtc_db_prepare_input($text), 'value' => xtc_db_prepare_input($_POST['value']), 'class' => 'ot_shipping');
+	//BOF - web28 - 2010-11-28 - add missing order_total_shipping_sort order
+	$shipping_order = intval(MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER);
+	//$sql_data_array = array ('orders_id' => xtc_db_prepare_input($_POST['oID']), 'title' => xtc_db_prepare_input($shipping_text), 'text' => xtc_db_prepare_input($text), 'value' => xtc_db_prepare_input($_POST['value']), 'class' => 'ot_shipping');
+	$sql_data_array = array ('orders_id' => xtc_db_prepare_input($_POST['oID']), 
+							 'title' => xtc_db_prepare_input($shipping_text), 
+							 'text' => xtc_db_prepare_input($text), 
+							 'value' => xtc_db_prepare_input($_POST['value']), 
+							 'class' => 'ot_shipping',
+							 'sort_order' => xtc_db_prepare_input($shipping_order));
+	//BOF - web28 - 2010-11-28 - add missing order_total_shipping_sort order
 
 	$check_shipping_query = xtc_db_query("select class from ".TABLE_ORDERS_TOTAL." where orders_id = '".$_POST['oID']."' and class = 'ot_shipping'");
 	if (xtc_db_num_rows($check_shipping_query)) {
