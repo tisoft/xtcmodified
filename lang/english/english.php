@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(german.php,v 1.119 2003/05/19); www.oscommerce.com
-   (c) 2003  nextcommerce (german.php,v 1.25 2003/08/25); www.nextcommerce.org
+   (c) 2003 nextcommerce (german.php,v 1.25 2003/08/25); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
@@ -34,7 +34,7 @@ define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd/m/Y');  // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 define('DOB_FORMAT_STRING', 'dd/mm/jjjj');
- 
+
 function xtc_date_raw($date, $reverse = false) {
   if ($reverse) {
     return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
@@ -45,7 +45,7 @@ function xtc_date_raw($date, $reverse = false) {
 //EOF - Dokuman - 2009-06-03 - correct english date format
 
 // BOF - vr - 2009-12-11 - Added language dependent currency code
-// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency when changing language, 
+// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency when changing language,
 // instead of staying with the applications default currency
 define('LANGUAGE_CURRENCY', 'EUR');
 // EOF - vr - 2009-12-11 - Added language dependent currency code
@@ -73,8 +73,8 @@ define('BOX_MANUFACTURER_INFO_HOMEPAGE', '%s Homepage');
 define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'More products'); //changed by electronica 2009-09-06
 
 define('BOX_HEADING_ADD_PRODUCT_ID','Add to cart'); //changed by electronica 2009-09-06
-  
-define('BOX_LOGINBOX_STATUS','Customer group:');     
+
+define('BOX_LOGINBOX_STATUS','Customer group:');
 define('BOX_LOGINBOX_DISCOUNT','Product discount');
 define('BOX_LOGINBOX_DISCOUNT_TEXT','Discount');
 define('BOX_LOGINBOX_DISCOUNT_OT','');
@@ -197,12 +197,11 @@ define('IMAGE_BUTTON_UPDATE_CART', 'Update shopping cart');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Write evaluation'); //changed by electronica 2009-09-06
 define('IMAGE_BUTTON_ADMIN', 'Admin');
 define('IMAGE_BUTTON_PRODUCT_EDIT', 'Edit product');
-// BOF - vr - 2010-02-20 removed double definition 
+// BOF - vr - 2010-02-20 removed double definition
 // define('IMAGE_BUTTON_LOGIN', 'Login');
-// EOF - vr - 2010-02-20 removed double definition 
+// EOF - vr - 2010-02-20 removed double definition
 define('IMAGE_BUTTON_SEND', 'Send'); //DokuMan - 2010-03-15 - Added button description for contact form
 define('IMAGE_BUTTON_CONTINUE_SHOPPING', 'Continue shopping'); //Hendrik - 2010-11-12 - used in template xtc5...shopping_cart.html
-
 
 define('SMALL_IMAGE_BUTTON_DELETE', 'Delete');
 define('SMALL_IMAGE_BUTTON_EDIT', 'Edit');
@@ -429,9 +428,9 @@ define('ERROR_INVALID_FINISDATE_COUPON','Your voucher is already expired.'); //c
 define('PERSONAL_MESSAGE', '%s writes:'); //changed by electronica 2009-09-06
 
 //Popup Window
-// BOF - DokuMan - 2010-02-25 removed double definition 
+// BOF - DokuMan - 2010-02-25 removed double definition
 //define('TEXT_CLOSE_WINDOW', 'Close window.'); //changed by electronica 2009-09-06
-// EOF - DokuMan - 2010-02-25 removed double definition 
+// EOF - DokuMan - 2010-02-25 removed double definition
 
 /*
  *
@@ -472,7 +471,7 @@ define('TAX_INFO_INCL','%s VAT incl.');
 define('TAX_INFO_EXCL','%s VAT excl.');
 define('TAX_INFO_ADD','%s VAT plus.');
 define('SHIPPING_EXCL','excl.');
-define('SHIPPING_COSTS','Shipping costs'); 
+define('SHIPPING_COSTS','Shipping costs');
 
 // changes 3.0.4 SP2
 define('SHIPPING_TIME','Shipping time: ');
@@ -487,7 +486,7 @@ define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Shipping costs cannot be calculated a
 
 //Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
 define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Your account');
-define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Delete account');	
+define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Delete account');
 
 //contact-form messages
 define('ERROR_EMAIL','<p><b>Your e-mail address:</b> None or invalid input!</p>');
@@ -510,7 +509,7 @@ define('EMAIL_MESSAGE', 'Message: ');
 // BOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file
 //Table Header checkout_confirmation.php
 define('HEADER_QTY', 'Number');
-define('HEADER_ARTICLE', 'Item');    
+define('HEADER_ARTICLE', 'Item');
 define('HEADER_SINGLE', 'Singleprice');
 define('HEADER_TOTAL','Total');
 // EOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file

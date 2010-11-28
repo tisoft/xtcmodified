@@ -1,4 +1,4 @@
-{foreach name=aussen item=module_data from=$module_content} 
+{foreach name=aussen item=module_data from=$module_content}
 <table class="paymentblock" width="100%" border="0" cellspacing="0" cellpadding="6">
   <tr>
     <td class="header" width="1%">{$module_data.selection}</td>
@@ -20,16 +20,16 @@
   <tr>
     <td>&nbsp;</td>
     <td colspan="2">
-		<table border="0" cellspacing="0" cellpadding="0">
-		{foreach name=aussen item=method_data from=$module_data.fields} 
-			<tr>
-				<td>{$method_data.title}</td>
-				<td>&nbsp;</td>
-				<td>{$method_data.field}</td>
-				<td>&nbsp;</td>
-			 </tr>
-		{/foreach}
-		</table>
+    <table border="0" cellspacing="0" cellpadding="0">
+    {foreach name=aussen item=method_data from=$module_data.fields}
+      <tr>
+        <td>{$method_data.title}</td>
+        <td>&nbsp;</td>
+        <td>{$method_data.field}</td>
+        <td>&nbsp;</td>
+       </tr>
+    {/foreach}
+    </table>
     </td>
   </tr>
   {/if}

@@ -15,7 +15,7 @@ Falls Sie Fragen zu unserem Kunden-Service haben, wenden Sie sich bitte an: {$co
 Achtung: Diese E-Mail-Adresse wurde uns von einem Kunden bekannt gegeben. Falls Sie sich nicht angemeldet haben, senden Sie bitte eine E-Mail an: {$content.MAIL_REPLY_ADDRESS}
     
 {if $SEND_GIFT==true}
-Als kleines Willkommensgeschenk senden wir Ihnen einen Gutschein über:	{$GIFT_AMMOUNT}
+Als kleines Willkommensgeschenk senden wir Ihnen einen Gutschein über: {$GIFT_AMMOUNT}
 
 Ihr persönlicher Gutscheincode lautet {$GIFT_CODE}. 
 Sie können diese Gutschrift an der Kasse während des Bestellvorganges verbuchen.

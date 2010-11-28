@@ -7,23 +7,23 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(german.php,v 1.119 2003/05/19); www.oscommerce.com 
-   (c) 2003  nextcommerce (german.php,v 1.25 2003/08/25); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(german.php,v 1.119 2003/05/19); www.oscommerce.com
+   (c) 2003 nextcommerce (german.php,v 1.25 2003/08/25); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
 /*
- * 
+ *
  *  DATE / TIME
- * 
+ *
  */
- 
+
 define('TITLE', STORE_NAME);
-define('HEADER_TITLE_TOP', 'Startseite');    
+define('HEADER_TITLE_TOP', 'Startseite');
 define('HEADER_TITLE_CATALOG', 'Katalog');
 define('HTML_PARAMS','dir="ltr" xml:lang="de"');
 @setlocale(LC_TIME, 'de_DE@euro', 'de_DE', 'de-DE', 'de', 'ge', 'de_DE.ISO_8859-1', 'German','de_DE.ISO_8859-15');
@@ -45,7 +45,7 @@ function xtc_date_raw($date, $reverse = false) {
 
 
 // BOF - vr - 2009-12-11 - Added language dependent currency code
-// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency when changing language, 
+// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency when changing language,
 // instead of staying with the applications default currency
 define('LANGUAGE_CURRENCY', 'EUR');
 // EOF - vr - 2009-12-11 - Added language dependent currency code
@@ -54,9 +54,9 @@ define('MALE', 'Herr');
 define('FEMALE', 'Frau');
 
 /*
- * 
+ *
  *  BOXES
- * 
+ *
  */
 
 // text for gift voucher redeeming
@@ -73,7 +73,7 @@ define('BOX_MANUFACTURER_INFO_HOMEPAGE', '%s Homepage');
 define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'Mehr Artikel');
 
 define('BOX_HEADING_ADD_PRODUCT_ID','In den Korb legen');
-  
+
 define('BOX_LOGINBOX_STATUS','Kundengruppe: ');
 define('BOX_LOGINBOX_DISCOUNT','Artikelrabatt');
 define('BOX_LOGINBOX_DISCOUNT_TEXT','Rabatt');
@@ -96,9 +96,9 @@ define('JS_ERROR_SUBMITTED', 'Diese Seite wurde bereits best&auml;tigt. Klicken 
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte w&auml;hlen Sie eine Zahlungsweise f&uuml;r Ihre Bestellung.');
 
 /*
- * 
+ *
  * ACCOUNT FORMS
- * 
+ *
  */
 
 define('ENTRY_COMPANY_ERROR', '');
@@ -143,11 +143,11 @@ define('ENTRY_PASSWORD_NEW_ERROR', 'Ihr neues Passwort muss aus mindestens ' . E
 define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'Ihre Passw&ouml;rter stimmen nicht &uuml;berein.');
 
 /*
- * 
+ *
  *  RESULT PAGES
- * 
+ *
  */
- 
+
 define('TEXT_RESULT_PAGE', 'Seiten:');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Zeige <strong>%d</strong> bis <strong>%d</strong> (von insgesamt <strong>%d</strong> Artikeln)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Zeige <strong>%d</strong> bis <strong>%d</strong> (von insgesamt <strong>%d</strong> Bestellungen)');
@@ -156,9 +156,9 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Zeige <strong>%d</strong> bis <st
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Zeige <strong>%d</strong> bis <strong>%d</strong> (von insgesamt <strong>%d</strong> Angeboten)');
 
 /*
- * 
+ *
  * SITE NAVIGATION
- * 
+ *
  */
 
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');
@@ -168,18 +168,18 @@ define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Vorhergehende %d Seiten');
 define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'N&auml;chste %d Seiten');
 
 /*
- * 
+ *
  * PRODUCT NAVIGATION
- * 
+ *
  */
 
 define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;vorherige]');
 define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste&nbsp;&gt;&gt;]');
 
 /*
- * 
+ *
  * IMAGE BUTTONS
- * 
+ *
  */
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Neue Adresse');
@@ -195,11 +195,11 @@ define('IMAGE_BUTTON_SEARCH', 'Suchen');
 define('IMAGE_BUTTON_UPDATE', 'Aktualisieren');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
-define('IMAGE_BUTTON_ADMIN', 'Admin'); 
+define('IMAGE_BUTTON_ADMIN', 'Admin');
 define('IMAGE_BUTTON_PRODUCT_EDIT', 'Produkt bearbeiten');
-// BOF - vr - 2010-02-20 removed double definition 
+// BOF - vr - 2010-02-20 removed double definition
 // define('IMAGE_BUTTON_LOGIN', 'Anmelden');
-// EOF - vr - 2010-02-20 removed double definition 
+// EOF - vr - 2010-02-20 removed double definition
 define('IMAGE_BUTTON_SEND', 'Absenden'); //DokuMan - 2010-03-15 - Added button description for contact form
 define('IMAGE_BUTTON_CONTINUE_SHOPPING', 'Einkauf Fortsetzen'); //Hendrik - 2010-11-12 - used in template xtc5...shopping_cart.html
 
@@ -216,9 +216,9 @@ define('ICON_ERROR', 'Fehler');
 define('TEXT_PRINT', 'drucken'); //DokuMan - 2009-05-26 - Added description for 'account_history_info.php'
 
 /*
- * 
+ *
  *  GREETINGS
- * 
+ *
  */
 
 define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n, dass Sie wieder da sind, <span class="greetUser">%s!</span> M&ouml;chten Sie sich unsere <a style="text-decoration:underline;" href="%s">neuen Artikel</a> ansehen?');
@@ -240,9 +240,9 @@ define('TEXT_NO_NEW_PRODUCTS', 'Keine neuen Artikel in den letzten '.MAX_DISPLAY
 define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
 /*
- * 
+ *
  * WARNINGS
- * 
+ *
  */
 
 define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname($_SERVER['SCRIPT_FILENAME']) . '/xtc_installer. Bitte l&ouml;schen Sie das Verzeichnis aus Gr&uuml;nden der Sicherheit!');
@@ -283,9 +283,9 @@ define('TEXT_NOW', '\' bestellen');
 define('TEXT_GUEST',' Gast');
 
 /*
- * 
+ *
  * ADVANCED SEARCH
- * 
+ *
  */
 
 define('TEXT_ALL_CATEGORIES', 'Alle Kategorien');
@@ -319,9 +319,9 @@ define('MAXIMUM_ORDER_VALUE_REACHED_2', '&uuml;berschritten.<br /> Bitte reduzie
 define('ERROR_INVALID_PRODUCT', 'Der von Ihnen gew&auml;hlte Artikel wurde nicht gefunden!');
 
 /*
- * 
+ *
  * NAVBAR TITLE
- * 
+ *
  */
 
 define('NAVBAR_TITLE_ACCOUNT', 'Mein Konto');
@@ -378,9 +378,9 @@ define('NAVBAR_GV_REDEEM', 'Gutschein einl&ouml;sen');
 define('NAVBAR_GV_SEND', 'Gutschein versenden');
 
 /*
- * 
+ *
  *  MISC
- * 
+ *
  */
 
 define('TEXT_NEWSLETTER','Sie m&ouml;chten immer auf dem Laufenden bleiben?<br />Kein Problem, tragen Sie sich in unseren Newsletter ein und Sie sind immer auf dem neuesten Stand.');
@@ -428,16 +428,16 @@ define('ERROR_INVALID_FINISDATE_COUPON','Ihr Kupon ist bereits abgelaufen.');
 define('PERSONAL_MESSAGE', '%s schreibt:');
 
 //Popup Window
-// BOF - DokuMan - 2010-02-25 removed double definition 
+// BOF - DokuMan - 2010-02-25 removed double definition
 //define('TEXT_CLOSE_WINDOW', 'Fenster schliessen.');
-// EOF - DokuMan - 2010-02-25 removed double definition 
+// EOF - DokuMan - 2010-02-25 removed double definition
 
 /*
- * 
+ *
  *  COUPON POPUP
- * 
+ *
  */
- 
+
 define('TEXT_CLOSE_WINDOW', 'Fenster schliessen [x]');
 define('TEXT_COUPON_HELP_HEADER', 'Ihr Gutschein wurde erfolgreich verbucht.');
 define('TEXT_COUPON_HELP_NAME', '<br /><br />Gutscheinbezeichnung: %s');
@@ -487,12 +487,12 @@ define('_MODULE_UNDEFINED_SHIPPING_RATE', 'Die Versandkosten k&ouml;nnen im Mome
 //Dokuman - 2009-08-21 - Added 'delete account' functionality for customers
 define('NAVBAR_TITLE_1_ACCOUNT_DELETE', 'Mein Konto');
 define('NAVBAR_TITLE_2_ACCOUNT_DELETE', 'Konto l&ouml;schen');
-	
+
 //contact-form messages
 define('ERROR_EMAIL','<p><b>Ihre E-Mail-Adresse:</b> Keine oder ung&uuml;ltige Eingabe!</p>');
 define('ERROR_VVCODE','<p><b>Sicherheitscode:</b> Keine &Uuml;bereinstimmung, bitte geben Sie den Sicherheitscode erneut ein!</p>');
 // BOF - DokuMan - 2010-09-06 - combined contact form messages in one language file
-define('ERROR_MSG_BODY','<p><b>Ihre Nachricht:</b> Keine Eingabe!</p>');	
+define('ERROR_MSG_BODY','<p><b>Ihre Nachricht:</b> Keine Eingabe!</p>');
 define('EMAIL_COMPANY', 'Firma: ');
 define('EMAIL_STREET', 'Strasse: ');
 define('EMAIL_POSTCODE', 'PLZ: ');
@@ -509,7 +509,7 @@ define('EMAIL_MESSAGE', 'Nachricht: ');
 // BOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file
 //Table Header checkout_confirmation.php
 define('HEADER_QTY', 'Anzahl');
-define('HEADER_ARTICLE', 'Artikel');    
+define('HEADER_ARTICLE', 'Artikel');
 define('HEADER_SINGLE', 'Einzelpreis');
 define('HEADER_TOTAL','Summe');
 // EOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file

@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(header.php,v 1.40 2003/03/14); www.oscommerce.com
-   (c) 2003	 nextcommerce (header.php,v 1.13 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (header.php,v 1.13 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (header.php 1140 2005-08-10)
 
    Released under the GNU General Public License
@@ -44,37 +44,28 @@
 
   Please leave this comment intact together with the
   following copyright announcement.
-
 */
 ?>
 <!--
-	This OnlineStore is brought to you by XT-Commerce, Community made shopping
-	XTC is a free open source e-Commerce System
-	created by Mario Zanier & Guido Winger and licensed under GNU/GPL.
-	Information and contribution at http://www.xt-commerce.com
+  This OnlineStore is brought to you by XT-Commerce, Community made shopping
+  XTC is a free open source e-Commerce System
+  created by Mario Zanier & Guido Winger and licensed under GNU/GPL.
+  Information and contribution at http://www.xt-commerce.com
 -->
 <meta name="generator" content="(c) by <?php echo PROJECT_VERSION; ?> ----- http://www.xtc-modified.org" />
 <?php
-/*
 //BOF - GTB - 2010-08-03 - Security Fix - Base
-//<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />
+/*<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>" />*/
 //EOF - GTB - 2010-08-03 - Security Fix - Base
-//BOF - DokuMan - 2010-03-16 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
-//<link rel="stylesheet" type="text/css" href="<?php echo 'templates/'.CURRENT_TEMPLATE.'/stylesheet.css'; ?>" />
-*/
 if (file_exists('templates/'.CURRENT_TEMPLATE.'/css/general.css.php')) {
   require('templates/'.CURRENT_TEMPLATE.'/css/general.css.php');
-  }
-  //Maintain backwards compatibility for older templates
-  else {
-    
+  } else {
+    //Maintain backwards compatibility for older templates
     //BOF - GTB - 2010-08-03 - Security Fix - Base
-	echo '<link rel="stylesheet" type="text/css" href="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
-	//echo '<link rel="stylesheet" type="text/css" href="templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
-	//EOF - GTB - 2010-08-03 - Security Fix - Base
-
+    echo '<link rel="stylesheet" type="text/css" href="'.DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
+    //echo '<link rel="stylesheet" type="text/css" href="templates/'.CURRENT_TEMPLATE.'/stylesheet.css" />';
+    //EOF - GTB - 2010-08-03 - Security Fix - Base
 }
-//EOF - DokuMan - 2010-03-16 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
 ?>
 
 <script type="text/javascript"><!--
@@ -159,13 +150,12 @@ if (strstr($PHP_SELF, FILENAME_ADDRESS_BOOK_PROCESS )) {
     include('includes/form_check.js.php');
   }
 }
-if (strstr($PHP_SELF, FILENAME_CHECKOUT_SHIPPING_ADDRESS )or strstr($PHP_SELF,FILENAME_CHECKOUT_PAYMENT_ADDRESS)) {
+if (strstr($PHP_SELF, FILENAME_CHECKOUT_SHIPPING_ADDRESS ) or strstr($PHP_SELF,FILENAME_CHECKOUT_PAYMENT_ADDRESS)) {
 require('includes/form_check.js.php');
 ?>
 <script type="text/javascript"><!--
 function check_form_optional(form_name) {
   var form = form_name;
-
   var firstname = form.elements['firstname'].value;
   var lastname = form.elements['lastname'].value;
   var street_address = form.elements['street_address'].value;
@@ -308,7 +298,7 @@ var emos_kdnr='<?php echo TRACKING_ECONDA_ID; ?>';
 <a name="emos_sid" rel="<?php echo session_id(); ?>" rev=""></a>
 <a name="emos_name" title="siteid" rel="<?php echo $_SESSION['languages_id']; ?>" rev=""></a>
 <?php
-//	require_once(DIR_WS_INCLUDES . 'econda/econda.php');
+//  require_once(DIR_WS_INCLUDES . 'econda/econda.php');
 }
 
 if (strstr($PHP_SELF, FILENAME_CHECKOUT_SUCCESS) && GOOGLE_CONVERSION == 'true') {
@@ -365,9 +355,9 @@ require('includes/google_conversiontracking.js.php');
 $smarty->assign('navtrail',$breadcrumb->trail(' &raquo; '));
 // BOF - Hetfield - 2009-12-17 - added new links index and login for index.html
 if (isset($_SESSION['customer_id'])) {
-	$smarty->assign('logoff',xtc_href_link(FILENAME_LOGOFF, '', 'SSL'));
+  $smarty->assign('logoff',xtc_href_link(FILENAME_LOGOFF, '', 'SSL'));
 } else {
-	$smarty->assign('login',xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
+  $smarty->assign('login',xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
 $smarty->assign('index',xtc_href_link(FILENAME_DEFAULT));
 // EOF - Hetfield - 2009-12-17 - added new links index and login for index.html
@@ -376,7 +366,7 @@ $smarty->assign('index',xtc_href_link(FILENAME_DEFAULT));
 $smarty->assign('LINK_INDEX',$link_index);
 
 if ( $_SESSION['account_type']=='0') {
-	$smarty->assign('account',xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
+  $smarty->assign('account',xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 }
 $smarty->assign('cart',xtc_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); // web28 - 2010-09-20 - change SSL -> NONSSL
 $smarty->assign('checkout',xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
@@ -388,22 +378,22 @@ $smarty->assign('store_name', htmlspecialchars(TITLE));
 // EOF - Dokuman - 2009-05-27 - added htmlspecialchars
 
 if (isset($_GET['error_message']) && xtc_not_null($_GET['error_message'])) {
-	$smarty->assign('error','<p class="errormessage">'. htmlspecialchars(urldecode($_GET['error_message'])).'</p>');
+  $smarty->assign('error','<p class="errormessage">'. htmlspecialchars(urldecode($_GET['error_message'])).'</p>');
 }
 if (isset($_GET['info_message']) && xtc_not_null($_GET['info_message'])) {
-	$smarty->assign('error','<p class="errormessage">'.htmlspecialchars($_GET['info_message']).'</p>');
+  $smarty->assign('error','<p class="errormessage">'.htmlspecialchars($_GET['info_message']).'</p>');
 }
 
 include(DIR_WS_INCLUDES.FILENAME_BANNER);
 //BOF - web28- 2010-07-07 SHOP OFFLINE INFO
 require_once(DIR_FS_INC . 'xtc_get_shop_conf.inc.php');
 if(xtc_get_shop_conf('SHOP_OFFLINE') != 'checked' || $_SESSION['customers_status']['customers_status_id'] == 0) {
-	//Do nothing
+  //Do nothing
 } else {
-	$smarty->assign('language', $_SESSION['language']);
-	$smarty->assign('shop_offline_msg', xtc_get_shop_conf('SHOP_OFFLINE_MSG'));
+  $smarty->assign('language', $_SESSION['language']);
+  $smarty->assign('shop_offline_msg', xtc_get_shop_conf('SHOP_OFFLINE_MSG'));
     $smarty->display(CURRENT_TEMPLATE.'/offline.html');
-	EXIT;
+  EXIT;
 }
 //EOF  - web28- 2010-07-07 SHOP OFFLINE INFO
 ?>
