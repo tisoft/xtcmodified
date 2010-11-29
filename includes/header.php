@@ -358,6 +358,7 @@ if (isset($_SESSION['customer_id'])) {
   $smarty->assign('logoff',xtc_href_link(FILENAME_LOGOFF, '', 'SSL'));
 } else {
   $smarty->assign('login',xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
+  $smarty->assign('create_account',xtc_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL')); //DokuMan also assign create_account-link for new visitors
 }
 $smarty->assign('index',xtc_href_link(FILENAME_DEFAULT));
 // EOF - Hetfield - 2009-12-17 - added new links index and login for index.html
