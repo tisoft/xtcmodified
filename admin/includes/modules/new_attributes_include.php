@@ -73,7 +73,7 @@ function go_option() {
 
 <!-- BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change"> //-->
-<form action="<?php echo basename($PHP_SELF); ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change">
+<form action="<?php echo $PHP_SELF; ?>" method="post" name="SUBMIT_ATTRIBUTES" enctype="multipart/form-data"><input type="hidden" name="current_product_id" value="<?php echo $_POST['current_product_id']; ?>"><input type="hidden" name="action" value="change">
 <!-- EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF //-->
 <?php
 echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
@@ -200,7 +200,7 @@ echo xtc_button(BUTTON_SAVE) . '&nbsp;';
 //echo xtc_button_link(BUTTON_CANCEL,'javascript:history.back()');
 // BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
 //echo xtc_button_link(BUTTON_CANCEL,$_SERVER['PHP_SELF']);
-echo xtc_button_link(BUTTON_CANCEL,basename($PHP_SELF));
+echo xtc_button_link(BUTTON_CANCEL,$PHP_SELF);
 // EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	
 // EOF - Tomcraft - 2009-11-11 - NEW SORT SELECTION
 ?>

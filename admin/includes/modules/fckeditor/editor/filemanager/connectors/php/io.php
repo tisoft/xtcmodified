@@ -159,7 +159,7 @@ function GetRootPath()
 	
 	//BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 	//$sSelfPath = $_SERVER['PHP_SELF'] ;
-	$sSelfPath = basename($PHP_SELF);
+	$sSelfPath = $_SERVER['SCRIPT_NAME'];
 	//BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 
 	$sSelfPath = substr( $sSelfPath, 0, strrpos( $sSelfPath, '/' ) ) ;

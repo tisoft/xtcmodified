@@ -31,7 +31,7 @@ defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
   </tr>
 <!-- BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF	  
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" name="SELECT_PRODUCT" method="post"><input type="hidden" name="action" value="edit"> //-->
-<form action="<?php echo basename($PHP_SELF); ?>" name="SELECT_PRODUCT" method="post"><input type="hidden" name="action" value="edit">
+<form action="<?php echo $PHP_SELF; ?>" name="SELECT_PRODUCT" method="post"><input type="hidden" name="action" value="edit">
 <!-- EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF //-->
 <?php
 echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());

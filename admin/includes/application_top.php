@@ -61,7 +61,7 @@
 
 //BOF - GTB - 2010-08-03 - Security Fix - Base
   //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
-  $PHP_SELF = $_SERVER['SCRIPT_FILENAME'];
+  $PHP_SELF = $_SERVER['SCRIPT_NAME'];
   /*if ($_SERVER['SCRIPT_NAME'] != $_SERVER['PHP_SELF']) {
     $PHP_SELF = $_SERVER['SCRIPT_NAME'];
   } else {
@@ -376,7 +376,10 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   // include the language translations
   require(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/'.$_SESSION['language'] . '.php');
   require(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/buttons.php');
-  $current_page = preg_split('/\?/', basename($_SERVER['PHP_SELF'])); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility  // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
+  //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
+  $current_page = basename($_SERVER['SCRIPT_NAME']);
+  //$current_page = preg_split('/\?/', basename($_SERVER['PHP_SELF'])); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility  // Hetfield - 2009-08-18 - replaced deprecated function split with preg_split to be ready for PHP >= 5.3
+  //EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
   if (file_exists(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/'.$current_page)) {
     include(DIR_FS_LANGUAGES . $_SESSION['language'] . '/admin/'.  $current_page);
   }

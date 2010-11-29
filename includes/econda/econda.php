@@ -91,7 +91,7 @@ if ($_SESSION['login_success']) {
 // $current_page = split('\?', basename($_SERVER['PHP_SELF'])); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility
 //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 //$current_page = join('',preg_grep("/.+\.php$/", preg_split("/\?|\//", $_SERVER['PHP_SELF'])));
-$current_page = join('',preg_grep("/.+\.php$/", preg_split("/\?|\//", basename($PHP_SELF))));
+$current_page = join('',preg_grep("/.+\.php$/", preg_split("/\?|\//", $PHP_SELF)));
 //EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 switch ($current_page) {
 	case FILENAME_PRODUCT_INFO:

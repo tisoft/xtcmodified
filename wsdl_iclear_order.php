@@ -52,7 +52,7 @@ if (file_exists('includes/request_type.php')) {
 
 //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
   //if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
-  if (!isset($PHP_SELF)) $PHP_SELF = basename($_SERVER['SCRIPT_FILENAME']);
+  if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['SCRIPT_NAME']);
 //EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF  
   if ($request_type == 'NONSSL') {
     define('DIR_WS_CATALOG', DIR_WS_HTTP_CATALOG);

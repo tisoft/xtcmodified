@@ -58,7 +58,7 @@ if (file_exists('includes/request_type.php')) {
 
   // set php_self in the local scope
   //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
-  $PHP_SELF = $_SERVER['SCRIPT_FILENAME'];
+  $PHP_SELF = $_SERVER['SCRIPT_NAME'];
   //$PHP_SELF = $_SERVER['PHP_SELF'];
   //EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 
