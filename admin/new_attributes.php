@@ -26,6 +26,12 @@ require(DIR_WS_MODULES.'new_attributes_config.php');
 require(DIR_FS_INC .'xtc_findTitle.inc.php');
 require_once(DIR_FS_INC . 'xtc_format_filesize.inc.php');
 
+//BOF - web28 - 2010-12-01 - added Attribute Edit Link
+if (isset($_GET['action'])) $_POST['action'] = $_GET['action'];
+if (isset($_GET['cpath'])) $_POST['cpath'] = $_GET['cpath'];
+if (isset($_GET['current_product_id'])) $_POST['current_product_id'] = $_GET['current_product_id'];
+//EOF - web28 - 2010-12-01 - added Attribute Edit Link
+
 //BOF - DokuMan - 2010-03-20 - Artikelattribute nach bearbeiten zurück zur Kategorie
 /*
   if ( isset($cPathID) && $_POST['action'] == 'change') {

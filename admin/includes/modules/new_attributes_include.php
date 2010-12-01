@@ -77,10 +77,10 @@ function go_option() {
 <!-- EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF //-->
 <?php
 echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
-//BOF - DokuMan - 2010-03-19 - Artikelattribute nach bearbeiten zurück zur Kategorie
-//if ($cPath) echo '<input type="hidden" name="cPathID" value="' . $cPath . '">';
-  if ($_POST['cpath']) echo '<input type="hidden" name="cPathID" value="' . $_POST['cpath'] . '">';
-//EOF - DokuMan - 2010-03-19 - Artikelattribute nach bearbeiten zurück zur Kategorie
+//BOF - web28 - 2010-12-01 - Artikelattribute nach bearbeiten zurück zur Kategorie
+//if ($cPath) echo '<input type="hidden" name="cPathID" value="' . $cPath . '">';  
+  if (isset($_POST['cpath'])) echo xtc_draw_hidden_field('cPathID', $_POST['cpath']);
+//EOF - web28 - 2010-12-01 - Artikelattribute nach bearbeiten zurück zur Kategorie
 
   require(DIR_WS_MODULES . 'new_attributes_functions.php');
 
