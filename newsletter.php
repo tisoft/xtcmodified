@@ -42,10 +42,10 @@ $info_message = ''; //DokuMan - 2010-08-26 - set missing variable
 //if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
 if (isset ($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['email'])) {
 	$vlcode = xtc_random_charcode(32);
-	//BOF - GTB - 2010-09-16 - set newsletter to SSL
-	$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'SSL');
+	//BOF - GTB - 2010-09-16 - set newsletter to SSL // web28 - 2010-12-03  - add linebreak
+	$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'SSL') . '<br />'; 
 	//$link = xtc_href_link(FILENAME_NEWSLETTER, 'action=activate&email='.xtc_db_input($_POST['email']).'&key='.$vlcode, 'NONSSL');
-	//EOF - GTB - 2010-09-16 - set newsletter to SSL
+	//EOF - GTB - 2010-09-16 - set newsletter to SSL // web28 - 2010-12-03  - add linebreak
 
 	// assign language to template for caching
 	$smarty->assign('language', $_SESSION['language']);
