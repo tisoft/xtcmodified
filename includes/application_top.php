@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
-   (c) 2003	nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
+   (c) 2003  nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
    (c) 2006 XT-Commerce (application_top.php 1194 2010-08-22)
 
    Released under the GNU General Public License
@@ -40,9 +40,9 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 // Set the local configuration parameters - mainly for developers - if exists else the mainconfigure
 if (file_exists('includes/local/configure.php')) {
-	include ('includes/local/configure.php');
+  include ('includes/local/configure.php');
 } else {
-	include ('includes/configure.php');
+  include ('includes/configure.php');
 }
 
 //BOF - DokuMan - 2010-11-17 - Added Debug-Log-Class - thx to franky
@@ -69,7 +69,7 @@ define('TAX_DECIMAL_PLACES', 0);
 //BOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 //$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
 if (file_exists('includes/request_type.php')) {
-	include ('includes/request_type.php');
+  include ('includes/request_type.php');
 } else $request_type = 'NONSSL';
 //EOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 
@@ -192,7 +192,7 @@ xtc_db_connect() or die('Unable to connect to database server!');
 
 $configuration_query = xtc_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from '.TABLE_CONFIGURATION);
 while ($configuration = xtc_db_fetch_array($configuration_query)) {
-	define($configuration['cfgKey'], $configuration['cfgValue']);
+  define($configuration['cfgKey'], $configuration['cfgValue']);
 }
 
 // Below are some defines which affect the way the discount coupon/gift voucher system work
@@ -211,79 +211,79 @@ while ($configuration = xtc_db_fetch_array($configuration_query)) {
 //  define('NEW_SIGNUP_DISCOUNT_COUPON', '3'); // placed in the admin configuration mystore
 require_once (DIR_WS_CLASSES.'class.phpmailer.php');
 if (EMAIL_TRANSPORT == 'smtp')
-	require_once (DIR_WS_CLASSES.'class.smtp.php');
+  require_once (DIR_WS_CLASSES.'class.smtp.php');
 require_once (DIR_FS_INC.'xtc_Security.inc.php');
 
 // set the application parameters
 
 function xtDBquery($query) {
-	if (DB_CACHE == 'true') {
-//			echo  'cached query: '.$query.'<br />';
-		$result = xtc_db_queryCached($query);
-	} else {
-//				echo '::'.$query .'<br />';
-		$result = xtc_db_query($query);
+  if (DB_CACHE == 'true') {
+//      echo  'cached query: '.$query.'<br />';
+    $result = xtc_db_queryCached($query);
+  } else {
+//        echo '::'.$query .'<br />';
+    $result = xtc_db_query($query);
 
-	}
-	return $result;
+  }
+  return $result;
 }
 
 function CacheCheck() {
-	if (USE_CACHE == 'false') return false;
-	if (!isset($_COOKIE['XTCsid'])) return false;
-	return true;
+  if (USE_CACHE == 'false') return false;
+  if (!isset($_COOKIE['XTCsid'])) return false;
+  return true;
 }
 
 // if gzip_compression is enabled, start to buffer the output
 if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')) && (PHP_VERSION >= '4')) {
-	if (($ini_zlib_output_compression = (int) ini_get('zlib.output_compression')) < 1) {
-		ob_start('ob_gzhandler');
-	} else {
-		ini_set('zlib.output_compression_level', GZIP_LEVEL);
-	}
+  if (($ini_zlib_output_compression = (int) ini_get('zlib.output_compression')) < 1) {
+    ob_start('ob_gzhandler');
+  } else {
+    ini_set('zlib.output_compression_level', GZIP_LEVEL);
+  }
 }
 //--- SHOPSTAT -------------------------//
 /*
 // set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
 if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
 // BOF - Tomcraft - 2009-10-25 - made capable for 1und1
-	$pathinfo=((getenv('PATH_INFO')=='')?$_SERVER['ORIG_PATH_INFO']:getenv('PATH_INFO'));
+  $pathinfo=((getenv('PATH_INFO')=='')?$_SERVER['ORIG_PATH_INFO']:getenv('PATH_INFO'));
 // BOF - Tomcraft - 2009-10-25 - replaced deprecated function ereg with preg_match
-//	if(ereg('.php',$pathinfo)):
-	if(preg_match('/.php/',$pathinfo)):
+//  if(ereg('.php',$pathinfo)):
+  if(preg_match('/.php/',$pathinfo)):
 // EOF - Tomcraft - 2009-10-25 - replaced deprecated function ereg with preg_match
-		$PATH_INFO = substr(stristr('.php', $pathinfo),1);
-	else:
-		$PATH_INFO=$pathinfo;
-	endif;
+    $PATH_INFO = substr(stristr('.php', $pathinfo),1);
+  else:
+    $PATH_INFO=$pathinfo;
+  endif;
 // EOF - Tomcraft - 2009-10-25 - made capable for 1und1
-	if (strlen(getenv('PATH_INFO')) > 1) {
-		$GET_array = array ();
-		$PHP_SELF = str_replace(getenv('PATH_INFO'), '', $PHP_SELF);
-		$vars = explode('/', substr(getenv('PATH_INFO'), 1));
-		for ($i = 0, $n = sizeof($vars); $i < $n; $i ++) {
-			if (strpos($vars[$i], '[]')) {
-				$GET_array[substr($vars[$i], 0, -2)][] = $vars[$i +1];
-			} else {
+  if (strlen(getenv('PATH_INFO')) > 1) {
+    $GET_array = array ();
+    $PHP_SELF = str_replace(getenv('PATH_INFO'), '', $PHP_SELF);
+    $vars = explode('/', substr(getenv('PATH_INFO'), 1));
+    for ($i = 0, $n = sizeof($vars); $i < $n; $i ++) {
+      if (strpos($vars[$i], '[]')) {
+        $GET_array[substr($vars[$i], 0, -2)][] = $vars[$i +1];
+      } else {
 // BOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
 //                                $_GET[$key] = $value;
-				$_GET[$vars[$i]] = htmlspecialchars($vars[$i +1]);
-				if(get_magic_quotes_gpc()) $_GET[$vars[$i]] = addslashes($_GET[$vars[$i]]); // security Patch 20.11.2008
+        $_GET[$vars[$i]] = htmlspecialchars($vars[$i +1]);
+        if(get_magic_quotes_gpc()) $_GET[$vars[$i]] = addslashes($_GET[$vars[$i]]); // security Patch 20.11.2008
 // EOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
-			}
-			$i ++;
-		}
+      }
+      $i ++;
+    }
 
-		if (sizeof($GET_array) > 0) {
-			while (list ($key, $value) = each($GET_array)) {
-				$_GET[$key] = htmlspecialchars($value);
+    if (sizeof($GET_array) > 0) {
+      while (list ($key, $value) = each($GET_array)) {
+        $_GET[$key] = htmlspecialchars($value);
 // BOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
 //                                $_GET[$key] = $value;
-				if(get_magic_quotes_gpc()) $_GET[$key] = addslashes($_GET[$key]); // security Patch 20.11.2008
+        if(get_magic_quotes_gpc()) $_GET[$key] = addslashes($_GET[$key]); // security Patch 20.11.2008
 // EOF - Tomcraft - 2009-06-03 - fix magic quotes security issue
-			}
-		}
-	}
+      }
+    }
+  }
 }
 */
 //--- SHOPSTAT -------------------------//
@@ -326,85 +326,85 @@ if (STORE_SESSIONS != 'mysql') session_save_path(SESSION_WRITE_DIRECTORY);
 
 // set the session cookie parameters
 if (function_exists('session_set_cookie_params')) {
-	session_set_cookie_params(0, '/', (xtc_not_null($current_domain) ? '.'.$current_domain : ''));
+  session_set_cookie_params(0, '/', (xtc_not_null($current_domain) ? '.'.$current_domain : ''));
 }
 elseif (function_exists('ini_set')) {
-	ini_set('session.cookie_lifetime', '0');
-	ini_set('session.cookie_path', '/');
-	ini_set('session.cookie_domain', (xtc_not_null($current_domain) ? '.'.$current_domain : ''));
+  ini_set('session.cookie_lifetime', '0');
+  ini_set('session.cookie_path', '/');
+  ini_set('session.cookie_domain', (xtc_not_null($current_domain) ? '.'.$current_domain : ''));
 }
 
 // set the session ID if it exists
 if (isset ($_POST[session_name()])) {
-	session_id($_POST[session_name()]);
+  session_id($_POST[session_name()]);
 }
 elseif (($request_type == 'SSL') && isset ($_GET[session_name()])) {
-	session_id($_GET[session_name()]);
+  session_id($_GET[session_name()]);
 }
 
 // start the session
 $session_started = false;
 if (SESSION_FORCE_COOKIE_USE == 'True') {
-	xtc_setcookie('cookie_test', 'please_accept_for_session', time() + 60 * 60 * 24 * 30, '/', $current_domain);
+  xtc_setcookie('cookie_test', 'please_accept_for_session', time() + 60 * 60 * 24 * 30, '/', $current_domain);
 
-	if (isset ($_COOKIE['cookie_test'])) {
-		session_start();
-		include (DIR_WS_INCLUDES.'tracking.php');
-		$session_started = true;
-	}
+  if (isset ($_COOKIE['cookie_test'])) {
+    session_start();
+    include (DIR_WS_INCLUDES.'tracking.php');
+    $session_started = true;
+  }
 } else {
-	session_start();
-	include (DIR_WS_INCLUDES.'tracking.php');
-	$session_started = true;
+  session_start();
+  include (DIR_WS_INCLUDES.'tracking.php');
+  $session_started = true;
 }
 
 // check the Agent
 $truncate_session_id = false;
 if (CHECK_CLIENT_AGENT) {
-	if (xtc_check_agent() == 1) {
-		$truncate_session_id = true;
-	}
+  if (xtc_check_agent() == 1) {
+    $truncate_session_id = true;
+  }
 }
 
 // verify the ssl_session_id if the feature is enabled
 if (($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($session_started == true)) {
-	$ssl_session_id = getenv('SSL_SESSION_ID');
-	if (!isset($_SESSION['SSL_SESSION_ID'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
-		$_SESSION['SESSION_SSL_ID'] = $ssl_session_id;
-	}
+  $ssl_session_id = getenv('SSL_SESSION_ID');
+  if (!isset($_SESSION['SSL_SESSION_ID'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
+    $_SESSION['SESSION_SSL_ID'] = $ssl_session_id;
+  }
 
-	if ($_SESSION['SESSION_SSL_ID'] != $ssl_session_id) {
-		session_destroy();
-		xtc_redirect(xtc_href_link(FILENAME_SSL_CHECK));
-	}
+  if ($_SESSION['SESSION_SSL_ID'] != $ssl_session_id) {
+    session_destroy();
+    xtc_redirect(xtc_href_link(FILENAME_SSL_CHECK));
+  }
 }
 
 // verify the browser user agent if the feature is enabled
 if (SESSION_CHECK_USER_AGENT == 'True') {
-	$http_user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-	$http_user_agent2 = strtolower(getenv("HTTP_USER_AGENT"));
-	$http_user_agent = ($http_user_agent == $http_user_agent2) ? $http_user_agent : $http_user_agent.';'.$http_user_agent2;
-	if (!isset ($_SESSION['SESSION_USER_AGENT'])) {
-		$_SESSION['SESSION_USER_AGENT'] = $http_user_agent;
-	}
+  $http_user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+  $http_user_agent2 = strtolower(getenv("HTTP_USER_AGENT"));
+  $http_user_agent = ($http_user_agent == $http_user_agent2) ? $http_user_agent : $http_user_agent.';'.$http_user_agent2;
+  if (!isset ($_SESSION['SESSION_USER_AGENT'])) {
+    $_SESSION['SESSION_USER_AGENT'] = $http_user_agent;
+  }
 
-	if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
-		session_destroy();
-		xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-	}
+  if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
+    session_destroy();
+    xtc_redirect(xtc_href_link(FILENAME_LOGIN));
+  }
 }
 
 // verify the IP address if the feature is enabled
 if (SESSION_CHECK_IP_ADDRESS == 'True') {
-	$ip_address = xtc_get_ip_address();
-	if (!isset ($_SESSION['SESSION_IP_ADDRESS'])) {
-		$_SESSION['SESSION_IP_ADDRESS'] = $ip_address;
-	}
+  $ip_address = xtc_get_ip_address();
+  if (!isset ($_SESSION['SESSION_IP_ADDRESS'])) {
+    $_SESSION['SESSION_IP_ADDRESS'] = $ip_address;
+  }
 
-	if ($_SESSION['SESSION_IP_ADDRESS'] != $ip_address) {
-		session_destroy();
-		xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-	}
+  if ($_SESSION['SESSION_IP_ADDRESS'] != $ip_address) {
+    session_destroy();
+    xtc_redirect(xtc_href_link(FILENAME_LOGIN));
+  }
 }
 
 //BOF - DokuMan - 2010-05-20
@@ -426,13 +426,13 @@ if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32
 // set the language
 if (!isset ($_SESSION['language']) || isset ($_GET['language'])) {
 
-	include (DIR_WS_CLASSES.'language.php');
+  include (DIR_WS_CLASSES.'language.php');
   //BOF - DokuMan - 2010-09-17 - Undefined index: language on first request
-	/*
-	$lng = new language(xtc_input_validation($_GET['language'], 'char', ''));
-	if (!isset ($_GET['language']))
-		$lng->get_browser_language();
-	*/
+  /*
+  $lng = new language(xtc_input_validation($_GET['language'], 'char', ''));
+  if (!isset ($_GET['language']))
+    $lng->get_browser_language();
+  */
   if (!isset ($_GET['language'])) {
       $lng = new language(xtc_input_validation('', 'char', ''));
       $lng->get_browser_language();
@@ -441,21 +441,21 @@ if (!isset ($_SESSION['language']) || isset ($_GET['language'])) {
   }
   //EOF - DokuMan - 2010-09-17 - Undefined index: language on first request
 
-	$_SESSION['language'] = $lng->language['directory'];
-	$_SESSION['languages_id'] = $lng->language['id'];
-	$_SESSION['language_charset'] = $lng->language['language_charset'];
-	$_SESSION['language_code'] = $lng->language['code'];
+  $_SESSION['language'] = $lng->language['directory'];
+  $_SESSION['languages_id'] = $lng->language['id'];
+  $_SESSION['language_charset'] = $lng->language['language_charset'];
+  $_SESSION['language_code'] = $lng->language['code'];
 }
 
 if (isset($_SESSION['language']) && !isset($_SESSION['language_charset'])) {
 
-	include (DIR_WS_CLASSES.'language.php');
-	$lng = new language(xtc_input_validation($_SESSION['language'], 'char', ''));
+  include (DIR_WS_CLASSES.'language.php');
+  $lng = new language(xtc_input_validation($_SESSION['language'], 'char', ''));
 
-	$_SESSION['language'] = $lng->language['directory'];
-	$_SESSION['languages_id'] = $lng->language['id'];
-	$_SESSION['language_charset'] = $lng->language['language_charset'];
-	$_SESSION['language_code'] = $lng->language['code'];
+  $_SESSION['language'] = $lng->language['directory'];
+  $_SESSION['languages_id'] = $lng->language['id'];
+  $_SESSION['language_charset'] = $lng->language['language_charset'];
+  $_SESSION['language_code'] = $lng->language['code'];
 }
 
 // include the language translations
@@ -464,15 +464,15 @@ require (DIR_WS_LANGUAGES.$_SESSION['language'].'/'.$_SESSION['language'].'.php'
 // currency
 if (!isset ($_SESSION['currency']) || isset ($_GET['currency']) || ((USE_DEFAULT_LANGUAGE_CURRENCY == 'true') && (LANGUAGE_CURRENCY != $_SESSION['currency']))) {
 
-	if (isset ($_GET['currency'])) {
-		if (!$_SESSION['currency'] = xtc_currency_exists($_GET['currency']))
-			$_SESSION['currency'] = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
-	} else {
-		$_SESSION['currency'] = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
-	}
+  if (isset ($_GET['currency'])) {
+    if (!$_SESSION['currency'] = xtc_currency_exists($_GET['currency']))
+      $_SESSION['currency'] = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
+  } else {
+    $_SESSION['currency'] = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
+  }
 }
 if (isset ($_SESSION['currency']) && $_SESSION['currency'] == '') {
-	$_SESSION['currency'] = DEFAULT_CURRENCY;
+  $_SESSION['currency'] = DEFAULT_CURRENCY;
 }
 
 // write customers status in session
@@ -492,8 +492,8 @@ $xtPrice = new xtcPrice($_SESSION['currency'], $_SESSION['customers_status']['cu
 
 // econda tracking
 if (TRACKING_ECONDA_ACTIVE=='true') {
-	require(DIR_WS_INCLUDES . 'econda/class.econda304SP2.php');
-	$econda = new econda();
+  require(DIR_WS_INCLUDES . 'econda/class.econda304SP2.php');
+  $econda = new econda();
 }
 
 // BOF - web28 - 2010-05-06 - PayPal API Modul
@@ -504,7 +504,7 @@ $o_paypal = new paypal_checkout();
 require (DIR_WS_INCLUDES.FILENAME_CART_ACTIONS);
 // create the shopping cart & fix the cart if necesary
 if (!isset($_SESSION['cart']) || !is_object($_SESSION['cart'])) { //DokuMan - 2010-02-28 - set undefined variable cart
-	$_SESSION['cart'] = new shoppingCart();
+  $_SESSION['cart'] = new shoppingCart();
 }
 
 // include the who's online functions
@@ -525,58 +525,58 @@ xtc_expire_specials();
 require (DIR_WS_CLASSES.'product.php');
 // new p URLS
 if (isset ($_GET['info'])) {
-	$site = explode('_', $_GET['info']);
-	$pID = $site[0];
-	$actual_products_id = (int) str_replace('p', '', $pID);
-	$product = new product($actual_products_id);
+  $site = explode('_', $_GET['info']);
+  $pID = $site[0];
+  $actual_products_id = (int) str_replace('p', '', $pID);
+  $product = new product($actual_products_id);
 } // also check for old 3.0.3 URLS
 elseif (isset($_GET['products_id'])) {
-	$actual_products_id = (int) $_GET['products_id'];
-	$product = new product($actual_products_id);
+  $actual_products_id = (int) $_GET['products_id'];
+  $product = new product($actual_products_id);
 
 }
 //BOF - DokuMan - 2010-02-25 - check for defined variable: product
 //if (!is_object($product)) {
 if (!isset($product) || !is_object($product)) {
 //EOF - DokuMan - 2010-02-25 - check for defined variable: product
-	$product = new product();
+  $product = new product();
 }
 
 // new c URLS
 if (isset ($_GET['cat'])) {
-	$site = explode('_', $_GET['cat']);
-	$cID = $site[0];
-	$cID = str_replace('c', '', $cID);
-	$_GET['cPath'] = xtc_get_category_path($cID);
+  $site = explode('_', $_GET['cat']);
+  $cID = $site[0];
+  $cID = str_replace('c', '', $cID);
+  $_GET['cPath'] = xtc_get_category_path($cID);
 }
 // new m URLS
 if (isset ($_GET['manu'])) {
-	$site = explode('_', $_GET['manu']);
-	$mID = $site[0];
-	$mID = (int)str_replace('m', '', $mID);
-	$_GET['manufacturers_id'] = $mID;
+  $site = explode('_', $_GET['manu']);
+  $mID = $site[0];
+  $mID = (int)str_replace('m', '', $mID);
+  $_GET['manufacturers_id'] = $mID;
 }
 
 // calculate category path
 if (isset ($_GET['cPath'])) {
-	$cPath = xtc_input_validation($_GET['cPath'], 'cPath', '');
+  $cPath = xtc_input_validation($_GET['cPath'], 'cPath', '');
 }
 elseif (is_object($product) && !isset ($_GET['manufacturers_id'])) {
-	if ($product->isProduct()) {
-		$cPath = xtc_get_product_path($actual_products_id);
-	} else {
-		$cPath = '';
-	}
+  if ($product->isProduct()) {
+    $cPath = xtc_get_product_path($actual_products_id);
+  } else {
+    $cPath = '';
+  }
 } else {
-	$cPath = '';
+  $cPath = '';
 }
 
 if (xtc_not_null($cPath)) {
-	$cPath_array = xtc_parse_category_path($cPath);
-	$cPath = implode('_', $cPath_array);
-	$current_category_id = $cPath_array[(sizeof($cPath_array) - 1)];
+  $cPath_array = xtc_parse_category_path($cPath);
+  $cPath = implode('_', $cPath_array);
+  $current_category_id = $cPath_array[(sizeof($cPath_array) - 1)];
 } else {
-	$current_category_id = 0;
+  $current_category_id = 0;
 }
 
 // include the breadcrumb class and start the breadcrumb trail
@@ -585,54 +585,54 @@ $breadcrumb = new breadcrumb;
 
 // BOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 if (DIR_WS_CATALOG == '/') {
-	$breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
-	$link_index = HEADER_TITLE_TOP; //web28 - 2010-11-13 - define link_index
+  $breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link(FILENAME_DEFAULT));
+  $link_index = HEADER_TITLE_TOP; //web28 - 2010-11-13 - define link_index
 } else {
-	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link
-	//$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
-	$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER,'target="_blank"');
-	// BOF - web28 - 2010-11-13 - change breadcrumb startpage link
-	$breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
-	$link_index = HEADER_TITLE_CATALOG; //web28 - 2010-11-13 - define link_index
+  // BOF - web28 - 2010-11-13 - change breadcrumb startpage link
+  //$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
+  $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER,'target="_blank"');
+  // BOF - web28 - 2010-11-13 - change breadcrumb startpage link
+  $breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
+  $link_index = HEADER_TITLE_CATALOG; //web28 - 2010-11-13 - define link_index
 }
 // EOF - GTB - 2010-27-08 - Session Fixation for Breadcrumb
 
 // add category names or the manufacturer name to the breadcrumb trail
 if (isset ($cPath_array)) {
   $group_check = '';
-	for ($i = 0, $n = sizeof($cPath_array); $i < $n; $i ++) {
-		if (GROUP_CHECK == 'true') {
-			$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-		}
-		$categories_query = xtDBquery("select cd.categories_name
-				                           from ".TABLE_CATEGORIES_DESCRIPTION." cd,
-				                                ".TABLE_CATEGORIES." c
-				                           where cd.categories_id = '".$cPath_array[$i]."'
-				                           and c.categories_id=cd.categories_id
-				                                ".$group_check."
-				                           and cd.language_id='".(int) $_SESSION['languages_id']."'");
-		if (xtc_db_num_rows($categories_query,true) > 0) {
-			$categories = xtc_db_fetch_array($categories_query,true);
+  for ($i = 0, $n = sizeof($cPath_array); $i < $n; $i ++) {
+    if (GROUP_CHECK == 'true') {
+      $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+    }
+    $categories_query = xtDBquery("select cd.categories_name
+                                   from ".TABLE_CATEGORIES_DESCRIPTION." cd,
+                                        ".TABLE_CATEGORIES." c
+                                   where cd.categories_id = '".$cPath_array[$i]."'
+                                   and c.categories_id=cd.categories_id
+                                        ".$group_check."
+                                   and cd.language_id='".(int) $_SESSION['languages_id']."'");
+    if (xtc_db_num_rows($categories_query,true) > 0) {
+      $categories = xtc_db_fetch_array($categories_query,true);
 
-			$breadcrumb->add($categories['categories_name'], xtc_href_link(FILENAME_DEFAULT, xtc_category_link($cPath_array[$i], $categories['categories_name'])));
-		} else {
-			break;
-		}
-	}
+      $breadcrumb->add($categories['categories_name'], xtc_href_link(FILENAME_DEFAULT, xtc_category_link($cPath_array[$i], $categories['categories_name'])));
+    } else {
+      break;
+    }
+  }
 }
 //elseif (xtc_not_null($_GET['manufacturers_id'])) {
 elseif (isset($_GET['manufacturers_id']) && xtc_not_null($_GET['manufacturers_id'])) { //DokuMan - 2010-02-26 - set undefined variable manufacturers_id
-	$manufacturers_query = xtDBquery("select manufacturers_name from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
-	$manufacturers = xtc_db_fetch_array($manufacturers_query, true);
+  $manufacturers_query = xtDBquery("select manufacturers_name from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
+  $manufacturers = xtc_db_fetch_array($manufacturers_query, true);
 
-	$breadcrumb->add($manufacturers['manufacturers_name'], xtc_href_link(FILENAME_DEFAULT, xtc_manufacturer_link((int) $_GET['manufacturers_id'], $manufacturers['manufacturers_name'])));
+  $breadcrumb->add($manufacturers['manufacturers_name'], xtc_href_link(FILENAME_DEFAULT, xtc_manufacturer_link((int) $_GET['manufacturers_id'], $manufacturers['manufacturers_name'])));
 }
 
 // add the products model/name to the breadcrumb trail
 if ($product->isProduct()) {
 // BOF - Tomcraft - 2009-10-25 - replaced model-number with products_name in breadcrumb navigation
-//	$breadcrumb->add($product->getBreadcrumbModel(), xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
-	$breadcrumb->add($product->data['products_name'], xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
+//  $breadcrumb->add($product->getBreadcrumbModel(), xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
+  $breadcrumb->add($product->data['products_name'], xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($product->data['products_id'], $product->data['products_name'])));
 // EOF - Tomcraft - 2009-10-25 - replaced model-number with products_name in breadcrumb navigation
 }
 
@@ -648,31 +648,28 @@ define('WARN_SESSION_AUTO_START', 'true');
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 
 // Include Template Engine
-// BOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
-//require (DIR_WS_CLASSES.'Smarty_2.6.22/Smarty.class.php');
-require (DIR_WS_CLASSES.'Smarty_3.0.5/Smarty.class.php');
-// EOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
+require (DIR_WS_CLASSES.'Smarty_2.6.26/Smarty.class.php');
 
 if (isset ($_SESSION['customer_id'])) {
-	$account_type_query = xtc_db_query("SELECT account_type,
+  $account_type_query = xtc_db_query("SELECT account_type,
                                              customers_default_address_id
-		                                  FROM ".TABLE_CUSTOMERS."
-		                                  WHERE customers_id = '".(int) $_SESSION['customer_id']."'");
-	$account_type = xtc_db_fetch_array($account_type_query);
+                                      FROM ".TABLE_CUSTOMERS."
+                                      WHERE customers_id = '".(int) $_SESSION['customer_id']."'");
+  $account_type = xtc_db_fetch_array($account_type_query);
 
-	// check if zone id is unset bug #0000169
-	if (!isset ($_SESSION['customer_country_id'])) {
-		$zone_query = xtc_db_query("SELECT entry_country_id
-				                        FROM ".TABLE_ADDRESS_BOOK."
-				                        WHERE customers_id='".(int) $_SESSION['customer_id']."'
-				                        AND address_book_id='".$account_type['customers_default_address_id']."'");
+  // check if zone id is unset bug #0000169
+  if (!isset ($_SESSION['customer_country_id'])) {
+    $zone_query = xtc_db_query("SELECT entry_country_id
+                                FROM ".TABLE_ADDRESS_BOOK."
+                                WHERE customers_id='".(int) $_SESSION['customer_id']."'
+                                AND address_book_id='".$account_type['customers_default_address_id']."'");
 
-		$zone = xtc_db_fetch_array($zone_query);
-		$_SESSION['customer_country_id'] = $zone['entry_country_id'];
-	}
-	$_SESSION['account_type'] = $account_type['account_type'];
+    $zone = xtc_db_fetch_array($zone_query);
+    $_SESSION['customer_country_id'] = $zone['entry_country_id'];
+  }
+  $_SESSION['account_type'] = $account_type['account_type'];
 } else {
-	$_SESSION['account_type'] = '0';
+  $_SESSION['account_type'] = '0';
 }
 
 // modification for nre graduated system
@@ -680,8 +677,7 @@ unset ($_SESSION['actual_content']);
 
 // econda tracking
 if (TRACKING_ECONDA_ACTIVE=='true') {
-
-	require(DIR_WS_INCLUDES . 'econda/emos.php');
+  require(DIR_WS_INCLUDES . 'econda/emos.php');
 }
 
 xtc_count_cart();

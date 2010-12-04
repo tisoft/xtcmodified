@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(reviews.php,v 1.48 2003/05/27); www.oscommerce.com
-   (c) 2003	nextcommerce (reviews.php,v 1.12 2003/08/17); www.nextcommerce.org
+   (c) 2003  nextcommerce (reviews.php,v 1.12 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (reviews.php 1238 2005-09-24)
 
    Released under the GNU General Public License
@@ -55,59 +55,58 @@ $reviews_split = new splitPageResults($reviews_query_raw, isset($_GET['page']) ?
 
 if ($reviews_split->number_of_rows > 0) {
 //BOF - Dokuman - 2009-06-05 - replace table with div
-	/*
-	$smarty->assign('NAVBAR', '
-	   <table border="0" width="100%" cellspacing="0" cellpadding="2">
-	          <tr>
-	            <td class="smallText">'.$reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS).'</td>
-	            <td align="right" class="smallText">'.TEXT_RESULT_PAGE.' '.$reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
-	          </tr>
-	        </table>
-	');
-	*/
-	$smarty->assign('NAVBAR', '
-	<div style="width:100%;font-size:smaller">
-		<div style="float:left">'.$reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS).'</div>
-		<div style="float:right">'.TEXT_RESULT_PAGE.' '.$reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</div>
-	<br style="clear:both" /></div>
-	');
+  /*
+  $smarty->assign('NAVBAR', '
+     <table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <tr>
+              <td class="smallText">'.$reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS).'</td>
+              <td align="right" class="smallText">'.TEXT_RESULT_PAGE.' '.$reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
+            </tr>
+          </table>
+  ');
+  */
+  $smarty->assign('NAVBAR', '
+  <div style="width:100%;font-size:smaller">
+    <div style="float:left">'.$reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS).'</div>
+    <div style="float:right">'.TEXT_RESULT_PAGE.' '.$reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</div>
+  <br style="clear:both" /></div>
+  ');
 //EOF - Dokuman - 2009-06-05 - replace table with div
 }
 
 $module_data = array ();
 if ($reviews_split->number_of_rows > 0) {
-	$reviews_query = xtc_db_query($reviews_split->sql_query);
-	while ($reviews = xtc_db_fetch_array($reviews_query)) {
-		$module_data[] = array (
-		'PRODUCTS_IMAGE' => DIR_WS_THUMBNAIL_IMAGES.$reviews['products_image'], $reviews['products_name'],
-		'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id='.$reviews['products_id'].'&reviews_id='.$reviews['reviews_id']),
-		'PRODUCTS_NAME' => $reviews['products_name'],
-		'AUTHOR' => $reviews['customers_name'],
-		'TEXT' => '('.sprintf(TEXT_REVIEW_WORD_COUNT, xtc_word_count($reviews['reviews_text'], ' ')).')<br />'.htmlspecialchars($reviews['reviews_text']).'..',
-		'RATING' => xtc_image('templates/'.CURRENT_TEMPLATE.'/img/stars_'.$reviews['reviews_rating'].'.gif', sprintf(TEXT_OF_5_STARS, $reviews['reviews_rating'])));
-
-	}
-	$smarty->assign('module_content', $module_data);
+  $reviews_query = xtc_db_query($reviews_split->sql_query);
+  while ($reviews = xtc_db_fetch_array($reviews_query)) {
+    $module_data[] = array (
+    'PRODUCTS_IMAGE' => DIR_WS_THUMBNAIL_IMAGES.$reviews['products_image'], $reviews['products_name'],
+    'PRODUCTS_LINK' => xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id='.$reviews['products_id'].'&reviews_id='.$reviews['reviews_id']),
+    'PRODUCTS_NAME' => $reviews['products_name'],
+    'AUTHOR' => $reviews['customers_name'],
+    'TEXT' => '('.sprintf(TEXT_REVIEW_WORD_COUNT, xtc_word_count($reviews['reviews_text'], ' ')).')<br />'.htmlspecialchars($reviews['reviews_text']).'..',
+    'RATING' => xtc_image('templates/'.CURRENT_TEMPLATE.'/img/stars_'.$reviews['reviews_rating'].'.gif', sprintf(TEXT_OF_5_STARS, $reviews['reviews_rating'])));
+  }
+  $smarty->assign('module_content', $module_data);
 }
 
 $smarty->assign('language', $_SESSION['language']);
 
 // set cache ID
  if (!CacheCheck()) {
-	$smarty->caching = 0;
-	$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/reviews.html');
+  $smarty->caching = 0;
+  $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/reviews.html');
 } else {
-	$smarty->caching = 1;
-	$smarty->cache_lifetime = CACHE_LIFETIME;
-	$smarty->cache_modified_check = CACHE_CHECK;
-	$cache_id = $_SESSION['language'];
-	$main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/reviews.html', $cache_id);
+  $smarty->caching = 1;
+  $smarty->cache_lifetime = CACHE_LIFETIME;
+  $smarty->cache_modified_check = CACHE_CHECK;
+  $cache_id = $_SESSION['language'];
+  $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/reviews.html', $cache_id);
 }
 
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('main_content', $main_content);
 if (!defined('RM'))
-	$smarty->loadfilter('output', 'note');
+  $smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(account_history_info.php,v 1.97 2003/05/19); www.oscommerce.com
-   (c) 2003	 nextcommerce (account_history_info.php,v 1.17 2003/08/17); www.nextcommerce.org
+   (c) 2003   nextcommerce (account_history_info.php,v 1.17 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (account_history_info.php 1309 2005-10-17)
 
    Released under the GNU General Public License
@@ -47,8 +47,8 @@ require (DIR_WS_INCLUDES.'header.php');
 
 // Delivery Info
 if ($order->delivery != false) {
-	$smarty->assign('DELIVERY_LABEL', xtc_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br />'));
-	if ($order->info['shipping_method']) { $smarty->assign('SHIPPING_METHOD', $order->info['shipping_method']); }
+  $smarty->assign('DELIVERY_LABEL', xtc_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br />'));
+  if ($order->info['shipping_method']) { $smarty->assign('SHIPPING_METHOD', $order->info['shipping_method']); }
 }
 
 $order_total = $order->getTotalData((int)$_GET['order_id']);
@@ -58,18 +58,18 @@ $smarty->assign('order_total', $order_total['data']);
 
 // Payment Method
 if ($order->info['payment_method'] != '' && $order->info['payment_method'] != 'no_payment') {
-	include (DIR_WS_LANGUAGES.'/'.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
-	$smarty->assign('PAYMENT_METHOD', constant('MODULE_PAYMENT_'.strtoupper($order->info['payment_method']).'_TEXT_TITLE'));
+  include (DIR_WS_LANGUAGES.'/'.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
+  $smarty->assign('PAYMENT_METHOD', constant('MODULE_PAYMENT_'.strtoupper($order->info['payment_method']).'_TEXT_TITLE'));
 }
 
 //BOF  - web28 - 2010-03-27 PayPal Bezahl-Link
 if ($order->info['payment_method'] == 'paypal_ipn' && MODULE_PAYMENT_PAYPAL_IPN_USE_ACCOUNT == 'True') {
-	$order_id = (int)$_GET['order_id'];
-	$paypal_link = array();
-	require (DIR_WS_CLASSES.'payment.php');
-	$payment_modules = new payment('paypal_ipn');
-	$payment_modules->create_paypal_link();
-	$smarty->assign('PAYPAL_LINK', $paypal_link['html']);
+  $order_id = (int)$_GET['order_id'];
+  $paypal_link = array();
+  require (DIR_WS_CLASSES.'payment.php');
+  $payment_modules = new payment('paypal_ipn');
+  $payment_modules->create_paypal_link();
+  $smarty->assign('PAYPAL_LINK', $paypal_link['html']);
 }
 //EOF  - web28 - 2010-03-27 PayPal Bezahl-Link
 
@@ -90,8 +90,8 @@ $statuses_query = xtc_db_query("select os.orders_status_name,
                                 order by osh.date_added");
 while ($statuses = xtc_db_fetch_array($statuses_query)) {
 //BOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
-//	$history_block .= '              <tr>'."\n".'                <td style="vertical-align:top;">'.xtc_date_short($statuses['date_added']).'</td>'."\n".'                <td style="vertical-align:top;">'.$statuses['orders_status_name'].'</td>'."\n".'                <td style="vertical-align:top;">'. (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))).'</td>'."\n".'              </tr>'."\n";
-	$history_block .= xtc_date_short($statuses['date_added']). '&nbsp;<strong>' .$statuses['orders_status_name']. '</strong>&nbsp;' . (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))) .'<br />';
+//  $history_block .= '              <tr>'."\n".'                <td style="vertical-align:top;">'.xtc_date_short($statuses['date_added']).'</td>'."\n".'                <td style="vertical-align:top;">'.$statuses['orders_status_name'].'</td>'."\n".'                <td style="vertical-align:top;">'. (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))).'</td>'."\n".'              </tr>'."\n";
+  $history_block .= xtc_date_short($statuses['date_added']). '&nbsp;<strong>' .$statuses['orders_status_name']. '</strong>&nbsp;' . (empty ($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))) .'<br />';
 //EOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
 }
 //BOF - 2009-11-24 - Dokuman - remove/replace unnecessary table
@@ -124,7 +124,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/account_history_info.ht
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->loadfilter('output', 'note');
+  $smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

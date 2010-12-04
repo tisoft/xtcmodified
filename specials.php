@@ -10,8 +10,8 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(specials.php,v 1.47 2003/05/27); www.oscommerce.com
-   (c) 2003	nextcommerce (specials.php,v 1.12 2003/08/17); www.nextcommerce.org
-   (c) 2006	XT-Commerce (specials.php 1292 2005-10-07)
+   (c) 2003  nextcommerce (specials.php,v 1.12 2003/08/17); www.nextcommerce.org
+   (c) 2006  XT-Commerce (specials.php 1292 2005-10-07)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -28,10 +28,10 @@ $breadcrumb->add(NAVBAR_TITLE_SPECIALS, xtc_href_link(FILENAME_SPECIALS));
 //fsk18 lock
 $fsk_lock = '';
 if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
-	$fsk_lock = ' and p.products_fsk18!=1';
+  $fsk_lock = ' and p.products_fsk18!=1';
 }
 if (GROUP_CHECK == 'true') {
-	$group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+  $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 }
 $specials_query_raw = "select p.products_id,
                                 pd.products_name,
@@ -68,28 +68,28 @@ require (DIR_WS_INCLUDES.'header.php');
 $specials_query = xtc_db_query($specials_split->sql_query);
 
 while ($specials = xtc_db_fetch_array($specials_query)) {
-	$module_content[] = $product->buildDataArray($specials);
+  $module_content[] = $product->buildDataArray($specials);
 }
 
 if (($specials_split->number_of_rows > 0)) {
 //BOF - Dokuman - 2009-06-05 - replace table with div
 /*
-	$smarty->assign('NAVBAR', '
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-	          <tr>
-	            <td class="smallText">'.$specials_split->display_count(TEXT_DISPLAY_NUMBER_OF_SPECIALS).'</td>
-	            <td align="right" class="smallText">'.TEXT_RESULT_PAGE.' '.$specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
-	          </tr>
-	        </table>
+  $smarty->assign('NAVBAR', '
+  <table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <tr>
+              <td class="smallText">'.$specials_split->display_count(TEXT_DISPLAY_NUMBER_OF_SPECIALS).'</td>
+              <td align="right" class="smallText">'.TEXT_RESULT_PAGE.' '.$specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
+            </tr>
+          </table>
   ');
 */
-	$smarty->assign('NAVBAR', '
-	<div style="width:100%;font-size:smaller">
-		<div style="float:left">'.$specials_split->display_count(TEXT_DISPLAY_NUMBER_OF_SPECIALS).'</div>
-		<div style="float:right">'.TEXT_RESULT_PAGE.' '.$specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</div>
-		<br style="clear:both" />
-	</div>
-	');
+  $smarty->assign('NAVBAR', '
+  <div style="width:100%;font-size:smaller">
+    <div style="float:left">'.$specials_split->display_count(TEXT_DISPLAY_NUMBER_OF_SPECIALS).'</div>
+    <div style="float:right">'.TEXT_RESULT_PAGE.' '.$specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</div>
+    <br style="clear:both" />
+  </div>
+  ');
 //EOF - Dokuman - 2009-06-05 - replace table with div
 }
 
@@ -99,7 +99,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/specials.html');
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->loadfilter('output', 'note');
+  $smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

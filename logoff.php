@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(logoff.php,v 1.12 2003/02/13); www.oscommerce.com
-   (c) 2003	nextcommerce (logoff.php,v 1.16 2003/08/17); www.nextcommerce.org
+   (c) 2003  nextcommerce (logoff.php,v 1.16 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (logoff.php 1071 2005-07-22)
 
    Released under the GNU General Public License
@@ -37,9 +37,9 @@ $breadcrumb->add(NAVBAR_TITLE_LOGOFF);
 
 //BOF - DokuMan - 2010-05-28 - delete Guests from Database when logging off, also see checkout_success.php
 if (($_SESSION['account_type'] == 1) && (DELETE_GUEST_ACCOUNT == 'true')) {
-	xtc_db_query("delete from ".TABLE_CUSTOMERS." where customers_id = '".$_SESSION['customer_id']."'");
-	xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where customers_id = '".$_SESSION['customer_id']."'");
-	xtc_db_query("delete from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".$_SESSION['customer_id']."'");
+  xtc_db_query("delete from ".TABLE_CUSTOMERS." where customers_id = '".$_SESSION['customer_id']."'");
+  xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where customers_id = '".$_SESSION['customer_id']."'");
+  xtc_db_query("delete from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".$_SESSION['customer_id']."'");
 }
 //EOF - DokuMan - 2010-05-28 - delete Guests from Database when logging off, also see checkout_success.php
 
@@ -73,7 +73,7 @@ $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/logoff.html');
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
 if (!defined('RM'))
-	$smarty->loadfilter('output', 'note');
+  $smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

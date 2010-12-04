@@ -2,13 +2,13 @@
 /* --------------------------------------------------------------
    $Id$
 
-    http://www.xtc-modified.org
+   http://www.xtc-modified.org
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.158 2003/03/22); www.oscommerce.com
-   (c) 2003	nextcommerce (application_top.php,v 1.46 2003/08/24); www.nextcommerce.org
+   (c) 2003 nextcommerce (application_top.php,v 1.46 2003/08/24); www.nextcommerce.org
    (c) 2006 XT-Commerce 8application_top.php 1323 2005-10-27) ; www.xt-commerce.com
 
    Released under the GNU General Public License
@@ -53,11 +53,11 @@
     require('includes/configure.php');
   }
 
-// BOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
+  // BOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
   if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
     date_default_timezone_set('Europe/Berlin');
   }
-// EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
+  // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 
 //BOF - GTB - 2010-08-03 - Security Fix - Base
   //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
@@ -68,7 +68,7 @@
     $PHP_SELF = $_SERVER['PHP_SELF'];
   }*/
   //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
-  
+
   $ssl_proxy = '';
   if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
   define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
@@ -79,9 +79,9 @@
   // Define the project version
   define('PROJECT_VERSION', 'xtcModified v1.05 dated: 2010-07-18');
 
-// BOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
+  // BOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
   define('TAX_DECIMAL_PLACES', 0);
-// EOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
+  // EOF - Tomcraft - 2009-11-09 - Added missing definition for TAX_DECIMAL_PLACES
 
   // Set the length of the redeem code, the longer the more secure
   //define('SECURITY_CODE_LENGTH', '6'); //DokuMan - 2010-10-29 - constant already defined in database
@@ -238,11 +238,11 @@
   define('FILENAME_IMAGEMANIPULATOR',IMAGE_MANIPULATOR);
     function xtDBquery($query) {
        if (DB_CACHE=='true') {
-             $result=xtc_db_queryCached($query);
-             //echo 'cached query: '.$query.'<br />';
-          } else {
-             $result=xtc_db_query($query);
-    }
+         $result=xtc_db_queryCached($query);
+         //echo 'cached query: '.$query.'<br />';
+       } else {
+        $result=xtc_db_query($query);
+       }
     return $result;
   }
 
@@ -265,7 +265,7 @@
 
   // set the session name and save path
   session_name('XTCsid');
-	if (STORE_SESSIONS != 'mysql') session_save_path(SESSION_WRITE_DIRECTORY);
+  if (STORE_SESSIONS != 'mysql') session_save_path(SESSION_WRITE_DIRECTORY);
 
   //BOF - DokuMan - 2010-10-29 - added missing variables for determining $current_domain
   if (file_exists(DIR_WS_INCLUDES.'request_type.php')) {
@@ -299,10 +299,10 @@
   if (SESSION_FORCE_COOKIE_USE == 'True') {
     xtc_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, '/', $current_domain);
 
-	//BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
-	//if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
-	if (isset($_COOKIE['cookie_test'])) {
-	//EOF - Hetfield - 2009-08-16 - fix for some admin-login problems
+  //BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
+  //if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
+  if (isset($_COOKIE['cookie_test'])) {
+  //EOF - Hetfield - 2009-08-16 - fix for some admin-login problems
       session_start();
       $session_started = true;
     }
@@ -334,17 +334,17 @@
 
   // verify the browser user agent if the feature is enabled
 if (SESSION_CHECK_USER_AGENT == 'True') {
-	$http_user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-	$http_user_agent2 = strtolower(getenv("HTTP_USER_AGENT"));
-	$http_user_agent = ($http_user_agent == $http_user_agent2) ? $http_user_agent : $http_user_agent.';'.$http_user_agent2;
-	if (!isset($_SESSION['SESSION_USER_AGENT'])) {
-		$_SESSION['SESSION_USER_AGENT'] = $http_user_agent;
-	}
+  $http_user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+  $http_user_agent2 = strtolower(getenv("HTTP_USER_AGENT"));
+  $http_user_agent = ($http_user_agent == $http_user_agent2) ? $http_user_agent : $http_user_agent.';'.$http_user_agent2;
+  if (!isset($_SESSION['SESSION_USER_AGENT'])) {
+    $_SESSION['SESSION_USER_AGENT'] = $http_user_agent;
+  }
 
-	if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
-		session_destroy();
-		xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-	}
+  if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
+    session_destroy();
+    xtc_redirect(xtc_href_link(FILENAME_LOGIN));
+  }
 }
 
   // verify the IP address if the feature is enabled
@@ -370,7 +370,7 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 
     $_SESSION['language'] = $lng->language['directory'];
     $_SESSION['languages_id'] = $lng->language['id'];
-	$_SESSION['language_code'] = $lng->language['code']; //web28 - 2010-09-05 - add $_SESSION['language_code']
+  $_SESSION['language_code'] = $lng->language['code']; //web28 - 2010-09-05 - add $_SESSION['language_code']
   }
 
   // include the language translations
@@ -462,8 +462,6 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   // for Customers Status
   xtc_get_customers_statuses();
 
-
-
   $pagename = strtok($current_page, '.');
   if (!isset($_SESSION['customer_id'])) {
     xtc_redirect(xtc_href_link(FILENAME_LOGIN));
@@ -473,12 +471,8 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
     xtc_redirect(xtc_href_link(FILENAME_LOGIN));
   }
 
-
-    // Include Template Engine
-// BOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
-//  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');
-  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_3.0.5/Smarty.class.php');
-// EOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
+  // Include Template Engine
+  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
   define('FILENAME_XTBOOSTER','xtbooster.php');

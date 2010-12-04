@@ -1,23 +1,23 @@
 <?php
 /* -----------------------------------------------------------------------------------------
    $Id$
- 
+
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
-  -----------------------------------------------------------------------------------------  
+  -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
-   (c) 2003	 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org 
+   (c) 2003	 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
    (c) 2006 XT-Commerce (application_top_export.php 1323 2005-10-27); www.xt-commerce.com
 
    Released under the GNU General Public License
    -----------------------------------------------------------------------------------------
    Third Party contribution:
    Add A Quickie v1.0 Autor  Harald Ponce de Leon
-    
+
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
@@ -40,7 +40,7 @@
 	date_default_timezone_set('Europe/Berlin');
   }
 // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
-  
+
   // define the project version
   define('PROJECT_VERSION', 'xtcModified');
 
@@ -94,9 +94,7 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
   require_once(DIR_FS_INC . 'xtc_db_input.inc.php');
   require_once(DIR_FS_INC . 'xtc_db_prepare_input.inc.php');
 
-
   // modification for new graduated system
-
 
   // make a connection to the database... now
   xtc_db_connect() or die('Unable to connect to database server!');
@@ -116,10 +114,6 @@ define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\
     }
   }
 
-    // Include Template Engine
-// BOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
-//  require(DIR_WS_CLASSES . 'Smarty_2.6.22/Smarty.class.php');
-  require(DIR_WS_CLASSES . 'Smarty_3.0.5/Smarty.class.php');
-// EOF - DokuMan - 2010-11-22 - update smarty template engine to 3.0.5
-
+  // Include Template Engine
+  require(DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
 ?>
