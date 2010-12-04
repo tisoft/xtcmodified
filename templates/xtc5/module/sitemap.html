@@ -4,11 +4,11 @@
 {/if}
 <div class="sitemapwrap">
   {foreach name=aussen item=module_data from=$module_content}
-    {if $smarty.foreach.aussen.first}
+    {if $smarty.foreach.aussen.iteration % 2 == 1}
       <div class="sitemapleft">
     {else}
       <div class="sitemapright">
-    {/if} 
+    {/if}
         <div class="sitemapheader"><a href="{$module_data.CAT_LINK}">{$module_data.CAT_NAME}</a></div>
         <div class="sitemapcontent">
           <ul>
@@ -18,7 +18,7 @@
           </ul>
         </div>
       </div>
-    {if $module_data@iteration is div by 2}
+    {if $smarty.foreach.aussen.iteration % 2 == 0}
       <div style="clear:both;"></div>
     {/if}
   {/foreach}
