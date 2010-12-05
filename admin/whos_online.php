@@ -91,7 +91,7 @@
                 <td class="dataTableContent"><?php echo gmdate('H:i:s', $time_online); ?></td>
                 <td class="dataTableContent" align="center"><?php echo $whos_online['customer_id']; ?></td>
                 <td class="dataTableContent"><?php echo $whos_online['full_name']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $whos_online['ip_address']; ?></td>
+                <td class="dataTableContent"><?php echo $whos_online['ip_address']; ?></td>
                 <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
                 <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
                 <td class="dataTableContent"><?php
