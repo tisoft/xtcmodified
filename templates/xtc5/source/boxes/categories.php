@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(categories.php,v 1.23 2002/11/12); www.oscommerce.com
-   (c) 2003   nextcommerce (categories.php,v 1.10 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (categories.php,v 1.10 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
@@ -67,7 +67,7 @@ $categories_query = "select c.categories_id,
                             ".$group_check."
                             and c.categories_id = cd.categories_id
                             and cd.language_id='".(int) $_SESSION['languages_id']."'
-              and trim(cd.categories_name) != ''
+                            and trim(cd.categories_name) != ''
                             order by sort_order, cd.categories_name";
 //EOF - web - 2010-11-11 - Do not display empty catagorie names - add and trim(cd.categories_name) != ''
 $categories_query = xtDBquery($categories_query);
@@ -111,7 +111,7 @@ if ($cPath) {
                                 ".$group_check."
                                 and c.categories_id = cd.categories_id
                                 and cd.language_id='".$_SESSION['languages_id']."'
-                and trim(cd.categories_name) != ''
+                                and trim(cd.categories_name) != ''
                                 order by sort_order, cd.categories_name";
     //EOF - web - 2010-11-11 - Do not display empty catagorie names - add and trim(cd.categories_name) != ''
     $categories_query = xtDBquery($categories_query);
@@ -167,6 +167,5 @@ if (!$cache) {
   $box_categories = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_categories.html', $cache_id);
 }
 //EOF - DokuMan - 2010-02-28 - fix Smarty cache error on unlink
-
 $smarty->assign('box_CATEGORIES', $box_categories);
 ?>

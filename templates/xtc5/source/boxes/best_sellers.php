@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(best_sellers.php,v 1.20 2003/02/10); www.oscommerce.com
-   (c) 2003   nextcommerce (best_sellers.php,v 1.10 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (best_sellers.php,v 1.10 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
@@ -71,25 +71,29 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html', $ca
       // and http://shopnix.wordpress.com/2009/04/22/performance-optimierung/
       /*
       $best_sellers_query = "select distinct
-                                              p.products_id,
-                                              p.products_price,
-                                              p.products_tax_class_id,
-                                              p.products_image,
-                                              p.products_vpe,
-                                              p.products_vpe_status,
-                                              p.products_vpe_value,
-                                              pd.products_name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c
-                                              where p.products_status = '1'
-                                              and c.categories_status = '1'
-                                              and p.products_ordered > 0
-                                              and p.products_id = pd.products_id
-                                              and pd.language_id = '".(int) $_SESSION['languages_id']."'
-                                              and p.products_id = p2c.products_id
-                                              ".$group_check."
-                                              ".$fsk_lock."
-                                              and p2c.categories_id = c.categories_id and '".$current_category_id."'
-                                              in (c.categories_id, c.parent_id)
-                                              order by p.products_ordered desc limit ".MAX_DISPLAY_BESTSELLERS;
+                              p.products_id,
+                              p.products_price,
+                              p.products_tax_class_id,
+                              p.products_image,
+                              p.products_vpe,
+                              p.products_vpe_status,
+                              p.products_vpe_value,
+                              pd.products_name
+                              from ".TABLE_PRODUCTS." p,
+                              ".TABLE_PRODUCTS_DESCRIPTION." pd,
+                              ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
+                              ".TABLE_CATEGORIES." c
+                              where p.products_status = '1'
+                              and c.categories_status = '1'
+                              and p.products_ordered > 0
+                              and p.products_id = pd.products_id
+                              and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                              and p.products_id = p2c.products_id
+                              ".$group_check."
+                              ".$fsk_lock."
+                              and p2c.categories_id = c.categories_id and '".$current_category_id."'
+                              in (c.categories_id, c.parent_id)
+                              order by p.products_ordered desc limit ".MAX_DISPLAY_BESTSELLERS;
       */
       $best_sellers_query = "select distinct
                              p.products_id,
@@ -104,8 +108,8 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html', $ca
                              ".TABLE_PRODUCTS_DESCRIPTION." pd,
                              ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
                              ".TABLE_CATEGORIES." c
-                             where p.products_status = '1'
-                             and c.categories_status = '1'
+                             where p.products_status = 1
+                             and c.categories_status = 1
                              and p.products_ordered > 0
                              and p.products_id = pd.products_id
                              and pd.language_id = '".(int) $_SESSION['languages_id']."'
@@ -129,10 +133,11 @@ if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_best_sellers.html', $ca
                              p.products_tax_class_id,
                              pd.products_name from ".TABLE_PRODUCTS." p,
                              ".TABLE_PRODUCTS_DESCRIPTION." pd
-                             where p.products_status = '1'
+                             where p.products_status = 1
                              ".$group_check."
                              and p.products_ordered > 0
-                             and p.products_id = pd.products_id ".$fsk_lock."
+                             and p.products_id = pd.products_id
+                             ".$fsk_lock."
                              and pd.language_id = '".(int) $_SESSION['languages_id']."'
                              order by p.products_ordered desc
                              limit ".MAX_DISPLAY_BESTSELLERS;

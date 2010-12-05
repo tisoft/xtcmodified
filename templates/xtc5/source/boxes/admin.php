@@ -10,26 +10,25 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommercebased on original files from OSCommerce CVS 2.2 2002/08/28 02:14:35 www.oscommerce.com
-   (c) 2003	 nextcommerce (admin.php,v 1.12 2003/08/13); www.nextcommerce.org
+   (c) 2003 nextcommerce (admin.php,v 1.12 2003/08/13); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-// reset var
-$box_smarty = new smarty;
-$box_content='';
-$flag='';
-//BOF - GTB - 2010-08-03 - Security Fix - Base
-$box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
-//$box_smarty->assign('tpl_path', 'templates/' . CURRENT_TEMPLATE . '/');
-//EOF - GTB - 2010-08-03 - Security Fix - Base
+  // reset var
+  $box_smarty = new smarty;
+  $box_content='';
+  $flag='';
+  //BOF - GTB - 2010-08-03 - Security Fix - Base
+  $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
+  //$box_smarty->assign('tpl_path', 'templates/' . CURRENT_TEMPLATE . '/');
+  //EOF - GTB - 2010-08-03 - Security Fix - Base
 
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_image_button.inc.php');
 
   $orders_contents = '';
-
   $orders_status_validating = xtc_db_num_rows(xtc_db_query("select orders_status from " . TABLE_ORDERS ." where orders_status ='0'"));
   $orders_contents .='<a href="' . xtc_href_link_admin(FILENAME_ORDERS, 'selected_box=customers&amp;status=0', 'NONSSL') . '">' . TEXT_VALIDATING . '</a>: ' . $orders_status_validating . '<br />'; //web28 - 2010-06-23 change unnecessary SSL to NONSSL
 
@@ -55,10 +54,10 @@ $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
    }
 
   $box_content= '<strong>' . BOX_TITLE_STATISTICS . '</strong><br />' . $orders_contents . '<br />' .
-                                         BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br />' .
-                                         BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br />' .
-                                         BOX_ENTRY_REVIEWS . ' ' . $reviews['count'] .'<br />' .
-                                         $admin_image . '<br />' .$admin_link;
+                             BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br />' .
+                             BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br />' .
+                             BOX_ENTRY_REVIEWS . ' ' . $reviews['count'] .'<br />' .
+                             $admin_image . '<br />' .$admin_link;
 
     if ($flag==true) define('SEARCH_ENGINE_FRIENDLY_URLS',true);
     $box_smarty->assign('BOX_CONTENT', $box_content);

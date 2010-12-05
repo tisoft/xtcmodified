@@ -7,13 +7,13 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(languages.php,v 1.14 2003/02/12); www.oscommerce.com
-   (c) 2003	 nextcommerce (languages.php,v 1.8 2003/08/17); www.nextcommerce.org 
+   (c) 2003 nextcommerce (languages.php,v 1.8 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
   // include needed functions
@@ -28,18 +28,18 @@
   }
 
   $languages_string = '';
-  $count_lng='';
+  $count_lng = 0;
   reset($lng->catalog_languages);
   while (list($key, $value) = each($lng->catalog_languages)) {
   $count_lng++;
-	//BOF - Dokuman - 2010-01-29 - code optimization
- 	//$languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
+  //BOF - Dokuman - 2010-01-29 - code optimization
+   //$languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
     if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
       $languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
     } else {
       $languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&amp;'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
     }
-	//EOF - Dokuman - 2010-01-29 - code optimization
+  //EOF - Dokuman - 2010-01-29 - code optimization
   }
 
   // dont show box if there's only 1 language
@@ -47,7 +47,7 @@
     $box_smarty = new smarty;
     //BOF - GTB - 2010-08-03 - Security Fix - Base
     $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
-    //$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/'); 
+    //$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
     //EOF - GTB - 2010-08-03 - Security Fix - Base
     $box_content='';
     $box_smarty->assign('BOX_CONTENT', $languages_string);

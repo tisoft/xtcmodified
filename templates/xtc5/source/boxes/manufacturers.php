@@ -28,7 +28,7 @@ if (!CacheCheck()) {
   $box_smarty->caching = 1;
   $box_smarty->cache_lifetime = CACHE_LIFETIME;
   $box_smarty->cache_modified_check = CACHE_CHECK;
-  $cache_id = $_SESSION['language'].(int) $_GET['manufacturers_id'];
+  $cache_id = $_SESSION['language'] . (isset($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : 0);
 }
 
 if (!$box_smarty->is_cached(CURRENT_TEMPLATE.'/boxes/box_manufacturers.html', $cache_id) || !$cache) {
