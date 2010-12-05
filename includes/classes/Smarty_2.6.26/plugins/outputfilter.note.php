@@ -49,9 +49,9 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
 */
 //EOF - DokuMan - Removed "Produce Valid Links", since this became void with the modified shopstat_functions.php
 
-//BOF - DokuMan - replace ampersands, rest is covered by the modified shopstat_functions.php
-$tpl_output  = preg_replace("'&\s'","& ",$tpl_output);
-//EOF - DokuMan - replace ampersands, rest is covered by the modified shopstat_functions.php
+//BOF - web28 - making output W3C-Conform: replace ampersands, rest is covered by the modified shopstat_functions.php
+$tpl_output  = preg_replace("'&\s'","&amp; ",$tpl_output);
+//EOF - web28 - making output W3C-Conform: replace ampersands, rest is covered by the modified shopstat_functions.php
 
   return $tpl_output.$cop;
 }
