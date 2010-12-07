@@ -30,7 +30,7 @@ define('MODULE_SHIPPING_CHRONOPOST_INVALID_ZONE', 'Chronopost No shipping availa
 define('MODULE_SHIPPING_CHRONOPOST_UNDEFINED_RATE', 'Chronopost The shipping rate cannot be determined at this time');
 
 define('MODULE_SHIPPING_CHRONOPOST_STATUS_TITLE' , 'Activer Chronopost');
-define('MODULE_SHIPPING_CHRONOPOST_STATUS_DESC' , 'Vous souhaitez activer l\'expédition via Chronopost? (0=non, 1=oui)');
+define('MODULE_SHIPPING_CHRONOPOST_STATUS_DESC' , 'Vous souhaitez activer l\'expédition via Chronopost? (True, False)');
 define('MODULE_SHIPPING_CHRONOPOST_HANDLING_TITLE' , 'Les tarifs');
 define('MODULE_SHIPPING_CHRONOPOST_HANDLING_DESC' , 'Les tarifs pour l\'expédition via chronopost');
 define('MODULE_SHIPPING_CHRONOPOST_ALLOWED_TITLE' , 'Einzelne Versandzonen');
