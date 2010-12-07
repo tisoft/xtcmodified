@@ -496,6 +496,9 @@ margin-left:0;
 padding:0;
 list-style-type:none;
 }
+.boxbody img {
+max-width:182px;
+}
 .contentlist a {
 border-bottom:1px solid #ccc;
 display:block;
