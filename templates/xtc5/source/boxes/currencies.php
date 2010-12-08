@@ -18,12 +18,12 @@
 
   // include functions
   require_once(DIR_FS_INC . 'xtc_hide_session_id.inc.php');
-  $count_cur = 0;
+  $box_content='';
+
   if (isset($xtPrice) && is_object($xtPrice)) {
     reset($xtPrice->currencies);
     $currencies_array = array();
     while (list($key, $value) = each($xtPrice->currencies)) {
-      $count_cur++;
       $currencies_array[] = array('id' => $key, 'text' => $value['title']);
     }
 
@@ -37,14 +37,13 @@
   }
 
   // dont show box if there's only 1 currency
-  if ($count_cur > 1 ) {
+  if (count($currencies_array) > 1 ) {
     // reset var
     $box_smarty = new smarty;
     //BOF - GTB - 2010-08-03 - Security Fix - Base
     $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
     //$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
     //EOF - GTB - 2010-08-03 - Security Fix - Base
-    $box_content='';
     $box_content=xtc_draw_form('currencies', xtc_href_link(basename($PHP_SELF), '', $request_type, false), 'get').xtc_draw_pull_down_menu('currency', $currencies_array, $_SESSION['currency'], 'onchange="this.form.submit();" style="width: 100%"') . $hidden_get_variables . xtc_hide_session_id().'</form>';
     $box_smarty->assign('BOX_CONTENT', $box_content);
     $box_smarty->assign('language', $_SESSION['language']);
