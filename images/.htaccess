@@ -1,0 +1,8 @@
+# $Id$
+#
+# Allow just image file formats for this folder and subfolders
+
+deny from all
+<FilesMatch "\.(png|jpeg|jpg|gif|bmp)$">
+  allow from all
+</FilesMatch>
