@@ -97,4 +97,9 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_HEADING', 'Folgender Feh
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_MESSAGE', 'Zahlung via sofort&uuml;berweisung.de ist leider nicht m&ouml;glich oder wurde auf Kundenwunsch abgebrochen. Bitte w&auml;hlen Sie eine andere Zahlungsweise.');
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_INFO', 'Zahlen Sie bequem mit dem zertifizierten und gepr&uuml;ften Online Banking System Sofort&uuml;berweisung');
+
+// Hendrik - 11.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
+
 ?>

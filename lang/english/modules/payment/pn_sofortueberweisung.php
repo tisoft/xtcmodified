@@ -101,4 +101,9 @@ define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_HEADING', 'The following
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_ERROR_MESSAGE', 'Payment via DIRECTebanking.com is unfortunately not possible or has been cancelled by the customer. Please select another payment method.');
 
 define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_TEXT_INFO', 'Pay easy with the certified and verified online banking system Sofort&uuml;berweisung');
+
+// Hendrik - 11.08.2010 - exlusion config for shipping modules
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping');
+define('MODULE_PAYMENT_PN_SOFORTUEBERWEISUNG_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by comma)');
+
 ?>
