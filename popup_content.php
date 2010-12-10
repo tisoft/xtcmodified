@@ -8,7 +8,7 @@
    Copyright (c) 2010 xtcModified
   -----------------------------------------------------------------------------------------  
    based on:
-   (c) 2003	 nextcommerce (content_preview.php,v 1.2 2003/08/25); www.nextcommerce.org
+   (c) 2003   nextcommerce (content_preview.php,v 1.2 2003/08/25); www.nextcommerce.org
    (c) 2006 XT-Commerce
    
    Released under the GNU General Public License 
@@ -16,15 +16,14 @@
 
 require ('includes/application_top.php');
 
-$content_query = xtDBquery("SELECT
- 					*
- 					FROM ".TABLE_CONTENT_MANAGER."
- 					WHERE content_group='".(int) $_GET['coID']."' and languages_id = '".$_SESSION['languages_id']."'");
+$content_query = xtDBquery("SELECT *
+           FROM ".TABLE_CONTENT_MANAGER."
+           WHERE content_group='".(int) $_GET['coID']."'
+           and languages_id = '".$_SESSION['languages_id']."'");
 $content_data = xtc_db_fetch_array($content_query, true);
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php echo HTML_PARAMS; ?>>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
 <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -52,15 +51,15 @@ $content_data = xtc_db_fetch_array($content_query, true);
  <?php
 
 if ($content_data['content_file'] != '') {
-	if (strpos($content_data['content_file'], '.txt'))
-		echo '<pre>';
+  if (strpos($content_data['content_file'], '.txt'))
+    echo '<pre>';
 
-	include (DIR_FS_CATALOG.'media/content/'.$content_data['content_file']);
+  include (DIR_FS_CATALOG.'media/content/'.$content_data['content_file']);
 
-	if (strpos($content_data['content_file'], '.txt'))
-		echo '</pre>';
+  if (strpos($content_data['content_file'], '.txt'))
+    echo '</pre>';
 } else {
-	echo $content_data['content_text'];
+  echo $content_data['content_text'];
 }
 ?>
 <!--<br /><br />

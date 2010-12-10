@@ -1,13 +1,13 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2008 Gambio OHG - login_admin.php 2008-08-10 gambio
    Gambio OHG
    http://www.gambio.de
@@ -16,84 +16,84 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-if(isset($_GET['repair'] )) {
-	$action = 'login_admin.php';
+if(isset($_GET['repair'])) {
+  $action = 'login_admin.php';
 } else {
-	$action = 'login.php?action=process';
+  $action = 'login.php?action=process';
 }
 
-if(isset($_POST['repair'] )) {
-	include('includes/application_top.php');
+if(isset($_POST['repair'])) {
+  include('includes/application_top.php');
 
-	$result = mysql_query('
-		SELECT customers_id
-		FROM customers
-		WHERE
-			customers_email_address = 		"'. xtc_db_prepare_input($_POST['email_address']) .'" 	AND
-			customers_password 			= md5("'. xtc_db_prepare_input($_POST['password']			) .'")	AND
-			customers_status				= 0
-	');
-	if(mysql_num_rows($result) > 0)
-	{
-		switch($_POST['repair']) {
-			case 'se_friendly':
-				mysql_query('
-					UPDATE configuration
-					SET		configuration_value = "false"
-					WHERE	configuration_key 	= "SEARCH_ENGINE_FRIENDLY_URLS"
-				');
-				die('Report: Die Einstellung "Suchmaschinenfreundliche URLs verwenden" wurde deaktiviert.');
-				break;
+  $result = mysql_query('
+    SELECT customers_id
+    FROM customers
+    WHERE
+      customers_email_address =     "'. xtc_db_prepare_input($_POST['email_address']) .'"   AND
+      customers_password      = md5("'. xtc_db_prepare_input($_POST['password']      ) .'")  AND
+      customers_status        = 0
+  ');
+  if(mysql_num_rows($result) > 0)
+  {
+    switch($_POST['repair']) {
+      case 'se_friendly':
+        mysql_query('
+          UPDATE configuration
+          SET    configuration_value = "false"
+          WHERE  configuration_key   = "SEARCH_ENGINE_FRIENDLY_URLS"
+        ');
+        die('Report: Die Einstellung "Suchmaschinenfreundliche URLs verwenden" wurde deaktiviert.');
+        break;
 
-			case 'sess_write':
-				mysql_query('
-					UPDATE configuration
-					SET		configuration_value = "'.DIR_FS_CATALOG.'cache"
-					WHERE	configuration_key 	= "SESSION_WRITE_DIRECTORY"
-				');
-				die('Report: SESSION_WRITE_DIRECTORY wurde auf das Cache-Verzeichnis gerichtet.');
-				break;
+      case 'sess_write':
+        mysql_query('
+          UPDATE configuration
+          SET    configuration_value = "'.DIR_FS_CATALOG.'cache"
+          WHERE  configuration_key   = "SESSION_WRITE_DIRECTORY"
+        ');
+        die('Report: SESSION_WRITE_DIRECTORY wurde auf das Cache-Verzeichnis gerichtet.');
+        break;
 
-			case 'sess_default':
-				mysql_query('
-					UPDATE configuration
-					SET		configuration_value = "False"
-					WHERE	configuration_key 	= "SESSION_FORCE_COOKIE_USE"
-				');
-				mysql_query('
-					UPDATE configuration
-					SET		configuration_value = "False"
-					WHERE	configuration_key 	= "SESSION_CHECK_SSL_SESSION_ID"
-				');
-				mysql_query('
-					UPDATE configuration
-					SET		configuration_value = "False"
-					WHERE	configuration_key 	= "SESSION_CHECK_USER_AGENT"
-				');
-				mysql_query('
-					UPDATE configuration
-					SET		configuration_value = "False"
-					WHERE	configuration_key 	= "SESSION_CHECK_IP_ADDRESS"
-				');
-				mysql_query('
-					UPDATE configuration
-					SET		configuration_value = "False"
-					WHERE	configuration_key 	= "SESSION_RECREATE"
-				');
-				die('Report: Die Session-Einstellungen wurden auf die Standardwerte zurückgesetzt.');
-				break;
+      case 'sess_default':
+        mysql_query('
+          UPDATE configuration
+          SET    configuration_value = "False"
+          WHERE  configuration_key   = "SESSION_FORCE_COOKIE_USE"
+        ');
+        mysql_query('
+          UPDATE configuration
+          SET    configuration_value = "False"
+          WHERE  configuration_key   = "SESSION_CHECK_SSL_SESSION_ID"
+        ');
+        mysql_query('
+          UPDATE configuration
+          SET    configuration_value = "False"
+          WHERE  configuration_key   = "SESSION_CHECK_USER_AGENT"
+        ');
+        mysql_query('
+          UPDATE configuration
+          SET    configuration_value = "False"
+          WHERE  configuration_key   = "SESSION_CHECK_IP_ADDRESS"
+        ');
+        mysql_query('
+          UPDATE configuration
+          SET    configuration_value = "False"
+          WHERE  configuration_key   = "SESSION_RECREATE"
+        ');
+        die('Report: Die Session-Einstellungen wurden auf die Standardwerte zurückgesetzt.');
+        break;
 
-			default:
-				die('Report: repair-Befehl ungültig.');
-		}
-	}
-	else {
-		die('Zugriff verweigert.');
-	}
+      default:
+        die('Report: repair-Befehl ungültig.');
+    }
+  }
+  else {
+    die('Zugriff verweigert.');
+  }
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xml:lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de" dir="ltr">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-15" />
 <meta http-equiv="Content-Style-Type" content="text/css" />

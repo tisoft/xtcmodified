@@ -25,7 +25,7 @@
 define('TITLE', STORE_NAME);
 define('HEADER_TITLE_TOP', 'Startseite');
 define('HEADER_TITLE_CATALOG', 'Katalog');
-define('HTML_PARAMS','dir="ltr" xml:lang="de"');
+define('HTML_PARAMS','xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de" dir="ltr"');
 @setlocale(LC_TIME, 'de_DE@euro', 'de_DE', 'de-DE', 'de', 'ge', 'de_DE.ISO_8859-1', 'German','de_DE.ISO_8859-15');
 
 
