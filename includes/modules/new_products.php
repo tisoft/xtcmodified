@@ -26,15 +26,19 @@ $module_smarty = new Smarty;
 $module_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
 //$module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 //EOF - GTB - 2010-08-03 - Security Fix - Base
+
 //fsk18 lock
 $fsk_lock = '';
-if ($_SESSION['customers_status']['customers_fsk18_display'] == '0')
+if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
   $fsk_lock = ' and p.products_fsk18!=1';
+}
 
 $group_check = '';
+if (GROUP_CHECK == 'true') {
+  $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+}
+
 if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0')) {
-  if (GROUP_CHECK == 'true')
-    $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 
     $new_products_query = "SELECT * FROM
                          ".TABLE_PRODUCTS." p,
@@ -48,9 +52,6 @@ if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0')) 
                          order by p.products_startpage_sort ASC
                          limit ".MAX_DISPLAY_NEW_PRODUCTS;
 } else {
-
-  if (GROUP_CHECK == 'true')
-    $group_check = "and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 
   if (MAX_DISPLAY_NEW_PRODUCTS_DAYS != '0') {
     $date_new_products = date("Y.m.d", mktime(1, 1, 1, date("m"), date("d") - MAX_DISPLAY_NEW_PRODUCTS_DAYS, date("Y")));
@@ -79,9 +80,8 @@ $module_content = array ();
 //BOF - web28 -  Produkte mit gleicher ID nicht doppelt anzeigen
 $pid_array = array();
 $new_products_query = xtDBquery($new_products_query);
-while ($new_products = xtc_db_fetch_array($new_products_query, true)) {	
+while ($new_products = xtc_db_fetch_array($new_products_query, true)) {
   if (!in_array($new_products['products_id'],$pid_array)) {
-
     $module_content[] = $product->buildDataArray($new_products);
   }
   $pid_array[] = $new_products['products_id'];
