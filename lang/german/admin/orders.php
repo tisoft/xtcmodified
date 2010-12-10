@@ -126,4 +126,10 @@ define('COMMENT_SEND_ORDER_BY_ADMIN' , 'Auftragsbestätigung gesendet'); //ACHTUN
 define('BUTTON_ORDER_CONFIRMATION', 'Auftragsbest&auml;tigung senden');
 define('SUCCESS_ORDER_SEND', 'Auftragsbest&auml;tigung erfolgreich gesendet');
 //EOF - web28 - 2010-03-20 - Send Order by Admin
+
+// web28 2010-12-07 add new defines
+define('ENTRY_CUSTOMERS_ADDRESS', 'Kundenadresse:');
+define('TEXT_ORDER', 'Bestellung:');
+define('TEXT_ORDER_HISTORY', 'Bestellhistorie:');
+define('TEXT_ORDER_STATUS', 'Bestellstatus:');
 ?>

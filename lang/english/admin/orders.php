@@ -126,4 +126,10 @@ define('COMMENT_SEND_ORDER_BY_ADMIN' , 'Order confirmation is sent'); //ACHTUNG 
 define('BUTTON_ORDER_CONFIRMATION', 'Send confirmation');
 define('SUCCESS_ORDER_SEND', 'Order confirmation sent successfully');
 //EOF - web28 - 2010-03-20 - Send Order by Admin
+
+// web28 2010-12-07 add new defines
+define('ENTRY_CUSTOMERS_ADDRESS', 'Customers Address:');
+define('TEXT_ORDER', 'Order:');
+define('TEXT_ORDER_HISTORY', 'Order History:');
+define('TEXT_ORDER_STATUS', 'Order Status:');
 ?>

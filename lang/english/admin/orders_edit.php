@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: orders_edit.php,v 1.0 
+   $Id: orders_edit.php 
 
    XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(orders.php,v 1.27 2003/02/16); www.oscommerce.com 
-   (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2003   nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2006    xt:Commerce (orders_edit.php,v 1.0); www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -80,5 +81,16 @@ define('TEXT_SAVE', 'Save');
 define('TEXT_ACTUAL', 'actual:');
 define('TEXT_NEW', 'new:');
 define('TEXT_PRICE', 'Costs: ');
+
+// web28 2010-12-07 add new defines
+define('TEXT_ADD_TAX','incl. ');
+define('TEXT_NO_TAX','plus ');
+
+define('TEXT_ORDERS_EDIT_INFO', '<b> Important Notes: </ b> <br>
+Please check with the address/customer data, the right customer group choose <br>
+When you change the customer group, all invoice items are newly save! <br>
+Shippincosts must be changed manually! <br>
+In this case, depending on the customer group the shippingcost entered gross or net! <br>
+');
 
 ?>

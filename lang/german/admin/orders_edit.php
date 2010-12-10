@@ -1,16 +1,17 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: orders_edit.php,v 1.0 
+   $Id: orders_edit.php 
 
    XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(orders.php,v 1.27 2003/02/16); www.oscommerce.com 
-   (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2003   nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
+   (c) 2006    xt:Commerce (orders_edit.php,v 1.0); www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -80,5 +81,16 @@ define('TEXT_SAVE', 'Speichern');
 define('TEXT_ACTUAL', 'Aktuell: ');
 define('TEXT_NEW', 'Neu: ');
 define('TEXT_PRICE', 'Kosten: ');
+
+// web28 2010-12-07 add new defines
+define('TEXT_ADD_TAX','inkl. ');
+define('TEXT_NO_TAX','zzgl. ');
+
+define('TEXT_ORDERS_EDIT_INFO', '<b>Wichtige Hinweise:</b><br>
+Bitte bei den Adress/Kundendaten die richtige Kundengruppe w&auml;hlen <br>
+Beim einem Wechsel der Kundengruppe sind alle Einzelposten der Rechnung neu abzuspeichern!<br>
+Versandkosten m&uuml;ssen manuell ge&auml;ndert werden!<br>
+Hierbei sind je nach Kundengruppe die Versandkosten brutto oder netto einzutragen!<br>
+');
 
 ?>
