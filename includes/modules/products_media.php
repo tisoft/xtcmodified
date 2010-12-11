@@ -82,7 +82,7 @@ if (xtc_in_array($product->data['products_id'], $check_data)) {
 //BOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 
 			} else {
-				$button = '<a href="'.xtc_href_link('media/products/'.$content_data['content_file']).'">'.xtc_image_button('button_download.gif', TEXT_DOWNLOAD).'</a>';
+				$button = '<a href="'.xtc_href_link('media/products/'.$content_data['content_file']).'" target="_blank">'.xtc_image_button('button_download.gif', TEXT_DOWNLOAD).'</a>';
 			}
 		}
 		$module_content[] = array (
