@@ -394,8 +394,9 @@
       // Get categories_id for product if search
       if (xtc_not_null($search)) $cPath=$products['categories_id'];
 
-      if ((!isset($_GET['pID']) && !isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
-        // find out the rating average from customer reviews
+      if ( ((!$_GET['pID']) && (!$_GET['cID']) || (@$_GET['pID'] == $products['products_id'])) && (!$pInfo) && (!$cInfo) && (substr($_GET['action'], 0, 4) != 'new_') ) {
+            
+      // find out the rating average from customer reviews
         $reviews_query = xtc_db_query("select (avg(reviews_rating) / 5 * 100) as average_rating from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
         $reviews = xtc_db_fetch_array($reviews_query);
         $pInfo_array = xtc_array_merge($products, $reviews);
