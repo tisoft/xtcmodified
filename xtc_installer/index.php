@@ -375,6 +375,6 @@ if ($messageStack->size('index') > 0) {
   </tr>
 </table><br />
 <div align="center" style="font-family:Arial, sans-serif; font-size:11px;"><?php echo TEXT_FOOTER; ?></div>
-<div align="center" style="padding-top:5px; font-size:11px;">Installer 106 rev2</div>
+<div align="center" style="padding-top:5px; font-size:11px;">Installer 106 rev3</div>
 </body>
 </html>
