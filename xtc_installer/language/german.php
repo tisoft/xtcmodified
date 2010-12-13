@@ -72,6 +72,9 @@ define('TEXT_WELCOME_INDEX','<b>Willkommen zu xtcModified</b><br /><br />xtcModi
 define('TEXT_INFO_DONATIONS_IMG_ALT','Unterstützen Sie dieses Projekt mit Ihrer Spende');
 define('TEXT_WELCOME_STEP1','<b>Datenbank- und Webservereinstellungen</b><br /><br />Der Installer ben&ouml;tigt hier einige Informationen bez&uuml;glich Ihrer Datenbank und Ihrer Verzeichnisstruktur.');
 define('TEXT_WELCOME_STEP2','<b>Datenbank Installation</b><br /><br />Der xtcModified Installer installiert automatisch die xtcModified-Datenbank.');
+// BOF - web28 - 2010.12.13 - NEW db-upgrade
+define('TEXT_DB_UPGRADE','Nur Datenbank Upgrade durchf&uuml;hren!');
+// BOF - web28 - 2010.12.13 - NEW db-upgrade
 // BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling
 define('TEXT_WELCOME_STEP2A','<b>Datenbank Installation wurde deaktiviert</b><br /><br />Die Installation der xtcModified-Datenbank in Step3 wird übersprungen!.');
 // BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling

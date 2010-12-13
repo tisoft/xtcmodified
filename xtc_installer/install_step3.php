@@ -120,8 +120,8 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_retry.gif" border="0" alt="Retry"></td>
+    <td align="center"><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_cancel.gif" border="0" alt="Cancel"></a></td>
+    <td align="center"><input type="image" src="buttons/<?php echo $lang;?>/button_retry.gif" border="0" alt="Retry"></td>
   </tr>
 </table>
 
@@ -161,12 +161,12 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 	  //EOF - web28 - 2010-03-18 - change install[]  to install_cfg
 ?>
 
-    <td align="right"><input type="image" src="images/button_continue.gif"></td>
+    <td align="right"><input type="image" src="buttons/<?php echo $lang;?>/button_continue.gif"></td>
 <?php
       } else {
 ?>
 
-    <td align="right"><a href="index.php"><img src="images/button_continue.gif"></a></td>
+    <td align="right"><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_continue.gif"></a></td>
 <?php
       }
 ?>

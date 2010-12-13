@@ -203,7 +203,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 <br />
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="right"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="images/button_back.gif" border="0" alt="Back"></td>
+    <td align="right"><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="buttons/<?php echo $lang;?>/button_back.gif" border="0" alt="Back"></td>
   </tr>
 </table>
 <br />
@@ -267,7 +267,7 @@ if($_POST['install_cfg'] == 1) {$create_config = 1;};
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <?php // BOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
-    <td align="right"><a href="install_step1.php?db=<?php echo $install_db;?>&cfg=<?php echo $create_config;?>"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="images/button_continue.gif"></td>
+    <td align="right"><a href="install_step1.php?db=<?php echo $install_db;?>&cfg=<?php echo $create_config;?>"><img src="buttons/<?php echo $lang;?>/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="buttons/<?php echo $lang;?>/button_continue.gif"></td>
     <?php // EOF - web28 - 2010.02.20 - NEW STEP2-4 Handling ?>
   </tr>
 </table>

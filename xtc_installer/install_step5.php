@@ -182,8 +182,8 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_back.gif" border="0" alt="Back"></td>
+    <td align="center"><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_cancel.gif" border="0" alt="Cancel"></a></td>
+    <td align="center"><input type="image" src="buttons/<?php echo $lang;?>/button_back.gif" border="0" alt="Back"></td>
   </tr>
 </table>
 </form>
@@ -235,8 +235,8 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_back.gif" border="0" alt="Back"></td>
+    <td align="center"><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_cancel.gif" border="0" alt="Cancel"></a></td>
+    <td align="center"><input type="image" src="buttons/<?php echo $lang;?>/button_back.gif" border="0" alt="Back"></td>
   </tr>
 </table>
 </form>
@@ -515,7 +515,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
             <table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
 <?php //// BOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL?>			  
-                <td align="center"><a href="<?php echo $step;?>.php?lg=<?php echo $lang; ?>"><img src="images/button_continue.gif" width="77" height="23" border="0"></a></td>
+                <td align="center"><a href="<?php echo $step;?>.php?lg=<?php echo $lang; ?>"><img src="buttons/<?php echo $lang;?>/button_continue.gif" border="0"></a></td>
 <?php //// BOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL?>	
 				</tr>
             </table><br /><br />

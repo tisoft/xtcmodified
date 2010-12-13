@@ -849,7 +849,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
               </div>
               <p><br />
               </p>
-                <input name="image" type="image" src="images/button_continue.gif" alt="Continue" align="right">
+                <input name="image" type="image" src="buttons/<?php echo $lang;?>/button_continue.gif" alt="Continue" align="right">
                 <br />
             </form></div></td>
         </tr>

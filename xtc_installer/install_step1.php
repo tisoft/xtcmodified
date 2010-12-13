@@ -200,7 +200,7 @@ h1 { font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px; }
 
 <table border="0" width="95%" cellspacing="0" cellpadding="0">
   <tr>
-        <td align="right"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+        <td align="right"><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_cancel.gif" border="0" alt="Cancel"></a> <input type="image" src="buttons/<?php echo $lang;?>/button_continue.gif" border="0" alt="Continue"></td>
   </tr>
 </table>
 </form>

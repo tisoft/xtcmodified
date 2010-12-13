@@ -22,16 +22,6 @@ require_once(DIR_FS_INC.'xtc_draw_separator.inc.php');
 require_once(DIR_FS_INC.'xtc_redirect.inc.php');
 require_once(DIR_FS_INC.'xtc_href_link.inc.php');
 
-//BOF - DokuMan - redirect to db_upgrade.php, if database is already set up (do an update instead of a new installation)
-include(DIR_FS_CATALOG.'/includes/configure.php');
-require_once(DIR_FS_INC . 'xtc_db_connect.inc.php');
-//check if database is accessible yet. If yes, redirect to db_upgrade.php?
-$link = @xtc_db_connect();
-if ($link == true) {
-  header("Location: ".HTTP_SERVER.DIR_WS_CATALOG."xtc_installer/db_upgrade.php?upgrade_redir=1");
-}
-//EOF - DokuMan - redirect to db_upgrade.php, if database is already set up (do an update instead of a new installation)
-
 //BOF - web28 - 2010.02.11 - NEW LANGUAGE HANDLING IN application.php
 //include('language/english.php');
 include('language/'.$lang.'.php');
@@ -39,6 +29,17 @@ include('language/'.$lang.'.php');
 define('HTTP_SERVER','');
 define('HTTPS_SERVER','');
 define('DIR_WS_CATALOG','');
+
+define('DIR_WS_BASE',''); //web28 - 2010-12-13 - FIX for $messageStack icons
+
+//BOF - web28 - 2010-12-13 - redirect to db_upgrade.php, if database is already set up (do an update instead of a new installation)
+include(DIR_FS_CATALOG.'/includes/configure.php');
+$upgrade = true;;
+if (DB_SERVER_USERNAME == 'root' && DB_SERVER_PASSWORD == 'root' && DB_DATABASE == 'xtc_modified') {$upgrade = false;}
+if (isset($_POST['db_upgrade']) && ($_POST['db_upgrade'] == true)) {
+  xtc_redirect('db_upgrade.php?upgrade_redir=1', '', 'NONSSL');
+}
+//EOF - web28 - 2010-12-13 - redirect to db_upgrade.php, if database is already set up (do an update instead of a new installation)
 
 $messageStack = new messageStack();
 $process = false;
@@ -347,12 +348,24 @@ if ($messageStack->size('index') > 0) {
                   <td><img src="images/icons/arrow02.gif" width="13" height="6" alt="" />English</td>
                   <td><img src="images/icons/icon-eng.gif" width="30" height="16" alt="" />
                     <?php echo xtc_draw_radio_field_installer('LANGUAGE', 'english'); ?> </td>
+                </tr> 
+              </table>
+              <?php// BOF - web28 - 2010.12.13 - NEW db-upgrade  ?>
+              <?php if ($error_flag==false) { ?>
+              <input type="hidden" name="action" value="process" />
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>                  
+                  <?php if($upgrade) { ?>
+                  <td style="padding-left:4px"><img src="images/icons/arrow02.gif" width="13" height="6" alt="" /></td>                  
+                  <td><?php echo TEXT_DB_UPGRADE; ?></td>
+                  <td  style="padding-right:10px"><?php echo xtc_draw_checkbox_field_installer('db_upgrade','',false); ?></td>
+                  <?php }?>
+                  <td><input type="image" src="buttons/<?php echo $lang;?>/button_continue.gif"></td>
                 </tr>
               </table>
-              <input type="hidden" name="action" value="process" />
-              <?php if ($error_flag==false) { ?><br /><input type="image" src="images/button_continue.gif">
+              <?php// EOF - web28 - 2010.12.13 - NEW db-upgrade  ?>
               <?php } else {
-                echo '<br/><strong>'. TEXT_INSTALLATION_NOT_POSSIBLE .'</strong><br/><br/><a href="index.php"><img src="images/button_retry.gif" border="0" alt="refresh page"></a>';
+                echo '<br/><strong>'. TEXT_INSTALLATION_NOT_POSSIBLE .'</strong><br/><br/><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_retry.gif" border="0" alt="refresh page"></a>';
               } ?>
               <br />
             </form>
