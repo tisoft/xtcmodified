@@ -28,7 +28,10 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
   //EOF - Dokuman - 2010-12-09 - set correct path to DIR_FS_CATALOG for shops in subdirectories
 
   //BOF - Dokuman - 2009-10-30 - Check for existing signature files
-  //load the signatures only, if the appropriate file(s) exists
+  //$html_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html');
+  //$txt_signatur = $mailsmarty->fetch(DIR_FS_DOCUMENT_ROOT.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.txt');
+
+  // load the signatures only, if the appropriate file(s) exists
   $html_signatur = '';
   $txt_signatur = '';
   if (file_exists(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/signatur.html')) {
@@ -60,9 +63,11 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
   //Platzhalter [SIGNATUR] durch Signatur Text ersetzen
   if (strpos($message_body_html,'[SIGNATUR]') !== false) {
     $message_body_html = str_replace('[SIGNATUR]', $html_signatur, $message_body_html);
+    $html_signatur = '';
   }
   if (strpos($message_body_plain,'[SIGNATUR]') !== false) {
     $message_body_plain = str_replace('[SIGNATUR]', $txt_signatur, $message_body_plain);
+    $txt_signatur = '';
   }
   //EOF - web28 - 2010-06-05 - Widerruf in Email
 
@@ -122,7 +127,7 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
   //BOF  - web28 - 2010-08-27 -  decode html2txt
   $html_array = array('<br />', '<br/>', '<br>');
   $txt_array = array(" \n", " \n", " \n");
-  $message_body_plain = str_replace($html_array, $txt_array, $message_body_plain);
+  $message_body_plain = str_replace($html_array, $txt_array, $message_body_plain.$txt_signatur);//DPW Signatur ergänzt.
   // remove html tags
   $message_body_plain = strip_tags($message_body_plain);
   $message_body_plain = html_entity_decode($message_body_plain, ENT_NOQUOTES, $charset);
@@ -130,7 +135,7 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
 
   if (EMAIL_USE_HTML == 'true') { // set email format to HTML
     $mail->IsHTML(true);
-    $mail->Body = $message_body_html;
+    $mail->Body = $message_body_html.$html_signatur;//DPW Signatur ergänzt.
     $mail->AltBody = $message_body_plain;
   } else {
     $mail->IsHTML(false);
