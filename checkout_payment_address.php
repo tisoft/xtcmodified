@@ -183,9 +183,9 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
       }
     }
 
-    $_SESSION['billto'] = xtc_db_prepare_input($_POST['address']);
+    $_SESSION['billto'] = xtc_db_prepare_input($_POST['address']); //DokuMan - 2010-12-17 - added xtc_db_prepare_input
 
-    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)$_SESSION['customer_id']."' and address_book_id = '".(int)$_SESSION['billto']."'");
+    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)$_SESSION['customer_id']."' and address_book_id = '".(int)$_SESSION['billto']."'"); //DokuMan - 2010-12-17 - added int-typecasting
     $check_address = xtc_db_fetch_array($check_address_query);
 
     if ($check_address['total'] == '1') {
@@ -297,7 +297,7 @@ if ($process == false) {
                                             entry_zone_id as zone_id,
                                             entry_country_id as country_id
                                        from ".TABLE_ADDRESS_BOOK."
-                                       where customers_id = '".$_SESSION['customer_id']."'");
+                                       where customers_id = '".(int)$_SESSION['customer_id']."'"); //DokuMan - 2010-12-17 - added int-typecasting
     while ($addresses = xtc_db_fetch_array($addresses_query)) {
       $format_id = xtc_get_address_format_id($addresses['country_id']);
 
