@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_payment_address.php,v 1.13 2003/05/27); www.oscommerce.com
-   (c) 2003   nextcommerce (checkout_payment_address.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (checkout_payment_address.php,v 1.14 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (checkout_payment_address.php 993 2005-07-06)
 
    Released under the GNU General Public License
@@ -26,13 +26,13 @@ require_once (DIR_FS_INC.'xtc_count_customer_address_book_entries.inc.php');
 require_once (DIR_FS_INC.'xtc_address_label.inc.php');
 
 // if the customer is not logged on, redirect them to the login page
-if (!isset ($_SESSION['customer_id']))
+if (!isset ($_SESSION['customer_id'])) {
   xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-
+}
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-if ($_SESSION['cart']->count_contents() < 1)
+if ($_SESSION['cart']->count_contents() < 1) {
   xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
-
+}
 $error = false;
 $process = false;
 if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
@@ -40,15 +40,18 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
   if (xtc_not_null($_POST['firstname']) && xtc_not_null($_POST['lastname']) && xtc_not_null($_POST['street_address'])) {
     $process = true;
 
-    if (ACCOUNT_GENDER == 'true')
+    if (ACCOUNT_GENDER == 'true') {
       $gender = xtc_db_prepare_input($_POST['gender']);
-    if (ACCOUNT_COMPANY == 'true')
+    }
+    if (ACCOUNT_COMPANY == 'true') {
       $company = xtc_db_prepare_input($_POST['company']);
+    }
     $firstname = xtc_db_prepare_input($_POST['firstname']);
     $lastname = xtc_db_prepare_input($_POST['lastname']);
     $street_address = xtc_db_prepare_input($_POST['street_address']);
-    if (ACCOUNT_SUBURB == 'true')
+    if (ACCOUNT_SUBURB == 'true') {
       $suburb = xtc_db_prepare_input($_POST['suburb']);
+    }
     $postcode = xtc_db_prepare_input($_POST['postcode']);
     $city = xtc_db_prepare_input($_POST['city']);
     $country = xtc_db_prepare_input($_POST['country']);
@@ -139,12 +142,15 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
       'entry_country_id' => $country
       );
 
-      if (ACCOUNT_GENDER == 'true')
+      if (ACCOUNT_GENDER == 'true') {
         $sql_data_array['entry_gender'] = $gender;
-      if (ACCOUNT_COMPANY == 'true')
+      }
+      if (ACCOUNT_COMPANY == 'true') {
         $sql_data_array['entry_company'] = $company;
-      if (ACCOUNT_SUBURB == 'true')
+      }
+      if (ACCOUNT_SUBURB == 'true') {
         $sql_data_array['entry_suburb'] = $suburb;
+      }
       if (ACCOUNT_STATE == 'true') {
         if ($zone_id > 0) {
           $sql_data_array['entry_zone_id'] = $zone_id;
@@ -159,8 +165,9 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 
       $_SESSION['billto'] = xtc_db_insert_id();
 
-      if (isset ($_SESSION['payment']))
+      if (isset ($_SESSION['payment'])) {
         unset ($_SESSION['payment']);
+      }
 
       xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
     }
@@ -178,12 +185,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
 
     $_SESSION['billto'] = xtc_db_prepare_input($_POST['address']);
 
-    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".$_SESSION['customer_id']."' and address_book_id = '".$_SESSION['billto']."'");
+    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)$_SESSION['customer_id']."' and address_book_id = '".(int)$_SESSION['billto']."'");
     $check_address = xtc_db_fetch_array($check_address_query);
 
     if ($check_address['total'] == '1') {
-      if ($reset_payment == true)
+      if ($reset_payment == true) {
         unset ($_SESSION['payment']);
+      }
       xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
     } else {
       unset ($_SESSION['billto']);
@@ -211,7 +219,6 @@ $smarty->assign('FORM_ACTION', xtc_draw_form('checkout_address', xtc_href_link(F
 
 if ($messageStack->size('checkout_address') > 0) {
   $smarty->assign('error', $messageStack->output('checkout_address'));
-
 }
 
 if ($process == false) {
@@ -318,8 +325,9 @@ $smarty->assign('language', $_SESSION['language']);
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_payment_address.html');
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined('RM'))
+if (!defined('RM')) {
   $smarty->load_filter('output', 'note');
+}
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>

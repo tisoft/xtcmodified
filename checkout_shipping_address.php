@@ -10,8 +10,8 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(checkout_shipping_address.php,v 1.14 2003/05/27); www.oscommerce.com
-   (c) 2003  nextcommerce (checkout_shipping_address.php,v 1.14 2003/08/17); www.nextcommerce.org
-   (c) 2006  xtcommerce (checkout_shipping_address.php 867 2005-04-21)
+   (c) 2003 nextcommerce (checkout_shipping_address.php,v 1.14 2003/08/17); www.nextcommerce.org
+   (c) 2006 xtcommerce (checkout_shipping_address.php 867 2005-04-21)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -31,7 +31,6 @@ require_once (DIR_FS_INC.'xtc_get_zone_code.inc.php');
 
 // if the customer is not logged on, redirect them to the login page
 if (!isset ($_SESSION['customer_id'])) {
-
   xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
 
@@ -55,15 +54,18 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
   if (xtc_not_null($_POST['firstname']) && xtc_not_null($_POST['lastname']) && xtc_not_null($_POST['street_address'])) {
     $process = true;
 
-    if (ACCOUNT_GENDER == 'true')
+    if (ACCOUNT_GENDER == 'true') {
       $gender = xtc_db_prepare_input($_POST['gender']);
-    if (ACCOUNT_COMPANY == 'true')
+    }
+    if (ACCOUNT_COMPANY == 'true') {
       $company = xtc_db_prepare_input($_POST['company']);
+    }
     $firstname = xtc_db_prepare_input($_POST['firstname']);
     $lastname = xtc_db_prepare_input($_POST['lastname']);
     $street_address = xtc_db_prepare_input($_POST['street_address']);
-    if (ACCOUNT_SUBURB == 'true')
+    if (ACCOUNT_SUBURB == 'true') {
       $suburb = xtc_db_prepare_input($_POST['suburb']);
+    }
     $postcode = xtc_db_prepare_input($_POST['postcode']);
     $city = xtc_db_prepare_input($_POST['city']);
     $country = xtc_db_prepare_input($_POST['country']);
@@ -152,12 +154,15 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
                                'entry_city' => $city,
                                'entry_country_id' => $country);
 
-      if (ACCOUNT_GENDER == 'true')
+      if (ACCOUNT_GENDER == 'true') {
         $sql_data_array['entry_gender'] = $gender;
-      if (ACCOUNT_COMPANY == 'true')
+      }
+      if (ACCOUNT_COMPANY == 'true') {
         $sql_data_array['entry_company'] = $company;
-      if (ACCOUNT_SUBURB == 'true')
+      }
+      if (ACCOUNT_SUBURB == 'true') {
         $sql_data_array['entry_suburb'] = $suburb;
+      }
       if (ACCOUNT_STATE == 'true') {
         if ($zone_id > 0) {
           $sql_data_array['entry_zone_id'] = $zone_id;
@@ -185,14 +190,15 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
       }
     }
 
-    $_SESSION['sendto'] = $_POST['address'];
+    $_SESSION['sendto'] = xtc_db_prepare_input($_POST['address']);
 
-    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".$_SESSION['customer_id']."' and address_book_id = '".$_SESSION['sendto']."'");
+    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)$_SESSION['customer_id']."' and address_book_id = '".(int)$_SESSION['sendto']."'");
     $check_address = xtc_db_fetch_array($check_address_query);
 
     if ($check_address['total'] == '1') {
-      if ($reset_shipping == true)
+      if ($reset_shipping == true) {
         unset ($_SESSION['shipping']);
+      }
       xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
     } else {
       unset ($_SESSION['sendto']);
@@ -218,14 +224,12 @@ $smarty->assign('FORM_ACTION', xtc_draw_form('checkout_address', xtc_href_link(F
 
 if ($messageStack->size('checkout_address') > 0) {
   $smarty->assign('error', $messageStack->output('checkout_address'));
-
 }
 
 if ($process == false) {
   $smarty->assign('ADDRESS_LABEL', xtc_address_label($_SESSION['customer_id'], $_SESSION['sendto'], true, ' ', '<br />'));
 
   if ($addresses_count > 1) {
-
 //BOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses
 /*
     $address_content = '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
@@ -328,8 +332,9 @@ $smarty->assign('language', $_SESSION['language']);
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/checkout_shipping_address.html');
 $smarty->assign('main_content', $main_content);
 $smarty->caching = 0;
-if (!defined('RM'))
+if (!defined('RM')) {
   $smarty->load_filter('output', 'note');
+}
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
 include ('includes/application_bottom.php');
 ?>
