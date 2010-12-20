@@ -27,7 +27,8 @@ if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO )) {
 ?>
 <script src="<?php echo DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery-ui.js" type="text/javascript"></script>
 <script type="text/javascript">
-<!-- Laden einer CSS Datei mit jquery
+<!-- 
+    //Laden einer CSS Datei mit jquery
     $.get("<?php echo DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE; ?>"+"/css/javascript.css",
     function(css) {
       $("head").append("<style type='text/css'>"+css+"<\/style>");
