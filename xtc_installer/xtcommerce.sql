@@ -1515,6 +1515,10 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_IN_DESC', 'true', '22', '2', '', NOW(), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'SEARCH_IN_ATTR', 'true', '22', '3', '', NOW(), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 
+#configuration_group_id 23, econda
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ACTIVE', 'false', 23, 1, '', NOW(), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ID','', 23, 2, '', NOW(), NULL, NULL);
+
 #Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
 #configuration_group_id 31, Moneybookers
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_EMAILID', '', 31, 1, '', NOW(), NULL, NULL);
@@ -1524,10 +1528,6 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PROCESSED_STATUS_ID','0', 31, 5, '', NOW(),'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_PENDING_STATUS_ID','0', 31, 6, '', NOW(), 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', '_PAYMENT_MONEYBOOKERS_CANCELED_STATUS_ID','0', 31, 7, '', NOW(), 'xtc_get_order_status_name' , 'xtc_cfg_pull_down_order_statuses(');
-
-#configuration econda
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ACTIVE', 'false', 23, 1, '', NOW(), NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
-INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'TRACKING_ECONDA_ID','', 23, 2, '', NOW(), NULL, NULL);
 
 INSERT INTO configuration_group VALUES (1,'My Store','General information about my store',1,1);
 INSERT INTO configuration_group VALUES (2,'Minimum Values','The minimum values for functions / data',2,1);
@@ -1550,6 +1550,9 @@ INSERT INTO configuration_group VALUES (19,'Google Conversion','Google Conversio
 INSERT INTO configuration_group VALUES (20,'Import/Export','Import/Export',20,1);
 INSERT INTO configuration_group VALUES (21,'Afterbuy','Afterbuy.de',21,1);
 INSERT INTO configuration_group VALUES (22,'Search Options','Additional Options for search function',22,1);
+#franky_n - 2010-12-24 - added configuration_group entries for econda and moneybookers
+INSERT INTO configuration_group VALUES (23,'Econda Tracking','Econda Tracking System',23,1);
+INSERT INTO configuration_group VALUES (31,'Moneybookers','Moneybookers System',31,1);
 
 #Countries
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG',1,1);
