@@ -41,15 +41,12 @@ require_once (DIR_FS_INC.'xtc_check_categories_status.inc.php');
 //EOF - Dokuman - 2009-10-02 - removed feature, due to wrong links in category on "last viewed"
 
 if (xtc_check_categories_status($current_category_id) >= 1) {
-
   $error = CATEGORIE_NOT_FOUND;
   include (DIR_WS_MODULES.FILENAME_ERROR_HANDLER);
-
 } else {
-
   if ($category_depth == 'nested') {
     if (GROUP_CHECK == 'true') {
-    $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+      $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
     }
     $category_query = "select cd.categories_description,
                               cd.categories_name,
@@ -63,7 +60,6 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                               ".$group_check."
                               and cd.language_id = '".(int) $_SESSION['languages_id']."'";
     $category_query = xtDBquery($category_query);
-
     $category = xtc_db_fetch_array($category_query, true);
 
     if (MAX_DISPLAY_CATEGORIES_PER_ROW > 0) { //DokuMan - 2010-11-11 - avoid division by zero when set to 0
@@ -102,7 +98,7 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
         // EOF - Dokuman - 22.07.2009 - avoid else-condition
 
       }
-      } else {
+    } else {
       if (GROUP_CHECK == 'true') {
         $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
       }
@@ -119,15 +115,13 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                                   and cd.language_id = '".(int) $_SESSION['languages_id']."'
                                   order by sort_order, cd.categories_name";
       $categories_query = xtDBquery($categories_query);
-      }
+    }
 
-      $categories_content = array();
-      $rows = 0;
-      while ($categories = xtc_db_fetch_array($categories_query, true)) {
+    $categories_content = array();
+    $rows = 0;
+    while ($categories = xtc_db_fetch_array($categories_query, true)) {
       $rows ++;
-
       $cPath_new = xtc_category_link($categories['categories_id'],$categories['categories_name']);
-
       $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
       $image = '';
       if ($categories['categories_image'] != '') {
@@ -135,11 +129,10 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
         // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
         if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
         // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
-      //BOF - GTB - 2010-08-03 - Security Fix - Base
-      $image = DIR_WS_BASE.$image;
-      //EOF - GTB - 2010-08-03 - Security Fix - Base
+        //BOF - GTB - 2010-08-03 - Security Fix - Base
+        $image = DIR_WS_BASE.$image;
+        //EOF - GTB - 2010-08-03 - Security Fix - Base
       }
-
       $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'],
                                      'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'],
                                      'CATEGORIES_IMAGE' => $image,
@@ -153,18 +146,17 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
     $image = '';
     if ($category['categories_image'] != '') {
       $image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
-  // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+      // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
       if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
-  // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
-  	//BOF - GTB - 2010-08-03 - Security Fix - Base
-  	$image = DIR_WS_BASE.$image;
-  	//EOF - GTB - 2010-08-03 - Security Fix - Base
+      // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+      //BOF - GTB - 2010-08-03 - Security Fix - Base
+      $image = DIR_WS_BASE.$image;
+      //EOF - GTB - 2010-08-03 - Security Fix - Base
     }
     $default_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
     $default_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
     $default_smarty->assign('CATEGORIES_IMAGE', $image);
     $default_smarty->assign('CATEGORIES_DESCRIPTION', $category['categories_description']);
-
     $default_smarty->assign('language', $_SESSION['language']);
     $default_smarty->assign('module_content', $categories_content);
 
@@ -173,11 +165,11 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
       $files = array ();
       if ($dir = opendir(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/')) {
         while (($file = readdir($dir)) !== false) {
-    // BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+          // BOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
           //if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/'.$file) and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
           if (is_file(DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/module/categorie_listing/'.$file) and (substr($file, -5) == ".html") and ($file != "index.html") and (substr($file, 0, 1) !=".")) {
-    // EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
-    // BOF - web28 - 2010-07-12 - sort templates array
+            // EOF - Tomcraft - 2010-02-04 - Prevent xtcModified from fetching other files than *.html
+            // BOF - web28 - 2010-07-12 - sort templates array
             //$files[] = array ('id' => $file, 'text' => $file);
             $files[] = $file;
           } //if
@@ -187,41 +179,37 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
       sort($files);
       //$category['categories_template'] = $files[0]['id'];
       $category['categories_template'] = $files[0];
-    // EOF - web28 - 2010-07-12 - sort templates array
+      // EOF - web28 - 2010-07-12 - sort templates array
     }
-
     $default_smarty->caching = 0;
     $main_content = $default_smarty->fetch(CURRENT_TEMPLATE.'/module/categorie_listing/'.$category['categories_template']);
     $smarty->assign('main_content', $main_content);
-  }
-  //elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
-  elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && $_GET['manufacturers_id'] > 0)) { //DokuMan - 2010-02-26 - Undefined index: manufacturers_id
+  } elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && $_GET['manufacturers_id'] > 0)) { //DokuMan - 2010-02-26 - Undefined index: manufacturers_id
+    // } elseif ($category_depth == 'products' || $_GET['manufacturers_id']) {
 
     //fsk18 lock
     if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
-    $fsk_lock = ' and p.products_fsk18!=1';
+      $fsk_lock = ' and p.products_fsk18!=1';
     }
     // show the products of a specified manufacturer
     if (isset ($_GET['manufacturers_id'])) {
       if (isset ($_GET['filter_id']) && xtc_not_null($_GET['filter_id'])) {
-
-      // sorting query
-      $sorting_query = xtDBquery("SELECT products_sorting,
-                                         products_sorting2
-                                         FROM ".TABLE_CATEGORIES."
-                                         where categories_id='".(int) $_GET['filter_id']."'");
-      $sorting_data = xtc_db_fetch_array($sorting_query,true);
-      if (!$sorting_data['products_sorting'])
-      $sorting_data['products_sorting'] = 'pd.products_name';
-      $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
-      // We are asked to show only a specific category
-      if (GROUP_CHECK == 'true') {
-      $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-      }
-
-      //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
-      /*
-      $listing_sql = "select DISTINCT p.products_fsk18,
+        // sorting query
+        $sorting_query = xtDBquery("SELECT products_sorting,
+                                           products_sorting2
+                                           FROM ".TABLE_CATEGORIES."
+                                           where categories_id='".(int) $_GET['filter_id']."'");
+        $sorting_data = xtc_db_fetch_array($sorting_query,true);
+        if (!$sorting_data['products_sorting'])
+          $sorting_data['products_sorting'] = 'pd.products_name';
+        $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
+        // We are asked to show only a specific category
+        if (GROUP_CHECK == 'true') {
+          $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+        }
+        //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+        /*
+        $listing_sql = "select DISTINCT p.products_fsk18,
                                     p.products_shippingtime,
                                     p.products_model,
                                     pd.products_name,
@@ -253,51 +241,50 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                                     and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                     and p2c.categories_id = '".(int) $_GET['filter_id']."'".$sorting;
       */
-      $listing_sql = "select DISTINCT p.products_fsk18,
-                                    p.products_shippingtime,
-                                    p.products_model,
-                                    pd.products_name,
-                                    p.products_ean,
-                                    p.products_price,
-                                    p.products_tax_class_id,
-                                    m.manufacturers_name,
-                                    p.products_quantity,
-                                    p.products_image,
-                                    p.products_weight,
-                                    pd.products_short_description,
-                                    pd.products_description,
-                                    p.products_id,
-                                    p.manufacturers_id,
-                                    p.products_price,
-                                    p.products_vpe,
-                                    p.products_vpe_status,
-                                    p.products_vpe_value,
-                                    p.products_discount_allowed,
-                                    p.products_tax_class_id
-                                    from ".TABLE_PRODUCTS_DESCRIPTION." pd,
-                                    ".TABLE_MANUFACTURERS." m,
-                                    ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
-                                    ".TABLE_PRODUCTS." p
-                                    where p.products_status = '1'
-                                    and p.manufacturers_id = m.manufacturers_id
-                                    and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'
-                                    and p.products_id = p2c.products_id
-                                    and pd.products_id = p2c.products_id
-                                    ".$group_check."
-                                    ".$fsk_lock."
-                                    and pd.language_id = '".(int) $_SESSION['languages_id']."'
-                                    and p2c.categories_id = '".(int) $_GET['filter_id']."'".$sorting;
-  //EOF - DokuMan - remove unneeded "left join ".TABLE_SPECIALS." from SELECT
+        $listing_sql = "select DISTINCT p.products_fsk18,
+                                        p.products_shippingtime,
+                                        p.products_model,
+                                        pd.products_name,
+                                        p.products_ean,
+                                        p.products_price,
+                                        p.products_tax_class_id,
+                                        m.manufacturers_name,
+                                        p.products_quantity,
+                                        p.products_image,
+                                        p.products_weight,
+                                        pd.products_short_description,
+                                        pd.products_description,
+                                        p.products_id,
+                                        p.manufacturers_id,
+                                        p.products_price,
+                                        p.products_vpe,
+                                        p.products_vpe_status,
+                                        p.products_vpe_value,
+                                        p.products_discount_allowed,
+                                        p.products_tax_class_id
+                                        from ".TABLE_PRODUCTS_DESCRIPTION." pd,
+                                        ".TABLE_MANUFACTURERS." m,
+                                        ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
+                                        ".TABLE_PRODUCTS." p
+                                        where p.products_status = '1'
+                                        and p.manufacturers_id = m.manufacturers_id
+                                        and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'
+                                        and p.products_id = p2c.products_id
+                                        and pd.products_id = p2c.products_id
+                                        ".$group_check."
+                                        ".$fsk_lock."
+                                        and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                        and p2c.categories_id = '".(int) $_GET['filter_id']."'".$sorting;
+        //EOF - DokuMan - remove unneeded "left join ".TABLE_SPECIALS." from SELECT
+      } else {
+        // We show them all
+        if (GROUP_CHECK == 'true') {
+          $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+        }
 
-    } else {
-      // We show them all
-      if (GROUP_CHECK == 'true') {
-      $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-      }
-
-      //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
-      /*
-      $listing_sql = "select p.products_fsk18,
+        //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+        /*
+        $listing_sql = "select p.products_fsk18,
                               p.products_shippingtime,
                               p.products_model,
                               p.products_ean,
@@ -324,59 +311,56 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                               and pd.language_id = '".(int) $_SESSION['languages_id']."'
                               and p.manufacturers_id = m.manufacturers_id
                               and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
-  */
-      $listing_sql = "select p.products_fsk18,
-                              p.products_shippingtime,
-                              p.products_model,
-                              p.products_ean,
-                              pd.products_name,
-                              p.products_id,
-                              p.products_price,
-                              m.manufacturers_name,
-                              p.products_quantity,
-                              p.products_image,
-                              p.products_weight,
-                              pd.products_short_description,
-                              pd.products_description,
-                              p.manufacturers_id,
-                              p.products_vpe,
-                              p.products_vpe_status,
-                              p.products_vpe_value,
-                              p.products_discount_allowed,
-                              p.products_tax_class_id
-                              from ".TABLE_PRODUCTS_DESCRIPTION." pd,
-                              ".TABLE_MANUFACTURERS." m,
-                              ".TABLE_PRODUCTS." p
-                              where p.products_status = '1'
-                              and pd.products_id = p.products_id
-                              ".$group_check."
-                              ".$fsk_lock."
-                              and pd.language_id = '".(int) $_SESSION['languages_id']."'
-                              and p.manufacturers_id = m.manufacturers_id
-                              and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
-  //EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
-
-    }
-    } else {
-    // show the products in a given categorie
-    if (isset ($_GET['filter_id']) && xtc_not_null($_GET['filter_id'])) {
-
-      // sorting query
-      $sorting_query = xtDBquery("SELECT products_sorting,
-                                         products_sorting2 FROM ".TABLE_CATEGORIES."
-                                         where categories_id='".$current_category_id."'");
-      $sorting_data = xtc_db_fetch_array($sorting_query,true);
-      if (!$sorting_data['products_sorting'])
-        $sorting_data['products_sorting'] = 'pd.products_name';
-      $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
-      // We are asked to show only specific catgeory
-      if (GROUP_CHECK == 'true') {
-        $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+        */
+        $listing_sql = "select p.products_fsk18,
+                               p.products_shippingtime,
+                               p.products_model,
+                               p.products_ean,
+                               pd.products_name,
+                               p.products_id,
+                               p.products_price,
+                               m.manufacturers_name,
+                               p.products_quantity,
+                               p.products_image,
+                               p.products_weight,
+                               pd.products_short_description,
+                               pd.products_description,
+                               p.manufacturers_id,
+                               p.products_vpe,
+                               p.products_vpe_status,
+                               p.products_vpe_value,
+                               p.products_discount_allowed,
+                               p.products_tax_class_id
+                               from ".TABLE_PRODUCTS_DESCRIPTION." pd,
+                               ".TABLE_MANUFACTURERS." m,
+                               ".TABLE_PRODUCTS." p
+                               where p.products_status = '1'
+                               and pd.products_id = p.products_id
+                               ".$group_check."
+                               ".$fsk_lock."
+                               and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                               and p.manufacturers_id = m.manufacturers_id
+                               and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
+        //EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
       }
-
-  //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
-  /*
-      $listing_sql = "select p.products_fsk18,
+    } else {
+      // show the products in a given categorie
+      if (isset ($_GET['filter_id']) && xtc_not_null($_GET['filter_id'])) {
+        // sorting query
+        $sorting_query = xtDBquery("SELECT products_sorting,
+                                           products_sorting2 FROM ".TABLE_CATEGORIES."
+                                           where categories_id='".$current_category_id."'");
+        $sorting_data = xtc_db_fetch_array($sorting_query,true);
+        if (!$sorting_data['products_sorting'])
+          $sorting_data['products_sorting'] = 'pd.products_name';
+        $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
+        // We are asked to show only specific catgeory
+        if (GROUP_CHECK == 'true') {
+          $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+        }
+        //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+        /*
+        $listing_sql = "select p.products_fsk18,
                                     p.products_shippingtime,
                                     p.products_model,
                                     p.products_ean,
@@ -405,57 +389,53 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                                     ".$fsk_lock."
                                     and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                     and p2c.categories_id = '".$current_category_id."'".$sorting;
-  */
-      $listing_sql = "select p.products_fsk18,
-                                    p.products_shippingtime,
-                                    p.products_model,
-                                    p.products_ean,
-                                    pd.products_name,
-                                    p.products_id,
-                                    m.manufacturers_name,
-                                    p.products_quantity,
-                                    p.products_image,
-                                    p.products_weight,
-                                    pd.products_short_description,
-                                    pd.products_description,
-                                    p.manufacturers_id,
-                                    p.products_price,
-                                    p.products_vpe,
-                                    p.products_vpe_status,
-                                    p.products_vpe_value,
-                                    p.products_discount_allowed,
-                                    p.products_tax_class_id
-                                    from  ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_MANUFACTURERS." m, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_PRODUCTS." p
-                                    where p.products_status = '1'
-                                    and p.manufacturers_id = m.manufacturers_id
-                                    and m.manufacturers_id = '".(int) $_GET['filter_id']."'
-                                    and p.products_id = p2c.products_id
-                                    and pd.products_id = p2c.products_id
-                                    ".$group_check."
-                                    ".$fsk_lock."
-                                    and pd.language_id = '".(int) $_SESSION['languages_id']."'
-                                    and p2c.categories_id = '".$current_category_id."'".$sorting;
-
-  //EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
-
-    } else {
-
-      // sorting query
-      $sorting_query = xtDBquery("SELECT products_sorting,
-                                         products_sorting2 FROM ".TABLE_CATEGORIES."
-                                         where categories_id='".$current_category_id."'");
-      $sorting_data = xtc_db_fetch_array($sorting_query,true);
-      if (!$sorting_data['products_sorting'])
-      $sorting_data['products_sorting'] = 'pd.products_name';
-      $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
-      // We show them all
-      if (GROUP_CHECK == 'true') {
-      $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-      }
-
-  //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
-  /*
-      $listing_sql = "select p.products_fsk18,
+        */
+        $listing_sql = "select p.products_fsk18,
+                               p.products_shippingtime,
+                               p.products_model,
+                               p.products_ean,
+                               pd.products_name,
+                               p.products_id,
+                               m.manufacturers_name,
+                               p.products_quantity,
+                               p.products_image,
+                               p.products_weight,
+                               pd.products_short_description,
+                               pd.products_description,
+                               p.manufacturers_id,
+                               p.products_price,
+                               p.products_vpe,
+                               p.products_vpe_status,
+                               p.products_vpe_value,
+                               p.products_discount_allowed,
+                               p.products_tax_class_id
+                               from  ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_MANUFACTURERS." m, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_PRODUCTS." p
+                               where p.products_status = '1'
+                               and p.manufacturers_id = m.manufacturers_id
+                               and m.manufacturers_id = '".(int) $_GET['filter_id']."'
+                               and p.products_id = p2c.products_id
+                               and pd.products_id = p2c.products_id
+                               ".$group_check."
+                               ".$fsk_lock."
+                               and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                               and p2c.categories_id = '".$current_category_id."'".$sorting;
+        //EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+      } else {
+        // sorting query
+        $sorting_query = xtDBquery("SELECT products_sorting,
+                                           products_sorting2 FROM ".TABLE_CATEGORIES."
+                                           where categories_id='".$current_category_id."'");
+        $sorting_data = xtc_db_fetch_array($sorting_query,true);
+        if (!$sorting_data['products_sorting'])
+          $sorting_data['products_sorting'] = 'pd.products_name';
+        $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
+        // We show them all
+        if (GROUP_CHECK == 'true') {
+          $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+        }
+        //BOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+        /*
+        $listing_sql = "select p.products_fsk18,
                                     p.products_shippingtime,
                                     p.products_model,
                                     p.products_ean,
@@ -483,108 +463,105 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                                     ".$fsk_lock."
                                     and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                     and p2c.categories_id = '".$current_category_id."'".$sorting;
-  */
-      $listing_sql = "select p.products_fsk18,
-                                    p.products_shippingtime,
-                                    p.products_model,
-                                    p.products_ean,
-                                    pd.products_name,
-                                    m.manufacturers_name,
-                                    p.products_quantity,
-                                    p.products_image,
-                                    p.products_weight,
-                                    pd.products_short_description,
-                                    pd.products_description,
-                                    p.products_id,
-                                    p.manufacturers_id,
-                                    p.products_price,
-                                    p.products_vpe,
-                                    p.products_vpe_status,
-                                    p.products_vpe_value,
-                                    p.products_discount_allowed,
-                                    p.products_tax_class_id
-                                    from  ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_PRODUCTS." p left join ".TABLE_MANUFACTURERS." m on p.manufacturers_id = m.manufacturers_id
-                                    where p.products_status = '1'
-                                    and p.products_id = p2c.products_id
-                                    and pd.products_id = p2c.products_id
-                                    ".$group_check."
-                                    ".$fsk_lock."
-                                    and pd.language_id = '".(int) $_SESSION['languages_id']."'
-                                    and p2c.categories_id = '".$current_category_id."'".$sorting;
-
-  //EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
-
-    }
+        */
+        $listing_sql = "select p.products_fsk18,
+                               p.products_shippingtime,
+                               p.products_model,
+                               p.products_ean,
+                               pd.products_name,
+                               m.manufacturers_name,
+                               p.products_quantity,
+                               p.products_image,
+                               p.products_weight,
+                               pd.products_short_description,
+                               pd.products_description,
+                               p.products_id,
+                               p.manufacturers_id,
+                               p.products_price,
+                               p.products_vpe,
+                               p.products_vpe_status,
+                               p.products_vpe_value,
+                               p.products_discount_allowed,
+                               p.products_tax_class_id
+                               from  ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_PRODUCTS." p left join ".TABLE_MANUFACTURERS." m on p.manufacturers_id = m.manufacturers_id
+                               where p.products_status = '1'
+                               and p.products_id = p2c.products_id
+                               and pd.products_id = p2c.products_id
+                               ".$group_check."
+                               ".$fsk_lock."
+                               and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                               and p2c.categories_id = '".$current_category_id."'".$sorting;
+        //EOF - DokuMan - remove unnecessary "left join ".TABLE_SPECIALS." from SELECT
+      }
     }
     // optional Product List Filter
     // BOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
     //if (PRODUCT_LIST_FILTER > 0) {
     if (PRODUCT_LIST_FILTER == 'true') {
-    // EOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
-    if (isset ($_GET['manufacturers_id'])) {
-      $filterlist_sql = "select distinct c.categories_id as id,
-                                         cd.categories_name as name from ".TABLE_PRODUCTS." p,
-                                         ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c,
-                                         ".TABLE_CATEGORIES_DESCRIPTION." cd
-                                         where p.products_status = '1'
-                                         and p.products_id = p2c.products_id
-                                         and p2c.categories_id = c.categories_id
-                                         and p2c.categories_id = cd.categories_id
-                                         and cd.language_id = '".(int) $_SESSION['languages_id']."'
-                                         and p.manufacturers_id = '".(int) $_GET['manufacturers_id']."'
-                                         order by cd.categories_name";
-    } else {
-      $filterlist_sql = "select distinct m.manufacturers_id as id,
-                                         m.manufacturers_name as name
-                                         from ".TABLE_PRODUCTS." p,
-                                         ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
-                                         ".TABLE_MANUFACTURERS." m
-                                         where p.products_status = '1'
-                                         and p.manufacturers_id = m.manufacturers_id
-                                         and p.products_id = p2c.products_id
-                                         and p2c.categories_id = '".$current_category_id."'
-                                         order by m.manufacturers_name";
-    }
-    $filterlist_query = xtDBquery($filterlist_sql);
-    if (xtc_db_num_rows($filterlist_query, true) > 1) {
-      //BOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
-      //$manufacturer_dropdown = xtc_draw_form('filter', FILENAME_DEFAULT, 'get');
-      $manufacturer_dropdown = xtc_draw_form('filter', DIR_WS_CATALOG . FILENAME_DEFAULT, 'get');
-      //EOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
+      // EOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
       if (isset ($_GET['manufacturers_id'])) {
-        $manufacturer_dropdown .= xtc_draw_hidden_field('manufacturers_id', (int)$_GET['manufacturers_id']);
-        $options = array (array ('text' => TEXT_ALL_CATEGORIES));
+        $filterlist_sql = "select distinct c.categories_id as id,
+                                           cd.categories_name as name from ".TABLE_PRODUCTS." p,
+                                           ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c,
+                                           ".TABLE_CATEGORIES_DESCRIPTION." cd
+                                           where p.products_status = '1'
+                                           and p.products_id = p2c.products_id
+                                           and p2c.categories_id = c.categories_id
+                                           and p2c.categories_id = cd.categories_id
+                                           and cd.language_id = '".(int) $_SESSION['languages_id']."'
+                                          and p.manufacturers_id = '".(int) $_GET['manufacturers_id']."'
+                                           order by cd.categories_name";
       } else {
-        $manufacturer_dropdown .= xtc_draw_hidden_field('cat', $current_category_id);
-        $options = array (array ('text' => TEXT_ALL_MANUFACTURERS));
+        $filterlist_sql = "select distinct m.manufacturers_id as id,
+                                           m.manufacturers_name as name
+                                           from ".TABLE_PRODUCTS." p,
+                                           ".TABLE_PRODUCTS_TO_CATEGORIES." p2c,
+                                           ".TABLE_MANUFACTURERS." m
+                                           where p.products_status = '1'
+                                           and p.manufacturers_id = m.manufacturers_id
+                                           and p.products_id = p2c.products_id
+                                           and p2c.categories_id = '".$current_category_id."'
+                                           order by m.manufacturers_name";
       }
-      if (isset($_GET['sort'])) //DokuMan - 2010-10-14 - check for set index 'sort'
-      $manufacturer_dropdown .= xtc_draw_hidden_field('sort', $_GET['sort']);
-      $manufacturer_dropdown .= xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
-      while ($filterlist = xtc_db_fetch_array($filterlist_query, true)) {
-        $options[] = array ('id' => $filterlist['id'], 'text' => $filterlist['name']);
+      $filterlist_query = xtDBquery($filterlist_sql);
+      if (xtc_db_num_rows($filterlist_query, true) > 1) {
+        //BOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
+        //$manufacturer_dropdown = xtc_draw_form('filter', FILENAME_DEFAULT, 'get');
+        $manufacturer_dropdown = xtc_draw_form('filter', DIR_WS_CATALOG . FILENAME_DEFAULT, 'get');
+        //EOF - DokuMan - 2010-09-30 - added DIR_WS_CATALOG for manufacturer_dropdown to work properly
+        if (isset ($_GET['manufacturers_id'])) {
+          $manufacturer_dropdown .= xtc_draw_hidden_field('manufacturers_id', (int)$_GET['manufacturers_id']);
+          $options = array (array ('text' => TEXT_ALL_CATEGORIES));
+        } else {
+          $manufacturer_dropdown .= xtc_draw_hidden_field('cat', $current_category_id);
+          $options = array (array ('text' => TEXT_ALL_MANUFACTURERS));
+        }
+        if (isset($_GET['sort'])) //DokuMan - 2010-10-14 - check for set index 'sort'
+          $manufacturer_dropdown .= xtc_draw_hidden_field('sort', $_GET['sort']);
+        $manufacturer_dropdown .= xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
+        while ($filterlist = xtc_db_fetch_array($filterlist_query, true)) {
+          $options[] = array ('id' => $filterlist['id'], 'text' => $filterlist['name']);
+        }
+        //BOF - DokuMan - 2010-10-14 - check for set index 'filter_id'
+        //$manufacturer_dropdown .= xtc_draw_pull_down_menu('filter_id', $options, $_GET['filter_id'], 'onchange="this.form.submit()"');
+        $manufacturer_dropdown .= xtc_draw_pull_down_menu('filter_id', $options, isset($_GET['filter_id']) ? (int)$_GET['filter_id'] : '', 'onchange="this.form.submit()"');
+        //EOF - DokuMan - 2010-10-14 - check for set index 'filter_id'
+        $manufacturer_dropdown .= '</form>'."\n";
       }
-      //BOF - DokuMan - 2010-10-14 - check for set index 'filter_id'
-      //$manufacturer_dropdown .= xtc_draw_pull_down_menu('filter_id', $options, $_GET['filter_id'], 'onchange="this.form.submit()"');
-      $manufacturer_dropdown .= xtc_draw_pull_down_menu('filter_id', $options, isset($_GET['filter_id']) ? (int)$_GET['filter_id'] : '', 'onchange="this.form.submit()"');
-      //EOF - DokuMan - 2010-10-14 - check for set index 'filter_id'
-      $manufacturer_dropdown .= '</form>'."\n";
     }
-  }
 
     // Get the right image for the top-right
     //BOF - web28 - 2010-08-06 - BUGFIX no manufacturers image displayed -> modules/product_listing.php
     /*
     $image = DIR_WS_IMAGES.'table_background_list.gif';
     if (isset ($_GET['manufacturers_id'])) {
-    $image = xtDBquery("select manufacturers_image from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
-    $image = xtc_db_fetch_array($image,true);
-    $image = $image['manufacturers_image'];
-    }
-    elseif ($current_category_id) {
-    $image = xtDBquery("select categories_image from ".TABLE_CATEGORIES." where categories_id = '".$current_category_id."'");
-    $image = xtc_db_fetch_array($image,true);
-    $image = $image['categories_image'];
+      $image = xtDBquery("select manufacturers_image from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
+      $image = xtc_db_fetch_array($image,true);
+      $image = $image['manufacturers_image'];
+    } elseif ($current_category_id) {
+      $image = xtDBquery("select categories_image from ".TABLE_CATEGORIES." where categories_id = '".$current_category_id."'");
+      $image = xtc_db_fetch_array($image,true);
+      $image = $image['categories_image'];
     }
     */
     //BOF - web28 - 2010-08-06 - BUGFIX no manufacturers image displayed -> modules/product_listing.php
@@ -639,7 +616,6 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
       $cache_id = $_SESSION['language'].$_SESSION['currency'].$_SESSION['customer_id'];
       $main_content = $default_smarty->fetch(CURRENT_TEMPLATE.'/module/main_content.html', $cache_id);
     }
-
     $smarty->assign('main_content', $main_content);
   }
 }
