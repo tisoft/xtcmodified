@@ -179,8 +179,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
       xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
     }
     // process the selected shipping destination
-  }
-  elseif (isset ($_POST['address'])) {
+  } elseif (isset ($_POST['address'])) {
     $reset_shipping = false;
     if (isset ($_SESSION['sendto'])) {
       if ($_SESSION['sendto'] != $_POST['address']) {
@@ -190,9 +189,9 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
       }
     }
 
-    $_SESSION['sendto'] = xtc_db_prepare_input($_POST['address']); //DokuMan - 2010-12-17 - added xtc_db_prepare_input
+    $_SESSION['sendto'] = (int)$_POST['address']; //DokuMan - 2010-12-17 - added xtc_db_prepare_input / franky_n - 2010-12-27 corrected to(int) typecasting
 
-    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)$_SESSION['customer_id']."' and address_book_id = '".(int)$_SESSION['sendto']."'"); //DokuMan - 2010-12-17 - added int-typecasting
+    $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)$_SESSION['customer_id']."' and address_book_id = '".$_SESSION['sendto']."'");
     $check_address = xtc_db_fetch_array($check_address_query);
 
     if ($check_address['total'] == '1') {
@@ -230,8 +229,8 @@ if ($process == false) {
   $smarty->assign('ADDRESS_LABEL', xtc_address_label($_SESSION['customer_id'], $_SESSION['sendto'], true, ' ', '<br />'));
 
   if ($addresses_count > 1) {
-//BOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses
-/*
+    //BOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses
+    /*
     $address_content = '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
     $radio_buttons = 0;
 
@@ -249,10 +248,10 @@ if ($process == false) {
                                      from ".TABLE_ADDRESS_BOOK."
                                      where customers_id = '".$_SESSION['customer_id']."'");
     while ($addresses = xtc_db_fetch_array($addresses_query)) {
-//BOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses
-    //$format_id = xtc_get_address_format_id($address['country_id']);
+      //BOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses
+      //$format_id = xtc_get_address_format_id($address['country_id']);
       $format_id = xtc_get_address_format_id($addresses['country_id']);
-//EOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses
+      //EOF - Dokuman - 2009-08-19 - BUGFIX: #0000221 addressformat error in payment/shipping addresses
 
       $address_content .= ' <tr>
                       <td>'.xtc_draw_separator('pixel_trans.gif', '10', '1').'</td>
@@ -288,7 +287,7 @@ if ($process == false) {
       $radio_buttons ++;
     }
     $address_content .= '</table>';
-*/
+    */
 
     $address_content = '<ol id="address_block">';
     $radio_buttons = 0;
@@ -313,7 +312,7 @@ if ($process == false) {
       $radio_buttons ++;
     }
     $address_content .= '</ol>';
-//EOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses
+    //EOF - Dokuman - 2009-08-21 - Better layout on multiple shipping/billing addresses
 
     $smarty->assign('BLOCK_ADDRESS', $address_content);
   }

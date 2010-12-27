@@ -183,7 +183,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'submit')) {
       }
     }
 
-    $_SESSION['billto'] = xtc_db_prepare_input($_POST['address']); //DokuMan - 2010-12-17 - added xtc_db_prepare_input
+    $_SESSION['billto'] = (int)$_POST['address']; //DokuMan - 2010-12-17 - added xtc_db_prepare_input / franky_n - 2010-12-27 corrected to(int)
 
     $check_address_query = xtc_db_query("select count(*) as total from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)$_SESSION['customer_id']."' and address_book_id = '".(int)$_SESSION['billto']."'"); //DokuMan - 2010-12-17 - added int-typecasting
     $check_address = xtc_db_fetch_array($check_address_query);

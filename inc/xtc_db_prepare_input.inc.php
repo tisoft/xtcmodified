@@ -16,7 +16,7 @@
    ---------------------------------------------------------------------------------------*/  
   function xtc_db_prepare_input($string) {
     if (is_string($string)) {
-  return trim(stripslashes($string));
+      return trim(stripslashes($string));
     } elseif (is_array($string)) {
       reset($string);
       while (list($key, $value) = each($string)) {
