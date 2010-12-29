@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(order.php,v 1.32 2003/02/26); www.oscommerce.com
-   (c) 2003	nextcommerce (order.php,v 1.28 2003/08/18); www.nextcommerce.org
+   (c) 2003 nextcommerce (order.php,v 1.28 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (order.php 1533 2006-08-20)
 
    Released under the GNU General Public License
@@ -41,7 +41,7 @@
     var $info, $totals, $products, $customer, $delivery, $content_type;
 
     function order($order_id = '') {
-    	global $xtPrice;
+      global $xtPrice;
       $this->info = array();
       $this->totals = array();
       $this->products = array();
@@ -57,24 +57,25 @@
 
     function query($order_id) {
 
-        // BOF - DokuMan - 2010-03-26 - allow int-values only
-        //$order_id = xtc_db_prepare_input($order_id);
-        $order_id = (int)xtc_db_prepare_input($order_id);
-        // EOF - DokuMan - 2010-03-26 - allow int-values only
+      // BOF - DokuMan - 2010-03-26 - allow int-values only
+      //$order_id = xtc_db_prepare_input($order_id);
+      $order_id = (int)$order_id;
+      // EOF - DokuMan - 2010-03-26 - allow int-values only
 
-      $order_query = xtc_db_query("SELECT
-                                   *
-                                   FROM " . TABLE_ORDERS . " WHERE
-                                   orders_id = '" . xtc_db_input($order_id) . "'"
-                                   );
+      $order_query = xtc_db_query("SELECT *
+                                   FROM " . TABLE_ORDERS . "
+                                   WHERE orders_id = '" . $order_id . "'");
 
       $order = xtc_db_fetch_array($order_query);
 
-      $totals_query = xtc_db_query("SELECT * FROM " . TABLE_ORDERS_TOTAL . " where orders_id = '" . xtc_db_input($order_id) . "' order by sort_order");
+      $totals_query = xtc_db_query("SELECT *
+                                    FROM " . TABLE_ORDERS_TOTAL . "
+                                    where orders_id = '" . $order_id . "'
+                                    order by sort_order");
       while ($totals = xtc_db_fetch_array($totals_query)) {
         $this->totals[] = array('title' => $totals['title'],
-                                'text' => $totals['text'],
-                                'value'=> $totals['value']);
+                                 'text' => $totals['text'],
+                                 'value'=> $totals['value']);
       }
 
       // BOF - web28 - 2010-05-06 - PayPal API Modul
@@ -210,22 +211,24 @@
                              'format_id' => $order['billing_address_format_id']);
 
       $index = 0;
-      $orders_products_query = xtc_db_query("SELECT * FROM " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . xtc_db_input($order_id) . "'");
+      $orders_products_query = xtc_db_query("SELECT *
+                                             FROM " . TABLE_ORDERS_PRODUCTS . "
+                                             where orders_id = '" . $order_id . "'");
       while ($orders_products = xtc_db_fetch_array($orders_products_query)) {
         $this->products[$index] = array('qty' => $orders_products['products_quantity'],
-                                        'id' => $orders_products['products_id'],
-                                        'name' => $orders_products['products_name'],
-                                        'model' => $orders_products['products_model'],
-                                        'tax' => $orders_products['products_tax'],
-                                        'price'=>$orders_products['products_price'],
-                                        'shipping_time'=>$orders_products['products_shipping_time'],
-                                        'final_price' => $orders_products['final_price']);
+                                         'id' => $orders_products['products_id'],
+                                         'name' => $orders_products['products_name'],
+                                         'model' => $orders_products['products_model'],
+                                         'tax' => $orders_products['products_tax'],
+                                         'price'=> $orders_products['products_price'],
+                                         'shipping_time'=> $orders_products['products_shipping_time'],
+                                         'final_price' => $orders_products['final_price']);
 
         $subindex = 0;
         $attributes_query = xtc_db_query("SELECT * FROM " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . "
-												where orders_id = '" . xtc_db_input($order_id) . "'
-												and orders_products_id = '" . $orders_products['orders_products_id'] . "'
-												order by orders_products_attributes_id"); //ADD - web28 - 2010-06-11 - order by orders_products_attributes_id
+                                          where orders_id = '" . $order_id . "'
+                                          and orders_products_id = '" . $orders_products['orders_products_id'] . "'
+                                          order by orders_products_attributes_id"); //ADD - web28 - 2010-06-11 - order by orders_products_attributes_id
         if (xtc_db_num_rows($attributes_query)) {
           while ($attributes = xtc_db_fetch_array($attributes_query)) {
             $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options'],
@@ -244,19 +247,19 @@
     }
 
     function getOrderData($oID) {
-    	global $xtPrice;
+      global $xtPrice;
 
-    	require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
-    	$order_query = "SELECT
-	        				products_id,
-	        				orders_products_id,
-	        				products_model,
-	        				products_name,
-	        				final_price,
-	        				products_shipping_time,
-	        				products_quantity
-	        				FROM ".TABLE_ORDERS_PRODUCTS."
-	        				WHERE orders_id='".(int) $oID."'";
+      require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
+      $order_query = "SELECT
+                  products_id,
+                  orders_products_id,
+                  products_model,
+                  products_name,
+                  final_price,
+                  products_shipping_time,
+                  products_quantity
+                  FROM ".TABLE_ORDERS_PRODUCTS."
+                  WHERE orders_id='".(int) $oID."'";
       $order_data = array ();
       $order_query = xtc_db_query($order_query);
       while ($order_data_values = xtc_db_fetch_array($order_query)) {
@@ -284,18 +287,18 @@
     }
 
     function getTotalData($oID) {
-    	global $xtPrice,$db;
+      global $xtPrice,$db;
 
       // get order_total data
       $order_total_query = "SELECT
-                  title,
-                  text,
-                  class,
-                  value,
-                  sort_order
-                  FROM ".TABLE_ORDERS_TOTAL."
-                  WHERE orders_id='".(int) $oID."'
-                  ORDER BY sort_order ASC";
+                            title,
+                            text,
+                            class,
+                            value,
+                            sort_order
+                            FROM ".TABLE_ORDERS_TOTAL."
+                            WHERE orders_id='".(int)$oID."'
+                            ORDER BY sort_order ASC";
 
       $order_total = array ();
       $order_total_query = xtc_db_query($order_total_query);
