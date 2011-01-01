@@ -51,7 +51,6 @@
     //$box_content = '<div align="center" class="bewert"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id']) . '">' . xtc_image(DIR_WS_THUMBNAIL_IMAGES . $random_product['products_image'], $random_product['products_name']) . '</a></div><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id']) . '">' . $review . ' ..</a><br />';
      $box_content = '<div align="center" class="bewert"><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&amp;reviews_id=' . $random_product['reviews_id']) . '">' . xtc_image(DIR_WS_THUMBNAIL_IMAGES . $random_product['products_image'], $random_product['products_name']) . '</a></div><a href="' . xtc_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&amp;reviews_id=' . $random_product['reviews_id']) . '">' . $review . ' ..</a><br /><div align="center">' . xtc_image('templates/' . CURRENT_TEMPLATE . '/img/stars_' . $random_product['reviews_rating'] . '.gif' , sprintf(BOX_REVIEWS_TEXT_OF_5_STARS, $random_product['reviews_rating'])) . '</div>';
     //EOF - Dokuman - 2010-01-29 - show review stars in box
-
   } elseif ($product->isProduct()) {
     // Verhindern das Gäste oder Spamer bewerten können. www.aranowa.de
     if (isset($_SESSION['customer_id'])) {
@@ -65,7 +64,7 @@
     $box_smarty->assign('BOX_CONTENT', $box_content);
     $box_smarty->assign('language', $_SESSION['language']);
     // set cache ID
-   if (!CacheCheck()) {
+    if (!CacheCheck()) {
       $box_smarty->caching = 0;
       $box_reviews= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_reviews.html');
     } else {

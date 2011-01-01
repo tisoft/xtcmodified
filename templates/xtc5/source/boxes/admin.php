@@ -1,5 +1,5 @@
 <?php
-/* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -47,14 +47,14 @@
   $reviews_query = xtc_db_query("select count(*) as count from " . TABLE_REVIEWS);
   $reviews = xtc_db_fetch_array($reviews_query);
   $admin_image = '<a href="' . xtc_href_link_admin(FILENAME_START,'', 'NONSSL').'">'.xtc_image_button('button_admin.gif', IMAGE_BUTTON_ADMIN).'</a>';  //web28 - 2010-06-23 change unnecessary SSL to NONSSL
-   if ($product->isProduct()) {
-// BOF - Tomcraft - 2010-12-16 - Don't open new windows when editing a product
-//    $admin_link='<a href="' . xtc_href_link_admin(FILENAME_EDIT_PRODUCTS, 'cPath=' . $cPath . '&amp;pID=' . $product->data['products_id']) . '&amp;action=new_product' . '" onclick="window.open(this.href); return false;">' . xtc_image_button('edit_product.gif', IMAGE_BUTTON_PRODUCT_EDIT) . '</a>';
+  if ($product->isProduct()) {
+    // BOF - Tomcraft - 2010-12-16 - Don't open new windows when editing a product
+    // $admin_link='<a href="' . xtc_href_link_admin(FILENAME_EDIT_PRODUCTS, 'cPath=' . $cPath . '&amp;pID=' . $product->data['products_id']) . '&amp;action=new_product' . '" onclick="window.open(this.href); return false;">' . xtc_image_button('edit_product.gif', IMAGE_BUTTON_PRODUCT_EDIT) . '</a>';
     $admin_link='<a href="' . xtc_href_link_admin(FILENAME_EDIT_PRODUCTS, 'cPath=' . $cPath . '&amp;pID=' . $product->data['products_id']) . '&amp;action=new_product' . '">' . xtc_image_button('edit_product.gif', IMAGE_BUTTON_PRODUCT_EDIT) . '</a>';
-// EOF - Tomcraft - 2010-12-16 - Don't open new windows when editing a product
-    } else {
+    // EOF - Tomcraft - 2010-12-16 - Don't open new windows when editing a product
+  } else {
     $admin_link = ''; //DokuMan  - 2010-03-23 - set undefinded variable
-   }
+  }
 
   $box_content= '<strong>' . BOX_TITLE_STATISTICS . '</strong><br />' . $orders_contents . '<br />' .
                              BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br />' .
@@ -62,10 +62,11 @@
                              BOX_ENTRY_REVIEWS . ' ' . $reviews['count'] .'<br />' .
                              $admin_image . '<br />' .$admin_link;
 
-    if ($flag==true) define('SEARCH_ENGINE_FRIENDLY_URLS',true);
-    $box_smarty->assign('BOX_CONTENT', $box_content);
-    $box_smarty->caching = 0;
-    $box_smarty->assign('language', $_SESSION['language']);
-    $box_admin= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_admin.html');
-    $smarty->assign('box_ADMIN',$box_admin);
+  if ($flag==true)
+    define('SEARCH_ENGINE_FRIENDLY_URLS',true);
+  $box_smarty->assign('BOX_CONTENT', $box_content);
+  $box_smarty->caching = 0;
+  $box_smarty->assign('language', $_SESSION['language']);
+  $box_admin= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_admin.html');
+  $smarty->assign('box_ADMIN',$box_admin);
 ?>

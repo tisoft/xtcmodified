@@ -1,5 +1,5 @@
 <?php
-/* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -31,15 +31,15 @@
   $count_lng = 0;
   reset($lng->catalog_languages);
   while (list($key, $value) = each($lng->catalog_languages)) {
-  $count_lng++;
-  //BOF - Dokuman - 2010-01-29 - code optimization
-   //$languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
+    $count_lng++;
+    //BOF - Dokuman - 2010-01-29 - code optimization
+    //$languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
     if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
       $languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
     } else {
       $languages_string .= ' <a href="' . xtc_href_link(basename($PHP_SELF), 'language=' . $key.'&amp;'.xtc_get_all_get_params(array('language', 'currency')), $request_type) . '">' . xtc_image('lang/' .  $value['directory'] .'/' . $value['image'], $value['name']) . '</a> ';
     }
-  //EOF - Dokuman - 2010-01-29 - code optimization
+    //EOF - Dokuman - 2010-01-29 - code optimization
   }
 
   // dont show box if there's only 1 language

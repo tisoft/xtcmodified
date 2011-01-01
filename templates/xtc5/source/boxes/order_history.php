@@ -1,5 +1,5 @@
 <?php
-/* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -15,16 +15,15 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-$box_smarty = new smarty;
-//BOF - GTB - 2010-08-03 - Security Fix - Base
-$box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
-//$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
-//EOF - GTB - 2010-08-03 - Security Fix - Base
-$box_content = '';
-$customer_orders_string = '';
+  $box_smarty = new smarty;
+  //BOF - GTB - 2010-08-03 - Security Fix - Base
+  $box_smarty->assign('tpl_path',DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE.'/');
+  //$box_smarty->assign('tpl_path','templates/'.CURRENT_TEMPLATE.'/');
+  //EOF - GTB - 2010-08-03 - Security Fix - Base
+  $box_content = '';
+  $customer_orders_string = '';
   // include needed functions
   require_once(DIR_FS_INC . 'xtc_get_all_get_params.inc.php');
-
   if (isset($_SESSION['customer_id'])) {
     // retreive the last x products purchased
     $orders_query = xtc_db_query("select distinct op.products_id from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_PRODUCTS . " p where o.customers_id = '" . (int)$_SESSION['customer_id'] . "' and o.orders_id = op.orders_id and op.products_id = p.products_id and p.products_status = '1' group by products_id order by o.date_purchased desc limit " . MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX);
@@ -34,15 +33,14 @@ $customer_orders_string = '';
         $product_ids .= $orders['products_id'] . ',';
       }
       $product_ids = substr($product_ids, 0, -1);
-
       $customer_orders_string = '<table border="0" width="100%" cellspacing="0" cellpadding="1">';
-      $products_query = xtc_db_query("select
-                                      products_id,
-                                      products_name
-                                      from " . TABLE_PRODUCTS_DESCRIPTION . "
-                                      where products_id in (" . $product_ids . ")
-                                      and language_id = '" . (int)$_SESSION['languages_id'] . "'
-                                      order by products_name
+      $products_query = xtc_db_query("SELECT
+                                             products_id,
+                                             products_name
+                                        FROM " . TABLE_PRODUCTS_DESCRIPTION . "
+                                       WHERE products_id in (" . $product_ids . ")
+                                         AND language_id = '" . (int)$_SESSION['languages_id'] . "'
+                                    ORDER BY products_name
                                       ");
       while ($products = xtc_db_fetch_array($products_query)) {
         $customer_orders_string .= '  <tr>' .
@@ -53,9 +51,9 @@ $customer_orders_string = '';
       $customer_orders_string .= '</table>';
     }
   }
-    $box_smarty->assign('BOX_CONTENT', $customer_orders_string);
-    $box_smarty->caching = 0;
-    $box_smarty->assign('language', $_SESSION['language']);
-    $box_order_history= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_order_history.html');
-    $smarty->assign('box_HISTORY',$box_order_history);
+  $box_smarty->assign('BOX_CONTENT', $customer_orders_string);
+  $box_smarty->caching = 0;
+  $box_smarty->assign('language', $_SESSION['language']);
+  $box_order_history= $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_order_history.html');
+  $smarty->assign('box_HISTORY',$box_order_history);
 ?>
