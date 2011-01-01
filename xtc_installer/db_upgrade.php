@@ -67,7 +67,7 @@
   while($datei = readdir($ordner)) {
     if(preg_match('/update_/i', $datei)) {
            $farray[] = $datei;
-     }
+    }
   }
   closedir($ordner);
   sort($farray);
@@ -128,12 +128,12 @@
 
       // compare first 6 letters, if it fits an SQL statement to start a new line
       if ((strtoupper($next) == 'DROP T')
-      || (strtoupper($next) == 'CREATE')
-      || (strtoupper($next) == 'INSERT')
-      || (strtoupper($next) == 'DELETE')
-      || (strtoupper($next) == 'ALTER ')
-      || (strtoupper($next) == 'TRUNCA')
-      || (strtoupper($next) == 'UPDATE')) {
+       || (strtoupper($next) == 'CREATE')
+       || (strtoupper($next) == 'INSERT')
+       || (strtoupper($next) == 'DELETE')
+       || (strtoupper($next) == 'ALTER ')
+       || (strtoupper($next) == 'TRUNCA')
+       || (strtoupper($next) == 'UPDATE')) {
         $next = '';
         $sql_query = substr($restore_query, 0, $i);
         $sql_array[] = trim($sql_query);
@@ -146,102 +146,94 @@
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-<title><?php echo TEXT_TITLE; ?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<style type="text/css">
-body {background: #eee; font-family: arial, sans-serif; font-size: 12px;}
-table,td,div {font-family: arial, sans-serif; font-size: 12px;}
-h1 {font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px;}
-a {color:#893769;}
-</style>
-</head>
-<body>
-<table width="800" style="border:30px solid #fff;" bgcolor="#f3f3f3" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td height="95" colspan="2" >
-      <table width="100%" border="0" cellpadding="0" cellspacing="0">
-        <tr>
-          <td><img src="images/logo.gif" alt="" /></td>
-        </tr>
-      </table>
-  </tr>
-  <tr>
-    <td align="center" valign="top">
-      <table width="95%" border="0" cellpadding="0" cellspacing="0">
-         <tr>
-          <td><br />
-          <?php
-          echo TITLE_UPGRADE;
-
-          //User has been redirected from original installer script to db_upgrade.php
-          if ($_GET['upgrade_redir'] == 1) {
-            echo REDIRECTED_FROM_INSTALLER;
-          }
-
-          if(isset($_POST['submit'])) {
-            // Write SQL-statements to database
-            foreach ($sql_array as $stmt) {
-              xtc_db_query($stmt);
-            }
-            // get new(!) DB-Version from the database itself
-            $version_query = xtc_db_query("select version from " . TABLE_DATABASE_VERSION);
-            $version_array = xtc_db_fetch_array($version_query);
-            echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
-            echo SUCCESS_MESSAGE;
-            echo '<div style="border:1px solid #ccc; background:#fff; padding:10px;">';
-
-            // verbose SQL output on screen
-            foreach ($sql_array as $stmt) {
-              echo htmlentities($stmt).'<br />';
-            }
-            echo '</div>';
-
-            // OPTIMIZE TABLES
-            if (isset($_POST['submit']) && isset($_POST['optimizetables'])) {
-              $tables = xtc_db_query('SHOW TABLE STATUS FROM ' . DB_DATABASE);
-              while($row = xtc_db_fetch_array($tables)) {
-                if ( $row['Data_free'] > 0 ) {
-                xtc_db_query('OPTIMIZE TABLE '.$row['Name']);
-                $gain += $row['Data_free']/1024/1024;
-                }
-              }
-              echo '<br/><div style="border:1px solid #ccc; background:#fff; padding:10px;">';
-              echo '<strong>'.OPTIMIZE_TABLE_GAIN . number_format($gain,3).' MB</strong></div>';
-            }
-            echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).'</p>';              
-
-          } else {
-            echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
-            echo USED_FILES ;
-            echo '<div style="border:1px solid #ccc; background:#fff; padding:10px;">';
-              if ($used_files_display != '') {
-                echo $used_files_display;
-              }
-              else {
-                echo UPGRADE_NOT_NECESSARY;
-                echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).' <== </p>';              
-              }
-            echo '</div>';
-          }
-
-          //HTML-input form
-          if (!isset($_POST['submit']) && $used_files_display != '') {
-            echo '<br /><form method="post" action="'.basename($_SERVER['SCRIPT_FILENAME']) .'">';
-            echo '<input type="checkbox" name="optimizetables" value="1" checked="checked"/>'.OPTIMIZE_TABLE.'<br />';
-            echo '<input type="submit" name="submit" value="'.SUBMIT_VALUE.'"/><br />
-            </form>';
-          }
-          ?>
-          </td>
-         </tr>
-      </table>
-      <br />
-    </td>
-  </tr>
-</table>
-
-<br />
-<div align="center" style="font-family:arial,sans-serif; font-size:11px; color:#666;"><?php echo TEXT_FOOTER; ?></div>
-</body>
+  <head>
+    <title><?php echo TEXT_TITLE; ?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <style type="text/css">
+      body {background: #eee; font-family: arial, sans-serif; font-size: 12px;}
+      table,td,div {font-family: arial, sans-serif; font-size: 12px;}
+      h1 {font-size: 18px; margin: 0; padding: 0; margin-bottom: 10px;}
+      a {color:#893769;}
+    </style>
+  </head>
+  <body>
+    <table width="800" style="border:30px solid #fff;" bgcolor="#f3f3f3" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="95" colspan="2" >
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td><img src="images/logo.gif" alt="" /></td>
+            </tr>
+          </table>
+      </tr>
+      <tr>
+        <td align="center" valign="top">
+          <table width="95%" border="0" cellpadding="0" cellspacing="0">
+             <tr>
+              <td>
+                <br />
+                <?php
+                  echo TITLE_UPGRADE;
+                  //User has been redirected from original installer script to db_upgrade.php
+                  if ($_GET['upgrade_redir'] == 1) {
+                    echo REDIRECTED_FROM_INSTALLER;
+                  }
+                  if(isset($_POST['submit'])) {
+                    // Write SQL-statements to database
+                    foreach ($sql_array as $stmt) {
+                      xtc_db_query($stmt);
+                    }
+                    // get new(!) DB-Version from the database itself
+                    $version_query = xtc_db_query("select version from " . TABLE_DATABASE_VERSION);
+                    $version_array = xtc_db_fetch_array($version_query);
+                    echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
+                    echo SUCCESS_MESSAGE;
+                    echo '<div style="border:1px solid #ccc; background:#fff; padding:10px;">';
+                    // verbose SQL output on screen
+                    foreach ($sql_array as $stmt) {
+                      echo htmlentities($stmt).'<br />';
+                    }
+                    echo '</div>';
+                    // OPTIMIZE TABLES
+                    if (isset($_POST['submit']) && isset($_POST['optimizetables'])) {
+                      $tables = xtc_db_query('SHOW TABLE STATUS FROM ' . DB_DATABASE);
+                      while($row = xtc_db_fetch_array($tables)) {
+                        if ( $row['Data_free'] > 0 ) {
+                          xtc_db_query('OPTIMIZE TABLE '.$row['Name']);
+                          $gain += $row['Data_free']/1024/1024;
+                        }
+                      }
+                      echo '<br/><div style="border:1px solid #ccc; background:#fff; padding:10px;">';
+                      echo '<strong>'.OPTIMIZE_TABLE_GAIN . number_format($gain,3).' MB</strong></div>';
+                    }
+                    echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).'</p>';              
+                  } else {
+                    echo CURRENT_DB_VERSION.' <strong>'.$version_array['version'].'</strong>';
+                    echo USED_FILES ;
+                    echo '<div style="border:1px solid #ccc; background:#fff; padding:10px;">';
+                    if ($used_files_display != '') {
+                      echo $used_files_display;
+                    } else {
+                      echo UPGRADE_NOT_NECESSARY;
+                      echo '<p style="color:red;font-weight:bold">'.FINAL_TEXT . basename($_SERVER['SCRIPT_FILENAME']).' <== </p>';              
+                    }
+                    echo '</div>';
+                  }
+                  //HTML-input form
+                  if (!isset($_POST['submit']) && $used_files_display != '') {
+                    echo '<br /><form method="post" action="'.basename($_SERVER['SCRIPT_FILENAME']) .'">';
+                    echo '<input type="checkbox" name="optimizetables" value="1" checked="checked"/>'.OPTIMIZE_TABLE.'<br />';
+                    echo '<input type="submit" name="submit" value="'.SUBMIT_VALUE.'"/><br /></form>';
+                  }
+                ?>
+              </td>
+            </tr>
+          </table>
+          <br />
+        </td>
+      </tr>
+    </table>
+    <br />
+    <div align="center" style="font-family:arial,sans-serif; font-size:11px; color:#666;"><?php echo TEXT_FOOTER; ?></div>
+  </body>
 </html>

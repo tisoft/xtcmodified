@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$   
 
    xtcModified - community made shopping
@@ -18,25 +18,26 @@
   // Some FileSystem Directories
   if (!defined('DIR_FS_DOCUMENT_ROOT')) {
     //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
-	  if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {	    
-		define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));		
-	  } else {	    
-		define('DIR_FS_DOCUMENT_ROOT', rtrim($_SERVER['DOCUMENT_ROOT'],'/'));		
-	  }
-	  //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
-      $local_install_path=str_replace('/xtc_installer','',$_SERVER['PHP_SELF']);
-      $local_install_path=str_replace('index.php','',$local_install_path);
-      $local_install_path=str_replace('install_step1.php','',$local_install_path);
-      $local_install_path=str_replace('install_step2.php','',$local_install_path);
-      $local_install_path=str_replace('install_step3.php','',$local_install_path);
-      $local_install_path=str_replace('install_step4.php','',$local_install_path);
-      $local_install_path=str_replace('install_step5.php','',$local_install_path);
-      $local_install_path=str_replace('install_step6.php','',$local_install_path);
-      $local_install_path=str_replace('install_step7.php','',$local_install_path);
-      $local_install_path=str_replace('install_finished.php','',$local_install_path);	  
-      define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . $local_install_path);
+    if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {
+      define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));
+    } else {
+      define('DIR_FS_DOCUMENT_ROOT', rtrim($_SERVER['DOCUMENT_ROOT'],'/'));
+    }
+    //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+    $local_install_path=str_replace('/xtc_installer','',$_SERVER['PHP_SELF']);
+    $local_install_path=str_replace('index.php','',$local_install_path);
+    $local_install_path=str_replace('install_step1.php','',$local_install_path);
+    $local_install_path=str_replace('install_step2.php','',$local_install_path);
+    $local_install_path=str_replace('install_step3.php','',$local_install_path);
+    $local_install_path=str_replace('install_step4.php','',$local_install_path);
+    $local_install_path=str_replace('install_step5.php','',$local_install_path);
+    $local_install_path=str_replace('install_step6.php','',$local_install_path);
+    $local_install_path=str_replace('install_step7.php','',$local_install_path);
+    $local_install_path=str_replace('install_finished.php','',$local_install_path);
+    define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . $local_install_path);
   }
-  if (!defined('DIR_FS_INC')) define('DIR_FS_INC', DIR_FS_CATALOG.'inc/');
+  if (!defined('DIR_FS_INC'))
+    define('DIR_FS_INC', DIR_FS_CATALOG.'inc/');
 
   //require('../includes/functions/validations.php');
   require(DIR_FS_CATALOG.'includes/classes/boxes.php');
@@ -89,68 +90,65 @@
   // include check functions
   require_once(DIR_FS_INC .'xtc_gdlib_check.inc.php');
   
-  if (!defined('DIR_WS_ICONS')) define('DIR_WS_ICONS','images/');
+  if (!defined('DIR_WS_ICONS'))
+    define('DIR_WS_ICONS','images/');
 
-  function xtc_check_version($mini='4.1.2')
-{
-   $dummy=phpversion();
-  sscanf($dummy,"%d.%d.%d%s",$v1,$v2,$v3,$v4);
-  sscanf($mini,"%d.%d.%d%s",$m1,$m2,$m3,$m4);
-  if($v1>$m1)
-     return(1);
-  elseif($v1<$m1)
-     return(0);
-  if($v2>$m2)
-     return(1);
-  elseif($v2<$m2)
-     return(0);
-  if($v3>$m3)
-     return(1);
-  elseif($v3<$m3)
-     return(0);
-  if((!$v4)&&(!$m4))
-     return(1);
-  if(($v4)&&(!$m4))
-   {
-    $dummy=strpos($v4,"pl");
-    if(is_integer($dummy))
-       return(1);
+  function xtc_check_version($mini='4.1.2') {
+    $dummy=phpversion();
+    sscanf($dummy,"%d.%d.%d%s",$v1,$v2,$v3,$v4);
+    sscanf($mini,"%d.%d.%d%s",$m1,$m2,$m3,$m4);
+    if($v1>$m1)
+      return(1);
+    elseif($v1<$m1)
+      return(0);
+    if($v2>$m2)
+      return(1);
+    elseif($v2<$m2)
+      return(0);
+    if($v3>$m3)
+      return(1);
+    elseif($v3<$m3)
+      return(0);
+    if((!$v4)&&(!$m4))
+      return(1);
+    if(($v4)&&(!$m4)) {
+      $dummy=strpos($v4,"pl");
+      if(is_integer($dummy))
+        return(1);
+      return(0);
+    } elseif((!$v4)&&($m4)) {
+      $dummy=strpos($m4,"rc");
+      if(is_integer($dummy))
+        return(1);
+      return(0);
+    }
     return(0);
-   }
-  elseif((!$v4)&&($m4))
-   {
-    $dummy=strpos($m4,"rc");
-    if(is_integer($dummy))
-       return(1);
-    return(0);
-   }
-   return(0);
-}
+  }
 
-   //BOF - web28 - 2010.02.09 - FIX LOST SESSION  
-    if (isset($_SESSION['language']) && $_SESSION['language'] != '') {
-		$lang = $_SESSION['language'];
-    } else {
+  //BOF - web28 - 2010.02.09 - FIX LOST SESSION  
+  if (isset($_SESSION['language']) && $_SESSION['language'] != '') {
+    $lang = $_SESSION['language'];
+  } else {
     //BOF - DokuMan - 2010-08-16 - Set browser language on installer start page
-      preg_match("/^([a-z]+)-?([^,;]*)/i", $_SERVER["HTTP_ACCEPT_LANGUAGE"], $browser_lang);
-      switch ($browser_lang[1]) {
-        case 'de':
-          $lang = 'german';
-          break;
-        default:
-          $lang = 'english';
-          break;
-      }
-     //EOF - DokuMan - 2010-08-16 - Set browser language on installer start page 
-      if(isset($_GET['lg']) && $_GET['lg'] != '') {
-        $lang = $_GET['lg'];			
-       }
-      if(isset($_POST['lg']) && $_POST['lg'] != '') {	
-        $lang = $_POST['lg'];			
-      }	
-    }	
+    preg_match("/^([a-z]+)-?([^,;]*)/i", $_SERVER["HTTP_ACCEPT_LANGUAGE"], $browser_lang);
+    switch ($browser_lang[1]) {
+      case 'de':
+        $lang = 'german';
+        break;
+      default:
+        $lang = 'english';
+        break;
+    }
+    //EOF - DokuMan - 2010-08-16 - Set browser language on installer start page 
+    if (isset($_GET['lg']) && $_GET['lg'] != '') {
+      $lang = $_GET['lg'];
+    }
+    if (isset($_POST['lg']) && $_POST['lg'] != '') {
+      $lang = $_POST['lg'];
+    }
+  }
         
-    //include('language/'.$lang.'.php');
-    $input_lang = '<input type="hidden" name="lg" value="'. $lang .'">';   
-    //EOF - web28 - 2010.02.09 - FIX LOST SESSION
+  //include('language/'.$lang.'.php');
+  $input_lang = '<input type="hidden" name="lg" value="'. $lang .'">';   
+  //EOF - web28 - 2010.02.09 - FIX LOST SESSION
 ?>
