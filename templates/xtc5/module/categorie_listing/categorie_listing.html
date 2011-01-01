@@ -25,10 +25,10 @@
           </tr>
         </table>
       </td>
-    {if (($spalten+1) % $anzahl_spalten == 0)}
-    <tr>
-    </tr>
-    {/if}          
+      {if (($spalten+1) % $anzahl_spalten == 0)}
+        <tr>
+        </tr>
+      {/if}          
     {/foreach}
     {*BOF RESTZELLEN AUFFÜLLEN*}        
     {assign var="content_count" value=$module_content|@count}    
