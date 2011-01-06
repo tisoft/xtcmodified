@@ -239,7 +239,10 @@
         $categories_count++;
         $rows++;
         if (xtc_not_null($search)) $cPath = $categories['parent_id'];
-        if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
+        // BOF - Tomcraft - 2001-01-06 - fixed case where cID is not set (props alkim media)
+        //if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
+        if (((!isset($_GET['cID']) || $_GET['cID'] == '') && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 4) != 'new_') ) {
+        // EOF - Tomcraft - 2001-01-06 - fixed case where cID is not set (props alkim media)
             $cInfo = new objectInfo($categories);
         }
 
