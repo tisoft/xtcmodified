@@ -20,7 +20,7 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
@@ -293,6 +293,10 @@
   } elseif ( ($request_type == 'SSL') && isset($_GET[session_name()]) ) {
     session_id($_GET[session_name()]);
   }
+
+  //BOF - DokuMan - 2011-01-06 - set session.use_only_cookies when force cookie is enabled
+  @ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'True') ? 1 : 0);
+  //EOF - DokuMan - 2011-01-06 - set session.use_only_cookies when force cookie is enabled
 
   // start the session
   $session_started = false;

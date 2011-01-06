@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.273 2003/05/19); www.oscommerce.com
-   (c) 2003  nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
+   (c) 2003 nextcommerce (application_top.php,v 1.54 2003/08/25); www.nextcommerce.org
    (c) 2006 XT-Commerce (application_top.php 1194 2010-08-22)
 
    Released under the GNU General Public License
@@ -21,7 +21,7 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
@@ -333,7 +333,6 @@ elseif (function_exists('ini_set')) {
   ini_set('session.cookie_path', '/');
   ini_set('session.cookie_domain', (xtc_not_null($current_domain) ? '.'.$current_domain : ''));
 }
-
 // set the session ID if it exists
 if (isset ($_POST[session_name()])) {
   session_id($_POST[session_name()]);
@@ -341,6 +340,10 @@ if (isset ($_POST[session_name()])) {
 elseif (($request_type == 'SSL') && isset ($_GET[session_name()])) {
   session_id($_GET[session_name()]);
 }
+
+//BOF - DokuMan - 2011-01-06 - set session.use_only_cookies when force cookie is enabled
+@ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'True') ? 1 : 0);
+//EOF - DokuMan - 2011-01-06 - set session.use_only_cookies when force cookie is enabled
 
 // start the session
 $session_started = false;
