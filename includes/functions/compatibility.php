@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: compatibility.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(compatibility.php,v 1.19 2003/04/09); www.oscommerce.com 
-   (c) 2003	 nextcommerce (compatibility.php,v 1.5 2003/08/13); www.nextcommerce.org 
+   (c) 2003  nextcommerce (compatibility.php,v 1.5 2003/08/13); www.nextcommerce.org 
+   (c) 2006 XT-Commerce (compatibility.php 899 2005-04-29)
 
    Released under the GNU General Public License
    Modified by Marco Canini, <m.canini@libero.it>
@@ -46,124 +47,29 @@
     do_magic_quotes_gpc($_COOKIE);
   }
 
-  if (!function_exists('array_splice')) {
-    function array_splice(&$array, $maximum) {
-      if (sizeof($array) >= $maximum) {
-        for ($i=0; $i<$maximum; $i++) {
-          $new_array[$i] = $array[$i];
-        }
-        $array = $new_array;
-      }
-    }
-  }
+//BOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
+  if ((strlen(ini_get('date.timezone')) < 1) && function_exists('date_default_timezone_set')) {
+    date_default_timezone_set(@date_default_timezone_get());
+//EOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
 
-  if (!function_exists('in_array')) {
-    function in_array($lookup_value, $lookup_array) {
-      reset($lookup_array);
-      while (list($key, $value) = each($lookup_array)) {
-        if ($value == $lookup_value) return true;
-      }
+//BOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
+//array_splice()
+//in_array()
+//array_reverse()
+//is_null()
+//constant()
+//is_numeric()
+//array_merge()
+//array_slice()
+//array_map()
+//str_repeat()
+//EOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
 
-      return false;
-    }
-  }
-
-  if (!function_exists('array_reverse')) {
-    function array_reverse($array) {
-      for ($i=0, $n=sizeof($array); $i<$n; $i++) $array_reversed[$i] = $array[($n-$i-1)];
-
-      return $array_reversed;
-    }
-  }
-
-  if (!function_exists('constant')) {
-    function constant($constant) {
-      eval("\$temp=$constant;");
-
-      return $temp;
-    }
-  }
-
-  if (!function_exists('is_null')) {
-    function is_null($value) {
-      if (is_array($value)) {
-        if (sizeof($value) > 0) {
-          return false;
-        } else {
-          return true;
-        }
-      } else {
-        if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
-          return false;
-        } else {
-          return true;
-        }
-      }
-    }
-  }
-
-  if (!function_exists('array_merge')) {
-    function array_merge($array1, $array2, $array3 = '') {
-      if (empty($array3) && !is_array($array3)) $array3 = array();
-      while (list($key, $val) = each($array1)) $array_merged[$key] = $val;
-      while (list($key, $val) = each($array2)) $array_merged[$key] = $val;
-      if (sizeof($array3) > 0) while (list($key, $val) = each($array3)) $array_merged[$key] = $val;
-
-      return (array) $array_merged;
-    }
-  }
-
-  if (!function_exists('is_numeric')) {
-    function is_numeric($param) {
-      return preg_match('/^[0-9]{1,50}.?[0-9]{0,50}$/', $param); // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
-    }
-  }
-
-  if (!function_exists('array_slice')) {
-    function array_slice($array, $offset, $length = 0) {
-      if ($offset < 0 ) {
-        $offset = sizeof($array) + $offset;
-      }
-      $length = ((!$length) ? sizeof($array) : (($length < 0) ? sizeof($array) - $length : $length + $offset));
-      for ($i = $offset; $i<$length; $i++) {
-        $tmp[] = $array[$i];
-      }
-
-      return $tmp;
-    }
-  }
-
-  if (!function_exists('array_map')) {
-    function array_map($callback, $array) {
-      if (is_array($array)) {
-        $_new_array = array();
-        reset($array);
-        while (list($key, $value) = each($array)) {
-          $_new_array[$key] = array_map($callback, $array[$key]);
-        }
-        return $_new_array;
-      } else {
-        return $callback($array);
-      }
-    }
-  }
-
-  if (!function_exists('str_repeat')) {
-    function str_repeat($string, $number) {
-      $repeat = '';
-
-      for ($i=0; $i<$number; $i++) {
-        $repeat .= $string;
-      }
-
-      return $repeat;
-    }
-  }
-
+  //checkdnsrr on Windows plattforms available from PHP <= 5.3.0
   if (!function_exists('checkdnsrr')) {
     function checkdnsrr($host, $type) {
       if(xtc_not_null($host) && xtc_not_null($type)) {
-        @exec("nslookup -type=$type $host", $output);
+        @exec("nslookup -type=" . escapeshellarg($type) . " " . escapeshellarg($host), $output); // DokuMan - 2011-01-06 - added escapeshellarg
         while(list($k, $line) = each($output)) {
           if(preg_match("/^$host/i", $line)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
             return true;

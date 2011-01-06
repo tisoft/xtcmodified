@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(compatibility.php,v 1.8 2003/04/09); www.oscommerce.com
-   (c) 2003	nextcommerce (compatibility.php,v 1.6 2003/08/18); www.nextcommerce.org
+   (c) 2003 nextcommerce (compatibility.php,v 1.6 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (compatibility.php 950 2005-05-14)
 
    Released under the GNU General Public License
@@ -45,38 +45,21 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     do_magic_quotes_gpc($_COOKIE);
   }
 
-  if (!function_exists('is_numeric')) {
-    function is_numeric($param) {
-      return preg_match("/^[0-9]{1,50}.?[0-9]{0,50}$/", $param); // Hetfield - 2009-08-19 - replaced deprecated function ereg with preg_match to be ready for PHP >= 5.3
-    }
-  }
+//BOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
+  if ((strlen(ini_get('date.timezone')) < 1) && function_exists('date_default_timezone_set')) {
+    date_default_timezone_set(@date_default_timezone_get());
+//EOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
 
-  if (!function_exists('is_uploaded_file')) {
-    function is_uploaded_file($filename) {
-      if (!$tmp_file = get_cfg_var('upload_tmp_dir')) {
-        $tmp_file = dirname(tempnam('', ''));
-      }
-
-      if (strchr($tmp_file, '/')) {
-        if (substr($tmp_file, -1) != '/') $tmp_file .= '/';
-      } elseif (strchr($tmp_file, '\\')) {
-        if (substr($tmp_file, -1) != '\\') $tmp_file .= '\\';
-      }
-
-      return file_exists($tmp_file . basename($filename));
-    }
-  }
-
-  if (!function_exists('move_uploaded_file')) {
-    function move_uploaded_file($file, $target) {
-      return copy($file, $target);
-    }
-  }
+//BOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
+//is_numeric()
+//is_uploaded_file()
+//move_uploaded_file()
+//EOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
 
   if (!function_exists('checkdnsrr')) {
     function checkdnsrr($host, $type) {
       if(xtc_not_null($host) && xtc_not_null($type)) {
-        @exec("nslookup -type=$type $host", $output);
+        @exec("nslookup -type=" . escapeshellarg($type) . " " . escapeshellarg($host), $output); // DokuMan - 2011-01-06 - added escapeshellarg
         while(list($k, $line) = each($output)) {
           if(preg_match("/^$host/i", $line)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
             return true;
