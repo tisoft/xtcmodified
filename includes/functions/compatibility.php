@@ -50,6 +50,7 @@
 //BOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   if ((strlen(ini_get('date.timezone')) < 1) && function_exists('date_default_timezone_set')) {
     date_default_timezone_set(@date_default_timezone_get());
+  }
 //EOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
 
 //BOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
