@@ -1,23 +1,24 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: table.php 899 2005-04-29 02:40:57Z hhgag $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
-   based on: 
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(table.php,v 1.6 2003/02/16); www.oscommerce.com 
-   (c) 2003	 nextcommerce (table.php,v 1.4 2003/08/13); www.nextcommerce.org
+   Copyright (c) 2010 xtcModified
+   --------------------------------------------------------------
+   based on:
+   (c) 2000-2001 The Exchange Project (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce; http://www.oscommerce.com
+   (c) 2003 nextcommerce ; http://www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
 define('MODULE_SHIPPING_TABLE_TEXT_TITLE', 'Tabellarische Versandkosten');
 define('MODULE_SHIPPING_TABLE_TEXT_DESCRIPTION', 'Tabellarische Versandkosten');
-define('MODULE_SHIPPING_TABLE_TEXT_WAY', 'Bester Weg');
+define('MODULE_SHIPPING_TABLE_TEXT_WAY', 'Bester Weg (%01.2f kg)');
 define('MODULE_SHIPPING_TABLE_TEXT_WEIGHT', 'Gewicht');
 define('MODULE_SHIPPING_TABLE_TEXT_AMOUNT', 'Menge');
 

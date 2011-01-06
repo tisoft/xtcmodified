@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: table.php 1002 2005-07-10 16:11:37Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
-   based on: 
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(table.php,v 1.27 2003/02/05); www.oscommerce.com 
-   (c) 2003	 nextcommerce (table.php,v 1.8 2003/08/24); www.nextcommerce.org
+   Copyright (c) 2010 xtcModified
+   --------------------------------------------------------------
+   based on:
+   (c) 2000-2001 The Exchange Project (earlier name of osCommerce)
+   (c) 2002-2003 osCommerce; http://www.oscommerce.com
+   (c) 2003 nextcommerce ; http://www.nextcommerce.org
+   (c) 2006 XT-Commerce
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -77,7 +78,7 @@
       $this->quotes = array('id' => $this->code,
                             'module' => MODULE_SHIPPING_TABLE_TEXT_TITLE,
                             'methods' => array(array('id' => $this->code,
-                                                     'title' => MODULE_SHIPPING_TABLE_TEXT_WAY,
+                                                     'title' => sprintf(MODULE_SHIPPING_TABLE_TEXT_WAY, $shipping_weight),
                                                      'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING)));
 
       if ($this->tax_class > 0) {
