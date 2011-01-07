@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(address_book_process.php,v 1.77 2003/05/27); www.oscommerce.com
-   (c) 2003   nextcommerce (address_book_process.php,v 1.13 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (address_book_process.php,v 1.13 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (address_book_process.php 1218 2005-09-16)
 
    Released under the GNU General Public License
@@ -30,9 +30,16 @@ if (!isset ($_SESSION['customer_id']))
   xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
 
 if (isset ($_GET['action']) && ($_GET['action'] == 'deleteconfirm') && isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-  xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where address_book_id = '".(int) $_GET['delete']."' and customers_id = '".(int) $_SESSION['customer_id']."'");
+  //BOF - DokuMan - 2011-01-07 - Validate Removal of Customer Address
 
-  $messageStack->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_DELETED, 'success');
+  //xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where address_book_id = '".(int) $_GET['delete']."' and customers_id = '".(int) $_SESSION['customer_id']."'");
+  if ($_GET['delete'] == $_SESSION['customer_default_address_id']) {
+    $messageStack->add_session('addressbook', WARNING_PRIMARY_ADDRESS_DELETION, 'warning');
+  } else {
+    xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where address_book_id = '".(int) $_GET['delete']."' and customers_id = '".(int) $_SESSION['customer_id']."'");
+    $messageStack->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_DELETED, 'success');
+  }
+  //EOF - DokuMan - 2011-01-07 - Validate Removal of Customer Address
 
   xtc_redirect(xtc_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
 }
