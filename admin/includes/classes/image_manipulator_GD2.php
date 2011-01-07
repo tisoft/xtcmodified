@@ -9,6 +9,7 @@
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2006 XT-Commerce (image_manipulator_GD2.php 950 2005-05-14)
+   (C) 2006 Noxware, B. W. Masanek - Support for transparency, enhanced PNG & GIF processing
 
    Third Party contributions:
    class thumbnail - proportional thumbnails with manipulations by mark@teckis.com
@@ -36,9 +37,11 @@ class image_manipulation
   }
 
   //BOF - DokuMan - 2011-01-06 - added imagecopyresampled_adv - support for transparent PNGs
+  // Support for transparency, enhanced PNG & GIF processing
   function imagecopyresampled_adv($image_type, &$dest, $source, $d_x, $d_y, $s_x, $s_y, $d_w, $d_h, $s_w, $s_h)
   {
     switch ($image_type) {
+    // Process GIF images
     case 1:
       $transcol = imagecolortransparent($source);
       $dest = imagecreate($d_w, $d_h);
@@ -48,6 +51,7 @@ class image_manipulation
       return imagecopyresized($dest, $source, $d_x, $d_y, $s_x, $s_y, $d_w, $d_h, $s_w, $s_h);
       break;
 
+    // Process PNG images
     case 3:
       $dest = imageCreateTrueColor($d_w, $d_h);
       imagealphablending($dest, false);
@@ -65,6 +69,7 @@ class image_manipulation
       return imagecopyresampled($dest, $source, $d_x, $d_y, $s_x, $s_y, $d_w, $d_h, $s_w, $s_h);
       break;
 
+    // Any other images
     default:
       $dest = imageCreateTrueColor($d_w, $d_h);
       return imagecopyresampled($dest, $source, $d_x, $d_y, $s_x, $s_y, $d_w, $d_h, $s_w, $s_h);
@@ -91,6 +96,7 @@ class image_manipulation
     $this->s = ($this->k < 4) ? ($this->k < 3) ? ($this->k < 2) ? ($this->k < 1) ? Null : imagecreatefromgif($this->a) : imagecreatefromjpeg($this->a) : imagecreatefrompng($this->a) : Null;
     if($this->s !== Null) {
       //BOF - DokuMan - 2011-01-06 - use new imagecopyresampled_adv here
+      // Creates an new image: $this->t. $this->k is the image type.
       $this->u = $this->imagecopyresampled_adv($this->k, $this->t, $this->s, 0, 0, 0, 0, $this->q, $this->r, $this->i, $this->j);
       //EOF - DokuMan - 2011-01-06 - use new imagecopyresampled_adv here
       }
@@ -103,6 +109,7 @@ class image_manipulation
     }
   function bevel($edge_width=10, $light_colour="FFFFFF", $dark_colour="000000")
     {
+    // Not working properly for PNG images, so skipping
     if ($this->effects_disabled || $this->k == 3) return; //DokuMan - 2011-01-06
     $this->edge = $edge_width;
     $this->dc = $dark_colour;
@@ -130,6 +137,7 @@ class image_manipulation
   function greyscale($rv=38, $gv=36, $bv=26)
     {
     //BOF - DokuMan - 2011-01-06
+    // Not working properly for PNG & GIF images, so skipping
     if ($this->effects_disabled || $this->k == 3 || $this->k == 1) return;
     $this->bgc = $bg_colour;
     $this->br = $this->hex2rgb(substr($this->bgc, 0, 2));
@@ -172,6 +180,7 @@ class image_manipulation
 
   function ellipse($bg_colour="FFFFFF")
     {
+    // Not working properly for PNG images, so skipping
     if ($this->effects_disabled || $this->k == 3) return; //DokuMan - 2011-01-06
     $this->bgc = $bg_colour;
     $this->br = $this->hex2rgb(substr($this->bgc,0,2));
@@ -196,6 +205,7 @@ class image_manipulation
     }
   function round_edges($edge_rad=3, $bg_colour="FFFFFF", $anti_alias=1)
     {
+    // Not working properly for PNG images, so skipping
     if ($this->effects_disabled || $this->k == 3) return; //DokuMan - 2011-01-06
     $this->er = $edge_rad;
     $this->bgd = $bg_colour;
@@ -242,7 +252,7 @@ class image_manipulation
         if(($this->indx_rgb['red'] == $this->tr) && ($this->indx_rgb['green'] == $this->tg) && ($this->indx_rgb['blue'] == $this->tb)){
           // transparent colour, so ignore merging this pixel
 
-          }  else {
+          } else {
           @imagecopymerge($this->t, $this->mm, $this->xx+$this->xpo, $this->yy+$this->ypo, $this->xpo, $this->ypo, 1, 1, $this->mo);
           }
         }
@@ -282,6 +292,7 @@ class image_manipulation
     }
   function drop_shadow($shadow_width, $shadow_colour="000000", $background_colour="FFFFFF")
     {
+    // Not working properly for PNG & GIF images, so skipping
     if ($this->effects_disabled || $this->k == 3 || $this->k == 1) return; //DokuMan - 2011-01-06
     $this->sw = $shadow_width;
     $this->sc = $shadow_colour;
@@ -315,6 +326,7 @@ class image_manipulation
     }
   function motion_blur($num_blur_lines, $background_colour="FFFFFF")
     {
+    // Not working properly for PNG images, so skipping
     if ($this->effects_disabled || $this->k == 3) return; //DokuMan - 2011-01-06
     $this->nbl = $num_blur_lines;
     $this->shw = ($this->nbl*2)+1;
@@ -355,24 +367,24 @@ class image_manipulation
     if($this->s !== Null){
       if($this->d !== ""){
         //BOF - DokuMan - 2011-01-06 - support jpg, gif and png
-        //ob_start();
-        //imagejpeg($this->t, $this->d, $this->e);
-        //ob_end_clean();
         ob_start();
         $image_type = $this->k;
         switch ($image_type) {
           case 1:
+             // Keep transparent color
             $transcol = imagecolortransparent($this->s);
             imagecolortransparent($this->t, $transcol);
             imagegif($this->t, $this->d);
             break;
 
+          // PNG image
           case 3:
             imagealphablending($this->t, true);
             imagesavealpha($this->t, true);
             imagepng($this->t, $this->d);
             break;
 
+          // Other images
           default:
             imagejpeg($this->t, $this->d, $this->e);
         }
