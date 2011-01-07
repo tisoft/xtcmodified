@@ -68,7 +68,11 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
   }
 
   if (ACCOUNT_DOB == 'true') {
-    if (checkdate(substr(xtc_date_raw($dob), 4, 2), substr(xtc_date_raw($dob), 6, 2), substr(xtc_date_raw($dob), 0, 4)) == false) {
+    //BOF - DokuMan - 2011-01-07 - Sanitize parameters
+    //if (checkdate(substr(xtc_date_raw($dob), 4, 2), substr(xtc_date_raw($dob), 6, 2), substr(xtc_date_raw($dob), 0, 4)) == false) {
+    if ((is_numeric(xtc_date_raw($dob)) == false) || (@checkdate(substr(xtc_date_raw($dob), 4,
+2), substr(xtc_date_raw($dob), 6, 2), substr(xtc_date_raw($dob), 0, 4)) == false)) {
+    //EOF - DokuMan - 2011-01-07 - Sanitize parameters
       $error = true;
       $messageStack->add('account_edit', ENTRY_DATE_OF_BIRTH_ERROR);
     }

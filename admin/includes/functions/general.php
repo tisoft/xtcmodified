@@ -19,9 +19,9 @@
 
    Customers Status v3.x (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
 
-   Enable_Disable_Categories 1.3                Autor: Mikel Williams | mikel@ladykatcostumes.com
+   Enable_Disable_Categories 1.3 Autor: Mikel Williams | mikel@ladykatcostumes.com
 
-   Category Descriptions (Version: 1.5 MS2)    Original Author:   Brian Lowe <blowe@wpcusrgrp.org> | Editor: Lord Illicious <shaolin-venoms@illicious.net>
+   Category Descriptions (Version: 1.5 MS2) Original Author: Brian Lowe <blowe@wpcusrgrp.org> | Editor: Lord Illicious <shaolin-venoms@illicious.net>
 
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
@@ -33,12 +33,30 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+
 function clear_string($value) {
   $string = str_replace("'", '', $value);
   $string = str_replace(')', '', $string);
   $string = str_replace('(', '', $string);
   $array = explode(',', $string);
   return $array;
+}
+
+// Parse the data used in the html tags to ensure the tags will not break
+function xtc_parse_input_field_data($data, $parse) {
+  return strtr(trim($data), $parse);
+}
+
+function xtc_output_string($string, $translate = false, $protected = false) {
+  if ($protected == true) {
+    return htmlspecialchars($string);
+  } else {
+    if ($translate == false) {
+      return xtc_parse_input_field_data($string, array('"' => '&quot;'));
+    } else {
+      return xtc_parse_input_field_data($string, $translate);
+    }
+  }
 }
 
 function check_stock($products_id) {

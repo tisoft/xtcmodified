@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(create_account.php,v 1.63 2003/05/28); www.oscommerce.com
-   (c) 2003  nextcommerce (create_account.php,v 1.27 2003/08/24); www.nextcommerce.org
+   (c) 2003 nextcommerce (create_account.php,v 1.27 2003/08/24); www.nextcommerce.org
    (c) 2006 XT-Commerce (create_guest_account.php 176 2007-02-15)
 
    Released under the GNU General Public License
@@ -117,7 +117,11 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
   }
 
   if (ACCOUNT_DOB == 'true') {
-    if (checkdate(substr(xtc_date_raw($dob), 4, 2), substr(xtc_date_raw($dob), 6, 2), substr(xtc_date_raw($dob), 0, 4)) == false) {
+    //BOF - DokuMan - 2011-01-07 - Sanitize parameters
+    //if (checkdate(substr(xtc_date_raw($dob), 4, 2), substr(xtc_date_raw($dob), 6, 2), substr(xtc_date_raw($dob), 0, 4)) == false) {
+    if ((is_numeric(xtc_date_raw($dob)) == false) || (@checkdate(substr(xtc_date_raw($dob), 4,
+2), substr(xtc_date_raw($dob), 6, 2), substr(xtc_date_raw($dob), 0, 4)) == false)) {
+    //EOF - DokuMan - 2011-01-07 - Sanitize parameters
       $error = true;
 
       $messageStack->add('create_account', ENTRY_DATE_OF_BIRTH_ERROR);

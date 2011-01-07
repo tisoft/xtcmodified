@@ -30,7 +30,7 @@
     $hidden_get_variables = '';
     reset($_GET);
     while (list($key, $value) = each($_GET)) {
-      if ( ($key != 'currency') && ($key != xtc_session_name()) && ($key != 'x') && ($key != 'y') ) {
+      if ( is_string($value) && ($key != 'currency') && ($key != xtc_session_name()) && ($key != 'x') && ($key != 'y') ) { //DokuMan - 2011-01-07 -  Sanitize parameter $value
         $hidden_get_variables .= xtc_draw_hidden_field($key, $value);
       }
     }

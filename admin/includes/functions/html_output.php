@@ -10,8 +10,8 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(html_output.php,v 1.26 2002/08/06); www.oscommerce.com
-   (c) 2003	 nextcommerce (html_output.php,v 1.7 2003/08/18); www.nextcommerce.org
-   (c) 2006	 xt-commerce (html_output.php 1125 2005-07-28)
+   (c) 2003 nextcommerce (html_output.php,v 1.7 2003/08/18); www.nextcommerce.org
+   (c) 2006 xt-commerce (html_output.php 1125 2005-07-28)
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
@@ -19,7 +19,11 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   ////
   // The HTML href link wrapper function
   function xtc_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
-    if ($page == '') {
+    //BOF - DokuMan - 2011-01-07 - Sanitize parameters
+    $page = xtc_output_string($page);
+    //EOF - DokuMan - 2011-01-07 - Sanitize parameters
+
+    if (!xtc_not_null($page)) {
       die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><strong>Error!</strong></font><br /><br /><strong>Unable to determine the page link!<br /><br />Function used:<br /><br />xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</strong>');
     }
     if ($connection == 'NONSSL') {
@@ -36,7 +40,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     if ($parameters == '') {
       $link = $link . $page . '?' . SID;
     } else {
-      $link = $link . $page . '?' . $parameters . '&' . SID;
+      //BOF - DokuMan - 2011-01-07 - Sanitize parameters
+      //$link = $link . $page . '?' . $parameters . '&' . SID;
+      $link = $link . $page . '?' . xtc_output_string($parameters) . '&' . SID;
+      //EOF - DokuMan - 2011-01-07 - Sanitize parameters
     }
 
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
@@ -267,8 +274,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     $field = '<select name="' . $name . '"';
     if ($params) $field .= ' ' . $params;
     $field .= '>';
- 	if(is_array($values))
-   	{
+   if(is_array($values))
+     {
          foreach ($values as $key=>$val) {
              $field .= '<option value="' .$val['id'] . '"';
              //BOF - DokuMan - 2010-09-08 - set undefined index
@@ -279,7 +286,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
              }
              $field .= '>' . $val['text'] . '</option>';
          }
-   	}
+     }
     $field .= '</select>';
 
     if ($required) $field .= TEXT_FIELD_REQUIRED;
