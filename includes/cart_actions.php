@@ -116,8 +116,9 @@ if (xtc_not_null($action)) {
 
 				$cart_quantity = xtc_remove_non_numeric($_POST['products_qty']);
 
-				if ($cart_quantity > MAX_PRODUCTS_QTY)
+				if ($cart_quantity > MAX_PRODUCTS_QTY) {
 					$cart_quantity = MAX_PRODUCTS_QTY;
+        }
 
 				if (isset($econda) && is_object($econda)) {
 					$econda->_emptyCart();
@@ -125,15 +126,7 @@ if (xtc_not_null($action)) {
 					$econda->_addProduct($_POST['products_id'], $cart_quantity, $old_quantity);
 				}
 
-        //BOF - Dokuman - 2010-02-25 - fix 'Fatal error: Call to a member function add_cart()'
-				//$_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + $cart_quantity, $_POST['id']);
-        //BOF - Dokuman - 2010-11-16 - fix 'Fatal error: Call to a member function remove(), add_cart() for all actions
-        //if (!is_object($_SESSION['cart'])) {
-        //  $_SESSION['cart'] = new shoppingCart();
-        //}
-        //BOF - Dokuman - 2010-11-16 - fix 'Fatal error: Call to a member function remove(), add_cart() for all actions
-        $_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty']), $_POST['id']);
-        //EOF - Dokuman - 2010-02-25 - fix 'Fatal error: Call to a member function add_cart()'
+        $_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + $cart_quantity, $_POST['id']);        
 
 			}
 			xtc_redirect(xtc_href_link($goto, 'products_id=' . (int) $_POST['products_id'] . '&' . xtc_get_all_get_params($parameters)));
