@@ -85,4 +85,8 @@ ALTER TABLE admin_access ADD listproducts INT( 1 ) NOT NULL DEFAULT '0' AFTER co
 UPDATE admin_access SET listproducts = '1' WHERE customers_id = '1' LIMIT 1 ;
 UPDATE admin_access SET listproducts = '3' WHERE customers_id = 'groups' LIMIT 1 ;
 
+#franky_n - 2010-12-24 - added configuration_group entries for econda and moneybookers
+INSERT INTO configuration_group VALUES (23,'Econda Tracking','Econda Tracking System',23,1);
+INSERT INTO configuration_group VALUES (31,'Moneybookers','Moneybookers System',31,1);
+
 # Keep an empty line at the end of this file for the db_updater to work properly
