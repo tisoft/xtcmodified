@@ -1,23 +1,20 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$
+  $Id$
 
-   xtcModified - community made shopping
-   http://www.xtc-modified.org
+  xtcModified - community made shopping
+  http://www.xtc-modified.org
 
-   Copyright (c) 2010 xtcModified
-   -----------------------------------------------------------------------------------------
-   based on:
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce www.oscommerce.com
-   (c) 2003 nextcommerce www.nextcommerce.org
-   (c) 2006 XT-Commerce (password_double_opt.php,v 1.0)
+  Copyright (c) 2010 xtcModified
+  -----------------------------------------------------------------------------------------
+  based on:
+  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
+  (c) 2002-2003 osCommerce www.oscommerce.com
+  (c) 2003 nextcommerce www.nextcommerce.org
+  (c) 2006 XT-Commerce (password_double_opt.php,v 1.0)
 
-   XTC-NEWSLETTER_RECIPIENTS RC1 - Contribution for XT-Commerce http://www.xt-commerce.com
-   by Matthias Hinsche http://www.gamesempire.de
-
-   Released under the GNU General Public License
-   ---------------------------------------------------------------------------------------*/
+  Released under the GNU General Public License
+  ---------------------------------------------------------------------------------------*/
 
 require ('includes/application_top.php');
 
@@ -35,6 +32,7 @@ require_once (DIR_FS_INC.'xtc_validate_password.inc.php');
 require_once (DIR_FS_INC.'xtc_rand.inc.php');
 $case = 'double_opt';
 $info_message = TEXT_PASSWORD_FORGOTTEN;
+
 if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
   $check_customer_query = xtc_db_query("select customers_email_address, customers_id from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($_POST['email'])."'");
   $check_customer = xtc_db_fetch_array($check_customer_query);
@@ -125,6 +123,8 @@ switch ($case) {
     $smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
     //$smarty->assign('info_message', $info_message); //DokuMan - 2010-08-26 - unnecessary assign
     $smarty->assign('info_message', TEXT_LINK_MAIL_SENDED);
+    $smarty->assign('language', $_SESSION['language']);
+    $smarty->caching = 0;
     $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
     break;
 
@@ -132,6 +132,8 @@ switch ($case) {
     $smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
     $smarty->assign('info_message', $info_message);
     //    $smarty->assign('info_message', TEXT_PASSWORD_MAIL_SENDED);
+    $smarty->assign('language', $_SESSION['language']);
+    $smarty->caching = 0;
     $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
     break;
 
@@ -145,22 +147,16 @@ switch ($case) {
     $smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
     $smarty->assign('SHOP_NAME', STORE_NAME);
     $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=first_opt_in', 'SSL')));
+    $smarty->assign('language', $_SESSION['language']);
+    $smarty->caching = 0;
     // BOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
     //$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input(isset($_POST['email']) ? $_POST['email'] : '')));
     $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input(isset($_POST['email']) ? $_POST['email'] : ''), '', 'text', false));
-    // BOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
+    // EOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
 
-    // BOF - DokuMan - 2009-05-29 - typo fixed, specify type
-    //$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-    // BOF - Tomcraft - 2010-01-24 - unified the captcha field size.
-    //$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
     $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', '', false));
-    // EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
-    // BOF - DokuMan - 2009-05-29 - typo fixed, specify type
     $smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
-    // BOF - web28 - 2010-05-23 - FIX missing form end
     $smarty->assign('FORM_END', '</form>');
-    //EOF - web28 - 2010-05-23 - FIX missing form end
     $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
     break;
 
@@ -173,29 +169,25 @@ switch ($case) {
     $smarty->assign('info_message', $info_message);
     $smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
     $smarty->assign('SHOP_NAME', STORE_NAME);
+    $smarty->assign('language', $_SESSION['language']);
+    $smarty->caching = 0;
     $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=first_opt_in', 'SSL')));
     // BOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
     //$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input(isset($_POST['email']) ? $_POST['email'] : '')));
     $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input(isset($_POST['email']) ? $_POST['email'] : ''), '', 'text', false));
-    // BOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
+    // EOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
 
-    // BOF - DokuMan - 2009-05-29 - typo fixed, specify type
-    //$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-    // BOF - Tomcraft - 2010-01-24 - unified the captcha field size.
-    //$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
     $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', '', false));
-    // EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
-    // BOF - DokuMan - 2009-05-29 - typo fixed, specify type
     $smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
-    // BOF - web28 - 2010-05-23 - FIX missing form end
     $smarty->assign('FORM_END', '</form>');
-    //EOF - web28 - 2010-05-23 - FIX missing form end
     $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
     break;
 
   case 'no_account' :
     $smarty->assign('text_heading', HEADING_PASSWORD_FORGOTTEN);
     $smarty->assign('info_message', $info_message);
+    $smarty->assign('language', $_SESSION['language']);
+    $smarty->caching = 0;
     $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
     break;
 
@@ -208,19 +200,15 @@ switch ($case) {
     //    $smarty->assign('info_message', $info_message);
     $smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
     $smarty->assign('SHOP_NAME', STORE_NAME);
+    $smarty->assign('language', $_SESSION['language']);
+    $smarty->caching = 0;
     $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=first_opt_in', 'SSL')));
     // BOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
     //$smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input(isset($_POST['email']) ? $_POST['email'] : '')));
     $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input(isset($_POST['email']) ? $_POST['email'] : ''), '', 'text', false));
-    // BOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
+    // EOF - DokuMan - 2010-10-28 - added missing arguments for xtc_draw_input_field
 
-    // BOF - DokuMan - 2009-05-29 - typo fixed, specify type
-    //$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-    // BOF - Tomcraft - 2010-01-24 - unified the captcha field size.
-    //$smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlength="6"', 'text', '', false));
     $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="8" maxlength="6"', 'text', '', false));
-    // EOF - Tomcraft - 2010-01-24 - unified the captcha field size.
-    // BOF - DokuMan - 2009-05-29 - typo fixed, specify type
     $smarty->assign('BUTTON_SEND', xtc_image_submit('button_continue.gif', IMAGE_BUTTON_LOGIN));
     $smarty->assign('FORM_END', '</form>');
     $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
@@ -228,7 +216,6 @@ switch ($case) {
 }
 
 $smarty->assign('main_content', $main_content);
-$smarty->assign('language', $_SESSION['language']);
 $smarty->caching = 0;
 if (!defined('RM'))
   $smarty->load_filter('output', 'note');
