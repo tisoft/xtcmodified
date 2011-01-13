@@ -59,6 +59,10 @@ define('SMARTY_PHP_QUOTE',      1);
 define('SMARTY_PHP_REMOVE',     2);
 define('SMARTY_PHP_ALLOW',      3);
 
+// BOF - Tomcraft - 2011-01-13 - Added path to smarty plugin dir in active template
+define('MY_TEMPLATE_PLUGINS', DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/smarty');
+// EOF - Tomcraft - 2011-01-13 - Added path to smarty plugin dir in active template
+
 /**
  * @package Smarty
  */
@@ -97,7 +101,10 @@ class Smarty
      *
      * @var array
      */
-    var $plugins_dir     =  array('plugins');
+// BOF - Tomcraft - 2011-01-13 - Added path to smarty plugin dir in active template
+    //var $plugins_dir     =  array('plugins');
+    var $plugins_dir     =  array('plugins',MY_TEMPLATE_PLUGINS);
+// EOF - Tomcraft - 2011-01-13 - Added path to smarty plugin dir in active template
 
     /**
      * If debugging is enabled, a debug console window will display
