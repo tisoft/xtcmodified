@@ -41,10 +41,22 @@
         }
 
         $dir_manufacturers=DIR_FS_CATALOG_IMAGES."/manufacturers";
-        if ($manufacturers_image = &xtc_try_upload('manufacturers_image', $dir_manufacturers)) {
+        $accepted_manufacturers_image_files_extensions = array("jpg","gif","jpeg","png");
+        $accepted_manufacturers_image_files_mime_types = array("image/gif","image/jpeg","image/png");
+        if ($manufacturers_image = &xtc_try_upload('manufacturers_image', $dir_manufacturers, '', $accepted_manufacturers_image_files_extensions, $accepted_manufacturers_image_files_mime_types)) {
             xtc_db_query("update " . TABLE_MANUFACTURERS . " set
                                      manufacturers_image ='manufacturers/".$manufacturers_image->filename . "'
                                      where manufacturers_id = '" . (int)$manufacturers_id . "'");
+        }
+
+        if ($_POST['delete_image'] == 'on') {
+          $manufacturer_query = xtc_db_query("select manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
+          $manufacturer = xtc_db_fetch_array($manufacturer_query);
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_IMAGES . $manufacturer['manufacturers_image'];
+          if (file_exists($image_location)) @unlink($image_location);
+          xtc_db_query("UPDATE " . TABLE_MANUFACTURERS . " 
+                           SET manufacturers_image =''
+                         WHERE manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
         }
 
         $languages = xtc_get_languages();
@@ -223,6 +235,7 @@
       $contents[] = array('text' => TEXT_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_NAME . '<br />' . xtc_draw_input_field('manufacturers_name', $mInfo->manufacturers_name));
       $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_IMAGE . '<br />' . xtc_draw_file_field('manufacturers_image') . '<br />' . $mInfo->manufacturers_image);
+      $contents[] = array('text' => '<br />' . xtc_draw_checkbox_field('delete_image', '', false) . ' ' . TEXT_DELETE_IMAGE);
 
       $manufacturer_inputs_string = '';
       $languages = xtc_get_languages();

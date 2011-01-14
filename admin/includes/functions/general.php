@@ -1692,8 +1692,8 @@ function xtc_getDownloads() {
   return $files;
 }
 
-function xtc_try_upload($file = '', $destination = '', $permissions = '777', $extensions = '') {
-  $file_object = new upload($file, $destination, $permissions, $extensions);
+function xtc_try_upload($file = '', $destination = '', $permissions = '777', $extensions = '', $mime_types = '') {
+  $file_object = new upload($file, $destination, $permissions, $extensions, $mime_types);
   if ($file_object->filename != '')
     return $file_object;
   else

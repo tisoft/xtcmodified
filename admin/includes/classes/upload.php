@@ -17,9 +17,9 @@
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class upload {
-    var $file, $filename, $destination, $permissions, $extensions, $tmp_filename;
+    var $file, $filename, $destination, $permissions, $extensions, $mime_types, $tmp_filename;
 
-    function upload($file = '', $destination = '', $permissions = '644', $extensions = '') {
+    function upload($file = '', $destination = '', $permissions = '644', $extensions = '', $mime_types='') {
 
       $this->set_file($file);
       $this->set_destination($destination);
@@ -65,6 +65,12 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
       //if (xtc_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name'])) {
       if (isset($file['tmp_name']) && !empty($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name'])) {
+        if (sizeof($this->mime_types) > 0) {
+          if (!in_array(strtolower($file['type']), $this->mime_types)) {
+            $messageStack->add_session(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+            return false;
+          }
+        }
         if (sizeof($this->extensions) > 0) {
           if (!in_array(strtolower(substr($file['name'], strrpos($file['name'], '.')+1)), $this->extensions)) {
             $messageStack->add_session(ERROR_FILETYPE_NOT_ALLOWED, 'error');
