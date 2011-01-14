@@ -41,8 +41,8 @@
         }
 
         $dir_manufacturers=DIR_FS_CATALOG_IMAGES."/manufacturers";
-        $accepted_manufacturers_image_files_extensions = array("jpg","gif","jpeg","png");
-        $accepted_manufacturers_image_files_mime_types = array("image/gif","image/jpeg","image/png");
+        $accepted_manufacturers_image_files_extensions = array("jpg","jpeg","jpe","gif","png","bmp","tiff","tif","bmp");
+        $accepted_manufacturers_image_files_mime_types = array("image/jpeg","image/gif","image/png","image/bmp");
         if ($manufacturers_image = &xtc_try_upload('manufacturers_image', $dir_manufacturers, '', $accepted_manufacturers_image_files_extensions, $accepted_manufacturers_image_files_mime_types)) {
             xtc_db_query("update " . TABLE_MANUFACTURERS . " set
                                      manufacturers_image ='manufacturers/".$manufacturers_image->filename . "'
@@ -216,7 +216,7 @@
       $contents = array('form' => xtc_draw_form('manufacturers', FILENAME_MANUFACTURERS, 'action=insert', 'post', 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_NEW_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_NAME . '<br />' . xtc_draw_input_field('manufacturers_name'));
-      $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_IMAGE . '<br />' . xtc_draw_file_field('manufacturers_image'));
+      $contents[] = array('text' => '<br />' . TEXT_MANUFACTURERS_IMAGE . '<br />' . xtc_draw_file_field('manufacturers_image')." (jpg,jpeg,jpe,gif,png,bmp,tiff,tif,bmp)");
 
       $manufacturer_inputs_string = '';
       $languages = xtc_get_languages();

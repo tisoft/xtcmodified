@@ -58,7 +58,9 @@
         }
 
         if (empty($html_text)) {
-          if (!$banners_image = &xtc_try_upload('banners_image', DIR_FS_CATALOG_IMAGES.'banner/' . $banners_image_target) && $_POST['banners_image_local'] == '') {
+          $accepted_banners_image_files_extensions = array("jpg","jpeg","jpe","gif","png","bmp","tiff","tif","bmp","swf","cab");
+          $accepted_banners_image_files_mime_types = array("image/jpeg","image/gif","image/png","image/bmp","application/x-shockwave-flash");
+          if (!$banners_image = &xtc_try_upload('banners_image', DIR_FS_CATALOG_IMAGES.'banner/' . $banners_image_target, '', $accepted_banners_image_files_extensions, $accepted_banners_image_files_mime_types) && $_POST['banners_image_local'] == '') {
             $banner_error = true;
           }
         }
@@ -307,7 +309,7 @@ function popupImageWindow(url) {
           </tr>
           <tr>
             <td class="main" valign="top"><?php echo TEXT_BANNERS_IMAGE; ?></td>
-            <td class="main"><?php echo xtc_draw_file_field('banners_image') . ' ' . TEXT_BANNERS_IMAGE_LOCAL . '<br />' . DIR_FS_CATALOG_IMAGES.'banner/' . xtc_draw_input_field('banners_image_local', $bInfo->banners_image); ?></td>
+            <td class="main"><?php echo xtc_draw_file_field('banners_image') . ' ' . TEXT_BANNERS_IMAGE_LOCAL . ' (jpg,jpeg,jpe,gif,png,bmp,tiff,tif,bmp,swf,cab)<br />' . DIR_FS_CATALOG_IMAGES.'banner/' . xtc_draw_input_field('banners_image_local', $bInfo->banners_image); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td>

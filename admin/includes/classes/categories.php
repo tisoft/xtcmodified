@@ -200,7 +200,9 @@ class categories {
 			}
 		}
 
-		if ($categories_image = & xtc_try_upload('categories_image', DIR_FS_CATALOG_IMAGES.'categories/')) {
+    $accepted_categories_image_files_extensions = array("jpg","jpeg","jpe","gif","png","bmp","tiff","tif","bmp");
+    $accepted_categories_image_files_mime_types = array("image/jpeg","image/gif","image/png","image/bmp");
+		if ($categories_image = & xtc_try_upload('categories_image', DIR_FS_CATALOG_IMAGES.'categories/', '777', $accepted_categories_image_files_extensions, $accepted_categories_image_files_mime_types)) {
 			$cname_arr = explode('.', $categories_image->filename);
 			$cnsuffix = array_pop($cname_arr);
 			$categories_image_name = $categories_id.'.'.$cnsuffix;
@@ -527,7 +529,9 @@ class categories {
 		}
 
 		//prepare products_image filename
-		if ($products_image = xtc_try_upload('products_image', DIR_FS_CATALOG_ORIGINAL_IMAGES, '777', '')) {
+    $accepted_products_image_files_extensions = array("jpg","jpeg","jpe","gif","png","bmp","tiff","tif","bmp");
+    $accepted_products_image_files_mime_types = array("image/jpeg","image/gif","image/png","image/bmp");
+		if ($products_image = xtc_try_upload('products_image', DIR_FS_CATALOG_ORIGINAL_IMAGES, '777', $accepted_products_image_files_extensions, $accepted_products_image_files_mime_types)) {
 			$pname_arr = explode('.', $products_image->filename);
 			$nsuffix = array_pop($pname_arr);
 			$products_image_name = $products_id.'_0.'.$nsuffix;
@@ -591,8 +595,10 @@ class categories {
 		}
 
 		//MO_PICS
+    $accepted_mo_pics_image_files_extensions = array("jpg","jpeg","jpe","gif","png","bmp","tiff","tif","bmp");
+    $accepted_mo_pics_image_files_mime_types = array("image/jpeg","image/gif","image/png","image/bmp");
 		for ($img = 0; $img < MO_PICS; $img ++) {
-			if ($pIMG = & xtc_try_upload('mo_pics_'.$img, DIR_FS_CATALOG_ORIGINAL_IMAGES, '777', '')) {
+			if ($pIMG = & xtc_try_upload('mo_pics_'.$img, DIR_FS_CATALOG_ORIGINAL_IMAGES, '777', $accepted_mo_pics_image_files_extensions, $accepted_mo_pics_image_files_mime_types)) {
 				$pname_arr = explode('.', $pIMG->filename);
 				$nsuffix = array_pop($pname_arr);
 				$products_image_name = $products_id.'_'. ($img +1).'.'.$nsuffix;
