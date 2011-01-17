@@ -549,7 +549,14 @@ if (GROUP_CHECK == 'true') {
     <tr>
      <td class="main" align="right">
 <?php
+// BOF - Tomcraft - 2011-01-18 - change "products_date_added" only when adding a new product, otherweise change date on "products_last_modified"
+//echo xtc_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d')));
+if($form_action == 'insert_product'){
 echo xtc_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d')));
+} else {
+echo xtc_draw_hidden_field('products_last_modified', (($pInfo->products_last_modified) ? $pInfo->products_last_modified : date('Y-m-d')));
+}
+// EOF - Tomcraft - 2011-01-18 - change "products_date_added" only when adding a new product, otherweise change date on "products_last_modified"
 echo xtc_draw_hidden_field('products_id', $pInfo->products_id);
 ?>
         <input type="submit" class="button" value="<?php echo BUTTON_SAVE; ?>" onclick="return confirm('<?php echo SAVE_ENTRY; ?>')">
