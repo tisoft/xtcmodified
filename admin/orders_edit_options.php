@@ -17,18 +17,17 @@
    (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
 
    Released under the GNU General Public License 
-
-   To do: Erweitern auf Artikelmerkmale, Rabatte und Gutscheine
+   
 	--------------------------------------------------------------*/
 
- $products_query = xtc_db_query("select * from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $_GET['oID'] . "' and orders_products_id = '" . $_GET['opID'] . "'");
+ $products_query = xtc_db_query("select * from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$_GET['oID'] . "' and orders_products_id = '" . (int)$_GET['opID'] . "'");
  $products = xtc_db_fetch_array($products_query);
 
 ?>
 <!-- Optionsbearbeitung Anfang //-->
 
 <?php
-  $attributes_query = xtc_db_query("select * from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $_GET['oID'] . "' and orders_products_id = '" . $_GET['opID'] . "'");
+  $attributes_query = xtc_db_query("select * from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . (int)$_GET['oID'] . "' and orders_products_id = '" . (int)$_GET['opID'] . "'");
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 
@@ -48,10 +47,13 @@ while($attributes = xtc_db_fetch_array($attributes_query)) {
 <tr class="dataTableRow">
 <?php
 echo xtc_draw_form('product_option_edit', FILENAME_ORDERS_EDIT, 'action=product_option_edit', 'post');
-echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo xtc_draw_hidden_field('opID', $_GET['opID']);
-echo xtc_draw_hidden_field('pID', $_GET['pID']);
-echo xtc_draw_hidden_field('opAID', $attributes['orders_products_attributes_id']);
+//BOF - web28 - 2011-01-16 - FIX missing sessions id
+echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
+//EOF - web28 - 2011-01-16 - FIX missing sessions id
+echo xtc_draw_hidden_field('oID', (int)$_GET['oID']);
+echo xtc_draw_hidden_field('opID', (int)$_GET['opID']);
+echo xtc_draw_hidden_field('pID', (int)$_GET['pID']);
+echo xtc_draw_hidden_field('opAID', (int)$attributes['orders_products_attributes_id']);
 ?>
 <td class="dataTableContent"><?php echo xtc_draw_input_field('products_options', $attributes['products_options'], 'size="20"');?></td>
 <td class="dataTableContent"><?php echo xtc_draw_input_field('products_options_values', $attributes['products_options_values'], 'size="20"');?></td>
@@ -73,9 +75,12 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
 <td class="dataTableContent">
 <?php
 echo xtc_draw_form('product_option_delete', FILENAME_ORDERS_EDIT, 'action=product_option_delete', 'post');
-echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo xtc_draw_hidden_field('opID', $_GET['opID']);
-echo xtc_draw_hidden_field('opAID', $attributes['orders_products_attributes_id']);
+//BOF - web28 - 2011-01-16 - FIX missing sessions id
+echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
+//EOF - web28 - 2011-01-16 - FIX missing sessions id
+echo xtc_draw_hidden_field('oID', (int)$_GET['oID']);
+echo xtc_draw_hidden_field('opID',(int) $_GET['opID']);
+echo xtc_draw_hidden_field('opAID', (int)$attributes['orders_products_attributes_id']);
 echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_DELETE . '"/>';
 ?>
 </form>
@@ -104,7 +109,7 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
      from
      " . TABLE_PRODUCTS_ATTRIBUTES . "
      where
-     products_id = '" . $_GET['pID'] . "'
+     products_id = '" . (int)$_GET['pID'] . "'
      order by
      sortorder");
 
@@ -125,10 +130,13 @@ while($products = xtc_db_fetch_array($products_query)) {
 <tr class="dataTableRow">
 <?php
 echo xtc_draw_form('product_option_ins', FILENAME_ORDERS_EDIT, 'action=product_option_ins', 'post');
-echo xtc_draw_hidden_field('oID', $_GET['oID']);
-echo xtc_draw_hidden_field('opID', $_GET['opID']);
-echo xtc_draw_hidden_field('pID', $_GET['pID']);
-echo xtc_draw_hidden_field('aID', $products['products_attributes_id']);
+//BOF - web28 - 2011-01-16 - FIX missing sessions id
+echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
+//EOF - web28 - 2011-01-16 - FIX missing sessions id
+echo xtc_draw_hidden_field('oID', (int)$_GET['oID']);
+echo xtc_draw_hidden_field('opID', (int)$_GET['opID']);
+echo xtc_draw_hidden_field('pID', (int)$_GET['pID']);
+echo xtc_draw_hidden_field('aID', (int)$products['products_attributes_id']);
 
 $brutto = PRICE_IS_BRUTTO;
 if($brutto == 'true'){
@@ -159,12 +167,3 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
 
 <br /><br />
 <!-- Artikel Einfügen Ende //-->
-
-
-
-
-
-
-
-
-

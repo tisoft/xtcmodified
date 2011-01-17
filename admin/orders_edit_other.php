@@ -17,9 +17,8 @@
    (c) 2003	 nextcommerce (orders.php,v 1.7 2003/08/14); www.nextcommerce.org
 
    Released under the GNU General Public License 
-
-   To do: Erweitern auf Artikelmerkmale, Rabatte und Gutscheine
-   --------------------------------------------------------------*/
+   
+	--------------------------------------------------------------*/
 ?>
 
 <!-- Sprachen Anfang //-->
@@ -250,8 +249,13 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
   $total_name = str_replace('ot_','',$total);  
   $total_text = constant(MODULE_ORDER_TOTAL_.strtoupper($total_name)._TITLE);
   
-   $ototal_query = xtc_db_query("select orders_total_id, title, value, class from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $_GET['oID'] . "' and class = '" . $total . "' ");
-   $ototal = xtc_db_fetch_array($ototal_query);  
+  $ototal_query = xtc_db_query("select orders_total_id, title, value, class from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $_GET['oID'] . "' and class = '" . $total . "' ");
+  $ototal = xtc_db_fetch_array($ototal_query);
+  
+  //BOF - web - 2010-01-16 - show negativ sign for discount module
+  $neg = '&nbsp;&nbsp;';
+  if (in_array($total_name, array('coupon', 'gv', 'discount'))) $neg = '<b>- </b>';
+  //EOF - web - 2010-01-16 - show negativ sign for discount module
 
 //if (($total != 'ot_subtotal')&&($total != 'ot_subtotal_no_tax')&&($total != 'ot_total')&&($total != 'ot_tax')){  
 //if ($total != 'ot_shipping'){  
@@ -261,7 +265,10 @@ echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTT
 <tr class="dataTableRow">
 <td class="dataTableContent" align="left" width="20%"><?php echo $total_text; ?></td>
 <td class="dataTableContent" align="left" width="40%"><?php echo xtc_draw_input_field('title', $ototal['title'], 'size=40'); ?></td>
-<td class="dataTableContent" align="left" width="20%"><?php echo xtc_draw_input_field('value', $ototal['value']); ?></td>
+<?php //BOF - web - 2010-01-16 - show negativ sign for discount module ?>
+<!--td class="dataTableContent" align="left" width="20%"><?php //echo xtc_draw_input_field('value', $ototal['value']); ?></td-->
+<td class="dataTableContent" align="left" width="20%"><?php echo $neg.xtc_draw_input_field('value', $ototal['value']); ?></td>
+<?php //EOF - web - 2010-01-16 - show negativ sign for discount module ?>
 <td class="dataTableContent" align="left" width="20%">
 <?php
 echo xtc_draw_hidden_field('class', $total);
