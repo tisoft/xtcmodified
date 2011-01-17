@@ -1717,4 +1717,20 @@ function xtc_get_products_special_price($product_id){
 }
 //EOF - DokuMan - 2011-01-06 - added missing function xtc_get_products_special_price
 
+//BOF - franky_n - 2011-01-17 - added value correction function for wrong input prices, weight, dicscount
+function xtc_convert_value($number) {
+  // Correct wrong input number
+  if ((strpos($number, ",")) && (strpos($number, "."))) {
+    // if price scheme like 1.000,00 change to 1000.00
+    $number = str_replace(".","", $number);
+    $number = str_replace(",",".", $number);
+  }
+  if (strpos($number, ",")) {
+    // if price scheme like 1000,00 change to 1000.00
+    $number = str_replace(",",".", $number);
+  }
+  return $number;
+}
+//EOF - franky_n - 2011-01-17 - added value correction function for wrong input prices, weight, dicscount
+
 ?>
