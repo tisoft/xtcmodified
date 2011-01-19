@@ -75,7 +75,7 @@
     if (SHOW_SHIPPING=='true') {
       //BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
       //$box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.'<a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox"">'.SHIPPING_COSTS.'</a>');
-      $box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>'); // web28 - 2010-11-05 - change SSL -> $request_type
+      $box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.' <a rel="nofollow" target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>'); // web28 - 2010-11-05 - change SSL -> $request_type
       //EOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
     }
   }
