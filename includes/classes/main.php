@@ -59,7 +59,7 @@ class main {
  	function getShippingLink() {
  	  //BOF - GTB - 2010-08-15 fixed unsecure Links on SSL Pages
  		global $request_type;
- 		return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
+ 		return ' '.SHIPPING_EXCL.' <a rel="nofollow" target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600', $request_type).'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
  	  	//BOF - DokuMan - 2009-08-09 - fixed wrong quotationmark position and fixed wrong question mark on KeepThis=true
  	  	//return ' '.SHIPPING_EXCL.' <a target="blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'?KeepThis=true&TB_iframe=true&height=400&width=600"').' title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
  	  	//return ' '.SHIPPING_EXCL.' <a target="_blank" href="'.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS.'&KeepThis=true&TB_iframe=true&height=400&width=600').'" title="Information" class="thickbox">'.SHIPPING_COSTS.'</a>';
