@@ -1,5 +1,5 @@
 <?php
-/* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -41,8 +41,8 @@
 
   //BOF - DokuMan - 2010-11-16 - make coupons deletable
   if ($action =='delete' && isset($_GET['gid'])) {
-  $gv_query = xtc_db_query("delete from " . TABLE_COUPON_GV_QUEUE . "
-                          where unique_id='".$_GET['gid']."'");
+    $gv_query = xtc_db_query("DELETE FROM " . TABLE_COUPON_GV_QUEUE . "
+                                    WHERE unique_id='".$_GET['gid']."'");
   }
   //EOF - DokuMan - 2010-11-16 - make coupons deletable
 
@@ -100,128 +100,132 @@
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
-<!-- header //-->
-<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<!-- header_eof //-->
-
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<!-- left_navigation //-->
-<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
-<!-- left_navigation_eof //-->
-    </table></td>
-<!-- body_text //-->
-    <td class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" />
+    <title><?php echo TITLE; ?></title>
+    <link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
+  </head>
+  <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+    <!-- header //-->
+    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+    <!-- header_eof //-->
+    <!-- body //-->
+    <table border="0" width="100%" cellspacing="2" cellpadding="2">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo xtc_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_ORDERS_ID; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-<?php
-  $gv_query_raw = "select c.customers_firstname, c.customers_lastname, gv.unique_id, gv.date_created, gv.amount, gv.order_id from " . TABLE_CUSTOMERS . " c, " . TABLE_COUPON_GV_QUEUE . " gv where (gv.customer_id = c.customers_id and gv.release_flag = 'N')";
-  $gv_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $gv_query_raw, $gv_query_numrows);
-  $gv_query = xtc_db_query($gv_query_raw);
-  while ($gv_list = xtc_db_fetch_array($gv_query)) {
-    if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['unique_id']))) && !isset($gInfo)) {
-      $gInfo = new objectInfo($gv_list);
-    }
-    if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) {
-      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link('gv_queue.php', xtc_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
-    } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('gv_queue.php', xtc_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
-    }
-?>
-                <td class="dataTableContent"><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $gv_list['order_id']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo $currencies->format($gv_list['amount']); ?></td>
-                <td class="dataTableContent" align="right"><?php echo xtc_datetime_short($gv_list['date_created']); ?></td>
-<?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
-                <td class="dataTableContent" align="right"><?php if ( (is_object($gInfo)) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_GV_QUEUE, 'page=' . $_GET['page'] . '&gid=' . $gv_list['unique_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-*/ ?>
-                <td class="dataTableContent" align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_GV_QUEUE, 'page=' . $_GET['page'] . '&gid=' . $gv_list['unique_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-<?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
-              </tr>
-<?php
-  }
-?>
-              <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td class="columnLeft2" width="<?php echo BOX_WIDTH; ?>" valign="top">
+          <table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
+            <!-- left_navigation //-->
+            <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
+            <!-- left_navigation_eof //-->
+          </table>
+        </td>
+        <!-- body_text //-->
+        <td class="boxCenter" width="100%" valign="top">
+          <table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <tr>
+              <td width="100%">
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $gv_split->display_count($gv_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_GIFT_VOUCHERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $gv_split->display_links($gv_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                    <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+                    <td class="pageHeading" align="right"><?php echo xtc_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
                   </tr>
-                </table></td>
-              </tr>
-            </table></td>
-<?php
-  $heading = array();
-  $contents = array();
-  switch ($action) {
-    case 'release':
-      $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . xtc_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
-
-      //BOF - DokuMan - 2010-11-16 - make coupons deletable
-      //$contents[] = array('align' => 'center', 'text' => '<a class="button" style="font-color: red;" onclick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=confirmrelease&gid='.$gInfo->unique_id,'NONSSL').'">'. BUTTON_CONFIRM . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=cancel&gid=' . $gInfo->unique_id,'NONSSL') . '">' . BUTTON_CANCEL . '</a>');
-      $contents[] = array('align' => 'center', 'text' => '<a class="button" style="font-color: red;" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=confirmrelease&gid='.$gInfo->unique_id,'NONSSL').'">'. BUTTON_RELEASE . '</a> <a class="button" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=cancel&gid=' . $gInfo->unique_id,'NONSSL') . '">' . BUTTON_CANCEL . '</a> <a class="button" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=delete&gid=' . $gInfo->unique_id,'NONSSL') . '">' . BUTTON_DELETE . '</a>' );
-      //EOF - DokuMan - 2010-11-16 - make coupons deletable
-      break;
-
-    default:
-      if (isset($gInfo) && is_object($gInfo)) {
-        $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . xtc_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
-
-      //BOF - DokuMan - 2010-11-16 - make coupons deletable
-      //$contents[] = array('align' => 'center','text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=release&gid=' . $gInfo->unique_id,'NONSSL'). '">' . BUTTON_RELEASE . '</a>');
-      $contents[] = array('align' => 'center','text' => '<a class="button" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=release&gid=' . $gInfo->unique_id,'NONSSL'). '">' . BUTTON_EDIT . '</a>');
-      //EOF - DokuMan - 2010-11-16 - make coupons deletable
-      }
-      break;
-   }
-
-  if ( (xtc_not_null($heading)) && (xtc_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
-
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
-  }
-?>
-          </tr>
-        </table></td>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td valign="top">
+                      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                        <tr class="dataTableHeadingRow">
+                          <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+                          <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_ORDERS_ID; ?></td>
+                          <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></td>
+                          <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+                          <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                        </tr>
+                        <?php
+                        $gv_query_raw = "select c.customers_firstname, c.customers_lastname, gv.unique_id, gv.date_created, gv.amount, gv.order_id from " . TABLE_CUSTOMERS . " c, " . TABLE_COUPON_GV_QUEUE . " gv where (gv.customer_id = c.customers_id and gv.release_flag = 'N')";
+                        $gv_split = new splitPageResults($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS, $gv_query_raw, $gv_query_numrows);
+                        $gv_query = xtc_db_query($gv_query_raw);
+                        while ($gv_list = xtc_db_fetch_array($gv_query)) {
+                          if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['unique_id']))) && !isset($gInfo)) {
+                            $gInfo = new objectInfo($gv_list);
+                          }
+                          if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) {
+                            echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . xtc_href_link('gv_queue.php', xtc_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
+                          } else {
+                            echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('gv_queue.php', xtc_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
+                          }
+                          ?>
+                            <td class="dataTableContent"><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
+                            <td class="dataTableContent" align="center"><?php echo $gv_list['order_id']; ?></td>
+                            <td class="dataTableContent" align="right"><?php echo $currencies->format($gv_list['amount']); ?></td>
+                            <td class="dataTableContent" align="right"><?php echo xtc_datetime_short($gv_list['date_created']); ?></td>
+                            <?php /*<!-- BOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons -->
+                            <td class="dataTableContent" align="right"><?php if ( (is_object($gInfo)) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . xtc_href_link(FILENAME_GV_QUEUE, 'page=' . $_GET['page'] . '&gid=' . $gv_list['unique_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                            */ ?>
+                            <td class="dataTableContent" align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo xtc_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ICON_ARROW_RIGHT); } else { echo '<a href="' . xtc_href_link(FILENAME_GV_QUEUE, 'page=' . $_GET['page'] . '&gid=' . $gv_list['unique_id']) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                            <?php /*<!-- EOF - Tomcraft - 2009-06-10 - added some missing alternative text on admin icons --> */ ?>
+                          </tr>
+                          <?php
+                        }
+                        ?>
+                        <tr>
+                          <td colspan="5">
+                            <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                              <tr>
+                                <td class="smallText" valign="top"><?php echo $gv_split->display_count($gv_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_GIFT_VOUCHERS); ?></td>
+                                <td class="smallText" align="right"><?php echo $gv_split->display_links($gv_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <?php
+                    $heading = array();
+                    $contents = array();
+                    switch ($action) {
+                      case 'release':
+                        $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . xtc_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
+                        //BOF - DokuMan - 2010-11-16 - make coupons deletable
+                        //$contents[] = array('align' => 'center', 'text' => '<a class="button" style="font-color: red;" onclick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=confirmrelease&gid='.$gInfo->unique_id,'NONSSL').'">'. BUTTON_CONFIRM . '</a> <a class="button" onclick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=cancel&gid=' . $gInfo->unique_id,'NONSSL') . '">' . BUTTON_CANCEL . '</a>');
+                        $contents[] = array('align' => 'center', 'text' => '<a class="button" style="font-color: red;" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=confirmrelease&gid='.$gInfo->unique_id,'NONSSL').'">'. BUTTON_RELEASE . '</a> <a class="button" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=cancel&gid=' . $gInfo->unique_id,'NONSSL') . '">' . BUTTON_CANCEL . '</a> <a class="button" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=delete&gid=' . $gInfo->unique_id,'NONSSL') . '">' . BUTTON_DELETE . '</a>' );
+                        //EOF - DokuMan - 2010-11-16 - make coupons deletable
+                        break;
+                      default:
+                        if (isset($gInfo) && is_object($gInfo)) {
+                          $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . xtc_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
+                          //BOF - DokuMan - 2010-11-16 - make coupons deletable
+                          //$contents[] = array('align' => 'center','text' => '<a class="button" onclick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=release&gid=' . $gInfo->unique_id,'NONSSL'). '">' . BUTTON_RELEASE . '</a>');
+                          $contents[] = array('align' => 'center','text' => '<a class="button" onClick="this.blur();" href="' . xtc_href_link('gv_queue.php','action=release&gid=' . $gInfo->unique_id,'NONSSL'). '">' . BUTTON_EDIT . '</a>');
+                          //EOF - DokuMan - 2010-11-16 - make coupons deletable
+                        }
+                        break;
+                    }
+                    if ( (xtc_not_null($heading)) && (xtc_not_null($contents)) ) {
+                      echo '            <td width="25%" valign="top">' . "\n";
+                      $box = new box;
+                      echo $box->infoBox($heading, $contents);
+                      echo '            </td>' . "\n";
+                    }
+                    ?>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <!-- body_text_eof //-->
       </tr>
-    </table></td>
-<!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
-
-<!-- footer //-->
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-<!-- footer_eof //-->
-<br />
-</body>
+    </table>
+    <!-- body_eof //-->
+    <!-- footer //-->
+    <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+    <!-- footer_eof //-->
+    <br />
+  </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

@@ -1,5 +1,5 @@
 <?php
-   /* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id: listcategories.php 1313 2005-10-18 15:49:15Z mz $
 
    xtcModified - community made shopping
@@ -26,55 +26,47 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
-
-require('includes/application_top.php');
-
-
+  require('includes/application_top.php');
 ?>
 <html>
-<head>
-<title><?php echo TEXT_VALID_CATEGORIES_LIST;?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-</head>
-<body>
-<table width="550" border="0" cellspacing="1">
-<tr>
-<td class="pageHeading" colspan="2">
-<?php echo TEXT_VALID_CATEGORIES_LIST;?>
-</td>
-</tr>
-<?php
-   $coupon_get=xtc_db_query("select restrict_to_categories from " . TABLE_COUPONS . " where coupon_id='".$_GET['cid']."'");
-   $get_result=xtc_db_fetch_array($coupon_get);
-   
-   echo "<tr>
-		  <th class=\"dataTableHeadingContent\">".TEXT_VALID_CATEGORIES_ID."</th>
-		  <th class=\"dataTableHeadingContent\">".TEXT_VALID_CATEGORIES_NAME."</th>
-		</tr>";
-		
-   $cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
-   
-   for ($i = 0; $i < count($cat_ids); $i++) {
-     
-	 $result = xtc_db_query("SELECT * FROM ".TABLE_CATEGORIES." c, 
-										   ".TABLE_CATEGORIES_DESCRIPTION." cd 
-									 WHERE c.categories_id = cd.categories_id 
-									   and cd.language_id = '" . $_SESSION['languages_id'] . "' 
-									   and c.categories_id='" . $cat_ids[$i] . "'");
-     
-	 if ($row = xtc_db_fetch_array($result)) {
-       echo "<tr><td class=\"dataTableHeadingContent\">".$row["categories_id"]."</td>\n";
-       echo "<td class=\"dataTableHeadingContent\">".$row["categories_name"]."</td>\n";
-       echo "</tr>\n";
-     } 
-   }   
-?>
-</table>
-<br />
-<table width="550" border="0" cellspacing="1">
-<tr>
-<td align=middle><input type="button" value="<?php echo BUTTON_CLOSE_WINDOW;?>" onclick="window.close()"></td>
-</tr></table>
-</body>
+  <head>
+    <title><?php echo TEXT_VALID_CATEGORIES_LIST;?></title>
+    <link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
+  </head>
+  <body>
+    <table width="550" border="0" cellspacing="1">
+      <tr>
+        <td class="pageHeading" colspan="2">
+          <?php echo TEXT_VALID_CATEGORIES_LIST;?>
+        </td>
+      </tr>
+      <?php
+      $coupon_get=xtc_db_query("select restrict_to_categories from " . TABLE_COUPONS . " where coupon_id='".$_GET['cid']."'");
+      $get_result=xtc_db_fetch_array($coupon_get);
+      echo "<tr>
+              <th class=\"dataTableHeadingContent\">".TEXT_VALID_CATEGORIES_ID."</th>
+              <th class=\"dataTableHeadingContent\">".TEXT_VALID_CATEGORIES_NAME."</th>
+            </tr>";
+      $cat_ids = explode(",", $get_result['restrict_to_categories']); // Hetfield - 2009-08-18 - replaced deprecated function split with explode to be ready for PHP >= 5.3
+      for ($i = 0; $i < count($cat_ids); $i++) {
+        $result = xtc_db_query("SELECT * FROM ".TABLE_CATEGORIES." c, 
+                                              ".TABLE_CATEGORIES_DESCRIPTION." cd 
+                                        WHERE c.categories_id = cd.categories_id 
+                                          AND cd.language_id = '" . $_SESSION['languages_id'] . "' 
+                                          AND c.categories_id='" . $cat_ids[$i] . "'");
+        if ($row = xtc_db_fetch_array($result)) {
+          echo "<tr><td class=\"dataTableHeadingContent\">".$row["categories_id"]."</td>\n";
+          echo "<td class=\"dataTableHeadingContent\">".$row["categories_name"]."</td>\n";
+          echo "</tr>\n";
+        }
+      }
+      ?>
+    </table>
+    <br />
+    <table width="550" border="0" cellspacing="1">
+      <tr>
+        <td align=middle><input type="button" value="<?php echo BUTTON_CLOSE_WINDOW;?>" onclick="window.close()"></td>
+      </tr>
+    </table>
+  </body>
 </html>
