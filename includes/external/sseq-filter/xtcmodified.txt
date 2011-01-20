@@ -1,0 +1,70 @@
+// xtcModified - SSEQ Filter Definiton 
+cPath # G! # REX # /^[\d]+[_0-9]*$/ #  # true # true & 
+coID # G! # INT # 1 # 99999 # true # true & 
+action # GP # REX # /^[a-z_]{1,20}$/ #  # true # true & 
+products_id # GP # REX # /^[{}0-9]+[{}0-9]*$/ #  # true # true & 
+language # G! # STR # 0 # 3 # false # true & 
+cart_quantity # P! # INT # 1 # 1000 # true # true & 
+products_qty # P! # INT # 1 # 1000 # true # true & 
+old_qty # P! # INT # 1 # 1000 # true # true & 
+BUYproducts_id # G! # INT # 1 # 1000 # true # true & 
+prd_id # G! # REX # /^[\d]+[{}0-9]*$/ #  # true # true & 
+email_address # P! # STR # NULL,6 # 50 # false # true & 
+password # P! # STR # NULL,1 # 50 # false # true & 
+name # P! # STR # NULL # 50 # false # true & 
+email # P! # STR # NULL # 50 # false # true & 
+phone # P! # STR # NULL # 50 # false # true & 
+fax # P! # STR # NULL # 50 # false # true & 
+street # P! # STR # NULL # 50 # false # true & 
+postcode # P! # STR # NULL # 10 # false # true & 
+city # P! # STR # NULL # 50 # false # true & 
+company # P! # STR # NULL # 50 # false # true & 
+vvcode # P! # STR # NULL # 10 # false # true & 
+message_body # P! # STR # NULL # 9999999999 # false # true & 
+check # P! # STR # 3 # 3 # false # true & 
+quickie # P! # STR # NULL # 100 # false # true & 
+keywords # G! # STR # NULL # 100 # false # true & 
+errorno # G! # INT # 1 # 10 # true # true & 
+categories_id # G! # INT # NULL # 99999 # true # true & 
+inc_subcat # G! # INT # 1 # 1 # true # true & 
+manufacturers_id # G! # INT # NULL # 99999 # true # true & 
+pfrom # G! # STR # NULL # 10 # false # true & 
+pto # G! # STR # NULL # 10 # false # true & 
+firstname # P! # STR # NULL # 50 # false # true & 
+lastname # P! # STR # NULL # 50 # false # true & 
+dob # P! # STR # NULL # 10 # false # true & 
+confirm_email_address # P! # STR # NULL # 50 # false # true & 
+vat # P! # STR # NULL # 15 # false # true & 
+street_address # P! # STR # NULL # 50 # false # true & 
+suburb # P! # STR # NULL # 50 # false # true & 
+state # P! # STR # NULL # 50 # false # true & 
+country # P! # INT # 1 # 99999 # true # true & 
+telephone # P! # STR # NULL # 50 # false # true & 
+confirmation # P! # STR # NULL # 50 # false # true & 
+privacy # P! # INT # NULL # 1 # true # true & 
+newsletter # P! # INT # NULL # 1 # true # true & 
+gender # P! # STR # NULL,1 # 1 # false # true & 
+address # P! # INT # 1 # 9999999999 # true # true & 
+shipping # P! # STR # NULL # 50 # false # true & 
+payment # P! # STR # NULL # 50 # false # true & 
+comments # P! # STR # NULL # 9999999999 # false # true & 
+comments_added # P! # STR # 3 # 3 # false # true & 
+conditions # P! # STR # 10 # 10 # false # true & 
+error_message # G! # STR # NULL # 100 # false # true & 
+oID # G! # INT # 1 # 9999999999 # true # true & 
+customer_id # P! # INT # 1 # 9999999999 # true # true & 
+delete # G! # INT # 0 # 1 # true # true & 
+order_id # G! # INT # 1 # 9999999999 # true # true & 
+password_current # P! # STR # NULL,1 # 50 # false # true & 
+password_new # P! # STR # NULL,1 # 50 # false # true & 
+password_confirmation # P! # STR # NULL,1 # 50 # false # true & 
+rating # P! # INT # NULL,1 # 5 # true # true & 
+review # P! # STR # NULL # 9999999999 # false # true & 
+get_params # P! # STR # 1 # 9999999999 # false # true & 
+edit # GP # INT # 1 # 9999999999 # true # true & 
+reviews_id # G! # INT # NULL,1 # 9999999999 # true # true & 
+primary # P! # INT # NULL # 1 # true # true & 
+KeepThis # G! # STR # 4 # 4 # false # true & 
+error # G! # STR # NULL # 100 # false # true & 
+page # G! # STR # NULL,1 # 100 # true # true & 
+id # P! #  #  #  # false # false & 

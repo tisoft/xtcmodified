@@ -195,6 +195,10 @@ while ($configuration = xtc_db_fetch_array($configuration_query)) {
   define($configuration['cfgKey'], $configuration['cfgValue']);
 }
 
+//BOF - GTB - 2011-01-20 - SSEQ-Lib integration
+require_once (DIR_FS_EXTERNAL . 'sseq-lib/seq_lib.php');
+//EOF - GTB - 2011-01-20 - SSEQ-Lib integration
+
 // Below are some defines which affect the way the discount coupon/gift voucher system work
 // Be careful when editing them.
 //
@@ -303,6 +307,10 @@ $_POST = $InputFilter->safeSQL($_POST);
 $_REQUEST = $InputFilter->safeSQL($_REQUEST);
 // EOF - Hetfield - 2009-08-16 - correct inputfilter security-patch and remove double replacing
 
+//BOF - GTB - 2011-01-20 - SSEQ-Lib integration
+function_exists (SEQ_SANITIZE) ? SEQ_SANITIZE (DIR_FS_EXTERNAL . 'sseq-filter/oscommerce_2.0.txt', true) : '';
+//EOF - GTB - 2011-01-20 - SSEQ-Lib integration
+
 // set the top level domains
 $http_domain = xtc_get_top_level_domain(HTTP_SERVER);
 $https_domain = xtc_get_top_level_domain(HTTPS_SERVER);
@@ -360,6 +368,10 @@ if (SESSION_FORCE_COOKIE_USE == 'True') {
   include (DIR_WS_INCLUDES.'tracking.php');
   $session_started = true;
 }
+
+//BOF - GTB - 2011-01-20 - SSEQ-Lib integration
+function_exists (SEQ_SECURE_SESSION) ? SEQ_SECURE_SESSION() : '';
+//EOF - GTB - 2011-01-20 - SSEQ-Lib integration
 
 // check the Agent
 $truncate_session_id = false;
@@ -460,6 +472,10 @@ if (isset($_SESSION['language']) && !isset($_SESSION['language_charset'])) {
   $_SESSION['language_charset'] = $lng->language['language_charset'];
   $_SESSION['language_code'] = $lng->language['code'];
 }
+
+//BOF - GTB - 2011-01-20 - SSEQ-Lib integration
+function_exists (SEQ_SECURE_SESSION) ? SEQ_SECURE_SESSION() : '';
+//EOF - GTB - 2011-01-20 - SSEQ-Lib integration
 
 // include the language translations
 require (DIR_WS_LANGUAGES.$_SESSION['language'].'/'.$_SESSION['language'].'.php');
