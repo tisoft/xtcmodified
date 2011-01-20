@@ -508,7 +508,7 @@ $xtPrice = new xtcPrice($_SESSION['currency'], $_SESSION['customers_status']['cu
     $shopstat_ref = __FILE__;
     //BOF - GTB - 2011-01-20 - move Shopstat to external directory
     //require("shopstat/shopstat.php");
-    require(DIR_FS_EXTERN . 'shopstat/shopstat.php');
+    require(DIR_FS_EXTERNAL . 'shopstat/shopstat.php');
     //EOF - GTB - 2011-01-20 - move Shopstat to external directory
 //--- SHOPSTAT -------------------------//
 
