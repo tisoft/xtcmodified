@@ -161,20 +161,34 @@ class paypal_ipn {
 		$cpp_headerback_color= trim(MODULE_PAYMENT_PAYPAL_IPN_CO_BACK); //The background color for the header of the checkout page. Valid value is case-insensitive six-character HTML hexadecimal color code in ASCII.
 		$cpp_headerborder_color= trim(MODULE_PAYMENT_PAYPAL_IPN_CO_BORD); //The border color around the header of the checkout page. The border is a 2-pixel perimeter around the header space, which has a maximum size of 750 pixels wide by 90 pixels high. Valid value is case-insensitive six-character HTML hexadecimal color code in ASCII.
 		$cpp_payflow_color= trim(MODULE_PAYMENT_PAYPAL_IPN_CO_SITE); //The background color for the checkout page below the header. Valid value is case-insensitive six-character HTML hexadecimal color code in ASCII. Note: Background colors that conflict with PayPal’s error messages are not allowed; in these cases, the default color is white.
-		if (trim(MODULE_PAYMENT_PAYPAL_IPN_IMAGE) != '') //web28 fix problem with empty xtc_href_link
-			$cpp_header_image= xtc_href_link('templates/'.CURRENT_TEMPLATE.'/img/'.urlencode(MODULE_PAYMENT_PAYPAL_IPN_IMAGE), '', 'SSL'); //The image at the top left of the checkout page. The image’s maximum size is 750 pixels wide by 90 pixels high. PayPal recommends that you provide an image that is stored only on a secure (https) server. 
-		$lc= urlencode($order->delivery['country_iso_2']); //The language of the login or sign-up page that subscribers see when they click the Subscribe button. If unspecified, the language is determined by a PayPal cookie in the subscriber’s browser. If there is no PayPal cookie, the default language is U.S. English.  PayPal uses 2-character IS0-3166-1 codes for specifying countries and regions that are supported in fields and variables. 
 		
-		$no_shipping = 0; //Do not prompt payers for shipping address. Allowable values:   * 0 – prompt for an address, but do not require one    *  1 – do not prompt for an address    *     2 – prompt for an address, and require one --- The default is 0.
-		if (trim(MODULE_PAYMENT_PAYPAL_IPN_RETURN) != '')  //web28 fix problem with empty xtc_href_link
-			$return = xtc_href_link(urlencode(MODULE_PAYMENT_PAYPAL_IPN_RETURN)); //The URL to which the payer’s browser is redirected after completing the payment; for example, a URL on your site that displays a “Thank you for your payment” page. --- Default – The browser is redirected to a PayPal web page.
+    $lc= urlencode($order->delivery['country_iso_2']); //The language of the login or sign-up page that subscribers see when they click the Subscribe button. If unspecified, the language is determined by a PayPal cookie in the subscriber’s browser. If there is no PayPal cookie, the default language is U.S. English.  PayPal uses 2-character IS0-3166-1 codes for specifying countries and regions that are supported in fields and variables. 
+		//EN mit US ersetzen, sonst wird die Paypal Seite nicht in Englisch angezeigt
+		if ($lc == 'EN') $lc= 'US';
+    
+    $no_shipping = 0; //Do not prompt payers for shipping address. Allowable values:   * 0 – prompt for an address, but do not require one    *  1 – do not prompt for an address    *     2 – prompt for an address, and require one --- The default is 0.
 		$rm= 2; //Return method. The FORM METHOD used to send data to the URL specified by the return variable after payment completion. Allowable values:    * 0 – all shopping cart transactions use the GET method   * 1 – the payer’s browser is redirected to the return URL by the GET method, and no transaction variables are sent   *  2 – the payer’s browser is redirected to the return URL by the POST method, and all transaction variables are also posted --- The default is 0. ---  Note: The rm variable takes effect only if the return variable is also set.
-		if (trim(MODULE_PAYMENT_PAYPAL_IPN_NOTIFY) != '') //web28 fix problem with empty xtc_href_link
-			$notify_url = xtc_href_link(urlencode(MODULE_PAYMENT_PAYPAL_IPN_NOTIFY)); //The URL to which PayPal posts information about the transaction, in the form of Instant Payment Notification messages. 
 		$cbt= urlencode(MODULE_PAYMENT_PAYPAL_IPN_CBT); // Sets the text for the Return to Merchant  button on the PayPal Payment Complete page. For Business accounts, the return button displays your business name in place of the word “Merchant” by default. For Donate buttons, the text reads “Return to donations coordinator” by default. Note: The return variable must also be set.
-		if (trim(MODULE_PAYMENT_PAYPAL_IPN_CANCEL) != '') //web28 fix problem with empty xtc_href_link
+		    
+    //BOF - 2011-01-20 - FIX SEND ORDERS FROM ADMIN
+    if (trim(MODULE_PAYMENT_PAYPAL_IPN_IMAGE) != '') { //web28 fix problem with empty xtc_href_link
+			$cpp_header_image= xtc_href_link('templates/'.CURRENT_TEMPLATE.'/img/'.urlencode(MODULE_PAYMENT_PAYPAL_IPN_IMAGE), '', 'SSL'); //The image at the top left of the checkout page. The image’s maximum size is 750 pixels wide by 90 pixels high. PayPal recommends that you provide an image that is stored only on a secure (https) server. 
+      if($send_by_admin) $cpp_header_image= xtc_href_link_from_admin('templates/'.CURRENT_TEMPLATE.'/img/'.urlencode(MODULE_PAYMENT_PAYPAL_IPN_IMAGE), '', 'SSL');
+    }
+    if (trim(MODULE_PAYMENT_PAYPAL_IPN_RETURN) != '') { //web28 fix problem with empty xtc_href_link
+			$return = xtc_href_link(urlencode(MODULE_PAYMENT_PAYPAL_IPN_RETURN)); //The URL to which the payer’s browser is redirected after completing the payment; for example, a URL on your site that displays a “Thank you for your payment” page. --- Default – The browser is redirected to a PayPal web page.
+      if($send_by_admin) $return = xtc_href_link_from_admin (urlencode(MODULE_PAYMENT_PAYPAL_IPN_RETURN));
+    }
+    if (trim(MODULE_PAYMENT_PAYPAL_IPN_NOTIFY) != '') { //web28 fix problem with empty xtc_href_link
+			$notify_url = xtc_href_link(urlencode(MODULE_PAYMENT_PAYPAL_IPN_NOTIFY)); //The URL to which PayPal posts information about the transaction, in the form of Instant Payment Notification messages. 
+      if($send_by_admin) $notify_url = xtc_href_link_from_admin(urlencode(MODULE_PAYMENT_PAYPAL_IPN_NOTIFY));
+    }    
+    if (trim(MODULE_PAYMENT_PAYPAL_IPN_CANCEL) != '') { //web28 fix problem with empty xtc_href_link
 			$cancel_return= xtc_href_link(urlencode(MODULE_PAYMENT_PAYPAL_IPN_CANCEL)); //A URL to which the payer’s browser is redirected if payment is cancelled; for example, a URL on your website that displays a “Payment Canceled” page. Default – The browser is redirected to a PayPal web page.
-		
+		  if($send_by_admin) $cancel_return= xtc_href_link_from_admin(urlencode(MODULE_PAYMENT_PAYPAL_IPN_CANCEL));      
+		}
+    //EOF  - 2011-01-20 - FIX SEND ORDERS FROM ADMIN
+    
 		//Testbetrieb
 		if(MODULE_PAYMENT_PAYPAL_IPN_USE_SANDBOX == 'True') {
 			$business = trim(MODULE_PAYMENT_PAYPAL_IPN_SBID); //Your PayPal ID or an email address associated with your PayPal account. Email addresses must be confirmed. 

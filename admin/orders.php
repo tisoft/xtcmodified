@@ -101,6 +101,7 @@ switch ($action) {
     $insert_id = xtc_db_prepare_input($_GET['oID']);
     define('SEND_BY_ADMIN_PATH', DIR_FS_CATALOG);
     require_once(DIR_FS_CATALOG.DIR_WS_CLASSES.'xtcPrice.php');
+    require_once(DIR_FS_INC.'xtc_href_link_from_admin.inc.php'); //-web28 - 2011-01-20 - LINKFIX
     include (DIR_FS_CATALOG .'send_order.php');
 
     break;
