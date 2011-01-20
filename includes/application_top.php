@@ -308,7 +308,7 @@ $_REQUEST = $InputFilter->safeSQL($_REQUEST);
 // EOF - Hetfield - 2009-08-16 - correct inputfilter security-patch and remove double replacing
 
 //BOF - GTB - 2011-01-20 - SSEQ-Lib integration
-function_exists (SEQ_SANITIZE) ? SEQ_SANITIZE (DIR_FS_EXTERNAL . 'sseq-filter/oscommerce_2.0.txt', true) : '';
+function_exists (SEQ_SANITIZE) ? SEQ_SANITIZE (DIR_FS_EXTERNAL . 'sseq-filter/xtcmodified.txt', true) : '';
 //EOF - GTB - 2011-01-20 - SSEQ-Lib integration
 
 // set the top level domains
