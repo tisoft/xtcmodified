@@ -669,8 +669,11 @@ define('WARN_SESSION_DIRECTORY_NOT_WRITEABLE', 'true');
 define('WARN_SESSION_AUTO_START', 'true');
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 
-// Include Template Engine
-require (DIR_WS_CLASSES.'Smarty_2.6.26/Smarty.class.php');
+// Include Template Engine ver. 2.6.26
+//BOF - GTB - 2011-01-20 - move Smarty to external directory
+//require (DIR_WS_CLASSES.'Smarty_2.6.26/Smarty.class.php');
+require (DIR_FS_EXTERNAL.'smarty/Smarty.class.php');
+//EOF - GTB - 2011-01-20 - move Shopstat to external directory
 
 if (isset ($_SESSION['customer_id'])) {
   $account_type_query = xtc_db_query("SELECT account_type,
