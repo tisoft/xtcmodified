@@ -1,21 +1,23 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: language.php 962 2005-05-27 17:27:01Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(language.php,v 1.4 2003/02/11); www.oscommerce.com
-   (c) 2003	 nextcommerce (language.php,v 1.6 2003/08/13); www.nextcommerce.org
+   (c) 2003 nextcommerce (language.php,v 1.6 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (language.php 962 2005-05-27)
 
-   Released under the GNU General Public License
    browser language detection logic
    Copyright phpMyAdmin (select_lang.lib.php3 v1.24 04/19/2002)
    Copyright Stephane Garin <sgarin@sgarin.com> (detect_language.php v0.1 04/02/2002)
+
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 if ( !class_exists( "language" ) ) {
   class language {
@@ -65,18 +67,17 @@ if ( !class_exists( "language" ) ) {
                                'zh-tw' => array('zh[-_]tw|chinese traditional', 'chinese_big5', 'zh-TW'),
                                'zh' => array('zh|chinese simplified', 'chinese_gb', 'zh'));
 
-
       $this->catalog_languages = array();
 // BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
       //$languages_query = xtc_db_query("select languages_id, name, code, image, directory,language_charset from " . TABLE_LANGUAGES . " order by sort_order");
       $languages_query = xtc_db_query("select languages_id, name, code, image, directory,language_charset from " . TABLE_LANGUAGES . " where status = '1' order by sort_order");
 // EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
-	  while ($languages = xtc_db_fetch_array($languages_query)) {
+    while ($languages = xtc_db_fetch_array($languages_query)) {
         $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
                                                              'name' => $languages['name'],
                                                              'image' => $languages['image'],
                                                              'code' => $languages['code'],
-														  'language_charset' => $languages['language_charset'],
+                                                             'language_charset' => $languages['language_charset'],
                                                              'directory' => $languages['directory']);
       }
 
@@ -85,9 +86,15 @@ if ( !class_exists( "language" ) ) {
 
       if ( (!empty($lng)) && (isset($this->catalog_languages[$lng])) ) {
         $this->language = $this->catalog_languages[$lng];
+      //BOF - DokuMan - 2011-01-21 - Fix language detection error
+      //} else {
+      //  $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
+      //}
+      } elseif(isset($this->catalog_languages[DEFAULT_LANGUAGE])) {
+          $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
       } else {
-        $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
-      }
+          $this->language = $this->catalog_languages[key($this->catalog_languages)];
+      //EOF - DokuMan - 2011-01-21 - Fix language detection error
     }
 
     function get_browser_language() {

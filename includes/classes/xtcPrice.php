@@ -48,7 +48,7 @@ class xtcPrice {
     $this->showFrom_Attributes = true;
     //BOF - DokuMan - 2010-10-28 - added missing content_type definition for $tax_address_query
     if (isset($_SESSION['cart'])) {
-     $this->content_type = $_SESSION['cart']->get_content_type();
+      $this->content_type = $_SESSION['cart']->get_content_type();
     }
     //EOF - DokuMan - 2010-10-28 - added missing content_type definition for $tax_address_query
 
@@ -65,11 +65,17 @@ class xtcPrice {
         'value' => $currencies['value']
         );
     }
+    //BOF - DokuMan - 2011-01-21 - Fix an issue when the currency in user's preference is not existing
+    if (!isset($this->currencies[$this->actualCurr])) {
+      $this->actualCurr = DEFAULT_CURRENCY;
+    }
+    //BOF - DokuMan - 2011-01-21 - Fix an issue when the currency in user's preference is not existing
+
     // select Customers Status data
     $customers_status_query = xtDBquery( "SELECT *
                                 FROM ".TABLE_CUSTOMERS_STATUS."
                                 WHERE customers_status_id = '".$this->actualGroup."'
-                                AND language_id = '".$_SESSION['languages_id']."'");
+                                AND language_id = '".(int)$_SESSION['languages_id']."'");
     $customers_status_value = xtc_db_fetch_array($customers_status_query, true);
     $this->cStatus = array (
     'customers_status_id' => $this->actualGroup,
