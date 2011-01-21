@@ -30,7 +30,7 @@
   define('DIR_WS_INFO_IMAGES', DIR_WS_IMAGES .'product_images/info_images/');
   define('DIR_WS_POPUP_IMAGES', DIR_WS_IMAGES .'product_images/popup_images/');
   define('DIR_WS_ICONS', DIR_WS_IMAGES . 'icons/');
-  define('DIR_WS_INCLUDES',DIR_FS_DOCUMENT_ROOT. 'includes/');
+  define('DIR_WS_INCLUDES', 'includes/');
   define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
   define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
   define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
