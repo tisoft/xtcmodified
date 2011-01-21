@@ -65,13 +65,19 @@
                                                   ".$fsk_lock."
                                                   ".$days."
                                               AND c.categories_status=1
-                                         ORDER BY p.products_date_added desc
+                                            ORDER BY p.products_date_added desc
                                             LIMIT ".MAX_RANDOM_SELECT_NEW)) {
     //EOF - Hetfield - 2009-08-11 - #BUGFIX 0000374: Box Whats New 30 Tage BUG
     $whats_new_price = $xtPrice->xtcGetPrice($random_product['products_id'], $format = true, 1, $random_product['products_tax_class_id'], $random_product['products_price']);
   }
-  $random_product['products_name'] = xtc_get_products_name($random_product['products_id']);
-  if ($random_product && $random_product['products_name'] != '') {
+  //BOF - DokuMan - 2011-01-21 - Fix a notice when there is no new product
+  //$random_product['products_name'] = xtc_get_products_name($random_product['products_id']);
+  //if ($random_product && $random_product['products_name'] != '') {
+  if(!empty($random_product['products_id'])) {
+    $random_product['products_name'] = xtc_get_products_name($random_product['products_id']);
+  }
+  if (!empty($random_product['products_name'])) {
+  //EOF - DokuMan - 2011-01-21 - Fix a notice when there is no new product
     $box_smarty->assign('box_content',$product->buildDataArray($random_product));
     $box_smarty->assign('LINK_NEW_PRODUCTS',xtc_href_link(FILENAME_PRODUCTS_NEW));
     $box_smarty->assign('language', $_SESSION['language']);
