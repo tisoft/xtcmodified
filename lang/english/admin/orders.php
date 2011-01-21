@@ -1,4 +1,4 @@
-<?php
+f<?php
 /* --------------------------------------------------------------
    $Id$   
 
@@ -10,8 +10,8 @@
    based on: 
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce; www.oscommerce.com 
-   (c) 2003      nextcommerce; www.nextcommerce.org
-   (c) 2006      xt:Commerce; www.xt-commerce.com
+   (c) 2003 nextcommerce; www.nextcommerce.org
+   (c) 2006 xt:Commerce; www.xt-commerce.com
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
@@ -41,14 +41,12 @@ define('TABLE_HEADING_COMMENTS', 'Comments');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
 define('TABLE_HEADING_ORDER_TOTAL', 'Order Total');
 define('TABLE_HEADING_DATE_PURCHASED', 'Date Purchased');
-define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
 define('TABLE_HEADING_QUANTITY', 'Qty.');
 define('TABLE_HEADING_PRODUCTS_MODEL', 'Model');
 define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_TAX', 'Tax');
 define('TABLE_HEADING_TOTAL', 'Total');
-define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_PRICE_EXCLUDING_TAX', 'Price (ex)');
 define('TABLE_HEADING_PRICE_INCLUDING_TAX', 'Price (inc)');
 define('TABLE_HEADING_TOTAL_EXCLUDING_TAX', 'Total (ex)');
@@ -61,14 +59,7 @@ define('TABLE_HEADING_DATE_ADDED', 'Date Added');
 
 define('ENTRY_CUSTOMER', 'Customer:');
 define('ENTRY_SOLD_TO', 'SOLD TO:');
-define('ENTRY_STREET_ADDRESS', 'Street Address:');
-define('ENTRY_SUBURB', 'Suburb:');
-define('ENTRY_CITY', 'City:');
-define('ENTRY_POST_CODE', 'Post Code:');
-define('ENTRY_STATE', 'State:');
-define('ENTRY_COUNTRY', 'Country:');
 define('ENTRY_TELEPHONE', 'Telephone:');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_DELIVERY_TO', 'Delivery To:');
 define('ENTRY_SHIP_TO', 'SHIP TO:');
 define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');
@@ -114,7 +105,6 @@ define('WARNING_ORDER_NOT_UPDATED', 'Warning: Nothing to change. The order was n
 
 define('TABLE_HEADING_DISCOUNT','Discount');
 define('ENTRY_CUSTOMERS_GROUP','Customers Group:');
-define('ENTRY_CUSTOMERS_VAT_ID','VAT Reg No:');
 define('TEXT_VALIDATING','Not validated');
 
 // BOF - Tomcraft - 2010-04-22 - Added a missing language definition

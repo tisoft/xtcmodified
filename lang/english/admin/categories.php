@@ -125,7 +125,6 @@ define('TEXT_PRODUCTS_QUANTITY', 'Products Quantity:');
 define('TEXT_PRODUCTS_MODEL', 'Products Model:');
 define('TEXT_PRODUCTS_IMAGE', 'Products Image:');
 define('TEXT_PRODUCTS_URL', 'Products URL:');
-define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Products Price:');
 define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without leading http://)</small>');

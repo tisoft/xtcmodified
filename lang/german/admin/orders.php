@@ -41,14 +41,12 @@ define('TABLE_HEADING_COMMENTS', 'Kommentar');
 define('TABLE_HEADING_CUSTOMERS', 'Kunden');
 define('TABLE_HEADING_ORDER_TOTAL', 'Gesamtwert');
 define('TABLE_HEADING_DATE_PURCHASED', 'Bestelldatum');
-define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 define('TABLE_HEADING_QUANTITY', 'Anzahl');
 define('TABLE_HEADING_PRODUCTS_MODEL', 'Artikel-Nr.');
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_TAX', 'MwSt.');
 define('TABLE_HEADING_TOTAL', 'Gesamtsumme');
-define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_PRICE_EXCLUDING_TAX', 'Preis (exkl.)');
 define('TABLE_HEADING_PRICE_INCLUDING_TAX', 'Preis (inkl.)');
 define('TABLE_HEADING_TOTAL_EXCLUDING_TAX', 'Total (exkl.)');
@@ -61,14 +59,7 @@ define('TABLE_HEADING_DATE_ADDED', 'hinzugef&uuml;gt am:');
 
 define('ENTRY_CUSTOMER', 'Kunde:');
 define('ENTRY_SOLD_TO', 'Rechnungsadresse:');
-define('ENTRY_STREET_ADDRESS', 'Strasse:');
-define('ENTRY_SUBURB', 'zus. Anschrift:');
-define('ENTRY_CITY', 'Stadt:');
-define('ENTRY_POST_CODE', 'PLZ:');
-define('ENTRY_STATE', 'Bundesland:');
-define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE', 'Telefon:');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_DELIVERY_TO', 'Lieferanschrift:');
 define('ENTRY_SHIP_TO', 'Lieferanschrift:');
 define('ENTRY_SHIPPING_ADDRESS', 'Versandadresse:');
@@ -114,7 +105,6 @@ define('WARNING_ORDER_NOT_UPDATED', 'Hinweis: Es wurde nichts ge&auml;ndert. Dah
 
 define('TABLE_HEADING_DISCOUNT','Rabatt');
 define('ENTRY_CUSTOMERS_GROUP','Kundengruppe:');
-define('ENTRY_CUSTOMERS_VAT_ID','USt-IdNr.:');
 define('TEXT_VALIDATING','Nicht best&auml;tigt');
 
 // BOF - Tomcraft - 2010-04-22 - Added a missing language definition
