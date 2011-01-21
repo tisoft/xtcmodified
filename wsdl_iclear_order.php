@@ -41,7 +41,7 @@
       header('Location: install/index.php');
     }
   }
-  
+
 // set the type of request (secure or not)
 //BOF - web28 - 2010-09-03 - added native support for SSL-proxy connections
 //$request_type = (getenv('HTTPS') == '1' || getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
@@ -52,8 +52,8 @@ if (file_exists('includes/request_type.php')) {
 
 //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
   //if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
-  if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['SCRIPT_NAME']);
-//EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF  
+  if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['SCRIPT_NAME'];
+//EOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
   if ($request_type == 'NONSSL') {
     define('DIR_WS_CATALOG', DIR_WS_HTTP_CATALOG);
   } else {
