@@ -1,40 +1,48 @@
 <?php
   /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application.php,v 1.4 2002/11/29); www.oscommerce.com
-   (c) 2003	nextcommerce (application.php,v 1.16 2003/08/13); www.nextcommerce.org 
+   (c) 2003	nextcommerce (application.php,v 1.16 2003/08/13); www.nextcommerce.org
    (c) 2006 xt:Commerce (application.php 1119 2005-07-25); www.xtcommerce.com
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
   // Some FileSystem Directories
   if (!defined('DIR_FS_DOCUMENT_ROOT')) {
-    //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
-    if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {
-      define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));
-    } else {
-      define('DIR_FS_DOCUMENT_ROOT', rtrim($_SERVER['DOCUMENT_ROOT'],'/'));
-    }
-    //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
-    $local_install_path=str_replace('/xtc_installer','',$_SERVER['PHP_SELF']);
-    $local_install_path=str_replace('index.php','',$local_install_path);
-    $local_install_path=str_replace('install_step1.php','',$local_install_path);
-    $local_install_path=str_replace('install_step2.php','',$local_install_path);
-    $local_install_path=str_replace('install_step3.php','',$local_install_path);
-    $local_install_path=str_replace('install_step4.php','',$local_install_path);
-    $local_install_path=str_replace('install_step5.php','',$local_install_path);
-    $local_install_path=str_replace('install_step6.php','',$local_install_path);
-    $local_install_path=str_replace('install_step7.php','',$local_install_path);
-    $local_install_path=str_replace('install_finished.php','',$local_install_path);
-    define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . $local_install_path);
+    //BOF - DokuMan - 2010-01-21 - Fix path errors in installer
+    /*
+      //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+      if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {
+        define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));
+      } else {
+        define('DIR_FS_DOCUMENT_ROOT', rtrim($_SERVER['DOCUMENT_ROOT'],'/'));
+      }
+      //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+      $local_install_path=str_replace('/xtc_installer','',$_SERVER['PHP_SELF']);
+      $local_install_path=str_replace('index.php','',$local_install_path);
+      $local_install_path=str_replace('install_step1.php','',$local_install_path);
+      $local_install_path=str_replace('install_step2.php','',$local_install_path);
+      $local_install_path=str_replace('install_step3.php','',$local_install_path);
+      $local_install_path=str_replace('install_step4.php','',$local_install_path);
+      $local_install_path=str_replace('install_step5.php','',$local_install_path);
+      $local_install_path=str_replace('install_step6.php','',$local_install_path);
+      $local_install_path=str_replace('install_step7.php','',$local_install_path);
+      $local_install_path=str_replace('install_finished.php','',$local_install_path);
+      define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . $local_install_path);
+    */
+    $baseFilePath = str_replace(DIRECTORY_SEPARATOR, '/', __FILE__);
+    define('DIR_FS_CATALOG', substr($baseFilePath, 0, strpos($baseFilePath, 'xtc_installer')));
+    define('DIR_FS_DOCUMENT_ROOT', substr(DIR_FS_CATALOG, 0, strrpos(DIR_FS_CATALOG, DIRECTORY_SEPARATOR, -2)));
+    $local_install_path = substr(DIR_FS_CATALOG, strlen(DIR_FS_DOCUMENT_ROOT));
+    //EOF - DokuMan - 2010-01-21 - Fix path errors in installer
   }
   if (!defined('DIR_FS_INC'))
     define('DIR_FS_INC', DIR_FS_CATALOG.'inc/');
@@ -45,10 +53,10 @@
   require(DIR_FS_CATALOG.'includes/filenames.php');
   require(DIR_FS_CATALOG.'includes/database_tables.php');
   require_once(DIR_FS_CATALOG.'inc/xtc_image.inc.php');
-  
+
   // Start the Install_Session
   session_start();
-  
+
   // Set the level of error reporting
   error_reporting(E_ALL & ~E_NOTICE);
 
@@ -61,7 +69,7 @@
   require_once(DIR_FS_INC.'xtc_set_time_limit.inc.php');
   require_once(DIR_FS_INC.'xtc_check_agent.inc.php');
   require_once(DIR_FS_INC.'xtc_in_array.inc.php');
-  
+
   // include Database functions for installer
   require_once(DIR_FS_INC.'xtc_db_prepare_input.inc.php');
   require_once(DIR_FS_INC.'xtc_db_connect_installer.inc.php');
@@ -89,7 +97,7 @@
 
   // include check functions
   require_once(DIR_FS_INC .'xtc_gdlib_check.inc.php');
-  
+
   if (!defined('DIR_WS_ICONS'))
     define('DIR_WS_ICONS','images/');
 
@@ -125,7 +133,7 @@
     return(0);
   }
 
-  //BOF - web28 - 2010.02.09 - FIX LOST SESSION  
+  //BOF - web28 - 2010.02.09 - FIX LOST SESSION
   if (isset($_SESSION['language']) && $_SESSION['language'] != '') {
     $lang = $_SESSION['language'];
   } else {
@@ -139,7 +147,7 @@
         $lang = 'english';
         break;
     }
-    //EOF - DokuMan - 2010-08-16 - Set browser language on installer start page 
+    //EOF - DokuMan - 2010-08-16 - Set browser language on installer start page
     if (isset($_GET['lg']) && $_GET['lg'] != '') {
       $lang = $_GET['lg'];
     }
@@ -147,8 +155,8 @@
       $lang = $_POST['lg'];
     }
   }
-        
+
   //include('language/'.$lang.'.php');
-  $input_lang = '<input type="hidden" name="lg" value="'. $lang .'">';   
+  $input_lang = '<input type="hidden" name="lg" value="'. $lang .'">';
   //EOF - web28 - 2010.02.09 - FIX LOST SESSION
 ?>

@@ -129,7 +129,7 @@
                 $message .= TEXT_WRONG_FILE_PERMISSION .DIR_FS_CATALOG . 'sitemap.xml<br />';
               }
               $status='<strong>OK</strong>';
-              if ($error_flag==true) 
+              if ($error_flag==true)
                 $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
               $ok_message.= TEXT_FILE_PERMISSION_STATUS .'.............................. '.$status.'<br /><hr noshade />';
               // smarty folders
@@ -218,17 +218,13 @@
                 $error_flag=true;
                 $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'media/products/backup/<br />';
               }
-              if (!is_writeable(DIR_FS_CATALOG . 'sitemap.xml')) {
-                $error_flag=true;
-                $message .= TEXT_WRONG_FILE_PERMISSION .DIR_FS_CATALOG . 'sitemap.xml<br />';
-              }
               if (!is_writeable(DIR_FS_CATALOG . 'templates_c/')) {
                 $error_flag=true;
                 $folder_flag=true;
                 $message .= TEXT_WRONG_FOLDER_PERMISSION .DIR_FS_CATALOG . 'templates_c/<br />';
               }
               $status='<strong>OK</strong>';
-              if ($folder_flag==true) 
+              if ($folder_flag==true)
                 $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong>';
               $ok_message.= TEXT_FOLDER_PERMISSION_STATUS . '............... '.$status.'<br /><hr noshade />';
               //BOF *************  check PHP-Version *************
@@ -278,7 +274,7 @@
                 $status='<strong><font color="#ff0000">'.TEXT_ERROR.'</font></strong><br />'.TEXT_GDLIB_MISSING_GIF_SUPPORT;
               }
               $ok_message.= TEXT_GDLIB_GIF_VERSION .' .............. '.$status.'<br /><hr noshade />';
-              if ($error_flag==true) { 
+              if ($error_flag==true) {
             ?>
             <tr>
               <td>
@@ -301,7 +297,7 @@
                 <strong><?php echo TEXT_CHECKING; ?>:</strong>
                 <br /><br />
                 <?php
-                  echo $ok_message; 
+                  echo $ok_message;
                 ?>
               </td>
             </tr>
@@ -333,15 +329,15 @@
                     <td><img src="images/icons/arrow02.gif" width="13" height="6" alt="" />English</td>
                     <td><img src="images/icons/icon-eng.gif" width="30" height="16" alt="" />
                     <?php echo xtc_draw_radio_field_installer('LANGUAGE', 'english'); ?> </td>
-                  </tr> 
+                  </tr>
                 </table>
                 <?php// BOF - web28 - 2010.12.13 - NEW db-upgrade  ?>
                 <?php if ($error_flag==false) { ?>
                   <input type="hidden" name="action" value="process" />
                   <table border="0" cellpadding="0" cellspacing="0">
-                    <tr>                  
+                    <tr>
                       <?php if($upgrade) { ?>
-                        <td style="padding-left:4px"><img src="images/icons/arrow02.gif" width="13" height="6" alt="" /></td>                  
+                        <td style="padding-left:4px"><img src="images/icons/arrow02.gif" width="13" height="6" alt="" /></td>
                         <td><?php echo TEXT_DB_UPGRADE; ?></td>
                         <td  style="padding-right:10px"><?php echo xtc_draw_checkbox_field_installer('db_upgrade','',false); ?></td>
                       <?php }?>
@@ -350,7 +346,7 @@
                   </table>
                   <?php// EOF - web28 - 2010.12.13 - NEW db-upgrade  ?>
                 <?php } else {
-                  echo '<br/><strong>'. TEXT_INSTALLATION_NOT_POSSIBLE .'</strong><br/><br/><a href="index.php"><img src="buttons/<?php echo $lang;?>/button_retry.gif" border="0" alt="refresh page"></a>';
+                  echo '<br/><strong>'. TEXT_INSTALLATION_NOT_POSSIBLE .'</strong><br/><br/><a href="index.php"><img src="buttons/'.$lang.'/button_retry.gif" border="0" alt="refresh page"></a>';
                 } ?>
                 <br />
               </form>
