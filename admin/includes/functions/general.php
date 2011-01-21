@@ -34,6 +34,12 @@
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
+/**
+ * clear_string()
+ * 
+ * @param mixed $value
+ * @return
+ */
 function clear_string($value) {
   $string = str_replace("'", '', $value);
   $string = str_replace(')', '', $string);
@@ -43,10 +49,25 @@ function clear_string($value) {
 }
 
 // Parse the data used in the html tags to ensure the tags will not break
+/**
+ * xtc_parse_input_field_data()
+ * 
+ * @param mixed $data
+ * @param mixed $parse
+ * @return
+ */
 function xtc_parse_input_field_data($data, $parse) {
   return strtr(trim($data), $parse);
 }
 
+/**
+ * xtc_output_string()
+ * 
+ * @param mixed $string
+ * @param bool $translate
+ * @param bool $protected
+ * @return
+ */
 function xtc_output_string($string, $translate = false, $protected = false) {
   if ($protected == true) {
     return htmlspecialchars($string);
@@ -59,6 +80,12 @@ function xtc_output_string($string, $translate = false, $protected = false) {
   }
 }
 
+/**
+ * check_stock()
+ * 
+ * @param mixed $products_id
+ * @return
+ */
 function check_stock($products_id) {
   unset ($stock_flag);
   $stock_query = xtc_db_query("SELECT products_quantity FROM ".TABLE_PRODUCTS." where products_id = '".$products_id."'");
@@ -85,6 +112,13 @@ function check_stock($products_id) {
 }
 
 // Set Categorie Status
+/**
+ * xtc_set_categories_status()
+ * 
+ * @param mixed $categories_id
+ * @param mixed $status
+ * @return
+ */
 function xtc_set_categories_status($categories_id, $status) {
   if ($status == '1') {
     return xtc_db_query("update ".TABLE_CATEGORIES." set categories_status = '1' where categories_id = '".$categories_id."'");
@@ -96,6 +130,13 @@ function xtc_set_categories_status($categories_id, $status) {
   }
 }
 
+/**
+ * xtc_set_groups()
+ * 
+ * @param mixed $categories_id
+ * @param mixed $permission_array
+ * @return
+ */
 function xtc_set_groups($categories_id, $permission_array) {
   // get products in categorie
   $products_query = xtc_db_query("SELECT products_id FROM ".TABLE_PRODUCTS_TO_CATEGORIES." where categories_id='".$categories_id."'");
@@ -112,6 +153,14 @@ function xtc_set_groups($categories_id, $permission_array) {
 }
 
 // Set Admin Access Rights
+/**
+ * xtc_set_admin_access()
+ * 
+ * @param mixed $fieldname
+ * @param mixed $status
+ * @param mixed $cID
+ * @return
+ */
 function xtc_set_admin_access($fieldname, $status, $cID) {
   if ($status == '1') {
     return xtc_db_query("update ".TABLE_ADMIN_ACCESS." set ".$fieldname." = '1' where customers_id = '".$cID."'");
@@ -121,6 +170,12 @@ function xtc_set_admin_access($fieldname, $status, $cID) {
 }
 
 // Check whether a referer has enough permission to open an admin page
+/**
+ * xtc_check_permission()
+ * 
+ * @param mixed $pagename
+ * @return
+ */
 function xtc_check_permission($pagename) {
   if ($pagename != 'index') {
     $access_permission_query = xtc_db_query("select ".$pagename." from ".TABLE_ADMIN_ACCESS." where customers_id = '".$_SESSION['customer_id']."'");
@@ -137,6 +192,12 @@ function xtc_check_permission($pagename) {
 }
 
 // Redirect to another page or site
+/**
+ * xtc_redirect()
+ * 
+ * @param mixed $url
+ * @return
+ */
 function xtc_redirect($url) {
   global $logger;
   header('Location: '.$url);
@@ -150,6 +211,12 @@ function xtc_redirect($url) {
   exit;
 }
 
+/**
+ * xtc_customers_name()
+ * 
+ * @param mixed $customers_id
+ * @return
+ */
 function xtc_customers_name($customers_id) {
   $customers = xtc_db_query("select customers_firstname, customers_lastname from ".TABLE_CUSTOMERS." where customers_id = '".$customers_id."'");
   $customers_values = xtc_db_fetch_array($customers);
@@ -157,10 +224,16 @@ function xtc_customers_name($customers_id) {
   return $customers_values['customers_firstname'].' '.$customers_values['customers_lastname'];
 }
 
+/**
+ * xtc_get_path()
+ * 
+ * @param string $current_category_id
+ * @return
+ */
 function xtc_get_path($current_category_id = '') {
   global $cPath_array;
 
-  if ($current_category_id == '') {
+  if (empty($current_category_id)) {
     $cPath_new = implode('_', $cPath_array);
   } else {
     if (sizeof($cPath_array) == 0) {
@@ -190,9 +263,15 @@ function xtc_get_path($current_category_id = '') {
   return 'cPath='.$cPath_new;
 }
 
+/**
+ * xtc_get_all_get_params()
+ * 
+ * @param string $exclude_array
+ * @return
+ */
 function xtc_get_all_get_params($exclude_array = '') {
 
-  if ($exclude_array == '')
+  if (empty($exclude_array))
     $exclude_array = array ();
   $get_url = '';
 
@@ -205,8 +284,14 @@ function xtc_get_all_get_params($exclude_array = '') {
   return $get_url;
 }
 
+/**
+ * xtc_date_long()
+ * 
+ * @param mixed $raw_date
+ * @return
+ */
 function xtc_date_long($raw_date) {
-  if (($raw_date == '0000-00-00 00:00:00') || ($raw_date == ''))
+  if (($raw_date == '0000-00-00 00:00:00') || empty($raw_date))
     return false;
 
   $year = (int) substr($raw_date, 0, 4);
@@ -222,8 +307,14 @@ function xtc_date_long($raw_date) {
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
 // NOTE: Includes a workaround for dates before 01/01/1970 that fail on windows servers
+/**
+ * xtc_date_short()
+ * 
+ * @param mixed $raw_date
+ * @return
+ */
 function xtc_date_short($raw_date) {
-  if (($raw_date == '0000-00-00 00:00:00') || ($raw_date == ''))
+  if (($raw_date == '0000-00-00 00:00:00') || empty($raw_date))
     return false;
 
   $year = substr($raw_date, 0, 4);
@@ -241,8 +332,14 @@ function xtc_date_short($raw_date) {
 
 }
 
+/**
+ * xtc_datetime_short()
+ * 
+ * @param mixed $raw_datetime
+ * @return
+ */
 function xtc_datetime_short($raw_datetime) {
-  if (($raw_datetime == '0000-00-00 00:00:00') || ($raw_datetime == ''))
+  if (($raw_datetime == '0000-00-00 00:00:00') || empty($raw_datetime))
     return false;
 
   $year = (int) substr($raw_datetime, 0, 4);
@@ -255,6 +352,14 @@ function xtc_datetime_short($raw_datetime) {
   return strftime(DATE_TIME_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
 }
 
+/**
+ * xtc_array_merge()
+ * 
+ * @param mixed $array1
+ * @param mixed $array2
+ * @param string $array3
+ * @return
+ */
 function xtc_array_merge($array1, $array2, $array3 = '') {
   if (!is_array($array1)) { $array1 = array (); }
   if (!is_array($array2)) { $array2 = array (); }
@@ -274,6 +379,13 @@ function xtc_array_merge($array1, $array2, $array3 = '') {
   return (array) $array_merged;
 }
 
+/**
+ * xtc_in_array()
+ * 
+ * @param mixed $lookup_value
+ * @param mixed $lookup_array
+ * @return
+ */
 function xtc_in_array($lookup_value, $lookup_array) {
   if (function_exists('in_array')) {
     if (in_array($lookup_value, $lookup_array))
@@ -289,6 +401,16 @@ function xtc_in_array($lookup_value, $lookup_array) {
   return false;
 }
 
+/**
+ * xtc_get_category_tree()
+ * 
+ * @param string $parent_id
+ * @param string $spacing
+ * @param string $exclude
+ * @param string $category_tree_array
+ * @param bool $include_itself
+ * @return
+ */
 function xtc_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '', $include_itself = false) {
 
   if (!is_array($category_tree_array))
@@ -312,10 +434,18 @@ function xtc_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
   return $category_tree_array;
 }
 
+/**
+ * xtc_draw_products_pull_down()
+ * 
+ * @param mixed $name
+ * @param string $parameters
+ * @param string $exclude
+ * @return
+ */
 function xtc_draw_products_pull_down($name, $parameters = '', $exclude = '') {
   global $currencies;
 
-  if ($exclude == '') {
+  if (empty($exclude)) {
     $exclude = array ();
   }
   $select_string = '<select name="'.$name.'"';
@@ -338,6 +468,12 @@ function xtc_draw_products_pull_down($name, $parameters = '', $exclude = '') {
   return $select_string;
 }
 
+/**
+ * xtc_options_name()
+ * 
+ * @param mixed $options_id
+ * @return
+ */
 function xtc_options_name($options_id) {
 
   $options = xtc_db_query("select products_options_name from ".TABLE_PRODUCTS_OPTIONS." where products_options_id = '".$options_id."' and language_id = '".$_SESSION['languages_id']."'");
@@ -346,6 +482,12 @@ function xtc_options_name($options_id) {
   return $options_values['products_options_name'];
 }
 
+/**
+ * xtc_values_name()
+ * 
+ * @param mixed $values_id
+ * @return
+ */
 function xtc_values_name($values_id) {
 
   $values = xtc_db_query("select products_options_values_name from ".TABLE_PRODUCTS_OPTIONS_VALUES." where products_options_values_id = '".$values_id."' and language_id = '".$_SESSION['languages_id']."'");
@@ -354,6 +496,15 @@ function xtc_values_name($values_id) {
   return $values_values['products_options_values_name'];
 }
 
+/**
+ * xtc_info_image()
+ * 
+ * @param mixed $image
+ * @param mixed $alt
+ * @param string $width
+ * @param string $height
+ * @return
+ */
 function xtc_info_image($image, $alt, $width = '', $height = '') {
   if (($image) && (file_exists(DIR_FS_CATALOG_IMAGES.$image))) {
     $image = xtc_image(DIR_WS_CATALOG_IMAGES.$image, $alt, $width, $height);
@@ -364,6 +515,15 @@ function xtc_info_image($image, $alt, $width = '', $height = '') {
   return $image;
 }
 
+/**
+ * xtc_info_image_c()
+ * 
+ * @param mixed $image
+ * @param mixed $alt
+ * @param string $width
+ * @param string $height
+ * @return
+ */
 function xtc_info_image_c($image, $alt, $width = '', $height = '') {
   if (($image) && (file_exists(DIR_FS_CATALOG_IMAGES.'categories/'.$image))) {
     $image = xtc_image(DIR_WS_CATALOG_IMAGES.'categories/'.$image, $alt, $width, $height);
@@ -374,6 +534,15 @@ function xtc_info_image_c($image, $alt, $width = '', $height = '') {
   return $image;
 }
 
+/**
+ * xtc_product_thumb_image()
+ * 
+ * @param mixed $image
+ * @param mixed $alt
+ * @param string $width
+ * @param string $height
+ * @return
+ */
 function xtc_product_thumb_image($image, $alt, $width = '', $height = '') {
   if (($image) && (file_exists(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$image))) {
     $image = xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$image, $alt, $width, $height);
@@ -384,6 +553,14 @@ function xtc_product_thumb_image($image, $alt, $width = '', $height = '') {
   return $image;
 }
 
+/**
+ * xtc_break_string()
+ * 
+ * @param mixed $string
+ * @param mixed $len
+ * @param string $break_char
+ * @return
+ */
 function xtc_break_string($string, $len, $break_char = '-') {
   $l = 0;
   $output = '';
@@ -404,6 +581,12 @@ function xtc_break_string($string, $len, $break_char = '-') {
   return $output;
 }
 
+/**
+ * xtc_get_country_name()
+ * 
+ * @param mixed $country_id
+ * @return
+ */
 function xtc_get_country_name($country_id) {
   $country_query = xtc_db_query("select countries_name from ".TABLE_COUNTRIES." where countries_id = '".$country_id."'");
 
@@ -415,6 +598,14 @@ function xtc_get_country_name($country_id) {
   }
 }
 
+/**
+ * xtc_get_zone_name()
+ * 
+ * @param mixed $country_id
+ * @param mixed $zone_id
+ * @param mixed $default_zone
+ * @return
+ */
 function xtc_get_zone_name($country_id, $zone_id, $default_zone) {
   $zone_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_country_id = '".$country_id."' and zone_id = '".$zone_id."'");
   if (xtc_db_num_rows($zone_query)) {
@@ -425,11 +616,24 @@ function xtc_get_zone_name($country_id, $zone_id, $default_zone) {
   }
 }
 
+/**
+ * xtc_browser_detect()
+ * 
+ * @param mixed $component
+ * @return
+ */
 function xtc_browser_detect($component) {
 
   return stristr($_SERVER['HTTP_USER_AGENT'], $component);
 }
 
+/**
+ * xtc_tax_classes_pull_down()
+ * 
+ * @param mixed $parameters
+ * @param string $selected
+ * @return
+ */
 function xtc_tax_classes_pull_down($parameters, $selected = '') {
   $select_string = '<select '.$parameters.'>';
   $classes_query = xtc_db_query("select tax_class_id, tax_class_title from ".TABLE_TAX_CLASS." order by tax_class_title");
@@ -444,6 +648,13 @@ function xtc_tax_classes_pull_down($parameters, $selected = '') {
   return $select_string;
 }
 
+/**
+ * xtc_geo_zones_pull_down()
+ * 
+ * @param mixed $parameters
+ * @param string $selected
+ * @return
+ */
 function xtc_geo_zones_pull_down($parameters, $selected = '') {
   $select_string = '<select '.$parameters.'>';
   $zones_query = xtc_db_query("select geo_zone_id, geo_zone_name from ".TABLE_GEO_ZONES." order by geo_zone_name");
@@ -458,6 +669,12 @@ function xtc_geo_zones_pull_down($parameters, $selected = '') {
   return $select_string;
 }
 
+/**
+ * xtc_get_geo_zone_name()
+ * 
+ * @param mixed $geo_zone_id
+ * @return
+ */
 function xtc_get_geo_zone_name($geo_zone_id) {
   $zones_query = xtc_db_query("select geo_zone_name from ".TABLE_GEO_ZONES." where geo_zone_id = '".$geo_zone_id."'");
 
@@ -471,6 +688,16 @@ function xtc_get_geo_zone_name($geo_zone_id) {
   return $geo_zone_name;
 }
 
+/**
+ * xtc_address_format()
+ * 
+ * @param mixed $address_format_id
+ * @param mixed $address
+ * @param mixed $html
+ * @param mixed $boln
+ * @param mixed $eoln
+ * @return
+ */
 function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
   $address_format_query = xtc_db_query("select address_format as format from ".TABLE_ADDRESS_FORMAT." where address_format_id = '".$address_format_id."'");
   $address_format = xtc_db_fetch_array($address_format_query);
@@ -494,7 +721,7 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
     // HTML Mode
     $HR = '<hr />';
     $hr = '<hr />';
-    if (($boln == '') && ($eoln == "\n")) { // Values not specified, use rational defaults
+    if ((empty($boln)) && ($eoln == "\n")) { // Values not specified, use rational defaults
       $CR = '<br />';
       $cr = '<br />';
       $eoln = $cr;
@@ -512,13 +739,13 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
 
   $statecomma = '';
   $streets = $street;
-  if ($suburb != '')
+  if (!empty($suburb))
     $streets = $street.$cr.$suburb;
-  if ($firstname == '')
+  if (empty($firstname))
     $firstname = addslashes($address['name']);
-  if ($country == '')
+  if (empty($country))
     $country = addslashes($address['country']);
-  if ($state != '')
+  if (!empty($state)
     $statecomma = $state.', ';
 
   $fmt = $address_format['format'];
@@ -545,6 +772,14 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
 // Description : Function to retrieve the state/province code (as in FL for Florida etc)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * xtc_get_zone_code()
+ * 
+ * @param mixed $country
+ * @param mixed $zone
+ * @param mixed $def_state
+ * @return
+ */
 function xtc_get_zone_code($country, $zone, $def_state) {
 
   $state_prov_query = xtc_db_query("select zone_code from ".TABLE_ZONES." where zone_country_id = '".$country."' and zone_id = '".$zone."'");
@@ -559,6 +794,13 @@ function xtc_get_zone_code($country, $zone, $def_state) {
   return $state_prov_code;
 }
 
+/**
+ * xtc_get_uprid()
+ * 
+ * @param mixed $prid
+ * @param mixed $params
+ * @return
+ */
 function xtc_get_uprid($prid, $params) {
   $uprid = $prid;
   if ((is_array($params)) && (!strstr($prid, '{'))) {
@@ -570,12 +812,23 @@ function xtc_get_uprid($prid, $params) {
   return $uprid;
 }
 
+/**
+ * xtc_get_prid()
+ * 
+ * @param mixed $uprid
+ * @return
+ */
 function xtc_get_prid($uprid) {
   $pieces = explode('{', $uprid);
 
   return $pieces[0];
 }
 
+/**
+ * xtc_get_languages()
+ * 
+ * @return
+ */
 function xtc_get_languages() {
 // BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
   //$languages_query = xtc_db_query("select languages_id, name, code, image, directory from ".TABLE_LANGUAGES." order by sort_order");
@@ -594,6 +847,13 @@ function xtc_get_languages() {
   return $languages_array;
 }
 
+/**
+ * xtc_get_categories_name()
+ * 
+ * @param mixed $category_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_categories_name($category_id, $language_id) {
   $category_query = xtc_db_query("select categories_name from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and language_id = '".$language_id."'");
   $category = xtc_db_fetch_array($category_query);
@@ -601,12 +861,26 @@ function xtc_get_categories_name($category_id, $language_id) {
   return $category['categories_name'];
 }
 
+/**
+ * xtc_get_categories_heading_title()
+ * 
+ * @param mixed $category_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_categories_heading_title($category_id, $language_id) {
   $category_query = xtc_db_query("select categories_heading_title from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and language_id = '".$language_id."'");
   $category = xtc_db_fetch_array($category_query);
   return $category['categories_heading_title'];
 }
 
+/**
+ * xtc_get_categories_description()
+ * 
+ * @param mixed $category_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_categories_description($category_id, $language_id) {
   $category_query = xtc_db_query("select categories_description from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and language_id = '".$language_id."'");
   $category = xtc_db_fetch_array($category_query);
@@ -614,6 +888,13 @@ function xtc_get_categories_description($category_id, $language_id) {
   return $category['categories_description'];
 }
 
+/**
+ * xtc_get_categories_meta_title()
+ * 
+ * @param mixed $category_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_categories_meta_title($category_id, $language_id) {
   $category_query = xtc_db_query("select categories_meta_title from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and language_id = '".$language_id."'");
   $category = xtc_db_fetch_array($category_query);
@@ -621,6 +902,13 @@ function xtc_get_categories_meta_title($category_id, $language_id) {
   return $category['categories_meta_title'];
 }
 
+/**
+ * xtc_get_categories_meta_description()
+ * 
+ * @param mixed $category_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_categories_meta_description($category_id, $language_id) {
   $category_query = xtc_db_query("select categories_meta_description from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and language_id = '".$language_id."'");
   $category = xtc_db_fetch_array($category_query);
@@ -628,6 +916,13 @@ function xtc_get_categories_meta_description($category_id, $language_id) {
   return $category['categories_meta_description'];
 }
 
+/**
+ * xtc_get_categories_meta_keywords()
+ * 
+ * @param mixed $category_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_categories_meta_keywords($category_id, $language_id) {
   $category_query = xtc_db_query("select categories_meta_keywords from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and language_id = '".$language_id."'");
   $category = xtc_db_fetch_array($category_query);
@@ -635,6 +930,13 @@ function xtc_get_categories_meta_keywords($category_id, $language_id) {
   return $category['categories_meta_keywords'];
 }
 
+/**
+ * xtc_get_orders_status_name()
+ * 
+ * @param mixed $orders_status_id
+ * @param string $language_id
+ * @return
+ */
 function xtc_get_orders_status_name($orders_status_id, $language_id = '') {
 
   if (!$language_id)
@@ -645,6 +947,13 @@ function xtc_get_orders_status_name($orders_status_id, $language_id = '') {
   return $orders_status['orders_status_name'];
 }
 
+/**
+ * xtc_get_cross_sell_name()
+ * 
+ * @param mixed $cross_sell_group
+ * @param string $language_id
+ * @return
+ */
 function xtc_get_cross_sell_name($cross_sell_group, $language_id = '') {
 
   if (!$language_id)
@@ -657,6 +966,13 @@ function xtc_get_cross_sell_name($cross_sell_group, $language_id = '') {
 
 
 
+/**
+ * xtc_get_shipping_status_name()
+ * 
+ * @param mixed $shipping_status_id
+ * @param string $language_id
+ * @return
+ */
 function xtc_get_shipping_status_name($shipping_status_id, $language_id = '') {
 
   if (!$language_id)
@@ -667,6 +983,11 @@ function xtc_get_shipping_status_name($shipping_status_id, $language_id = '') {
   return $shipping_status['shipping_status_name'];
 }
 
+/**
+ * xtc_get_orders_status()
+ * 
+ * @return
+ */
 function xtc_get_orders_status() {
 
   $orders_status_array = array ();
@@ -678,6 +999,11 @@ function xtc_get_orders_status() {
   return $orders_status_array;
 }
 
+/**
+ * xtc_get_cross_sell_groups()
+ * 
+ * @return
+ */
 function xtc_get_cross_sell_groups() {
 
   $cross_sell_array = array ();
@@ -689,6 +1015,13 @@ function xtc_get_cross_sell_groups() {
   return $cross_sell_array;
 }
 
+/**
+ * xtc_get_products_vpe_name()
+ * 
+ * @param mixed $products_vpe_id
+ * @param string $language_id
+ * @return
+ */
 function xtc_get_products_vpe_name($products_vpe_id, $language_id = '') {
 
   if (!$language_id)
@@ -699,6 +1032,11 @@ function xtc_get_products_vpe_name($products_vpe_id, $language_id = '') {
   return $products_vpe['products_vpe_name'];
 }
 
+/**
+ * xtc_get_shipping_status()
+ * 
+ * @return
+ */
 function xtc_get_shipping_status() {
 
   $shipping_status_array = array ();
@@ -710,6 +1048,13 @@ function xtc_get_shipping_status() {
   return $shipping_status_array;
 }
 
+/**
+ * xtc_get_products_name()
+ * 
+ * @param mixed $product_id
+ * @param integer $language_id
+ * @return
+ */
 function xtc_get_products_name($product_id, $language_id = 0) {
 
   if ($language_id == 0)
@@ -720,6 +1065,13 @@ function xtc_get_products_name($product_id, $language_id = 0) {
   return $product['products_name'];
 }
 
+/**
+ * xtc_get_products_description()
+ * 
+ * @param mixed $product_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_products_description($product_id, $language_id) {
   $product_query = xtc_db_query("select products_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and language_id = '".$language_id."'");
   $product = xtc_db_fetch_array($product_query);
@@ -727,6 +1079,13 @@ function xtc_get_products_description($product_id, $language_id) {
   return $product['products_description'];
 }
 
+/**
+ * xtc_get_products_short_description()
+ * 
+ * @param mixed $product_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_products_short_description($product_id, $language_id) {
   $product_query = xtc_db_query("select products_short_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and language_id = '".$language_id."'");
   $product = xtc_db_fetch_array($product_query);
@@ -734,6 +1093,13 @@ function xtc_get_products_short_description($product_id, $language_id) {
   return $product['products_short_description'];
 }
 
+/**
+ * xtc_get_products_keywords()
+ * 
+ * @param mixed $product_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_products_keywords($product_id, $language_id) {
   $product_query = xtc_db_query("select products_keywords from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and language_id = '".$language_id."'");
   $product = xtc_db_fetch_array($product_query);
@@ -741,6 +1107,13 @@ function xtc_get_products_keywords($product_id, $language_id) {
   return $product['products_keywords'];
 }
 
+/**
+ * xtc_get_products_meta_title()
+ * 
+ * @param mixed $product_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_products_meta_title($product_id, $language_id) {
   $product_query = xtc_db_query("select products_meta_title from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and language_id = '".$language_id."'");
   $product = xtc_db_fetch_array($product_query);
@@ -748,6 +1121,13 @@ function xtc_get_products_meta_title($product_id, $language_id) {
   return $product['products_meta_title'];
 }
 
+/**
+ * xtc_get_products_meta_description()
+ * 
+ * @param mixed $product_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_products_meta_description($product_id, $language_id) {
   $product_query = xtc_db_query("select products_meta_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and language_id = '".$language_id."'");
   $product = xtc_db_fetch_array($product_query);
@@ -755,6 +1135,13 @@ function xtc_get_products_meta_description($product_id, $language_id) {
   return $product['products_meta_description'];
 }
 
+/**
+ * xtc_get_products_meta_keywords()
+ * 
+ * @param mixed $product_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_products_meta_keywords($product_id, $language_id) {
   $product_query = xtc_db_query("select products_meta_keywords from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and language_id = '".$language_id."'");
   $product = xtc_db_fetch_array($product_query);
@@ -762,6 +1149,13 @@ function xtc_get_products_meta_keywords($product_id, $language_id) {
   return $product['products_meta_keywords'];
 }
 
+/**
+ * xtc_get_products_url()
+ * 
+ * @param mixed $product_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_products_url($product_id, $language_id) {
   $product_query = xtc_db_query("select products_url from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and language_id = '".$language_id."'");
   $product = xtc_db_fetch_array($product_query);
@@ -771,6 +1165,13 @@ function xtc_get_products_url($product_id, $language_id) {
 
 // Return the manufacturers URL in the needed language
 // TABLES: manufacturers_info
+/**
+ * xtc_get_manufacturer_url()
+ * 
+ * @param mixed $manufacturer_id
+ * @param mixed $language_id
+ * @return
+ */
 function xtc_get_manufacturer_url($manufacturer_id, $language_id) {
   $manufacturer_query = xtc_db_query("select manufacturers_url from ".TABLE_MANUFACTURERS_INFO." where manufacturers_id = '".$manufacturer_id."' and languages_id = '".$language_id."'");
   $manufacturer = xtc_db_fetch_array($manufacturer_query);
@@ -780,6 +1181,12 @@ function xtc_get_manufacturer_url($manufacturer_id, $language_id) {
 
 // Wrapper for class_exists() function
 // This function is not available in all PHP versions so we test it before using it.
+/**
+ * xtc_class_exists()
+ * 
+ * @param mixed $class_name
+ * @return
+ */
 function xtc_class_exists($class_name) {
   if (function_exists('class_exists')) {
     return class_exists($class_name);
@@ -790,6 +1197,12 @@ function xtc_class_exists($class_name) {
 
 // Returns an array with countries
 // TABLES: countries
+/**
+ * xtc_get_countries()
+ * 
+ * @param string $default
+ * @return
+ */
 function xtc_get_countries($default = '') {
   $countries_array = array ();
   if ($default) {
@@ -804,6 +1217,12 @@ function xtc_get_countries($default = '') {
 }
 
 // return an array with country zones
+/**
+ * xtc_get_country_zones()
+ * 
+ * @param mixed $country_id
+ * @return
+ */
 function xtc_get_country_zones($country_id) {
   $zones_array = array ();
   $zones_query = xtc_db_query("select zone_id, zone_name from ".TABLE_ZONES." where zone_country_id = '".$country_id."' order by zone_name");
@@ -814,6 +1233,12 @@ function xtc_get_country_zones($country_id) {
   return $zones_array;
 }
 
+/**
+ * xtc_prepare_country_zones_pull_down()
+ * 
+ * @param string $country_id
+ * @return
+ */
 function xtc_prepare_country_zones_pull_down($country_id = '') {
     // preset the width of the drop-down for Netscape
   $pre = '';
@@ -841,6 +1266,11 @@ function xtc_prepare_country_zones_pull_down($country_id = '') {
 }
 
 // Get list of address_format_id's
+/**
+ * xtc_get_address_formats()
+ * 
+ * @return
+ */
 function xtc_get_address_formats() {
   $address_format_query = xtc_db_query("select address_format_id from ".TABLE_ADDRESS_FORMAT." order by address_format_id");
   $address_format_array = array ();
@@ -851,14 +1281,33 @@ function xtc_get_address_formats() {
 }
 
 // Alias function for Store configuration values in the Administration Tool
+/**
+ * xtc_cfg_pull_down_country_list()
+ * 
+ * @param mixed $country_id
+ * @return
+ */
 function xtc_cfg_pull_down_country_list($country_id) {
   return xtc_draw_pull_down_menu('configuration_value', xtc_get_countries(), $country_id);
 }
 
+/**
+ * xtc_cfg_pull_down_zone_list()
+ * 
+ * @param mixed $zone_id
+ * @return
+ */
 function xtc_cfg_pull_down_zone_list($zone_id) {
   return xtc_draw_pull_down_menu('configuration_value', xtc_get_country_zones(STORE_COUNTRY), $zone_id);
 }
 
+/**
+ * xtc_cfg_pull_down_tax_classes()
+ * 
+ * @param mixed $tax_class_id
+ * @param string $key
+ * @return
+ */
 function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
   $name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
 
@@ -876,12 +1325,25 @@ function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
 //function xtc_cfg_textarea($text) {
   //return xtc_draw_textarea_field('configuration_value', false, 35, 5, $text);
 //}
+/**
+ * xtc_cfg_textarea()
+ * 
+ * @param mixed $text
+ * @param string $key
+ * @return
+ */
 function xtc_cfg_textarea($text, $key = '') {
     $name = (isset($key) ? 'configuration[' . $key . ']' : 'configuration_value'); //DokuMan - set undefined $key
     return xtc_draw_textarea_field($name, false, 35, 3, $text, 'class="textareaModule"');
 }
 //EOF - web28- 2010-07-06 - added missing code
 
+/**
+ * xtc_cfg_get_zone_name()
+ * 
+ * @param mixed $zone_id
+ * @return
+ */
 function xtc_cfg_get_zone_name($zone_id) {
   $zone_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_id = '".$zone_id."'");
 
@@ -894,6 +1356,13 @@ function xtc_cfg_get_zone_name($zone_id) {
 }
 
 // Sets the status of a banner
+/**
+ * xtc_set_banner_status()
+ * 
+ * @param mixed $banners_id
+ * @param mixed $status
+ * @return
+ */
 function xtc_set_banner_status($banners_id, $status) {
   if ($status == '1') {
     return xtc_db_query("update ".TABLE_BANNERS." set status = '1', expires_impressions = NULL, expires_date = NULL, date_status_change = NULL where banners_id = '".$banners_id."'");
@@ -906,6 +1375,13 @@ function xtc_set_banner_status($banners_id, $status) {
 }
 
 // Sets the status of a product on special
+/**
+ * xtc_set_specials_status()
+ * 
+ * @param mixed $specials_id
+ * @param mixed $status
+ * @return
+ */
 function xtc_set_specials_status($specials_id, $status) {
   if ($status == '1') {
     return xtc_db_query("update ".TABLE_SPECIALS." set status = '1', expires_date = NULL, date_status_change = NULL where specials_id = '".$specials_id."'");
@@ -919,6 +1395,12 @@ function xtc_set_specials_status($specials_id, $status) {
 
 // Sets timeout for the current script.
 // Cant be used in safe mode.
+/**
+ * xtc_set_time_limit()
+ * 
+ * @param mixed $limit
+ * @return
+ */
 function xtc_set_time_limit($limit) {
   if (!get_cfg_var('safe_mode')) {
     @ set_time_limit($limit);
@@ -926,6 +1408,14 @@ function xtc_set_time_limit($limit) {
 }
 
 // Alias function for Store configuration values in the Administration Tool
+/**
+ * xtc_cfg_select_option()
+ * 
+ * @param mixed $select_array
+ * @param mixed $key_value
+ * @param string $key
+ * @return
+ */
 function xtc_cfg_select_option($select_array, $key_value, $key = '') {
   $string = '';
   for ($i = 0, $n = sizeof($select_array); $i < $n; $i ++) {
@@ -949,6 +1439,14 @@ function xtc_cfg_select_option($select_array, $key_value, $key = '') {
 }
 
 // Alias function for module configuration keys
+/**
+ * xtc_mod_select_option()
+ * 
+ * @param mixed $select_array
+ * @param mixed $key_name
+ * @param mixed $key_value
+ * @return
+ */
 function xtc_mod_select_option($select_array, $key_name, $key_value) {
   reset($select_array);
   while (list ($key, $value) = each($select_array)) {
@@ -964,6 +1462,11 @@ function xtc_mod_select_option($select_array, $key_name, $key_value) {
 }
 
 // Retreive server information
+/**
+ * xtc_get_system_information()
+ * 
+ * @return
+ */
 function xtc_get_system_information() {
 
   $db_query = xtc_db_query("select now() as datetime");
@@ -974,6 +1477,12 @@ function xtc_get_system_information() {
   return array ('date' => xtc_datetime_short(date('Y-m-d H:i:s')), 'system' => $system, 'kernel' => $kernel, 'host' => $host, 'ip' => gethostbyname($host), 'uptime' => @ exec('uptime'), 'http_server' => $_SERVER['SERVER_SOFTWARE'], 'php' => PHP_VERSION, 'zend' => (function_exists('zend_version') ? zend_version() : ''), 'db_server' => DB_SERVER, 'db_ip' => gethostbyname(DB_SERVER), 'db_version' => 'MySQL '. (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''), 'db_date' => xtc_datetime_short($db['datetime']));
 }
 
+/**
+ * xtc_array_shift()
+ * 
+ * @param mixed $array
+ * @return
+ */
 function xtc_array_shift(& $array) {
   if (function_exists('array_shift')) {
     return array_shift($array);
@@ -995,6 +1504,12 @@ function xtc_array_shift(& $array) {
   }
 }
 
+/**
+ * xtc_array_reverse()
+ * 
+ * @param mixed $array
+ * @return
+ */
 function xtc_array_reverse($array) {
   if (function_exists('array_reverse')) {
     return array_reverse($array);
@@ -1007,6 +1522,15 @@ function xtc_array_reverse($array) {
   }
 }
 
+/**
+ * xtc_generate_category_path()
+ * 
+ * @param mixed $id
+ * @param string $from
+ * @param string $categories_array
+ * @param integer $index
+ * @return
+ */
 function xtc_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
 
   if (!is_array($categories_array))
@@ -1039,6 +1563,13 @@ function xtc_generate_category_path($id, $from = 'category', $categories_array =
   return $categories_array;
 }
 
+/**
+ * xtc_output_generated_category_path()
+ * 
+ * @param mixed $id
+ * @param string $from
+ * @return
+ */
 function xtc_output_generated_category_path($id, $from = 'category') {
   $calculated_category_path_string = '';
   $calculated_category_path = xtc_generate_category_path($id, $from);
@@ -1057,6 +1588,12 @@ function xtc_output_generated_category_path($id, $from = 'category') {
 }
 
 //deletes all product image files by filename
+/**
+ * xtc_del_image_file()
+ * 
+ * @param mixed $image
+ * @return
+ */
 function xtc_del_image_file($image) {
   if (file_exists(DIR_FS_CATALOG_POPUP_IMAGES.$image)) {
     @ unlink(DIR_FS_CATALOG_POPUP_IMAGES.$image);
@@ -1072,6 +1609,13 @@ function xtc_del_image_file($image) {
   }
 }
 
+/**
+ * xtc_remove_order()
+ * 
+ * @param mixed $order_id
+ * @param bool $restock
+ * @return
+ */
 function xtc_remove_order($order_id, $restock = false) {
   if ($restock == 'on') {
     $order_query = xtc_db_query("select products_id, products_quantity from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".xtc_db_input($order_id)."'");
@@ -1087,6 +1631,12 @@ function xtc_remove_order($order_id, $restock = false) {
   xtc_db_query("delete from ".TABLE_ORDERS_TOTAL." where orders_id = '".xtc_db_input($order_id)."'");
 }
 
+/**
+ * xtc_reset_cache_block()
+ * 
+ * @param mixed $cache_block
+ * @return
+ */
 function xtc_reset_cache_block($cache_block) {
   global $cache_blocks;
 
@@ -1119,6 +1669,12 @@ function xtc_reset_cache_block($cache_block) {
   }
 }
 
+/**
+ * xtc_get_file_permissions()
+ * 
+ * @param mixed $mode
+ * @return
+ */
 function xtc_get_file_permissions($mode) {
   // determine type
   if (($mode & 0xC000) == 0xC000) { // unix domain socket
@@ -1167,6 +1723,14 @@ function xtc_get_file_permissions($mode) {
   return $type.$owner['read'].$owner['write'].$owner['execute'].$group['read'].$group['write'].$group['execute'].$world['read'].$world['write'].$world['execute'];
 }
 
+/**
+ * xtc_array_slice()
+ * 
+ * @param mixed $array
+ * @param mixed $offset
+ * @param string $length
+ * @return
+ */
 function xtc_array_slice($array, $offset, $length = '0') {
   if (function_exists('array_slice')) {
     return array_slice($array, $offset, $length);
@@ -1186,6 +1750,12 @@ function xtc_array_slice($array, $offset, $length = '0') {
   }
 }
 
+/**
+ * xtc_remove()
+ * 
+ * @param mixed $source
+ * @return
+ */
 function xtc_remove($source) {
   global $messageStack, $xtc_remove_error;
 
@@ -1224,6 +1794,12 @@ function xtc_remove($source) {
 
 // Wrapper for constant() function
 // Needed because its only available in PHP 4.0.4 and higher.
+/**
+ * xtc_constant()
+ * 
+ * @param mixed $constant
+ * @return
+ */
 function xtc_constant($constant) {
   if (function_exists('constant')) {
     $temp = constant($constant);
@@ -1234,6 +1810,13 @@ function xtc_constant($constant) {
 }
 
 // Output the tax percentage with optional padded decimals
+/**
+ * xtc_display_tax_value()
+ * 
+ * @param mixed $value
+ * @param mixed $padding
+ * @return
+ */
 function xtc_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
   if (strpos($value, '.')) {
     $loop = true;
@@ -1266,6 +1849,12 @@ function xtc_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
   return $value;
 }
 
+/**
+ * xtc_get_tax_class_title()
+ * 
+ * @param mixed $tax_class_id
+ * @return
+ */
 function xtc_get_tax_class_title($tax_class_id) {
   if ($tax_class_id == '0') {
     return TEXT_NONE;
@@ -1277,6 +1866,11 @@ function xtc_get_tax_class_title($tax_class_id) {
   }
 }
 
+/**
+ * xtc_banner_image_extension()
+ * 
+ * @return
+ */
 function xtc_banner_image_extension() {
   if (function_exists('imagetypes')) {
     if (imagetypes() & IMG_PNG) {
@@ -1303,24 +1897,52 @@ function xtc_banner_image_extension() {
 }
 
 // Wrapper function for round()
+/**
+ * xtc_round()
+ * 
+ * @param mixed $value
+ * @param mixed $precision
+ * @return
+ */
 function xtc_round($value, $precision) {
   return round($value, $precision);
 }
 
 // Calculates Tax rounding the result
+/**
+ * xtc_calculate_tax()
+ * 
+ * @param mixed $price
+ * @param mixed $tax
+ * @return
+ */
 function xtc_calculate_tax($price, $tax) {
   global $currencies;
   return xtc_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
 }
 
+/**
+ * xtc_call_function()
+ * 
+ * @param mixed $function
+ * @param mixed $parameter
+ * @param string $object
+ * @return
+ */
 function xtc_call_function($function, $parameter, $object = '') {
-  if ($object == '') {
+  if (empty($object) {
     return call_user_func($function, $parameter);
   } else {
     return call_user_func(array ($object, $function), $parameter);
   }
 }
 
+/**
+ * xtc_get_zone_class_title()
+ * 
+ * @param mixed $zone_class_id
+ * @return
+ */
 function xtc_get_zone_class_title($zone_class_id) {
   if ($zone_class_id == '0') {
     return TEXT_NONE;
@@ -1332,6 +1954,11 @@ function xtc_get_zone_class_title($zone_class_id) {
   }
 }
 
+/**
+ * xtc_cfg_pull_down_template_sets()
+ * 
+ * @return
+ */
 function xtc_cfg_pull_down_template_sets() {
   $name = (isset($key) ? 'configuration['.$key.']' : 'configuration_value'); //DokuMan - set undefined $key
   if ($dir = opendir(DIR_FS_CATALOG.'templates/')) {
@@ -1346,6 +1973,13 @@ function xtc_cfg_pull_down_template_sets() {
   }
 }
 
+/**
+ * xtc_cfg_pull_down_zone_classes()
+ * 
+ * @param mixed $zone_class_id
+ * @param string $key
+ * @return
+ */
 function xtc_cfg_pull_down_zone_classes($zone_class_id, $key = '') {
   $name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
 
@@ -1358,6 +1992,13 @@ function xtc_cfg_pull_down_zone_classes($zone_class_id, $key = '') {
   return xtc_draw_pull_down_menu($name, $zone_class_array, $zone_class_id);
 }
 
+/**
+ * xtc_cfg_pull_down_order_statuses()
+ * 
+ * @param mixed $order_status_id
+ * @param string $key
+ * @return
+ */
 function xtc_cfg_pull_down_order_statuses($order_status_id, $key = '') {
 
   $name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
@@ -1371,6 +2012,13 @@ function xtc_cfg_pull_down_order_statuses($order_status_id, $key = '') {
   return xtc_draw_pull_down_menu($name, $statuses_array, $order_status_id);
 }
 
+/**
+ * xtc_get_order_status_name()
+ * 
+ * @param mixed $order_status_id
+ * @param string $language_id
+ * @return
+ */
 function xtc_get_order_status_name($order_status_id, $language_id = '') {
 
   if ($order_status_id < 1)
@@ -1386,6 +2034,13 @@ function xtc_get_order_status_name($order_status_id, $language_id = '') {
 }
 
 // Return a random value
+/**
+ * xtc_rand()
+ * 
+ * @param mixed $min
+ * @param mixed $max
+ * @return
+ */
 function xtc_rand($min = null, $max = null) {
   static $seeded;
 
@@ -1406,6 +2061,14 @@ function xtc_rand($min = null, $max = null) {
 }
 
 // nl2br() prior PHP 4.2.0 did not convert linefeeds on all OSs (it only converted \n)
+/**
+ * xtc_convert_linefeeds()
+ * 
+ * @param mixed $from
+ * @param mixed $to
+ * @param mixed $string
+ * @return
+ */
 function xtc_convert_linefeeds($from, $to, $string) {
   if ((PHP_VERSION < "4.0.5") && is_array($from)) {
     return preg_replace('/('.implode('|', $from).')/', $to, $string); // Hetfield - 2009-08-19 - replaced deprecated function ereg_replace with preg_replace to be ready for PHP >= 5.3
@@ -1416,6 +2079,11 @@ function xtc_convert_linefeeds($from, $to, $string) {
 
 // Return all customers statuses for a specified language_id and return an array(array())
 // Use it to make pull_down_menu, checkbox....
+/**
+ * xtc_get_customers_statuses()
+ * 
+ * @return
+ */
 function xtc_get_customers_statuses() {
 
   $customers_statuses_array = array (array ());
@@ -1451,6 +2119,12 @@ function xtc_get_customers_statuses() {
   return $customers_statuses_array;
 }
 
+/**
+ * xtc_get_customer_status()
+ * 
+ * @param mixed $customers_id
+ * @return
+ */
 function xtc_get_customer_status($customers_id) {
 
   $customer_status_array = array ();
@@ -1459,6 +2133,13 @@ function xtc_get_customer_status($customers_id) {
   return $customer_status_array;
 }
 
+/**
+ * xtc_get_customers_status_name()
+ * 
+ * @param mixed $customers_status_id
+ * @param string $language_id
+ * @return
+ */
 function xtc_get_customers_status_name($customers_status_id, $language_id = '') {
 
   if (!$language_id)
@@ -1469,6 +2150,13 @@ function xtc_get_customers_status_name($customers_status_id, $language_id = '') 
 }
 
 //to set customers status in admin for default value, newsletter, guest...
+/**
+ * xtc_cfg_pull_down_customers_status_list()
+ * 
+ * @param mixed $customers_status_id
+ * @param string $key
+ * @return
+ */
 function xtc_cfg_pull_down_customers_status_list($customers_status_id, $key = '') {
   $name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
   return xtc_draw_pull_down_menu($name, xtc_get_customers_statuses(), $customers_status_id);
@@ -1476,12 +2164,24 @@ function xtc_cfg_pull_down_customers_status_list($customers_status_id, $key = ''
 
 // Function for collecting ip
 // return all log info for a customer_id
+/**
+ * xtc_get_user_info()
+ * 
+ * @param mixed $customer_id
+ * @return
+ */
 function xtc_get_user_info($customer_id) {
   $user_info_array = xtc_db_query("select customers_ip, customers_ip_date, customers_host, customers_advertiser, customers_referer_url FROM ".TABLE_CUSTOMERS_IP." where customers_id = '".$customer_id."'");
   return $user_info_array;
 }
 
 //---------------------------------------------------------------kommt wieder raus spaeter!!
+/**
+ * xtc_get_uploaded_file()
+ * 
+ * @param mixed $filename
+ * @return
+ */
 function xtc_get_uploaded_file($filename) {
   if (isset ($_FILES[$filename])) {
     $uploaded_file = array ('name' => $_FILES[$filename]['name'], 'type' => $_FILES[$filename]['type'], 'size' => $_FILES[$filename]['size'], 'tmp_name' => $_FILES[$filename]['tmp_name']);
@@ -1495,6 +2195,13 @@ function xtc_get_uploaded_file($filename) {
   return $uploaded_file;
 }
 
+/**
+ * get_group_price()
+ * 
+ * @param mixed $group_id
+ * @param mixed $product_id
+ * @return
+ */
 function get_group_price($group_id, $product_id) {
   // well, first try to get group price from database
   $group_price_query = xtc_db_query("SELECT personal_offer FROM ".TABLE_PERSONAL_OFFERS_BY.$group_id." WHERE products_id = '".$product_id."' and quantity=1");
@@ -1521,6 +2228,16 @@ function get_group_price($group_id, $product_id) {
   return $group_price_data['personal_offer'];
 }
 
+/**
+ * format_price()
+ * 
+ * @param mixed $price_string
+ * @param mixed $price_special
+ * @param mixed $currency
+ * @param mixed $allow_tax
+ * @param mixed $tax_rate
+ * @return
+ */
 function format_price($price_string, $price_special, $currency, $allow_tax, $tax_rate) {
   // calculate currencies
   $currencies_query = xtc_db_query("SELECT
@@ -1546,16 +2263,38 @@ function format_price($price_string, $price_special, $currency, $allow_tax, $tax
   return $price_string;
 }
 
+/**
+ * precision()
+ * 
+ * @param mixed $number
+ * @param mixed $places
+ * @return
+ */
 function precision($number, $places) {
   $number = number_format($number, $places, '.', '');
   return $number;
 }
 
+/**
+ * xtc_get_lang_definition()
+ * 
+ * @param mixed $search_lang
+ * @param mixed $lang_array
+ * @param mixed $modifier
+ * @return
+ */
 function xtc_get_lang_definition($search_lang, $lang_array, $modifier) {
   $search_lang = $search_lang.$modifier;
   return $lang_array[$search_lang];
 }
 
+/**
+ * xtc_CheckExt()
+ * 
+ * @param mixed $filename
+ * @param mixed $ext
+ * @return
+ */
 function xtc_CheckExt($filename, $ext) {
   $passed = FALSE;
   $testExt = "\.".$ext."$";
@@ -1565,11 +2304,24 @@ function xtc_CheckExt($filename, $ext) {
   return $passed;
 }
 
+/**
+ * xtc_get_status_users()
+ * 
+ * @param mixed $status_id
+ * @return
+ */
 function xtc_get_status_users($status_id) {
   $status_query = xtc_db_query("SELECT count(customers_status) as count FROM ".TABLE_CUSTOMERS." WHERE customers_status = '".$status_id."'");
   $status_data = xtc_db_fetch_array($status_query);
   return $status_data['count'];
 }
+/**
+ * xtc_mkdirs()
+ * 
+ * @param mixed $path
+ * @param mixed $perm
+ * @return
+ */
 function xtc_mkdirs($path, $perm) {
 
   if (is_dir($path)) {
@@ -1584,6 +2336,12 @@ function xtc_mkdirs($path, $perm) {
   }
 }
 
+/**
+ * xtc_spaceUsed()
+ * 
+ * @param mixed $dir
+ * @return
+ */
 function xtc_spaceUsed($dir) {
   if (is_dir($dir)) {
     if ($dh = opendir($dir)) {
@@ -1599,6 +2357,13 @@ function xtc_spaceUsed($dir) {
   }
 }
 
+/**
+ * create_coupon_code()
+ * 
+ * @param string $salt
+ * @param mixed $length
+ * @return
+ */
 function create_coupon_code($salt = "secret", $length = SECURITY_CODE_LENGTH) {
   $ccid = md5(uniqid("", "salt"));
   $ccid .= md5(uniqid("", "salt"));
@@ -1617,6 +2382,13 @@ function create_coupon_code($salt = "secret", $length = SECURITY_CODE_LENGTH) {
 }
 
 // Update the Customers GV account
+/**
+ * xtc_gv_account_update()
+ * 
+ * @param mixed $customer_id
+ * @param mixed $gv_id
+ * @return
+ */
 function xtc_gv_account_update($customer_id, $gv_id) {
   $customer_gv_query = xtc_db_query("select amount from ".TABLE_COUPON_GV_CUSTOMER." where customer_id = '".$customer_id."'");
   $coupon_gv_query = xtc_db_query("select coupon_amount from ".TABLE_COUPONS." where coupon_id = '".$gv_id."'");
@@ -1631,6 +2403,13 @@ function xtc_gv_account_update($customer_id, $gv_id) {
 }
 
 // Output a day/month/year dropdown selector
+/**
+ * xtc_draw_date_selector()
+ * 
+ * @param mixed $prefix
+ * @param string $date
+ * @return
+ */
 function xtc_draw_date_selector($prefix, $date = '') {
   $month_array = array ();
   $month_array[1] = _JANUARY;
@@ -1676,8 +2455,12 @@ function xtc_draw_date_selector($prefix, $date = '') {
   return $date_selector;
 }
 
+/**
+ * xtc_getDownloads()
+ * 
+ * @return
+ */
 function xtc_getDownloads() {
-
   $files = array ();
   $dir = DIR_FS_CATALOG.'download/';
   if ($fp = opendir($dir)) {
@@ -1692,6 +2475,16 @@ function xtc_getDownloads() {
   return $files;
 }
 
+/**
+ * xtc_try_upload()
+ * 
+ * @param string $file
+ * @param string $destination
+ * @param string $permissions
+ * @param string $extensions
+ * @param string $mime_types
+ * @return
+ */
 function xtc_try_upload($file = '', $destination = '', $permissions = '777', $extensions = '', $mime_types = '') {
   $file_object = new upload($file, $destination, $permissions, $extensions, $mime_types);
   if ($file_object->filename != '')
@@ -1700,16 +2493,38 @@ function xtc_try_upload($file = '', $destination = '', $permissions = '777', $ex
     return false;
 }
 
+/**
+ * xtc_button()
+ * 
+ * @param mixed $value
+ * @param string $type
+ * @param string $parameter
+ * @return
+ */
 function xtc_button($value, $type='submit', $parameter='') {
    return '<input type="'.$type.'" class="button" onclick="this.blur();" value="' . $value . '" ' . $parameter . ' >';
 }
 
+/**
+ * xtc_button_link()
+ * 
+ * @param mixed $value
+ * @param string $href
+ * @param string $parameter
+ * @return
+ */
 function xtc_button_link($value, $href='javascript:void(null)', $parameter='') {
    return '<a href="'.$href.'" class="button" onclick="this.blur()" '.$parameter.' >'.$value.'</a>';
 }
 
 //BOF - DokuMan - 2011-01-06 - added missing function xtc_get_products_special_price
 // Return a product's special price (returns nothing if there is no offer)
+/**
+ * xtc_get_products_special_price()
+ * 
+ * @param mixed $product_id
+ * @return
+ */
 function xtc_get_products_special_price($product_id){
   $product_query = xtc_db_query("select specials_new_products_price from " . TABLE_SPECIALS . "where products_id = '" . (int)$product_id . "' and status = 1");
   $product = xtc_db_fetch_array($product_query);
@@ -1718,6 +2533,12 @@ function xtc_get_products_special_price($product_id){
 //EOF - DokuMan - 2011-01-06 - added missing function xtc_get_products_special_price
 
 //BOF - franky_n - 2011-01-17 - added value correction function for wrong input prices, weight, dicscount
+/**
+ * xtc_convert_value()
+ * 
+ * @param mixed $number
+ * @return
+ */
 function xtc_convert_value($number) {
   // Correct wrong input number
   if ((strpos($number, ",")) && (strpos($number, "."))) {
