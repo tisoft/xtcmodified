@@ -1,6 +1,6 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: orders_edit.php,v 1.1
+   $Id: 
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -79,7 +79,7 @@
     //BOF web28 - 2010-12-04 - Fix Kundergruppenwechsel mit Steueränderung
     $product_query = xtc_db_query("select allow_tax, products_tax from " . TABLE_ORDERS_PRODUCTS . " WHERE products_id = " . (int)($_POST['products_id']) . " AND orders_products_id = " . (int)($_POST['opID']));
     $product = xtc_db_fetch_array($product_query);
-    $products_a_query = xtc_db_query("select orders_products_attributes_id, options_values_price from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_products_id = '".(int)($_POST['opID']."'"));  
+    $products_a_query = xtc_db_query("select orders_products_attributes_id, options_values_price from ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES." where orders_products_id = '".(int)($_POST['opID'])."'");  
     //Produktpreise neu berechnen - Steuer hinzufügen
     if ($status['customers_status_show_price_tax'] == 1 && $product['allow_tax'] == 0) {
       $_POST['products_price'] += $_POST['products_price'] /100 * $product['products_tax'];
