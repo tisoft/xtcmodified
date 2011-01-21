@@ -462,10 +462,10 @@ define('YOUR_PRICE','your price ');
 // BOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
 define('UNIT_PRICE','unit price ');
 // EOF - Tomcraft - 2009-10-09 - Added text-constant for unit price
-define('ONLY',' only ');
+define('ONLY',' Now only ');// DokuMan - Werbung mit durchgestrichenen Statt-Preisen ist zulässig
 define('FROM','from ');
 define('YOU_SAVE','you save ');
-define('INSTEAD','instead of ');
+define('INSTEAD','Our previous price ');// DokuMan - Werbung mit durchgestrichenen Statt-Preisen ist zulässig
 define('TXT_PER',' per ');
 define('TAX_INFO_INCL','%s VAT incl.');
 define('TAX_INFO_EXCL','%s VAT excl.');
