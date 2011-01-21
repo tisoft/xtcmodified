@@ -425,11 +425,11 @@ if (SESSION_CHECK_IP_ADDRESS == 'True') {
 //BOF - DokuMan - 2010-05-20
 // Redirect search engines with session id to the same url without session id to prevent indexing session id urls
 if ( $truncate_session_id == true ) {
-    if (preg_match('/' . xtc_session_name() . '/i', $_SERVER['REQUEST_URI']) ){
-        $location = xtc_href_link(basename($_SERVER['SCRIPT_NAME']), xtc_get_all_get_params(array(xtc_session_name())), 'NONSSL', false);
-        header("HTTP/1.0 301 Moved Permanently");
-        header("Location: $location");
-    }
+  if (preg_match('/' . xtc_session_name() . '/i', $_SERVER['REQUEST_URI']) ){
+    $location = xtc_href_link(basename($_SERVER['SCRIPT_NAME']), xtc_get_all_get_params(array(xtc_session_name())), 'NONSSL', false);
+    header("HTTP/1.0 301 Moved Permanently");
+    header("Location: $location");
+  }
 }
 
 if (!(preg_match('/^[a-z0-9]{26}$/i', session_id()) || preg_match('/^[a-z0-9]{32}$/i', session_id()))) {
@@ -449,13 +449,12 @@ if (!isset ($_SESSION['language']) || isset ($_GET['language'])) {
     $lng->get_browser_language();
   */
   if (!isset ($_GET['language'])) {
-      $lng = new language(xtc_input_validation('', 'char', ''));
-      $lng->get_browser_language();
+    $lng = new language(xtc_input_validation('', 'char', ''));
+    $lng->get_browser_language();
   } else {
-      $lng = new language(xtc_input_validation($_GET['language'], 'char', ''));
+    $lng = new language(xtc_input_validation($_GET['language'], 'char', ''));
   }
   //EOF - DokuMan - 2010-09-17 - Undefined index: language on first request
-
   $_SESSION['language'] = $lng->language['directory'];
   $_SESSION['languages_id'] = $lng->language['id'];
   $_SESSION['language_charset'] = $lng->language['language_charset'];
@@ -518,10 +517,14 @@ if (TRACKING_ECONDA_ACTIVE=='true') {
   $econda = new econda();
 }
 
-// BOF - web28 - 2010-05-06 - PayPal API Modul
-require_once (DIR_WS_CLASSES.'paypal_checkout.php');
-$o_paypal = new paypal_checkout();
-// EOF -  web28 - 2010-05-06 - PayPal API Modul
+// BOF - DokuMan - 2011-01-21 - Fix notices when PayPal API Modul is not enabled
+//require_once (DIR_WS_CLASSES.'paypal_checkout.php');
+//$o_paypal = new paypal_checkout();
+if (defined('PAYPAL_API_VERSION')) {
+    require_once (DIR_WS_CLASSES . 'paypal_checkout.php');
+    $o_paypal = new paypal_checkout();
+}
+// EOF - DokuMan - 2011-01-21 - Fix notices when PayPal API Modul is not enabled
 
 require (DIR_WS_INCLUDES.FILENAME_CART_ACTIONS);
 // create the shopping cart & fix the cart if necesary
