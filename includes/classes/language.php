@@ -68,11 +68,11 @@ if ( !class_exists( "language" ) ) {
                                'zh' => array('zh|chinese simplified', 'chinese_gb', 'zh'));
 
       $this->catalog_languages = array();
-// BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      // BOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
       //$languages_query = xtc_db_query("select languages_id, name, code, image, directory,language_charset from " . TABLE_LANGUAGES . " order by sort_order");
       $languages_query = xtc_db_query("select languages_id, name, code, image, directory,language_charset from " . TABLE_LANGUAGES . " where status = '1' order by sort_order");
-// EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
-    while ($languages = xtc_db_fetch_array($languages_query)) {
+      // EOF - Tomcraft - 2009-11-08 - Added option to deactivate languages
+      while ($languages = xtc_db_fetch_array($languages_query)) {
         $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
                                                              'name' => $languages['name'],
                                                              'image' => $languages['image'],
@@ -95,6 +95,7 @@ if ( !class_exists( "language" ) ) {
       } else {
           $this->language = $this->catalog_languages[key($this->catalog_languages)];
       //EOF - DokuMan - 2011-01-21 - Fix language detection error
+      }
     }
 
     function get_browser_language() {
