@@ -17,32 +17,24 @@
    --------------------------------------------------------------*/
   // Some FileSystem Directories
   if (!defined('DIR_FS_DOCUMENT_ROOT')) {
-    //BOF - DokuMan - 2010-01-21 - Fix path errors in installer
-    /*
-      //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
-      if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {
-        define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));
-      } else {
-        define('DIR_FS_DOCUMENT_ROOT', rtrim($_SERVER['DOCUMENT_ROOT'],'/'));
-      }
-      //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
-      $local_install_path=str_replace('/xtc_installer','',$_SERVER['PHP_SELF']);
-      $local_install_path=str_replace('index.php','',$local_install_path);
-      $local_install_path=str_replace('install_step1.php','',$local_install_path);
-      $local_install_path=str_replace('install_step2.php','',$local_install_path);
-      $local_install_path=str_replace('install_step3.php','',$local_install_path);
-      $local_install_path=str_replace('install_step4.php','',$local_install_path);
-      $local_install_path=str_replace('install_step5.php','',$local_install_path);
-      $local_install_path=str_replace('install_step6.php','',$local_install_path);
-      $local_install_path=str_replace('install_step7.php','',$local_install_path);
-      $local_install_path=str_replace('install_finished.php','',$local_install_path);
-      define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . $local_install_path);
-    */
-    $baseFilePath = str_replace(DIRECTORY_SEPARATOR, '/', __FILE__);
-    define('DIR_FS_CATALOG', substr($baseFilePath, 0, strpos($baseFilePath, 'xtc_installer')));
-    define('DIR_FS_DOCUMENT_ROOT', substr(DIR_FS_CATALOG, 0, strrpos(DIR_FS_CATALOG, DIRECTORY_SEPARATOR, -2)));
-    $local_install_path = substr(DIR_FS_CATALOG, strlen(DIR_FS_DOCUMENT_ROOT));
-    //EOF - DokuMan - 2010-01-21 - Fix path errors in installer
+    //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+    if (strpos($_SERVER['DOCUMENT_ROOT'],'strato') !== FALSE) {
+      define('DIR_FS_DOCUMENT_ROOT', str_replace($_SERVER["PHP_SELF"],'',$_SERVER["SCRIPT_FILENAME"]));
+    } else {
+      define('DIR_FS_DOCUMENT_ROOT', rtrim($_SERVER['DOCUMENT_ROOT'],'/'));
+    }
+    //EOF - web28 - 2010.02.18 - STRATO ROOT PATCH
+    $local_install_path=str_replace('/xtc_installer','',$_SERVER['PHP_SELF']);
+    $local_install_path=str_replace('index.php','',$local_install_path);
+    $local_install_path=str_replace('install_step1.php','',$local_install_path);
+    $local_install_path=str_replace('install_step2.php','',$local_install_path);
+    $local_install_path=str_replace('install_step3.php','',$local_install_path);
+    $local_install_path=str_replace('install_step4.php','',$local_install_path);
+    $local_install_path=str_replace('install_step5.php','',$local_install_path);
+    $local_install_path=str_replace('install_step6.php','',$local_install_path);
+    $local_install_path=str_replace('install_step7.php','',$local_install_path);
+    $local_install_path=str_replace('install_finished.php','',$local_install_path);
+    define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . $local_install_path);
   }
   if (!defined('DIR_FS_INC'))
     define('DIR_FS_INC', DIR_FS_CATALOG.'inc/');
