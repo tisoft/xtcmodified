@@ -56,7 +56,7 @@
     $order_exists = false;
     if (xtc_db_num_rows($orders_query) == 1) {
       $order_exists = true;
-      $ oID_array = xtc_db_fetch_array($orders_query);
+      $oID_array = xtc_db_fetch_array($orders_query);
       $oID = $oID_array['orders_id'];
       $_GET['action'] = 'edit';
       $action = 'edit';
