@@ -1930,7 +1930,7 @@ function xtc_calculate_tax($price, $tax) {
  * @return
  */
 function xtc_call_function($function, $parameter, $object = '') {
-  if (empty($object) {
+  if (empty($object)) {
     return call_user_func($function, $parameter);
   } else {
     return call_user_func(array ($object, $function), $parameter);
