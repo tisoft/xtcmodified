@@ -50,17 +50,15 @@ class product {
     if ($_SESSION['customers_status']['customers_fsk18_display'] == '0') {
       $fsk_lock = ' and p.products_fsk18!=1';
     }
-
-    $product_query = "select * FROM
-                               ".TABLE_PRODUCTS." p,
-                               ".TABLE_PRODUCTS_DESCRIPTION." pd
-                               where p.products_status = 1
-                               and p.products_id = ".$this->pID."
-                               and pd.products_id = p.products_id
-                               ".$group_check
-                               .$fsk_lock."
-                               and pd.language_id = ".(int) $_SESSION['languages_id'];
-
+    
+    // BOF - web28 - 2011-01-22 - update to SQL-92-Standard
+    $product_query = "SELECT * FROM".TABLE_PRODUCTS." AS p 
+                               JOIN ".TABLE_PRODUCTS_DESCRIPTION." AS pd ON p.products_status = '1' 
+                               AND	p.products_id = '".$this->pID."' 
+                               AND pd.products_id = p.products_id ".$group_check.$fsk_lock." 
+                               AND pd.language_id = '".(int)$_SESSION['languages_id']."'";
+    // BOF - web28 - 2011-01-22 - update to SQL-92-Standard
+    
     $product_query = xtDBquery($product_query);
 
     if (!xtc_db_num_rows($product_query, true)) {
@@ -186,11 +184,13 @@ class product {
     }
 
     // BOF - vr - 2010-04-21 make sql human readable, update to SQL-92-Standard
+    // BOF - web28 - 2011-01-22 - add products_quantity
     $orders_query = "select p.products_fsk18,
                             p.products_id,
                             p.products_price,
                             p.products_tax_class_id,
                             p.products_image,
+                            p.products_quantity,
                             pd.products_name,
                             p.products_vpe,
                             p.products_vpe_status,
@@ -210,6 +210,7 @@ class product {
                             group by p.products_id
                             order by o.date_purchased desc
                             limit ".MAX_DISPLAY_ALSO_PURCHASED;
+    // EOF - web28 - 2011-01-22 - add products_quantity
     // EOF - vr - 2010-04-21 make sql human readable
     $orders_query = xtDBquery($orders_query);
     while ($orders = xtc_db_fetch_array($orders_query, true)) {
@@ -241,11 +242,12 @@ class product {
         if (GROUP_CHECK == 'true') {
           $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
         }
-
+        // BOF - web28 - 2011-01-22 - add products_quantity
         $cross_query = "select p.products_fsk18,
                                p.products_tax_class_id,
                                p.products_id,
                                p.products_image,
+                               p.products_quantity,
                                pd.products_name,
                                pd.products_short_description,
                                p.products_fsk18,
@@ -266,7 +268,7 @@ class product {
                            and pd.language_id = ".(int)$_SESSION['languages_id']."
                            and p.products_status = 1
                          order by xp.sort_order asc";
-
+        // EOF - web28 - 2011-01-22 - add products_quantity
         $cross_query = xtDBquery($cross_query);
         if (xtc_db_num_rows($cross_query, true) > 0)
           $cross_sell_data[$cross_sells['products_xsell_grp_name_id']] = array (
@@ -296,11 +298,12 @@ class product {
     if (GROUP_CHECK == 'true') {
       $group_check = " and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
     }
-
+    // BOF - web28 - 2011-01-22 - add products_quantity
     $cross_query = xtDBquery("select p.products_fsk18,
                                      p.products_tax_class_id,
                                      p.products_id,
                                      p.products_image,
+                                     p.products_quantity,
                                      pd.products_name,
                                      pd.products_short_description,
                                      p.products_fsk18,
@@ -320,7 +323,8 @@ class product {
                                      and pd.language_id = ".(int)$_SESSION['languages_id']."
                                      and p.products_status = 1
                                      order by xp.sort_order asc");
-
+    // EOF - web28 - 2011-01-22 - add products_quantity
+    
     $cross_sell_data = array(); //DokuMan - 2010-03-12 - set undefined array
     while ($xsell = xtc_db_fetch_array($cross_query, true)) {
       $cross_sell_data[] = $this->buildDataArray($xsell);
