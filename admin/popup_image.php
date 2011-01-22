@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -40,19 +40,20 @@
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>">
-<title><?php echo $page_title; ?></title>
-<script type="text/javascript"><!--
-var i=0;
-
-function resize() {
-  if (navigator.appName == 'Netscape') i = 40;
-  window.resizeTo(document.images[0].width + 30, document.images[0].height + 60 - i);
-}
-//--></script>
-</head>
-<body onload="resize();">
-<?php echo $image_source; ?>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" />
+    <title><?php echo $page_title; ?></title>
+    <script type="text/javascript">
+      <!--
+      var i=0;
+      function resize() {
+        if (navigator.appName == 'Netscape') i = 40;
+        window.resizeTo(document.images[0].width + 30, document.images[0].height + 60 - i);
+      }
+      //-->
+    </script>
+  </head>
+  <body onload="resize();">
+    <?php echo $image_source; ?>
+  </body>
 </html>
