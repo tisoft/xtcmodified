@@ -745,7 +745,7 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
     $firstname = addslashes($address['name']);
   if (empty($country))
     $country = addslashes($address['country']);
-  if (!empty($state)
+  if (!empty($state))
     $statecomma = $state.', ';
 
   $fmt = $address_format['format'];
