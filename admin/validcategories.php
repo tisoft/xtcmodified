@@ -1,5 +1,5 @@
 <?php
-   /* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id: validcategories.php 1316 2005-10-21 15:30:58Z mz $
 
     xtcModified - community made shopping
@@ -27,49 +27,46 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-
-require('includes/application_top.php');
-
-
+   require('includes/application_top.php');
 ?>
 <html>
-<head>
-<title><?php echo TEXT_VALID_CATEGORIES_LIST; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-</head>
-<body>
-<table width="550" cellspacing="1">
-<tr>
-<td class="pageHeading" colspan="2">
-<?php echo TEXT_VALID_CATEGORIES_LIST; ?>
-</td>
-</tr>
-<?php
+  <head>
+    <title><?php echo TEXT_VALID_CATEGORIES_LIST; ?></title>
+    <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+  </head>
+  <body>
+  <table width="550" cellspacing="1">
+    <tr>
+      <td class="pageHeading" colspan="2">
+        <?php echo TEXT_VALID_CATEGORIES_LIST; ?>
+      </td>
+    </tr>
+    <?php
     echo "<tr>
-			<th class=\"dataTableHeadingContent\">" . TEXT_VALID_CATEGORIES_ID . "</th>
-			<th class=\"dataTableHeadingContent\">" . TEXT_VALID_CATEGORIES_NAME . "</th>
-		 </tr>";
-	
-	$result = xtc_db_query("SELECT * FROM ".TABLE_CATEGORIES." c, 
-										  ".TABLE_CATEGORIES_DESCRIPTION." cd 
-									WHERE c.categories_id = cd.categories_id 
-									  and cd.language_id = '" . $_SESSION['languages_id'] . "' 
-								 ORDER BY c.categories_id");
-								 
+            <th class=\"dataTableHeadingContent\">" . TEXT_VALID_CATEGORIES_ID . "</th>
+            <th class=\"dataTableHeadingContent\">" . TEXT_VALID_CATEGORIES_NAME . "</th>
+          </tr>";
+    $result = xtc_db_query("SELECT * FROM ".TABLE_CATEGORIES." c, 
+                                          ".TABLE_CATEGORIES_DESCRIPTION." cd 
+                                    WHERE c.categories_id = cd.categories_id 
+                                      AND cd.language_id = '" . $_SESSION['languages_id'] . "' 
+                                 ORDER BY c.categories_id");
     if ($row = xtc_db_fetch_array($result)) {
-        do {
-            echo "<tr><td class=\"dataTableHeadingContent\">".$row["categories_id"]."</td>\n";
-            echo "<td class=\"dataTableHeadingContent\">".$row["categories_name"]."</td>\n";
-            echo "</tr>\n";
-        }
-        while($row = xtc_db_fetch_array($result));
+      do {
+          echo "<tr>";
+          echo "  <td class=\"dataTableHeadingContent\">".$row["categories_id"]."</td>\n";
+          echo "  <td class=\"dataTableHeadingContent\">".$row["categories_name"]."</td>\n";
+          echo "</tr>\n";
+         }
+      while($row = xtc_db_fetch_array($result));
     }
     echo "</table>\n";
-?>
-<br />
-<table width="550" border="0" cellspacing="1">
-<tr>
-<td align=middle><input type="button" value="<?php echo BUTTON_CLOSE_WINDOW;?>" onclick="window.close()"></td>
-</tr></table>
-</body>
+    ?>
+    <br />
+    <table width="550" border="0" cellspacing="1">
+      <tr>
+        <td align=middle><input type="button" value="<?php echo BUTTON_CLOSE_WINDOW;?>" onclick="window.close()"></td>
+      </tr>
+    </table>
+  </body>
 </html>

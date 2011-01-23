@@ -1,5 +1,5 @@
 <?php
-/* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -16,17 +16,16 @@
    Released under the GNU General Public License
    ----------------------------------------------------------------------------------------- */
 
-include('includes/application_top.php');
-require('xajax.common.php');
+  include('includes/application_top.php');
+  require('xajax.common.php');
 
-if( $handle = opendir (IMDXAJAX_MODULE_INCLUDES) ) {
-  while (false !== ($file = readdir ($handle))) {
-    if( strpos($file, '.xajax.server.inc.php')!==false ) {
-      include( IMDXAJAX_MODULE_INCLUDES.'/'.$file);
+  if( $handle = opendir (IMDXAJAX_MODULE_INCLUDES) ) {
+    while (false !== ($file = readdir ($handle))) {
+      if( strpos($file, '.xajax.server.inc.php')!==false ) {
+        include( IMDXAJAX_MODULE_INCLUDES.'/'.$file);
+      }
     }
+    closedir($handle);
   }
-  closedir($handle);
-}
-
-$imdxajax->processRequest();
+  $imdxajax->processRequest();
 ?>
