@@ -52,7 +52,7 @@ class product {
     }
     
     // BOF - web28 - 2011-01-22 - update to SQL-92-Standard
-    $product_query = "SELECT * FROM".TABLE_PRODUCTS." AS p 
+    $product_query = "SELECT * FROM ".TABLE_PRODUCTS." AS p 
                                JOIN ".TABLE_PRODUCTS_DESCRIPTION." AS pd ON p.products_status = '1' 
                                AND	p.products_id = '".$this->pID."' 
                                AND pd.products_id = p.products_id ".$group_check.$fsk_lock." 
