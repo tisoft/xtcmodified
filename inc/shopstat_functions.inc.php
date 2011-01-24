@@ -6,35 +6,35 @@
     info@shopstat.com
     © 2004 ShopStat.com
     All Rights Reserved.
-	
-   Version 1.06 rev.04 (c) by web28  - www.rpa-com.de   
+
+   Version 1.06 rev.05 (c) by web28  - www.rpa-com.de
 ------------------------------------------------------------------------*/
 //#################################
 
-//-- Einstellungen für die Trennzeichen - 	Doppelpunkt oder Minuszeichen
+//-- Einstellungen für die Trennzeichen -   Doppelpunkt oder Minuszeichen
 //-- Bei Minuszeichen wird eine spezielle htaccess Datei benötigt
 define('SEO_SEPARATOR',':');
 
 //Sonderzeichen
-define('SPECIAL_CHAR_FR', true);  	//Französische Sonderzeichen 
-define('SPECIAL_CHAR_ES', true);	//Spanische/Italienische/Portugisische Sonderzeichen (nur aktivieren wenn auch französiche Sonderzeichen aktiviert sind) 
-define('SPECIAL_CHAR_MORE', true);	//Weitere Sonderzeichen 
+define('SPECIAL_CHAR_FR', true);    //Französische Sonderzeichen
+define('SPECIAL_CHAR_ES', true);  //Spanische/Italienische/Portugisische Sonderzeichen (nur aktivieren wenn auch französiche Sonderzeichen aktiviert sind)
+define('SPECIAL_CHAR_MORE', true);  //Weitere Sonderzeichen
 
 //#################################
 
 
 //BOF - web28 - 2010-08-18 -- Definition für die Trennzeichen
-define('CAT_DIVIDER',SEO_SEPARATOR.SEO_SEPARATOR.SEO_SEPARATOR);	//Kategorie ':::'
-define('ART_DIVIDER',SEO_SEPARATOR.SEO_SEPARATOR);					//Artikel '::'
-define('CNT_DIVIDER',SEO_SEPARATOR.'_'.SEO_SEPARATOR);				//Content ':_:'
-define('MAN_DIVIDER',SEO_SEPARATOR.'.'.SEO_SEPARATOR);				//Hersteller ':.:'
-define('PAG_DIVIDER',SEO_SEPARATOR);								//Seitennummer ':'
+define('CAT_DIVIDER',SEO_SEPARATOR.SEO_SEPARATOR.SEO_SEPARATOR); //Kategorie ':::'
+define('ART_DIVIDER',SEO_SEPARATOR.SEO_SEPARATOR);               //Artikel '::'
+define('CNT_DIVIDER',SEO_SEPARATOR.'_'.SEO_SEPARATOR);           //Content ':_:'
+define('MAN_DIVIDER',SEO_SEPARATOR.'.'.SEO_SEPARATOR);           //Hersteller ':.:'
+define('PAG_DIVIDER',SEO_SEPARATOR);                             //Seitennummer ':'
 //EOF - web28 - 2010-08-18 -- Definition für die Trennzeichen
 
 if (file_exists(DIR_FS_INC . 'search_replace_'.strtolower($_SESSION['language_charset']) .'.php')) {
-	include (DIR_FS_INC . 'search_replace_'.strtolower($_SESSION['language_charset']) .'.php');
+  include (DIR_FS_INC . 'search_replace_'.strtolower($_SESSION['language_charset']) .'.php');
 } else {
-	include (DIR_FS_INC . 'search_replace_default.php');
+  include (DIR_FS_INC . 'search_replace_default.php');
 }
 
 if(!function_exists('xtDBquery'))
@@ -43,9 +43,9 @@ if(!function_exists('xtDBquery'))
     }
 if(!function_exists('language'))
     {
-    include (DIR_WS_CLASSES.'language.php');
+    include_once (DIR_WS_CLASSES.'language.php');
     }
-	
+
 function shopstat_getSEO(   $page               = '',
                             $parameters         = '',
                             $connection         = 'NONSSL',
@@ -54,7 +54,7 @@ function shopstat_getSEO(   $page               = '',
                             $mode               = 'user')
 {
         global $languages_id;
-        $link = "";		
+        $link = "";
         $maname = "";
         if($mode == 'admin')
             {
@@ -71,32 +71,7 @@ function shopstat_getSEO(   $page               = '',
         //-- XTC
         (!isset($languages_id)) ? $languages_id = $_SESSION['languages_id'] : false;
 
-        $go     = true;
-        //-- Nur bei der index.php und product_info.php
-        if( $page != "index.php" &&
-            $page != "product_info.php" &&
-            $page != "shop_content.php")
-            {
-            $go = false;
-            }     
-        //-- Unter diesen Bedingungen werden die URLs nicht umgewandelt
-        //-- Sortieren
-        elseif(preg_match("/sort=/",$parameters))
-            {
-            $go = false;
-            }
-        //-- Sortieren der Herstellerprodukte
-        elseif(preg_match("/filter_id=/",$parameters))
-            {
-            $go = false;
-            }
-        //-- Andere Aktion
-        elseif(preg_match("/action=/",$parameters))
-            {
-            $go = false;
-            }
-
-//BOF - web28 - 2010-08-18 -- Die Parameter aufspalten
+        //BOF - web28 - 2010-08-18 -- Die Parameter aufspalten
         $pararray = array();
         foreach(explode("&",$parameters) as $pair)
             {
@@ -112,20 +87,49 @@ function shopstat_getSEO(   $page               = '',
         $coid       = (isset($pararray['coID']))?$pararray['coID']:false;
         $maid       = (isset($pararray['manufacturers_id']))?$pararray['manufacturers_id']:false;
         $pager      = (isset($pararray['page']))?$pararray['page']:false;
-        $lang       = (isset($pararray['language']))?$pararray['language']:false;
-		
-//EOF - web28 - 2010-08-18 -- Die Parameter aufspalten
+        $lang       = (isset($pararray['language']))?$pararray['language']:'';
+        $sort       = (isset($pararray['sort']))?$pararray['sort']:'';
+        $filter_id  = (isset($pararray['filter_id']))?$pararray['filter_id']:'';
+        $action     = (isset($pararray['action']))?$pararray['action']:'';
+
+        //EOF - web28 - 2010-08-18 -- Die Parameter aufspalten
+
+        $go     = true;
+        //-- Nur bei der index.php und product_info.php
+        if( $page != "index.php" &&
+            $page != "product_info.php" &&
+            $page != "shop_content.php")
+            {
+            $go = false;
+            }
+
+        //-- Unter diesen Bedingungen werden die URLs nicht umgewandelt
+        //-- Sortieren
+        elseif(strlen($sort)>0)
+            {
+            $go = false;
+            }
+        //-- Sortieren der Herstellerprodukte
+        elseif(strlen($filter_id)>0)
+            {
+            $go = false;
+            }
+        //-- Andere Aktion
+        elseif(strlen($action)>0)
+            {
+            $go = false;
+            }
 
 //BOF web28 - 2010-08-18 -- Falls eine Sprache übergeben wurde, wird diese als 'Linksprache' definiert
         if(strlen($lang)>0)
-            {			
+            {
             $seolng  = new language;
-            $lang_id = $seolng->catalog_languages[$lang]['id'];			
+            $lang_id = $seolng->catalog_languages[$lang]['id'];
             }
         else{
             $lang_id    = $languages_id;
             }
-//EOF- web28 - 2010-08-18 -- Falls eine Sprache übergeben wurde, wird diese als 'Linksprache' definiert   
+//EOF- web28 - 2010-08-18 -- Falls eine Sprache übergeben wurde, wird diese als 'Linksprache' definiert
 
         if ($go &&
             (   xtc_not_null($maid) ||
@@ -149,7 +153,7 @@ function shopstat_getSEO(   $page               = '',
                 $link = HTTP_SERVER . DIR_WS_CATALOG;
                 }
 
-				
+
             if((xtc_not_null($cPath) || xtc_not_null($prodid)) )
                 {
                 $cPath_array        = xtc_parse_category_path($cPath);
@@ -166,23 +170,23 @@ function shopstat_getSEO(   $page               = '',
                     {
                     $category['categories_name'] = shopstat_getRealPath($cPath,'/',$lang_id);
 
-                    $link .= shopstat_hrefCatlink(	$category['categories_name'],
-													$cPath,
-													$pager													
-													);
+                    $link .= shopstat_hrefCatlink(  $category['categories_name'],
+                          $cPath,
+                          $pager
+                          );
                     }
                 else{
                     $category['categories_name'] = shopstat_getRealPath(xtc_get_product_path($prodid),'/',$lang_id);
 
                     $link .= shopstat_hrefLink($category['categories_name'],
                                                xtc_get_products_name($prodid,$lang_id),
-                                               $prodid											   
+                                               $prodid
                                                );
                     }
                 }
             elseif(xtc_not_null($coid))
                 {
-				
+
                 $content = shopstat_getContentName($coid, $lang_id);
 
                 $link .= shopstat_hrefContlink($content, $coid);
@@ -204,12 +208,12 @@ function shopstat_getSEO(   $page               = '',
                 }
 
             $separator  = '?';
-			
-			//BOF web28 - 2010-08-18 -- Parameter für die Sprachumschaltung
-			if(strlen($lang)>0 && $lang_id != $languages_id) $link .= $separator.'language='. $lang;
-			//EOF web28 - 2010-08-18 -- Parameter für die Sprachumschaltung
-			
-            }	
+
+            //BOF web28 - 2010-08-18 -- Parameter für die Sprachumschaltung
+            if(strlen($lang)>0 && $lang_id != $languages_id) $link .= $separator.'language='. $lang;
+            //EOF web28 - 2010-08-18 -- Parameter für die Sprachumschaltung
+
+            }
 
     return($link);
 }
@@ -222,14 +226,14 @@ function shopstat_getSEO(   $page               = '',
 function shopstat_getRealPath($cPath, $delimiter = '/', $language = '')
 {
     if(empty($cPath)) return;
-	if(empty($language)) $language = $_SESSION['languages_id'];
-	
+  if(empty($language)) $language = $_SESSION['languages_id'];
+
     $path       = explode("_",$cPath);
     $categories = array();
 
     foreach($path as $key => $value)
-    {		
-		$categories[$key] = shopstat_getCategoriesName($value, $language);		
+    {
+    $categories[$key] = shopstat_getCategoriesName($value, $language);
     }
 
     $realpath = implode($delimiter,$categories);
@@ -242,7 +246,7 @@ function shopstat_getContentName($coid, $language = '')
     if(empty($language)) $language = $_SESSION['languages_id'];
 
   // BOF - Tomcraft - 2009-06-03 - fix shopstat security issue
-  //	$content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".$language."' AND content_group = ".$coid;
+  //  $content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".$language."' AND content_group = ".$coid;
     $content_query  = "SELECT content_title FROM ".TABLE_CONTENT_MANAGER." WHERE languages_id='".intval($language)."' AND content_group = ".intval($coid);
   // EOF - Tomcraft - 2009-06-03 - fix shopstat security issue
     $content_query  = xtDBquery($content_query);
@@ -334,14 +338,14 @@ function shopstat_hrefManulink($content_name, $content_id, $pager=false)
 function shopstat_hrefSmallmask($string)
 {
     shopstat_getRegExps($search, $replace);
-	
-	$newstring = $string;
+
+  $newstring = $string;
 
     //BOF - web28 - 2010-08-18 -HTML-Codierung entfernen (&uuml; etc.)
     $newstring  = html_entity_decode($newstring, ENT_NOQUOTES , strtoupper($_SESSION['language_charset']));
     //EOF - web28 - 2010-08-18 -HTML-Codierung entfernen (&uuml; etc.)
 
-    //-- <br> neutralisieren  
+    //-- <br> neutralisieren
     //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
     //$newstring  = preg_replace("/<br>/i","-",$string);
     $newstring  = preg_replace("/<br(\s+)?\/?>/i","-",$newstring);
@@ -355,16 +359,16 @@ function shopstat_hrefSmallmask($string)
 
     //-- Definierte Zeichen entfernen
     $newstring  = preg_replace($search,$replace,$newstring);
-	
-	//--Anführungszeichen weg.
-	$newstring  = preg_replace("/'|\"|´|`/","",$newstring);       
+
+    //--Anführungszeichen weg.
+    $newstring  = preg_replace("/'|\"|´|`/","",$newstring);
 
     //-- Die nun noch (komisch aussehenden) doppelten Bindestriche entfernen
     $newstring  = preg_replace("/(-){2,}/","-",$newstring);
-	
-	//web28 - 2010-08-18 - Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
-	$newstring = rtrim($newstring,"-");
-//if($_REQUEST['test']){print $newstring."<hr>";}	
+
+    //web28 - 2010-08-18 - Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
+    $newstring = rtrim($newstring,"-");
+    //if($_REQUEST['test']){print $newstring."<hr>";}
 
     return($newstring);
 }
@@ -373,22 +377,22 @@ function shopstat_hrefSmallmask($string)
  */
 function shopstat_hrefMask($string)
 {
-    shopstat_getRegExps($search, $replace);	
+    shopstat_getRegExps($search, $replace);
 
     //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
     $newstring = $string;
-	
-	//web28 - 2010-08-17 - Eurozeichen ersetzen
-	$newstring  = str_replace("&euro;","-EUR-",$newstring);
+
+    //web28 - 2010-08-17 - Eurozeichen ersetzen
+    $newstring  = str_replace("&euro;","-EUR-",$newstring);
 
     //BOF - web28 - 2010-08-18 -HTML-Codierung entfernen (&uuml; etc.)
     $newstring  = html_entity_decode($newstring, ENT_NOQUOTES , strtoupper($_SESSION['language_charset']));
-   //EOF - web28 - 2010-08-18 -HTML-Codierung entfernen (&uuml; etc.)
-	
+    //EOF - web28 - 2010-08-18 -HTML-Codierung entfernen (&uuml; etc.)
+
     //-- <br> neutralisieren
     //BOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
     //$newstring  = preg_replace("/<br>/i","-",$string);
-    $newstring  = preg_replace("/<br(\s+)?\/?>/i","-",$newstring);  
+    $newstring  = preg_replace("/<br(\s+)?\/?>/i","-",$newstring);
     //EOF - DokuMan - 2010-08-13 - optimize shopstat_getRegExps
 
     //-- HTML entfernen
@@ -400,19 +404,19 @@ function shopstat_hrefMask($string)
     //-- Definierte Zeichen entfernen
     $newstring  = preg_replace($search,$replace,$newstring);
 
-	//--Anführungszeichen weg.
-	$newstring  = preg_replace("/'|\"|´|`/","",$newstring);   
+    //--Anführungszeichen weg.
+    $newstring  = preg_replace("/'|\"|´|`/","",$newstring);
 
     //-- String URL-codieren
     $newstring  = urlencode($newstring);
 
     //-- Die nun noch (komisch aussehenden) doppelten Bindestriche entfernen
     $newstring  = preg_replace("/(-){2,}/","-",$newstring);
-	
-	//web28 - 2010-08-13 - Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
-	$newstring = rtrim($newstring,"-");
-	
-//if($_REQUEST['test']){print $newstring."<hr>";}
+
+    //web28 - 2010-08-13 - Mögliches rechtstehendes Minuszeichen entfernen - wichtig für Minus Trennzeichen
+    $newstring = rtrim($newstring,"-");
+
+   //if($_REQUEST['test']){print $newstring."<hr>";}
     return($newstring);
 }
 
