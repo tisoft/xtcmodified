@@ -36,7 +36,8 @@ if (MAX_DISPLAY_UPCOMING_PRODUCTS != '0') {
   if (GROUP_CHECK == 'true')
     $group_check = "and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 
-  $expected_query = xtDBquery("select p.products_id,
+//BOF - GTB/vr - 2011-01-24 - Bugfix: only show active products
+/* $expected_query = xtDBquery("select p.products_id,
                                     pd.products_name,
                                     products_date_available as date_expected
                                     from ".TABLE_PRODUCTS." p,
@@ -47,7 +48,21 @@ if (MAX_DISPLAY_UPCOMING_PRODUCTS != '0') {
                                     ".$fsk_lock."
                                     and pd.language_id = '".(int) $_SESSION['languages_id']."'
                                     order by ".EXPECTED_PRODUCTS_FIELD." ".EXPECTED_PRODUCTS_SORT."
+                                    limit ".MAX_DISPLAY_UPCOMING_PRODUCTS); */
+$expected_query = xtDBquery("select p.products_id,
+                                    pd.products_name,
+                                    p.products_date_available as date_expected
+                                    from ".TABLE_PRODUCTS." p
+                                    join ".TABLE_PRODUCTS_DESCRIPTION." pd on pd.products_id = p.products_id
+                                    where to_days(p.products_date_available) >= to_days(now())
+                                    ".$group_check."
+                                    ".$fsk_lock."
+                                    and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                    and p.products_status = '1'
+                                    order by ".EXPECTED_PRODUCTS_FIELD." ".EXPECTED_PRODUCTS_SORT."
                                     limit ".MAX_DISPLAY_UPCOMING_PRODUCTS);
+//BOF - GTB/vr - 2011-01-24 - Bugfix: only show active products
+                                    
   if (xtc_db_num_rows($expected_query,true) > 0) {
 
     $row = 0;
