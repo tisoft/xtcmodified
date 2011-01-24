@@ -21,22 +21,22 @@
   define('HTTPS_SERVER', 'https://localhost'); // eg, https://localhost - should not be empty for productive servers
   define('ENABLE_SSL', false); // secure webserver for checkout procedure?
   define('USE_SSL_PROXY', false); // using SSL proxy?
-  define('DIR_WS_CATALOG', '/xtc-modified/'); // absolute path required
-  define('DIR_FS_DOCUMENT_ROOT', '/web1/xtc-modified/');
-  define('DIR_FS_CATALOG', '/web1/xtc-modified/');
+  define('DIR_WS_CATALOG', '/xtc-modified/');
+  define('DIR_FS_DOCUMENT_ROOT', '/web1/xtc-modified/'); // absolute path required
+  define('DIR_FS_CATALOG', '/web1/xtc-modified/'); // absolute path required
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_WS_ORIGINAL_IMAGES', DIR_WS_IMAGES .'product_images/original_images/');
   define('DIR_WS_THUMBNAIL_IMAGES', DIR_WS_IMAGES .'product_images/thumbnail_images/');
   define('DIR_WS_INFO_IMAGES', DIR_WS_IMAGES .'product_images/info_images/');
   define('DIR_WS_POPUP_IMAGES', DIR_WS_IMAGES .'product_images/popup_images/');
   define('DIR_WS_ICONS', DIR_WS_IMAGES . 'icons/');
-  define('DIR_WS_INCLUDES', 'includes/');
+  define('DIR_WS_INCLUDES', DIR_FS_DOCUMENT_ROOT . 'includes/');
   define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
   define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
   define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
   define('DIR_WS_LANGUAGES', DIR_FS_CATALOG . 'lang/');
-  define('DIR_WS_EXTERNAL', DIR_WS_CATALOG . DIR_WS_INCLUDES . 'external/');
-  define('DIR_FS_EXTERNAL', DIR_FS_CATALOG . DIR_WS_INCLUDES . 'external/');
+  define('DIR_WS_EXTERNAL', DIR_WS_CATALOG . 'includes/external/');
+  define('DIR_FS_EXTERNAL', DIR_FS_CATALOG . 'includes/external/');
 
   define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG . 'pub/');
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');

@@ -23,9 +23,9 @@
   define('ENABLE_SSL_CATALOG', false); // secure webserver for catalog module
   define('USE_SSL_PROXY', false); // using SSL proxy?
   define('DIR_FS_DOCUMENT_ROOT', '/web1/xtc-modified/'); // where the pages are located on the server
-  define('DIR_WS_ADMIN', '/xtc-modified/admin/'); // absolute path required
+  define('DIR_WS_ADMIN', '/xtc-modified/admin/'); 
   define('DIR_FS_ADMIN', '/web1/xtc-modified/admin/'); // absolute pate required
-  define('DIR_WS_CATALOG', '/xtc-modified/'); // absolute path required
+  define('DIR_WS_CATALOG', '/xtc-modified/');
   define('DIR_FS_CATALOG', '/web1/xtc-modified/'); // absolute path required
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG . 'images/');
@@ -49,8 +49,8 @@
   define('DIR_FS_CATALOG_MODULES', DIR_FS_CATALOG . 'includes/modules/');
   define('DIR_FS_BACKUP', DIR_FS_ADMIN . 'backups/');
   define('DIR_FS_INC', DIR_FS_CATALOG . 'inc/');
-  define('DIR_FS_EXTERNAL', DIR_FS_CATALOG . DIR_WS_INCLUDES . 'external/');
-  define('DIR_WS_EXTERNAL', DIR_WS_CATALOG . DIR_WS_INCLUDES . 'external/');
+  define('DIR_WS_EXTERNAL', DIR_WS_CATALOG . 'includes/external/');
+  define('DIR_FS_EXTERNAL', DIR_FS_CATALOG . 'includes/external/');
   define('DIR_WS_FILEMANAGER', DIR_WS_EXTERNAL . 'fckeditor/editor/filemanager/browser/default/');
 
 // define our database connection
