@@ -475,8 +475,12 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
     xtc_redirect(xtc_href_link(FILENAME_LOGIN));
   }
 
-  // Include Template Engine
-  require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
+  // Include Template Engine Version 2.6.26
+	//BOF - GTB - 2011-01-20 - move Smarty to external directory
+	//require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
+	require (DIR_FS_EXTERNAL.'smarty/Smarty.class.php');
+	//EOF - GTB - 2011-01-20 - move Smarty to external directory
+  
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
   define('FILENAME_XTBOOSTER','xtbooster.php');
