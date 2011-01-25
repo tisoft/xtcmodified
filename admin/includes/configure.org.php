@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -12,6 +12,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce (configure.php,v 1.14 2003/02/21); www.oscommerce.com
+   (c) 2003 XT-Commerce (configure.php)
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/

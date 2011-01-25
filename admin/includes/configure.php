@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -10,6 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce (configure.php,v 1.14 2003/02/21); www.oscommerce.com
+   (c) 2003 XT-Commerce (configure.php)
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
@@ -23,7 +24,7 @@
   define('ENABLE_SSL_CATALOG', false); // secure webserver for catalog module
   define('USE_SSL_PROXY', false); // using SSL proxy?
   define('DIR_FS_DOCUMENT_ROOT', '/web1/xtc-modified/'); // where the pages are located on the server
-  define('DIR_WS_ADMIN', '/xtc-modified/admin/'); 
+  define('DIR_WS_ADMIN', '/xtc-modified/admin/');
   define('DIR_FS_ADMIN', '/web1/xtc-modified/admin/'); // absolute pate required
   define('DIR_WS_CATALOG', '/xtc-modified/');
   define('DIR_FS_CATALOG', '/web1/xtc-modified/'); // absolute path required

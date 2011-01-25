@@ -1,17 +1,17 @@
 <?php
   /* --------------------------------------------------------------
-   $Id$   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
-   (c) 2003	 nextcommerce (install_step5.php,v 1.25 2003/08/24); www.nextcommerce.org
-   (c) 2009 xtcModified (install_step5.php,v 1.00 2009/07/13); www.www.xtc-modified.org
-   
-   Released under the GNU General Public License 
+   (c) 2003 nextcommerce (install_step5.php,v 1.25 2003/08/24); www.nextcommerce.org
+   (c) 2003 XT-Commerce (configure.php)
+
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 
   require('includes/application.php');
@@ -36,7 +36,7 @@
    */
 
   $url = trim($url);
-  
+
   //http oder https entfernen
   $http = array('http://', 'https://');
   $urltest = str_replace($http,'',$url);
@@ -45,8 +45,8 @@
     return false;
   //Auf falsches Installer Verzeichnis testen
   if (strpos($urltest, 'xtc_installer') !== false)
-    return false;  
-  
+    return false;
+
   if (!preg_match("=://=", $url))
     $url = "http://$url";
   $url = parse_url($url);
@@ -67,7 +67,7 @@
                   ."Host: ". $url["host"] ."\r\n"
                   ."Connection: close\r\n\r\n";
     fputs($fp, $httpRequest);
-    while(!feof($fp)) 
+    while(!feof($fp))
       $head .= fgets($fp, 1024);
     fclose($fp);
     preg_match("=^(HTTP/\d+\.\d+) (\d{3}) ([^\r\n]*)=", $head, $matches);
@@ -88,7 +88,7 @@
       $http["Location-Status-Code"] = phpLinkCheck($http["Location"], TRUE);
     return $http;
   }
-}   
+}
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -107,7 +107,7 @@
   </head>
   <body>
     <table width="800" bgcolor="#f3f3f3" style="border:30px solid #fff;" height="80%" border="0" align="center" cellpadding="0" cellspacing="0">
-      <tr> 
+      <tr>
         <td height="95" colspan="2" >
           <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
@@ -115,8 +115,8 @@
             </tr>
           </table>
       </tr>
-      <tr> 
-        <td align="center" valign="top"> 
+      <tr>
+        <td align="center" valign="top">
           <br />
           <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
             <tr>
@@ -145,7 +145,7 @@
                     if ($db_error) {
                   ?>
                   <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                    <tr> 
+                    <tr>
                       <td>
                         <img src="images/icons/error.gif" width="16" height="16"><strong><?php echo TEXT_CONNECTION_ERROR; ?></strong>
                       </td>
@@ -193,11 +193,11 @@
                     }
                     if ($link_status['Status-Code'] != 200) {
                       //Fehleranzeige
-                      if (trim($errmsg) =='') 
+                      if (trim($errmsg) =='')
                         $errmsg = $url . '   [ERROR: '. $link_status['Status-Code'] .']';
                       ?>
                       <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                        <tr> 
+                        <tr>
                           <td>
                             <img src="images/icons/error.gif" width="16" height="16"><strong>
                             <div style="color:#FC0000;"><?php echo TEXT_PATH_ERROR; ?></strong></div>
@@ -234,20 +234,21 @@
                         </table>
                       </form>
                       <?php
-                        } else { 
+                        } else {
                           $file_contents = '<?php' . "\n" .
                                            '/* --------------------------------------------------------------' . "\n" .
                                            '' . "\n" .
-                                           '  XT-Commerce - community made shopping' . "\n" .
-                                           '  http://www.xt-commerce.com' . "\n" .
+                                           '  xtcModified - community made shopping' . "\n" .
+                                           '  http://www.xtc-modified.org' . "\n" .
                                            '' . "\n" .
-                                           '   Copyright (c) 2003 XT-Commerce' . "\n" .
+                                           '   Copyright (c) 2010 xtcModified' . "\n" .
                                            '  --------------------------------------------------------------' . "\n" .
-                                           '  based on:' . "\n" . 
-                                           '  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)' . "\n" . 
-                                           '  (c) 2002-2003 osCommerce (configure.php,v 1.13 2003/02/10); www.oscommerce.com' . "\n" . 
+                                           '  based on:' . "\n" .
+                                           '  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)' . "\n" .
+                                           '  (c) 2002-2003 osCommerce (configure.php,v 1.13 2003/02/10); www.oscommerce.com' . "\n" .
+                                           '  (c) 2003 XT-Commerce (configure.php)' . "\n" .
                                            '' . "\n" .
-                                           '  Released under the GNU General Public License' . "\n" . 
+                                           '  Released under the GNU General Public License' . "\n" .
                                            '  --------------------------------------------------------------*/' . "\n" .
                                            '' . "\n" .
                                            '// Define the webserver and path parameters' . "\n" .
@@ -257,7 +258,7 @@
                                            '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
                                            '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
                                            //BOF - web28 - 2010.09.15 - using SSL proxy
-                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .
                                            //EOF - web28 - 2010.09.15 - using SSL proxy
                                            '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
                                            //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
@@ -275,6 +276,10 @@
                                            '  define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
                                            '  define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
                                            '  define(\'DIR_WS_LANGUAGES\', DIR_FS_CATALOG . \'lang/\');' . "\n" .
+                                           //BOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
+                                           '  define(\'DIR_WS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           '  define(\'DIR_FS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           //EOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
                                            '' . "\n" .
                                            '  define(\'DIR_WS_DOWNLOAD_PUBLIC\', DIR_WS_CATALOG . \'pub/\');' . "\n" .
                                            '  define(\'DIR_FS_DOWNLOAD\', DIR_FS_CATALOG . \'download/\');' . "\n" .
@@ -295,14 +300,15 @@
                                            '/* --------------------------------------------------------------' . "\n" .
                                            '  ### Be careful, this is the backup of your original configuration data ###' . "\n" .
                                            '' . "\n" .
-                                           '  XT-Commerce - community made shopping' . "\n" .
-                                           '  http://www.xt-commerce.com' . "\n" .
+                                           '  xtcModified - community made shopping' . "\n" .
+                                           '  http://www.xtc-modified.org' . "\n" .
                                            '' . "\n" .
-                                           '   Copyright (c) 2003 XT-Commerce' . "\n" .
+                                           '   Copyright (c) 2010 xtcModified' . "\n" .
                                            '  --------------------------------------------------------------' . "\n" .
                                            '  based on:' . "\n" .
                                            '  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)' . "\n" .
                                            '  (c) 2002-2003 osCommerce (configure.php,v 1.13 2003/02/10); www.oscommerce.com' . "\n" .
+                                           '  (c) 2003 XT-Commerce (configure.php)' . "\n" .
                                            '' . "\n" .
                                            '  Released under the GNU General Public License' . "\n" .
                                            '  --------------------------------------------------------------*/' . "\n" .
@@ -314,7 +320,7 @@
                                            '  define(\'HTTPS_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
                                            '  define(\'ENABLE_SSL\', ' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
                                            //BOF - web28 - 2010.09.15 - using SSL proxy
-                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .
                                            //EOF - web28 - 2010.09.15 - using SSL proxy
                                            '  define(\'DIR_WS_CATALOG\', \'' . $_POST['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
                                            //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
@@ -332,6 +338,10 @@
                                            '  define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
                                            '  define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
                                            '  define(\'DIR_WS_LANGUAGES\', DIR_FS_CATALOG . \'lang/\');' . "\n" .
+                                           //BOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
+                                           '  define(\'DIR_WS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           '  define(\'DIR_FS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           //EOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
                                            '' . "\n" .
                                            '  define(\'DIR_WS_DOWNLOAD_PUBLIC\', DIR_WS_CATALOG . \'pub/\');' . "\n" .
                                            '  define(\'DIR_FS_DOWNLOAD\', DIR_FS_CATALOG . \'download/\');' . "\n" .
@@ -353,16 +363,17 @@
                           $file_contents = '<?php' . "\n" .
                                            '/* --------------------------------------------------------------' . "\n" .
                                            '' . "\n" .
-                                           '  XT-Commerce - community made shopping' . "\n" .
-                                           '  http://www.xt-commerce.com' . "\n" .
+                                           '  xtcModified - community made shopping' . "\n" .
+                                           '  http://www.xtc-modified.org' . "\n" .
                                            '' . "\n" .
-                                           '   Copyright (c) 2003 XT-Commerce' . "\n" .
+                                           '   Copyright (c) 2010 xtcModified' . "\n" .
                                            '  --------------------------------------------------------------' . "\n" .
-                                           '  based on:' . "\n" . 
-                                           '  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)' . "\n" . 
-                                           '  (c) 2002-2003 osCommerce (configure.php,v 1.14 2003/02/21); www.oscommerce.com' . "\n" . 
+                                           '  based on:' . "\n" .
+                                           '  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)' . "\n" .
+                                           '  (c) 2002-2003 osCommerce (configure.php,v 1.13 2003/02/10); www.oscommerce.com' . "\n" .
+                                           '  (c) 2003 XT-Commerce (configure.php)' . "\n" .
                                            '' . "\n" .
-                                           '  Released under the GNU General Public License' . "\n" . 
+                                           '  Released under the GNU General Public License' . "\n" .
                                            '  --------------------------------------------------------------*/' . "\n" .
                                            '' . "\n" .
                                            '// Define the webserver and path parameters' . "\n" .
@@ -373,7 +384,7 @@
                                            '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
                                            '  define(\'ENABLE_SSL_CATALOG\', \'' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
                                            //BOF - web28 - 2010.09.15 - using SSL proxy
-                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .
                                            //EOF - web28 - 2010.09.15 - using SSL proxy
                                            //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                                            '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
@@ -404,7 +415,12 @@
                                            '  define(\'DIR_FS_CATALOG_MODULES\', DIR_FS_CATALOG . \'includes/modules/\');' . "\n" .
                                            '  define(\'DIR_FS_BACKUP\', DIR_FS_ADMIN . \'backups/\');' . "\n" .
                                            '  define(\'DIR_FS_INC\', DIR_FS_CATALOG . \'inc/\');' . "\n" .
-                                           '  define(\'DIR_WS_FILEMANAGER\', DIR_WS_MODULES . \'fckeditor/editor/filemanager/browser/default/\');' . "\n" .
+                                           //BOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
+                                           '  define(\'DIR_WS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           '  define(\'DIR_FS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           //'  define(\'DIR_WS_FILEMANAGER\', DIR_WS_MODULES . \'fckeditor/editor/filemanager/browser/default/\');' . "\n" .
+                                           '  define(\'DIR_WS_FILEMANAGER\', DIR_WS_EXTERNAL . \'fckeditor/editor/filemanager/browser/default/\');' . "\n" .
+                                           //EOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
                                            '' . "\n" .
                                            '// define our database connection' . "\n" .
                                            '  define(\'DB_SERVER\', \'' . $_POST['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
@@ -418,19 +434,20 @@
                           $fp = fopen(DIR_FS_CATALOG . 'admin/includes/configure.php', 'w');
                           fputs($fp, $file_contents);
                           fclose($fp);
-                          //Create a backup of the original configure    
+                          //Create a backup of the original configure
                           $file_contents = '<?php' . "\n" .
                                            '/* --------------------------------------------------------------' . "\n" .
                                            '  ### Be careful, this is the backup of your original configuration data ###' . "\n" .
                                            '' . "\n" .
-                                           '  XT-Commerce - community made shopping' . "\n" .
-                                           '  http://www.xt-commerce.com' . "\n" .
+                                           '  xtcModified - community made shopping' . "\n" .
+                                           '  http://www.xtc-modified.org' . "\n" .
                                            '' . "\n" .
-                                           '   Copyright (c) 2003 XT-Commerce' . "\n" .
+                                           '   Copyright (c) 2010 xtcModified' . "\n" .
                                            '  --------------------------------------------------------------' . "\n" .
-                                           '  based on:' . "\n" . 
-                                           '  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)' . "\n" . 
-                                           '  (c) 2002-2003 osCommerce (configure.php,v 1.14 2003/02/21); www.oscommerce.com' . "\n" . 
+                                           '  based on:' . "\n" .
+                                           '  (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)' . "\n" .
+                                           '  (c) 2002-2003 osCommerce (configure.php,v 1.13 2003/02/10); www.oscommerce.com' . "\n" .
+                                           '  (c) 2003 XT-Commerce (configure.php)' . "\n" .
                                            '' . "\n" .
                                            '  Released under the GNU General Public License' . "\n" .
                                            '  --------------------------------------------------------------*/' . "\n" .
@@ -443,7 +460,7 @@
                                            '  define(\'HTTPS_CATALOG_SERVER\', \'' . $_POST['HTTPS_SERVER'] . '\');' . "\n" .
                                            '  define(\'ENABLE_SSL_CATALOG\', \'' . (($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
                                            //BOF - web28 - 2010.09.15 - using SSL proxy
-                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .					 
+                                           '  define(\'USE_SSL_PROXY\', ' . (($_POST['USE_SSL_PROXY'] == 'true') ? 'true' : 'false') . '); // using SSL proxy?' . "\n" .
                                            //EOF - web28 - 2010.09.15 - using SSL proxy
                                            //BOF - web28 - 2010.02.18 - STRATO ROOT PATCH
                                            '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . DIR_FS_DOCUMENT_ROOT.$local_install_path  . '\'); // where the pages are located on the server' . "\n" .
@@ -474,7 +491,12 @@
                                            '  define(\'DIR_FS_CATALOG_MODULES\', DIR_FS_CATALOG . \'includes/modules/\');' . "\n" .
                                            '  define(\'DIR_FS_BACKUP\', DIR_FS_ADMIN . \'backups/\');' . "\n" .
                                            '  define(\'DIR_FS_INC\', DIR_FS_CATALOG . \'inc/\');' . "\n" .
-                                           '  define(\'DIR_WS_FILEMANAGER\', DIR_WS_MODULES . \'fckeditor/editor/filemanager/browser/default/\');' . "\n" .
+                                           //BOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
+                                           '  define(\'DIR_WS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           '  define(\'DIR_FS_EXTERNAL\', DIR_FS_CATALOG . \'includes/external/\');' . "\n" .
+                                           //'  define(\'DIR_WS_FILEMANAGER\', DIR_WS_MODULES . \'fckeditor/editor/filemanager/browser/default/\');' . "\n" .
+                                           '  define(\'DIR_WS_FILEMANAGER\', DIR_WS_EXTERNAL . \'fckeditor/editor/filemanager/browser/default/\');' . "\n" .
+                                           //EOF - DokuMan - 2011-01-25 - Add EXTERNAL-directories to installer
                                            '' . "\n" .
                                            '// define our database connection' . "\n" .
                                            '  define(\'DB_SERVER\', \'' . $_POST['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
@@ -489,9 +511,9 @@
                           fputs($fp, $file_contents);
                           fclose($fp);
                           // BOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL
-                          if($_POST['install_db'] == 1) 
+                          if($_POST['install_db'] == 1)
                             $step= 'install_step6';
-                          else 
+                          else
                             $step = 'install_finished';
                           //EOF - web28 - 2010-03-18 NEW HANDLING FOR NO DB INSTALL
                         ?>
