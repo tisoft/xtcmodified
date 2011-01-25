@@ -1033,7 +1033,7 @@ function _seq_traverse_n_check_($mainstruct_, $varname_, $actions_, $sql_ = fals
                 if (preg_match($varname, $matchname) || is_array($var_)) {
                     if (is_array($var_)) {
                         //echo "DIGG INTO ARRAY: " . $var_ . "\n";
-                        _seq_traverse_n_check_(&$var_, $varname_, $actions_, $sql_, $xss_, $origin_name_);
+                        _seq_traverse_n_check_($var_, $varname_, $actions_, $sql_, $xss_, $origin_name_);
                     } else {
                         $mainstruct[$matchname] = seq_sanitize_block_($var_, $actions_, $varname_ /* with underline because we need original name */, $origin_name_, $sql_, $xss_);
                     }
@@ -1115,49 +1115,49 @@ function SEQ_SANITIZE($sanitizeList_ = '', $isFile_ = false) {
             $source = strtolower($paramSource_);
 
             if (strpos($source, 'g') !== false) {
-                _seq_traverse_n_check_(&$_GET, $varname, $actions, $sql, $xss, '_GET');
-                _seq_traverse_n_check_(&$HTTP_GET_VARS, $varname, $actions, $sql, $xss, 'HGET');
+                _seq_traverse_n_check_($_GET, $varname, $actions, $sql, $xss, '_GET');
+                _seq_traverse_n_check_($HTTP_GET_VARS, $varname, $actions, $sql, $xss, 'HGET');
             } elseif ($exclusiveSource_) {
-                _seq_traverse_n_check_(&$_GET, $varname, array('type'=>'DEL'));
-                _seq_traverse_n_check_(&$HTTP_GET_VARS, $varname, array('type'=>'DEL'));
+                _seq_traverse_n_check_($_GET, $varname, array('type'=>'DEL'));
+                _seq_traverse_n_check_($HTTP_GET_VARS, $varname, array('type'=>'DEL'));
             }
 
             if (strpos($source, 'p') !== false) {
-                _seq_traverse_n_check_(&$_POST, $varname, $actions, $sql, $xss, '_POS');
-                _seq_traverse_n_check_(&$HTTP_POST_VARS, $varname, $actions, $sql, $xss, 'HPOS');
+                _seq_traverse_n_check_($_POST, $varname, $actions, $sql, $xss, '_POS');
+                _seq_traverse_n_check_($HTTP_POST_VARS, $varname, $actions, $sql, $xss, 'HPOS');
             } elseif ($exclusiveSource_) {
-                _seq_traverse_n_check_(&$_POST, $varname, array('type'=>'DEL'), null, null, '_POS');
-                _seq_traverse_n_check_(&$HTTP_POST_VARS, $varname, array('type'=>'DEL'));
+                _seq_traverse_n_check_($_POST, $varname, array('type'=>'DEL'), null, null, '_POS');
+                _seq_traverse_n_check_($HTTP_POST_VARS, $varname, array('type'=>'DEL'));
             }
 
             if (strpos($source, 'c') !== false) {
-                _seq_traverse_n_check_(&$_COOKIE, $varname, $actions, $sql, $xss, '_COO');
-                _seq_traverse_n_check_(&$HTTP_COOKIE_VARS, $varname, $actions, $sql, $xss, 'HCOO');
+                _seq_traverse_n_check_($_COOKIE, $varname, $actions, $sql, $xss, '_COO');
+                _seq_traverse_n_check_($HTTP_COOKIE_VARS, $varname, $actions, $sql, $xss, 'HCOO');
             } elseif ($exclusiveSource_) {
-                _seq_traverse_n_check_(&$_COOKIE, $varname, array('type'=>'DEL'));
-                _seq_traverse_n_check_(&$HTTP_COOKIE_VARS, $varname, array('type'=>'DEL'));
+                _seq_traverse_n_check_($_COOKIE, $varname, array('type'=>'DEL'));
+                _seq_traverse_n_check_($HTTP_COOKIE_VARS, $varname, array('type'=>'DEL'));
             }
 
             if (strpos($source, 's') !== false) {
-                _seq_traverse_n_check_(&$_SESSION, $varname, $actions, $sql, $xss, '_SES');
-                _seq_traverse_n_check_(&$HTTP_SESSION_VARS, $varname, $actions, $sql, $xss, 'HSES');
+                _seq_traverse_n_check_($_SESSION, $varname, $actions, $sql, $xss, '_SES');
+                _seq_traverse_n_check_($HTTP_SESSION_VARS, $varname, $actions, $sql, $xss, 'HSES');
             } elseif ($exclusiveSource_) {
-                _seq_traverse_n_check_(&$_SESSION, $varname, array('type'=>'DEL'));
-                _seq_traverse_n_check_(&$HTTP_SESSION_VARS, $varname, array('type'=>'DEL'));
+                _seq_traverse_n_check_($_SESSION, $varname, array('type'=>'DEL'));
+                _seq_traverse_n_check_($HTTP_SESSION_VARS, $varname, array('type'=>'DEL'));
             }
 
             if (strpos($source, 'g') !== false ||
                 strpos($source, 'p') !== false ||
                 strpos($source, 'c') !== false)
             {
-                _seq_traverse_n_check_(&$_REQUEST, $varname, $actions, $sql, $xss, '_REQ');
+                _seq_traverse_n_check_($_REQUEST, $varname, $actions, $sql, $xss, '_REQ');
             }
 
             // checking in GLOBALS means that we make no difference of the source because here
             // variables from all sources will be checked and filtered. changes here will be
             // reflected in the original source, so removing a variable here because of bad filter
             // match will remove it also from $_GET if set there.
-            //_seq_traverse_n_check_(&$GLOBALS, $varname, $actions, $sql, $xss, '_GLO');
+            //_seq_traverse_n_check_($GLOBALS, $varname, $actions, $sql, $xss, '_GLO');
 
             /* _ENV, _SERVER, _FILES are not checked yet. Should they? */
         }
@@ -1172,9 +1172,9 @@ function SEQ_SANITIZE($sanitizeList_ = '', $isFile_ = false) {
                             $varname != 'PHPSESSID'
                             )
                         {
-                            _seq_traverse_n_check_(&$_GET, $varname, array('type'=>'DEL'), null, null, '_GET');
-                            _seq_traverse_n_check_(&$HTTP_GET_VARS, $varname, array('type'=>'DEL'), null, null, 'HGET');
-                            _seq_traverse_n_check_(&$_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
+                            _seq_traverse_n_check_($_GET, $varname, array('type'=>'DEL'), null, null, '_GET');
+                            _seq_traverse_n_check_($HTTP_GET_VARS, $varname, array('type'=>'DEL'), null, null, 'HGET');
+                            _seq_traverse_n_check_($_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
                         }
                 } else {
                     $array_struct = _seq_array_to_list($varname, $value);
@@ -1186,9 +1186,9 @@ function SEQ_SANITIZE($sanitizeList_ = '', $isFile_ = false) {
                         $varname != 'PHPSESSID'
                         )
                     {
-                        _seq_traverse_n_check_(&$_GET, $varname, array('type'=>'DEL'), null, null, '_GET');
-                        _seq_traverse_n_check_(&$HTTP_GET_VARS, $varname, array('type'=>'DEL'), null, null, 'HGET');
-                        _seq_traverse_n_check_(&$_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
+                        _seq_traverse_n_check_($_GET, $varname, array('type'=>'DEL'), null, null, '_GET');
+                        _seq_traverse_n_check_($HTTP_GET_VARS, $varname, array('type'=>'DEL'), null, null, 'HGET');
+                        _seq_traverse_n_check_($_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
                     }
                 }
             }
@@ -1201,9 +1201,9 @@ function SEQ_SANITIZE($sanitizeList_ = '', $isFile_ = false) {
                             $varname != 'PHPSESSID'
                             )
                         {
-                            _seq_traverse_n_check_(&$_POST, $varname, array('type'=>'DEL'), null, null, '_POS');
-                    _seq_traverse_n_check_(&$HTTP_POST_VARS, $varname, array('type'=>'DEL', null, null, 'HPOS'));
-                            _seq_traverse_n_check_(&$_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
+                            _seq_traverse_n_check_($_POST, $varname, array('type'=>'DEL'), null, null, '_POS');
+                    _seq_traverse_n_check_($HTTP_POST_VARS, $varname, array('type'=>'DEL', null, null, 'HPOS'));
+                            _seq_traverse_n_check_($_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
                         }
                 if (is_array($value)) {
 
@@ -1216,9 +1216,9 @@ function SEQ_SANITIZE($sanitizeList_ = '', $isFile_ = false) {
                         $varname != 'PHPSESSID'
                         )
                     {
-                        _seq_traverse_n_check_(&$_POST, $varname, array('type'=>'DEL'), null, null, '_POS');
-                            _seq_traverse_n_check_(&$HTTP_POST_VARS, $varname, array('type'=>'DEL'), null, null, 'HPOS');
-                        _seq_traverse_n_check_(&$_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
+                        _seq_traverse_n_check_($_POST, $varname, array('type'=>'DEL'), null, null, '_POS');
+                            _seq_traverse_n_check_($HTTP_POST_VARS, $varname, array('type'=>'DEL'), null, null, 'HPOS');
+                        _seq_traverse_n_check_($_REQUEST, $varname, array('type'=>'DEL'), null, null, '_REQ');
                         }
                     }
                 }
