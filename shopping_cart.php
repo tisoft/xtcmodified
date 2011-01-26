@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(shopping_cart.php,v 1.71 2003/02/14); www.oscommerce.com
-   (c) 2003   nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
+   (c) 2003 nextcommerce (shopping_cart.php,v 1.24 2003/08/17); www.nextcommerce.org
    (c) 2006 xtCommerce (shopping_cart.php)
 
    Released under the GNU General Public License
@@ -46,7 +46,6 @@ if ((isset ($_SESSION['cart']->cartID) && isset ($_SESSION['cartID'])) || (!isse
 //EOF - DokuMan - 2010-08-30 - check for cartID also in shopping_cart
 
 if ($_SESSION['cart']->count_contents() > 0) {
-
   //BOF - GTB - 2010-11-26 - fix SSL/NONSSL to request
   //$smarty->assign('FORM_ACTION', xtc_draw_form('cart_quantity', xtc_href_link(FILENAME_SHOPPING_CART, 'action=update_product', 'NONSSL'))); // web28 - 2010-09-20 - change SSL -> NONSSL
   $smarty->assign('FORM_ACTION', xtc_draw_form('cart_quantity', xtc_href_link(FILENAME_SHOPPING_CART, 'action=update_product', $request_type))); // web28 - 2010-09-20 - change SSL -> NONSSL
@@ -57,10 +56,10 @@ if ($_SESSION['cart']->count_contents() > 0) {
   $products = $_SESSION['cart']->get_products();
   for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
     // Push all attributes information in an array
-        if (isset ($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
+    if (isset ($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
       while (list ($option, $value) = each($products[$i]['attributes'])) {
         $hidden_options .= xtc_draw_hidden_field('id['.$products[$i]['id'].']['.$option.']', $value);
-        //Dokuman - 2010-08-17 - fixed possible SQL injection
+        //BOF - DokuMan - 2010-01-26 - use Join on TABLE_PRODUCTS_ATTRIBUTES & TABLE_PRODUCTS_OPTIONS_VALUES
         $attributes = xtc_db_query("select popt.products_options_name,
                                            poval.products_options_values_name,
                                            pa.options_values_price,
@@ -68,16 +67,17 @@ if ($_SESSION['cart']->count_contents() > 0) {
                                            pa.attributes_stock,
                                            pa.products_attributes_id,
                                            pa.attributes_model
-                                    from ".TABLE_PRODUCTS_OPTIONS." popt,
-                                         ".TABLE_PRODUCTS_OPTIONS_VALUES." poval,
-                                         ".TABLE_PRODUCTS_ATTRIBUTES." pa
-                                    where pa.products_id = '".(int)$products[$i]['id']."'
-                                    and pa.options_id = '".(int)$option."'
-                                    and pa.options_id = popt.products_options_id
-                                    and pa.options_values_id = '".(int)$value."'
-                                    and pa.options_values_id = poval.products_options_values_id
-                                    and popt.language_id = '".(int) $_SESSION['languages_id']."'
-                                    and poval.language_id = '".(int) $_SESSION['languages_id']."'");
+                                          from ".TABLE_PRODUCTS_OPTIONS." popt
+                                          left join ".TABLE_PRODUCTS_ATTRIBUTES." pa
+                                            on popt.products_options_id = pa.options_id
+                                          left join ".TABLE_PRODUCTS_OPTIONS_VALUES." poval
+                                            on pa.options_values_id = poval.products_options_values_id
+                                          where pa.products_id = ".(int)$products[$i]['id']."
+                                          and pa.options_id = ".(int)$option."
+                                          and pa.options_values_id = ".(int)$value."
+                                          and popt.language_id = ".(int) $_SESSION['languages_id']."
+                                          and poval.language_id = ".(int) $_SESSION['languages_id']);
+        //EOF - DokuMan - 2010-01-26 - use Join on TABLE_PRODUCTS_ATTRIBUTES & TABLE_PRODUCTS_OPTIONS_VALUES
         $attributes_values = xtc_db_fetch_array($attributes);
         $products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
         $products[$i][$option]['options_values_id'] = $value;
