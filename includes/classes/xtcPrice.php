@@ -346,7 +346,7 @@ class xtcPrice {
                                     and pd.products_id = p.products_id
                                     and p.options_values_id = '".$value."'");
     $attribute_price_data = xtc_db_fetch_array($attribute_price_query, true);
-    $dicount = 0;
+    $discount = 0;
     if ($this->cStatus['customers_status_discount_attributes'] == 1 && $this->cStatus['customers_status_discount'] != 0.00) {
       $discount = $this->cStatus['customers_status_discount'];
       if ($attribute_price_data['products_discount_allowed'] < $this->cStatus['customers_status_discount']){
