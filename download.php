@@ -98,8 +98,25 @@ if (DOWNLOAD_BY_REDIRECT == 'true') {
   header("Content-Length: ".filesize(DIR_FS_DOWNLOAD.$downloads['orders_products_filename']));
   header("Content-disposition: attachment; filename=\"".$downloads['orders_products_filename']."\"");
 
+//BOF - h-h-h - 2010-01-26 - add support for large download files
 	// This will work on all systems, but will need considerable resources
 	// We could also loop with fread($fp, 4096) to save memory
-	readfile(DIR_FS_DOWNLOAD.$downloads['orders_products_filename']);
+	//readfile(DIR_FS_DOWNLOAD.$downloads['orders_products_filename']);
+	function readfile_chunked ( $file, $retbytes = true ) {
+		$chunksize = 1 * (1024 * 1024);
+		$buffer = '';
+		$cnt = 0;
+		$handle = fopen($file, 'rb');
+		if ( $handle === false ) return false ;
+		while (! feof ( $handle )) {
+			echo fread ( $handle , $chunksize );
+			if ($retbytes) $cnt += strlen ( $buffer );
+		}
+		$status = fclose ( $handle );
+		if ( $retbytes && $status ) return $cnt ; 
+		return $status ;
+	}
+readfile_chunked(DIR_FS_DOWNLOAD.$downloads['orders_products_filename']);
+//EOF - h-h-h - 2010-01-26 - add support for large download files
 }
 ?>
