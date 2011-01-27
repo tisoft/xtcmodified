@@ -18,7 +18,9 @@
 
 //BOF - web28 - 2010-09-03 - Security Fix - Base -> add DIR_WS_CATALOG to template path
 //BOF - GTB - 2010-08-03 - Security Fix - Base
+//BOF - GTB - 2010-08-03 - Security Fix - Base -> make DIR_WS_BASE global for JS
 ?>
+<script type="text/javascript">var DIR_WS_BASE="<?php echo DIR_WS_BASE ?>"</script>
 <script src="<?php echo DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE; ?>/javascript/jquery.js" type="text/javascript"></script>
 <script src="<?php echo DIR_WS_BASE.'templates/'.CURRENT_TEMPLATE; ?>/javascript/thickbox.js" type="text/javascript"></script>
 <?php
@@ -43,5 +45,6 @@
   }
   // EOF - web28 - 2010-07-26 - TABS/ACCORDION in product_info
   //EOF - GTB - 2010-08-03 - Security Fix - Base
+  //EOF - GTB - 2010-08-03 - Security Fix - Base -> make DIR_WS_BASE global for JS
   //eOF - web28 - 2010-09-03 - Security Fix - Base -> add DIR_WS_CATALOG to template path
 ?>
