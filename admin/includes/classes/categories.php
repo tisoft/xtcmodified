@@ -874,7 +874,7 @@
         @ copy(DIR_FS_CATALOG_INFO_IMAGES.'/'.$mo_img['image_name'], DIR_FS_CATALOG_INFO_IMAGES.'/'.$dup_products_image_name);
         @ copy(DIR_FS_CATALOG_THUMBNAIL_IMAGES.'/'.$mo_img['image_name'], DIR_FS_CATALOG_THUMBNAIL_IMAGES.'/'.$dup_products_image_name);
         @ copy(DIR_FS_CATALOG_POPUP_IMAGES.'/'.$mo_img['image_name'], DIR_FS_CATALOG_POPUP_IMAGES.'/'.$dup_products_image_name);
-        //EOF - h-h-h - 2011-01-27 - set file rights
+        //BOF - h-h-h - 2011-01-27 - set file rights
         chmod(DIR_FS_CATALOG_INFO_IMAGES.$dup_products_image_name, 0644);
         chmod(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$dup_products_image_name, 0644);
         chmod(DIR_FS_CATALOG_POPUP_IMAGES.$dup_products_image_name, 0644);
