@@ -309,6 +309,9 @@
         $suffix = array_pop($get_suffix);
         $dest_pic = $new_cat_id.'.'.$suffix;
         @ copy($src_pic, DIR_FS_CATALOG_IMAGES.'categories/'.$dest_pic);
+        //BOF - h-h-h - 2011-01-27 - set file rights
+        chmod(DIR_FS_CATALOG_IMAGES.'categories/'.$dest_pic, 0644);
+        //EOF - h-h-h - 2011-01-27 - set file rights
         xtDBquery("UPDATE categories SET categories_image = '".$dest_pic."' WHERE categories_id = '".$new_cat_id."'");
       }
 
@@ -520,6 +523,11 @@
       require (DIR_WS_INCLUDES.'product_thumbnail_images.php');
       require (DIR_WS_INCLUDES.'product_info_images.php');
       require (DIR_WS_INCLUDES.'product_popup_images.php');
+      //BOF - h-h-h - 2011-01-27 - set file rights
+      chmod(DIR_FS_CATALOG_INFO_IMAGES.$products_image_name, 0644);
+      chmod(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$products_image_name, 0644);
+      chmod(DIR_FS_CATALOG_POPUP_IMAGES.$products_image_name, 0644);
+      //EOF - h-h-h - 2011-01-27 - set file rights
 
     } else {
       $products_image_name = $products_data['products_previous_image_0'];
@@ -593,6 +601,11 @@
         require (DIR_WS_INCLUDES.'product_thumbnail_images.php');
         require (DIR_WS_INCLUDES.'product_info_images.php');
         require (DIR_WS_INCLUDES.'product_popup_images.php');
+        //BOF - h-h-h - 2011-01-27 - set file rights
+        chmod(DIR_FS_CATALOG_INFO_IMAGES.$products_image_name, 0644);
+        chmod(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$products_image_name, 0644);
+        chmod(DIR_FS_CATALOG_POPUP_IMAGES.$products_image_name, 0644);
+        //EOF - h-h-h - 2011-01-27 - set file rights
       }
     }
 
@@ -815,6 +828,11 @@
       @ copy(DIR_FS_CATALOG_INFO_IMAGES.'/'.$product['products_image'], DIR_FS_CATALOG_INFO_IMAGES.'/'.$dup_products_image_name);
       @ copy(DIR_FS_CATALOG_THUMBNAIL_IMAGES.'/'.$product['products_image'], DIR_FS_CATALOG_THUMBNAIL_IMAGES.'/'.$dup_products_image_name);
       @ copy(DIR_FS_CATALOG_POPUP_IMAGES.'/'.$product['products_image'], DIR_FS_CATALOG_POPUP_IMAGES.'/'.$dup_products_image_name);
+      //BOF - h-h-h - 2011-01-27 - set file rights
+      chmod(DIR_FS_CATALOG_INFO_IMAGES.$dup_products_image_name, 0644);
+      chmod(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$dup_products_image_name, 0644);
+      chmod(DIR_FS_CATALOG_POPUP_IMAGES.$dup_products_image_name, 0644);
+      //EOF - h-h-h - 2011-01-27 - set file rights
 
     } else {
       unset ($dup_products_image_name);
@@ -856,6 +874,11 @@
         @ copy(DIR_FS_CATALOG_INFO_IMAGES.'/'.$mo_img['image_name'], DIR_FS_CATALOG_INFO_IMAGES.'/'.$dup_products_image_name);
         @ copy(DIR_FS_CATALOG_THUMBNAIL_IMAGES.'/'.$mo_img['image_name'], DIR_FS_CATALOG_THUMBNAIL_IMAGES.'/'.$dup_products_image_name);
         @ copy(DIR_FS_CATALOG_POPUP_IMAGES.'/'.$mo_img['image_name'], DIR_FS_CATALOG_POPUP_IMAGES.'/'.$dup_products_image_name);
+        //EOF - h-h-h - 2011-01-27 - set file rights
+        chmod(DIR_FS_CATALOG_INFO_IMAGES.$dup_products_image_name, 0644);
+        chmod(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$dup_products_image_name, 0644);
+        chmod(DIR_FS_CATALOG_POPUP_IMAGES.$dup_products_image_name, 0644);
+        //EOF - h-h-h - 2011-01-27 - set file rights
         xtc_db_query("INSERT INTO ".TABLE_PRODUCTS_IMAGES."
                               SET products_id = '".$dup_products_id."',
                                   image_nr    = '".$mo_img['image_nr']."',
