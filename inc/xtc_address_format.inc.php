@@ -30,12 +30,16 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
     $suburb = addslashes($address['suburb']);
     $city = addslashes($address['city']);
     $state = addslashes($address['state']);
+    //BOF - h-h-h - 2011-01-27 - add is_array request
     //BOF - DokuMan - 2010-08-24 - set undefined index
     //$country_id = $address['country_id'];
     //$zone_id = $address['zone_id'];
-    $country_id = array_key_exists('country_id', $address) ? $address['country_id'] : 0;
-    $zone_id = array_key_exists('zone_id', $address) ? $address['zone_id'] : 0;
+    //$country_id = array_key_exists('country_id', $address) ? $address['country_id'] : 0;
+    //$zone_id = array_key_exists('zone_id', $address) ? $address['zone_id'] : 0;
+    $country_id = (is_array($address) && array_key_exists('country_id', $address)) ? $address['country_id'] : 0;
+    $zone_id = (is_array($address) && array_key_exists('zone_id', $address)) ? $address['zone_id'] : 0;
     //EOF - DokuMan - 2010-08-24 - set undefined index
+    //EOF - h-h-h - 2011-01-27 - add is_array request
     $postcode = addslashes($address['postcode']);
     $zip = $postcode;
     $country = xtc_get_country_name($country_id);
