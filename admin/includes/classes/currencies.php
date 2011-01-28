@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id: currencies.php 950 2005-05-14 16:45:21Z mz $   
 
    XT-Commerce - community made shopping
@@ -14,19 +14,18 @@
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   ////
   // Class to handle currencies
   // TABLES: currencies
   class currencies {
     var $currencies;
-
     // class constructor
     function currencies() {
       $this->currencies = array();
       $currencies_query = xtc_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES);
       while ($currencies = xtc_db_fetch_array($currencies_query)) {
-	    $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
+        $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
                                                        'symbol_left' => $currencies['symbol_left'],
                                                        'symbol_right' => $currencies['symbol_right'],
                                                        'decimal_point' => $currencies['decimal_point'],
@@ -49,7 +48,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       } else {
         $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
       }
-
       return $format_string;
     }
 
