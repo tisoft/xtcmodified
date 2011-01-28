@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$
 
    http://www.xtc-modified.org
@@ -59,7 +59,7 @@
   }
   // EOF - Tomcraft - 2009-11-08 - FIX for PHP5.3 date_default_timezone_set
 
-//BOF - GTB - 2010-08-03 - Security Fix - Base
+  //BOF - GTB - 2010-08-03 - Security Fix - Base
   //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
   $PHP_SELF = $_SERVER['SCRIPT_NAME'];
   /*if ($_SERVER['SCRIPT_NAME'] != $_SERVER['PHP_SELF']) {
@@ -70,9 +70,10 @@
   //BOF - GTB - 2010-11-26 - Security Fix - PHP_SELF
 
   $ssl_proxy = '';
-  if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
+  if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
+    $ssl_proxy = '/' . $_SERVER['HTTP_HOST'];
   define('DIR_WS_BASE', $ssl_proxy . preg_replace('/\\' . DIRECTORY_SEPARATOR . '\/|\/\//', '/', dirname($PHP_SELF) . '/'));
-//EOF - GTB - 2010-08-03 - Security Fix - Base
+  //EOF - GTB - 2010-08-03 - Security Fix - Base
 
   define('SQL_CACHEDIR',DIR_FS_CATALOG.'cache/');
 
@@ -226,7 +227,8 @@
 
   // set application wide parameters
   $configuration_query = xtc_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
-// Paypal API Modul Änderungen - Cache im Admin AUS!
+  
+  // Paypal API Modul Änderungen - Cache im Admin AUS!
   while ($configuration = xtc_db_fetch_array($configuration_query)) {
     if($configuration['cfgKey']=='DB_CACHE'):
       define("DB_CACHE", "false");
@@ -236,13 +238,13 @@
   }
 
   define('FILENAME_IMAGEMANIPULATOR',IMAGE_MANIPULATOR);
-    function xtDBquery($query) {
-       if (DB_CACHE=='true') {
-         $result=xtc_db_queryCached($query);
-         //echo 'cached query: '.$query.'<br />';
-       } else {
-        $result=xtc_db_query($query);
-       }
+  function xtDBquery($query) {
+    if (DB_CACHE=='true') {
+      $result=xtc_db_queryCached($query);
+      //echo 'cached query: '.$query.'<br />';
+    } else {
+      $result=xtc_db_query($query);
+    }
     return $result;
   }
 
@@ -265,12 +267,15 @@
 
   // set the session name and save path
   session_name('XTCsid');
-  if (STORE_SESSIONS != 'mysql') session_save_path(SESSION_WRITE_DIRECTORY);
+  if (STORE_SESSIONS != 'mysql')
+    session_save_path(SESSION_WRITE_DIRECTORY);
 
   //BOF - DokuMan - 2010-10-29 - added missing variables for determining $current_domain
   if (file_exists(DIR_WS_INCLUDES.'request_type.php')) {
     include (DIR_WS_INCLUDES.'request_type.php');
-  } else $request_type = 'NONSSL';
+  } else {
+    $request_type = 'NONSSL';
+  }
   // set the top level domains
   $http_domain = xtc_get_top_level_domain(HTTP_SERVER);
   //$https_domain = xtc_get_top_level_domain(HTTPS_SERVER);
@@ -302,18 +307,16 @@
   $session_started = false;
   if (SESSION_FORCE_COOKIE_USE == 'True') {
     xtc_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, '/', $current_domain);
-
-  //BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
-  //if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
-  if (isset($_COOKIE['cookie_test'])) {
-  //EOF - Hetfield - 2009-08-16 - fix for some admin-login problems
+    //BOF - Hetfield - 2009-08-16 - fix for some admin-login problems
+    //if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
+    if (isset($_COOKIE['cookie_test'])) {
+    //EOF - Hetfield - 2009-08-16 - fix for some admin-login problems
       session_start();
       $session_started = true;
     }
   } elseif (CHECK_CLIENT_AGENT == 'True') {
     $user_agent = strtolower(getenv('HTTP_USER_AGENT'));
     $spider_flag = false;
-
     if ($spider_flag == false) {
       session_start();
       $session_started = true;
@@ -337,19 +340,18 @@
   }
 
   // verify the browser user agent if the feature is enabled
-if (SESSION_CHECK_USER_AGENT == 'True') {
-  $http_user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-  $http_user_agent2 = strtolower(getenv("HTTP_USER_AGENT"));
-  $http_user_agent = ($http_user_agent == $http_user_agent2) ? $http_user_agent : $http_user_agent.';'.$http_user_agent2;
-  if (!isset($_SESSION['SESSION_USER_AGENT'])) {
-    $_SESSION['SESSION_USER_AGENT'] = $http_user_agent;
+  if (SESSION_CHECK_USER_AGENT == 'True') {
+    $http_user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+    $http_user_agent2 = strtolower(getenv("HTTP_USER_AGENT"));
+    $http_user_agent = ($http_user_agent == $http_user_agent2) ? $http_user_agent : $http_user_agent.';'.$http_user_agent2;
+    if (!isset($_SESSION['SESSION_USER_AGENT'])) {
+      $_SESSION['SESSION_USER_AGENT'] = $http_user_agent;
+    }
+    if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
+      session_destroy();
+      xtc_redirect(xtc_href_link(FILENAME_LOGIN));
+    }
   }
-
-  if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
-    session_destroy();
-    xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-  }
-}
 
   // verify the IP address if the feature is enabled
   if (SESSION_CHECK_IP_ADDRESS == 'True') {
@@ -357,7 +359,6 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
     if (!isset($_SESSION['SESSION_IP_ADDRESS'])) { // Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
       $_SESSION['SESSION_IP_ADDRESS'] = $ip_address;
     }
-
     if ($_SESSION['SESSION_IP_ADDRESS'] != $ip_address) {
       session_destroy();
       xtc_redirect(xtc_href_link(FILENAME_LOGIN));
@@ -366,15 +367,13 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 
   // set the language
   if (!isset($_SESSION['language']) || isset($_GET['language'])) {
-
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language($_GET['language']);
-
-    if (!isset($_GET['language'])) $lng->get_browser_language();
-
+    if (!isset($_GET['language']))
+      $lng->get_browser_language();
     $_SESSION['language'] = $lng->language['directory'];
     $_SESSION['languages_id'] = $lng->language['id'];
-  $_SESSION['language_code'] = $lng->language['code']; //web28 - 2010-09-05 - add $_SESSION['language_code']
+    $_SESSION['language_code'] = $lng->language['code']; //web28 - 2010-09-05 - add $_SESSION['language_code']
   }
 
   // include the language translations
@@ -395,7 +394,7 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   $_SESSION['user_info'] = array();
   if (!isset($_SESSION['user_info']['user_ip'])) {
     $_SESSION['user_info']['user_ip'] = $_SERVER['REMOTE_ADDR'];
-//    $user_info['user_ip_date'] =  value will be in fact added when login ;
+    // $user_info['user_ip_date'] =  value will be in fact added when login ;
     $_SESSION['user_info']['user_host'] = gethostbyaddr( $_SERVER['REMOTE_ADDR'] );;
     $_SESSION['user_info']['advertiser'] = isset($_GET['ad']) ? $_GET['ad'] : '';
     $_SESSION['user_info']['referer_url'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
@@ -403,25 +402,18 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 
   // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
-
   // Include validation functions (right now only email address)
   //require(DIR_WS_FUNCTIONS . 'validations.php');
-
   // setup our boxes
   require(DIR_WS_CLASSES . 'table_block.php');
   require(DIR_WS_CLASSES . 'box.php');
-
   // initialize the message stack for output messages
   require(DIR_WS_CLASSES . 'message_stack.php');
   $messageStack = new messageStack;
-
   // split-page-results
   require(DIR_WS_CLASSES . 'split_page_results.php');
-
   // entry/item info classes
   require(DIR_WS_CLASSES . 'object_info.php');
-
-
   // file uploading class
   require(DIR_WS_CLASSES . 'upload.php');
 
@@ -476,13 +468,12 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
   }
 
   // Include Template Engine Version 2.6.26
-	//BOF - GTB - 2011-01-20 - move Smarty to external directory
-	//require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
-	require (DIR_FS_EXTERNAL.'smarty/Smarty.class.php');
-	//EOF - GTB - 2011-01-20 - move Smarty to external directory
-  
+  //BOF - GTB - 2011-01-20 - move Smarty to external directory
+  //require(DIR_FS_CATALOG.DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');
+  require (DIR_FS_EXTERNAL.'smarty/Smarty.class.php');
+  //EOF - GTB - 2011-01-20 - move Smarty to external directory
 
-// BOF - Tomcraft - 2009-11-28 - Included xs:booster
+  // BOF - Tomcraft - 2009-11-28 - Included xs:booster
   define('FILENAME_XTBOOSTER','xtbooster.php');
-// EOF - Tomcraft - 2009-11-28 - Included xs:booster
+  // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 ?>

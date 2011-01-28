@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id: application_bottom.php 899 2005-04-29 02:40:57Z hhgag $   
 
    XT-Commerce - community made shopping
@@ -16,7 +16,8 @@
    --------------------------------------------------------------*/
 
   if (STORE_PAGE_PARSE_TIME == 'true') {
-    if (!is_object($logger)) $logger = new logger;
+    if (!is_object($logger))
+      $logger = new logger;
     echo $logger->timer_stop(DISPLAY_PAGE_PARSE_TIME);
   }
 ?>

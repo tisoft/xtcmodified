@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -17,9 +17,9 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-// Define the webserver and path parameters
-// * DIR_FS_* = Filesystem directories (local/physical)
-// * DIR_WS_* = Webserver directories (virtual/URL)
+  // Define the webserver and path parameters
+  // * DIR_FS_* = Filesystem directories (local/physical)
+  // * DIR_WS_* = Webserver directories (virtual/URL)
   define('HTTP_SERVER', 'http://localhost'); // eg, http://localhost - should not be empty for productive servers
   define('HTTP_CATALOG_SERVER', 'http://localhost');
   define('HTTPS_CATALOG_SERVER', 'https://localhost'); // eg, https://localhost - should not be empty for productive servers
@@ -56,7 +56,7 @@
   define('DIR_FS_EXTERNAL', DIR_FS_CATALOG . 'includes/external/');
   define('DIR_WS_FILEMANAGER', DIR_WS_EXTERNAL . 'fckeditor/editor/filemanager/browser/default/');
 
-// define our database connection
+  // define our database connection
   define('DB_SERVER', 'localhost'); // eg, localhost - should not be empty for productive servers
   define('DB_SERVER_USERNAME', 'root');
   define('DB_SERVER_PASSWORD', 'root');
