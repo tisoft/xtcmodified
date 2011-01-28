@@ -20,7 +20,7 @@
     //BOF - web28 - 2011-01-20 - set manufacturers cache for better performance - thanks to DocBobo
     static $manufacturers_cache;
 
-    if (isset ($manufacturers_cache)) return $manufacturers_cache;
+    if (isset ($manufacturers_cache) && $manufacturers_array == '') return $manufacturers_cache;
     //BOF - web28 - 2011-01-20 - set manufacturers cache for better performance - thanks to DocBobo
 
     if (!is_array($manufacturers_array)) $manufacturers_array = array();
