@@ -55,26 +55,30 @@ if ($listing_split->number_of_rows > 0) {
 
 	$category = xtc_db_fetch_array($category_query,true);
 	$image = '';
-    if ($category['categories_image'] != '') {
-      $image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
-  // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
-      if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
-  // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+  if ($category['categories_image'] != '') {
+    $image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
+    // BOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
+    if(!file_exists($image)) $image = DIR_WS_IMAGES.'categories/noimage.gif';
+    // EOF - Tomcraft - 2009-10-30 - noimage.gif is displayed, when no image is defined
   	//BOF - GTB - 2010-08-03 - Security Fix - Base
   	$image = DIR_WS_BASE.$image;
   	//EOF - GTB - 2010-08-03 - Security Fix - Base
-    }
+  }
 
 	//BOF -web28- 2010-08-06 - BUGFIX no manufacturers image displayed
 	if (isset ($_GET['manufacturers_id'])) {
 		$manu_query = xtDBquery("select manufacturers_image from ".TABLE_MANUFACTURERS." where manufacturers_id = '".(int) $_GET['manufacturers_id']."'");
 		$manu = xtc_db_fetch_array($manu_query,true);
-		$image = DIR_WS_IMAGES.$manu['manufacturers_image'];
-		if(!file_exists($image)) $image = '';
-		//BOF - GTB - 2010-08-03 - Security Fix - Base
-		if ($image != '') $image = DIR_WS_BASE.$image;
-		//EOF - GTB - 2010-08-03 - Security Fix - Base
+    // BOF - web28 - 2011-01-28 - FIX display manufacturers_image
+    if ($manu['manufacturers_image'] != '') {
+      $image = DIR_WS_IMAGES.$manu['manufacturers_image'];
+      if(!file_exists($image)) $image = '';
+      //BOF - GTB - 2010-08-03 - Security Fix - Base
+      if ($image != '') $image = DIR_WS_BASE.$image;
+      //EOF - GTB - 2010-08-03 - Security Fix - Base
     }
+    // EOF - web28 - 2011-01-28 - FIX display manufacturers_image
+  }
 	//EOF -web28- 2010-08-06 - BUGFIX no manufacturers image displayed
 
 	$module_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
