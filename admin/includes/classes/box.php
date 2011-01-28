@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id: box.php 950 2005-05-14 16:45:21Z mz $   
 
    XT-Commerce - community made shopping
@@ -27,8 +27,9 @@
    $box = new box;
    echo $box->infoBox($heading, $contents);   
    --------------------------------------------------------------
-*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  */
+
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
   class box extends tableBlock {
     function box() {
