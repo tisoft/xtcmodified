@@ -339,17 +339,17 @@ define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_TITLE' , 'Kennzeichnung vergriffener Art
 define('STOCK_MARK_PRODUCT_OUT_OF_STOCK_DESC' , 'Dem Kunden kenntlich machen, welche Artikel nicht mehr verf&uuml;gbar sind.');
 define('STOCK_REORDER_LEVEL_TITLE' , 'Meldung an den Admin dass ein Artikel nachbestellt werden muss');
 define('STOCK_REORDER_LEVEL_DESC' , 'Ab welcher St&uuml;ckzahl soll diese Meldung erscheinen?');
-define('STORE_PAGE_PARSE_TIME_TITLE' , 'Speichern der Berechnungszeit der Seite');
+define('STORE_PAGE_PARSE_TIME_TITLE' , 'Speichern der Berechnungszeit des Shop-Seitenaufbaus');
 define('STORE_PAGE_PARSE_TIME_DESC' , 'Speicher der Zeit die ben&ouml;tigt wird, um Skripte bis zum Output der Seite zu berechnen');
-define('STORE_PAGE_PARSE_TIME_LOG_TITLE' , 'Speicherort des Logfile der Berechnungszeit');
-define('STORE_PAGE_PARSE_TIME_LOG_DESC' , 'Ordner und Filenamen eintragen f&uuml;r den Logfile f&uuml;r Berechnung der Parsing Dauer');
-define('STORE_PARSE_DATE_TIME_FORMAT_TITLE' , 'Log Datum Format');
-define('STORE_PARSE_DATE_TIME_FORMAT_DESC' , 'Das Datumsformat f&uuml;r Logging');
+define('STORE_PAGE_PARSE_TIME_LOG_TITLE' , 'Speicherort der Logdatei');
+define('STORE_PAGE_PARSE_TIME_LOG_DESC' , 'Hier den Speicherort/Dateiname eintragen, in dem die Berechnungszeit f&uuml;r den Seitenaufbau, sowie die Datenbank Abfragen gespeichert werden.<br/><strong>Achtung: Datei kann bei l&auml;ngerer Laufzeit sehr gro&szlig; werden!</strong>.<br/><br/>Standard-Datei "page_parse_time.log":<br/><strong>Frontend:</strong> Berechnungszeit und Datenbank Abfragen im Frontend des Shops werden im Root-Verzeichnis in der Datei "<strong>page_parse_time.log</strong>" gespeichert.<br/><strong>Administrationsbereich (Backend):</strong> Berechnungszeit und Datenbank Abfragen im Administrationsbereich des Shops werden automatisch in der Datei "<strong>admin/page_parse_time.log</strong>" gespeichert.');
+define('STORE_PARSE_DATE_TIME_FORMAT_TITLE' , 'Datumsformat in der Log-Datei');
+define('STORE_PARSE_DATE_TIME_FORMAT_DESC' , 'Das Datumsformat f&uuml;r Logging (Standard: %d/%m/%Y %H:%M:%S)');
 
 define('DISPLAY_PAGE_PARSE_TIME_TITLE' , 'Berechnungszeiten der Seiten anzeigen');
 define('DISPLAY_PAGE_PARSE_TIME_DESC' , 'Wenn das Speichern der Berechnungszeiten f&uuml;r Seiten eingeschaltet ist, k&ouml;nnen diese im Footer angezeigt werden.');
-define('STORE_DB_TRANSACTIONS_TITLE' , 'Speichern der Database Queries');
-define('STORE_DB_TRANSACTIONS_DESC' , 'Speichern der einzelnen Datenbank Queries im Logfile f&uuml;r Berechnungszeiten (PHP4 only)');
+define('STORE_DB_TRANSACTIONS_TITLE' , 'Speichern der Datenbank Abfragen');
+define('STORE_DB_TRANSACTIONS_DESC' , 'Speichern der einzelnen Datenbank Abfragen im Logfile f&uuml;r Berechnungszeiten');
 
 define('USE_CACHE_TITLE' , 'Cache benutzen');
 define('USE_CACHE_DESC' , 'Die Cache Features verwenden');
