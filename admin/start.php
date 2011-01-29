@@ -284,15 +284,15 @@
                                     ?>
                                     <?php
                                     $abfrage = "SELECT * FROM " . TABLE_CUSTOMERS . " ORDER BY customers_date_added DESC LIMIT 15";
-                                    $ergebnis = mysql_query($abfrage);
-                                    while($row = mysql_fetch_object($ergebnis)){
+                                    $ergebnis = xtc_db_query($abfrage);
+                                    while($row = xtc_db_fetch_array($ergebnis)){
                                       ?>
                                       <tr>
-                                        <td class="dataTableContent" width="25%"><?php  echo $row-> customers_lastname; ?></td>
-                                        <td class="dataTableContent" width="25%"><?php  echo $row-> customers_firstname; ?></td>
-                                        <td class="dataTableContent" align="center" width="25%"><?php  echo $row-> customers_date_added; ?></td>
-                                        <td class="dataTableContent" align="center" width="12%"><strong> <a href="customers.php?page=1&cID=<?php  echo $row-> customers_id; ?>&action=edit"> <font face="Verdana" color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_EDIT; ?></strong></font></a></strong></td>
-                                        <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?cID=<?php  echo $row-> customers_id; ?>"><font color="#7691A2" face="Verdana"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_ORDERS; ?></strong></font></a></strong></td>
+                                        <td class="dataTableContent" width="25%"><?php echo $row['customers_lastname']; ?></td>
+                                        <td class="dataTableContent" width="25%"><?php echo $row['customers_firstname']; ?></td>
+                                        <td class="dataTableContent" align="center" width="25%"><?php echo $row['customers_date_added']; ?></td>
+                                        <td class="dataTableContent" align="center" width="12%"><strong> <a href="customers.php?page=1&cID=<?php echo $row['customers_id']; ?>&action=edit"> <font face="Verdana" color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_EDIT; ?></strong></font></a></strong></td>
+                                        <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?cID=<?php echo $row['customers_id']; ?>"><font color="#7691A2" face="Verdana"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_ORDERS; ?></strong></font></a></strong></td>
                                       </tr>
                                       <?php
                                     }
@@ -325,15 +325,15 @@
                                     ?>
                                     <?php
                                     $abfrage = "SELECT * FROM " . TABLE_ORDERS . " ORDER BY orders_id DESC LIMIT 20";
-                                    $ergebnis = mysql_query($abfrage);
-                                    while($row = mysql_fetch_object($ergebnis)){
+                                    $ergebnis = xtc_db_query($abfrage);
+                                    while($row = xtc_db_fetch_array($ergebnis)){
                                       ?>
                                       <tr>
-                                        <td class="dataTableContent" width="25%"><font face="Verdana"><?php  echo $row-> orders_id; ?></font></td>
-                                        <td class="dataTableContent" width="25%"><p align="center"> <font face="Verdana"><?php  echo $row-> date_purchased; ?></font></td>
-                                        <td class="dataTableContent" align="center" width="25%"><font face="Verdana"><?php  echo $row-> delivery_name; ?></font></td>
-                                        <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=edit"> <font face="Verdana" color="#7691A2"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_EDIT; ?></strong></font></a></strong></td>
-                                        <td class="dataTableContent" align="center" width="12%"><font face="Verdana" color="#800000"> <strong> <a href="orders.php?page=1&oID=<?php  echo $row-> orders_id; ?>&action=delete"> <font color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_DELETE; ?></strong></font></a></strong></font></td>
+                                        <td class="dataTableContent" width="25%"><font face="Verdana"><?php echo $row['orders_id']; ?></font></td>
+                                        <td class="dataTableContent" width="25%"><p align="center"> <font face="Verdana"><?php echo $row['date_purchased']; ?></font></td>
+                                        <td class="dataTableContent" align="center" width="25%"><font face="Verdana"><?php echo $row['delivery_name']; ?></font></td>
+                                        <td class="dataTableContent" align="center" width="12%"><strong> <a href="orders.php?page=1&oID=<?php echo $row['orders_id']; ?>&action=edit"> <font face="Verdana" color="#7691A2"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_EDIT; ?></strong></font></a></strong></td>
+                                        <td class="dataTableContent" align="center" width="12%"><font face="Verdana" color="#800000"> <strong> <a href="orders.php?page=1&oID=<?php echo $row['orders_id']; ?>&action=delete"> <font color="#800000"><strong><?php echo TABLE_CELL_NEW_CUSTOMERS_DELETE; ?></strong></font></a></strong></font></td>
                                       </tr>
                                       <?php
                                     }

@@ -36,7 +36,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
 /**
  * clear_string()
- * 
+ *
  * @param mixed $value
  * @return
  */
@@ -51,7 +51,7 @@ function clear_string($value) {
 // Parse the data used in the html tags to ensure the tags will not break
 /**
  * xtc_parse_input_field_data()
- * 
+ *
  * @param mixed $data
  * @param mixed $parse
  * @return
@@ -62,7 +62,7 @@ function xtc_parse_input_field_data($data, $parse) {
 
 /**
  * xtc_output_string()
- * 
+ *
  * @param mixed $string
  * @param bool $translate
  * @param bool $protected
@@ -82,7 +82,7 @@ function xtc_output_string($string, $translate = false, $protected = false) {
 
 /**
  * check_stock()
- * 
+ *
  * @param mixed $products_id
  * @return
  */
@@ -98,7 +98,7 @@ function check_stock($products_id) {
     while ($attribute_stock_values = xtc_db_fetch_array($attribute_stock_query)) {
       if ($attribute_stock_values['attributes_stock'] <= '0') {
         $stock_flag = 'true';
-        $which_attribute_query = xtDBquery("SELECT products_options_values_name FROM ".TABLE_PRODUCTS_OPTIONS_VALUES." WHERE products_options_values_id = '".$attribute_stock_values['options_values_id']."' AND language_id = '".$_SESSION['languages_id']."'");
+        $which_attribute_query = xtDBquery("SELECT products_options_values_name FROM ".TABLE_PRODUCTS_OPTIONS_VALUES." WHERE products_options_values_id = '".$attribute_stock_values['options_values_id']."' AND language_id = '".(int)$_SESSION['languages_id']."'");
         $which_attribute = xtc_db_fetch_array($which_attribute_query);
         $stock_warn .= ', '.$which_attribute['products_options_values_name'];
       }
@@ -114,7 +114,7 @@ function check_stock($products_id) {
 // Set Categorie Status
 /**
  * xtc_set_categories_status()
- * 
+ *
  * @param mixed $categories_id
  * @param mixed $status
  * @return
@@ -132,7 +132,7 @@ function xtc_set_categories_status($categories_id, $status) {
 
 /**
  * xtc_set_groups()
- * 
+ *
  * @param mixed $categories_id
  * @param mixed $permission_array
  * @return
@@ -155,7 +155,7 @@ function xtc_set_groups($categories_id, $permission_array) {
 // Set Admin Access Rights
 /**
  * xtc_set_admin_access()
- * 
+ *
  * @param mixed $fieldname
  * @param mixed $status
  * @param mixed $cID
@@ -172,7 +172,7 @@ function xtc_set_admin_access($fieldname, $status, $cID) {
 // Check whether a referer has enough permission to open an admin page
 /**
  * xtc_check_permission()
- * 
+ *
  * @param mixed $pagename
  * @return
  */
@@ -194,7 +194,7 @@ function xtc_check_permission($pagename) {
 // Redirect to another page or site
 /**
  * xtc_redirect()
- * 
+ *
  * @param mixed $url
  * @return
  */
@@ -213,7 +213,7 @@ function xtc_redirect($url) {
 
 /**
  * xtc_customers_name()
- * 
+ *
  * @param mixed $customers_id
  * @return
  */
@@ -226,7 +226,7 @@ function xtc_customers_name($customers_id) {
 
 /**
  * xtc_get_path()
- * 
+ *
  * @param string $current_category_id
  * @return
  */
@@ -265,7 +265,7 @@ function xtc_get_path($current_category_id = '') {
 
 /**
  * xtc_get_all_get_params()
- * 
+ *
  * @param string $exclude_array
  * @return
  */
@@ -286,7 +286,7 @@ function xtc_get_all_get_params($exclude_array = '') {
 
 /**
  * xtc_date_long()
- * 
+ *
  * @param mixed $raw_date
  * @return
  */
@@ -309,7 +309,7 @@ function xtc_date_long($raw_date) {
 // NOTE: Includes a workaround for dates before 01/01/1970 that fail on windows servers
 /**
  * xtc_date_short()
- * 
+ *
  * @param mixed $raw_date
  * @return
  */
@@ -334,7 +334,7 @@ function xtc_date_short($raw_date) {
 
 /**
  * xtc_datetime_short()
- * 
+ *
  * @param mixed $raw_datetime
  * @return
  */
@@ -354,7 +354,7 @@ function xtc_datetime_short($raw_datetime) {
 
 /**
  * xtc_array_merge()
- * 
+ *
  * @param mixed $array1
  * @param mixed $array2
  * @param string $array3
@@ -381,7 +381,7 @@ function xtc_array_merge($array1, $array2, $array3 = '') {
 
 /**
  * xtc_in_array()
- * 
+ *
  * @param mixed $lookup_value
  * @param mixed $lookup_array
  * @return
@@ -403,7 +403,7 @@ function xtc_in_array($lookup_value, $lookup_array) {
 
 /**
  * xtc_get_category_tree()
- * 
+ *
  * @param string $parent_id
  * @param string $spacing
  * @param string $exclude
@@ -419,12 +419,12 @@ function xtc_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
     $category_tree_array[] = array ('id' => '0', 'text' => TEXT_TOP);
 
   if ($include_itself) {
-    $category_query = xtc_db_query("select cd.categories_name from ".TABLE_CATEGORIES_DESCRIPTION." cd where cd.language_id = '".$_SESSION['languages_id']."' and cd.categories_id = '".$parent_id."'");
+    $category_query = xtc_db_query("select cd.categories_name from ".TABLE_CATEGORIES_DESCRIPTION." cd where cd.language_id = '".(int)$_SESSION['languages_id']."' and cd.categories_id = '".$parent_id."'");
     $category = xtc_db_fetch_array($category_query);
     $category_tree_array[] = array ('id' => $parent_id, 'text' => $category['categories_name']);
   }
 
-  $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where c.categories_id = cd.categories_id and cd.language_id = '".$_SESSION['languages_id']."' and c.parent_id = '".$parent_id."' order by c.sort_order, cd.categories_name");
+  $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where c.categories_id = cd.categories_id and cd.language_id = '".(int)$_SESSION['languages_id']."' and c.parent_id = '".$parent_id."' order by c.sort_order, cd.categories_name");
   while ($categories = xtc_db_fetch_array($categories_query)) {
     if ($exclude != $categories['categories_id'])
       $category_tree_array[] = array ('id' => $categories['categories_id'], 'text' => $spacing.$categories['categories_name']);
@@ -436,7 +436,7 @@ function xtc_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 
 /**
  * xtc_draw_products_pull_down()
- * 
+ *
  * @param mixed $name
  * @param string $parameters
  * @param string $exclude
@@ -453,7 +453,7 @@ function xtc_draw_products_pull_down($name, $parameters = '', $exclude = '') {
     $select_string .= ' '.$parameters;
   }
   $select_string .= '>';
-  $products_query = xtc_db_query("select p.products_id, pd.products_name,p.products_tax_class_id, p.products_price from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id = pd.products_id and pd.language_id = '".$_SESSION['languages_id']."' order by products_name");
+  $products_query = xtc_db_query("select p.products_id, pd.products_name,p.products_tax_class_id, p.products_price from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id = pd.products_id and pd.language_id = '".(int)$_SESSION['languages_id']."' order by products_name");
   while ($products = xtc_db_fetch_array($products_query)) {
     if (!xtc_in_array($products['products_id'], $exclude)) {
       //brutto admin:
@@ -470,13 +470,13 @@ function xtc_draw_products_pull_down($name, $parameters = '', $exclude = '') {
 
 /**
  * xtc_options_name()
- * 
+ *
  * @param mixed $options_id
  * @return
  */
 function xtc_options_name($options_id) {
 
-  $options = xtc_db_query("select products_options_name from ".TABLE_PRODUCTS_OPTIONS." where products_options_id = '".$options_id."' and language_id = '".$_SESSION['languages_id']."'");
+  $options = xtc_db_query("select products_options_name from ".TABLE_PRODUCTS_OPTIONS." where products_options_id = '".$options_id."' and language_id = '".(int)$_SESSION['languages_id']."'");
   $options_values = xtc_db_fetch_array($options);
 
   return $options_values['products_options_name'];
@@ -484,13 +484,13 @@ function xtc_options_name($options_id) {
 
 /**
  * xtc_values_name()
- * 
+ *
  * @param mixed $values_id
  * @return
  */
 function xtc_values_name($values_id) {
 
-  $values = xtc_db_query("select products_options_values_name from ".TABLE_PRODUCTS_OPTIONS_VALUES." where products_options_values_id = '".$values_id."' and language_id = '".$_SESSION['languages_id']."'");
+  $values = xtc_db_query("select products_options_values_name from ".TABLE_PRODUCTS_OPTIONS_VALUES." where products_options_values_id = '".$values_id."' and language_id = '".(int)$_SESSION['languages_id']."'");
   $values_values = xtc_db_fetch_array($values);
 
   return $values_values['products_options_values_name'];
@@ -498,7 +498,7 @@ function xtc_values_name($values_id) {
 
 /**
  * xtc_info_image()
- * 
+ *
  * @param mixed $image
  * @param mixed $alt
  * @param string $width
@@ -517,7 +517,7 @@ function xtc_info_image($image, $alt, $width = '', $height = '') {
 
 /**
  * xtc_info_image_c()
- * 
+ *
  * @param mixed $image
  * @param mixed $alt
  * @param string $width
@@ -536,7 +536,7 @@ function xtc_info_image_c($image, $alt, $width = '', $height = '') {
 
 /**
  * xtc_product_thumb_image()
- * 
+ *
  * @param mixed $image
  * @param mixed $alt
  * @param string $width
@@ -555,7 +555,7 @@ function xtc_product_thumb_image($image, $alt, $width = '', $height = '') {
 
 /**
  * xtc_break_string()
- * 
+ *
  * @param mixed $string
  * @param mixed $len
  * @param string $break_char
@@ -583,7 +583,7 @@ function xtc_break_string($string, $len, $break_char = '-') {
 
 /**
  * xtc_get_country_name()
- * 
+ *
  * @param mixed $country_id
  * @return
  */
@@ -600,7 +600,7 @@ function xtc_get_country_name($country_id) {
 
 /**
  * xtc_get_zone_name()
- * 
+ *
  * @param mixed $country_id
  * @param mixed $zone_id
  * @param mixed $default_zone
@@ -618,7 +618,7 @@ function xtc_get_zone_name($country_id, $zone_id, $default_zone) {
 
 /**
  * xtc_browser_detect()
- * 
+ *
  * @param mixed $component
  * @return
  */
@@ -629,7 +629,7 @@ function xtc_browser_detect($component) {
 
 /**
  * xtc_tax_classes_pull_down()
- * 
+ *
  * @param mixed $parameters
  * @param string $selected
  * @return
@@ -650,7 +650,7 @@ function xtc_tax_classes_pull_down($parameters, $selected = '') {
 
 /**
  * xtc_geo_zones_pull_down()
- * 
+ *
  * @param mixed $parameters
  * @param string $selected
  * @return
@@ -671,7 +671,7 @@ function xtc_geo_zones_pull_down($parameters, $selected = '') {
 
 /**
  * xtc_get_geo_zone_name()
- * 
+ *
  * @param mixed $geo_zone_id
  * @return
  */
@@ -690,7 +690,7 @@ function xtc_get_geo_zone_name($geo_zone_id) {
 
 /**
  * xtc_address_format()
- * 
+ *
  * @param mixed $address_format_id
  * @param mixed $address
  * @param mixed $html
@@ -774,7 +774,7 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * xtc_get_zone_code()
- * 
+ *
  * @param mixed $country
  * @param mixed $zone
  * @param mixed $def_state
@@ -796,7 +796,7 @@ function xtc_get_zone_code($country, $zone, $def_state) {
 
 /**
  * xtc_get_uprid()
- * 
+ *
  * @param mixed $prid
  * @param mixed $params
  * @return
@@ -814,7 +814,7 @@ function xtc_get_uprid($prid, $params) {
 
 /**
  * xtc_get_prid()
- * 
+ *
  * @param mixed $uprid
  * @return
  */
@@ -826,7 +826,7 @@ function xtc_get_prid($uprid) {
 
 /**
  * xtc_get_languages()
- * 
+ *
  * @return
  */
 function xtc_get_languages() {
@@ -849,7 +849,7 @@ function xtc_get_languages() {
 
 /**
  * xtc_get_categories_name()
- * 
+ *
  * @param mixed $category_id
  * @param mixed $language_id
  * @return
@@ -863,7 +863,7 @@ function xtc_get_categories_name($category_id, $language_id) {
 
 /**
  * xtc_get_categories_heading_title()
- * 
+ *
  * @param mixed $category_id
  * @param mixed $language_id
  * @return
@@ -876,7 +876,7 @@ function xtc_get_categories_heading_title($category_id, $language_id) {
 
 /**
  * xtc_get_categories_description()
- * 
+ *
  * @param mixed $category_id
  * @param mixed $language_id
  * @return
@@ -890,7 +890,7 @@ function xtc_get_categories_description($category_id, $language_id) {
 
 /**
  * xtc_get_categories_meta_title()
- * 
+ *
  * @param mixed $category_id
  * @param mixed $language_id
  * @return
@@ -904,7 +904,7 @@ function xtc_get_categories_meta_title($category_id, $language_id) {
 
 /**
  * xtc_get_categories_meta_description()
- * 
+ *
  * @param mixed $category_id
  * @param mixed $language_id
  * @return
@@ -918,7 +918,7 @@ function xtc_get_categories_meta_description($category_id, $language_id) {
 
 /**
  * xtc_get_categories_meta_keywords()
- * 
+ *
  * @param mixed $category_id
  * @param mixed $language_id
  * @return
@@ -932,7 +932,7 @@ function xtc_get_categories_meta_keywords($category_id, $language_id) {
 
 /**
  * xtc_get_orders_status_name()
- * 
+ *
  * @param mixed $orders_status_id
  * @param string $language_id
  * @return
@@ -949,7 +949,7 @@ function xtc_get_orders_status_name($orders_status_id, $language_id = '') {
 
 /**
  * xtc_get_cross_sell_name()
- * 
+ *
  * @param mixed $cross_sell_group
  * @param string $language_id
  * @return
@@ -968,7 +968,7 @@ function xtc_get_cross_sell_name($cross_sell_group, $language_id = '') {
 
 /**
  * xtc_get_shipping_status_name()
- * 
+ *
  * @param mixed $shipping_status_id
  * @param string $language_id
  * @return
@@ -985,13 +985,13 @@ function xtc_get_shipping_status_name($shipping_status_id, $language_id = '') {
 
 /**
  * xtc_get_orders_status()
- * 
+ *
  * @return
  */
 function xtc_get_orders_status() {
 
   $orders_status_array = array ();
-  $orders_status_query = xtc_db_query("select orders_status_id, orders_status_name from ".TABLE_ORDERS_STATUS." where language_id = '".$_SESSION['languages_id']."' order by orders_status_id");
+  $orders_status_query = xtc_db_query("select orders_status_id, orders_status_name from ".TABLE_ORDERS_STATUS." where language_id = '".(int)$_SESSION['languages_id']."' order by orders_status_id");
   while ($orders_status = xtc_db_fetch_array($orders_status_query)) {
     $orders_status_array[] = array ('id' => $orders_status['orders_status_id'], 'text' => $orders_status['orders_status_name']);
   }
@@ -1001,13 +1001,13 @@ function xtc_get_orders_status() {
 
 /**
  * xtc_get_cross_sell_groups()
- * 
+ *
  * @return
  */
 function xtc_get_cross_sell_groups() {
 
   $cross_sell_array = array ();
-  $cross_sell_query = xtc_db_query("select products_xsell_grp_name_id, groupname from ".TABLE_PRODUCTS_XSELL_GROUPS." where language_id = '".$_SESSION['languages_id']."' order by products_xsell_grp_name_id");
+  $cross_sell_query = xtc_db_query("select products_xsell_grp_name_id, groupname from ".TABLE_PRODUCTS_XSELL_GROUPS." where language_id = '".(int)$_SESSION['languages_id']."' order by products_xsell_grp_name_id");
   while ($cross_sell = xtc_db_fetch_array($cross_sell_query)) {
     $cross_sell_array[] = array ('id' => $cross_sell['products_xsell_grp_name_id'], 'text' => $cross_sell['groupname']);
   }
@@ -1017,7 +1017,7 @@ function xtc_get_cross_sell_groups() {
 
 /**
  * xtc_get_products_vpe_name()
- * 
+ *
  * @param mixed $products_vpe_id
  * @param string $language_id
  * @return
@@ -1034,13 +1034,13 @@ function xtc_get_products_vpe_name($products_vpe_id, $language_id = '') {
 
 /**
  * xtc_get_shipping_status()
- * 
+ *
  * @return
  */
 function xtc_get_shipping_status() {
 
   $shipping_status_array = array ();
-  $shipping_status_query = xtc_db_query("select shipping_status_id, shipping_status_name from ".TABLE_SHIPPING_STATUS." where language_id = '".$_SESSION['languages_id']."' order by shipping_status_id");
+  $shipping_status_query = xtc_db_query("select shipping_status_id, shipping_status_name from ".TABLE_SHIPPING_STATUS." where language_id = '".(int)$_SESSION['languages_id']."' order by shipping_status_id");
   while ($shipping_status = xtc_db_fetch_array($shipping_status_query)) {
     $shipping_status_array[] = array ('id' => $shipping_status['shipping_status_id'], 'text' => $shipping_status['shipping_status_name']);
   }
@@ -1050,7 +1050,7 @@ function xtc_get_shipping_status() {
 
 /**
  * xtc_get_products_name()
- * 
+ *
  * @param mixed $product_id
  * @param integer $language_id
  * @return
@@ -1067,7 +1067,7 @@ function xtc_get_products_name($product_id, $language_id = 0) {
 
 /**
  * xtc_get_products_description()
- * 
+ *
  * @param mixed $product_id
  * @param mixed $language_id
  * @return
@@ -1081,7 +1081,7 @@ function xtc_get_products_description($product_id, $language_id) {
 
 /**
  * xtc_get_products_short_description()
- * 
+ *
  * @param mixed $product_id
  * @param mixed $language_id
  * @return
@@ -1095,7 +1095,7 @@ function xtc_get_products_short_description($product_id, $language_id) {
 
 /**
  * xtc_get_products_keywords()
- * 
+ *
  * @param mixed $product_id
  * @param mixed $language_id
  * @return
@@ -1109,7 +1109,7 @@ function xtc_get_products_keywords($product_id, $language_id) {
 
 /**
  * xtc_get_products_meta_title()
- * 
+ *
  * @param mixed $product_id
  * @param mixed $language_id
  * @return
@@ -1123,7 +1123,7 @@ function xtc_get_products_meta_title($product_id, $language_id) {
 
 /**
  * xtc_get_products_meta_description()
- * 
+ *
  * @param mixed $product_id
  * @param mixed $language_id
  * @return
@@ -1137,7 +1137,7 @@ function xtc_get_products_meta_description($product_id, $language_id) {
 
 /**
  * xtc_get_products_meta_keywords()
- * 
+ *
  * @param mixed $product_id
  * @param mixed $language_id
  * @return
@@ -1151,7 +1151,7 @@ function xtc_get_products_meta_keywords($product_id, $language_id) {
 
 /**
  * xtc_get_products_url()
- * 
+ *
  * @param mixed $product_id
  * @param mixed $language_id
  * @return
@@ -1167,7 +1167,7 @@ function xtc_get_products_url($product_id, $language_id) {
 // TABLES: manufacturers_info
 /**
  * xtc_get_manufacturer_url()
- * 
+ *
  * @param mixed $manufacturer_id
  * @param mixed $language_id
  * @return
@@ -1183,7 +1183,7 @@ function xtc_get_manufacturer_url($manufacturer_id, $language_id) {
 // This function is not available in all PHP versions so we test it before using it.
 /**
  * xtc_class_exists()
- * 
+ *
  * @param mixed $class_name
  * @return
  */
@@ -1199,7 +1199,7 @@ function xtc_class_exists($class_name) {
 // TABLES: countries
 /**
  * xtc_get_countries()
- * 
+ *
  * @param string $default
  * @return
  */
@@ -1219,7 +1219,7 @@ function xtc_get_countries($default = '') {
 // return an array with country zones
 /**
  * xtc_get_country_zones()
- * 
+ *
  * @param mixed $country_id
  * @return
  */
@@ -1235,7 +1235,7 @@ function xtc_get_country_zones($country_id) {
 
 /**
  * xtc_prepare_country_zones_pull_down()
- * 
+ *
  * @param string $country_id
  * @return
  */
@@ -1268,7 +1268,7 @@ function xtc_prepare_country_zones_pull_down($country_id = '') {
 // Get list of address_format_id's
 /**
  * xtc_get_address_formats()
- * 
+ *
  * @return
  */
 function xtc_get_address_formats() {
@@ -1283,7 +1283,7 @@ function xtc_get_address_formats() {
 // Alias function for Store configuration values in the Administration Tool
 /**
  * xtc_cfg_pull_down_country_list()
- * 
+ *
  * @param mixed $country_id
  * @return
  */
@@ -1293,7 +1293,7 @@ function xtc_cfg_pull_down_country_list($country_id) {
 
 /**
  * xtc_cfg_pull_down_zone_list()
- * 
+ *
  * @param mixed $zone_id
  * @return
  */
@@ -1303,7 +1303,7 @@ function xtc_cfg_pull_down_zone_list($zone_id) {
 
 /**
  * xtc_cfg_pull_down_tax_classes()
- * 
+ *
  * @param mixed $tax_class_id
  * @param string $key
  * @return
@@ -1327,7 +1327,7 @@ function xtc_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
 //}
 /**
  * xtc_cfg_textarea()
- * 
+ *
  * @param mixed $text
  * @param string $key
  * @return
@@ -1340,7 +1340,7 @@ function xtc_cfg_textarea($text, $key = '') {
 
 /**
  * xtc_cfg_get_zone_name()
- * 
+ *
  * @param mixed $zone_id
  * @return
  */
@@ -1358,7 +1358,7 @@ function xtc_cfg_get_zone_name($zone_id) {
 // Sets the status of a banner
 /**
  * xtc_set_banner_status()
- * 
+ *
  * @param mixed $banners_id
  * @param mixed $status
  * @return
@@ -1377,7 +1377,7 @@ function xtc_set_banner_status($banners_id, $status) {
 // Sets the status of a product on special
 /**
  * xtc_set_specials_status()
- * 
+ *
  * @param mixed $specials_id
  * @param mixed $status
  * @return
@@ -1397,7 +1397,7 @@ function xtc_set_specials_status($specials_id, $status) {
 // Cant be used in safe mode.
 /**
  * xtc_set_time_limit()
- * 
+ *
  * @param mixed $limit
  * @return
  */
@@ -1410,7 +1410,7 @@ function xtc_set_time_limit($limit) {
 // Alias function for Store configuration values in the Administration Tool
 /**
  * xtc_cfg_select_option()
- * 
+ *
  * @param mixed $select_array
  * @param mixed $key_value
  * @param string $key
@@ -1441,7 +1441,7 @@ function xtc_cfg_select_option($select_array, $key_value, $key = '') {
 // Alias function for module configuration keys
 /**
  * xtc_mod_select_option()
- * 
+ *
  * @param mixed $select_array
  * @param mixed $key_name
  * @param mixed $key_value
@@ -1464,7 +1464,7 @@ function xtc_mod_select_option($select_array, $key_name, $key_value) {
 // Retreive server information
 /**
  * xtc_get_system_information()
- * 
+ *
  * @return
  */
 function xtc_get_system_information() {
@@ -1474,12 +1474,23 @@ function xtc_get_system_information() {
 
   list ($system, $host, $kernel) = preg_split('/[\s,]+/', @ exec('uname -a'), 5);
 
-  return array ('date' => xtc_datetime_short(date('Y-m-d H:i:s')), 'system' => $system, 'kernel' => $kernel, 'host' => $host, 'ip' => gethostbyname($host), 'uptime' => @ exec('uptime'), 'http_server' => $_SERVER['SERVER_SOFTWARE'], 'php' => PHP_VERSION, 'zend' => (function_exists('zend_version') ? zend_version() : ''), 'db_server' => DB_SERVER, 'db_ip' => gethostbyname(DB_SERVER), 'db_version' => 'MySQL '. (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''), 'db_date' => xtc_datetime_short($db['datetime']));
+  return array ('date' => xtc_datetime_short(date('Y-m-d H:i:s')),
+  'system' => $system,
+  'kernel' => $kernel,
+  'host' => $host,
+  'ip' => gethostbyname($host),
+  'uptime' => @ exec('uptime'),
+  'http_server' => $_SERVER['SERVER_SOFTWARE'],
+  'php' => PHP_VERSION,
+  'zend' => (function_exists('zend_version') ? zend_version() : ''),
+  'db_server' => DB_SERVER, 'db_ip' => gethostbyname(DB_SERVER),
+  'db_version' => 'MySQL '. (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''),
+  'db_date' => xtc_datetime_short($db['datetime']));
 }
 
 /**
  * xtc_array_shift()
- * 
+ *
  * @param mixed $array
  * @return
  */
@@ -1506,7 +1517,7 @@ function xtc_array_shift(& $array) {
 
 /**
  * xtc_array_reverse()
- * 
+ *
  * @param mixed $array
  * @return
  */
@@ -1524,7 +1535,7 @@ function xtc_array_reverse($array) {
 
 /**
  * xtc_generate_category_path()
- * 
+ *
  * @param mixed $id
  * @param string $from
  * @param string $categories_array
@@ -1542,7 +1553,7 @@ function xtc_generate_category_path($id, $from = 'category', $categories_array =
       if ($categories['categories_id'] == '0') {
         $categories_array[$index][] = array ('id' => '0', 'text' => TEXT_TOP);
       } else {
-        $category_query = xtc_db_query("select cd.categories_name, c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where c.categories_id = '".$categories['categories_id']."' and c.categories_id = cd.categories_id and cd.language_id = '".$_SESSION['languages_id']."'");
+        $category_query = xtc_db_query("select cd.categories_name, c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where c.categories_id = '".$categories['categories_id']."' and c.categories_id = cd.categories_id and cd.language_id = '".(int)$_SESSION['languages_id']."'");
         $category = xtc_db_fetch_array($category_query);
         $categories_array[$index][] = array ('id' => $categories['categories_id'], 'text' => $category['categories_name']);
         if ((xtc_not_null($category['parent_id'])) && ($category['parent_id'] != '0'))
@@ -1553,7 +1564,7 @@ function xtc_generate_category_path($id, $from = 'category', $categories_array =
     }
   }
   elseif ($from == 'category') {
-    $category_query = xtc_db_query("select cd.categories_name, c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where c.categories_id = '".$id."' and c.categories_id = cd.categories_id and cd.language_id = '".$_SESSION['languages_id']."'");
+    $category_query = xtc_db_query("select cd.categories_name, c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where c.categories_id = '".$id."' and c.categories_id = cd.categories_id and cd.language_id = '".(int)$_SESSION['languages_id']."'");
     $category = xtc_db_fetch_array($category_query);
     $categories_array[$index][] = array ('id' => $id, 'text' => $category['categories_name']);
     if ((xtc_not_null($category['parent_id'])) && ($category['parent_id'] != '0'))
@@ -1565,7 +1576,7 @@ function xtc_generate_category_path($id, $from = 'category', $categories_array =
 
 /**
  * xtc_output_generated_category_path()
- * 
+ *
  * @param mixed $id
  * @param string $from
  * @return
@@ -1590,7 +1601,7 @@ function xtc_output_generated_category_path($id, $from = 'category') {
 //deletes all product image files by filename
 /**
  * xtc_del_image_file()
- * 
+ *
  * @param mixed $image
  * @return
  */
@@ -1611,7 +1622,7 @@ function xtc_del_image_file($image) {
 
 /**
  * xtc_remove_order()
- * 
+ *
  * @param mixed $order_id
  * @param bool $restock
  * @return
@@ -1633,7 +1644,7 @@ function xtc_remove_order($order_id, $restock = false) {
 
 /**
  * xtc_reset_cache_block()
- * 
+ *
  * @param mixed $cache_block
  * @return
  */
@@ -1671,7 +1682,7 @@ function xtc_reset_cache_block($cache_block) {
 
 /**
  * xtc_get_file_permissions()
- * 
+ *
  * @param mixed $mode
  * @return
  */
@@ -1725,7 +1736,7 @@ function xtc_get_file_permissions($mode) {
 
 /**
  * xtc_array_slice()
- * 
+ *
  * @param mixed $array
  * @param mixed $offset
  * @param string $length
@@ -1752,7 +1763,7 @@ function xtc_array_slice($array, $offset, $length = '0') {
 
 /**
  * xtc_remove()
- * 
+ *
  * @param mixed $source
  * @return
  */
@@ -1796,7 +1807,7 @@ function xtc_remove($source) {
 // Needed because its only available in PHP 4.0.4 and higher.
 /**
  * xtc_constant()
- * 
+ *
  * @param mixed $constant
  * @return
  */
@@ -1812,7 +1823,7 @@ function xtc_constant($constant) {
 // Output the tax percentage with optional padded decimals
 /**
  * xtc_display_tax_value()
- * 
+ *
  * @param mixed $value
  * @param mixed $padding
  * @return
@@ -1851,7 +1862,7 @@ function xtc_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
 
 /**
  * xtc_get_tax_class_title()
- * 
+ *
  * @param mixed $tax_class_id
  * @return
  */
@@ -1868,7 +1879,7 @@ function xtc_get_tax_class_title($tax_class_id) {
 
 /**
  * xtc_banner_image_extension()
- * 
+ *
  * @return
  */
 function xtc_banner_image_extension() {
@@ -1899,7 +1910,7 @@ function xtc_banner_image_extension() {
 // Wrapper function for round()
 /**
  * xtc_round()
- * 
+ *
  * @param mixed $value
  * @param mixed $precision
  * @return
@@ -1911,7 +1922,7 @@ function xtc_round($value, $precision) {
 // Calculates Tax rounding the result
 /**
  * xtc_calculate_tax()
- * 
+ *
  * @param mixed $price
  * @param mixed $tax
  * @return
@@ -1923,7 +1934,7 @@ function xtc_calculate_tax($price, $tax) {
 
 /**
  * xtc_call_function()
- * 
+ *
  * @param mixed $function
  * @param mixed $parameter
  * @param string $object
@@ -1939,7 +1950,7 @@ function xtc_call_function($function, $parameter, $object = '') {
 
 /**
  * xtc_get_zone_class_title()
- * 
+ *
  * @param mixed $zone_class_id
  * @return
  */
@@ -1956,7 +1967,7 @@ function xtc_get_zone_class_title($zone_class_id) {
 
 /**
  * xtc_cfg_pull_down_template_sets()
- * 
+ *
  * @return
  */
 function xtc_cfg_pull_down_template_sets() {
@@ -1975,7 +1986,7 @@ function xtc_cfg_pull_down_template_sets() {
 
 /**
  * xtc_cfg_pull_down_zone_classes()
- * 
+ *
  * @param mixed $zone_class_id
  * @param string $key
  * @return
@@ -1994,7 +2005,7 @@ function xtc_cfg_pull_down_zone_classes($zone_class_id, $key = '') {
 
 /**
  * xtc_cfg_pull_down_order_statuses()
- * 
+ *
  * @param mixed $order_status_id
  * @param string $key
  * @return
@@ -2004,7 +2015,7 @@ function xtc_cfg_pull_down_order_statuses($order_status_id, $key = '') {
   $name = (($key) ? 'configuration['.$key.']' : 'configuration_value');
 
   $statuses_array = array (array ('id' => '1', 'text' => TEXT_DEFAULT));
-  $statuses_query = xtc_db_query("select orders_status_id, orders_status_name from ".TABLE_ORDERS_STATUS." where language_id = '".$_SESSION['languages_id']."' order by orders_status_name");
+  $statuses_query = xtc_db_query("select orders_status_id, orders_status_name from ".TABLE_ORDERS_STATUS." where language_id = '".(int)$_SESSION['languages_id']."' order by orders_status_name");
   while ($statuses = xtc_db_fetch_array($statuses_query)) {
     $statuses_array[] = array ('id' => $statuses['orders_status_id'], 'text' => $statuses['orders_status_name']);
   }
@@ -2014,7 +2025,7 @@ function xtc_cfg_pull_down_order_statuses($order_status_id, $key = '') {
 
 /**
  * xtc_get_order_status_name()
- * 
+ *
  * @param mixed $order_status_id
  * @param string $language_id
  * @return
@@ -2036,7 +2047,7 @@ function xtc_get_order_status_name($order_status_id, $language_id = '') {
 // Return a random value
 /**
  * xtc_rand()
- * 
+ *
  * @param mixed $min
  * @param mixed $max
  * @return
@@ -2063,7 +2074,7 @@ function xtc_rand($min = null, $max = null) {
 // nl2br() prior PHP 4.2.0 did not convert linefeeds on all OSs (it only converted \n)
 /**
  * xtc_convert_linefeeds()
- * 
+ *
  * @param mixed $from
  * @param mixed $to
  * @param mixed $string
@@ -2081,7 +2092,7 @@ function xtc_convert_linefeeds($from, $to, $string) {
 // Use it to make pull_down_menu, checkbox....
 /**
  * xtc_get_customers_statuses()
- * 
+ *
  * @return
  */
 function xtc_get_customers_statuses() {
@@ -2098,7 +2109,7 @@ function xtc_get_customers_statuses() {
                                             customers_status_ot_discount,
                                             customers_status_graduated_prices
                                             from ".TABLE_CUSTOMERS_STATUS."
-                                            where language_id = '".$_SESSION['languages_id']."'
+                                            where language_id = '".(int)$_SESSION['languages_id']."'
                                             order by customers_status_id");
   //EOF - DokuMan - 2010-11-01 - Added missing fields customers_status_public and customers_status_graduated_prices
 
@@ -2121,21 +2132,32 @@ function xtc_get_customers_statuses() {
 
 /**
  * xtc_get_customer_status()
- * 
+ *
  * @param mixed $customers_id
  * @return
  */
 function xtc_get_customer_status($customers_id) {
 
   $customer_status_array = array ();
-  $customer_status_query = xtc_db_query("select customers_status, member_flag, customers_status_name, customers_status_public, customers_status_image, customers_status_discount, customers_status_ot_discount_flag, customers_status_ot_discount, customers_status_graduated_prices  FROM ".TABLE_CUSTOMERS." left join ".TABLE_CUSTOMERS_STATUS." on customers_status = customers_status_id where customers_id='".$customers_id."' and language_id = '".$_SESSION['languages_id']."'");
+  $customer_status_query = xtc_db_query("select customers_status,
+                                          member_flag, customers_status_name,
+                                          customers_status_public,
+                                          customers_status_image,
+                                          customers_status_discount,
+                                          customers_status_ot_discount_flag,
+                                          customers_status_ot_discount,
+                                          customers_status_graduated_prices
+                                          FROM ".TABLE_CUSTOMERS."
+                                          left join ".TABLE_CUSTOMERS_STATUS." on customers_status = customers_status_id
+                                          where customers_id='".$customers_id."'
+                                          and language_id = '".(int)$_SESSION['languages_id']."'");
   $customer_status_array = xtc_db_fetch_array($customer_status_query);
   return $customer_status_array;
 }
 
 /**
  * xtc_get_customers_status_name()
- * 
+ *
  * @param mixed $customers_status_id
  * @param string $language_id
  * @return
@@ -2152,7 +2174,7 @@ function xtc_get_customers_status_name($customers_status_id, $language_id = '') 
 //to set customers status in admin for default value, newsletter, guest...
 /**
  * xtc_cfg_pull_down_customers_status_list()
- * 
+ *
  * @param mixed $customers_status_id
  * @param string $key
  * @return
@@ -2166,7 +2188,7 @@ function xtc_cfg_pull_down_customers_status_list($customers_status_id, $key = ''
 // return all log info for a customer_id
 /**
  * xtc_get_user_info()
- * 
+ *
  * @param mixed $customer_id
  * @return
  */
@@ -2178,7 +2200,7 @@ function xtc_get_user_info($customer_id) {
 //---------------------------------------------------------------kommt wieder raus spaeter!!
 /**
  * xtc_get_uploaded_file()
- * 
+ *
  * @param mixed $filename
  * @return
  */
@@ -2197,7 +2219,7 @@ function xtc_get_uploaded_file($filename) {
 
 /**
  * get_group_price()
- * 
+ *
  * @param mixed $group_id
  * @param mixed $product_id
  * @return
@@ -2230,7 +2252,7 @@ function get_group_price($group_id, $product_id) {
 
 /**
  * format_price()
- * 
+ *
  * @param mixed $price_string
  * @param mixed $price_special
  * @param mixed $currency
@@ -2265,7 +2287,7 @@ function format_price($price_string, $price_special, $currency, $allow_tax, $tax
 
 /**
  * precision()
- * 
+ *
  * @param mixed $number
  * @param mixed $places
  * @return
@@ -2277,7 +2299,7 @@ function precision($number, $places) {
 
 /**
  * xtc_get_lang_definition()
- * 
+ *
  * @param mixed $search_lang
  * @param mixed $lang_array
  * @param mixed $modifier
@@ -2290,7 +2312,7 @@ function xtc_get_lang_definition($search_lang, $lang_array, $modifier) {
 
 /**
  * xtc_CheckExt()
- * 
+ *
  * @param mixed $filename
  * @param mixed $ext
  * @return
@@ -2306,7 +2328,7 @@ function xtc_CheckExt($filename, $ext) {
 
 /**
  * xtc_get_status_users()
- * 
+ *
  * @param mixed $status_id
  * @return
  */
@@ -2317,7 +2339,7 @@ function xtc_get_status_users($status_id) {
 }
 /**
  * xtc_mkdirs()
- * 
+ *
  * @param mixed $path
  * @param mixed $perm
  * @return
@@ -2338,7 +2360,7 @@ function xtc_mkdirs($path, $perm) {
 
 /**
  * xtc_spaceUsed()
- * 
+ *
  * @param mixed $dir
  * @return
  */
@@ -2359,7 +2381,7 @@ function xtc_spaceUsed($dir) {
 
 /**
  * create_coupon_code()
- * 
+ *
  * @param string $salt
  * @param mixed $length
  * @return
@@ -2384,7 +2406,7 @@ function create_coupon_code($salt = "secret", $length = SECURITY_CODE_LENGTH) {
 // Update the Customers GV account
 /**
  * xtc_gv_account_update()
- * 
+ *
  * @param mixed $customer_id
  * @param mixed $gv_id
  * @return
@@ -2405,7 +2427,7 @@ function xtc_gv_account_update($customer_id, $gv_id) {
 // Output a day/month/year dropdown selector
 /**
  * xtc_draw_date_selector()
- * 
+ *
  * @param mixed $prefix
  * @param string $date
  * @return
@@ -2457,7 +2479,7 @@ function xtc_draw_date_selector($prefix, $date = '') {
 
 /**
  * xtc_getDownloads()
- * 
+ *
  * @return
  */
 function xtc_getDownloads() {
@@ -2477,7 +2499,7 @@ function xtc_getDownloads() {
 
 /**
  * xtc_try_upload()
- * 
+ *
  * @param string $file
  * @param string $destination
  * @param string $permissions
@@ -2495,7 +2517,7 @@ function xtc_try_upload($file = '', $destination = '', $permissions = '777', $ex
 
 /**
  * xtc_button()
- * 
+ *
  * @param mixed $value
  * @param string $type
  * @param string $parameter
@@ -2507,7 +2529,7 @@ function xtc_button($value, $type='submit', $parameter='') {
 
 /**
  * xtc_button_link()
- * 
+ *
  * @param mixed $value
  * @param string $href
  * @param string $parameter
@@ -2521,7 +2543,7 @@ function xtc_button_link($value, $href='javascript:void(null)', $parameter='') {
 // Return a product's special price (returns nothing if there is no offer)
 /**
  * xtc_get_products_special_price()
- * 
+ *
  * @param mixed $product_id
  * @return
  */
@@ -2535,7 +2557,7 @@ function xtc_get_products_special_price($product_id){
 //BOF - franky_n - 2011-01-17 - added value correction function for wrong input prices, weight, dicscount
 /**
  * xtc_convert_value()
- * 
+ *
  * @param mixed $number
  * @return
  */

@@ -61,7 +61,7 @@
 
   if (!function_exists('xtc_copy_uploaded_file')){
     function xtc_copy_uploaded_file($filename, $target) {
-      if (substr($target, -1) != '/') 
+      if (substr($target, -1) != '/')
         $target .= '/';
       $target .= $filename['name'];
       move_uploaded_file($filename['tmp_name'], $target);
@@ -71,7 +71,7 @@
   if (xtc_not_null($action)) {
     switch ($action) {
       case 'forget':
-        mysql_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
+        xtc_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
         $messageStack->add_session(SUCCESS_LAST_RESTORE_CLEARED, 'success');
         xtc_redirect(xtc_href_link(FILENAME_BACKUP));
         break;

@@ -25,7 +25,7 @@ if(isset($_GET['repair'])) {
 if(isset($_POST['repair'])) {
   include('includes/application_top.php');
 
-  $result = mysql_query('
+  $result = xtc_db_query('
     SELECT customers_id
     FROM customers
     WHERE
@@ -33,11 +33,11 @@ if(isset($_POST['repair'])) {
       customers_password      = md5("'. xtc_db_prepare_input($_POST['password']      ) .'")  AND
       customers_status        = 0
   ');
-  if(mysql_num_rows($result) > 0)
+  if(xtc_db_num_rows($result) > 0)
   {
     switch($_POST['repair']) {
       case 'se_friendly':
-        mysql_query('
+        xtc_db_query('
           UPDATE configuration
           SET    configuration_value = "false"
           WHERE  configuration_key   = "SEARCH_ENGINE_FRIENDLY_URLS"
@@ -46,7 +46,7 @@ if(isset($_POST['repair'])) {
         break;
 
       case 'sess_write':
-        mysql_query('
+        xtc_db_query('
           UPDATE configuration
           SET    configuration_value = "'.DIR_FS_CATALOG.'cache"
           WHERE  configuration_key   = "SESSION_WRITE_DIRECTORY"
@@ -55,27 +55,27 @@ if(isset($_POST['repair'])) {
         break;
 
       case 'sess_default':
-        mysql_query('
+        xtc_db_query('
           UPDATE configuration
           SET    configuration_value = "False"
           WHERE  configuration_key   = "SESSION_FORCE_COOKIE_USE"
         ');
-        mysql_query('
+        xtc_db_query('
           UPDATE configuration
           SET    configuration_value = "False"
           WHERE  configuration_key   = "SESSION_CHECK_SSL_SESSION_ID"
         ');
-        mysql_query('
+        xtc_db_query('
           UPDATE configuration
           SET    configuration_value = "False"
           WHERE  configuration_key   = "SESSION_CHECK_USER_AGENT"
         ');
-        mysql_query('
+        xtc_db_query('
           UPDATE configuration
           SET    configuration_value = "False"
           WHERE  configuration_key   = "SESSION_CHECK_IP_ADDRESS"
         ');
-        mysql_query('
+        xtc_db_query('
           UPDATE configuration
           SET    configuration_value = "False"
           WHERE  configuration_key   = "SESSION_RECREATE"

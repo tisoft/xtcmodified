@@ -90,6 +90,7 @@
     }
 
     session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
+    register_shutdown_function('session_write_close'); //DokuMan - 2010-01-28 - fix for procedural mysqli function
   }
 
   function xtc_session_start() {
@@ -167,6 +168,7 @@
 
       if (STORE_SESSIONS == 'mysql') {
         session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
+        register_shutdown_function('session_write_close'); //DokuMan - 2010-01-28 - fix for procedural mysqli function
       }
 
       xtc_session_start();
