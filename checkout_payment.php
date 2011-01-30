@@ -137,6 +137,11 @@ if ($order->info['total'] > 0) {
   if (isset ($_GET['payment_error']) && is_object(${ $_GET['payment_error'] }) && ($error = ${$_GET['payment_error']}->get_error())) {
     $smarty->assign('error', htmlspecialchars($error['error']));
   }
+  // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+    if(isset($_SESSION['reshash']['FORMATED_ERRORS'])){
+      $smarty->assign('error', $_SESSION['reshash']['FORMATED_ERRORS']);
+  }
+  // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
   $selection = $payment_modules->selection();
 
   $radio_buttons = 0;
@@ -172,6 +177,11 @@ if ($order->info['total'] > 0) {
   $smarty->assign('GV_COVER', 'true');
 }
 
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+// PayPal neuer Start auf jeden Fall
+unset($_SESSION['reshash']);
+unset($_SESSION['nvpReqArray']);
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 if (ACTIVATE_GIFT_SYSTEM == 'true') {
   $smarty->assign('module_gift', $order_total_modules->credit_selection());
 }

@@ -601,7 +601,7 @@ define('REVOCATION_ID_DESC','Content ID of revocation content');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_TITLE','Display right of revocation?');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_DESC','Display right of revocation on checkout_confirmation?');
 
-// BOF - web28 - 2010-05-07 - PayPal API Modul
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 define('PAYPAL_MODE_TITLE','PayPal Mode:');
 define('PAYPAL_MODE_DESC','Live (Default) or Test (Sandbox)');
 define('PAYPAL_API_USER_TITLE','PayPal API-User (Live)');
@@ -640,7 +640,7 @@ define('PAYPAL_EXPRESS_ADDRESS_CHANGE_TITLE','PayPal-Express Address Data');
 define('PAYPAL_EXPRESS_ADDRESS_CHANGE_DESC','Permits changing address data transferred by PayPal.');
 define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_TITLE','Ship-To-Address Overwrite');
 define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Permits changing address data transferred by PayPal (existing account)');
-// EOF - web28 - 2010-05-07 - PayPal API Modul
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 // BOF - Tomcraft - 2009-11-02 - New admin top menu
 define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Top Navigation');

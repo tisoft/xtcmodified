@@ -514,7 +514,7 @@ define('HEADER_SINGLE', 'Singleprice');
 define('HEADER_TOTAL','Total');
 // EOF - DokuMan - 2010-09-06 - combined checkout_confirmation messages in one language file
 
-// BOF - web28 - 2010-05-07 - PayPal API Modul
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 define('NAVBAR_TITLE_PAYPAL_CHECKOUT','PayPal-Checkout');
 define('PAYPAL_ERROR','PayPal abort');
 define('PAYPAL_NOT_AVIABLE','PayPal Express is not available.<br />Please select another method of payment<br />or try again later.<br />');
@@ -527,7 +527,7 @@ define('PAYPAL_TAX','Tax');
 define('PAYPAL_EXP_WARN','Note! Possibly resulting forwarding expenses are only computed in the shop finally.');
 define('PAYPAL_EXP_VORL','Provisional forwarding expenses');
 define('PAYPAL_EXP_VERS','12.90');
-// EOF - web28 - 2010-05-07 - PayPal API Modul
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 define('BASICPRICE_VPE_TEXT','in this volume only '); // Hetfield - 2009-11-26 - Added language definition for vpe at graduated prices
 //web - 2010-07-11 - Preisanzeige bei Staffelpreisen (größte Staffel)

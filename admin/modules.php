@@ -150,15 +150,21 @@
                               if ($module->check() > 0) {
                                 if ($module->sort_order > 0) {
                                   // BOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
-                                  // $installed_modules[$module->sort_order] = $file;
+                                  // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+/*
+                                  $installed_modules[$module->sort_order] = $file;
+                                  } else {
+                                  $installed_modules[] = $file;
+*/
                                   if (!isset($installed_modules[$module->sort_order])) {
                                     $installed_modules[$module->sort_order] = $file;
                                   } else {
                                     $installed_modules[] = $file;
                                   }
-                                  // EOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
                                 } else {
                                   $installed_modules[] = $file;
+                                  // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+                                  // EOF - vr - 2010-02-19 re-apply fix to prevent overwriting of modules in module list
                                 }
                               }
                               if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
@@ -231,7 +237,7 @@
                     $heading = array();
                     $contents = array();
                     switch ($action) {
-                      // BOF - web28 - 2010-05-06 - PayPal API Modul
+                      // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
                       case 'removepaypal':
                         $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
                         $contents = array ('form' => xtc_draw_form('modules', FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module'] . '&action=remove'));
@@ -239,7 +245,7 @@
                         $contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.BUTTON_MODULE_REMOVE);
                         $contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" onclick="this.blur();" value="'. BUTTON_START .'"><a class="button" onclick="this.blur();" href="'.xtc_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module']).'">' . BUTTON_CANCEL . '</a>');
                         break;
-                        // EOF  - web28 - 2010-05-06 - PayPal API Modul
+                      // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
                       case 'edit':
                         $keys = '';
                         reset($mInfo->keys);

@@ -167,8 +167,9 @@
     }
   }
 
-  // Paypal API Modul Änderungen:
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
   require (DIR_WS_FUNCTIONS.'sessions.php');
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
   // Include Template Engine
   require(DIR_WS_CLASSES . 'Smarty_2.6.26/Smarty.class.php');

@@ -28,7 +28,7 @@ define('TEXT_MODULE_DIRECTORY', 'Module Directory:');
 
 define('TABLE_HEADING_FILENAME','Modulname (for internal usage)');
 
-// BOF - web28 - 2010-05-07 PayPal API Modul
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 define('TEXT_INFO_DELETE_PAYPAL', 'If you uninstall this module now, the PayPal transaction data are deleted!<br />If you want to receive these data, press now on abort and you deactivate the module (activate module = False) only.');
-// BOF - web28 - 2010-05-07 PayPal API Modul
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 ?>

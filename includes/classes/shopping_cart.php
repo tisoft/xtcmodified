@@ -162,7 +162,9 @@ class shoppingCart {
 
     $this->contents = array ();
     $this->total = 0;
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
     $this->tax = 0; //DokuMan - 2010-12-08 - set tax to zero on reset
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
     $this->weight = 0;
     $this->content_type = false;
 
@@ -428,6 +430,9 @@ class shoppingCart {
     $this->total = 0;
     $this->weight = 0;
     $this->tax = array ();
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+    $this->total_discount = array ();
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
     if (!is_array($this->contents)) {
       return 0;
     }
@@ -505,13 +510,19 @@ class shoppingCart {
           if ($_SESSION['customers_status']['customers_status_show_price_tax'] == 0 && $_SESSION['customers_status']['customers_status_add_tax_ot'] == 1) {
             if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
               $this->tax[$product['products_tax_class_id']]['value'] += (($products_price_tax+$attribute_price_tax) / 100) * ($products_tax)*$qty;
-              $this->total+=(($products_price_tax+$attribute_price_tax) / 100) * ($products_tax)*$qty;
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+              //$this->total+=(($products_price_tax+$attribute_price_tax) / 100) * ($products_tax)*$qty;
+              $this->total_discount[$product['products_tax_class_id']]+=(($products_price_tax+$attribute_price_tax) / 100) * ($products_tax)*$qty;
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
               //BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
               //$this->tax[$product['products_tax_class_id']]['desc'] = TAX_NO_TAX."$products_tax_description";
               //EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
             } else {
               $this->tax[$product['products_tax_class_id']]['value'] += (($products_price+$attribute_price) / 100) * ($products_tax)*$qty;
-              $this->total+= (($products_price+$attribute_price) / 100) * ($products_tax)*$qty;
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+              //$this->total+= (($products_price+$attribute_price) / 100) * ($products_tax)*$qty;
+              $this->total_discount[$product['products_tax_class_id']]+=(($products_price+$attribute_price) / 100) * ($products_tax)*$qty;							
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
               //BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
               //$this->tax[$product['products_tax_class_id']]['desc'] = TAX_NO_TAX."$products_tax_description";
               //EOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
@@ -523,11 +534,18 @@ class shoppingCart {
         }
       }
     }
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+/*
 //    echo 'total_VOR'.$this->total;
     if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] != 0) {
 //      $this->total -= $this->total / 100 * $_SESSION['customers_status']['customers_status_ot_discount'];
     }
 //    echo 'total_NACH'.$this->total;
+*/
+		foreach ($this->total_discount as $value) {
+			$this->total+=round($value, $xtPrice->get_decimal_places($order->info['currency']));
+		}
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
   }
 
   /**
@@ -639,6 +657,8 @@ class shoppingCart {
     $this->calculate();
     $output = "";
     $val=0;
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+/*
     foreach ($this->tax as $key => $value) {
       if ($this->tax[$key]['value'] > 0 ) {
         $output .= $this->tax[$key]['desc'].": ".$xtPrice->xtcFormat($this->tax[$key]['value'], true)."<br />";
@@ -650,6 +670,24 @@ class shoppingCart {
     } else {
       return $val;
     }
+*/
+		$gval=0;
+
+		foreach ($this->tax as $key => $value) {
+			if ($this->tax[$key]['value'] > 0 ) {
+				$output .= $this->tax[$key]['desc'].": ".$xtPrice->xtcFormat($this->tax[$key]['value'], true)."<br />";
+				$val = $this->tax[$key]['value'];
+				$gval+=$this->tax[$key]['value'];
+			}
+		}
+		if ($format) {
+			return $output;
+		} else {
+			return $gval;
+		}
+
+
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
   }
 
   /**

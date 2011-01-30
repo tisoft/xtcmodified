@@ -170,10 +170,10 @@
   // GOOGLE SITEMAP - JUNG GESTALTEN - 07.10.2008
   define('FILENAME_GOOGLE_SITEMAP', '../google_sitemap.php');
 
-  // BOF - web28 - 2010-05-06 - PayPal API Modul
+  // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
   define('FILENAME_PAYPAL','paypal.php');
   define('FILENAME_PAYPAL_CHECKOUT', 'paypal_checkout.php');
-  // EOF - web28 - 2010-05-06 - PayPal API Modul
+  // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
   // define the database table names used in the project
   // BOF - 2010-01-20 - vr - revised unified version based on database_tables.php and admin/incudes/application_top.php,
@@ -227,8 +227,12 @@
 
   // set application wide parameters
   $configuration_query = xtc_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
-  
-  // Paypal API Modul Änderungen - Cache im Admin AUS!
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
+/*
+  while ($configuration = xtc_db_fetch_array($configuration_query)) {
+    define($configuration['cfgKey'], $configuration['cfgValue']);
+  }
+*/
   while ($configuration = xtc_db_fetch_array($configuration_query)) {
     if($configuration['cfgKey']=='DB_CACHE'):
       define("DB_CACHE", "false");
@@ -236,7 +240,7 @@
       define($configuration['cfgKey'], $configuration['cfgValue']);
     endif;
   }
-
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
   define('FILENAME_IMAGEMANIPULATOR',IMAGE_MANIPULATOR);
   function xtDBquery($query) {
     if (DB_CACHE=='true') {

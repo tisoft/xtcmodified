@@ -128,9 +128,9 @@
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['server_info'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_SERVER_INFO) . '" class="menuBoxContentLink"> -' . BOX_SERVER_INFO . '</a></li>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['whos_online'] == '1')) echo '<li><a href="' . xtc_href_link(FILENAME_WHOS_ONLINE) . '" class="menuBoxContentLink"> -' . BOX_WHOS_ONLINE . '</a></li>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['csv_backend'] == '1')) echo '<li><a href="' . xtc_href_link('csv_backend.php') . '" class="menuBoxContentLink"> -' . BOX_IMPORT . '</a></li>';
-  // BOF - web28 - 2010-05-07 - PayPal API Modul
+  // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['paypal'] == '1')) echo '<li><a href="' . xtc_href_link('paypal.php') . '" class="menuBoxContentLink"> -' . BOX_PAYPAL . '</a></li>';
-  // EOF - web28 - 2010-05-07 - PayPal API Modul
+  // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
   echo ('</ul>');
   echo ('</li>');
 

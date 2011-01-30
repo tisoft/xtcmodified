@@ -43,7 +43,16 @@
 
       if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {
 
-        $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+//        $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
+		if($_SESSION['paypal_express_checkout']==true){
+			$this->modules = explode(';', $_SESSION['paypal_express_payment_modules'] );
+		}else{
+			$this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
+			$this->modules = str_replace('paypalexpress.php', '', $this->modules);
+		}
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
         $include_modules = array();
 
         if ( (xtc_not_null($module)) && (in_array($module . '.' . substr($PHP_SELF, (strrpos($PHP_SELF, '.')+1)), $this->modules)) ) {
@@ -291,7 +300,7 @@
         }
       }
     }
-// BOF - web28 - 2010-05-07 - PayPal API Modul
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 		// PayPal Express Giropay
     function giropay_process() {
       if (is_array($this->modules)) {
@@ -303,7 +312,7 @@
         }
       }
     }
-// EOF - web28 - 2010-05-07 - PayPal API Modul
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
     function get_error() {
       if (is_array($this->modules)) {
         //BOF - DokuMan - 2010-08-25 - set undefined index

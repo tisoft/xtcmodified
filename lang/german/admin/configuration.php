@@ -601,7 +601,7 @@ define('REVOCATION_ID_DESC','Content ID des Widerrufrechts');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_TITLE','Anzeige Widerrufrecht?');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_DESC','Widerrufrecht auf checkout_confirmation anzeigen?');
 
-// BOF - web28 - 2010-05-07 - PayPal API Modul
+// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 define('PAYPAL_MODE_TITLE','PayPal-Modus:');
 define('PAYPAL_MODE_DESC','Live (Normal) oder Testbetrieb (Sandbox)');
 define('PAYPAL_API_USER_TITLE','PayPal-API-Benutzer (Live)');
@@ -640,7 +640,7 @@ define('PAYPAL_EXPRESS_ADDRESS_CHANGE_TITLE','PayPal-Express-Adressdaten');
 define('PAYPAL_EXPRESS_ADDRESS_CHANGE_DESC','Erlaubt das &Auml;ndern der von PayPal &uuml;bermittelten Adressdaten');
 define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_TITLE','Lieferadresse &uuml;berschreiben');
 define('PAYPAL_EXPRESS_ADDRESS_OVERRIDE_DESC','Erlaubt das &Auml;ndern der von PayPal &uuml;bermittelten Adressdaten (bestehendes Konto)');
-// EOF - web28 - 2010-05-07 - PayPal API Modul
+// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
 // BOF - Tomcraft - 2009-11-02 - New admin top menu
 define('USE_ADMIN_TOP_MENU_TITLE' , 'Admin Top Navigation');

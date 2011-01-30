@@ -48,6 +48,7 @@ class order_total {
 		$close_string = '';
 		$credit_class_string = '';
 		if (MODULE_ORDER_TOTAL_INSTALLED) {
+			// PayPal Änderung:
 		     // BOF - vr - 2010-03-03 fix gv display on checkout
 			/*$header_string = '<tr>'."\n";
 			$header_string .= '   <td><table border="0" width="100%" cellspacing="0" cellpadding="2">'."\n";
@@ -273,7 +274,26 @@ class order_total {
 				if ($GLOBALS[$class]->enabled) {
 					$size = sizeof($GLOBALS[$class]->output);
 					for ($i = 0; $i < $size; $i ++) {
-						$output_string .= '              <tr>'."\n".'                <td align="right" class="main">'.$GLOBALS[$class]->output[$i]['title'].'</td>'."\n".'                <td align="right" class="main">'.$GLOBALS[$class]->output[$i]['text'].'</td>'."\n".'              </tr>';
+						$output_string .= '<tr><td align="right" class="main">'.$GLOBALS[$class]->output[$i]['title'].'</td><td align="right" class="main">'.$GLOBALS[$class]->output[$i]['text'].'</td></tr>';
+					}
+				}
+			}
+		}
+
+		return $output_string;
+	}
+
+	// PayPal Änderung:
+	function pp_output() {
+		$output_string = '';
+		if (is_array($this->modules)) {
+			reset($this->modules);
+			while (list (, $value) = each($this->modules)) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ($GLOBALS[$class]->enabled) {
+					$size = sizeof($GLOBALS[$class]->output);
+					for ($i = 0; $i < $size; $i ++) {
+						$output_string[] = array('title'=>$GLOBALS[$class]->output[$i]['title'], 'text'=>$GLOBALS[$class]->output[$i]['text']);
 					}
 				}
 			}
