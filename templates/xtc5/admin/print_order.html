@@ -5,7 +5,6 @@
     <title>{#title#} {$oID}</title>
     <meta http-equiv="Content-Type" content="text/html; charset={$charset}">
   </head>
-
   <body onload="window.print()">
     <table width="100%" border="0">
       <tr>
@@ -16,11 +15,12 @@
                 <font size="1" face="Verdana, Arial, Helvetica, sans-serif">
                   {$address_label_customer}<br />
                   <br />
-                  {if $csID}<strong>{#csID#}</strong>{$csID}<br />{/if}
+                  {if $csID}<strong>{#csID#}</strong> {$csID}<br />{/if}
                   <strong>{#payment#}</strong> {$PAYMENT_METHOD}<br />
                   <strong>{#order#}</strong> {$oID}<br />
                   <strong>{#date#}</strong> {$DATE}<br />
                 </font>
+                <p><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><strong>{#invoice#}</strong></font></p>
               </td>
               <td width="1"><img src="{$logo_path}logo.gif"></td>
             </tr>
