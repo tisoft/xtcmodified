@@ -41,7 +41,7 @@ define('VERSANDKOSTENFREI_AB',999999999);
 //BOF - Tomcraft - 2009-07-21 - Exclude xtc_image_submit.inc.php as it is allready declared in /admin/includes/functions/general.php
 //require_once(DIR_FS_INC . 'xtc_image_submit.inc.php');
 //EOF - Tomcraft - 2009-07-21 - Exclude xtc_image_submit.inc.php as it is allready declared in /admin/includes/functions/general.php
-require_once(DIR_FS_INC . 'xtc_parse_input_field_data.inc.php');
+//require_once(DIR_FS_INC . 'xtc_parse_input_field_data.inc.php');
 require_once(DIR_FS_INC . 'xtc_image_button.inc.php');
 
 class preisroboter {
