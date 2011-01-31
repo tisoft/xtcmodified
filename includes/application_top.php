@@ -354,6 +354,8 @@ elseif (($request_type == 'SSL') && isset ($_GET[session_name()])) {
 @ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'True') ? 1 : 0);
 //EOF - DokuMan - 2011-01-06 - set session.use_only_cookies when force cookie is enabled
 
+// BOF - Tomcraft - 2011-01-2011 - Fix tracking in Firefox not always working properly
+/*
 // start the session
 $session_started = false;
 if (SESSION_FORCE_COOKIE_USE == 'True') {
@@ -369,6 +371,22 @@ if (SESSION_FORCE_COOKIE_USE == 'True') {
   include (DIR_WS_INCLUDES.'tracking.php');
   $session_started = true;
 }
+*/
+// start the session
+$session_started = false;
+if (SESSION_FORCE_COOKIE_USE == 'True') {
+  xtc_setcookie('cookie_test', 'please_accept_for_session', time() + 60 * 60 * 24 * 30, '/', $current_domain);
+
+  if (isset ($_COOKIE['cookie_test'])) {
+    session_start();
+    $session_started = true;
+  }
+} else {
+  session_start();
+  $session_started = true;
+}
+include (DIR_WS_INCLUDES.'tracking.php');
+// EOF - Tomcraft - 2011-01-2011 - Fix tracking in Firefox not always working properly
 
 //BOF - GTB - 2011-01-20 - SSEQ-Lib integration
 function_exists (SEQ_SECURE_SESSION) ? SEQ_SECURE_SESSION() : '';
