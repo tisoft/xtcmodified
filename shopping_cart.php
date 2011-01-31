@@ -277,7 +277,9 @@ $_SESSION['allow_checkout'] = 'true';
 		if ($_GET['info_message']) {
 			$smarty->assign('info_message', str_replace('+', ' ', htmlspecialchars($_GET['info_message'])));
 		}	
-		$smarty->assign('BUTTON_PAYPAL', $o_paypal->build_express_checkout_button());
+		if (is_object($o_paypal)) {
+		  $smarty->assign('BUTTON_PAYPAL', $o_paypal->build_express_checkout_button());
+		}  
 		$smarty->assign('BUTTON_RELOAD', xtc_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART));
 		$smarty->assign('BUTTON_CHECKOUT', '<a href="'.xtc_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL').'">'.xtc_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT).'</a>');
 	}
