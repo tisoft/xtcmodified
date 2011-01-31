@@ -18,7 +18,7 @@
  * xt:Commerce Support Forums at www.xt-commerce.com
  * ab 15.08.2008 Teile vom Hamburger-Internetdienst geändert
  * Hamburger-Internetdienst Support Forums at www.forum.hamburger-internetdienst.de
- * Stand 17.05.2009
+ * Stand 17.10.2010
 */
 class paypalexpress {
 	var $code, $title, $description, $enabled;
@@ -122,7 +122,7 @@ class paypalexpress {
 	}
 /**************************************************************/
 	function install() {
-		// Stand: 17.05.2009
+		// Stand: 17.10.2010
 		if(!defined('TABLE_PAYPAL'))define('TABLE_PAYPAL', 'paypal');
 		if(!defined('TABLE_PAYPAL_STATUS_HISTORY'))define('TABLE_PAYPAL_STATUS_HISTORY', 'paypal_status_history');
 		// nur zur Sicherheit falls noch alte Module da sind...
@@ -187,11 +187,12 @@ class paypalexpress {
 		$new_config[]=array('','PAYPAL_COUNTRY_MODE', 'de', 25, 16, '', 'xtc_cfg_select_option(array("de", "uk"),');
 		$new_config[]=array('','PAYPAL_EXPRESS_ADDRESS_CHANGE', 'true', 25, 17, '', 'xtc_cfg_select_option(array("true", "false"),');
 		$new_config[]=array('','PAYPAL_EXPRESS_ADDRESS_OVERRIDE', 'true', 25, 18, '', 'xtc_cfg_select_option(array("true", "false"),');
-		$new_config[]=array('','PAYPAL_API_VERSION', '57.0', 25, 20, '', '');
+		$new_config[]=array('','PAYPAL_API_VERSION', '62.0', 25, 20, '', '');
 		$new_config[]=array('','PAYPAL_API_IMAGE', '', 25, 21,  '', '');
 		$new_config[]=array('','PAYPAL_API_CO_BACK', '', 25, 22, '', '');
 		$new_config[]=array('','PAYPAL_API_CO_BORD', '', 25, 23, '', '');
 		$new_config[]=array('','PAYPAL_ERROR_DEBUG', 'false', 25, 24, '', 'xtc_cfg_select_option(array("true", "false"),');
+		$new_config[]=array('','PAYPAL_INVOICE', '', 25, 25, '', '');
 		$new_config[]=array('','PAYPAL_API_KEY', '120,116,99,111,109,109,101,114,99,101,95,83,104,111,112,112,105,110,103,67,97,114,116,95', 6, 5, '', '');
 		// Config Daten speichern
 		foreach($new_config as $v1) {
@@ -203,7 +204,7 @@ class paypalexpress {
 									$v1[4].", NULL, now(), '".$v1[5]."', '".$v1[6]."' )");
 		}
 		//API Version auf jeden Fall erneuern
-		xtc_db_query("update ".TABLE_CONFIGURATION." SET configuration_value='57.0' where configuration_key='PAYPAL_API_VERSION'");
+		xtc_db_query("update ".TABLE_CONFIGURATION." SET configuration_value='62.0' where configuration_key='PAYPAL_API_VERSION'");
 		//Session setzen
 		xtc_db_query("update ".TABLE_CONFIGURATION." SET configuration_value='False' where configuration_key='SESSION_CHECK_USER_AGENT'");
 		xtc_db_query("update ".TABLE_CONFIGURATION." SET configuration_value='False' where configuration_key='SESSION_CHECK_IP_ADDRESS'");

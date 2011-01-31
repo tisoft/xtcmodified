@@ -19,7 +19,7 @@
  *
  * ab 15.08.2008 Teile vom Hamburger-Internetdienst geändert
  * Hamburger-Internetdienst Support Forums at www.forum.hamburger-internetdienst.de
- * Stand 29.04.2009
+ * Stand 27.03.2010
 */
 include('includes/application_top.php');
 // create smarty elements
@@ -33,6 +33,7 @@ require_once(DIR_FS_INC . 'xtc_check_stock.inc.php');
 require_once(DIR_FS_INC . 'xtc_calculate_tax.inc.php');
 require_once(DIR_FS_INC . 'xtc_check_stock.inc.php');
 require_once(DIR_FS_INC . 'xtc_display_tax_value.inc.php');
+require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
 
 require(DIR_WS_CLASSES.'http_client.php');
 unset($_SESSION['tmp_oID']);
@@ -153,7 +154,10 @@ $order = new order();
 if($order->delivery['country']['iso_code_2'] != '') {
 	$_SESSION['delivery_zone'] = $order->delivery['country']['iso_code_2'];
 }
-
+$kein_versand=0;
+if ($order->content_type == 'virtual' || ($order->content_type == 'virtual_weight') || ($_SESSION['cart']->count_contents_virtual() == 0)) { // GV Code added
+	$kein_versand=1;
+}
 $total_weight = $_SESSION['cart']->show_weight();
 $total_count = $_SESSION['cart']->count_contents();
 
@@ -216,7 +220,7 @@ if(isset($_POST['action']) && ($_POST['action'] == 'process')) {
 		xtc_redirect(xtc_href_link(FILENAME_PAYPAL_CHECKOUT, '', 'SSL'));
 	}
 }
-
+if($kein_versand==1)$_SESSION['shipping'] = false;
 // get all available shipping quotes
 $quotes = $shipping_modules->quote();
 // if no shipping method has been selected, automatically select the cheapest method.
@@ -225,6 +229,7 @@ $quotes = $shipping_modules->quote();
 // method if more than one module is now enabled
 if(!isset($_SESSION['shipping']) || (isset($_SESSION['shipping']) && ($_SESSION['shipping'] == false) && (xtc_count_shipping_modules() > 1)))
 	$_SESSION['shipping'] = $shipping_modules->cheapest();
+if($kein_versand==1)$_SESSION['shipping'] = false;
 $order = new order();
 // load all enabled payment modules
 require(DIR_WS_CLASSES . 'payment.php');
@@ -351,7 +356,18 @@ if($order->info['payment_method'] != 'no_payment' && $order->info['payment_metho
 	$smarty->assign('PAYMENT_METHOD', constant(MODULE_PAYMENT_ . strtoupper($order->info['payment_method']) . _TEXT_TITLE));
 }
 
-$smarty->assign('products_data', $order->products);
+$temp_prods=$order->products;
+for ($i=0, $n=sizeof($temp_prods); $i<$n; $i++) {
+	if ($temp_prods[$i]['attributes']) {
+		$attributes_model='';
+		reset($temp_prods[$i]['attributes']);
+		while (list($option, $value) = each($temp_prods[$i]['attributes'])) {
+			$attributes_model .= xtc_get_attributes_model($temp_prods[$i]['id'], $value['value'], $value['option'] );
+    }
+		if ($attributes_model) $temp_prods[$i]['model'].=$attributes_model;
+	}
+}
+$smarty->assign('products_data', $temp_prods);
 
 if(MODULE_ORDER_TOTAL_INSTALLED) {
 	$smarty->assign('total_block', $order_total_modules->pp_output());
@@ -459,7 +475,8 @@ if(DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
 }
 
 $smarty->assign('language', $_SESSION['language']);
-$smarty->assign('SHIPPING_BLOCK', $shipping_block);
+if($kein_versand!=1)
+	$smarty->assign('SHIPPING_BLOCK', $shipping_block);
 $payment_hidden = xtc_draw_hidden_field('payment','paypalexpress') . xtc_draw_hidden_field('act_payment','true');
 $smarty->assign('PAYMENT_HIDDEN', $payment_hidden);
 $smarty->caching = 0;

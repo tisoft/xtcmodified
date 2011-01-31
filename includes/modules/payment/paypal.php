@@ -15,7 +15,7 @@
 
    ab 15.08.2008 Teile vom Hamburger-Internetdienst geändert
    Hamburger-Internetdienst Support Forums at www.forum.hamburger-internetdienst.de
-   Stand 19.07.2010
+   Stand 17.10.2010
 */
 class paypal {
   var $code, $title, $description, $enabled;
@@ -163,7 +163,7 @@ class paypal {
   }
 /**************************************************************/
   function install() {
-    // Stand: 27.03.2010
+    // Stand: 17.10.2010
     if(!defined('TABLE_PAYPAL'))define('TABLE_PAYPAL', 'paypal');
     if(!defined('TABLE_PAYPAL_STATUS_HISTORY'))define('TABLE_PAYPAL_STATUS_HISTORY', 'paypal_status_history');
     // nur zur Sicherheit falls noch alte Module da sind...
@@ -238,6 +238,7 @@ class paypal {
     $new_config[]=array('','PAYPAL_API_CO_BACK', '', 25, 22, '', '');
     $new_config[]=array('','PAYPAL_API_CO_BORD', '', 25, 23, '', '');
     $new_config[]=array('','PAYPAL_ERROR_DEBUG', 'false', 25, 24, '', 'xtc_cfg_select_option(array("true", "false"),');
+    $new_config[]=array('','PAYPAL_INVOICE', '', 25, 25, '', '');
     $new_config[]=array('','PAYPAL_API_KEY', '120,116,99,111,109,109,101,114,99,101,95,83,104,111,112,112,105,110,103,67,97,114,116,95', 6, 5, '', '');
     // Config Daten speichern
     foreach($new_config as $v1) {

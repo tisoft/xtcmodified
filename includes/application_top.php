@@ -288,6 +288,7 @@ if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
       }
     }
   }
+  if($PHP_SELF=='')$PHP_SELF='/index.php';
 }
 */
 //--- SHOPSTAT -------------------------//

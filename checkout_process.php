@@ -93,11 +93,7 @@ if (!isset ($_SESSION['sendto'])):
 endif;
 
 if ((xtc_not_null(MODULE_PAYMENT_INSTALLED)) && (!isset ($_SESSION['payment']))):
-	if($_SESSION['payment']=='paypalexpress'):
-		xtc_redirect(xtc_href_link(FILENAME_PAYPAL_CHECKOUT, '', 'SSL'));
-	else:
-		xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
-	endif;
+        xtc_redirect(xtc_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 endif;
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID

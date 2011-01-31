@@ -233,10 +233,9 @@
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
 */
+	define("DB_CACHE", "false");
   while ($configuration = xtc_db_fetch_array($configuration_query)) {
-    if($configuration['cfgKey']=='DB_CACHE'):
-      define("DB_CACHE", "false");
-    else:
+    if($configuration['cfgKey']!='DB_CACHE' AND $configuration['cfgKey']!='STORE_DB_TRANSACTIONS'):
       define($configuration['cfgKey'], $configuration['cfgValue']);
     endif;
   }

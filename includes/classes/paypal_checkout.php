@@ -19,7 +19,7 @@
 
    ab 15.08.2008 Teile vom Hamburger-Internetdienst geändert
    Hamburger-Internetdienst Support Forums at www.forum.hamburger-internetdienst.de
-   Stand: 16.05.2010
+   Stand: 09.01.2011
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -435,7 +435,7 @@ if (defined('PAYPAL_API_VERSION')) {
       // aufruf aus shopping_cart.php
       // 1. Call um die Token ID zu bekommen
       // Daten aus der Order !
-      // Stand: 29.04.2009
+      // Stand: 17.10.2010
       global $xtPrice,$order;
       // Session säubern
       unset($_SESSION['reshash']);
@@ -461,7 +461,7 @@ if (defined('PAYPAL_API_VERSION')) {
       $gpcancelURL =urlencode($this->EXPRESS_CANCEL_URL);
       $bankpending =urlencode($this->BANKTXN_PENDING_URL);
       $notify_url  = urlencode($this->NOTIFY_URL);
-      $inv_num = urlencode($insert_id);
+      $inv_num = urlencode(PAYPAL_INVOICE.$insert_id);
       // Versandadresse
       $sh_name = urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8", $order->delivery['firstname'].' '.$order->delivery['lastname']));
       $sh_street = urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8", $order->delivery['street_address']));
@@ -527,7 +527,7 @@ if (defined('PAYPAL_API_VERSION')) {
       // aufruf aus paypal.php oder paypalexpress.php aus Warenkorb
       // 2. Call um die PayPal Aktion abzuschliessen
       // Daten aus der Order
-      // Stand: 29.04.2009
+      // Stand: 17.10.2010
       global $xtPrice,$order;
       $order = new order($insert_id);
       // IP Adresse
@@ -553,7 +553,7 @@ if (defined('PAYPAL_API_VERSION')) {
       $payerID = urlencode($payer);
       $paymentType='Sale';
       $notify_url  = urlencode($this->NOTIFY_URL);
-      $inv_num = urlencode($insert_id);
+      $inv_num = urlencode(PAYPAL_INVOICE.$insert_id);
       $button_source = urlencode($this->ppAPIec);
       // Versandadresse
       $sh_name = urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8", $order->delivery['firstname'].' '.$order->delivery['lastname']));
@@ -597,7 +597,7 @@ if (defined('PAYPAL_API_VERSION')) {
   /******* funktionen nur für Warenkorb ************************/
   /*************************************************************/
     function paypal_get_customer_data(){
-      // Stand: 29.04.2009
+      // Stand: 09.01.2011
       $nvpstr="&TOKEN=".$_SESSION['reshash']['TOKEN'];
       // Make the API call and store the results in an array.  If the
       // call was a success, show the authorization details, and provide
@@ -608,7 +608,10 @@ if (defined('PAYPAL_API_VERSION')) {
       if($ack=="SUCCESS"){
         $_SESSION['paypal_express_checkout'] = true;
         $_SESSION['paypal_express_payment_modules'] = 'paypalexpress.php';
-        $this->check_customer();
+        if(!$this->check_customer()):
+          $_SESSION['reshash']['FORMATED_ERRORS'] = PAYPAL_ADRESSE.$_SESSION['reshash']['SHIPTOCOUNTRYCODE'];
+            xtc_redirect($this->EXPRESS_CANCEL_URL);
+        endif;
       } else  {
         $this->build_error_message($_SESSION['reshash']);
         $this->payPalURL = $this->EXPRESS_CANCEL_URL;
@@ -617,7 +620,14 @@ if (defined('PAYPAL_API_VERSION')) {
     }
   /*************************************************************/
     function check_customer(){
-      // Stand: 29.04.2009
+      // Stand: 09.01.2011
+      if($_SESSION['reshash']['SHIPTOCOUNTRYCODE']):
+        $country_query = xtc_db_query("select * from ".TABLE_COUNTRIES." where countries_iso_code_2 = '".xtc_db_input($_SESSION['reshash']['SHIPTOCOUNTRYCODE'])."' ");
+        $tmp_country = xtc_db_fetch_array($country_query);
+        if($tmp_country['status']!=1):
+          return False;
+        endif;
+      endif;
       if(!isset($_SESSION['customer_id'])) {
         $check_customer_query = xtc_db_query("select * from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($_SESSION['reshash']['EMAIL'])."' and account_type = '0'");
         if(!xtc_db_num_rows($check_customer_query)) {
@@ -635,10 +645,12 @@ if (defined('PAYPAL_API_VERSION')) {
           $this->create_shipping_address();
         }
       }
+      return True;
     }
   /*************************************************************/
     function create_account(){
-      // Stand: 29.04.2009
+      // Stand: 16.05.2010
+      global $xtPrice;
       $firstname = xtc_db_prepare_input($this->UTF8decode($_SESSION['reshash']['FIRSTNAME']));
       $lastname = xtc_db_prepare_input($this->UTF8decode($_SESSION['reshash']['LASTNAME']));
       $email_address = xtc_db_prepare_input($_SESSION['reshash']['EMAIL']);
@@ -684,6 +696,17 @@ if (defined('PAYPAL_API_VERSION')) {
       xtc_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = '" . $address_id . "' where customers_id = '" . (int) $_SESSION['customer_id'] . "'");
       xtc_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . (int) $_SESSION['customer_id'] . "', '0', now())");
       if(isset($_SESSION['tracking']['refID'])) {
+        // Test ob die refferes_id im Kunden noch die falsche ist (sollte varchar(32) sein)
+        $rows = xtc_db_query("SHOW COLUMNS FROM ".TABLE_CUSTOMERS);
+        $feld_ist_original=0;
+        while ($row=xtc_db_fetch_array($rows)) {
+          if($row['Field']=='refferers_id'):
+            if(substr($row['Type'],0,3)=='int'):
+              $feld_ist_original=1;
+            endif;
+          endif;
+        }
+        if($feld_ist_original==1):
         $campaign_check_query_raw = "SELECT *
                                     FROM " . TABLE_CAMPAIGNS . "
                                     WHERE campaigns_refID = '" . $_SESSION[tracking][refID] . "'";
@@ -701,6 +724,11 @@ if (defined('PAYPAL_API_VERSION')) {
         xtc_db_query("update " . TABLE_CAMPAIGNS . " set
                       campaigns_leads = '" . $leads . "'
                       where campaigns_id = '" . $refID . "'");
+      else:
+        xtc_db_query("update " . TABLE_CUSTOMERS . " set
+                      refferers_id = '".$_SESSION['tracking']['refID']."'
+                      where customers_id = '".(int) $_SESSION['customer_id']."'");
+      endif;
       }
       if(ACTIVATE_GIFT_SYSTEM == 'true') {
         // GV Code Start
@@ -935,17 +963,26 @@ if (defined('PAYPAL_API_VERSION')) {
   /*************************************************************/
     function paypal_get_products($paymentAmount,$order_tax,$order_discount,$order_fee,$order_shipping,$order_gs,$express_call=False){
       // für beide PayPal Versionen
-      // Artikel Details mitgeben
+      // Artikel Details mitgeben incl. Attribute
       // Für den Express Call Vermerk für den Versand + Vorläufige Kosten mitgeben
-      // Stand: 05.01.2010
+      // Stand: 19.10.2010
       global $xtPrice,$order;
+      require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
       $products_sum_amt = 0;
       $tmp_products='';
       for($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
         $products_price = round($order->products[$i]['price'],$xtPrice->get_decimal_places($order->info['currency']));
         $products_sum_amt+=$products_price*$order->products[$i]['qty'];
-        $tmp_products .='&L_NAME'.$i.'='.urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8",substr($order->products[$i]['name'],0,127))).
-                        '&L_NUMBER'.$i.'='.urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8",substr($order->products[$i]['model'],0,127))).
+        $attributes_data = '';
+        $attributes_model = '';
+        if ((isset ($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0)) {
+          for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j++) {
+            $attributes_data .= ' - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
+            $attributes_model .= '-'.xtc_get_attributes_model($order->products[$i]['id'], $order->products[$i]['attributes'][$j]['value'],$order->products[$i]['attributes'][$j]['option']);
+        }
+        }
+        $tmp_products .='&L_NAME'.$i.'='.urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8",substr($order->products[$i]['name'].$attributes_data,0,127))).
+											'&L_NUMBER'.$i.'='.urlencode($this->mn_iconv($_SESSION['language_charset'], "UTF-8",substr($order->products[$i]['model'].$attributes_model,0,127))).
                         '&L_QTY'.$i.'='.urlencode($order->products[$i]['qty']).
                         '&L_AMT'.$i.'='.urlencode(number_format($products_price, $xtPrice->get_decimal_places($order->info['currency']), '.', ','));
       }
@@ -1108,7 +1145,7 @@ if (defined('PAYPAL_API_VERSION')) {
   /*************************************************************/
     function callback_process($data,$charset) {
       // Keine Session da !
-      // Stand: 29.04.2009
+      // Stand: 17.10.2010
       global $_GET;
       $this->data = $data;
       //$this->_logTrans($data);
@@ -1116,17 +1153,18 @@ if (defined('PAYPAL_API_VERSION')) {
       if(EMAIL_TRANSPORT == 'smtp')
         require_once(DIR_WS_CLASSES . 'class.smtp.php');
       require_once(DIR_FS_INC . 'xtc_Security.inc.php');
-      if(isset($this->data['invoice']) && is_numeric($this->data['invoice']) && ($this->data['invoice'] > 0)) {
+      $xtc_order_id=(int)substr($this->data['invoice'],strlen(PAYPAL_INVOICE));
+      if(isset($xtc_order_id) && is_numeric($xtc_order_id) && ($xtc_order_id > 0)) {
         // order suchen
         $order_query = xtc_db_query("SELECT currency, currency_value
                                     FROM " . TABLE_ORDERS . "
-                                    WHERE orders_id = '" . xtc_db_prepare_input($this->data['invoice']) . "'");
+                                    WHERE orders_id = '" . xtc_db_prepare_input($xtc_order_id) . "'");
         if(xtc_db_num_rows($order_query) > 0) {
           // order gefunden
           $ipn_charset=xtc_db_prepare_input($this->data['charset']);
           $ipn_data = array();
           $ipn_data['reason_code'] = xtc_db_prepare_input($this->data['reason_code']);
-          $ipn_data['xtc_order_id'] = xtc_db_prepare_input($this->data['invoice']);
+          $ipn_data['xtc_order_id'] = xtc_db_prepare_input($xtc_order_id);
           $ipn_data['payment_type'] = xtc_db_prepare_input($this->data['payment_type']);
           $ipn_data['payment_status'] = xtc_db_prepare_input($this->data['payment_status']);
           $ipn_data['pending_reason'] = xtc_db_prepare_input($this->data['pending_reason']);
@@ -1265,25 +1303,41 @@ if (defined('PAYPAL_API_VERSION')) {
             $result= file_get_contents($this->IPN_URL, false, $request);
           endif;
           if(strtoupper($result) == 'VERIFIED' or $result == '1') {
-            if($this->data['payment_status'] == 'Completed') {
+            // Steht auf Warten
+            if(strtolower($this->data['payment_status']) == 'completed' ) {
               if(PAYPAL_ORDER_STATUS_SUCCESS_ID > 0) {
                 $order_status_id = PAYPAL_ORDER_STATUS_SUCCESS_ID;
               }
             //Set status for Denied, Failed
-            }elseif(($this->data['payment_status'] == 'Denied') OR ($this->data['payment_status'] == 'Failed')) {
+            }elseif((strtolower($this->data['payment_status']) == 'denied') OR (strtolower($this->data['payment_status']) == 'failed')) {
               $order_status_id = PAYPAL_ORDER_STATUS_REJECTED_ID;
-            //Set status for Refunded or Reversed
-            }elseif(($this->data['payment_status'] == 'Refunded') OR ($this->data['payment_status'] == 'Reversed')) {
+            //Set status for Reversed
+            }elseif(strtolower($this->data['payment_status'] == 'reversed')) {
+              $order_status_id = PAYPAL_ORDER_STATUS_PENDING_ID;
+            //Set status for Canceled-Reversal
+            }elseif(strtolower($this->data['payment_status'] == 'canceled-reversal')) {
+              $order_status_id = PAYPAL_ORDER_STATUS_SUCCESS_ID;
+            //Set status for Refunded
+            }elseif(strtolower($this->data['payment_status'] == 'refunded')) {
               $order_status_id = DEFAULT_ORDERS_STATUS_ID;
+            //Set status for Pendign - eigentlich nicht nötig?
+            }elseif(strtolower($this->data['payment_status'] == 'pending')) {
+              $order_status_id = PAYPAL_ORDER_STATUS_PENDING_ID;
+            //Set status for Processed - wann kommt das ?
+            }elseif(strtolower($this->data['payment_status'] == 'processed')) {
+              if(PAYPAL_ORDER_STATUS_SUCCESS_ID > 0) {
+                $order_status_id = PAYPAL_ORDER_STATUS_SUCCESS_ID;
+              }
             }
           } else {
             $order_status_id = PAYPAL_ORDER_STATUS_REJECTED_ID;
             $error_reason = 'Received INVALID responce but invoice and Customer matched.';
           }
+	  $xtc_order_id=(int)substr($this->data['invoice'],strlen(PAYPAL_INVOICE));
           xtc_db_query("UPDATE " . TABLE_ORDERS . "
                         SET orders_status = '" . $order_status_id . "', last_modified = now()
-                        WHERE orders_id = '" . xtc_db_prepare_input($this->data['invoice']) . "'");
-          $sql_data_array = array('orders_id' => xtc_db_prepare_input($this->data['invoice']),
+                        WHERE orders_id = '" . xtc_db_prepare_input($xtc_order_id) . "'");
+          $sql_data_array = array('orders_id' => xtc_db_prepare_input($xtc_order_id),
                                   'orders_status_id' => $order_status_id,
                                   'date_added' => 'now()',
                                   'customer_notified' => '0',
@@ -1377,7 +1431,7 @@ if (defined('PAYPAL_API_VERSION')) {
         $txn_type = 'pending-multicurrency';
         return $txn_type;
       }
-      if(($this->data['payment_status']=='Pending') && $this->data['pending_reason']=='multi-verify') {
+      if(($this->data['payment_status']=='Pending') && $this->data['pending_reason']=='verify') {
         $txn_type = 'pending-verify';
         return $txn_type;
       }
