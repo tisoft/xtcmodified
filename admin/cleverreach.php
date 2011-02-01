@@ -1,17 +1,18 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: cleverreach.php 1235 2005-09-21 19:11:43Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project 
    (c) 2002-2003 osCommerce coding standards (a typical file) www.oscommerce.com
    (c) 2003      nextcommerce (start.php,1.5 2004/03/17); www.nextcommerce.org
-
+   (c) 2003 XT-Commerce
+   
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
@@ -24,7 +25,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
     <title><?php echo TITLE; ?></title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
-    <link rel="stylesheet" type="text/css" href="../includes/econda/style.css" />
+    <!--// BOF - GTB - 2011-02-01 - move Econda to External
+    <link rel="stylesheet" type="text/css" href="../includes/econda/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_EXTERN; ?>econda/style.css" />
+    <!--// EOF - GTB - 2011-02-01 - move Econda to External -->
   </head>
   <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
     <!-- header //-->

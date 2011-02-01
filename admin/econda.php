@@ -1,17 +1,18 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: econda.php 1235 2005-09-21 19:11:43Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on: 
    (c) 2000-2001 The Exchange Project 
    (c) 2002-2003 osCommerce coding standards (a typical file) www.oscommerce.com
    (c) 2003      nextcommerce (start.php,1.5 2004/03/17); www.nextcommerce.org
-
+   (c) 2003 XT-Commerce
+   
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
@@ -39,7 +40,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 
     <title><?php echo TITLE; ?></title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
-    <link rel="stylesheet" type="text/css" href="../includes/econda/style.css" />
+    <!--// BOF - GTB - 2011-02-01 - move Econda to External
+    <link rel="stylesheet" type="text/css" href="../includes/econda/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_EXTERN; ?>econda/style.css" />
+    <!--// EOF - GTB - 2011-02-01 - move Econda to External -->    
   </head>
   <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
     <!-- header //-->
@@ -61,7 +65,10 @@
           <table border="0" width="100%" cellspacing="0" cellpadding="0">
             <tr>
               <td style="border: 0px solid; border-color: #ffffff;">
-                <p><img src="../includes/econda/econda.jpg" width="688" height="150"></p>
+                <!--// BOF - GTB - 2011-02-01 - move Econda to External
+                <p><img src="../includes/econda/econda.jpg" width="688" height="150"></p> -->
+                <p><img src="<?php echo DIR_WS_EXTERN; ?>econda/econda.jpg" width="688" height="150"></p>
+                <!--// EOF - GTB - 2011-02-01 - move Econda to External -->    
                 <p>&nbsp;</p>
                 <table border="0" cellspacing="0" cellpadding="0" class="text_box">
                   <tbody>
@@ -140,12 +147,18 @@
                     <tr>
                       <td class="text_box_image">
                         <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank">
-                          <img src="../includes/econda/gfx/exitbereiche.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// BOF - GTB - 2011-02-01 - move Econda to External
+                        <img src="../includes/econda/gfx/exitbereiche.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /> -->
+                        <img src="<?php echo DIR_WS_EXTERN; ?>econda/gfx/exitbereiche.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// EOF - GTB - 2011-02-01 - move Econda to External -->    
                         </a>
                         <br />
                         <br />
                         <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank">
-                          <img src="../includes/econda/gfx/diff.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// BOF - GTB - 2011-02-01 - move Econda to External
+                        <img src="../includes/econda/gfx/diff.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /> -->
+                        <img src="<?php echo DIR_WS_EXTERN; ?>econda/gfx/diff.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// EOF - GTB - 2011-02-01 - move Econda to External -->    
                         </a>
                       </td>
                       <td class="text_box_text">
@@ -184,12 +197,18 @@
                     <tr>
                       <td class="text_box_image">
                         <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank">
-                          <img src="../includes/econda/gfx/searchConversion.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// BOF - GTB - 2011-02-01 - move Econda to External
+                        <img src="../includes/econda/gfx/searchConversion.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /> -->
+                        <img src="<?php echo DIR_WS_EXTERN; ?>econda/gfx/searchConversion.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// EOF - GTB - 2011-02-01 - move Econda to External -->    
                         </a>
                         <br />
                         <br />
                         <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank">
-                          <img src="../includes/econda/gfx/srcumsatz.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// BOF - GTB - 2011-02-01 - move Econda to External
+                        <img src="../includes/econda/gfx/srcumsatz.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /> -->
+                        <img src="<?php echo DIR_WS_EXTERN; ?>econda/gfx/srcumsatz.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// EOF - GTB - 2011-02-01 - move Econda to External -->    
                         </a>
                       </td>
                       <td class="text_box_text">
@@ -226,7 +245,10 @@
                       <td class="text_box_image">
                         <br />
                         <a href ="http://www.xt-commerce.com/index.php?option=com_philaform&form_id=3&Itemid=1" target="_blank">
-                          <img src="../includes/econda/gfx/crtl.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// BOF - GTB - 2011-02-01 - move Econda to External
+                        <img src="../includes/econda/gfx/crtl.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" /> -->
+                        <img src="<?php echo DIR_WS_EXTERN; ?>econda/gfx/crtl.png" alt="" width="540" height="360" border ="0" style="width: 132px; height: 88px;" />
+                        <!--// EOF - GTB - 2011-02-01 - move Econda to External -->    
                         </a>
                       </td>
                       <td class="text_box_text">

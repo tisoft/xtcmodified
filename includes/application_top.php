@@ -532,7 +532,10 @@ $xtPrice = new xtcPrice($_SESSION['currency'], $_SESSION['customers_status']['cu
 
 // econda tracking
 if (TRACKING_ECONDA_ACTIVE=='true') {
-  require(DIR_WS_INCLUDES . 'econda/class.econda304SP2.php');
+	//BOF - GTB - 2011-02-01 - move Econda to external directory
+  //require(DIR_WS_INCLUDES . 'econda/class.econda304SP2.php');
+  require(DIR_FS_EXTERNAL . 'econda/class.econda304SP2.php');
+  //EOF - GTB - 2011-02-01 - move Econda to external directory
   $econda = new econda();
 }
 
@@ -726,7 +729,10 @@ unset ($_SESSION['actual_content']);
 
 // econda tracking
 if (TRACKING_ECONDA_ACTIVE=='true') {
-  require(DIR_WS_INCLUDES . 'econda/emos.php');
+	//BOF - GTB - 2011-02-01 - move Econda to external directory
+  //require(DIR_WS_INCLUDES . 'econda/emos.php');
+  require(DIR_FS_EXTERNAL . 'econda/emos.php');
+  //EOF - GTB - 2011-02-01 - move Econda to external directory
 }
 
 xtc_count_cart();

@@ -1,17 +1,18 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: application_bottom.php 1239 2005-09-24 20:09:56Z mz $   
+   $Id$   
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_bottom.php,v 1.14 2003/02/10); www.oscommerce.com
-   (c) 2003	 nextcommerce (application_bottom.php,v 1.6 2003/08/13); www.nextcommerce.org
-
+   (c) 2003	nextcommerce (application_bottom.php,v 1.6 2003/08/13); www.nextcommerce.org
+	 (c) 2003 XT-Commerce
+	 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
@@ -36,7 +37,10 @@ if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded == true) && ($ini_zlib_out
 	}
 }
 if (TRACKING_ECONDA_ACTIVE == 'true') {
-	require_once (DIR_WS_INCLUDES . 'econda/econda.php');
+	//BOF - GTB - 2011-02-01 - move Econda to External
+	//require_once (DIR_WS_INCLUDES . 'econda/econda.php');
+	require_once (DIR_FS_EXTERN . 'econda/econda.php');
+	//EOF - GTB - 2011-02-01 - move Econda to External
 }
 
 //BOF - DokuMan - 2010-02-25 - Enhance page loading time by putting CSS on TOP of page and JavaScript on BOTTOM of page
@@ -50,6 +54,9 @@ echo '</body></html>';
 //--- SHOPSTAT -------------------------//
     $shopstat_ref = __FILE__;
     $shoplog_mode = true;
-    require("shopstat/shopstat.php");
+    //BOF - GTB - 2011-02-01 - move Shopstat to External
+    //require("shopstat/shopstat.php");
+    require(DIR_FS_EXTERN . "shopstat/shopstat.php");
+    //EOF - GTB - 2011-02-01 - move Shopstat to External
 //--- SHOPSTAT -------------------------//
 ?>
