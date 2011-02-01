@@ -88,7 +88,7 @@ define('TYPE_REVERSED','-Zahlung gesendet');
 define('TYPE_REFUNDED','Rückzahlung');
 define('TEXT_DISPLAY_NUMBER_OF_PAYPAL_TRANSACTIONS','Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Transaktionen)');
 // define NOTES
-define('TEXT_PAYPAL_NOTE_REFUND_INFO','Bis 60 Tage nach dem Senden der ursprünglichen Zahlung können Sie eine vollständige oder eine Teilrückzahlung leisten. Wenn Sie eine Rückzahlung veranlassen, erhalten Sie von PayPal eine Gebührenrückerstattung, einschließlich der Teilgebühren für Teilrückzahlungen.
+define('TEXT_PAYPAL_NOTE_REFUND_INFO','Bis 60 Tage nach dem Senden der ursprünglichen Zahlung können Sie eine vollständige oder eine Teilrückzahlung leisten. Wenn Sie eine Rückzahlung veranlassen, erhalten Sie von PayPal eine Gebührenrückerstattung, einschlie&szlig;lich der Teilgebühren für Teilrückzahlungen.
 <br /><br />Um eine Rückzahlung zu veranlassen, geben Sie den Betrag in das Feld Rückzahlungsbetrag ein, und klicken Sie auf Weiter. ');
 define('TEXT_PAYPAL_NOTE_CAPTURE_INFO','');
 // errors

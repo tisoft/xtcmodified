@@ -33,7 +33,7 @@
   define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_DESC' , 'Bestellungen, welche mit diesem Modul gemacht werden, auf diesen Status setzen');
   
 // BOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
-define('MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen');
+define('MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING_TITLE', 'Ausschlu&szlig; bei Versandmodulen');
 define('MODULE_PAYMENT_MONEYORDER_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
 // EOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 ?>

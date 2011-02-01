@@ -57,7 +57,7 @@
   define('MODULE_PAYMENT_EUSTANDARDTRANSFER_ALLOWED_DESC' , 'Geben Sie <b>einzeln</b> die Zonen an, welche f&uuml;r dieses Modul erlaubt sein sollen. (z.B. AT,DE (wenn leer, werden alle Zonen erlaubt))');
 
   // BOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
-  define('MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen');
+  define('MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING_TITLE', 'Ausschlu&szlig; bei Versandmodulen');
   define('MODULE_PAYMENT_EUTRANSFER_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
   // EOF - Hendrik - 2010-07-15 - exlusion config for shipping modules
 ?>

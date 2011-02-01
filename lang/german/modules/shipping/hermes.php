@@ -30,7 +30,7 @@ define('MODULE_SHIPPING_HERMES_STATUS_DESC' , 'Modul von Leonid Lezner');
 define('MODULE_SHIPPING_HERMES_NATIONAL_TITLE' , 'Nationaler Versand (DE)');
 define('MODULE_SHIPPING_HERMES_NATIONAL_DESC' , 'Preise für Klassen: S;M;L');
 
-define('MODULE_SHIPPING_HERMES_INTERNATIONAL_TITLE' , 'Internationaler Versand (alle außer DE)');
+define('MODULE_SHIPPING_HERMES_INTERNATIONAL_TITLE' , 'Internationaler Versand (alle au&szlig;er DE)');
 define('MODULE_SHIPPING_HERMES_INTERNATIONAL_DESC' , 'Preise für Klassen: S;M;L');
 
 define('MODULE_SHIPPING_HERMES_GEWICHT_TITLE' , 'Klassendefinition');
