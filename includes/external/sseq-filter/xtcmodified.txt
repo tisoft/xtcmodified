@@ -67,7 +67,7 @@ primary # P! # INT # NULL # 1 # true # true &
 KeepThis # G! # STR # 4 # 4 # false # true & 
 error # G! # STR # NULL # 100 # false # true & 
 page # G! # STR # NULL,1 # 100 # true # true & 
-id # PG #  #  #  # false # false & 
+id # PG #  #  #  # true # true & 
 width # G! # INT # 1 # 4 # true # true & 
 height # G! # INT # 1 # 4 # true # true & 
 TB_iframe # G! # STR # 4 # 4 # false # true & 
