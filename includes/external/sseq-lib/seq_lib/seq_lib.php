@@ -745,12 +745,12 @@ function seq_reaction_($filter_ = false) {
                 for ($t=0; $t < count($querypairs); $t++) {
                     $pairs = explode('=', $querypairs[$t]);
                    	if ($pairs[0] == $seq_sessname) {
-                        $save_session = join($querypairs[$t]);
+                        $save_session = '?'.$querypairs[$t];
                    	}
                	}
             }
 
-            header("Location: " . _SEQ_ONERROR_REDIRECT_TO . '?' . $save_session);
+            header("Location: " . _SEQ_ONERROR_REDIRECT_TO . $save_session);
         }
     }
     // do not stop script execution here. it may be a minor violation and maybe
