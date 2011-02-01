@@ -77,18 +77,14 @@
                                  'text' => $totals['text'],
                                  'value'=> $totals['value']);
       }
-      
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-/*
-      $order_total_query = xtc_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
+
+      // BOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
+      //$order_total_query = xtc_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
+      $order_total_query = xtc_db_query("select text, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
+      // EOF - web28 - 2010-05-06 - PayPal APIModul / Paypal Express Modul
       $order_total = xtc_db_fetch_array($order_total_query);
 
-      $shipping_method_query = xtc_db_query("select title from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
-*/
-			$order_total_query = xtc_db_query("select text, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
-      $order_total = xtc_db_fetch_array($order_total_query);
-
-      // PayPal naja - geht auch einfacher...
+      // BOF - web28 - 2010-05-06 - PayPal API Modul  / Paypal Express Modul
       $order_tax_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_tax'");
       $order_tax = xtc_db_fetch_array($order_tax_query);
       $pp_order_tax=$order_tax['SUM(value)'];
@@ -125,11 +121,10 @@
       $order_fee_query = xtc_db_query("select SUM(value) from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_loworderfee'");
       $order_fee = xtc_db_fetch_array($order_fee_query);
       $pp_order_fee+=$order_fee['SUM(value)'];
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-      $shipping_method_query = xtc_db_query("select title, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+      //$shipping_method_query = xtc_db_query("select title from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
+	    $shipping_method_query = xtc_db_query("select title, value from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
+      // EOF - web28 - 2010-05-06 - PayPal API Modul  / Paypal Express Modul
 
       $shipping_method = xtc_db_fetch_array($shipping_method_query);
 
@@ -152,14 +147,14 @@
                           'orders_status' => $order_status['orders_status_name'],
                           'last_modified' => $order['last_modified'],
                           'total' => strip_tags($order_total['text']),
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+                          // BOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
                           'pp_total' => $order_total['value'],
                           'pp_shipping' => $shipping_method['value'],
                           'pp_tax' => $pp_order_tax,
                           'pp_disc' => $pp_order_disc,
                           'pp_gs' => $pp_order_gs,
                           'pp_fee' => $pp_order_fee,
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+                           // EOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
                           'shipping_method' => ((substr($shipping_method['title'], -1) == ':') ? substr(strip_tags($shipping_method['title']), 0, -1) : strip_tags($shipping_method['title'])),
                           'comments' => $order['comments']
                           );
@@ -183,43 +178,27 @@
                               'vat_id' => $order['customers_vat_id'],
                              // EOF - DokuMan - 2010-03-26 added vat_id in order-array
                               );
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-/*
-      $this->delivery = array('name' => $order['delivery_name'],
-                              'firstname' => $order['delivery_firstname'],
-                              'lastname' => $order['delivery_lastname'],
-                              'company' => $order['delivery_company'],
-                              'street_address' => $order['delivery_street_address'],
-                              'suburb' => $order['delivery_suburb'],
-                              'city' => $order['delivery_city'],
-                              'postcode' => $order['delivery_postcode'],
-                              'state' => $order['delivery_state'],
-                              'country' => $order['delivery_country'],
-                              'format_id' => $order['delivery_address_format_id']);
-*/
-      $this->delivery = array('name' => $order['delivery_name'],
-                              'firstname' => $order['delivery_firstname'],
-                              'lastname' => $order['delivery_lastname'],
-                              'company' => $order['delivery_company'],
-                              'street_address' => $order['delivery_street_address'],
-                              'suburb' => $order['delivery_suburb'],
-                              'city' => $order['delivery_city'],
-                              'postcode' => $order['delivery_postcode'],
-                              'state' => $order['delivery_state'],
-                              'country' => $order['delivery_country'],
-                              //BOF - web28 - 2010-03-26 - PayPal IPN Link
-                              'country_iso_2' => $order['delivery_country_iso_code_2'], //FIX - web28 - 2010-06-11 billing -> delivery
-                              //EOF - web28 - 2010-03-26 - PayPal IPN Link
 
+      $this->delivery = array('name' => $order['delivery_name'],
+                              'firstname' => $order['delivery_firstname'],
+                              'lastname' => $order['delivery_lastname'],
+                              'company' => $order['delivery_company'],
+                              'street_address' => $order['delivery_street_address'],
+                              'suburb' => $order['delivery_suburb'],
+                              'city' => $order['delivery_city'],
+                              'postcode' => $order['delivery_postcode'],
+                              'state' => $order['delivery_state'],
+                              'country' => $order['delivery_country'],
+                              //BOF - web28 - 2010-03-26 - PayPal IPN Link / Paypal Express Modul
+                              'country_iso_2' => $order['delivery_country_iso_code_2'],
+                              //EOF - web28 - 2010-03-26 - PayPal IPN Link / Paypal Express Modul
                               'format_id' => $order['delivery_address_format_id']);
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
 
       if (empty($this->delivery['name']) && empty($this->delivery['street_address'])) {
         $this->delivery = false;
       }
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-/*
       $this->billing = array('name' => $order['billing_name'],
                              'firstname' => $order['billing_firstname'],
                              'lastname' => $order['billing_lastname'],
@@ -230,21 +209,10 @@
                              'postcode' => $order['billing_postcode'],
                              'state' => $order['billing_state'],
                              'country' => $order['billing_country'],
-                             'format_id' => $order['billing_address_format_id']);
-*/
-     $this->billing = array('name' => $order['billing_name'],
-                             'firstname' => $order['billing_firstname'],
-                             'lastname' => $order['billing_lastname'],
-                             'company' => $order['billing_company'],
-                             'street_address' => $order['billing_street_address'],
-                             'suburb' => $order['billing_suburb'],
-                             'city' => $order['billing_city'],
-                             'postcode' => $order['billing_postcode'],
-                             'state' => $order['billing_state'],
-                             'country' => $order['billing_country'],
+                             //BOF - web28 - 2010-03-26 - PayPal IPN Link / Paypal Express Modul
                              'country_iso_2' => $order['billing_country_iso_code_2'],
+                             //EOF - web28 - 2010-03-26 - PayPal IPN Link / Paypal Express Modul
                              'format_id' => $order['billing_address_format_id']);
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
 
       $index = 0;
       $orders_products_query = xtc_db_query("SELECT *
@@ -346,10 +314,8 @@
         'VALUE' => $order_total_values['value'],
         'TEXT' => $order_total_values['text']
         );
-        // BOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in orders class
-        //if ($order_total_values['class'] = 'ot_total')
+
         if ($order_total_values['class'] == 'ot_total')
-        // EOF 24.04.2009 JUNG/GESTALTEN.com - BUGFIX: #0000222 Tippfehler in orders class
           $total = $order_total_values['value'];
 
         //BOF - web28 - 2010-03-26 - PayPal IPN Link in Kundenaccount
@@ -457,9 +423,9 @@
                              'format_id' => $billing_address['address_format_id']);
 
       $index = 0;
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+      // BOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
       $this->tax_discount = array ();
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+      // EOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
       $products = $_SESSION['cart']->get_products();
       for ($i=0, $n=sizeof($products); $i<$n; $i++) {
 
@@ -469,20 +435,6 @@
                                         $products[$i]['tax_class_id'],
                                         '')+$xtPrice->xtcFormat($_SESSION['cart']->attributes_price($products[$i]['id']),false);
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-/*
-        $this->products[$index] = array('qty' => $products[$i]['quantity'],
-                                        'name' => $products[$i]['name'],
-                                        'model' => $products[$i]['model'],
-                                        'tax_class_id'=> $products[$i]['tax_class_id'],
-                                        'tax' => xtc_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
-                                        'tax_description' => xtc_get_tax_description($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
-                                        'price' =>  $products_price ,
-                            		    'final_price' => $products_price*$products[$i]['quantity'],
-                            		    'shipping_time'=>$products[$i]['shipping_time'],
-					                    'weight' => $products[$i]['weight'],
-                                        'id' => $products[$i]['id']);
-*/
         $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
                                         'model' => $products[$i]['model'],
@@ -490,13 +442,13 @@
                                         'tax' => xtc_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'tax_description' => xtc_get_tax_description($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'price' => $products_price,
-                                        'price_formated' => $xtPrice->xtcFormat($products_price,true),
+                                        'price_formated' => $xtPrice->xtcFormat($products_price,true), // web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
                                         'final_price' => $products_price*$products[$i]['quantity'],
-                                        'final_price_formated' => $xtPrice->xtcFormat($products_price*$products[$i]['quantity'],true),
+                                        'final_price_formated' => $xtPrice->xtcFormat($products_price*$products[$i]['quantity'],true), // web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
                                         'shipping_time'=>$products[$i]['shipping_time'],
                                         'weight' => $products[$i]['weight'],
                                         'id' => $products[$i]['id']);
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
         if ($products[$i]['attributes']) {
           $subindex = 0;
           reset($products[$i]['attributes']);
@@ -553,10 +505,10 @@
           }
         } else {
           if ($_SESSION['customers_status']['customers_status_ot_discount_flag'] == 1) {
-            // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+            // BOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
             //$this->info['tax'] += ($shown_price_tax/100) * ($products_tax);
             $this->tax_discount[$products[$i]['tax_class_id']]+=($shown_price_tax/100) * $products_tax;
-            // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+            // EOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
             //BOF - DokuMan - 2010-09-28 - set correct order of VAT display, added .TAX_SHORT_DISPLAY
             $this->info['tax_groups'][TAX_NO_TAX . "$products_tax_description".TAX_SHORT_DISPLAY] += ($shown_price_tax/100) * ($products_tax);
           } else {
@@ -567,11 +519,11 @@
         }
         $index++;
       }
-      // BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+      // BOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
       foreach ($this->tax_discount as $value) {
         $this->info['tax']+=round($value, $xtPrice->get_decimal_places($order->info['currency']));
       }
-      // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+      // EOF - web28 - 2010-05-06 - PayPal API Modul / Paypal Express Modul
       //$this->info['shipping_cost']=0;
       if ($_SESSION['customers_status']['customers_status_show_price_tax'] == '0') {
         $this->info['total'] = $this->info['subtotal']  + $xtPrice->xtcFormat($this->info['shipping_cost'], false,0,true);

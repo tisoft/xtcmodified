@@ -14,11 +14,11 @@ Hallo {$NAME},
 vielen Dank für Ihre Bestellung.
 
 {$PAYMENT_INFO_TXT}
-
+{*BOF - web28 - 2011-02-01 - Paypal Express*}
 {if $NEW_PASSWORD}
         Ihr Account Passwort: {$NEW_PASSWORD}
 {/if}
-
+{*EOF - web28 - 2011-02-01 - Paypal Express*}
 {if $COMMENTS}
 Ihre Anmerkungen:
 {$COMMENTS}

@@ -135,9 +135,7 @@
           $smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
           $smarty->assign('NAME', $check_status['customers_name']);
           $smarty->assign('ORDER_NR', $oID);
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
           $smarty->assign('ORDER_ID', $oID);
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
           $smarty->assign('ORDER_LINK', xtc_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id='.$oID, 'SSL'));
           $smarty->assign('ORDER_DATE', xtc_date_long($check_status['date_purchased']));
           $smarty->assign('NOTIFY_COMMENTS', nl2br($notify_comments)); // Tomcraft - 2009-10-10 - Fixed wordwrap in notify_comments
@@ -157,15 +155,16 @@
       }
       xtc_redirect(xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('action')).'action=edit'));
       break;
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
     case 'resendordermail':
 
       break;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
+
     case 'deleteconfirm' :
       $oID = xtc_db_prepare_input($_GET['oID']);
       xtc_remove_order($oID, $_POST['restock']);
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+// BOF - Tomcraft - 2011-02-01 - Paypal Express Modul
       if($_POST['paypaldelete']):
         $query = xtc_db_query("SELECT * FROM " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oID . "'");
         while ($values = xtc_db_fetch_array($query)) {
@@ -173,7 +172,7 @@
         }
         xtc_db_query("delete from " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oID . "'");
       endif;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+// EOF - Tomcraft - 2011-02-01 - Paypal Express Modul
       xtc_redirect(xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action'))));
       break;
       // BMC Delete CC info Start
@@ -207,10 +206,10 @@
     <style type="text/css">
       <!--
         .table{width: 850px; border: 1px solid #a3a3a3; margin-bottom:20px; background: #f3f3f3; padding:2px;}
-        .heading{font-family: Verdana, Arial, sans-serif; font-size: 12px; font-weight: bold; padding:2px; }    
+        .heading{font-family: Verdana, Arial, sans-serif; font-size: 12px; font-weight: bold; padding:2px; }
       -->
     </style>
-    <?php //EOF web28 2010-12-09 add table style ?> 
+    <?php //EOF web28 2010-12-09 add table style ?>
   </head>
   <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
     <!-- header //-->
@@ -254,14 +253,14 @@
               </tr>
               <?php //BOF web28 2010-12-09 new table handling ?>
             </table>
-            <br />      
+            <br />
             <table cellspacing="0" cellpadding="2" class="table">
               <?php //EOF web28 2010-12-09 new table handling ?>
               <tr>
                 <td valign="top" style="border-right: 1px solid #a3a3a3;">
                   <table width="100%" border="0" cellspacing="0" cellpadding="2">
                     <?php
-                    if ($order->customer['csID']!='') { 
+                    if ($order->customer['csID']!='') {
                       ?>
                       <tr>
                         <td class="main" valign="top" bgcolor="#FFCC33"><b><?php echo ENTRY_CID; ?></b></td>
@@ -311,12 +310,12 @@
                 <td valign="top" class="main">
                   <b><?php echo ENTRY_BILLING_ADDRESS; ?></b><br />
                   <?php echo xtc_address_format($order->billing['format_id'], $order->billing, 1, '', '<br />'); ?>
-                </td>              
+                </td>
               </tr>
               <?php //BOF web28 2010-12-09 new table handling ?>
             </table>
             <table cellspacing="0" cellpadding="2" class="table">
-              <?php //EOF web28 2010-12-09 new table handling ?>       
+              <?php //EOF web28 2010-12-09 new table handling ?>
               <tr>
                 <td>
                   <table border="0" cellspacing="0" cellpadding="2">
@@ -331,7 +330,7 @@
                       <?php
                       include(DIR_FS_CATALOG.'lang/'.$_SESSION['language'].'/modules/payment/'.$order->info['payment_method'].'.php');
                       $payment_method=constant(strtoupper('MODULE_PAYMENT_'.$order->info['payment_method'].'_TEXT_TITLE'));
-                      ?>            
+                      ?>
                       <td class="main"><?php echo $payment_method . ' ('.$order->info['payment_method'].')'; ?></td>
                       <!-- EOF web28 - 2010-10-10 - Zahlungweise anzeigen -->
                     </tr>
@@ -493,14 +492,15 @@
                                            */
                     // EOF - Tomcraft - 2009-11-03 - commented out the old sofortueberweisung.de payment module
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-                    if ($order->info['payment_method']=='paypal_ipn' or $order->info['payment_method']=='paypal_directpayment' or $order->info['payment_method']=='paypal' or $order->info['payment_method']=='paypalexpress') {
+// BOF - Tomcraft - 2011-02-01 - Paypal Express Modul - web28 - fix for new paypal_ipn
+                    //if ($order->info['payment_method']=='paypal_ipn' or $order->info['payment_method']=='paypal_directpayment' or $order->info['payment_method']=='paypal' or $order->info['payment_method']=='paypalexpress') {
+                    if ($order->info['payment_method']=='paypal_directpayment' or $order->info['payment_method']=='paypal' or $order->info['payment_method']=='paypalexpress') {
                       require('../includes/classes/paypal_checkout.php');
                       require('includes/classes/class.paypal.php');
                       $paypal = new paypal_admin();
                       $paypal->admin_notification((int)$_GET['oID']);
                     }
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+// EOF - Tomcraft - 2011-02-01 - Paypal Express Modul - web28 - fix for new paypal_ipn
 
                     // begin modification for banktransfer
                     $banktransfer_query = xtc_db_query("select banktransfer_prz, banktransfer_status, banktransfer_owner, banktransfer_number, banktransfer_bankname, banktransfer_blz, banktransfer_fax from banktransfer where orders_id = '".xtc_db_input($_GET['oID'])."'");
@@ -602,7 +602,7 @@
             </table>
             <div class="heading"><?php echo TEXT_ORDER; ?></div>
             <table cellspacing="0" cellpadding="2" class="table">
-              <?php //EOF web28 2010-12-09 new table handling ?>     
+              <?php //EOF web28 2010-12-09 new table handling ?>
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent" colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
@@ -690,7 +690,7 @@
             </table>
             <div class="heading"><?php echo TEXT_ORDER_HISTORY; ?></div>
             <table cellspacing="0" cellpadding="2" class="table">
-              <?php //EOF web28 2010-12-09 new table handling ?>     
+              <?php //EOF web28 2010-12-09 new table handling ?>
               <tr>
                 <td class="main">
                   <table border="1" cellspacing="0" cellpadding="5">
@@ -729,7 +729,7 @@
             </table>
             <div class="heading"><?php echo TEXT_ORDER_STATUS; ?></div>
             <table cellspacing="0" cellpadding="2" class="table">
-              <?php //EOF web28 2010-12-09 new table handling ?>  
+              <?php //EOF web28 2010-12-09 new table handling ?>
               <tr>
                 <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
               </tr>
@@ -767,7 +767,7 @@
             </table>
             <table cellspacing="0" cellpadding="2" style="width:850px; margin-bottom:10px;">
               <tr>
-                <?php //EOF web28 2010-12-09 new table handling ?> 
+                <?php //EOF web28 2010-12-09 new table handling ?>
                 <td align="right">
                   <!-- //BOF - web28 - 2010-03-20 - Send Order by Admin -->
                   <a class="button" href="<?php echo xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$_GET['oID'].'&action=send&sta=0&stc=1&site=1'); ?>"><?php echo BUTTON_ORDER_CONFIRMATION; ?></a>
@@ -923,28 +923,30 @@
                           $contents = array ('form' => xtc_draw_form('orders', FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id.'&action=deleteconfirm'));
                           $contents[] = array ('text' => TEXT_INFO_DELETE_INTRO.'<br /><br /><b>'.$cInfo->customers_firstname.' '.$cInfo->customers_lastname.'</b>');
                           $contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('restock').' '.TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
-			if(defined('TABLE_PAYPAL')):
-				$db_installed = false;
-// BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-				//$tables = mysql_list_tables(DB_DATABASE);
-// BOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-				//$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
-				$tables = mysql_query('SHOW TABLES FROM `' . DB_DATABASE . '`');
-// EOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
-// EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
-				while ($row = mysql_fetch_row($tables)) {
-					if ($row[0] == TABLE_PAYPAL) $db_installed=true;
-				}
-				if ($db_installed==true):
-					$query = "SELECT * FROM " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oInfo->orders_id . "'";
-					$query = xtc_db_query($query);
-					if(xtc_db_num_rows($query)>0):
-						$contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.TEXT_INFO_PAYPAL_DELETE);
-					endif;
-				endif;
-			endif;
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
+                          // BOF - Tomcraft - 2011-02-01 - Paypal Express Modul
+                          if(defined('TABLE_PAYPAL')):
+                            $db_installed = false;
+                            // BOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
+                            //$tables = mysql_list_tables(DB_DATABASE);
+                            // BOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
+                            //$tables = mysql_query('SHOW TABLES FROM ' . DB_DATABASE);
+                            $tables = mysql_query('SHOW TABLES FROM `' . DB_DATABASE . '`');
+                            // EOF - Tomcraft - 2010-01-20 - Fix errors where database names include a minus
+                            // EOF - Dokuman - 2009-11-23 - replace mysql_list_tables by mysql_query -> PHP5.3 depricated
+                            while ($row = mysql_fetch_row($tables)) {
+                              if ($row[0] == TABLE_PAYPAL) $db_installed=true;
+                            }
+                            if ($db_installed==true):
+                              $query = "SELECT * FROM " . TABLE_PAYPAL . " WHERE xtc_order_id = '" . $oInfo->orders_id . "'";
+                              $query = xtc_db_query($query);
+                              if(xtc_db_num_rows($query)>0):
+                                $contents[] = array ('text' => '<br />'.xtc_draw_checkbox_field('paypaldelete').' '.TEXT_INFO_PAYPAL_DELETE);
+                              endif;
+                            endif;
+                          endif;
+                          // EOF - Tomcraft - 2011-02-01 - Paypal Express Modul
+
                           $contents[] = array ('align' => 'center', 'text' => '<br /><input type="submit" class="button" value="'. BUTTON_DELETE .'"><a class="button" href="'.xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('oID', 'action')).'oID='.$oInfo->orders_id).'">' . BUTTON_CANCEL . '</a>');
                           break;
                         default :

@@ -1,15 +1,15 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id$   
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(payment.php,v 1.36 2003/02/11); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(payment.php,v 1.36 2003/02/11); www.oscommerce.com
    (c) 2003	 nextcommerce (payment.php,v 1.11 2003/08/17); www.nextcommerce.org
    (c) 2006 XT-Commerce (payment.php 41 2009-01-22)
 
@@ -36,14 +36,14 @@
 
   // class constructor
 	// BOF - Hendrik - 2010-08-11 - php5 compatible
-  // function payment($module = '') {    
+  // function payment($module = '') {
 	function __construct($module = '') {
 	// EOF - Hendrik - 2010-08-11 - php5 compatible
       global $PHP_SELF,$order;
 
       if (defined('MODULE_PAYMENT_INSTALLED') && xtc_not_null(MODULE_PAYMENT_INSTALLED)) {
 
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+// BOF - Tomcraft - 2011-02-01 - Paypal Express Modul
 //        $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
 		if($_SESSION['paypal_express_checkout']==true){
 			$this->modules = explode(';', $_SESSION['paypal_express_payment_modules'] );
@@ -51,7 +51,7 @@
 			$this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
 			$this->modules = str_replace('paypalexpress.php', '', $this->modules);
 		}
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+// EOF - Tomcraft - 2011-02-01 - Paypal Express Modul
 
         $include_modules = array();
 
@@ -78,7 +78,7 @@
     //BOF - DokuMan - 2010-08-25 - set undefined index
     //if ($order->content_type == 'virtual' || ($order->content_type == 'virtual_weight')) {
     if (isset($order) && is_object($order) && ($order->content_type == 'virtual' || ($order->content_type == 'virtual_weight'))) {
-    //EOF - DokuMan - 2010-08-25 - set undefined index    
+    //EOF - DokuMan - 2010-08-25 - set undefined index
      $unallowed_modules = array_merge($unallowed_modules,explode(',',DOWNLOAD_UNALLOWED_PAYMENT));
     }
 
@@ -97,7 +97,7 @@
               include_once(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $include_modules[$i]['file']);
               include_once(DIR_WS_MODULES . 'payment/' . $include_modules[$i]['file']);
 
-              }     
+              }
               $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
             }
           }
@@ -105,11 +105,11 @@
         // if there is only one payment method, select it as default because in
         // checkout_confirmation.php the $payment variable is being assigned the
         // $HTTP_POST_VARS['payment'] value which will be empty (no radio button selection possible)
-        
-        //BOF - DokuMan - 2010-08-25 - set undefined index    
+
+        //BOF - DokuMan - 2010-08-25 - set undefined index
         //if ( (xtc_count_payment_modules() == 1) && (!is_object($_SESSION['payment'])) ) {
         if ( (xtc_count_payment_modules() == 1) && (!isset($_SESSION['payment']) || !is_object($_SESSION['payment'])) ) {
-        //EOF - DokuMan - 2010-08-25 - set undefined index  
+        //EOF - DokuMan - 2010-08-25 - set undefined index
           $_SESSION['payment'] = $include_modules[0]['class'];
         }
 
@@ -127,14 +127,14 @@
        The following method is a work-around to implementing the method in all
        payment modules available which would break the modules in the contributions
        section. This should be looked into again post 2.2.
-     */   
+     */
     function update_status() {
       if (is_array($this->modules)) {
         //BOF - DokuMan - 2010-08-25 - set undefined index
         //if (is_object($GLOBALS[$this->selected_module])) {
         if (isset($GLOBALS[$this->selected_module]) && is_object($GLOBALS[$this->selected_module])) {
         //EOF - DokuMan - 2010-08-25 - set undefined index
-          if (function_exists('method_exists')) {             
+          if (function_exists('method_exists')) {
             if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
               $GLOBALS[$this->selected_module]->update_status();
             }
@@ -171,7 +171,7 @@
           //BOF - DokuMan - 2010-08-25 - set undefined index
           //if ($GLOBALS[$class]->enabled) {
           if (isset($GLOBALS[$class]) && $GLOBALS[$class]->enabled) {
-          //EOF - DokuMan - 2010-08-25 - set undefined index    
+          //EOF - DokuMan - 2010-08-25 - set undefined index
             $js .= $GLOBALS[$class]->javascript_validation();
           }
         }
@@ -205,10 +205,10 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          //BOF - DokuMan - 2010-08-28 - set undefined index          
+          //BOF - DokuMan - 2010-08-28 - set undefined index
           //if ($GLOBALS[$class]->enabled) {
           if (isset($GLOBALS[$class]) && $GLOBALS[$class]->enabled) {
-          //EOF - DokuMan - 2010-08-28 - set undefined index          
+          //EOF - DokuMan - 2010-08-28 - set undefined index
             $selection = $GLOBALS[$class]->selection();
             if (is_array($selection)) $selection_array[] = $selection;
           }
@@ -248,10 +248,10 @@
 
     function confirmation() {
       if (is_array($this->modules)) {
-        //BOF - DokuMan - 2010-08-25 - set undefined index     
+        //BOF - DokuMan - 2010-08-25 - set undefined index
         //if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
         if (isset($GLOBALS[$this->selected_module]) && is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
-        //EOF - DokuMan - 2010-08-25 - set undefined index  
+        //EOF - DokuMan - 2010-08-25 - set undefined index
           return $GLOBALS[$this->selected_module]->confirmation();
         }
       }
@@ -262,7 +262,7 @@
         //BOF - DokuMan - 2010-08-25 - set undefined index
         //if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
         if (isset($GLOBALS[$this->selected_module]) && is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
-        //EOF - DokuMan - 2010-08-25 - set undefined index              
+        //EOF - DokuMan - 2010-08-25 - set undefined index
           return $GLOBALS[$this->selected_module]->process_button();
         }
       }
@@ -273,18 +273,18 @@
         //BOF - DokuMan - 2010-08-25 - set undefined index
         //if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
         if (isset($GLOBALS[$this->selected_module]) && is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
-        //EOF - DokuMan - 2010-08-25 - set undefined index  
+        //EOF - DokuMan - 2010-08-25 - set undefined index
           return $GLOBALS[$this->selected_module]->before_process();
         }
       }
     }
-    
+
     function payment_action() {
       if (is_array($this->modules)) {
         //BOF - DokuMan - 2010-08-25 - set undefined index
         //if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
         if (isset($GLOBALS[$this->selected_module]) && is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
-        //EOF - DokuMan - 2010-08-25 - set undefined index  
+        //EOF - DokuMan - 2010-08-25 - set undefined index
           return $GLOBALS[$this->selected_module]->payment_action();
         }
       }
@@ -300,7 +300,8 @@
         }
       }
     }
-// BOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+
+// BOF - web28 - 2010-05-07 - PayPal API Modul - Paypal Express Modul
 		// PayPal Express Giropay
     function giropay_process() {
       if (is_array($this->modules)) {
@@ -312,7 +313,8 @@
         }
       }
     }
-// EOF - Tomcraft - 2009-10-03 - Paypal Express Modul
+//EOF - web28 - 2010-05-07 - PayPal API Modul - Paypal Express Modul
+
     function get_error() {
       if (is_array($this->modules)) {
         //BOF - DokuMan - 2010-08-25 - set undefined index
@@ -323,7 +325,7 @@
         }
       }
     }
-    
+
 //BOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
   function iframeAction() {
       if (is_array($this->modules)) {
@@ -349,5 +351,5 @@
       }
     }
 //EOF  - web28 - 2010-03-27 PayPal IPN Bezahl-Link
- } 
+ }
 ?>
