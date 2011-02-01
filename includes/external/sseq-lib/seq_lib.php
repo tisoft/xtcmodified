@@ -41,7 +41,7 @@ define('_SEQ_SESSION_NAME', 'XTCsid');
  *
  */
 /* POSSIBLE SECURITY BREACH!! ALWAYS SET THIS, EVEN WHEN EMPTY!! */
-define('_SEQ_ONERROR_REDIRECT_TO', defined('_SEQ_ONERROR_REDIRECT_TO') ? _SEQ_ONERROR_REDIRECT_TO : xtc_href_link(FILENAME_LOGOFF));
+define('_SEQ_ONERROR_REDIRECT_TO', defined('_SEQ_ONERROR_REDIRECT_TO') ? _SEQ_ONERROR_REDIRECT_TO : HTTP_SERVER.DIR_WS_CATALOG.FILENAME_LOGOFF);
 
 /* _SEQ_SECURE_COOKIES
  * Adds security checks to cookie data. Sets and checks absolute cookie lifetime.
