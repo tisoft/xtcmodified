@@ -20,4 +20,8 @@ define('MODULE_PAYMENT_PAYPALEXPRESS_TEXT_INFO', '');
 define('MODULE_PAYMENT_PAYPALEXPRESS_STATUS_TITLE', 'Activate PayPal-Express module');
 define('MODULE_PAYMENT_PAYPALEXPRESS_STATUS_DESC', 'Do you want to accept PayPal Express payments?');
 define('MODULE_PAYMENT_PAYPALEXPRESS_ALT_BUTTON', ' Pay with PayPal ');
+
+// Hendrik - 15.07.2010 - exlusion config for shipping modules 
+define('MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING_TITLE', 'Exclusion in case of shipping'); 
+define('MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING_DESC', 'deactivate this payment if one of these shippingtypes are selected (list separated by commas)');
 ?>
