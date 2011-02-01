@@ -23,7 +23,10 @@
 class paypalexpress {
 	var $code, $title, $description, $enabled;
 /**************************************************************/
-	function paypalexpress() {
+	// BOF - Hendrik - 2010-08-11 - php5 compatible
+	//function paypalexpress() {
+	function __construct() {
+	// EOF - Hendrik - 2010-08-11 - php5 compatible
 		// Stand: 29.04.2009
 		global $order;
 		$this->code = 'paypalexpress';
@@ -49,7 +52,20 @@ class paypalexpress {
 /**************************************************************/
 	function update_status() {
 		global $order;
-	}
+	
+	    // BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
+    if( MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING != '' ) {
+      $neg_shpmod_arr = explode(',',MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING);
+      foreach( $neg_shpmod_arr as $neg_shpmod ) {
+        $nd=$neg_shpmod.'_'.$neg_shpmod;
+        if( $_SESSION['shipping']['id']==$nd || $_SESSION['shipping']['id']==$neg_shpmod ) {
+          $this->enabled = false;
+          break;
+        }
+      }
+    }
+        }
+    // EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
 /**************************************************************/
 	function javascript_validation() {
 		// Stand: 29.04.2009
@@ -163,6 +179,11 @@ class paypalexpress {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION.$m_fields."values ('MODULE_PAYMENT_PAYPALEXPRESS_SORT_ORDER', '0', '6', '0', NULL, now(), '', '')");
 		// muss sein wegen constante in modules/payment
 		xtc_db_query("insert into ".TABLE_CONFIGURATION.$m_fields."values ('MODULE_PAYMENT_PAYPALEXPRESS_ALLOWED', '', '6', '0', NULL, now(), '', '')");
+
+    // BOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
+    xtc_db_query("insert into ".TABLE_CONFIGURATION." (configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING', '', '6', '10', now())");
+    // EOF - Hendrik - 2010-08-11 - exlusion config for shipping modules
+
 		// Config Daten auslesen - falls schon vorhanden durch PayPal Modul
 		$rest_query=xtc_db_query("select * from ".TABLE_CONFIGURATION." where configuration_key like 'PAYPAL\_%'");
 		$rest_array=array();
@@ -308,7 +329,8 @@ class paypalexpress {
 /**************************************************************/
 	function keys() {
 		// Stand: 29.04.2009
-		return array('MODULE_PAYMENT_PAYPALEXPRESS_STATUS');
+		return array('MODULE_PAYMENT_PAYPALEXPRESS_STATUS',
+		            'MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING' );    // Hendrik - 2010-08-11 - exlusion config for shipping modules
 	}
 /**************************************************************/
 	function mn_confsearch($needle, $haystack ){
