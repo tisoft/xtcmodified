@@ -102,8 +102,10 @@
   define('TABLE_ZONES_TO_GEO_ZONES', 'zones_to_geo_zones');
   
   // External Modules
+  // BOF Tomcraft - 2011-02-01 - Commented out left over table definition from payment module Luupay which was removed in r346
   // Luup
-  define('TABLE_LUUP', 'LUUP');
+  //define('TABLE_LUUP', 'LUUP');
+  // EOF Tomcraft - 2011-02-01 - Commented out left over table definition from payment module Luupay which was removed in r346
   // Moneybookers
   define('TABLE_PAYMENT_MONEYBOOKERS','payment_moneybookers');
   define('TABLE_PAYMENT_AMONEYBOOKERS_CURRENCIES','payment_AMONEYBOOKERS_currencies');
