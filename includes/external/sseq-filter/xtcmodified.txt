@@ -41,7 +41,7 @@ state # P! # STR # NULL # 50 # false # true &
 country # P! # INT # 1 # 99999 # true # true & 
 telephone # P! # STR # NULL # 50 # false # true & 
 confirmation # P! # STR # NULL # 50 # false # true & 
-privacy # P! # INT # NULL # 1 # true # true & 
+privacy # P! # STR # NULL # 7 # false # true & 
 newsletter # P! # INT # NULL # 1 # true # true & 
 gender # P! # STR # NULL,1 # 1 # false # true & 
 address # P! # INT # 1 # 9999999999 # true # true & 
