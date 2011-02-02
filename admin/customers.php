@@ -40,7 +40,7 @@
 
   if (isset($_GET['special']) && $_GET['special'] == 'remove_memo') {
     $mID = xtc_db_prepare_input($_GET['mID']);
-    xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_MEMO." WHERE memo_id = '".$mID."'");
+    xtc_db_query("DELETE from ".TABLE_CUSTOMERS_MEMO." where memo_id = '".$mID."'");
     xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS, 'cID='.(int) $_GET['cID'].'&action=edit'));
   }
 
@@ -159,7 +159,7 @@
           if ($_POST['status'] == 0) {
             xtc_db_query("INSERT into ".TABLE_ADMIN_ACCESS." (customers_id,start) VALUES ('".xtc_db_input($_GET['cID'])."','1')");
           } else {
-            xtc_db_query("DELETE FROM ".TABLE_ADMIN_ACCESS." WHERE customers_id = '".xtc_db_input($_GET['cID'])."'");
+            xtc_db_query("DELETE from ".TABLE_ADMIN_ACCESS." where customers_id = '".xtc_db_input($_GET['cID'])."'");
           }
           //Temporarily set due to above commented lines
           $customer_notified = '0';
@@ -378,7 +378,7 @@
 
           xtc_db_query("UPDATE ".TABLE_CUSTOMERS_INFO."
                            SET customers_info_date_account_last_modified = now()
-                         WHERE customers_info_id = '".xtc_db_input($customers_id)."'");
+                         where customers_info_id = '".xtc_db_input($customers_id)."'");
 
           if ($entry_zone_id > 0)
             $entry_state = '';
@@ -436,7 +436,7 @@
         xtc_db_query("delete from ".TABLE_WHOS_ONLINE." where customer_id = '".xtc_db_input($customers_id)."'");
         xtc_db_query("delete from ".TABLE_CUSTOMERS_STATUS_HISTORY." where customers_id = '".xtc_db_input($customers_id)."'");
         xtc_db_query("delete from ".TABLE_CUSTOMERS_IP." where customers_id = '".xtc_db_input($customers_id)."'");
-        xtc_db_query("DELETE FROM ".TABLE_ADMIN_ACCESS." WHERE customers_id = '".xtc_db_input($customers_id)."'");
+        xtc_db_query("DELETE from ".TABLE_ADMIN_ACCESS." where customers_id = '".xtc_db_input($customers_id)."'");
         xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action'))));
         break;
       default :
@@ -461,11 +461,11 @@
                c.customers_fax,
                c.customers_newsletter,
                c.customers_default_address_id
-          FROM ".TABLE_CUSTOMERS." c
+          from ".TABLE_CUSTOMERS." c
      LEFT JOIN ".TABLE_ADDRESS_BOOK." a
             ON c.customers_default_address_id = a.address_book_id
-         WHERE a.customers_id = c.customers_id
-           AND c.customers_id = ".(int)$_GET['cID']);
+         where a.customers_id = c.customers_id
+           and c.customers_id = ".(int)$_GET['cID']);
         $customers = xtc_db_fetch_array($customers_query);
         $cInfo = new objectInfo($customers);
     }
@@ -488,20 +488,20 @@
           var error_message = "<?php echo xtc_js_lang(JS_ERROR); ?>";
           var customers_firstname = document.customers.customers_firstname.value;
           var customers_lastname = document.customers.customers_lastname.value;
-          <?php 
-            if (ACCOUNT_COMPANY == 'true') 
-              echo 'var entry_company = document.customers.entry_company.value;' . "\n"; 
+          <?php
+            if (ACCOUNT_COMPANY == 'true')
+              echo 'var entry_company = document.customers.entry_company.value;' . "\n";
           ?>
-          <?php 
-            if (ACCOUNT_DOB == 'true') 
-              echo 'var customers_dob = document.customers.customers_dob.value;' . "\n"; 
+          <?php
+            if (ACCOUNT_DOB == 'true')
+              echo 'var customers_dob = document.customers.customers_dob.value;' . "\n";
           ?>
           var customers_email_address = document.customers.customers_email_address.value;
           var entry_street_address = document.customers.entry_street_address.value;
           var entry_postcode = document.customers.entry_postcode.value;
           var entry_city = document.customers.entry_city.value;
           var customers_telephone = document.customers.customers_telephone.value;
-          <?php 
+          <?php
             if (ACCOUNT_GENDER == 'true') { ?>
               if (document.customers.customers_gender[0].checked || document.customers.customers_gender[1].checked) {
               } else {
@@ -634,11 +634,11 @@
                                                       c.customers_fax,
                                                       c.customers_newsletter,
                                                       c.customers_default_address_id
-                                                 FROM ".TABLE_CUSTOMERS." c
+                                                 from ".TABLE_CUSTOMERS." c
                                             LEFT JOIN ".TABLE_ADDRESS_BOOK." a
                                                    ON c.customers_default_address_id = a.address_book_id
-                                                WHERE a.customers_id = c.customers_id
-                                                  AND c.customers_id = '".$_GET['cID']."'"
+                                                where a.customers_id = c.customers_id
+                                                  and c.customers_id = '".$_GET['cID']."'"
                                              );
               $customers = xtc_db_fetch_array($customers_query);
               $cInfo = new objectInfo($customers);
@@ -1131,7 +1131,7 @@
                     <tr>
                       <?php echo xtc_draw_form('status', FILENAME_CUSTOMERS, '', 'get');
                         $select_data = array ();
-                        $select_data = array (array ('id' => '99', 'text' => TEXT_SELECT), array ('id' => '100', 'text' => TEXT_ALL_CUSTOMERS));
+                        $select_data = array (array ('id' => '99', 'text' => TEXT_select), array ('id' => '100', 'text' => TEXT_ALL_CUSTOMERS));
                         ?>
                         <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . xtc_draw_pull_down_menu('status',xtc_array_merge($select_data, $customers_statuses_array), '99', 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); ?></td>
                       </form>
@@ -1153,7 +1153,7 @@
                           <?php // EOF - web28 - 2010-05-28 - added  customers_email_address ?>
                           <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_UMSATZ; ?></td>
                           <td class="dataTableHeadingContent" align="left"><?php echo HEADING_TITLE_STATUS; ?></td>
-                          <?php 
+                          <?php
                           if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {
                             ?>
                             <td class="dataTableHeadingContent" align="left"><?php echo HEADING_TITLE_VAT; ?></td>
@@ -1282,14 +1282,14 @@
                                                        c.customers_status,
                                                        c.member_flag,
                                                        ci.customers_info_date_account_created
-                                                  FROM
+                                                  from
                                                        ".TABLE_CUSTOMERS." c ,
                                                        ".TABLE_ADDRESS_BOOK." a,
                                                        ".TABLE_CUSTOMERS_INFO." ci
-                                                 WHERE
+                                                 where
                                                        c.customers_id = a.customers_id
-                                                   AND c.customers_default_address_id = a.address_book_id
-                                                   AND ci.customers_info_id = c.customers_id
+                                                   and c.customers_default_address_id = a.address_book_id
+                                                   and ci.customers_info_id = c.customers_id
                                                        ".$search."
                                                        ".$sort;
                         // EOF - vr - 2010-02-22 - removed group by part to prevent folding of customers records with the same creation timestamp
@@ -1337,12 +1337,12 @@
                             <?php // BOF - web28 - 2010-05-28 - added customers_email_address ?>
                             <td class="dataTableContent"><?php echo $customers['customers_email_address']; ?></td>
                             <?php // EOF - web28 - 2010-05-28 - added customers_email_address ?>
-                            <?php 
-                            if ($umsatz['ordersum'] !='') { 
+                            <?php
+                            if ($umsatz['ordersum'] !='') {
                               ?>
                               <td class="dataTableContent"><?php if ($umsatz['ordersum']>0) { echo $currencies->format($umsatz['ordersum']);} ?></td>
                               <?php
-                            } else { 
+                            } else {
                               ?>
                               <td class="dataTableContent"> --- </td>
                               <?php

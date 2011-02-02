@@ -28,7 +28,7 @@ require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
 require_once (DIR_FS_INC.'xtc_render_vvcode.inc.php');
 require_once (DIR_FS_INC.'xtc_random_charcode.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
-require_once (DIR_FS_INC.'xtc_validate_password.inc.php');
+//require_once (DIR_FS_INC.'xtc_validate_password.inc.php'); //DokuMan - 2011-02-02 - function not needed here
 require_once (DIR_FS_INC.'xtc_rand.inc.php');
 $case = 'double_opt';
 $info_message = TEXT_PASSWORD_FORGOTTEN;
