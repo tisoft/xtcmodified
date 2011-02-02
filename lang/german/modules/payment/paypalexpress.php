@@ -22,6 +22,6 @@ define('MODULE_PAYMENT_PAYPALEXPRESS_STATUS_DESC', 'M&ouml;chten Sie Zahlungen p
 define('MODULE_PAYMENT_PAYPALEXPRESS_ALT_BUTTON', ' Bezahlen mit PayPal ');
 
 // Hendrik - 15.07.2010 - exlusion config for shipping modules 
-define('MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING_TITLE', 'Ausschluß bei Versandmodulen'); 
+define('MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING_TITLE', 'Ausschlu&szlig; bei Versandmodulen'); 
 define('MODULE_PAYMENT_PAYPALEXPRESS_NEG_SHIPPING_DESC', 'Dieses Zahlungsmodul deaktivieren wenn Versandmodul gew&auml;hlt (Komma separierte Liste)');
 ?>
