@@ -1,11 +1,7 @@
-# $Id$
-#
-# This is used with Apache WebServers
-#
-# 'All' with also work. (This configuration is in the
-# apache/conf/httpd.conf file)
-# The following makes adjustments to the SSL protocol for Internet
-# Explorer browsers
+## $Id$
+
+##-- The following makes adjustments to the SSL protocol for Internet
+##-- Explorer browsers
 <IfModule mod_setenvif.c>
   <IfDefine SSL>
     SetEnvIf User-Agent ".*MSIE.*" \
@@ -14,30 +10,29 @@
   </IfDefine>
 </IfModule>
 
-#-- Fix certain PHP values
-# (commented out by default to prevent errors occuring on certain servers)
+##-- Fix certain PHP values
+##-- (commented out by default to prevent errors occuring on certain servers)
 #<IfModule mod_php4.c>
 #  php_value session.use_trans_sid 0
-#  php_value register_globals 1
 #</IfModule>
 
-#-- Set expires header with far-future expiration date
+##-- Set expires header with far-future expiration date
 #<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
-#Header set Expires "Thu, 15 Apr 3010 20:00:00 GMT"
+#Header set Cache-Control "max-age=2592000, public"
 #</FilesMatch>
 
-#-- Turn off ETags in HTTP-header
+##-- Turn off ETags in HTTP-header
 #<ifmodule mod_headers.c>
 #   Header unset ETag
 #</ifmodule>
 #FileETag None
 
-#-- When caching of gzipped JS and CSS files is used, set this setting
+##-- When caching of gzipped JS and CSS files is used, set this setting
 #<IfModule mod_headers.c>
 #Header set Vary Accept-Encoding
 #</IfModule>
 
-#-- BEGIN Cache-Control Headers
+##-- BEGIN Cache-Control Headers
 #<ifmodule mod_headers.c>
 #  <filesmatch "\\.(ico|jpe?g|png|gif|swf)$">
 #        Header set Cache-Control "max-age=5184000, public"
@@ -50,54 +45,56 @@
 #  </filesmatch>
 #</ifmodule>
 
-#-- Call time pass reference error ?!
+##-- Call time pass reference error ?!
 #php_flag  allow_call_time_pass_reference On
 
-#-- XTC Session only on first visit
+##-- XTC Session only on first visit
 #php_flag session.use_trans_sid 0
 
-#-----------------------------------------
-#- SEO Hartmut König
-#-----------------------------------------
-#-- ! Comment this line, if you get an ERROR 500 !
+##-----------------------------------------
+##- SEO Shopstat Modul (Hartmut König)
+##-----------------------------------------
+##-- ! Comment this line, if you get an ERROR 500 !
 #Options +FollowSymlinks
 
-# http://httpd.apache.org/docs/misc/rewriteguide.html
+##-- Documentation http://httpd.apache.org/docs/misc/rewriteguide.html
 RewriteEngine on
 
-#-- Sitemap
-RewriteRule ^sitemap(.*)\.html$ /shop_content.php?coID=8 [qsappend,L]
+##EXAMPLE: If your shop is located at http://www.yourdomain.com/shop set the following line like e.g.:
+## RewriteBase /shop
+RewriteBase /
+
+##-- Sitemap
+RewriteRule ^sitemap(.*)\.html$ shop_content.php?coID=8 [qsappend,L]
 
 ##-- Kategorien
 RewriteCond %{REQUEST_URI} (.*):::([_0-9]+):([_0-9]+)\.html$
-RewriteRule (.*):::([_0-9]+):([_0-9]+)\.html$ /index.php?cPath=$2&page=$3 [qsappend,L]
+RewriteRule (.*):::([_0-9]+):([_0-9]+)\.html$ index.php?cPath=$2&page=$3 [qsappend,L]
 RewriteCond %{REQUEST_URI} (.*):::([_0-9]+)\.html$
-RewriteRule (.*):::([_0-9]+)\.html$ /index.php?cPath=$2 [qsappend,L]
+RewriteRule (.*):::([_0-9]+)\.html$ index.php?cPath=$2 [qsappend,L]
 
 ##-- Produkte
-RewriteRule (.*)::(.+)\.html$ /product_info.php?products_id=$2 [qsappend,L]
+RewriteRule (.*)::(.+)\.html$ product_info.php?products_id=$2 [qsappend,L]
 
 ##-- Content
-RewriteRule (.*):_:([0-9]+)\.html$ /shop_content.php?coID=$2 [qsappend,L]
+RewriteRule (.*):_:([0-9]+)\.html$ shop_content.php?coID=$2 [qsappend,L]
 
 ##-- Manufacturers
 RewriteCond %{REQUEST_URI} (.*):.:([_0-9]+):([_0-9]+)\.html$
-RewriteRule (.*):.:([_0-9]+):([_0-9]+)\.html$ /index.php?manufacturers_id=$2&page=$3 [qsappend,L]
+RewriteRule (.*):.:([_0-9]+):([_0-9]+)\.html$ index.php?manufacturers_id=$2&page=$3 [qsappend,L]
 RewriteCond %{REQUEST_URI} (.*):.:([_0-9]+)\.html$
-RewriteRule (.*):.:([0-9]+)\.html$ /index.php?manufacturers_id=$2 [qsappend,L]
+RewriteRule (.*):.:([0-9]+)\.html$ index.php?manufacturers_id=$2 [qsappend,L]
 
 ##-- Fehlerseiten auf die Sitemap lotsen
-ErrorDocument 400 /sitemap.html?error=400
-ErrorDocument 401 /sitemap.html?error=401
-ErrorDocument 402 /sitemap.html?error=402
-ErrorDocument 403 /sitemap.html?error=403
-ErrorDocument 404 /sitemap.html?error=404
-ErrorDocument 500 /sitemap.html?error=500
+ErrorDocument 400 sitemap.html?error=400
+ErrorDocument 401 sitemap.html?error=401
+ErrorDocument 402 sitemap.html?error=402
+ErrorDocument 403 sitemap.html?error=403
+ErrorDocument 404 sitemap.html?error=404
+ErrorDocument 500 sitemap.html?error=500
 
 ##-- BOF - Tomcraft - 2009-09-09 - Use canonical URLs
-# (don't use if your shop runs on a subdomain!)
-#
+##-- (don't use if your shop runs on a subdomain like "shop.domain.de"!)
 #RewriteCond %{HTTP_HOST} !^www\. [NC]
 #RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [L,R=301]
-#
 ##-- EOF - Tomcraft - 2009-09-09 - Use canonical URLs
