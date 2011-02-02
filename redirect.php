@@ -41,13 +41,15 @@ switch ($_GET['action']) {
 			if (xtc_db_num_rows($product_query)) {
 				$product = xtc_db_fetch_array($product_query);
 
-				//BOF - Hetfield - 2010-11-24 - product links with http or ftp
-				if (strtolower(substr($product['products_url'],0,7))=="http://" or strtolower(substr($product['products_url'],0,6))=="ftp://") {
+				//BOF - Tomcraft - 2011-02-02 - added support for https
+				//BOF - Hetfield - 2010-11-24 - product links with http, https or ftp
+				if (strtolower(substr($product['products_url'],0,7))=="http://" or strtolower(substr($product['products_url'],0,8))=="https://" or strtolower(substr($product['products_url'],0,6))=="ftp://") {
 					xtc_redirect($product['products_url']);
 				} else {
 					xtc_redirect('http://'.$product['products_url']);
 				}
 				//EOF - Hetfield - 2010-11-24 - product links with http or ftp
+				//EOF - Tomcraft - 2011-02-02 - added support for https
 				
 			} else {
 				xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
@@ -76,7 +78,13 @@ switch ($_GET['action']) {
 				xtc_db_query("update ".TABLE_MANUFACTURERS_INFO." set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '".(int) $_GET['manufacturers_id']."' and languages_id = '".$_SESSION['languages_id']."'");
 			}
 
-			xtc_redirect($manufacturer['manufacturers_url']);
+			//BOF - Tomcraft - 2011-02-02 - manufacturer links with http or https
+			if (strtolower(substr($manufacturer['manufacturers_url'],0,7))=="http://" or strtolower(substr($manufacturer['manufacturers_url'],0,8))=="https://") {
+				xtc_redirect($manufacturer['manufacturers_url']);
+			} else {
+				xtc_redirect('http://'.$manufacturer['manufacturers_url']);
+			}
+			//EOF - Tomcraft - 2011-02-02 - manufacturer links with http or https
 		} else {
 			xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
 		}
