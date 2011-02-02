@@ -15,8 +15,11 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
+// USAGE: /login_admin.php?repair=se_friendly
+// USAGE: /login_admin.php?repair=sess_write
+// USAGE: /login_admin.php?repair=sess_default
 
-if(isset($_GET['repair'])) {
+if(!isset($_GET['repair'])) {
   $action = 'login_admin.php';
 } else {
   $action = 'login.php?action=process';
@@ -24,17 +27,25 @@ if(isset($_GET['repair'])) {
 
 if(isset($_POST['repair'])) {
   include('includes/application_top.php');
+  require_once (DIR_FS_INC.'xtc_validate_password.inc.php');
+  $check_customer_query = xtc_db_query('
+                          select
+                           customers_id,
+                           customers_password,
+                           customers_email_address
+                          from '. TABLE_CUSTOMERS .'
+                          where customers_email_address = "'. xtc_db_input($_POST['email_address']) .'"
+                          and customers_status = 0');
 
-  $result = xtc_db_query('
-    SELECT customers_id
-    FROM customers
-    WHERE
-      customers_email_address =     "'. xtc_db_prepare_input($_POST['email_address']) .'"   AND
-      customers_password      = md5("'. xtc_db_prepare_input($_POST['password']      ) .'")  AND
-      customers_status        = 0
-  ');
-  if(xtc_db_num_rows($result) > 0)
-  {
+  $check_customer = xtc_db_fetch_array($check_customer_query);
+
+  //BOF - DokuMan - 2011-02-02 - added support for passwort+salt (SHA1)
+  if(!xtc_validate_password(xtc_db_input($_POST['password']),
+                            $check_customer['customers_password'],
+                            $check_customer['customers_email_address'])) {
+    die(TEXT_LOGIN_ERROR);
+  //EOF - DokuMan - 2011-02-02 - added support for passwort+salt (SHA1)
+  } else {
     switch($_POST['repair']) {
       case 'se_friendly':
         xtc_db_query('
@@ -86,9 +97,6 @@ if(isset($_POST['repair'])) {
       default:
         die('Report: repair-Befehl ungültig.');
     }
-  }
-  else {
-    die('Zugriff verweigert.');
   }
 }
 ?>

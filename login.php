@@ -63,7 +63,10 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'process')) {
   } else {
     $check_customer = xtc_db_fetch_array($check_customer_query);
     // Check that password is good
-    if (!xtc_validate_password($password, $check_customer['customers_password'])) {
+    //BOF - DokuMan - 2011-02-02 - added support for passwort+salt (SHA1)
+    //if (!xtc_validate_password($password, $check_customer['customers_password'])) {
+    if (!xtc_validate_password($password, $check_customer['customers_password'], $email_address)) {
+    //EOF - DokuMan - 2011-02-02 - added support for passwort+salt (SHA1)
       $_GET['login'] = 'fail';
       $info_message = TEXT_LOGIN_ERROR;
     } else {

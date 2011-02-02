@@ -89,4 +89,7 @@ UPDATE admin_access SET listproducts = '3' WHERE customers_id = 'groups' LIMIT 1
 INSERT INTO configuration_group VALUES (23,'Econda Tracking','Econda Tracking System',23,1);
 INSERT INTO configuration_group VALUES (31,'Moneybookers','Moneybookers System',31,1);
 
+# DokuMan - 2011-02-02 - added support for passwort+salt (SHA1)
+ALTER TABLE customers MODIFY customers_password varchar(50) NOT NULL;
+
 # Keep an empty line at the end of this file for the db_updater to work properly
