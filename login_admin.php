@@ -19,7 +19,7 @@
 // USAGE: /login_admin.php?repair=sess_write
 // USAGE: /login_admin.php?repair=sess_default
 
-if(!isset($_GET['repair'])) {
+if(isset($_GET['repair'])) {
   $action = 'login_admin.php';
 } else {
   $action = 'login.php?action=process';
