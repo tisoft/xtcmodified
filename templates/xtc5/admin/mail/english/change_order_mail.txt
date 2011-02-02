@@ -1,5 +1,5 @@
 
-Dear customer,
+Dear {$GENDER} {$LASTNAME},
 
 The status of your order {if $ORDER_NR}No. {$ORDER_NR}{/if} {if $ORDER_DATE}from {$ORDER_DATE}{/if} has been changed.
 

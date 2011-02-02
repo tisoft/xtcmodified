@@ -25,8 +25,8 @@
           {if $address_label_payment}<td><font size="1" face="Verdana, Arial, Helvetica, sans-serif">{$address_label_payment}</font></td>{/if}
         </tr>
       </table>
-      <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> Hallo {$NAME},<br />
-        <br />vielen Dank f&uuml;r Ihre Bestellung.  <br />
+      <p><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Sehr geehrte{if $GENDER=='Herr'}r{/if} {$GENDER} {$LASTNAME},
+        <br /><br />vielen Dank f&uuml;r Ihre Bestellung.<br />
  {$PAYMENT_INFO_HTML}</font>
         <br />{if $COMMENTS}<br />
         <strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Ihre Anmerkungen:</font></strong><br />

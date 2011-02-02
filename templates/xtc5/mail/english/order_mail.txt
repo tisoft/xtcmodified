@@ -9,7 +9,7 @@ Your e-mail-address: {$EMAIL}
 ----------------------------------------------------------------------
 
 
-Dear {$NAME},
+Dear {$GENDER} {$LASTNAME},
 
 thank you for your order.
 

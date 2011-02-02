@@ -324,6 +324,18 @@
       }
       // Create eMail
       if (($customers_send_mail == 'yes')) {
+      
+        //BOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
+        if ($customers_gender =='f') {
+          $smarty->assign('GENDER', FEMALE);
+        } elseif ($gender =='m') {
+          $smarty->assign('GENDER', MALE);
+        } else {
+          $smarty->assign('GENDER', '');
+        }
+        $smarty->assign('LASTNAME',$customers_lastname);
+        //EOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
+      
         // assign language to template for caching
         $smarty->assign('language', $_SESSION['language']);
         $smarty->caching = false;

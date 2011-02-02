@@ -121,6 +121,22 @@
           } else {
             $notify_comments = '';
           }
+          
+          //BOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
+          $orders_query = xtc_db_query("select customers_id from ".TABLE_ORDERS." where orders_id = '".xtc_db_input($oID)."'");
+          $order_cid = xtc_db_fetch_array($orders_query);
+          $gender_query = xtc_db_query("SELECT customers_gender, customers_lastname FROM " . TABLE_CUSTOMERS . " WHERE customers_id = '" . $order_cid['customers_id']. "'");
+          $gender = xtc_db_fetch_array($gender_query);
+          if ($gender['customers_gender']=='f') {
+            $smarty->assign('GENDER', FEMALE);
+          } elseif ($gender['customers_gender']=='m') {
+            $smarty->assign('GENDER', MALE);
+          } else {
+            $smarty->assign('GENDER', '');
+          }
+          $smarty->assign('LASTNAME',$gender['customers_lastname']);
+          //EOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
+          
           // assign language to template for caching
           $smarty->assign('language', $_SESSION['language']);
           $smarty->caching = false;

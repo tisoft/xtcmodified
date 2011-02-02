@@ -300,6 +300,17 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
     xtc_db_query("insert into ".TABLE_CUSTOMERS_INFO." (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('".(int) $_SESSION['customer_id']."', '0', now())");
 
+    //BOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
+    if ($gender =='f') {
+      $smarty->assign('GENDER', FEMALE);
+    } elseif ($gender =='m') {
+      $smarty->assign('GENDER', MALE);
+    } else {
+      $smarty->assign('GENDER', '');
+    }
+    $smarty->assign('LASTNAME',$lastname);
+    //EOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
+
     if (SESSION_RECREATE == 'True') {
       xtc_session_recreate();
     }

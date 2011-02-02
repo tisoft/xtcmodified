@@ -55,8 +55,19 @@
       $gv_amount = $gv_resulta['amount'];
 
       //Let's build a message object using the email class
-      $mail_query = xtc_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $gv_resulta['customer_id'] . "'");
+      $mail_query = xtc_db_query("select customers_gender, customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $gv_resulta['customer_id'] . "'");
       $mail = xtc_db_fetch_array($mail_query);
+
+      //BOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
+      if ($mail['customers_gender']=='f') {
+        $smarty->assign('GENDER', FEMALE);
+      } elseif ($gender['customers_gender']=='m') {
+        $smarty->assign('GENDER', MALE);
+      } else {
+        $smarty->assign('GENDER', '');
+      }
+      $smarty->assign('LASTNAME',$mail['customers_lastname']);
+      //EOF - DokuMan - 2011-02-02 - Fix for more personalized e-mails to the customer (show salutation and surname)
 
       // assign language to template for caching
       $smarty->assign('language', $_SESSION['language']);

@@ -1,4 +1,7 @@
-Your account has been successfully created!
+
+Dear {$GENDER} {$LASTNAME},
+
+your account has been successfully created!
 
 You now have access to the following features:
 
