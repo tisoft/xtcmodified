@@ -92,4 +92,10 @@ INSERT INTO configuration_group VALUES (31,'Moneybookers','Moneybookers System',
 # DokuMan - 2011-02-02 - added support for passwort+salt (SHA1)
 ALTER TABLE customers MODIFY customers_password varchar(50) NOT NULL;
 
+# DokuMan - 2011-02-03 - enlarge field for company names to 64 characters (instead of 32)
+ALTER TABLE address_book MODIFY entry_company VARCHAR(64);
+ALTER TABLE orders MODIFY customers_company VARCHAR(64);
+ALTER TABLE orders MODIFY delivery_company VARCHAR(64);
+ALTER TABLE orders MODIFY billing_company VARCHAR(64);
+
 # Keep an empty line at the end of this file for the db_updater to work properly
