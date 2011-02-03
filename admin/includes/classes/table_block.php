@@ -1,18 +1,19 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: table_block.php 950 2005-05-14 16:45:21Z mz $   
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(table_block.php,v 1.5 2003/06/02); www.oscommerce.com 
-   (c) 2003	 nextcommerce (table_block.php,v 1.8 2003/08/18); www.nextcommerce.org
+   (c) 2002-2003 osCommerce(table_block.php,v 1.5 2003/06/02); www.oscommerce.com
+   (c) 2003 nextcommerce (table_block.php,v 1.8 2003/08/18); www.nextcommerce.org
+   (c) 2006 XT-Commerce (table_block.php 950 2005-05-14)
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    --------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class tableBlock {
@@ -24,28 +25,31 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     var $table_row_parameters = '';
     var $table_data_parameters = '';
 
-    function tableBlock($contents) {
-      $tableBox_string = '';
+    //function tableBlock($contents) {
+    function __construct($contents) {
 
+      $tableBox_string = '';
       $form_set = false;
       if (isset($contents['form'])) {
         $tableBox_string .= $contents['form'] . "\n";
         $form_set = true;
-        xtc_array_shift($contents);
+        array_shift($contents);
       }
 
       $tableBox_string .= '<table class="contentTable" border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
       if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
 
-      for ($i = 0, $n = sizeof($contents); $i < $n; $i++) {
+      //for ($i = 0, $n = sizeof($contents); $i < $n; $i++) {
+      for ($i = 0; $i < sizeof($contents); $i++) {
         $tableBox_string .= '  <tr';
         if ($this->table_row_parameters != '') $tableBox_string .= ' ' . $this->table_row_parameters;
         if (isset($contents[$i]['params'])) $tableBox_string .= ' ' . $contents[$i]['params'];
         $tableBox_string .= '>' . "\n";
         if (!isset($contents[$i][0])) $contents[$i][0] = '';
         if (is_array($contents[$i][0])) {
-          for ($x = 0, $y = sizeof($contents[$i]); $x < $y; $x++) {
+          //for ($x = 0, $y = sizeof($contents[$i]); $x < $y; $x++) {
+          for ($x = 0; $i < sizeof($contents[$i]); $x++) {          
             if ($contents[$i][$x]['text']) {
               $tableBox_string .= '    <td ';
               if ($contents[$i][$x]['align'] != '') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';

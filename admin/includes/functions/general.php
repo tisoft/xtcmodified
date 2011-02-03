@@ -1489,51 +1489,6 @@ function xtc_get_system_information() {
 }
 
 /**
- * xtc_array_shift()
- *
- * @param mixed $array
- * @return
- */
-function xtc_array_shift(& $array) {
-  if (function_exists('array_shift')) {
-    return array_shift($array);
-  } else {
-    $i = 0;
-    $shifted_array = array ();
-    reset($array);
-    while (list ($key, $value) = each($array)) {
-      if ($i > 0) {
-        $shifted_array[$key] = $value;
-      } else {
-        $return = $array[$key];
-      }
-      $i ++;
-    }
-    $array = $shifted_array;
-
-    return $return;
-  }
-}
-
-/**
- * xtc_array_reverse()
- *
- * @param mixed $array
- * @return
- */
-function xtc_array_reverse($array) {
-  if (function_exists('array_reverse')) {
-    return array_reverse($array);
-  } else {
-    $reversed_array = array ();
-    for ($i = sizeof($array) - 1; $i >= 0; $i --) {
-      $reversed_array[] = $array[$i];
-    }
-    return $reversed_array;
-  }
-}
-
-/**
  * xtc_generate_category_path()
  *
  * @param mixed $id
@@ -1558,7 +1513,7 @@ function xtc_generate_category_path($id, $from = 'category', $categories_array =
         $categories_array[$index][] = array ('id' => $categories['categories_id'], 'text' => $category['categories_name']);
         if ((xtc_not_null($category['parent_id'])) && ($category['parent_id'] != '0'))
           $categories_array = xtc_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
-        $categories_array[$index] = xtc_array_reverse($categories_array[$index]);
+        $categories_array[$index] = array_reverse($categories_array[$index]);
       }
       $index ++;
     }
@@ -2575,5 +2530,4 @@ function xtc_convert_value($number) {
   return $number;
 }
 //EOF - franky_n - 2011-01-17 - added value correction function for wrong input prices, weight, dicscount
-
 ?>
