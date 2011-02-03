@@ -239,7 +239,10 @@ function CacheCheck() {
 }
 
 // if gzip_compression is enabled, start to buffer the output
-if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')) && (PHP_VERSION >= '4')) {
+// BOF - h-h-h - 2011-02-03 - add gzip_off for downloads.php
+//if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')) && (PHP_VERSION >= '4')) {
+if ((!isset($gzip_off) || !$gzip_off) && (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')) && (PHP_VERSION >= '4')) {
+// EOF - h-h-h - 2011-02-03 - add gzip_off for downloads.php
   if (($ini_zlib_output_compression = (int) ini_get('zlib.output_compression')) < 1) {
     ob_start('ob_gzhandler');
   } else {
