@@ -1131,7 +1131,10 @@
                     <tr>
                       <?php echo xtc_draw_form('status', FILENAME_CUSTOMERS, '', 'get');
                         $select_data = array ();
-                        $select_data = array (array ('id' => '99', 'text' => TEXT_select), array ('id' => '100', 'text' => TEXT_ALL_CUSTOMERS));
+                        //BOF - GTB - 2011-02-03 - show selected customer group
+                        //$select_data = array (array ('id' => '99', 'text' => TEXT_select), array ('id' => '100', 'text' => TEXT_ALL_CUSTOMERS));
+                        $select_data = array (array ('id' => '', 'text' => TEXT_SELECT), array ('id' => '100', 'text' => TEXT_ALL_CUSTOMERS));
+                        //EOF - GTB - 2011-02-03 - show selected customer group
                         ?>
                         <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . xtc_draw_pull_down_menu('status',xtc_array_merge($select_data, $customers_statuses_array), '99', 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); ?></td>
                       </form>
