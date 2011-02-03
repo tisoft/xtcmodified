@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id: object_info.php 950 2005-05-14 16:45:21Z mz $   
 
    XT-Commerce - community made shopping
@@ -14,7 +14,7 @@
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class objectInfo {
 
     // class constructor

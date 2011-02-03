@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$ 
    
    http://www.xtc-modified.org
@@ -17,7 +17,7 @@
    Copyright phpMyAdmin (select_lang.lib.php3 v1.24 04/19/2002)
    Copyright Stephane Garin <sgarin@sgarin.com> (detect_language.php v0.1 04/02/2002)
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class language {
     var $languages, $catalog_languages, $browser_languages, $language;
 
@@ -66,21 +66,19 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                'zh' => array('zh|chinese simplified', 'chinese_gb', 'zh'));
 
       $this->catalog_languages = array();
-	  //BOF - web28 - 2010-08-19 - added status
+      //BOF - web28 - 2010-08-19 - added status
       $languages_query = xtc_db_query("select languages_id, name, code, image, directory, status from " . TABLE_LANGUAGES . " order by sort_order");
       while ($languages = xtc_db_fetch_array($languages_query)) {
         $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
                                                              'name' => $languages['name'],
                                                              'image' => $languages['image'],
-															 'status' => $languages['status'],
-															 'code' => $languages['code'], //web28 - 2010-09-05 - add $languages['code']
+                                                             'status' => $languages['status'],
+                                                             'code' => $languages['code'], //web28 - 2010-09-05 - add $languages['code']
                                                              'directory' => $languages['directory']);
       }
-	  //EOF - web28 - 2010-08-19 - added status
-	  
+      //EOF - web28 - 2010-08-19 - added status
       $this->browser_languages = '';
       $this->language = '';
-
       if ( (!empty($lng)) && (isset($this->catalog_languages[$lng])) ) {
         $this->language = $this->catalog_languages[$lng];
       } else {
@@ -92,9 +90,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       //BOF - DokuMan - 2010-08-04 - use $_SERVER here for better windows environment compatiblity
       //$this->browser_languages = explode(',', getenv('HTTP_ACCEPT_LANGUAGE'));
       if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-	      $this->browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-      //BOF - DokuMan - 2010-08-04 - use $_SERVER here for better windows environment compatiblity
-
+        $this->browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        //BOF - DokuMan - 2010-08-04 - use $_SERVER here for better windows environment compatiblity
         for ($i=0, $n=sizeof($this->browser_languages); $i<$n; $i++) {
           reset($this->languages);
           while (list($key, $value) = each($this->languages)) {

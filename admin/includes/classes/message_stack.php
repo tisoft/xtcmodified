@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id: message_stack.php 950 2005-05-14 16:45:21Z mz $   
 
    XT-Commerce - community made shopping
@@ -22,14 +22,12 @@
    if ($messageStack->size > 0) echo $messageStack->output();
   
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class messageStack extends tableBlock {
     var $size = 0;
 
     function messageStack() {
-
       $this->errors = array();
-
       if (isset($_SESSION['messageToStack'])) {
         for ($i = 0, $n = sizeof($_SESSION['messageToStack']); $i < $n; $i++) {
           $this->add($_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
@@ -48,7 +46,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       } else {
         $this->errors[] = array('params' => 'class="messageStackError"', 'text' => $message);
       }
-
       $this->size++;
     }
 
@@ -56,7 +53,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       if (!isset($_SESSION['messageToStack'])) {
         $_SESSION['messageToStack'] = array();
       }
-
       $_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
     }
 
