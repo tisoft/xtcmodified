@@ -822,8 +822,7 @@
   if ((xtc_not_null($heading)) && (xtc_not_null($contents))) {
     //display info box
     echo '<td width="265" valign="top" style="padding-left: 5px;">' . "\n";
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
+    echo box::infoBox($heading, $contents);
     echo '</td>' . "\n";
   }
 ?>

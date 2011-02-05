@@ -1,5 +1,5 @@
 <?php
-  /* --------------------------------------------------------------
+/* --------------------------------------------------------------
    $Id: box.php 950 2005-05-14 16:45:21Z mz $   
 
    XT-Commerce - community made shopping
@@ -24,45 +24,47 @@
    $contents = array();
    $contents[] = array('text'  => SOME_TEXT);
 
-   $box = new box;
-   echo $box->infoBox($heading, $contents);   
+   echo $box::infoBox($heading, $contents);   
    --------------------------------------------------------------
   */
 
-  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 
-  class box extends tableBlock {
-    function box() {
-      $this->heading = array();
-      $this->contents = array();
-    }
-
-    function infoBox($heading, $contents) {
-      $this->table_row_parameters = 'class="infoBoxHeading"';
-      $this->table_data_parameters = 'class="infoBoxHeading"';
-      $this->heading = parent::__construct($heading);
-
-      $this->table_row_parameters = '';
-      $this->table_data_parameters = 'class="infoBoxContent"';
-      $this->contents = parent::__construct($contents);
-
-      return $this->heading . $this->contents;
-    }
-
-    function menuBox($heading, $contents) {
-      $this->table_data_parameters = 'class="menuBoxHeading"';
-      if (isset($heading[0]['link'])) {
-        $this->table_data_parameters .= ' onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . $heading[0]['link'] . '\'"';
-        $heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="menuBoxHeadingLink">' . $heading[0]['text'] . '</a>&nbsp;';
-      } else {
-        $heading[0]['text'] = '&nbsp;' . $heading[0]['text'] . '&nbsp;';
-      }
-      $this->heading = parent::__construct($heading);
-
-      $this->table_data_parameters = 'class="menuBoxContent"';
-      $this->contents = parent::__construct($contents);
-
-      return $this->heading . $this->contents;
-    }
-  }
+class box extends tableBlock {
+	private static $heading = array ();
+	private static $contents = array ();
+	
+	public static function infoBox($heading, $contents) {
+		// Clean old values
+		self::$heading = array ();
+		self::$contents = array ();
+		
+		self::$table_row_parameters = 'class="infoBoxHeading"';
+		self::$table_data_parameters = 'class="infoBoxHeading"';
+		self::$heading = parent::constructor($heading);
+		
+		self::$table_row_parameters = '';
+		self::$table_data_parameters = 'class="infoBoxContent"';
+		self::$contents = parent::constructor($contents);
+		
+		return self::$heading . self::$contents;
+	}
+	
+	public static function menuBox($heading, $contents) {
+		self::$table_data_parameters = 'class="menuBoxHeading"';
+		if (isset($heading[0]['link'])) {
+			self::$table_data_parameters .= ' onmouseover="this.style.cursor=\'pointer\'" onclick="document.location.href=\'' . $heading[0]['link'] . '\'"';
+			$heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="menuBoxHeadingLink">' . $heading[0]['text'] . '</a>&nbsp;';
+		}
+		else {
+			$heading[0]['text'] = '&nbsp;' . $heading[0]['text'] . '&nbsp;';
+		}
+		self::$heading = parent::constructor($heading);
+		
+		self::$table_data_parameters = 'class="menuBoxContent"';
+		self::$contents = parent::constructor($contents);
+		
+		return self::$heading . self::$contents;
+	}
+}
 ?>

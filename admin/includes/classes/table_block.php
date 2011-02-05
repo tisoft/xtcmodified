@@ -15,76 +15,87 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
-  class tableBlock {
-    var $table_border = '0';
-    var $table_width = '100%';
-    var $table_cellspacing = '0';
-    var $table_cellpadding = '2';
-    var $table_parameters = '';
-    var $table_row_parameters = '';
-    var $table_data_parameters = '';
-
-    //function tableBlock($contents) {
-    function __construct($contents) {
-
-      $tableBox_string = '';
-      $form_set = false;
-      if (isset($contents['form'])) {
-        $tableBox_string .= $contents['form'] . "\n";
-        $form_set = true;
-        array_shift($contents);
-      }
-
-      $tableBox_string .= '<table class="contentTable" border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
-      if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
-      $tableBox_string .= '>' . "\n";
-
-      //for ($i = 0, $n = sizeof($contents); $i < $n; $i++) {
-      for ($i = 0; $i < sizeof($contents); $i++) {
-        $tableBox_string .= '  <tr';
-        if ($this->table_row_parameters != '') $tableBox_string .= ' ' . $this->table_row_parameters;
-        if (isset($contents[$i]['params'])) $tableBox_string .= ' ' . $contents[$i]['params'];
-        $tableBox_string .= '>' . "\n";
-        if (!isset($contents[$i][0])) $contents[$i][0] = '';
-        if (is_array($contents[$i][0])) {
-          //for ($x = 0, $y = sizeof($contents[$i]); $x < $y; $x++) {
-          for ($x = 0; $i < sizeof($contents[$i]); $x++) {          
-            if ($contents[$i][$x]['text']) {
-              $tableBox_string .= '    <td ';
-              if ($contents[$i][$x]['align'] != '') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
-              if ($contents[$i][$x]['params']) {
-                $tableBox_string .= ' ' . $contents[$i][$x]['params'];
-              } elseif ($this->table_data_parameters != '') {
-                $tableBox_string .= ' ' . $this->table_data_parameters;
-              }
-              $tableBox_string .= '>';
-              if ($contents[$i][$x]['form']) $tableBox_string .= $contents[$i][$x]['form'];
-              $tableBox_string .= $contents[$i][$x]['text'];
-              if ($contents[$i][$x]['form']) $tableBox_string .= '</form>';
-              $tableBox_string .= '</td>' . "\n";
-            }
-          }
-        } else {
-          $tableBox_string .= '    <td ';
-          if (!isset($contents[$i]['align'])) $contents[$i]['align'] = '';
-          if ($contents[$i]['align'] != '') $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
-          if (isset($contents[$i]['params'])) {
-            $tableBox_string .= ' ' . $contents[$i]['params'];
-          } elseif ($this->table_data_parameters != '') {
-            $tableBox_string .= ' ' . $this->table_data_parameters;
-          }
-          $tableBox_string .= '>' . $contents[$i]['text'] . '</td>' . "\n";
-        }
-
-        $tableBox_string .= '  </tr>' . "\n";
-      }
-
-      $tableBox_string .= '</table>' . "\n";
-
-      if ($form_set) $tableBox_string .= '</form>' . "\n";
-
-      return $tableBox_string;
-    }
-  }
+defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
+class tableBlock {
+	protected static $table_border = '0';
+	protected static $table_width = '100%';
+	protected static $table_cellspacing = '0';
+	protected static $table_cellpadding = '2';
+	protected static $table_parameters = '';
+	protected static $table_row_parameters = '';
+	protected static $table_data_parameters = '';
+	
+	protected static function constructor($contents) {
+		
+		$tableBox_string = '';
+		$form_set = false;
+		if (isset($contents['form'])) {
+			$tableBox_string .= $contents['form'] . "\n";
+			$form_set = true;
+			array_shift($contents);
+		}
+		
+		$tableBox_string .= '<table class="contentTable" border="' . self::$table_border . '" width="' . self::$table_width . '" cellspacing="' . self::$table_cellspacing . '" cellpadding="' . self::$table_cellpadding . '"';
+		if (self::$table_parameters != '')
+			$tableBox_string .= ' ' . self::$table_parameters;
+		$tableBox_string .= '>' . "\n";
+		
+		for ($i = 0; $i < sizeof($contents); $i++) {
+			$tableBox_string .= '  <tr';
+			if (self::$table_row_parameters != '')
+				$tableBox_string .= ' ' . self::$table_row_parameters;
+			if (isset($contents[$i]['params']))
+				$tableBox_string .= ' ' . $contents[$i]['params'];
+			$tableBox_string .= '>' . "\n";
+			if (!isset($contents[$i][0]))
+				$contents[$i][0] = '';
+			if (is_array($contents[$i][0])) {
+				
+				for ($x = 0; $i < sizeof($contents[$i]); $x++) {
+					if ($contents[$i][$x]['text']) {
+						$tableBox_string .= '    <td ';
+						if ($contents[$i][$x]['align'] != '')
+							$tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
+						if ($contents[$i][$x]['params']) {
+							$tableBox_string .= ' ' . $contents[$i][$x]['params'];
+						}
+						elseif (self::$table_data_parameters != '') {
+							$tableBox_string .= ' ' . self::$table_data_parameters;
+						}
+						$tableBox_string .= '>';
+						if ($contents[$i][$x]['form'])
+							$tableBox_string .= $contents[$i][$x]['form'];
+						$tableBox_string .= $contents[$i][$x]['text'];
+						if ($contents[$i][$x]['form'])
+							$tableBox_string .= '</form>';
+						$tableBox_string .= '</td>' . "\n";
+					}
+				}
+			}
+			else {
+				$tableBox_string .= '    <td ';
+				if (!isset($contents[$i]['align']))
+					$contents[$i]['align'] = '';
+				if ($contents[$i]['align'] != '')
+					$tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
+				if (isset($contents[$i]['params'])) {
+					$tableBox_string .= ' ' . $contents[$i]['params'];
+				}
+				elseif (self::$table_data_parameters != '') {
+					$tableBox_string .= ' ' . self::$table_data_parameters;
+				}
+				$tableBox_string .= '>' . $contents[$i]['text'] . '</td>' . "\n";
+			}
+			
+			$tableBox_string .= '  </tr>' . "\n";
+		}
+		
+		$tableBox_string .= '</table>' . "\n";
+		
+		if ($form_set)
+			$tableBox_string .= '</form>' . "\n";
+		
+		return $tableBox_string;
+	}
+}
 ?>

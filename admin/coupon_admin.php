@@ -341,8 +341,7 @@
                           ?>
                           <td width="25%" valign="top">
                             <?php
-                            $box = new box;
-                            echo $box->infoBox($heading, $contents);
+                            echo box::infoBox($heading, $contents);
                           echo '            </td>' . "\n";
                           break;
             case 'preview_email':
@@ -1050,8 +1049,7 @@
                           ?>
                           <td width="25%" valign="top">
                             <?php
-                            $box = new box;
-                            echo $box->infoBox($heading, $contents);
+                            echo box::infoBox($heading, $contents);
                            echo '            </td>' . "\n";
           }
           ?>
