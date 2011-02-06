@@ -24,7 +24,7 @@
    $contents = array();
    $contents[] = array('text'  => SOME_TEXT);
 
-   echo $box::infoBox($heading, $contents);   
+   echo $box::infoBox($heading, $contents);
    --------------------------------------------------------------
   */
 
