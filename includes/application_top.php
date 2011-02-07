@@ -216,7 +216,6 @@ require_once (DIR_FS_EXTERNAL . 'sseq-lib/seq_lib.php');
 require_once (DIR_WS_CLASSES.'class.phpmailer.php');
 if (EMAIL_TRANSPORT == 'smtp')
   require_once (DIR_WS_CLASSES.'class.smtp.php');
-require_once (DIR_FS_INC.'xtc_Security.inc.php');
 
 // set the application parameters
 
