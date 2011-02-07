@@ -82,10 +82,14 @@
                           if ((!isset($_GET['info']) || (isset($_GET['info']) && ($_GET['info'] == $whos_online['session_id']))) && !isset($info) ) {
                             $info = $whos_online['session_id'];
                           }
-                          if ($whos_online['session_id'] == $info) {
+                          if ($whos_online['session_id'] === $info) {
                             echo '              <tr class="dataTableRowSelected">' . "\n";
+                          //BOF - DokuMan - 2011-02-07 - don't show a link for users/bots without a session id
+                          } elseif (($whos_online['session_id'] == '') || (substr($whos_online['session_id'],0,1) == '[')) {
+                              echo '              <tr class="dataTableRow">' . "\n";
+                          //EOF - DokuMan - 2011-02-07 - don't show a link for users/bots without a session id
                           } else {
-                            echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_WHOS_ONLINE, xtc_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id'], 'NONSSL') . '\'">' . "\n";
+                              echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_WHOS_ONLINE, xtc_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id'], 'NONSSL') . '\'">' . "\n";
                           }
                             //BOF web28 2010-12-03 added Hostname to whois online
                             $whos_online['ip_address'] = '<span style="white-space: nowrap;">'.$whos_online['ip_address'].'<span style="font-weight: normal; font-style: italic;"> ('.@gethostbyaddr($whos_online['ip_address']).')</span></span>';
@@ -99,7 +103,9 @@
                             <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
                             <td class="dataTableContent"><?php
                               if (preg_match('/^(.*)' . xtc_session_name() . '=[a-f,0-9]+[&]*(.*)/i', $whos_online['last_page_url'], $array)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
-                                echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url'];
+          											echo $array[1] . $array[2];
+          										} else {
+          											echo $whos_online['last_page_url'];
                               }
                               ?>
                               &nbsp;
