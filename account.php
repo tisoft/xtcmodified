@@ -18,23 +18,22 @@
 
 include ('includes/application_top.php');
 
+//BOF - DokuMan - 2010-03-02 - redirect not logged in users to login page instead
+if (!isset ($_SESSION['customer_id'])) {
+  xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
+}
+//EOF - DokuMan - 2010-03-02 - redirect not logged in users to login page instead
+
 // create smarty elements
 $smarty = new Smarty;
 // include boxes
 require (DIR_FS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/source/boxes.php');
-// include needed functions
 require_once (DIR_FS_INC.'xtc_count_customer_orders.inc.php');
 require_once (DIR_FS_INC.'xtc_date_short.inc.php');
 require_once (DIR_FS_INC.'xtc_get_path.inc.php');
 require_once (DIR_FS_INC.'xtc_get_product_path.inc.php');
 require_once (DIR_FS_INC.'xtc_get_products_name.inc.php');
 require_once (DIR_FS_INC.'xtc_get_products_image.inc.php');
-
-//BOF - DokuMan - 2010-03-02 - redirect not logged in users to login page instead
-if (!isset ($_SESSION['customer_id'])) {
-  xtc_redirect(xtc_href_link(FILENAME_LOGIN, '', 'SSL'));
-}
-//EOF - DokuMan - 2010-03-02 - redirect not logged in users to login page instead
 
 $breadcrumb->add(NAVBAR_TITLE_ACCOUNT, xtc_href_link(FILENAME_ACCOUNT, '', 'SSL'));
 
@@ -69,7 +68,7 @@ while ($i < $max) {
   $i ++;
 }
 
-$order_content = '';
+$order_content = array();
 if (xtc_count_customer_orders() > 0) {
   $orders_query = xtc_db_query("select
                                     o.orders_id,
