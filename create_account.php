@@ -20,7 +20,7 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c)  Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
@@ -45,40 +45,52 @@ require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_write_user_info.inc.php');
 
+if (isset($_POST['country'])) {
+  $country = (int)$_POST['country'];
+} else {
+  $country = STORE_COUNTRY;
+}
+
 $process = false;
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
   $process = true;
 
-  if (ACCOUNT_GENDER == 'true')
+  if (ACCOUNT_GENDER == 'true') {
   //BOF - Dokuman - 2010-03-19 - set undefined variable
   //$gender = xtc_db_prepare_input($_POST['gender']);
     $gender = isset($_POST['gender']) ? xtc_db_prepare_input($_POST['gender']) : '';
   //EOF - Dokuman - 2010-03-19 - set undefined variable
+  }
   $firstname = xtc_db_prepare_input($_POST['firstname']);
   $lastname = xtc_db_prepare_input($_POST['lastname']);
-  if (ACCOUNT_DOB == 'true')
+  if (ACCOUNT_DOB == 'true') {
     $dob = xtc_db_prepare_input($_POST['dob']);
+  }
   $email_address = xtc_db_prepare_input($_POST['email_address']);
   //BOF - Dokuman - 2010-03-19 - set undefined variable
   //$confirm_email_address = xtc_db_prepare_input($_POST['confirm_email_address']); // Hetfield - 2009-08-15 - confirm e-mail at registration
   $confirm_email_address = isset($_POST['confirm_email_address']) ? xtc_db_prepare_input($_POST['confirm_email_address']) : 0; // Hetfield - 2009-08-15 - confirm e-mail at registration
   //EOF - Dokuman - 2010-03-19 - set undefined variable
-  if (ACCOUNT_COMPANY == 'true')
+  if (ACCOUNT_COMPANY == 'true') {
     $company = xtc_db_prepare_input($_POST['company']);
-  if (ACCOUNT_COMPANY_VAT_CHECK == 'true')
+  }
+  if (ACCOUNT_COMPANY_VAT_CHECK == 'true') {
     $vat = xtc_db_prepare_input($_POST['vat']);
+  }
   $street_address = xtc_db_prepare_input($_POST['street_address']);
-  if (ACCOUNT_SUBURB == 'true')
+  if (ACCOUNT_SUBURB == 'true') {
     $suburb = xtc_db_prepare_input($_POST['suburb']);
+  }
   $postcode = xtc_db_prepare_input($_POST['postcode']);
   $city = xtc_db_prepare_input($_POST['city']);
   //BOF - Dokuman - 2010-03-19 - set undefined variable
   //$zone_id = xtc_db_prepare_input($_POST['zone_id']);
     $zone_id = isset($_POST['zone_id']) ? xtc_db_prepare_input($_POST['zone_id']) : 0;
   //EOF - Dokuman - 2010-03-19 - set undefined variable
-  if (ACCOUNT_STATE == 'true')
-    $state = xtc_db_prepare_input($_POST['state']);
-  $country = xtc_db_prepare_input($_POST['country']);
+  if (ACCOUNT_STATE == 'true') {
+    $state = (isset($_POST['state']) ? xtc_db_prepare_input($_POST['state']) : NULL); //DokuMan - 2011-02-07
+  }
+
   $telephone = xtc_db_prepare_input($_POST['telephone']);
   $fax = xtc_db_prepare_input($_POST['fax']);
   //BOF - web28 - 2010-05-30 - set undefined variable
@@ -97,20 +109,17 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
   if (ACCOUNT_GENDER == 'true') {
     if (($gender != 'm') && ($gender != 'f')) {
       $error = true;
-
       $messageStack->add('create_account', ENTRY_GENDER_ERROR);
     }
   }
 
   if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
     $error = true;
-
     $messageStack->add('create_account', ENTRY_FIRST_NAME_ERROR);
   }
 
   if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
     $error = true;
-
     $messageStack->add('create_account', ENTRY_LAST_NAME_ERROR);
   }
 
@@ -121,7 +130,6 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 2), substr(xtc_date_raw($dob), 6, 2), substr(xtc_date_raw($dob), 0, 4)) == false)) {
     //EOF - DokuMan - 2011-01-07 - Sanitize parameters
       $error = true;
-
       $messageStack->add('create_account', ENTRY_DATE_OF_BIRTH_ERROR);
     }
   }
@@ -135,12 +143,9 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
     //BOF - Dokuman - 2010-08-31 - set undefined index
     //$customers_vat_id_status = $vatID->vat_info['vat_id_status'];
     $customers_vat_id_status = isset($vatID->vat_info['vat_id_status']) ? $vatID->vat_info['vat_id_status'] : '';
-
-    //$vat_error = $vatID->vat_info['error'];
-    $vat_error = isset($vatID->vat_info['error']) ? $vatID->vat_info['error'] : '';
     //EOF - Dokuman - 2010-08-31 - set undefined index
 
-    if ($vat_error==1){
+    if ($vatID->vat_info['error']==1){
       $messageStack->add('create_account', ENTRY_VAT_ERROR);
       $error = true;
     }
@@ -149,8 +154,9 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
   // xs:booster prefill (customer group)
-  if(isset($_SESSION['xtb0']['DEFAULT_CUSTOMER_GROUP']) && $_SESSION['xtb0']['DEFAULT_CUSTOMER_GROUP']!='')
+  if(isset($_SESSION['xtb0']['DEFAULT_CUSTOMER_GROUP']) && $_SESSION['xtb0']['DEFAULT_CUSTOMER_GROUP']!='') {
     $customers_status = $_SESSION['xtb0']['DEFAULT_CUSTOMER_GROUP'];
+  }
   // xs:booster prefill end
 // EOF - Tomcraft - 2009-11-28 - Included xs:booster
 
@@ -244,10 +250,20 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
     }
   }
 
-  if (!isset($customers_status) || $customers_status == 0)
-    $customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
-  if (!$newsletter)
+  if (!isset($customers_status) || $customers_status == 0) {
+    //$customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
+    //BOF - DokuMan - 2011-02-07 - additional security check for status "0" = Admin, use "2" customer here!
+    if (DEFAULT_CUSTOMER_STATUS_ID != 0) {
+        $customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
+    } else {
+        $customers_status = 2;
+    }
+    //EOF - DokuMan - 2011-02-07 - additional security check for status "0" = Admin, use "2" customer here!
+  }
+
+  if (!$newsletter) {
     $newsletter = '';
+  }
   if ($error == false) {
     $sql_data_array = array (
     'customers_vat_id' => $vat,
@@ -264,24 +280,38 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
     'customers_last_modified' => 'now()',
     );
 
-    if (ACCOUNT_GENDER == 'true')
+    if (ACCOUNT_GENDER == 'true') {
       $sql_data_array['customers_gender'] = $gender;
-    if (ACCOUNT_DOB == 'true')
+    }
+    if (ACCOUNT_DOB == 'true') {
       $sql_data_array['customers_dob'] = xtc_date_raw($dob);
-
+    }
     xtc_db_perform(TABLE_CUSTOMERS, $sql_data_array);
 
     $_SESSION['customer_id'] = xtc_db_insert_id();
     $user_id = xtc_db_insert_id();
     xtc_write_user_info($user_id);
-    $sql_data_array = array ('customers_id' => $_SESSION['customer_id'], 'entry_firstname' => $firstname, 'entry_lastname' => $lastname, 'entry_street_address' => $street_address, 'entry_postcode' => $postcode, 'entry_city' => $city, 'entry_country_id' => $country,'address_date_added' => 'now()','address_last_modified' => 'now()');
+    $sql_data_array = array (
+      'customers_id' => $_SESSION['customer_id'],
+      'entry_firstname' => $firstname,
+      'entry_lastname' => $lastname,
+      'entry_street_address' => $street_address,
+      'entry_postcode' => $postcode,
+      'entry_city' => $city,
+      'entry_country_id' => $country,
+      'address_date_added' => 'now()',
+      'address_last_modified' => 'now()'
+    );
 
-    if (ACCOUNT_GENDER == 'true')
+    if (ACCOUNT_GENDER == 'true') {
       $sql_data_array['entry_gender'] = $gender;
-    if (ACCOUNT_COMPANY == 'true')
+    }
+    if (ACCOUNT_COMPANY == 'true') {
       $sql_data_array['entry_company'] = $company;
-    if (ACCOUNT_SUBURB == 'true')
+    }
+    if (ACCOUNT_SUBURB == 'true') {
       $sql_data_array['entry_suburb'] = $suburb;
+    }
     if (ACCOUNT_STATE == 'true') {
       if ($zone_id > 0) {
         $sql_data_array['entry_zone_id'] = $zone_id;
@@ -322,6 +352,10 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
     $_SESSION['customer_zone_id'] = $zone_id;
     $_SESSION['customer_vat_id'] = $vat;
 
+    // session gender
+    if (ACCOUNT_GENDER == 'true') {
+      $_SESSION['customer_gender'] = $gender;
+    }
     // restore cart contents
     $_SESSION['cart']->restore_contents();
 
@@ -330,7 +364,10 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
 
     // load data into array
     $module_content = array ();
-    $module_content = array ('MAIL_NAME' => $name, 'MAIL_REPLY_ADDRESS' => EMAIL_SUPPORT_REPLY_ADDRESS, 'MAIL_GENDER' => $gender);
+    $module_content = array(
+                    'MAIL_NAME' => $name,
+                    'MAIL_REPLY_ADDRESS' => EMAIL_SUPPORT_REPLY_ADDRESS,
+                    'MAIL_GENDER' => $gender);
 
     // assign data to smarty
     $smarty->assign('language', $_SESSION['language']);
@@ -422,8 +459,7 @@ require (DIR_WS_INCLUDES.'header.php');
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 // xs:booster start (v1.041)
-if(@isset($_SESSION['xtb0']['tx'][0]))
-{
+if(@isset($_SESSION['xtb0']['tx'][0])) {
   $GLOBALS['gender']= 'm';
   $GLOBALS['firstname']= substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],0,strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," "));
   $GLOBALS['lastname']= substr($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME'],strpos($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']," ")+1,strlen($_SESSION['xtb0']['tx'][0]['XTB_EBAY_NAME']));
@@ -524,13 +560,7 @@ if (ACCOUNT_STATE == 'true') {
   $smarty->assign('state', '0');
 }
 
-if (isset($_POST['country'])) {
-  $selected = $_POST['country'];
-} else {
-  $selected = STORE_COUNTRY;
-}
-
-$smarty->assign('SELECT_COUNTRY', xtc_get_country_list(array ('name' => 'country', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">'.ENTRY_COUNTRY_TEXT.'</span>' : '')), $selected));
+$smarty->assign('SELECT_COUNTRY', xtc_get_country_list(array ('name' => 'country', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">'.ENTRY_COUNTRY_TEXT.'</span>' : '')), $country));
 $smarty->assign('INPUT_TEL', xtc_draw_input_fieldNote(array ('name' => 'telephone', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="inputRequirement">'.ENTRY_TELEPHONE_NUMBER_TEXT.'</span>' : ''))));
 $smarty->assign('INPUT_FAX', xtc_draw_input_fieldNote(array ('name' => 'fax', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="inputRequirement">'.ENTRY_FAX_NUMBER_TEXT.'</span>' : ''))));
 $smarty->assign('INPUT_PASSWORD', xtc_draw_password_fieldNote(array ('name' => 'password', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="inputRequirement">'.ENTRY_PASSWORD_TEXT.'</span>' : ''))));
