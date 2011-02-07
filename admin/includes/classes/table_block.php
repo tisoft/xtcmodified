@@ -25,6 +25,11 @@ class tableBlock {
 	protected static $table_row_parameters = '';
 	protected static $table_data_parameters = '';
 	
+	// cYbercOsmOnauT - 2011-02-07 - Fallback method for old calls
+	public function tableBlock($contents = '') {
+		return self::constructor($contents);
+	}
+	
 	protected static function constructor($contents) {
 		
 		$tableBox_string = '';

@@ -341,7 +341,7 @@
                           ?>
                           <td width="25%" valign="top">
                             <?php
-                            echo box::infoBox($heading, $contents); // cYbercOsmOnauT - 2011-02-05 - Changed methods of the classes box and tableBox to static
+                            echo box::infoBoxSt($heading, $contents);
                           echo '            </td>' . "\n";
                           break;
             case 'preview_email':
@@ -1049,7 +1049,7 @@
                           ?>
                           <td width="25%" valign="top">
                             <?php
-                            echo box::infoBox($heading, $contents); // cYbercOsmOnauT - 2011-02-05 - Changed methods of the classes box and tableBox to static
+                            echo box::infoBoxSt($heading, $contents);
                            echo '            </td>' . "\n";
           }
           ?>

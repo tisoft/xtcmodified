@@ -24,7 +24,7 @@
    $contents = array();
    $contents[] = array('text'  => SOME_TEXT);
 
-   echo $box::infoBox($heading, $contents);
+   echo box::infoBoxSt($heading, $contents);   
    --------------------------------------------------------------
   */
 
@@ -34,7 +34,12 @@ class box extends tableBlock {
 	private static $heading = array ();
 	private static $contents = array ();
 	
-	public static function infoBox($heading, $contents) {
+	// cYbercOsmOnauT - 2011-02-07 - Fallback method for old calls
+	public function infoBox($heading, $contents) {
+		return self::infoBoxSt($heading, $contents);
+	}
+	
+	public static function infoBoxSt($heading, $contents) {
 		// Clean old values
 		self::$heading = array ();
 		self::$contents = array ();
