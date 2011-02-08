@@ -56,7 +56,7 @@ define('IMAGE_EXPORT_TYPE','<hr noshade><strong>Stapelverarbeitung:</strong>');
 
     }
 
-// <neu> Zeile 68 $n=10 hier Bilderanzahl pro Durchgang
+// <neu> Zeile 68 $n=5 hier Bilderanzahl pro Durchgang
 function process($file) {
     include ('includes/classes/'.FILENAME_IMAGEMANIPULATOR); 
     @xtc_set_time_limit(0);
