@@ -771,7 +771,7 @@ table.paymentblock tr td.header {
   background-color:#ccc;
   padding:2px;
   padding-left:5px;
-  color:#fff;
+  color:#000;
   font-weight:bold;
 }
 /* SHIPPING TYPE SELECTION */
@@ -784,7 +784,7 @@ table.shippingblock {
 table.shippingblock tr td.header {
   background-color:#ccc;
   padding:2px 2px 2px 5px;
-  color:#fff;
+  color:#000;
   font-weight:bold;
 }
 table.shippingblock tr td {
