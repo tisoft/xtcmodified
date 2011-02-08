@@ -192,7 +192,7 @@
                       }
                       if ( (xtc_not_null($heading)) && (xtc_not_null($contents)) ) {
                         echo '            <td width="25%" valign="top">' . "\n";
-                        echo box::infoBoxSt($heading, $contents);
+                        echo box::infoBoxSt($heading, $contents); // cYbercOsmOnauT - 2011-02-07 - Changed methods of the classes box and tableBox to static
                         echo '            </td>' . "\n";
                       }
                     ?>
