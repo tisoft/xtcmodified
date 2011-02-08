@@ -30,7 +30,7 @@ define('MODULE_NEW_STEP2_IMAGE_PROCESS_TEXT_DESCRIPTION', 'Es werden nur die noc
 
 
 
-Hierzu verarbeitet das Script nur eine begrenzte Anzahl von 10 Bildern 
+Hierzu verarbeitet das Script nur eine begrenzte Anzahl von 5 Bildern 
 
 und ruft sich danach selbst wieder auf.');
 define('MODULE_NEW_STEP2_IMAGE_PROCESS_TEXT_TITLE', 'XT-Imageprocessing-New - Variante D');
@@ -77,7 +77,7 @@ function process($file) {
         }
         closedir($dir);
     }
-    for ($i=0;$n=10,$i<$n;$i++) {
+    for ($i=0;$n=5,$i<$n;$i++) {
         $products_image_name = $files[$i]['text'];
         if (!is_file(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_thumbnail_images.php'); }
         if (!is_file(DIR_FS_CATALOG_INFO_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_info_images.php'); }

@@ -30,7 +30,7 @@ define('MODULE_STEP_IMAGE_PROCESS_TEXT_DESCRIPTION', 'Es werden alle Bilder in d
 
 
 
-Hierzu verarbeitet das Script nur eine begrenzte Anzahl von 10 Bildern und ruft sich danach selbst wieder auf.<br /> <br />');
+Hierzu verarbeitet das Script nur eine begrenzte Anzahl von 5 Bildern und ruft sich danach selbst wieder auf.<br /> <br />');
 define('MODULE_STEP_IMAGE_PROCESS_TEXT_TITLE', 'XT-Imageprocessing-New - Variante B ( EMPFOHLEN )');
 define('MODULE_STEP_IMAGE_PROCESS_STATUS_DESC','Modulstatus');
 define('MODULE_STEP_IMAGE_PROCESS_STATUS_TITLE','Status');
@@ -71,7 +71,7 @@ define('IMAGE_EXPORT_TYPE','<hr noshade><strong>Stapelverarbeitung:</strong>');
         closedir($dir);
         }
 // <neu> hier Bilderanzahl pro Durchgang
-    $step = 10;
+    $step = 5;
     $max_files = sizeof($files);
     $limit = $offset + $step;
     for ($i=$offset; $i<$limit; $i++) {
