@@ -79,12 +79,12 @@ define('FILENAME_POPUP_CVV', 'popup_cvv.php');
 define('FILENAME_DISPLAY_VVCODES', 'display_vvcodes.php');
 define('FILENAME_CART_ACTIONS', 'cart_actions.php');
 define('FILENAME_CROSS_SELLING', 'cross_selling.php');
-define('FILENAME_GV_FAQ', 'gv_faq.php');
+//define('FILENAME_GV_FAQ', 'gv_faq.php'); // Tomcraft - 2011-02-09 - File is obsulete
 define('FILENAME_GV_REDEEM', 'gv_redeem.php');
-define('FILENAME_GV_REDEEM_PROCESS', 'gv_redeem_process.php');
+//define('FILENAME_GV_REDEEM_PROCESS', 'gv_redeem_process.php'); // Tomcraft - 2011-02-09 - File is obsulete
 define('FILENAME_GV_SEND', 'gv_send.php');
-define('FILENAME_GV_SEND_PROCESS', 'gv_send_process.php');
-define('FILENAME_PRODUCT_LISTING_COL', 'product_listing_col.php');
+//define('FILENAME_GV_SEND_PROCESS', 'gv_send_process.php'); // Tomcraft - 2011-02-09 - File is obsulete
+//define('FILENAME_PRODUCT_LISTING_COL', 'product_listing_col.php'); // Tomcraft - 2011-02-09 - File is obsulete
 define('FILENAME_POPUP_COUPON_HELP', 'popup_coupon_help.php');
 define('FILENAME_POPUP_CONTENT', 'popup_content.php');
 define('FILENAME_EDIT_PRODUCTS', 'admin/categories.php');
