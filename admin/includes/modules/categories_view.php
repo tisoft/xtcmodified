@@ -2,7 +2,9 @@
 /* --------------------------------------------------------------
    $Id$
 
+   xtcModified - community made shopping
    http://www.xtc-modified.org
+
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
@@ -14,9 +16,9 @@
    Released under the GNU General Public License
    --------------------------------------------------------------
    Third Party contribution:
-   Enable_Disable_Categories 1.3               Autor: Mikel Williams | mikel@ladykatcostumes.com
-   New Attribute Manager v4b                   Autor: Mike G | mp3man@internetwork.net | http://downloads.ephing.com
-   Category Descriptions (Version: 1.5 MS2)    Original Author:   Brian Lowe <blowe@wpcusrgrp.org> | Editor: Lord Illicious <shaolin-venoms@illicious.net>
+   Enable_Disable_Categories 1.3 Autor: Mikel Williams | mikel@ladykatcostumes.com
+   New Attribute Manager v4b Autor: Mike G | mp3man@internetwork.net | http://downloads.ephing.com
+   Category Descriptions (Version: 1.5 MS2) Original Author: Brian Lowe <blowe@wpcusrgrp.org> | Editor: Lord Illicious <shaolin-venoms@illicious.net>
    Customers Status v3.x  (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
 
    Released under the GNU General Public License
@@ -29,67 +31,67 @@
   // get sorting option and switch accordingly
   $sorting = (isset($_GET['sorting']) ? $_GET['sorting'] : '');
   if (xtc_not_null($sorting)) {
-		switch ($sorting){
-			case 'model'       :
-				$catsort    = 'c.sort_order ASC';
-				$prodsort   = 'p.products_model ASC';
-				break;
-			case 'model-desc'  :
-				$catsort    = 'c.sort_order ASC';
-				$prodsort   = 'p.products_model DESC';
-				break;
-			case 'sort'         :
-				$catsort    = 'c.sort_order ASC';
-				$prodsort   = 'p.products_sort ASC';
-				break;
-			case 'sort-desc'    :
-				$catsort    = 'c.sort_order DESC';
-				$prodsort   = 'p.products_sort DESC';
-			case 'name'         :
-				$catsort    = 'cd.categories_name ASC';
-				$prodsort   = 'pd.products_name ASC';
-				break;
-			case 'name-desc'    :
-				$catsort    = 'cd.categories_name DESC';
-				$prodsort   = 'pd.products_name DESC';
-				break;
-			case 'status'       :
-				$catsort    = 'c.categories_status ASC';
-				$prodsort   = 'p.products_status ASC';
-				break;
-			case 'status-desc'  :
-				$catsort    = 'c.categories_status DESC';
-				$prodsort   = 'p.products_status DESC';
-				break;
-			case 'price'        :
-				$catsort    = 'c.sort_order ASC'; //default
-				$prodsort   = 'p.products_price ASC';
-				break;
-			case 'price-desc'   :
-				$catsort    = 'c.sort_order ASC'; //default
-				$prodsort   = 'p.products_price DESC';
-				break;
-			case 'stock'        :
-				$catsort    = 'c.sort_order ASC'; //default
-				$prodsort   = 'p.products_quantity ASC';
-				break;
-			case 'stock-desc'   :
-				$catsort    = 'c.sort_order ASC'; //default
-				$prodsort   = 'p.products_quantity DESC';
-				break;
-			case 'discount'     :
-				$catsort    = 'c.sort_order ASC'; //default
-				$prodsort   = 'p.products_discount_allowed ASC';
-				break;
-			case 'discount-desc':
-				$catsort    = 'c.sort_order ASC'; //default
-				$prodsort   = 'p.products_discount_allowed DESC';
-				break;
-			default             :
-				$catsort    = 'cd.categories_name ASC';
-				$prodsort   = 'pd.products_name ASC';
-				break;
-		}
+    switch ($sorting){
+      case 'model'       :
+        $catsort    = 'c.sort_order ASC';
+        $prodsort   = 'p.products_model ASC';
+        break;
+      case 'model-desc'  :
+        $catsort    = 'c.sort_order ASC';
+        $prodsort   = 'p.products_model DESC';
+        break;
+      case 'sort'         :
+        $catsort    = 'c.sort_order ASC';
+        $prodsort   = 'p.products_sort ASC';
+        break;
+      case 'sort-desc'    :
+        $catsort    = 'c.sort_order DESC';
+        $prodsort   = 'p.products_sort DESC';
+      case 'name'         :
+        $catsort    = 'cd.categories_name ASC';
+        $prodsort   = 'pd.products_name ASC';
+        break;
+      case 'name-desc'    :
+        $catsort    = 'cd.categories_name DESC';
+        $prodsort   = 'pd.products_name DESC';
+        break;
+      case 'status'       :
+        $catsort    = 'c.categories_status ASC';
+        $prodsort   = 'p.products_status ASC';
+        break;
+      case 'status-desc'  :
+        $catsort    = 'c.categories_status DESC';
+        $prodsort   = 'p.products_status DESC';
+        break;
+      case 'price'        :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_price ASC';
+        break;
+      case 'price-desc'   :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_price DESC';
+        break;
+      case 'stock'        :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_quantity ASC';
+        break;
+      case 'stock-desc'   :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_quantity DESC';
+        break;
+      case 'discount'     :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_discount_allowed ASC';
+        break;
+      case 'discount-desc':
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_discount_allowed DESC';
+        break;
+      default             :
+        $catsort    = 'cd.categories_name ASC';
+        $prodsort   = 'pd.products_name ASC';
+        break;
+    }
   } else {
           $catsort    = 'c.sort_order, cd.categories_name ASC';
           $prodsort   = 'p.products_sort, pd.products_name ASC';
@@ -147,38 +149,40 @@
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
             <tr class="dataTableHeadingRow">
 
-<!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
-<!--
+            <!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
+            <!--
              <td class="dataTableHeadingContent" width="22" align="center">
-//-->
+            //-->
              <td class="dataTableHeadingContent" width="4%" align="center">
-<!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
+            <!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
                 <?php echo TABLE_HEADING_EDIT; ?>
                 <input type="checkbox" onclick="javascript:CheckAll(this.checked);">
              </td>
-<!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
-<!--
+            <!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
+            <!--
                  <td class="dataTableHeadingContent" width="22" align="center">
 
                   <?php echo TABLE_HEADING_PRODUCTS_MODEL.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
                  </td>
 
              <td class="dataTableHeadingContent" align="center" width="12%">
-//-->
+            //-->
              <td class="dataTableHeadingContent" width="10%" align="center">
                 <?php echo TABLE_HEADING_PRODUCTS_MODEL.xtc_sorting(FILENAME_CATEGORIES,'model'); ?>
              </td>
              <td class="dataTableHeadingContent" align="center" width="10%">
-<!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
+            <!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
                 <?php echo TABLE_HEADING_SORT.xtc_sorting(FILENAME_CATEGORIES,'sort'); ?>
              </td>
-			 <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
-			 <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
-			 <td class="dataTableHeadingContent" width="10%" align="center">
-			   <?php echo TABLE_HEADING_IMAGE ?>
-			 </td>
-			 <?php } ?>
-			 <!-- EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
+             <?php
+             /* BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list */
+             if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
+             <td class="dataTableHeadingContent" width="10%" align="center">
+               <?php echo TABLE_HEADING_IMAGE ?>
+             </td>
+             <?php }
+             /* EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list */
+             ?>
              <td class="dataTableHeadingContent" align="center" width="30%">
                 <?php echo TABLE_HEADING_CATEGORIES_PRODUCTS.xtc_sorting(FILENAME_CATEGORIES,'name'); ?>
              </td>
@@ -197,16 +201,16 @@
              <td class="dataTableHeadingContent" align="center" width="10%">
                 <?php echo TABLE_HEADING_PRICE.xtc_sorting(FILENAME_CATEGORIES,'price'); ?>
              </td>
-<!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
-<!--
+            <!-- BOF - Tomcraft - 2009-11-06 - changed layout //-->
+            <!--
              <td class="dataTableHeadingContent" align="center" width="10%">
                 <?php echo '% max' . xtc_sorting(FILENAME_CATEGORIES,'discount'); ?>
              </td>
-//-->
+            //-->
              <td class="dataTableHeadingContent" align="center" width="12%">
                 <?php echo '%&nbsp;max' . xtc_sorting(FILENAME_CATEGORIES,'discount'); ?>
              </td>
-<!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
+            <!-- EOF - Tomcraft - 2009-11-06 - changed layout //-->
              <td class="dataTableHeadingContent" width="10%" align="center">
                 <?php echo TABLE_HEADING_ACTION; ?>
              </td>
@@ -215,9 +219,9 @@
     <?php
     //multi-actions form STARTS
     if ((isset($_POST['multi_categories']) && xtc_not_null($_POST['multi_categories'])) || (isset($_POST['multi_products']) && xtc_not_null($_POST['multi_products']))) {
-        $action_multi = "action=multi_action_confirm&" . xtc_get_all_get_params(array('cPath', 'action')) . 'cPath=' . $cPath;
+      $action_multi = "action=multi_action_confirm&" . xtc_get_all_get_params(array('cPath', 'action')) . 'cPath=' . $cPath;
     } else {
-        $action_multi = "action=multi_action&" . xtc_get_all_get_params(array('cPath', 'action')) . 'cPath=' . $cPath;
+      $action_multi = "action=multi_action&" . xtc_get_all_get_params(array('cPath', 'action')) . 'cPath=' . $cPath;
     }
     echo xtc_draw_form('multi_action_form', FILENAME_CATEGORIES, $action_multi, 'post', 'onsubmit="javascript:return CheckMultiForm()"');
     //add current category id in $_POST
@@ -255,9 +259,9 @@
             <td class="categories_view_data"><input type="checkbox" name="multi_categories[]" value="<?php echo $categories['categories_id'] . '" '; if (isset($_POST['multi_categories']) && is_array($_POST['multi_categories'])) { if (in_array($categories['categories_id'], $_POST['multi_categories'])) { echo 'checked="checked"'; } } ?>></td>
             <td class="categories_view_data">--</td>    <td class="categories_view_data"><?php echo $categories['sort_order']; ?></td>
 
-
-           <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
-           <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) {
+           <?php
+           /* BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list */
+           if( USE_ADMIN_THUMBS_IN_LIST=='true' ) {
            //BOF - DokuMan - 2010-09-14 - show category thumbnail in products list, else show noimage.gif
             /* <td class="categories_view_data">--</td> */
            ?>
@@ -271,9 +275,8 @@
            <?php
            //EOF - DokuMan - 2010-09-14 - show category thumbnail in products list, else show noimage.gif
            }
+           /* EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list */
            ?>
-           <!-- EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
-
              <td class="categories_view_data" style="text-align: left; padding-left: 5px;">
              <?php
               //BOF - web28 - 2010-08-21 - added edit icon - thanks to user pq // 2010-11-13 FIX wrong clamps
@@ -346,9 +349,9 @@
         p.products_startpage,
         p.products_startpage_sort,
         p2c.categories_id
-        FROM " . TABLE_PRODUCTS . " p,
-        " . TABLE_PRODUCTS_DESCRIPTION . " pd,
-        " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+        FROM " . TABLE_PRODUCTS . " p
+        JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd ON p.products_id = pd.products_id
+        JOIN " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c ON p.products_id = p2c.products_id
         WHERE p.products_id = pd.products_id
         AND pd.language_id = '" . $_SESSION['languages_id'] . "'
         AND p.products_id = p2c.products_id
@@ -376,9 +379,9 @@
         p.products_status,
         p.products_startpage,
         p.products_startpage_sort
-        FROM " . TABLE_PRODUCTS . " p,
-        " . TABLE_PRODUCTS_DESCRIPTION . " pd,
-        " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+        FROM " . TABLE_PRODUCTS . " p
+        JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd ON p.products_id = pd.products_id
+        JOIN " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c ON p.products_id = p2c.products_id
         WHERE p.products_id = pd.products_id
         AND pd.language_id = '" . (int)$_SESSION['languages_id'] . "'
         AND p.products_id = p2c.products_id
@@ -398,7 +401,7 @@
       if (xtc_not_null($search)) $cPath=$products['categories_id'];
 
       if ( ((!$_GET['pID']) && (!$_GET['cID']) || (@$_GET['pID'] == $products['products_id'])) && (!$pInfo) && (!$cInfo) && (substr($_GET['action'], 0, 4) != 'new_') ) {
-            
+
       // find out the rating average from customer reviews
         $reviews_query = xtc_db_query("select (avg(reviews_rating) / 5 * 100) as average_rating from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
         $reviews = xtc_db_fetch_array($reviews_query);
@@ -433,26 +436,28 @@
       <td class="categories_view_data">
       <?php
       if ($current_category_id == 0){
-      	echo $products['products_startpage_sort'];
+        echo $products['products_startpage_sort'];
       } else {
-       	echo $products['products_sort'];
+         echo $products['products_sort'];
       }
       ?>
       </td>
 
-	  <!-- BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
-	  <?php if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
-	  <td class="categories_view_data" style="text-align: center;">
-  	  	<?php
-		//BOF  web28 - add file_exists, (else show noimage.gif //DokuMan )
-		if (file_exists(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$products['products_image']) && $products['products_image']!='') {
-			echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50%'); //web28 -2010-09-21- set image size to 50%
-		} else echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.'noimage.gif', '', '50%'); //web28 -2010-09-21- set image size to 50%
-		//EOF  web28 - add file_exists, (else show noimage.gif //DokuMan )
-		?>
-	  </td>
-	  <?php } ?>
-	  <!-- EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list //-->
+      <?php
+      /* BOF - Hendrik - 2010-08-11 - Thumbnails in admin products list */
+      if( USE_ADMIN_THUMBS_IN_LIST=='true' ) { ?>
+        <td class="categories_view_data" style="text-align: center;">
+        <?php
+        //BOF  web28 - add file_exists, (else show noimage.gif //DokuMan )
+        if (file_exists(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$products['products_image']) && $products['products_image']!='') {
+          echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.$products['products_image'], $products['products_name'], '50%'); //web28 -2010-09-21- set image size to 50%
+        } else echo xtc_image(DIR_WS_CATALOG_THUMBNAIL_IMAGES.'noimage.gif', '', '50%'); //web28 -2010-09-21- set image size to 50%
+        //EOF  web28 - add file_exists, (else show noimage.gif //DokuMan )
+        ?>
+        </td>
+      <?php }
+      /* EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list */
+      ?>
 
       <td class="categories_view_data" style="text-align: left; padding-left: 8px;">
         <?php //BOF - web28 - 2010-08-21 - added edit icon - thanks to user pq ?>
@@ -463,9 +468,9 @@
         echo '<a href="' . xtc_href_link(FILENAME_NEW_ATTRIBUTES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cpath=' . $cPath . '&current_product_id=' . $products['products_id'] ) . '&action=edit' . '">' . xtc_image(DIR_WS_ICONS . 'icon_edit_attr.gif', BUTTON_EDIT_ATTRIBUTES). '&nbsp;&nbsp;</a>';
         //EOF - web28 - 2010-12-01 - added Attribute Edit Link
         echo '<a href="'.xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&pID=' . $products['products_id']) .'">' . $products['products_name'] . '</a>';
+        //EOF - web28 - 2010-08-21 - added edit icon - thanks to user pq
         ?>
-		<?php //EOF - web28 - 2010-08-21 - added edit icon - thanks to user pq ?>
-	  </td>
+    </td>
       <?php
       // check product and attributes stock
       if (STOCK_CHECK == 'true') { ?>
@@ -475,19 +480,19 @@
       <?php } ?>
       <td class="categories_view_data">
       <?php
-            if ($products['products_status'] == '1') {
-                echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setpflag&flag=0&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">&nbsp;&nbsp;' . xtc_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
-            } else {
-                echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setpflag&flag=1&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '&nbsp;&nbsp;</a>' . xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
-            }
+        if ($products['products_status'] == '1') {
+          echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setpflag&flag=0&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">&nbsp;&nbsp;' . xtc_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+        } else {
+          echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setpflag&flag=1&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '&nbsp;&nbsp;</a>' . xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
+        }
       ?>
       </td>
       <td class="categories_view_data">
       <?php
         if ($products['products_startpage'] == '1') {
-            echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setsflag&flag=0&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">&nbsp;&nbsp;' . xtc_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+          echo xtc_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setsflag&flag=0&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">&nbsp;&nbsp;' . xtc_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
         } else {
-            echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setsflag&flag=1&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '&nbsp;&nbsp;</a>' . xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
+          echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'action=setsflag&flag=1&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">' . xtc_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '&nbsp;&nbsp;</a>' . xtc_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
         }
       ?>
       </td>
@@ -513,10 +518,10 @@
 // ----------------------------------------------------------------------------------------------------- //
     } //WHILE loop to display products ENDS
 // ----------------------------------------------------------------------------------------------------- //
-	//BOF - web28- 2010-11-24 FIX undefined $cPath_back
-	$cPath_back = '';
+  //BOF - web28- 2010-11-24 FIX undefined $cPath_back
+  $cPath_back = '';
     if ($cPath_array) {
-      //unset($cPath_back);      
+      //unset($cPath_back);
       for($i = 0, $n = sizeof($cPath_array) - 1; $i < $n; $i++) {
         if ($cPath_back == '') {
           $cPath_back .= $cPath_array[$i];
@@ -525,9 +530,9 @@
         }
       }
     }
-	//$cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
+  //$cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
     if ($cPath_back != '') $cPath_back = 'cPath=' . $cPath_back;
-	//EOF - web28- 2010-11-24 FIX undefined $cPath_back
+  //EOF - web28- 2010-11-24 FIX undefined $cPath_back
 ?>
 
         </tr>
@@ -542,7 +547,7 @@
          </td>
          <td align="right" class="smallText">
          <?php
-         	if ($cPath) echo '<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) .  $cPath_back . '&cID=' . $current_category_id) . '">' . BUTTON_BACK . '</a>&nbsp;';
+           if ($cPath) echo '<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) .  $cPath_back . '&cID=' . $current_category_id) . '">' . BUTTON_BACK . '</a>&nbsp;';
             echo '<a class="button" href="javascript:SwitchCheck()" onclick="this.blur()">' . BUTTON_REVERSE_SELECTION . '</a>&nbsp;';
             echo '<a class="button" href="javascript:SwitchProducts()" onclick="this.blur()">' . BUTTON_SWITCH_PRODUCTS . '</a>&nbsp;';
             echo '<a class="button" href="javascript:SwitchCategories()" onclick="this.blur()">' . BUTTON_SWITCH_CATEGORIES . '</a>&nbsp;';
@@ -566,7 +571,7 @@
         $contents[] = array('text' => TEXT_INFO_COPY_TO_INTRO);
         $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENT_CATEGORIES . '<br /><b>' . xtc_output_generated_category_path($pInfo->products_id, 'product') . '</b>');
 
-		if (QUICKLINK_ACTIVATED=='true') {
+    if (QUICKLINK_ACTIVATED=='true') {
         $contents[] = array('text' => '<hr noshade>');
         $contents[] = array('text' => '<b>'.TEXT_MULTICOPY.'</b><br />'.TEXT_MULTICOPY_DESC);
         $cat_tree=xtc_get_category_tree();
@@ -709,7 +714,7 @@
 
             //close list table
             $contents[] = array('text' => '</table>');
-    		if (QUICKLINK_ACTIVATED=='true') {
+        if (QUICKLINK_ACTIVATED=='true') {
                 $contents[] = array('text' => '<hr noshade>');
                 $contents[] = array('text' => '<b>'.TEXT_MULTICOPY.'</b><br />'.TEXT_MULTICOPY_DESC);
                 $cat_tree=xtc_get_category_tree();
@@ -750,7 +755,7 @@
             //Insert new Element Actions
             $contents[] = array('align' => 'center', 'text' => '<div style="padding-top: 5px; font-weight: bold; width: 90%; border-top: 1px solid Black; margin-top: 5px;">' . TEXT_INSERT_ELEMENT . '</div>');
             if (!xtc_not_null($search)) {
-            	$contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_category') . '">' . BUTTON_NEW_CATEGORIES . '</a>&nbsp;<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_product') . '">' . BUTTON_NEW_PRODUCTS . '</a>');
+              $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_category') . '">' . BUTTON_NEW_CATEGORIES . '</a>&nbsp;<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_product') . '">' . BUTTON_NEW_PRODUCTS . '</a>');
             }
             //Informations
             $contents[] = array('align' => 'center', 'text' => '<div style="padding-top: 5px; font-weight: bold; width: 90%; border-top: 1px solid Black; margin-top: 5px;">' . TEXT_INFORMATIONS . '</div>');
@@ -784,7 +789,7 @@
             //Insert new Element Actions
             $contents[] = array('align' => 'center', 'text' => '<div style="padding-top: 5px; font-weight: bold; width: 90%; border-top: 1px solid Black; margin-top: 5px;">' . TEXT_INSERT_ELEMENT . '</div>');
             if (!xtc_not_null($search)) {
-            	$contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_category') . '">' . BUTTON_NEW_CATEGORIES . '</a> <a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_product') . '">' . BUTTON_NEW_PRODUCTS . '</a>');
+              $contents[] = array('align' => 'center', 'text' => '<a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_category') . '">' . BUTTON_NEW_CATEGORIES . '</a> <a class="button" onclick="this.blur()" href="' . xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('cPath', 'action', 'pID', 'cID')) . 'cPath=' . $cPath . '&action=new_product') . '">' . BUTTON_NEW_PRODUCTS . '</a>');
             }
             //Informations
             $contents[] = array('align' => 'center', 'text' => '<div style="padding-top: 5px; font-weight: bold; width: 90%; border-top: 1px solid Black; margin-top: 5px;">' . TEXT_INFORMATIONS . '</div>');
