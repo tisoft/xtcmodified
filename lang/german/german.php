@@ -439,9 +439,9 @@ define('PERSONAL_MESSAGE', '%s schreibt:');
  */
 
 define('TEXT_CLOSE_WINDOW', 'Fenster schliessen [x]');
-define('TEXT_COUPON_HELP_HEADER', 'Ihr Gutschein wurde erfolgreich verbucht.');
-define('TEXT_COUPON_HELP_NAME', '<br /><br />Gutscheinbezeichnung: %s');
-define('TEXT_COUPON_HELP_FIXED', '<br /><br />Der Gutscheinwert betr&auml;gt %s ');
+define('TEXT_COUPON_HELP_HEADER', 'Ihr Gutschein/Kupon wurde erfolgreich verbucht.');
+define('TEXT_COUPON_HELP_NAME', '<br /><br />Gutschein-/Kuponbezeichnung: %s');
+define('TEXT_COUPON_HELP_FIXED', '<br /><br />Der Gutschein-/Kuponwert betr&auml;gt %s ');
 define('TEXT_COUPON_HELP_MINORDER', '<br /><br />Der Mindestbestellwert betr&auml;gt %s ');
 define('TEXT_COUPON_HELP_FREESHIP', '<br /><br />Gutschein f&uuml;r kostenlosen Versand');
 define('TEXT_COUPON_HELP_DESC', '<br /><br />Kuponbeschreibung: %s');

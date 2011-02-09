@@ -439,9 +439,9 @@ define('PERSONAL_MESSAGE', '%s writes:'); //changed by electronica 2009-09-06
  */
 
 define('TEXT_CLOSE_WINDOW', 'Close window [x]'); //changed by electronica 2009-09-06
-define('TEXT_COUPON_HELP_HEADER', 'Your voucher has been successfully redeemed.'); //changed by electronica 2009-09-06
-define('TEXT_COUPON_HELP_NAME', '<br /><br />Voucher name : %s'); //changed by electronica 2009-09-06
-define('TEXT_COUPON_HELP_FIXED', '<br /><br />This voucher is worth %s off your next order'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_HEADER', 'Your voucher/coupon has been successfully redeemed.'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_NAME', '<br /><br />Voucher/Coupon name : %s'); //changed by electronica 2009-09-06
+define('TEXT_COUPON_HELP_FIXED', '<br /><br />This voucher/coupon is worth %s off your next order'); //changed by electronica 2009-09-06
 define('TEXT_COUPON_HELP_MINORDER', '<br /><br />You need to spend at least %s to be able to use the voucher.'); //changed by electronica 2009-09-06
 define('TEXT_COUPON_HELP_FREESHIP', '<br /><br />This voucher gives you free shipping on your order'); //changed by electronica 2009-09-06
 define('TEXT_COUPON_HELP_DESC', '<br /><br />Voucher description : %s'); //changed by electronica 2009-09-06
