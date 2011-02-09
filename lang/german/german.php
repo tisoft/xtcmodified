@@ -418,7 +418,7 @@ define('TABLE_HEADING_CREDIT', 'Guthaben');
 define('EMAIL_GV_TEXT_SUBJECT', 'Ein Geschenk von %s');
 define('MAIN_MESSAGE', 'Sie haben sich dazu entschieden, einen Gutschein im Wert von %s an %s versenden, dessen E-Mail-Adresse %s lautet.<br /><br />Folgender Text erscheint in Ihrer E-Mail:<br /><br />Hallo %s<br /><br />Ihnen wurde ein Gutschein im Wert von %s durch %s geschickt.');
 define('REDEEMED_AMOUNT','Ihr Gutschein wurde erfolgreich auf Ihr Konto verbucht. Gutscheinwert:');
-define('REDEEMED_COUPON','Ihr Coupon wurde erfolgreich eingebucht und wird bei Ihrer n&auml;chsten Bestellung automatisch eingel&ouml;st.');
+define('REDEEMED_COUPON','Ihr Kupon wurde erfolgreich eingebucht und wird bei Ihrer n&auml;chsten Bestellung automatisch eingel&ouml;st.');
 
 define('ERROR_INVALID_USES_USER_COUPON','Sie k&ouml;nnen den Kupon nur ');
 define('ERROR_INVALID_USES_COUPON','Dieser Kupon k&ouml;nnen Kunden nur ');
@@ -522,7 +522,7 @@ define('PAYPAL_FEHLER','PayPal hat einen Fehler bei der Abwicklung gemeldet.<br 
 define('PAYPAL_WARTEN','PayPal hat einen Fehler bei der Abwicklung gemeldet.<br />Sie m&uuml;ssen noch einmal zu PayPal, um die Bestellung zu bezahlen.<br />Unten sehen Sie die gespeicherte Bestellung.<br />Danke f&uuml;r Ihr Verst&auml;ndnis.<br />Bitte dr&uuml;cken Sie erneut den Button PayPal Express.<br />');
 define('PAYPAL_NEUBUTTON','Bitte erneut dr&uuml;cken, um die Bestellung zu bezahlen.<br />Jede andere Taste f&uuml;hrt zum Abbruch der Bestellung.');
 define('ERROR_ADDRESS_NOT_ACCEPTED', '* Solange Sie Ihre Rechnungs- und Versandadresse nicht akzeptieren,\n k&ouml;nnen wir Ihre Bestellung bedauerlicherweise nicht entgegennehmen!\n\n');
-define('PAYPAL_GS','Gutschein/Coupon');
+define('PAYPAL_GS','Gutschein/Kupon');
 define('PAYPAL_TAX','MwSt.');
 define('PAYPAL_EXP_WARN','Achtung! Eventuell anfallende Versandkosten werden erst im Shop endg&uuml;ltig berechnet.');
 define('PAYPAL_EXP_VORL','Vorl&auml;ufige Versandkosten');
