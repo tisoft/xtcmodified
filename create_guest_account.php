@@ -36,7 +36,7 @@ require (DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/source/boxes.php')
 // include needed functions
 require_once (DIR_FS_INC . 'xtc_get_country_list.inc.php');
 require_once (DIR_FS_INC . 'xtc_validate_email.inc.php');
-require_once (DIR_FS_INC . 'xtc_encrypt_password.inc.php');
+//require_once (DIR_FS_INC . 'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC . 'xtc_create_password.inc.php');
 require_once (DIR_FS_INC . 'xtc_get_geo_zone_code.inc.php');
 // needs to be included earlier to set the success message in the messageStack
@@ -47,7 +47,6 @@ if (isset($_POST['country'])) {
 } else {
   $country = STORE_COUNTRY;
 }
-
 
 $process = false;
 if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
@@ -99,7 +98,7 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
   $confirmation = xtc_db_prepare_input($_POST['confirmation']);
   //BOF - Dokuman - 2010-08-31 - set undefined index
   //$privacy = xtc_db_prepare_input($_POST['privacy']);
-    $privacy = isset($_POST['privacy']) ? xtc_db_prepare_input($_POST['privacy']) : 0;
+  $privacy = isset($_POST['privacy']) ? xtc_db_prepare_input($_POST['privacy']) : 0;
   //EOF - Dokuman - 2010-08-31 - set undefined index
 
   $error = false;
@@ -239,11 +238,13 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
     }
     //EOF - DokuMan - 2011-02-07 - additional security check for status "0" = Admin, use "1" customer here!
   }
-  $password = xtc_create_password(8);
 
   if (!$newsletter) {
     $newsletter = '';
   }
+
+  $password = xtc_create_password(8);
+
   if ($error == false) {
     $sql_data_array = array (
       'customers_vat_id' => $vat,
@@ -256,7 +257,10 @@ if (isset ($_POST['action']) && ($_POST['action'] == 'process')) {
       'customers_fax' => $fax,
       'customers_newsletter' => $newsletter,
       'account_type' => '1',
-      'customers_password' => xtc_encrypt_password($password),
+      //BOF - DokuMan - 2011-02-10 - no need to encrypt passwort again, since it is already encrypted by xtc_create_password()
+      //'customers_password' => xtc_encrypt_password($password),
+      'customers_password' => $password,
+      //EOF - DokuMan - 2011-02-10 - no need to encrypt passwort again, since it is already encrypted by xtc_create_password()
       'customers_date_added' => 'now()',
       'customers_last_modified' => 'now()',
       );

@@ -31,7 +31,7 @@
   }
 
   function xtc_create_password($length) {
-    $pass=xtc_RandomString($lenght);
+    $pass=xtc_RandomString($length); //DokuMan - 2011-02-10 - corrected typo $lenght -> $length
     //BOF - DokuMan - 2011-02-02 - added support for passwort+salt (SHA1)
     //return md5($pass);
     require_once (DIR_FS_INC . 'xtc_encrypt_password.inc.php');
