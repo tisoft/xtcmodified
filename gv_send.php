@@ -167,6 +167,9 @@ if ($messageStack->size('gv_send') > 0) {
   $smarty->assign('error', $messageStack->output('gv_send'));
 }
 //EOF - Dokuman - 2010-10-28 - use messageStack to display error messages
+//BOF - Tomcraft - 2011-02-10 - Fixed GV FAQ link that never worked before
+$smarty->assign('GV_FAQ_LINK', $main->getContentLink(6, MORE_INFO,'NONSSL'));
+//EOF - Tomcraft - 2011-02-10 - Fixed GV FAQ link that never worked before
 $smarty->assign('FORM_END', '</form>');
 $smarty->assign('language', $_SESSION['language']);
 $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/gv_send.html');
