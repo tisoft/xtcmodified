@@ -220,13 +220,12 @@ if (EMAIL_TRANSPORT == 'smtp')
 // set the application parameters
 
 function xtDBquery($query) {
-  if (DB_CACHE == 'true') {
+  if (defined('DB_CACHE') && DB_CACHE) { //Dokuman - 2011-02-11 - check for defined DB_CACHE
 //      echo  'cached query: '.$query.'<br />';
     $result = xtc_db_queryCached($query);
   } else {
-//        echo '::'.$query .'<br />';
+//      echo '::'.$query .'<br />';
     $result = xtc_db_query($query);
-
   }
   return $result;
 }

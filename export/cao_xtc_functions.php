@@ -69,7 +69,7 @@ if (!function_exists('xtDBquery')) :
 
   function xtDBquery($query)
   {
-  //  if (DB_CACHE == 'true')
+  //  if (defined('DB_CACHE') && DB_CACHE) //Dokuman - 2011-02-11 - check for defined DB_CACHE
   //  {
   //    $result = xtc_db_queryCached($query);
   //  }

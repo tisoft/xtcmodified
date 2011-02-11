@@ -2,14 +2,16 @@
   /* --------------------------------------------------------------
    $Id$
 
+   xtcModified - community made shopping
    http://www.xtc-modified.org
+
    Copyright (c) 2010 xtcModified
    --------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(application_top.php,v 1.158 2003/03/22); www.oscommerce.com
    (c) 2003 nextcommerce (application_top.php,v 1.46 2003/08/24); www.nextcommerce.org
-   (c) 2006 XT-Commerce 8application_top.php 1323 2005-10-27) ; www.xt-commerce.com
+   (c) 2006 XT-Commerce (application_top.php 1323 2005-10-27) ; www.xt-commerce.com
 
    Released under the GNU General Public License
    --------------------------------------------------------------
@@ -242,7 +244,7 @@
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
   define('FILENAME_IMAGEMANIPULATOR',IMAGE_MANIPULATOR);
   function xtDBquery($query) {
-    if (DB_CACHE=='true') {
+    if (defined('DB_CACHE') && DB_CACHE) { //Dokuman - 2011-02-11 - check for defined DB_CACHE
       $result=xtc_db_queryCached($query);
       //echo 'cached query: '.$query.'<br />';
     } else {
