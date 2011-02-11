@@ -252,14 +252,16 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 	}
 	if ((isset ($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0)) {
 		for ($j = 0, $n2 = sizeof($order->products[$i]['attributes']); $j < $n2; $j++) {
-// BOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
-/*
+// Start of API-Textfeld-AddOn
+          if($order->products[$i]['attributes'][$j]['option'] == ''){
 			$data_products .= '<tr>
-								<td class="main" align="left" valign="top">
-								<nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '
-								</i></small><nobr></td>
-								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
-*/
+			        <td class="main" align="left" valign="top">&nbsp;</td>
+					<td align="left" valign="top"><pre>
+					&nbsp; - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].'
+					</pre></td>
+					<td class="main" align="right" valign="top">&nbsp;</td>
+					<td class="main" align="right" valign="top">&nbsp;</td></tr>';
+          }else{
 			$data_products .= '<tr>
 			                    <td class="main" align="left" valign="top">&nbsp;</td>
 								<td class="main" align="left" valign="top">
@@ -267,7 +269,8 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
 								</i></small><nobr></td>
 								<td class="main" align="right" valign="top">&nbsp;</td>
 								<td class="main" align="right" valign="top">&nbsp;</td></tr>';
-// EOF - Tomcraft - 2009-10-02 - Include "Single Price" in checkout_confirmation
+          }
+// End of API-Textfeld-AddOn
 		}
 	}
 

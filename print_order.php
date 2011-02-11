@@ -20,6 +20,8 @@ include ('includes/application_top.php');
 require_once (DIR_FS_INC.'xtc_get_order_data.inc.php');
 require_once (DIR_FS_INC.'xtc_get_attributes_model.inc.php');
 
+// changes for API-Textfield
+require_once(DIR_FS_INC . 'xtc_format_price_order.inc.php');
 $smarty = new Smarty;
 $oID = (int) $_GET['oID'];
 // check if custmer is allowed to see this order!
@@ -36,7 +38,8 @@ if (isset($_SESSION['customer_id']) && $_SESSION['customer_id'] == $order_check[
 	// get order data
 
 	include (DIR_WS_CLASSES.'order.php');
-	$order = new order($oID);
+	$order = new order($oID,&$xtPrice);
+// End of changes for API-Textfield
 	$smarty->assign('address_label_customer', xtc_address_format($order->customer['format_id'], $order->customer, 1, '', '<br />'));
 	$smarty->assign('address_label_shipping', xtc_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br />'));
 	$smarty->assign('address_label_payment', xtc_address_format($order->billing['format_id'], $order->billing, 1, '', '<br />'));

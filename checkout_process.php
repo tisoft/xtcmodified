@@ -276,15 +276,25 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 
 			$attributes_values = xtc_db_fetch_array($attributes);
 
-			$sql_data_array = array ('orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'products_options' => $attributes_values['products_options_name'], 'products_options_values' => $attributes_values['products_options_values_name'], 'options_values_price' => $attributes_values['options_values_price'], 'price_prefix' => $attributes_values['price_prefix']);
+// changes for API-Textfield
+			$sql_data_array = array ('orders_id' => $insert_id,
+						'orders_products_id' => $order_products_id,
+						'products_options' => $attributes_values['products_options_name'],
+                        'products_options_values' => $order->products[$i]['attributes'][$j]['value'],
+						'options_values_price' => $attributes_values['options_values_price'],
+						'price_prefix' => $attributes_values['price_prefix']);
+
 			xtc_db_perform(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $sql_data_array);
 
 			if ((DOWNLOAD_ENABLED == 'true') && isset ($attributes_values['products_attributes_filename']) && xtc_not_null($attributes_values['products_attributes_filename'])) {
 				$sql_data_array = array ('orders_id' => $insert_id, 'orders_products_id' => $order_products_id, 'orders_products_filename' => $attributes_values['products_attributes_filename'], 'download_maxdays' => $attributes_values['products_attributes_maxdays'], 'download_count' => $attributes_values['products_attributes_maxcount']);
 				xtc_db_perform(TABLE_ORDERS_PRODUCTS_DOWNLOAD, $sql_data_array);
 			}
+        $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . xtc_decode_specialchars($order->products[$i]['attributes'][$j]['value']);
 		}
 	}
+// End of changes for API-Textfield
+
 	//------insert customer choosen option eof ----
 	$total_weight += ($order->products[$i]['qty'] * $order->products[$i]['weight']);
 	$total_tax += xtc_calculate_tax($total_products_price, $products_tax) * $order->products[$i]['qty'];

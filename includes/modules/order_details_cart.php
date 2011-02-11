@@ -98,7 +98,14 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
 					$_SESSION['any_out_of_stock'] = 1;
 			}
 
-			$module_content[$i]['ATTRIBUTES'][] = array ('ID' => $products[$i][$option]['products_attributes_id'], 'MODEL' => xtc_get_attributes_model(xtc_get_prid($products[$i]['id']), $products[$i][$option]['products_options_values_name'],$products[$i][$option]['products_options_name']), 'NAME' => $products[$i][$option]['products_options_name'], 'VALUE_NAME' => $products[$i][$option]['products_options_values_name'].$attribute_stock_check);
+// start of changes for textfield
+			$module_content[$i]['ATTRIBUTES'][] = array (
+			'ID' => $products[$i][$option]['products_attributes_id'], 
+			'MODEL' => xtc_get_attributes_model(xtc_get_prid($products[$i]['id']), $products[$i][$option]['products_options_values_name'],$products[$i][$option]['products_options_name']), 
+			'NAME' => $products[$i][$option]['products_options_name'], 
+			'TYPE' => $products[$i][$option]['products_options_type'], 
+			'VALUE_NAME' => $products[$i][$option]['products_options_values_name'].$attribute_stock_check);
+// end of changes for textfield
 
 		}
 	}

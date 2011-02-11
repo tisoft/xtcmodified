@@ -22,6 +22,11 @@ define('HEADING_TITLE_ATRIB', 'Artikelmerkmale');
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_PRODUCT', 'Artikelname');
 define('TABLE_HEADING_OPT_NAME', 'Optionsname');
+/* Start of changes for textfield  */
+define('TABLE_HEADING_OPT_TYPE', 'Optionstype');
+define('TABLE_HEADING_OPT_LENGTH', 'Länge');
+define('TABLE_HEADING_OPT_COMMENT', 'Kommentar');
+/* End of changes for textfield  */
 define('TABLE_HEADING_OPT_VALUE', 'Optionswert');
 define('TABLE_HEADING_OPT_PRICE', 'Preis');
 define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Vorzeichen (+/-)');

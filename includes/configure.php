@@ -46,4 +46,14 @@
   define('DB_DATABASE', 'xtc_sp2');
   define('USE_PCONNECT', 'false'); // use persistent connections?
   define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
+
+  define('PRODUCTS_OPTIONS_TYPE_SELECT', '0');
+  define('PRODUCTS_OPTIONS_TYPE_TEXT', '1');
+  define('PRODUCTS_OPTIONS_TYPE_RADIO', '2');
+  define('PRODUCTS_OPTIONS_TYPE_CHECKBOX', '3');
+  define('PRODUCTS_OPTIONS_TYPE_TEXTAREA', '4');
+  define('PRODUCTS_OPTIONS_TYPE_FIXTEXT', '5');
+  define('TEXT_PREFIX', 'txt_');
+  define('PRODUCTS_OPTIONS_VALUE_TEXT_ID', '0');
+
 ?>

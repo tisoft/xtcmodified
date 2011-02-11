@@ -589,20 +589,23 @@ $payment->admin_order($_GET['oID']);
 <?php
 
 	for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
-
-		echo '          <tr class="dataTableRow">'."\n".'            <td class="dataTableContent" valign="top" align="right">'.$order->products[$i]['qty'].'&nbsp;x&nbsp;</td>'."\n".'            <td class="dataTableContent" valign="top">'.$order->products[$i]['name'];
+// Start API-Textfeld-AddOn neuer Block 2
+		echo '<tr class="dataTableRow">'."\n".'<td class="dataTableContent" valign="top" align="center"><strong>'.$order->products[$i]['qty'].'&nbsp;x&nbsp;</strong></td>'."\n".'<td class="dataTableContent" valign="top"><strong>'.$order->products[$i]['name'];
 
 		if (sizeof($order->products[$i]['attributes']) > 0) {
 			for ($j = 0, $k = sizeof($order->products[$i]['attributes']); $j < $k; $j ++) {
-
-				echo '<br /><nobr><small>&nbsp;<i> - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].': ';
-
+              if($order->products[$i]['attributes'][$j]['option'] == ''){
+				echo '<br />&nbsp;<pre> - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].' ';
+    			echo '</pre>';
+              }else{
+				echo '<br />&nbsp; - '.$order->products[$i]['attributes'][$j]['option'].': '.$order->products[$i]['attributes'][$j]['value'].' ';
+              }
 			}
 
-			echo '</i></small></nobr>';
 		}
 
-		echo '            </td>'."\n".'            <td class="dataTableContent" valign="top">';
+		echo '           </strong> </td>'."\n".'            <td class="dataTableContent" valign="top">';
+// Ende API-Textfeld-AddOn neuer Block 2
 
 		if ($order->products[$i]['model'] != '') {
 			echo $order->products[$i]['model'];
@@ -622,14 +625,13 @@ $payment->admin_order($_GET['oID']);
 				}
 			}
 		}
-		
-    //BOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
+
+// Start API-Textfeld-AddOn neuer Block 1
 		//echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top">'.format_price($order->products[$i]['final_price'] / $order->products[$i]['qty'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</td>'."\n";
-		echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top">'.format_price($order->products[$i]['price'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</td>'."\n";
-    //EOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
+		echo '&nbsp;</td>'."\n".'            <td class="dataTableContent" align="right" valign="top"><strong>'.format_price($order->products[$i]['price'], 1, $order->info['currency'], $order->products[$i]['allow_tax'], $order->products[$i]['tax']).'</strong></td>'."\n";
 
 		if ($order->products[$i]['allow_tax'] == 1) {
-			echo '<td class="dataTableContent" align="right" valign="top">';
+			echo '<td class="dataTableContent" align="right" valign="top"><strong>';
 			echo xtc_display_tax_value($order->products[$i]['tax']).'%';
 			echo '</td>'."\n";
 			echo '<td class="dataTableContent" align="right" valign="top"><b>';
@@ -639,7 +641,8 @@ $payment->admin_order($_GET['oID']);
 			echo format_price($order->products[$i]['price'], 1, $order->info['currency'], 0, 0);
       //EOF - DokuMan - 2010-07-13 - Error while editing orders with quantity with zero
 
-			echo '</b></td>'."\n";
+			echo '</b></strong></td>'."\n";
+// Ende API-Textfeld-AddOn neuer Block 1
 		}
 		echo '            <td class="dataTableContent" align="right" valign="top"><b>'.format_price(($order->products[$i]['final_price']), 1, $order->info['currency'], 0, 0).'</b></td>'."\n";
 		echo '          </tr>'."\n";

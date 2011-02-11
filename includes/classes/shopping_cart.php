@@ -29,13 +29,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
+// Start of changes for textfield
 // include needed functions
 require_once (DIR_FS_INC.'xtc_create_random_value.inc.php');
 require_once (DIR_FS_INC.'xtc_get_prid.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_form.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_input_field.inc.php');
 require_once (DIR_FS_INC.'xtc_image_submit.inc.php');
+require_once (DIR_FS_INC.'xtc_get_uprid.inc.php');
 require_once (DIR_FS_INC.'xtc_get_tax_description.inc.php');
+// End of changes for textfield
 
 class shoppingCart {
 	var $contents, $total, $weight, $cartID, $content_type;
@@ -45,31 +48,31 @@ class shoppingCart {
 
 	}
 
+// Start of changes for textfield
 	function restore_contents() {
 
-		if (!isset ($_SESSION['customer_id']))
-			return false;
+		if (!isset ($_SESSION['customer_id']))return false;
 
 		// insert current cart contents in database
 		if (is_array($this->contents)) {
 			reset($this->contents);
 			while (list ($products_id,) = each($this->contents)) {
 				$qty = $this->contents[$products_id]['qty'];
-				$product_query = xtc_db_query("select products_id from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
+				$product_query = xtc_db_query("select products_id from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".xtc_db_input($products_id)."'");
 				if (!xtc_db_num_rows($product_query)) {
-					xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET." (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('".$_SESSION['customer_id']."', '".$products_id."', '".$qty."', '".date('Ymd')."')");
+					xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET." (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('".$_SESSION['customer_id']."', '".xtc_db_input($products_id)."', '".$qty."', '".date('Ymd')."')");
 					if (isset ($this->contents[$products_id]['attributes'])) {
 						reset($this->contents[$products_id]['attributes']);
 						while (list ($option, $value) = each($this->contents[$products_id]['attributes'])) {
-							xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." (customers_id, products_id, products_options_id, products_options_value_id) values ('".$_SESSION['customer_id']."', '".$products_id."', '".$option."', '".$value."')");
+                            $attr_value = $this->contents[$products_id]['attributes_values'][$option];
+                            xtc_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text) values ('" . $_SESSION['customer_id'] . "', '" . xtc_db_input($products_id) . "', '" . $option . "', '" . $value . "', '" . xtc_db_input($attr_value) . "')");
 						}
 					}
 				} else {
-					xtc_db_query("update ".TABLE_CUSTOMERS_BASKET." set customers_basket_quantity = '".$qty."' where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
+					xtc_db_query("update ".TABLE_CUSTOMERS_BASKET." set customers_basket_quantity = '".$qty."' where customers_id = '".$_SESSION['customer_id']."' and products_id = '".xtc_db_input($products_id)."'");
 				}
 			}
 		}
-
 		// reset per-session cart contents, but not the database contents
 		$this->reset(false);
 // BOF - Tomcraft - 2009-10-08 - Fixed sort order was lost in cart after logout/login
@@ -81,15 +84,22 @@ class shoppingCart {
 			// attributes
 // BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 			//$attributes_query = xtc_db_query("select products_options_id, products_options_value_id from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products['products_id']."'");
-			$attributes_query = xtc_db_query("select products_options_id, products_options_value_id from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products['products_id']."' order by customers_basket_attributes_id");
+			$attributes_query = xtc_db_query("select products_options_id, products_options_value_id, products_options_value_text from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products['products_id']."' order by customers_basket_attributes_id");
 // EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
-			while ($attributes = xtc_db_fetch_array($attributes_query)) {
-				$this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
-			}
+            while ($attributes = xtc_db_fetch_array($attributes_query)) {
+                $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+                if ($attributes['products_options_value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
+                    $this->contents[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
+                }
+                if ($attributes['products_options_value_id'] == 6) {
+                    $this->contents[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
+                }
+            }
 		}
-
 		$this->cleanup();
 	}
+// End of changes for textfield
+
 
 	function reset($reset_database = false) {
 
@@ -108,6 +118,7 @@ class shoppingCart {
 			unset ($_SESSION['cartID']);
 	}
 
+// Start of changes for textfield
 	function add_cart($products_id, $qty = '1', $attributes = '', $notify = true) {
 		global $new_products_id_in_cart;
 
@@ -122,16 +133,32 @@ class shoppingCart {
 			$this->contents[] = array ($products_id);
 			$this->contents[$products_id] = array ('qty' => $qty);
 			// insert into database
-			if (isset ($_SESSION['customer_id']))
-				xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET." (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('".$_SESSION['customer_id']."', '".$products_id."', '".$qty."', '".date('Ymd')."')");
+			if (isset ($_SESSION['customer_id'])) 
+				xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET." (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('".$_SESSION['customer_id']."', '".xtc_db_input($products_id)."', '".$qty."', '".date('Ymd')."')");
 
 			if (is_array($attributes)) {
 				reset($attributes);
 				while (list ($option, $value) = each($attributes)) {
-					$this->contents[$products_id]['attributes'][$option] = $value;
-					// insert into database
-					if (isset ($_SESSION['customer_id']))
-						xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." (customers_id, products_id, products_options_id, products_options_value_id) values ('".$_SESSION['customer_id']."', '".$products_id."', '".$option."', '".$value."')");
+                    $attr_value = NULL;
+                    $blank_value = FALSE;
+                    if (strstr($option, TEXT_PREFIX)) {
+                        if (trim($value) == NULL){
+                            $blank_value = TRUE;
+                        } else {
+                            $option = substr($option, strlen(TEXT_PREFIX));
+                            $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES);
+                            $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
+                            $this->contents[$products_id]['attributes_values'][$option] = $attr_value;
+                        }
+                    }
+
+                    if (!$blank_value){
+                        $this->contents[$products_id]['attributes'][$option] = $value;
+
+					    // insert into database
+                       if (isset($_SESSION['customer_id'])) 
+							xtc_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id, products_options_value_text) values ('" . $_SESSION['customer_id'] . "', '" . xtc_db_input($products_id) . "', '" . $option . "', '" . $value . "', '" . xtc_db_input($attr_value) . "')");
+                    }
 				}
 			}
 		}
@@ -140,10 +167,13 @@ class shoppingCart {
 		// assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
 		$this->cartID = $this->generate_cart_id();
 	}
+// End of changes for textfield
 
+
+// Start of changes for textfield
 	function update_quantity($products_id, $quantity = '', $attributes = '') {
 
-		if (empty ($quantity))
+		if (empty ($quantity)) 
 			return true; // nothing needs to be updated if theres no quantity, so we return true..
 
 // BOF - Tomcraft - 2009-11-28 - Included xs:booster
@@ -165,19 +195,35 @@ class shoppingCart {
 
 		$this->contents[$products_id] = array ('qty' => $quantity);
 		// update database
-		if (isset ($_SESSION['customer_id']))
+		if (isset ($_SESSION['customer_id'])) 
 			xtc_db_query("update ".TABLE_CUSTOMERS_BASKET." set customers_basket_quantity = '".$quantity."' where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
 
 		if (is_array($attributes)) {
 			reset($attributes);
 			while (list ($option, $value) = each($attributes)) {
-				$this->contents[$products_id]['attributes'][$option] = $value;
-				// update database
-				if (isset ($_SESSION['customer_id']))
-					xtc_db_query("update ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." set products_options_value_id = '".$value."' where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."' and products_options_id = '".$option."'");
-			}
-		}
+                $attr_value = NULL;
+                $blank_value = FALSE;
+                if (strstr($option, TEXT_PREFIX)) {
+                    if (trim($value) == NULL){
+                        $blank_value = TRUE;
+                    } else {
+                        $option = substr($option, strlen(TEXT_PREFIX));
+                        $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES);
+                        $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
+                        $this->contents[$products_id]['attributes_values'][$option] = $attr_value;
+                    }
+                }
+
+                if (!$blank_value){
+                    $this->contents[$products_id]['attributes'][$option] = $value;
+				    // update database
+                    if (isset($_SESSION['customer_id'])) 
+						xtc_db_query("update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " set products_options_value_id = '" . $value . "', products_options_value_text = '" . xtc_db_input($attr_value) . "' where customers_id = '" . $_SESSION['customer_id'] . "' and products_id = '" . xtc_db_input($products_id) . "' and products_options_id = '" . $option . "'");
+                }
+		    }
+	    }
 	}
+// End of changes for textfield
 
 	function cleanup() {
 		reset($this->contents);
@@ -362,6 +408,7 @@ class shoppingCart {
 		return $attributes_price;
 	}
 
+// Start of changes for textfield
 	function get_products() {
 		global $xtPrice,$main;
 		if (!is_array($this->contents))
@@ -375,27 +422,32 @@ class shoppingCart {
 			if ($products = xtc_db_fetch_array($products_query)) {
 				$prid = $products['products_id'];
 
-				$products_price = $xtPrice->xtcGetPrice($products['products_id'], $format = false, $this->contents[$products_id]['qty'], $products['products_tax_class_id'], $products['products_price']);
+				$products_price = $xtPrice->xtcGetPrice($products['products_id'], 
+										$format = false, 
+										$this->contents[$products_id]['qty'], 
+										$products['products_tax_class_id'], 
+										$products['products_price']);
 
-				$products_array[] = array (
-				'id' => $products_id,
-				'name' => $products['products_name'],
-				'model' => $products['products_model'],
-				'image' => $products['products_image'],
-				'price' => $products_price + $this->attributes_price($products_id),
-				'quantity' => $this->contents[$products_id]['qty'],
-				'weight' => $products['products_weight'],
-				'shipping_time' => $main->getShippingStatusName($products['products_shippingtime']),
-				'final_price' => ($products_price + $this->attributes_price($products_id)),
-				'tax_class_id' => $products['products_tax_class_id'],
-				'attributes' => $this->contents[$products_id]['attributes']
-				);
+				$products_array[] = array ('id' => $products_id, 
+									'name' => $products['products_name'], 
+									'model' => $products['products_model'], 
+									'image' => $products['products_image'], 
+									'price' => $products_price + $this->attributes_price($products_id), 
+									'quantity' => $this->contents[$products_id]['qty'], 
+									'weight' => $products['products_weight'],
+									'shipping_time' => $main->getShippingStatusName($products['products_shippingtime']), 
+									'final_price' => ($products_price + $this->attributes_price($products_id)), 
+									'tax_class_id' => $products['products_tax_class_id'], 
+									'attributes' => $this->contents[$products_id]['attributes'],
+                                    'attributes_values' => $this->contents[$products_id]['attributes_values']);
 			}
 			}
 		}
 
 		return $products_array;
 	}
+// End of changes for textfield
+
 
 	function show_total() {
 		$this->calculate();

@@ -104,6 +104,7 @@ define('BOX_PAYMENT', 'Zahlungsoptionen');
 define('BOX_SHIPPING', 'Versandart');
 define('BOX_ORDER_TOTAL', 'Zusammenfassung');
 define('BOX_CATEGORIES', 'Kategorien / Artikel');
+define('BOX_POKAL', 'Pokale');
 define('BOX_PRODUCTS_ATTRIBUTES', 'Artikelmerkmale');
 define('BOX_MANUFACTURERS', 'Hersteller');
 define('BOX_REVIEWS', 'Artikelbewertungen');

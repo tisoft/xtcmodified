@@ -21,7 +21,6 @@
   if ($_GET['action']) {
     $page_info = 'option_page=' . $_GET['option_page'] . '&value_page=' . $_GET['value_page'] . '&attribute_page=' . $_GET['attribute_page'];
     switch($_GET['action']) {
-      case 'add_product_options':
 // BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 /*
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
@@ -29,10 +28,15 @@
           xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, language_id) values ('" . $_POST['products_options_id'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
         }
 */
+// Start of changes for textfield
 	    $option_name = $_POST['option_name'];
+			$option_type = $_POST['option_type'];
+			$option_length = $_POST['option_length'];
+			$option_comment = $_POST['option_comment'];
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-		  xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_sortorder, products_options_name, language_id) values ('" . $_POST['products_options_id'] . "', '" . $_POST['products_options_sortorder'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
+		  xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_sortorder, products_options_name, language_id, products_options_type, products_options_length, products_options_comment) values ('" . $_POST['products_options_id'] . "', '" . $_POST['products_options_sortorder'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "', '" . $option_type . "', '" . $option_length . "', '" . $option_comment[$languages[$i]['id']]  . "')");
        	}
+// End of changes for textfield
 // EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info)); 
         break;
@@ -52,25 +56,30 @@
         }
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
+// Start of changes for textfield
       case 'update_option_name':
 // BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
 /*
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = $_POST['option_name'];
-          xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+          xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_type = '" . $option_type . "', products_options_length = '" . $option_length . "', products_options_comment = '" . $option_comment[$languages[$i]['id']] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
         }
 */
 	    $option_name = $_POST['option_name'];
+	      $option_type = $_POST['option_type'];
+	      $option_length = $_POST['option_length'];
+          $option_comment = $_POST['option_comment'];
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
 			//BOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
 			$products_options_query = xtc_db_query("select * from ".TABLE_PRODUCTS_OPTIONS." where language_id = '".$languages[$i]['id']."' and products_options_id = '".$_POST['option_id']."'");
 			if (xtc_db_num_rows($products_options_query) == 0) xtc_db_perform(TABLE_PRODUCTS_OPTIONS, array ('products_options_id' => $_POST['option_id'], 'language_id' => $languages[$i]['id']));
 			//EOF - web28 - 2010-07-11 - BUGFIX no entry stored for previous deactivated languages
-			xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_sortorder = '" . $_POST['products_options_sortorder'] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");          
+			xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_sortorder = '" . $_POST['products_options_sortorder'] . "' . "', products_options_type = '" . $option_type . "', products_options_length = '" . $option_length . "', products_options_comment = '" . $option_comment[$languages[$i]['id']] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");          
 		}
 // EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
+// End of changes for textfield
       case 'update_value':
        $value_name = $_POST['value_name'];
        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
@@ -361,13 +370,9 @@ function go_option() {
 ?>
                 </td>
               </tr>
+<!-- Start of changes for textfield -->
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
-                <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
+                <td colspan="7"><?php echo xtc_black_line(); ?></td>
               </tr>
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
@@ -375,16 +380,17 @@ function go_option() {
                 <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_SORTORDER; ?>&nbsp;</td>
 <!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                 <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_LENGTH; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_COMMENT; ?>&nbsp;</td>
+
                 <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
-                <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
+                <td colspan="7"><?php echo xtc_black_line(); ?></td>
               </tr>
+<!-- End of changes for textfield -->
 <?php
     $next_id = 1;
     $options = xtc_db_query($options);
@@ -393,13 +399,15 @@ function go_option() {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
+// Start of changes for textfield
       if (($_GET['action'] == 'update_option') && ($_GET['option_id'] == $options_values['products_options_id'])) {
-        echo '<form name="option" action="' . xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name&option_page='.$_GET['option_page'], 'NONSSL') . '" method="post">';
+        echo '<form name="option" action="' . xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name', 'NONSSL') . '" method="post">';
         $inputs = '';
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-          $option_name = xtc_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+
+          $option_name = xtc_db_query("select products_options_name, products_options_length, products_options_comment from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
           $option_name = xtc_db_fetch_array($option_name);
-          $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
+   		 $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="32" value="' . $option_name['products_options_name'] . '">&nbsp; ' . TABLE_HEADING_OPT_COMMENT . ' <input type="text" name="option_comment[' . $languages[$i]['id'] . ']" size="32" value="' . $option_name['products_options_comment'] . '"><br>';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
@@ -417,8 +425,14 @@ function go_option() {
                 <td class="smallText">&nbsp;<?php echo $options_values["products_options_sortorder"]; ?>&nbsp;</td>
 <!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                 <td class="smallText">&nbsp;<?php echo $options_values["products_options_name"]; ?>&nbsp;</td>
+
+                <td class="smallText">&nbsp;<?php echo translate_type_to_name($options_values["products_options_type"]); ?>&nbsp;</td>
+				    <td class="smallText">&nbsp;<?php echo $options_values["products_options_length"]; ?>&nbsp;</td>
+				    <td class="smallText">&nbsp;<?php echo $options_values["products_options_comment"]; ?>&nbsp;</td>
+
                 <td align="center" class="smallText">&nbsp;<?php echo xtc_button_link(BUTTON_EDIT, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option&option_id=' . $options_values['products_options_id'] . '&option_order_by=' . $option_order_by . '&option_page=' . $option_page, 'NONSSL'));?>&nbsp;&nbsp;<?php echo xtc_button_link(BUTTON_DELETE, xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_option&option_id=' . $options_values['products_options_id'], 'NONSSL'));?>&nbsp;</td>
 <?php
+// End of changes for textfield
       }
 ?>
               </tr>
@@ -427,14 +441,10 @@ function go_option() {
       $max_options_id_values = xtc_db_fetch_array($max_options_id_query);
       $next_id = $max_options_id_values['next_id'];
     }
+// Start of changes for textfield
 ?>
               <tr>
-<!-- BOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
-<!--
-                <td colspan="3"><?php echo xtc_black_line(); ?></td>
-//-->
-                <td colspan="4"><?php echo xtc_black_line(); ?></td>
-<!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
+                <td colspan="7"><?php echo xtc_black_line(); ?></td>
               </tr>
 <?php
     if ($_GET['action'] != 'update_option') {
@@ -444,7 +454,7 @@ function go_option() {
       echo '<form name="options" action="' . xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_options&option_page=' . $option_page, 'NONSSL') . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
       $inputs = '';
       for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-        $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20">&nbsp;<br />';
+		$inputs .= $languages[$i]['code'] . ':&nbsp;&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="32">&nbsp;<br />' . TABLE_HEADING_OPT_COMMENT . ' <input type="text" name="option_comment[' . $languages[$i]['id'] . ']" size="32"><br>';
       }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
@@ -452,8 +462,12 @@ function go_option() {
                 <td class="smallText"><?php echo TABLE_HEADING_SORTORDER . ':&nbsp;<input type="text" name="products_options_sortorder" size="4" value="' . $option_name['products_options_sortorder'] . '">'; ?></td>
 <!-- EOF - Tomcraft - 2009-11-07 - Added sortorder to products_options //-->
                 <td class="smallText"><?php echo $inputs; ?></td>
-                <td align="center" class="smallText">&nbsp;<?php echo xtc_button(BUTTON_INSERT); ?>&nbsp;</td>
+                <td class="smallText"><?php echo TABLE_HEADING_OPT_LENGTH . ' <input type="text" name="option_length" size="4" value="' . $option_name['products_options_length'] . '">'; ?></td>
+                <td class="smallText"><?php echo draw_optiontype_pulldown('option_type'); ?></td>
+                <td colspan="2" align="right" class="smallText"><?php echo xtc_button(BUTTON_INSERT); ?>&nbsp;</td>
 <?php
+// End of changes for textfield
+
       echo '</form>';
 ?>
               </tr>

@@ -245,25 +245,36 @@
       }
     }
     
-        function getOrderData($oID) {
-    	global $xtPrice;
-    	
-    	require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
-    	
-    	$order_query = "SELECT
+// Start of changes for textfield
+    function getOrderData($oID) {
+       global $xtPrice;
+
+       require_once(DIR_FS_INC . 'xtc_get_attributes_model.inc.php');
+
+	   $order_query = "SELECT
 	        				products_id,
 	        				orders_products_id,
 	        				products_model,
 	        				products_name,
+							products_price,
 	        				final_price,
+							products_tax,
 	        			  	products_shipping_time,
 	        				products_quantity
 	        				FROM ".TABLE_ORDERS_PRODUCTS."
 	        				WHERE orders_id='".(int) $oID."'";
-	$order_data = array ();
-	$order_query = xtc_db_query($order_query);
-	while ($order_data_values = xtc_db_fetch_array($order_query)) {
-		$attributes_query = "SELECT
+	   $order_data = array ();
+	   $order_query = xtc_db_query($order_query);
+	   while ($order_data_values = xtc_db_fetch_array($order_query)) {
+           $products_query=xtc_db_query("SELECT
+                  products_id,
+                  products_price
+                  FROM ".TABLE_PRODUCTS."
+                  WHERE products_id='".$order_data_values['products_id']."'");
+           $products_data_value = xtc_db_fetch_array($products_query);
+           $products_einzelpreis = xtc_format_price_order($xtPrice->xtcAddTax($products_data_value['products_price'],  $order_data_values['products_tax']),1,$order->info['currency']);
+           $products_einzelsumme = xtc_format_price_order($order_data_values['products_quantity']*$xtPrice->xtcAddTax($products_data_value['products_price'], $order_data_values['products_tax']),1,$order->info['currency']);
+		   $attributes_query = xtc_db_query("SELECT
 		        				products_options,
 		        				products_options_values,
 		        				price_prefix,
@@ -271,21 +282,39 @@
 		        				FROM ".TABLE_ORDERS_PRODUCTS_ATTRIBUTES."
 		        				WHERE orders_products_id='".$order_data_values['orders_products_id']."'
 								order by orders_products_attributes_id"; //ADD - web28 - 2010-06-11 - order by orders_products_attributes_id
-		$attributes_data = '';
-		$attributes_model = '';
-		$attributes_query = xtc_db_query($attributes_query);
-		while ($attributes_data_values = xtc_db_fetch_array($attributes_query)) {
-			$attributes_data .= '<br />'.$attributes_data_values['products_options'].':'.$attributes_data_values['products_options_values'];
-			$attributes_model .= '<br />'.xtc_get_attributes_model($order_data_values['products_id'], $attributes_data_values['products_options_values'],$attributes_data_values['products_options']);
+		   $attributes_data = '';
+		   $attributes_model = '';
+           $attributes_price='';
+           $attributes_qty='';
+           $attributes_summe='';
+		   while ($attributes_data_values = xtc_db_fetch_array($attributes_query)) {
+			  $attributes_data .= '<br />'.$attributes_data_values['products_options'].':'.$attributes_data_values['products_options_values'];
+ 			  $attributes_model .= '<br />'.xtc_get_attributes_model($order_data_values['products_id'], $attributes_data_values['products_options_values'],$attributes_data_values['products_options']);
+        	  $attributes_price .='<br />'.$attributes_data_values['price_prefix'].' '.xtc_format_price_order($xtPrice->xtcAddTax($attributes_data_values['options_values_price'], $order_data_values['products_tax']),1,$order->info['currency']);
+        	  $attributes_qty .='<br />'.$order_data_values['products_quantity'];
+        	  $attributes_summe .='<br />'.$attributes_data_values['price_prefix'].' '.xtc_format_price_order($xtPrice->xtcAddTax(($attributes_data_values['options_values_price']*$order_data_values['products_quantity']), $order_data_values['products_tax']),1,$order->info['currency']);
+		   }
+		   $order_data[] = array (
+				'PRODUCTS_MODEL' => $order_data_values['products_model'],
+				'PRODUCTS_NAME' => $order_data_values['products_name'],
+				'PRODUCTS_ATTRIBUTES' => $attributes_data,
+				'PRODUCTS_ATTRIBUTES_MODEL' => $attributes_model,
+        		'PRODUCTS_ATTRIBUTES_PRICE' => $attributes_price,
+        		'PRODUCTS_ATTRIBUTES_QTY' => $attributes_qty,
+        		'PRODUCTS_ATTRIBUTES_SUMME' => $attributes_summe,
+        		'PRODUCTS_E_PRICE' => $products_einzelpreis,
+        		'PRODUCTS_E_SUMME' => $products_einzelsumme,
+        		'PRODUCTS_SUMME' => $xtPrice->xtcFormat($order_data_values['final_price'],1,$order->info['currency']),
+				'PRODUCTS_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price'], true),
+				'PRODUCTS_SINGLE_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price']/$order_data_values['products_quantity'], true),
+				'PRODUCTS_QTY' => $order_data_values['products_quantity']);
+	   }
 
-		}
-		$order_data[] = array ('PRODUCTS_MODEL' => $order_data_values['products_model'], 'PRODUCTS_NAME' => $order_data_values['products_name'],'PRODUCTS_SHIPPING_TIME' => $order_data_values['products_shipping_time'], 'PRODUCTS_ATTRIBUTES' => $attributes_data, 'PRODUCTS_ATTRIBUTES_MODEL' => $attributes_model, 'PRODUCTS_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price'], true),'PRODUCTS_SINGLE_PRICE' => $xtPrice->xtcFormat($order_data_values['final_price']/$order_data_values['products_quantity'], true), 'PRODUCTS_QTY' => $order_data_values['products_quantity']);
-
-	}
-	
 	return $order_data;
-    	
+
     }
+// End of changes for textfield
+
     
     function getTotalData($oID) {
     	global $xtPrice,$db;
@@ -447,6 +476,7 @@
 										'shipping_time'=>$products[$i]['shipping_time'],
 					                    'weight' => $products[$i]['weight'],
                                         'id' => $products[$i]['id']);
+
         if ($products[$i]['attributes']) {
           $subindex = 0;
           reset($products[$i]['attributes']);
@@ -454,8 +484,14 @@
             $attributes_query = xtc_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $_SESSION['languages_id'] . "' and poval.language_id = '" . $_SESSION['languages_id'] . "'");
             $attributes = xtc_db_fetch_array($attributes_query);
 
+            if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID){
+              $attr_value = $products[$i]['attributes_values'][$option];
+            } else {
+              $attr_value = $attributes['products_options_values_name'];
+            }
+
             $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options_name'],
-                                                                     'value' => $attributes['products_options_values_name'],
+                                                                     'value' => $attr_value,
                                                                      'option_id' => $option,
                                                                      'value_id' => $value,
                                                                      'prefix' => $attributes['price_prefix'],
@@ -464,6 +500,8 @@
             $subindex++;
           }
         }
+// end of changes 1 for textfield
+
 
         $shown_price = $this->products[$index]['final_price'];
         $this->info['subtotal'] += $shown_price;
