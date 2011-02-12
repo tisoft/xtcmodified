@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id: shopping_cart.php 950 2005-05-14 16:45:21Z mz $
 
    XT-Commerce - community made shopping
@@ -14,7 +14,7 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   class shoppingCart {
     var $contents, $total, $weight;
 
@@ -23,9 +23,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function restore_contents() {
-
-      if (!$_SESSION['customer_id']) return 0;
-
+      if (!$_SESSION['customer_id'])
+        return 0;
       // insert current cart contents in database
       if ($this->contents) {
         reset($this->contents);
@@ -45,10 +44,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           }
         }
       }
-
       // reset per-session cart contents, but not the database contents
       $this->reset(FALSE);
-
       $products_query = xtc_db_query("select products_id, customers_basket_quantity from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $_SESSION['customer_id'] . "'");
       while ($products = xtc_db_fetch_array($products_query)) {
         $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity']);
@@ -58,15 +55,12 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
         }
       }
-
       $this->cleanup();
     }
 
     function reset($reset_database = FALSE) {
-
       $this->contents = array();
       $this->total = 0;
-
       if ($_SESSION['customer_id'] && $reset_database) {
         xtc_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $_SESSION['customer_id'] . "'");
         xtc_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $_SESSION['customer_id'] . "'");
@@ -74,19 +68,17 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function add_cart($products_id, $qty = '', $attributes = '') {
-
       $products_id = xtc_get_uprid($products_id, $attributes);
-
       if ($this->in_cart($products_id)) {
         $this->update_quantity($products_id, $qty, $attributes);
       } else {
-        if ($qty == '') $qty = '1'; // if no quantity is supplied, then add '1' to the customers basket
-
+        if ($qty == '')
+          $qty = '1'; // if no quantity is supplied, then add '1' to the customers basket
         $this->contents[] = array($products_id);
         $this->contents[$products_id] = array('qty' => $qty);
         // insert into database
-        if ($_SESSION['customer_id']) xtc_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $_SESSION['customer_id'] . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
-
+        if ($_SESSION['customer_id'])
+          xtc_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $_SESSION['customer_id'] . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
         if (is_array($attributes)) {
           reset($attributes);
           while (list($option, $value) = each($attributes)) {
@@ -101,13 +93,12 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function update_quantity($products_id, $quantity = '', $attributes = '') {
-
-      if ($quantity == '') return true; // nothing needs to be updated if theres no quantity, so we return true..
-
+      if ($quantity == '')
+        return true; // nothing needs to be updated if theres no quantity, so we return true..
       $this->contents[$products_id] = array('qty' => $quantity);
       // update database
-      if ($_SESSION['customer_id']) xtc_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . $_SESSION['customer_id'] . "' and products_id = '" . $products_id . "'");
-
+      if ($_SESSION['customer_id'])
+        xtc_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . $_SESSION['customer_id'] . "' and products_id = '" . $products_id . "'");
       if (is_array($attributes)) {
         reset($attributes);
         while (list($option, $value) = each($attributes)) {
@@ -119,7 +110,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function cleanup() {
-
       reset($this->contents);
       while (list($key,) = each($this->contents)) {
         if ($this->contents[$key]['qty'] < 1) {
@@ -134,14 +124,14 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function count_contents() {  // get total number of items in cart
-        $total_items = 0;
-        if (is_array($this->contents)) {
-            reset($this->contents);
-            while (list($products_id, ) = each($this->contents)) {
-                $total_items += $this->get_quantity($products_id);
-            }
+      $total_items = 0;
+      if (is_array($this->contents)) {
+        reset($this->contents);
+        while (list($products_id, ) = each($this->contents)) {
+          $total_items += $this->get_quantity($products_id);
         }
-        return $total_items;
+      }
+      return $total_items;
     }
 
     function get_quantity($products_id) {
@@ -161,7 +151,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
 
     function remove($products_id) {
-
       unset($this->contents[$products_id]);
       // remove from database
       if ($_SESSION['customer_id']) {
@@ -188,12 +177,11 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     function calculate() {
       $this->total = 0;
       $this->weight = 0;
-      if (!is_array($this->contents)) return 0;
-
+      if (!is_array($this->contents))
+        return 0;
       reset($this->contents);
       while (list($products_id, ) = each($this->contents)) {
         $qty = $this->contents[$products_id]['qty'];
-
         // products price
         $product_query = xtc_db_query("select products_id, products_price, products_tax_class_id, products_weight from " . TABLE_PRODUCTS . " where products_id='" . xtc_get_prid($products_id) . "'");
         if ($product = xtc_db_fetch_array($product_query)) {
@@ -211,7 +199,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           $this->total += xtc_add_tax($products_price, $products_tax) * $qty;
           $this->weight += ($qty * $products_weight);
         }
-
         // attributes price
         if ($this->contents[$products_id]['attributes']) {
           reset($this->contents[$products_id]['attributes']);
@@ -241,12 +228,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
           }
         }
       }
-
       return $attributes_price;
     }
 
     function get_products() {
-
       if (!is_array($this->contents)) return 0;
       $products_array = array();
       reset($this->contents);
@@ -255,13 +240,11 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
         if ($products = xtc_db_fetch_array($products_query)) {
           $prid = $products['products_id'];
           $products_price = $products['products_price'];
-
           $specials_query = xtc_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "' and status = '1'");
           if (xtc_db_num_rows($specials_query)) {
             $specials = xtc_db_fetch_array($specials_query);
             $products_price = $specials['specials_new_products_price'];
           }
-
           $products_array[] = array('id' => $products_id,
                                     'name' => $products['products_name'],
                                     'model' => $products['products_model'],
@@ -278,83 +261,77 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
     function show_total() {
       $this->calculate();
-
       return $this->total;
     }
 
     function show_weight() {
       $this->calculate();
-
       return $this->weight;
     }
 
-  //BOF - DokuMan - 2010-10-28 - added get_content_type method also in admin section to avoid errors due to xtcPrice.php
-	function get_content_type() {
-		$this->content_type = false;
-
-		if ((DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0)) {
-			reset($this->contents);
-			while (list ($products_id,) = each($this->contents)) {
-				if (isset ($this->contents[$products_id]['attributes'])) {
-					reset($this->contents[$products_id]['attributes']);
-					while (list (, $value) = each($this->contents[$products_id]['attributes'])) {
-						$virtual_check_query = xtc_db_query("select count(*) as total
-																from ".TABLE_PRODUCTS_ATTRIBUTES." pa,
-																".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
-																where pa.products_id = '".(int)$products_id."'
-																and pa.options_values_id = '".(int)$value."'
-																and pa.products_attributes_id = pad.products_attributes_id
-																");
-						$virtual_check = xtc_db_fetch_array($virtual_check_query);
-						if ($virtual_check['total'] > 0) {
-							switch ($this->content_type) {
-								case 'physical' :
-									$this->content_type = 'mixed';
-									return $this->content_type;
-									break;
-
-								default :
-									$this->content_type = 'virtual';
-									break;
-							}
-						} else {
-							switch ($this->content_type) {
-								case 'virtual' :
-									$this->content_type = 'mixed';
-									return $this->content_type;
-									break;
-
-								default :
-									$this->content_type = 'physical';
-									break;
-							}
-						}
-					}
-				} else {
-					switch ($this->content_type) {
-						case 'virtual' :
-							$this->content_type = 'mixed';
-							return $this->content_type;
-							break;
-
-						default :
-							$this->content_type = 'physical';
-							break;
-					}
-				}
-			}
-		} else {
-			$this->content_type = 'physical';
-		}
-		return $this->content_type;
-	}
-  //EOF - DokuMan - 2010-10-28 - added get_content_type method also in admin section to avoid errors due to xtcPrice.php
+    //BOF - DokuMan - 2010-10-28 - added get_content_type method also in admin section to avoid errors due to xtcPrice.php
+    function get_content_type() {
+      $this->content_type = false;
+      if ((DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0)) {
+        reset($this->contents);
+        while (list ($products_id,) = each($this->contents)) {
+          if (isset ($this->contents[$products_id]['attributes'])) {
+            reset($this->contents[$products_id]['attributes']);
+            while (list (, $value) = each($this->contents[$products_id]['attributes'])) {
+              $virtual_check_query = xtc_db_query("select count(*) as total
+                                                                       from ".TABLE_PRODUCTS_ATTRIBUTES." pa,
+                                                                            ".TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD." pad
+                                                                      where pa.products_id = '".(int)$products_id."'
+                                                                        and pa.options_values_id = '".(int)$value."'
+                                                                        and pa.products_attributes_id = pad.products_attributes_id
+                                                ");
+              $virtual_check = xtc_db_fetch_array($virtual_check_query);
+              if ($virtual_check['total'] > 0) {
+                switch ($this->content_type) {
+                  case 'physical' :
+                    $this->content_type = 'mixed';
+                    return $this->content_type;
+                    break;
+                  default :
+                    $this->content_type = 'virtual';
+                    break;
+                }
+              } else {
+                switch ($this->content_type) {
+                  case 'virtual' :
+                    $this->content_type = 'mixed';
+                    return $this->content_type;
+                    break;
+                  default :
+                    $this->content_type = 'physical';
+                    break;
+                }
+              }
+            }
+          } else {
+            switch ($this->content_type) {
+              case 'virtual' :
+                $this->content_type = 'mixed';
+                return $this->content_type;
+                break;
+              default :
+                $this->content_type = 'physical';
+                break;
+            }
+          }
+        }
+      } else {
+        $this->content_type = 'physical';
+      }
+      return $this->content_type;
+    }
+    //EOF - DokuMan - 2010-10-28 - added get_content_type method also in admin section to avoid errors due to xtcPrice.php
 
     function unserialize($broken) {
       for(reset($broken);$kv=each($broken);) {
         $key=$kv['key'];
         if (gettype($this->$key)!="user function")
-        $this->$key=$kv['value'];
+          $this->$key=$kv['value'];
       }
     }
   }
