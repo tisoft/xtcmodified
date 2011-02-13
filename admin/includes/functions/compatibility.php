@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -15,7 +15,7 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   ////
   // Recursively handle magic_quotes_gpc turned off.
   // This is due to the possibility of have an array in
@@ -34,9 +34,12 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   }
 
   // $HTTP_xxx_VARS are always set on php4
-  if (!is_array($_GET)) $_GET = array();
-  if (!is_array($_POST)) $_POST = array();
-  if (!is_array($_COOKIE)) $_COOKIE = array();
+  if (!is_array($_GET))
+    $_GET = array();
+  if (!is_array($_POST))
+    $_POST = array();
+  if (!is_array($_COOKIE))
+    $_COOKIE = array();
 
   // handle magic_quotes_gpc turned off.
   if (!get_magic_quotes_gpc()) {
@@ -45,17 +48,17 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     do_magic_quotes_gpc($_COOKIE);
   }
 
-//BOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
+  //BOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   if ((strlen(ini_get('date.timezone')) < 1) && function_exists('date_default_timezone_set')) {
     date_default_timezone_set(@date_default_timezone_get());
   }
-//EOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
+  //EOF - DokuMan - 2010-01-06 set default timezone if none exists (PHP 5.3 throws an E_WARNING)
 
-//BOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
-//is_numeric()
-//is_uploaded_file()
-//move_uploaded_file()
-//EOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
+  //BOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
+  //is_numeric()
+  //is_uploaded_file()
+  //move_uploaded_file()
+  //EOF - DokuMan - 2011-01-06 - remove PHP3 compatiblity code
 
   if (!function_exists('checkdnsrr')) {
     function checkdnsrr($host, $type) {
