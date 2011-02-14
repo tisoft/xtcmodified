@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -15,14 +15,13 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   ////
   // The HTML href link wrapper function
   function xtc_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
     //BOF - DokuMan - 2011-01-07 - Sanitize parameters
     $page = xtc_output_string($page);
     //EOF - DokuMan - 2011-01-07 - Sanitize parameters
-
     if (!xtc_not_null($page)) {
       die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><strong>Error!</strong></font><br /><br /><strong>Unable to determine the page link!<br /><br />Function used:<br /><br />xtc_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</strong>');
     }
@@ -45,9 +44,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $link = $link . $page . '?' . xtc_output_string($parameters) . '&' . SID;
       //EOF - DokuMan - 2011-01-07 - Sanitize parameters
     }
-
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
-
+    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') )
+      $link = substr($link, 0, -1);
     return $link;
   }
 
@@ -68,9 +66,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     } else {
       $link .= $page . '?' . $parameters;
     }
-
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
-
+    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') )
+      $link = substr($link, 0, -1);
     return $link;
   }
 
@@ -91,7 +88,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $image .= ' ' . $params;
     }
     $image .= '>';
-
     return $image;
   }
 
@@ -120,9 +116,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       } else {
         $output_string .= '  } else if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
       }
-
       $states_query = xtc_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $countries['zone_country_id'] . "' order by zone_name");
-
       $num_state = 1;
       while ($states = xtc_db_fetch_array($states_query)) {
         if ($num_state == '1') $output_string .= '    ' . $form . '.' . $field . '.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
@@ -134,7 +128,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     $output_string .= '  } else {' . "\n" .
                       '    ' . $form . '.' . $field . '.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
                       '  }' . "\n";
-
     return $output_string;
   }
 
@@ -152,7 +145,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $form .= ' ' . $params;
     }
     $form .= '>';
-
     return $form;
   }
 
@@ -169,11 +161,11 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $field .= ' ' . $parameters;
     }
     $field .= '>';
-
-    if ($required) $field .= TEXT_FIELD_REQUIRED;
-
+    if ($required)
+      $field .= TEXT_FIELD_REQUIRED;
     return $field;
   }
+
   // Output a form small input field
   function xtc_draw_small_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" size="3" name="' . $name . '"';
@@ -186,9 +178,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $field .= ' ' . $parameters;
     }
     $field .= '>';
-
-    if ($required) $field .= TEXT_FIELD_REQUIRED;
-
+    if ($required)
+      $field .= TEXT_FIELD_REQUIRED;
     return $field;
   }
 
@@ -196,7 +187,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   // Output a form password field
   function xtc_draw_password_field($name, $value = '', $required = false) {
     $field = xtc_draw_input_field($name, $value, 'maxlength="40"', $required, 'password', false);
-
     return $field;
   }
 
@@ -204,7 +194,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   // Output a form filefield
   function xtc_draw_file_field($name, $required = false) {
     $field = xtc_draw_input_field($name, '', '', $required, 'file');
-
     return $field;
   }
 
@@ -222,7 +211,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $selection .= ' CHECKED';
     }
     $selection .= '>';
-
     return $selection;
   }
 
@@ -250,7 +238,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $field .= $text;
     }
     $field .= '</textarea>';
-
     return $field;
   }
 
@@ -264,7 +251,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
       $field .= trim($GLOBALS[$name]);
     }
     $field .= '">';
-
     return $field;
   }
 
@@ -274,51 +260,40 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     $field = '<select name="' . $name . '"';
     if ($params) $field .= ' ' . $params;
     $field .= '>';
-   if(is_array($values))
-     {
-         foreach ($values as $key=>$val) {
-             $field .= '<option value="' .$val['id'] . '"';
-             //BOF - DokuMan - 2010-09-08 - set undefined index
-             if ( ((strlen($val['id']) > 0) && isset($GLOBALS[$name]) && ($GLOBALS[$name] == $val['id'])) || ($default == $val['id']) ) {
-             //if ( ((strlen($val['id']) > 0) && ($GLOBALS[$name] == $val['id'])) || ($default == $val['id']) ) {
-             //EOF - DokuMan - 2010-09-08 - set undefined index
-               $field .= ' SELECTED';
-             }
-             $field .= '>' . $val['text'] . '</option>';
-         }
-     }
+    if (is_array($values)) {
+      foreach ($values as $key=>$val) {
+        $field .= '<option value="' .$val['id'] . '"';
+        //BOF - DokuMan - 2010-09-08 - set undefined index
+        if ( ((strlen($val['id']) > 0) && isset($GLOBALS[$name]) && ($GLOBALS[$name] == $val['id'])) || ($default == $val['id']) ) {
+          //if ( ((strlen($val['id']) > 0) && ($GLOBALS[$name] == $val['id'])) || ($default == $val['id']) ) {
+          //EOF - DokuMan - 2010-09-08 - set undefined index
+          $field .= ' SELECTED';
+        }
+        $field .= '>' . $val['text'] . '</option>';
+      }
+    }
     $field .= '</select>';
-
-    if ($required) $field .= TEXT_FIELD_REQUIRED;
-
+    if ($required)
+      $field .= TEXT_FIELD_REQUIRED;
     return $field;
   }
 
   // output 2 Soring arrows
   function xtc_sorting($page,$sort) {
-
-      switch ($page) {
-          case FILENAME_CUSTOMERS:
-
-          $nav='<br /><a href="'.xtc_href_link(FILENAME_CUSTOMERS,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
-          $nav.=xtc_image(DIR_WS_ICONS . 'sort_down.gif', '', '20' ,'20').'</a>';
-          $nav.='<a href="'.xtc_href_link(FILENAME_CUSTOMERS,'sorting='.$sort.'-desc&'.xtc_get_all_get_params(array('action','sorting'))).'">';
-          $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a>';
-
-          break;
-
-          case FILENAME_CATEGORIES:
-
-          $nav='<br /><div><a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
-          $nav.=xtc_image(DIR_WS_ICONS . 'sort_down.gif', '', '20' ,'20').'</a>';
-          $nav.='<a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'-desc&'.xtc_get_all_get_params(array('action','sorting'))).'">';
-          $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a></div>';
-
-          break;
-
-      }
-
-      return $nav;
-
+    switch ($page) {
+      case FILENAME_CUSTOMERS:
+        $nav='<br /><a href="'.xtc_href_link(FILENAME_CUSTOMERS,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
+        $nav.=xtc_image(DIR_WS_ICONS . 'sort_down.gif', '', '20' ,'20').'</a>';
+        $nav.='<a href="'.xtc_href_link(FILENAME_CUSTOMERS,'sorting='.$sort.'-desc&'.xtc_get_all_get_params(array('action','sorting'))).'">';
+        $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a>';
+        break;
+      case FILENAME_CATEGORIES:
+        $nav='<br /><div><a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'&'.xtc_get_all_get_params(array('action','sorting'))).'">';
+        $nav.=xtc_image(DIR_WS_ICONS . 'sort_down.gif', '', '20' ,'20').'</a>';
+        $nav.='<a href="'.xtc_href_link(FILENAME_CATEGORIES,'sorting='.$sort.'-desc&'.xtc_get_all_get_params(array('action','sorting'))).'">';
+        $nav.= xtc_image(DIR_WS_ICONS . 'sort_up.gif', '', '20' ,'20').'</a></div>';
+        break;
+    }
+    return $nav;
   }
 ?>

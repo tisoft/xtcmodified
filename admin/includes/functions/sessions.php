@@ -1,5 +1,5 @@
 <?php
-/* -----------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   if (STORE_SESSIONS == 'mysql') {
     if (!$SESS_LIFE = get_cfg_var('session.gc_maxlifetime')) {
       $SESS_LIFE = 1440;
@@ -37,56 +37,48 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                     and expiry > '" . time() . "'"
                                     );
       $value = xtc_db_fetch_array($value_query);
-
       if (isset($value['value']) && $value['value']!='') {
         $value['value'] = base64_decode($value['value']); //DokuMan - 2010-11-16 addded base64_decode
         return $value['value'];
       }
-
       //return false;
       return ("");
     }
 
     function _sess_write($key, $val) {
       global $SESS_LIFE;
-
       $expiry = time() + $SESS_LIFE;
       //$value = addslashes($val);
       $value = base64_encode($val); //DokuMan - 2010-11-16 addded base64_encode
-
       $check_query = xtc_db_query("select count(*) as total
-                                    from " . TABLE_SESSIONS . "
-                                    where sesskey = '" . xtc_db_input($key) . "'"
-                                    );
+                                                       from " . TABLE_SESSIONS . "
+                                                      where sesskey = '" . xtc_db_input($key) . "'"
+                                  );
       $total = xtc_db_fetch_array($check_query);
-
       if ($total['total'] > 0) {
         return xtc_db_query("update " . TABLE_SESSIONS . "
-                              set expiry = '" . (int)$expiry . "',
-                              value = '" . xtc_db_input($value) . "'
-                              where sesskey = '" . xtc_db_input($key) . "'"
-                              );
+                                                       set expiry = '" . (int)$expiry . "',
+                                                           value = '" . xtc_db_input($value) . "'
+                                                     where sesskey = '" . xtc_db_input($key) . "'"
+                            );
       } else {
         return xtc_db_query("insert into " . TABLE_SESSIONS . "
-                              values (
-                              '" . xtc_db_input($key) . "',
-                              '" . (int)$expiry . "', '" . xtc_db_input($value) . "')"
-                              );
+                                                         values ('" . xtc_db_input($key) . "',
+                                                                 '" . (int)$expiry . "', '" . xtc_db_input($value) . "')"
+                            );
       }
     }
 
     function _sess_destroy($key) {
       return xtc_db_query("delete from " . TABLE_SESSIONS . "
-                            where sesskey = '" . xtc_db_input($key) . "'");
+                                 where sesskey = '" . xtc_db_input($key) . "'");
     }
 
     function _sess_gc($maxlifetime) {
       xtc_db_query("delete from " . TABLE_SESSIONS . "
-                    where expiry < '" . time() . "'");
-
+                          where expiry < '" . time() . "'");
       return true;
     }
-
     session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
     register_shutdown_function('session_write_close'); //DokuMan - 2010-01-28 - fix for procedural mysqli function
   }
@@ -94,33 +86,30 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   function xtc_session_start() {
     return session_start();
   }
-// BOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
-/*
-function xtc_session_register($variable) {
-    global $session_started;
-
-    if ($session_started == true) {
-      return session_register($variable);
+  // BOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
+  /*
+  function xtc_session_register($variable) {
+      global $session_started;
+      if ($session_started == true) {
+        return session_register($variable);
+      }
     }
-  }
-*/
-// EOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
-
-// BOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
-/*
-  function xtc_session_is_registered($variable) {
-    return session_is_registered($variable);
-  }
-*/
-// EOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
-
-// BOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
-/*
-  function xtc_session_unregister($variable) {
-    return session_unregister($variable);
-  }
-*/
-// EOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
+  */
+  // EOF - Hetfield - 2009-08-19 - removed deprecated function session_register to be ready for PHP >= 5.3
+  // BOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
+  /*
+    function xtc_session_is_registered($variable) {
+      return session_is_registered($variable);
+    }
+  */
+  // EOF - Hetfield - 2009-08-19 - removed deprecated function session_is_registered to be ready for PHP >= 5.3
+  // BOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
+  /*
+    function xtc_session_unregister($variable) {
+      return session_unregister($variable);
+    }
+  */
+  // EOF - Hetfield - 2009-08-19 - removed deprecated function session_unregister to be ready for PHP >= 5.3
   function xtc_session_id($sessid = '') {
     if (!empty($sessid)) {
       return session_id($sessid);
@@ -156,22 +145,15 @@ function xtc_session_register($variable) {
   }
 
   function xtc_session_recreate() {
-
       $session_backup = $_SESSION;
-
       unset($_COOKIE[xtc_session_name()]);
-
       xtc_session_destroy();
-
       if (STORE_SESSIONS == 'mysql') {
         session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
         register_shutdown_function('session_write_close'); //DokuMan - 2010-01-28 - fix for procedural mysqli function
       }
-
       xtc_session_start();
-
       $_SESSION = $session_backup;
       unset($session_backup);
-
   }
 ?>

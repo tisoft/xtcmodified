@@ -1,5 +1,5 @@
 <?php
-/* --------------------------------------------------------------
+  /* --------------------------------------------------------------
    $Id$
 
    xtcModified - community made shopping
@@ -16,7 +16,7 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
-defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
+  defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
   function quote_oanda_currency($code, $base = DEFAULT_CURRENCY) {
     $url = 'http://www.oanda.com/convert/fxdaily';
@@ -30,9 +30,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
     if (is_object($page) || $page !='') {
       $match = array();
-
       preg_match('/(.+),(\w{3}),([0-9.]+),([0-9.]+)/i', implode('', $page), $match);
-
       if (sizeof($match) > 0) {
         return $match[3];
       } else {
@@ -53,7 +51,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     }
     if (is_object($page) || $page !='') {
       $match = array();
-
       preg_match('/[0-9.]+\s*' . $from . '\s*=\s*([0-9.]+)\s*' . $to . '/', implode('', $page), $match);
       if (sizeof($match) > 0) {
         return $match[1];
@@ -73,8 +70,8 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//  curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
-//  curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
+    //curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookie.txt');
+    //curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
     if (strtoupper($method) == 'POST') {
       curl_setopt($ch, CURLOPT_POST, true);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $vars);
@@ -89,7 +86,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     $error = curl_error($ch);
     //$info=curl_getinfo($ch);
     curl_close($ch);
-
     if ($error != '') {
       global $messageStack;
       $messageStack->add_session('cURL communication ERROR: ' . $error, 'error');
@@ -97,12 +93,10 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
     //echo 'INFO: <pre>'; print_r($info); echo '</pre><br />';
     //echo 'ERROR: ' . $error . '<br />';
     //print_r($data) ;
-
     if ($data != '') {
       return $data;
     } else {
       return $error; 
     }
   }
-
 ?>
