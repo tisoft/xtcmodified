@@ -25,11 +25,13 @@
   border-right: 1px solid #aaaaaa;
   color: #aaaaaa;
 }
+
 * html .tablangmenu {
   height: 23px;
   margin-bottom: 0px;
 
 }
+
 * html .tablangmenu ul li {
   float: left;
   padding: 5px 5px 5px 5px;

@@ -90,7 +90,11 @@
 }
 
 /* Holly Hack for IE \*/
-* html .suckertreemenu ul li { float: left; height: 1%; }
+* html .suckertreemenu ul li {
+  float: left;
+  height: 1%;
+}
+
 * html .suckertreemenu ul li a {
   height: 1%;
   text-decoration: none;
@@ -107,6 +111,7 @@
   text-align: center;
   letter-spacing: normal;
 }
+
 .suckertreemenu .dataTableHeadingContent{
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 10px;
@@ -141,12 +146,14 @@ td.fastmenu img{
   margin-bottom: 3px;
   margin-top: 3px;
 }
+
 /* BOF - web28 - 2010-04-10 - added ADMIN SERACH BAR
 #top1{
   margin-top: 0px;
   margin-bottom: 5px;
   border-top: 5px solid #b40076;
 }*/
+
 #top1{
   margin-top: 0px;
   margin-bottom: 5px;

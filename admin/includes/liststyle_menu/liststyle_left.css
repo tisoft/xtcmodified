@@ -32,21 +32,25 @@ td.fastmenu{
   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
   letter-spacing: normal;
 }
+
 td.fastmenu img{
   margin-bottom: 3px;
   margin-top: 3px;
 }
+
 /* BOF - web28 - 2010-04-10 - added ADMIN SERACH BAR
 #top1,#top2{
   margin-top: 0px;
   margin-bottom: 5px;
   border-top: 5px solid #b40076;
 }*/
+
 #top1{
   margin-top: 0px;
   margin-bottom: 5px;
   border-top: 0px solid #b40076;
 }
+
 #top2{
   margin-top: 0px;
   margin-bottom: 5px;
