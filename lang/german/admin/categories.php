@@ -144,7 +144,7 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Artikel k&ouml;nnen nicht 
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . DIR_FS_CATALOG_IMAGES);
 
-define('TEXT_PRODUCTS_DISCOUNT_ALLOWED','Rabatt erlaubt:');
+define('TEXT_PRODUCTS_DISCOUNT_ALLOWED','Maximal erlaubter Rabatt:');
 define('HEADING_PRICES_OPTIONS','<b>Preis-Optionen</b>');
 define('HEADING_PRODUCT_IMAGES','<b>Artikel-Bilder</b>');
 define('TEXT_PRODUCTS_WEIGHT_INFO','<small>(kg)</small>');

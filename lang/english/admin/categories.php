@@ -143,7 +143,7 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in th
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . DIR_FS_CATALOG_IMAGES);
 
-define('TEXT_PRODUCTS_DISCOUNT_ALLOWED','Discount allowed:');
+define('TEXT_PRODUCTS_DISCOUNT_ALLOWED','Max. allowed Discount:');
 define('HEADING_PRICES_OPTIONS','<b>Price options</b>');
 define('HEADING_PRODUCT_IMAGES','<b>Products Images</b>');
 define('TEXT_PRODUCTS_WEIGHT_INFO','<small>(kg)</small>');
