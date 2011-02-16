@@ -18,7 +18,7 @@
 
   function xtc_db_data_seek($db_query, $row_number,$cq=false) {
 
-    if (defined('DB_CACHE') && DB_CACHE && $cq) { //Dokuman - 2011-02-11 - check for defined DB_CACHE
+    if (defined('DB_CACHE') && DB_CACHE == 'true' && $cq) { //Dokuman - 2011-02-11 - check for defined DB_CACHE
       if (!count($db_query)) { 
         return;
       }

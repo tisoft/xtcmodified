@@ -235,7 +235,7 @@
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
 */
-	define("DB_CACHE", "false");
+  define("DB_CACHE", "false");
   while ($configuration = xtc_db_fetch_array($configuration_query)) {
     if($configuration['cfgKey']!='DB_CACHE' AND $configuration['cfgKey']!='STORE_DB_TRANSACTIONS'):
       define($configuration['cfgKey'], $configuration['cfgValue']);
@@ -244,7 +244,7 @@
 // EOF - Tomcraft - 2009-10-03 - Paypal Express Modul (Cache im Admin AUS!)
   define('FILENAME_IMAGEMANIPULATOR',IMAGE_MANIPULATOR);
   function xtDBquery($query) {
-    if (defined('DB_CACHE') && DB_CACHE) { //Dokuman - 2011-02-11 - check for defined DB_CACHE
+    if (defined('DB_CACHE') && DB_CACHE == 'true') { //Dokuman - 2011-02-11 - check for defined DB_CACHE
       $result=xtc_db_queryCached($query);
       //echo 'cached query: '.$query.'<br />';
     } else {
