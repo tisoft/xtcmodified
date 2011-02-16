@@ -17,6 +17,8 @@
    ---------------------------------------------------------------------------------------*/
    
    // Output a form hidden field
+   //BOF - web28- 2011-02-16 - BUGFIX $parameters can't use
+    /*
    function xtc_draw_hidden_field($name, $value = '', $parameters = '') {
     $field = '<input type="hidden" name="' . xtc_parse_input_field_data($name, array('"' => '&quot;')) . '" value="';
 
@@ -31,5 +33,22 @@
     $field .= '" />';
 
     return $field;
+  }
+  */
+   function xtc_draw_hidden_field($name, $value = '', $parameters = '') {
+    $field = '<input type="hidden" name="' . xtc_parse_input_field_data($name, array('"' => '&quot;')) . '"';    
+    
+    if (xtc_not_null($value)) {
+      $field .= ' value="' . xtc_parse_input_field_data($value, array('"' => '&quot;')) . '"';
+    } else {
+      $field .= ' value="' . xtc_parse_input_field_data($GLOBALS[$name], array('"' => '&quot;')) . '"';
+    }
+
+    if (xtc_not_null($parameters)) $field .= ' ' . $parameters;
+
+    $field .= ' />';    
+
+    return $field;
    }
+   //BOF - web28- 2011-02-16 - BUGFIX $parameters can't use
 ?>
