@@ -52,6 +52,13 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
   function xtc_validate_email($email) {
+
+    //BOF - DokuMan - 2011-02-19 - SQL nullbyte injection fix 16.02.2011
+    if (strpos($email,"\0") !== false) {
+      return false;
+    }
+    //EOF - DokuMan - 2011-02-19 - SQL nullbyte injection fix 16.02.2011
+
     $email = trim($email);
     if (strlen($email) > 255) {
       $valid_address = false;

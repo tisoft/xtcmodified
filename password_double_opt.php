@@ -88,7 +88,7 @@ if (isset ($_GET['action']) && ($_GET['action'] == 'verified')) {
     $newpass = xtc_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
     $crypted_password = xtc_encrypt_password($newpass);
 
-    xtc_db_query("update ".TABLE_CUSTOMERS." set customers_password = '".$crypted_password."' where customers_email_address = '".$check_customer['customers_email_address']."'");
+    xtc_db_query("update ".TABLE_CUSTOMERS." set customers_password = '".$crypted_password."' where customers_email_address = '".xtc_db_input($check_customer['customers_email_address'])."'"); //DokuMan - 2011-02-19 - SQL injection fix 16.02.2011
     xtc_db_query("update ".TABLE_CUSTOMERS." set password_request_key = '' where customers_id = '".$check_customer['customers_id']."'");
     // assign language to template for caching
     $smarty->assign('language', $_SESSION['language']);
