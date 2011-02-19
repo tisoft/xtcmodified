@@ -19,18 +19,14 @@
   $search_ord = '';
   $search_cat = '';
   if (strpos($page, 'customers.php') !== false) {
-    // $search_cus= $_GET['search'];
-    $search_cus = isset($_GET['search']) ? $_GET['search'] : ''; //DokuMan - 2010-09-08 - set undefined index
-    // $search_email= $_GET['search_email'];
-    $search_email = isset($_GET['search_email']) ? $_GET['search_email'] : ''; //DokuMan - 2010-09-08 - set undefined index
+    $search_cus = htmlentities(isset($_GET['search']) ? $_GET['search'] : ''); //DokuMan - 2010-09-08 - set undefined index
+    $search_email = htmlentities(isset($_GET['search_email']) ? $_GET['search_email'] : ''); //DokuMan - 2010-09-08 - set undefined index
   }
   if (strpos($page, 'orders.php') !== false) {
-    //$search_ord= $_GET['oID'];
-    $search_ord = isset($_GET['oID']) ? $_GET['oID'] : ''; //DokuMan - 2010-09-08 - set undefined index
+    $search_ord = htmlentities(isset($_GET['oID']) ? $_GET['oID'] : ''); //DokuMan - 2010-09-08 - set undefined index
   }
   if (strpos($page, 'categories.php') !== false){
-    //$search_cat= $_GET['search'];
-    $search_cat = isset($_GET['search']) ? $_GET['search'] : ''; //DokuMan - 2010-09-08 - set undefined index
+    $search_cat = htmlentities(isset($_GET['search']) ? $_GET['search'] : ''); //DokuMan - 2010-09-08 - set undefined index
   }
 ?>
 <link href="includes/searchbar_menu/searchbar_menu.css" rel="stylesheet" type="text/css" />
