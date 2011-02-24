@@ -62,6 +62,18 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 
 	xtc_db_query("update ".TABLE_PRODUCTS_DESCRIPTION." set products_viewed = products_viewed+1 where products_id = '".$product->data['products_id']."' and language_id = '".$_SESSION['languages_id']."'");
 
+// BOF - Tomcraft - 2011-02-24 - Get manufacturer name etc. for the product page
+	$manufacturer_query = xtc_db_query("select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS . " p where p.products_id = '" . $product->data['products_id'] . "' and p.manufacturers_id = m.manufacturers_id");
+	if (xtc_db_num_rows($manufacturer_query)) {
+		$manufacturer = xtc_db_fetch_array($manufacturer_query);
+		$manufacturers_image='';
+		if (xtc_not_null($manufacturer['manufacturers_image'])) $manufacturers_image=DIR_WS_IMAGES . $manufacturer['manufacturers_image'];
+		$info_smarty->assign('MANUFACTURER_IMAGE',$manufacturers_image) ;
+		$info_smarty->assign('MANUFACTURER',$manufacturer['manufacturers_name']);
+		$info_smarty->assign('MANUFACTURER_LINK',xtc_href_link(FILENAME_DEFAULT, xtc_manufacturer_link($manufacturer['manufacturers_id'],$manufacturer['manufacturers_name'])));
+	}
+// EOF - Tomcraft - 2011-02-24 - Get manufacturer name etc. for the product page
+
 		$products_price = $xtPrice->xtcGetPrice($product->data['products_id'], $format = true, 1, $product->data['products_tax_class_id'], $product->data['products_price'], 1);
 
 		// check if customer is allowed to add to cart
@@ -149,6 +161,9 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		//BOF - GTB - 2010-08-03 - Security Fix - Base
     //EOF - Tomcraft - 2010-04-03 - unified popups with scrollbars and make them resizable
 		$info_smarty->assign('PRODUCTS_DESCRIPTION', stripslashes($product->data['products_description']));
+    // BOF - Tomcraft - 2011-02-24 - PRODUCTS_SHORT_DESCRIPTION for the product page		
+    $info_smarty->assign('PRODUCTS_SHORT_DESCRIPTION', stripslashes($product->data['products_short_description']));
+    // EOF - Tomcraft - 2011-02-24 - PRODUCTS_SHORT_DESCRIPTION for the product page
     // BOF - Tomcraft - 2009-11-28 - Included xs:booster
 		if(isset($xsb_tx['XTB_REDIRECT_USER_TO'])&&$xsb_tx['products_id']==$product->data['products_id'])
 			$info_smarty->assign('XTB_REDIRECT_USER_TO', $xsb_tx['XTB_REDIRECT_USER_TO']);

@@ -35,6 +35,13 @@
             {if $PRODUCTS_EXPIRES}
               <p class="taxandshippinginfo">{#text_expires_date#} {$PRODUCTS_EXPIRES}</p>
             {/if}
+            {if $MANUFACTURER!=''}
+              <div class="hrlightgrey"></div>
+              <strong>{#manufacturer_more_of#}</strong> <a title="{$MANUFACTURER}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER}</a>
+            {/if}
+            {if $MANUFACTURER_IMAGE!=''}
+              <a title="{$MANUFACTURER}" href="{$MANUFACTURER_LINK}">{$MANUFACTURER_IMAGE}</a>
+            {/if}
             {if $PRODUCTS_MODEL!=''}
               <div class="hrlightgrey"></div>
               <strong>{#model#}</strong> {$PRODUCTS_MODEL}
