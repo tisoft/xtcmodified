@@ -27,7 +27,8 @@
         if ($_GET['gID']=='31') {
           // email check
           if (isset($_POST['_PAYMENT_MONEYBOOKERS_EMAILID'])) {
-            $url = 'https://www.moneybookers.com/app/email_check.pl?email='.$_POST['_PAYMENT_MONEYBOOKERS_EMAILID'].'&cust_id=8644877&password=1a28e429ac2fcd036aa7d789ebbfb3b0';
+					// cYbercOsmOnauT - 2011-02-11 - encoded the emailid for security 
+					$url = 'https://www.moneybookers.com/app/email_check.pl?email=' . urlencode($_POST['_PAYMENT_MONEYBOOKERS_EMAILID']) . '&cust_id=8644877&password=1a28e429ac2fcd036aa7d789ebbfb3b0';
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -48,7 +49,21 @@
         //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
         $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
         while ($configuration = xtc_db_fetch_array($configuration_query))
-          xtc_db_query("UPDATE ".TABLE_CONFIGURATION." SET configuration_value='".$_POST[$configuration['configuration_key']]."' where configuration_key='".$configuration['configuration_key']."'");
+				// cYbercOsmOnauT - 2011-02-11 - escaped the confkey to prevent SQL Injection
+				xtc_db_query("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value='" . mysql_real_escape_string($_POST[$configuration['configuration_key']]) . "' where configuration_key='" . $configuration['configuration_key'] . "'");
+			// BOF cYbercOsmOnauT - 2011-02-11 - For the DB Cache System
+			if (isset($_POST['DB_CACHE']) && $_POST['DB_CACHE'] == 'false') {
+				// Cache deactivated.. clean all cachefiles
+				$handle = opendir(SQL_CACHEDIR);
+				while (($file = readdir($handle)) !== false) {
+					// Jump over files that are no sql-cache
+					if (strpos($file, 'sql_') !== 0) {
+						continue;
+					}
+					@unlink(SQL_CACHEDIR.$file);
+				}
+			}
+			// EOF cYbercOsmOnauT - 2011-02-11 - For the DB Cache System
         xtc_redirect(FILENAME_CONFIGURATION. '?gID=' . (int)$_GET['gID']);
         break;
         //BOF - Dokuman - 2010-02-04 - delete cache files in admin section
