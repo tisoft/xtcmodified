@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id: install_step6.php 941 2005-05-11 19:49:53Z hhgag $
+   $Id$
 
    xtc-Modified
    http://www.xtc-modified.org
@@ -8,7 +8,7 @@
    Copyright (c) 2010 xtc-Modified
    --------------------------------------------------------------
    based on:
-   (c) 2003   nextcommerce (install_step6.php,v 1.29 2003/08/20); www.nextcommerce.org
+   (c) 2003 nextcommerce (install_step6.php,v 1.29 2003/08/20); www.nextcommerce.org
    (c) 2006 xtCommerce (install_step6.php 941 2005-05-11); www.xt-commerce.com
 
    Released under the GNU General Public License
@@ -172,7 +172,6 @@
     }
 
     if ($error == false) {
-      //xtc_db_query('SET NAMES "UTF8"'); //DokuMan - 2010-08-28 - For future UTF-8 use
       xtc_db_query("insert into " . TABLE_CUSTOMERS . " (
                                 customers_id,
                                 customers_status,

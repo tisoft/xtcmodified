@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(database.php,v 1.19 2003/03/22); www.oscommerce.com
-   (c) 2003	nextcommerce (xtc_db_connect.inc.php,v 1.3 2003/08/13); www.nextcommerce.org
+   (c) 2003 nextcommerce (xtc_db_connect.inc.php,v 1.3 2003/08/13); www.nextcommerce.org
    (c) 2006 XT-Commerce (xtc_db_connect.inc.php 1248 2005-09-27)
 
    Released under the GNU General Public License
@@ -40,8 +40,7 @@
     // EOF - vr - 2010-01-01 - Disable "STRICT" mode for MySQL 5!
 
     // BOF - Dokuman - 2010-11-23 - revised database connection for error reporting
-    //if ($$link) mysql_select_db($database);
-  	if ($$link) {
+    if ($$link) {
       if (!@mysql_select_db($database, $$link)) {
         xtc_db_error('', mysql_errno($$link), mysql_error($$link));
         die();
@@ -51,6 +50,20 @@
       die();
     }
     // EOF - Dokuman - 2010-11-23 - revised database connection for error reporting
+
+    // BOF - Dokuman - 2011-03-01 - get ready for UTF8
+    /*
+    if(!defined('DB_SERVER_CHARSET')) {
+      define('DB_SERVER_CHARSET','utf8');
+    }
+
+    if(function_exists('mysql_set_charset') == true) {
+      mysql_set_charset('utf8');
+    } else {
+      mysql_query('set names utf8');
+    }
+    */
+    // EOF - Dokuman - 2011-03-01 - get ready for UTF8
 
     return $$link;
   }
