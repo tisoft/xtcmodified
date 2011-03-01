@@ -23,35 +23,13 @@ function smarty_outputfilter_note($tpl_output, &$smarty) {
 
   $cop='<div class="copyright"><a href="http://www.xtc-modified.org" target="_blank">' . PROJECT_VERSION . '</a>' . '&nbsp;' . '&copy;' . date('Y') . '&nbsp;' . 'provides no warranty and is redistributable under the <a href="http://www.fsf.org/licensing/licenses/gpl.txt" target="_blank">GNU General Public License</a><br />eCommerce Engine 2006 based on <a href="http://www.xt-commerce.com/" rel="nofollow" target="_blank">xt:Commerce</a></div>';
 
-//BOF - DokuMan - Removed "Produce Valid Links", since this became void with the modified shopstat_functions.php
-/* 
-  //BOF - Dokuman - 2009-05-03 - Produce Valid Links
-  if (!function_exists('NoEntities')) {
-    function NoEntities($Input) {
-      $TransTable1 = get_html_translation_table (HTML_ENTITIES);
-      foreach($TransTable1 as $ASCII => $Entity) {
-        $TransTable2[$ASCII] = '&#'.ord($ASCII).';';
-      }
-      $TransTable1 = array_flip ($TransTable1);
-      $TransTable2 = array_flip ($TransTable2);
-      return strtr (strtr ($Input, $TransTable1), $TransTable2);
-    }
-  }
-  
-  if (!function_exists('AmpReplace')) {
-    function AmpReplace($Treffer) {
-      return $Treffer[1].htmlentities(NoEntities($Treffer[2])).$Treffer[3];
-    }
-  }
-
-  $tpl_output = preg_replace_callback("/(<[^>]*['\"])(http[s]?\:\/\/[^'\"]*)(['\"][^<]*>)/Usi","AmpReplace",$tpl_output);
-  //EOF - Dokuman - 2009-05-03 - Produce Valid Links
-*/
-//EOF - DokuMan - Removed "Produce Valid Links", since this became void with the modified shopstat_functions.php
-
 //BOF - web28 - making output W3C-Conform: replace ampersands, rest is covered by the modified shopstat_functions.php
 $tpl_output  = preg_replace("'&\s'","&amp; ",$tpl_output);
 //EOF - web28 - making output W3C-Conform: replace ampersands, rest is covered by the modified shopstat_functions.php
+
+//BOF - DokuMan - 2011-03-01 - strip whitespaces (i.e. compress HTML)
+$tpl_output =  preg_replace('!\s+!', ' ',$tpl_output);
+//EOF - DokuMan - 2011-03-01 - strip whitespaces (i.e. compress HTML)
 
   return $tpl_output.$cop;
 }
