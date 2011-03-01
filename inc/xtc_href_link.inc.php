@@ -64,9 +64,8 @@
     }
 
 //--- SEO Hartmut König -----------------------------------------//
-/*
-    if ((isset($_REQUEST['test']) && $_REQUEST['test']) ||
-        ((SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true)) ) {
+    if ((isset($_REQUEST['test']) && $_REQUEST['test'])
+        || ((SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true)) ) {
         require_once(DIR_FS_INC . 'shopstat_functions.inc.php');
 
         $seolink = shopstat_getSEO( $page,
@@ -83,7 +82,6 @@
                 : $separator = '?';
          }
     }
-*/
 //--- SEO Hartmut König -----------------------------------------//
 
   // remove session if useragent is a known Spider
