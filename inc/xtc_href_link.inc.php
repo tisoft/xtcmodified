@@ -7,15 +7,11 @@
 
    Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(html_output.php,v 1.52 2003/03/19); www.oscommerce.com
-   (c) 2003	 nextcommerce (xtc_href_link.inc.php,v 1.3 2003/08/13); www.nextcommerce.org
+   (c) 2003 nextcommerce (xtc_href_link.inc.php,v 1.3 2003/08/13); www.nextcommerce.org
+   (c) 2006 XT-Commerce (xtc_href_link.inc.php)
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -23,8 +19,8 @@
 // The HTML href link wrapper function
   function xtc_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $urlencode=false) {
     global $request_type, $session_started, $http_domain, $https_domain,$truncate_session_id;
-	
-	$parameters = str_replace('&amp;', '&', $parameters); // web28 - 2010-09-02 -- making link W3C-Conform
+
+    $parameters = str_replace('&amp;', '&', $parameters); // web28 - 2010-09-02 -- making link W3C-Conform
 
     if (!xtc_not_null($page)) {
       //die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><strong>Error!</strong></font><br /><br /><strong>Unable to determine the page link!<br /><br />');
@@ -52,7 +48,9 @@
       $separator = '?';
     }
 
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
+    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) {
+      $link = substr($link, 0, -1);
+    }
 
 // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
     if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'False') ) {
@@ -66,9 +64,9 @@
     }
 
 //--- SEO Hartmut König -----------------------------------------//
+/*
     if ((isset($_REQUEST['test']) && $_REQUEST['test']) ||
-        ((SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true)) )
-        {
+        ((SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true)) ) {
         require_once(DIR_FS_INC . 'shopstat_functions.inc.php');
 
         $seolink = shopstat_getSEO( $page,
@@ -77,19 +75,21 @@
                                     $add_session_id,
                                     $search_engine_safe,
                                     'user');
-        if($seolink)
-            {
+        if($seolink){
             $link       = $seolink;
             $elements   = parse_url($link);
             (isset($elements['query']))
                 ? $separator = '&'
                 : $separator = '?';
-            }
-        }
+         }
+    }
+*/
 //--- SEO Hartmut König -----------------------------------------//
 
-	// remove session if useragent is a known Spider
-    if ($truncate_session_id) $sid=NULL;
+  // remove session if useragent is a known Spider
+    if ($truncate_session_id) {
+      $sid=NULL;
+    }
 
     if (isset($sid)) {
       $link .= $separator . $sid;
@@ -107,9 +107,10 @@
 
     //-- W3C-Conform
     if($urlencode) {
-        $link = htmlentities($link);
-    } else  $link = str_replace('&', '&amp;', $link); // web28 - 2010-09-02 -- making link W3C-Conform	
-
+      $link = htmlentities($link);
+    } else {
+      $link = str_replace('&', '&amp;', $link); // web28 - 2010-09-02 -- making link W3C-Conform
+    }
     return $link;
   }
 
@@ -140,7 +141,9 @@
       $separator = '?';
     }
 
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
+    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) {
+      $link = substr($link, 0, -1);
+    }
 
 // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
     if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'False') ) {
@@ -152,17 +155,15 @@
         }
       }
     }
-    
-    //BOF - DokuMan - 2010-03-01 - do not remove the session id when admin, unset undefined variable
-    //if ($truncate_session_id) $sid=NULL;
-    //EOF - DokuMan - 2010-03-01 - do not remove the session id when admin, unset undefined variable
+
+    if ($truncate_session_id) {
+      $sid=NULL; // DokuMan - 2011-03-01 - reenabled
+    }
 
     if (isset($sid)) {
       $link .= $separator . $sid;
     }
 
-
     return $link;
   }
-
- ?>
+?>
