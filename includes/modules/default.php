@@ -582,10 +582,12 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
                                             AND languages_id='".$_SESSION['languages_id']."'");
     $shop_content_data = xtc_db_fetch_array($shop_content_query,true);
 
+    // BOF - Tomcraft - 2011-03-02 - Revoked "added htmlspecialchars"
     // BOF - Dokuman - 22.07.2009 - added htmlspecialchars
-    //  $default_smarty->assign('title', $shop_content_data['content_heading']);
-    $default_smarty -> assign('title', htmlspecialchars($shop_content_data['content_heading']));
+    //$default_smarty -> assign('title', htmlspecialchars($shop_content_data['content_heading']));
+    $default_smarty->assign('title', $shop_content_data['content_heading']);
     // EOF - Dokuman - 22.07.2009 - added htmlspecialchars
+    // BOF - Tomcraft - 2011-03-02 - Revoked "added htmlspecialchars"
 
     include (DIR_WS_INCLUDES.FILENAME_CENTER_MODULES);
 
