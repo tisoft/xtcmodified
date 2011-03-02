@@ -98,4 +98,9 @@ ALTER TABLE orders MODIFY customers_company VARCHAR(64);
 ALTER TABLE orders MODIFY delivery_company VARCHAR(64);
 ALTER TABLE orders MODIFY billing_company VARCHAR(64);
 
+# BOF - Tomcraft - 2011-03-02 - Added status for cancelled orders
+INSERT INTO orders_status VALUES ('',1,'Cancelled');
+INSERT INTO orders_status VALUES ('',2,'Storniert');
+# EOF - Tomcraft - 2011-03-02 - Added status for cancelled orders
+
 # Keep an empty line at the end of this file for the db_updater to work properly

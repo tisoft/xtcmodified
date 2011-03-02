@@ -1818,6 +1818,10 @@ INSERT INTO orders_status VALUES (2,1,'Processing');
 INSERT INTO orders_status VALUES (2,2,'In Bearbeitung');
 INSERT INTO orders_status VALUES (3,1,'Delivered');
 INSERT INTO orders_status VALUES (3,2,'Versendet');
+# BOF - Tomcraft - 2011-03-02 - Added status for cancelled orders
+INSERT INTO orders_status VALUES (4,1,'Cancelled');
+INSERT INTO orders_status VALUES (4,2,'Storniert');
+# EOF - Tomcraft - 2011-03-02 - Added status for cancelled orders
 
 # USA
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
