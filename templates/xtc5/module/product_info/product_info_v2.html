@@ -4,12 +4,12 @@
   <div id="productinfowrap">
     <table>
       <tr>
-        <td style="padding-right:20px;">
+        <td style="padding-right:20px;" width="50%">
           {if $PRODUCTS_IMAGE!=''}
-            <a title="{$PRODUCTS_NAME}" href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}"><img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" class="productimage" />{if $PRODUCTS_POPUP_LINK!=''}<br/><br/><img src="{$tpl_path}img/magnifier.gif" alt="Zoom" border="0" />&nbsp;{#text_zoom#}{/if}</a>
+            <a title="{$PRODUCTS_NAME}" href="{$PRODUCTS_IMAGE|replace:"info_images":"popup_images"}" class="thickbox" rel="{$PRODUCTS_ID}"><img src="{$PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" class="productimage" name="mainpicbild" id="mainpicbild" />{if $PRODUCTS_POPUP_LINK!=''}<br/><br/><img src="{$tpl_path}img/magnifier.gif" alt="Zoom" border="0" />&nbsp;{#text_zoom#}{/if}</a>
           {/if}
         </td>
-        <td>
+        <td width="50%">
           <div id="productinfoprice">
             <p class="productprice"><strong>{$PRODUCTS_PRICE}</strong></p>
             <p class="taxandshippinginfo" style="white-space:nowrap">{$PRODUCTS_TAX_INFO}{if $PRODUCTS_SHIPPING_LINK}{$PRODUCTS_SHIPPING_LINK}{/if}</p>
@@ -59,6 +59,22 @@
           <div style="clear:both;"></div>
         </td>
       </tr>
+      <tr>
+        <td colspan="2">          
+          {if $more_images|@count > 0}
+          <div id="tab_more_images">
+            {* More Pictures *}
+            <div class="morepics">
+              {if $PRODUCTS_IMAGE != ''}<a href='javascript:replacebild("{$PRODUCTS_IMAGE}");'><img class="image" src='{$PRODUCTS_IMAGE}' width="80" border="0" alt="{$PRODUCTS_NAME}" /></a>{/if}
+              {foreach item=more_images_data from=$more_images}
+              <a title="{$PRODUCTS_NAME}" href='javascript:replacebild(&quot;{$more_images_data.PRODUCTS_IMAGE}&quot;);'><img align="left" src='{$more_images_data.PRODUCTS_IMAGE}' width="80" border="0" alt="{$PRODUCTS_NAME}" /></a>
+              {/foreach}
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+          {/if}
+        </td>
+      </tr>
     </table>
     {if $MODULE_product_options !=''}
       <div class="productoptions">{$MODULE_product_options}</div>
@@ -79,15 +95,6 @@
     {if $PRODUCTS_DESCRIPTION !=''}<div>{$PRODUCTS_DESCRIPTION}</div>{/if}
   </div>
 
-  {if $more_images|@count > 0}
-    {* More Pictures *}
-    <div class="morepics">
-      {foreach item=more_images_data from=$more_images}
-        <a class="thickbox" rel="{$PRODUCTS_ID}" title="{$PRODUCTS_NAME}" href="{$more_images_data.PRODUCTS_IMAGE|replace:"info_images":"popup_images"}"><img align="left" src="{$more_images_data.PRODUCTS_IMAGE}" alt="{$PRODUCTS_NAME}" /></a>
-      {/foreach}
-    </div>
-    <div style="clear:both;"></div>
-  {/if}
 {$FORM_END}
 
 {if $MODULE_products_media != ''}{$MODULE_products_media}{/if}
