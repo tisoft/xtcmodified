@@ -13,7 +13,12 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-include ('includes/configure.php');
+//include ('includes/configure.php');// DokuMan - 2011-03-05 - application_top.php already includes configure.php (fix php notices)
+include ('includes/application_top.php');
+
+// BOF - DokuMan - 2010-08-13 - set "PRODUCTS_ZUSTAND" by definition
+define('PRODUCTS_ZUSTAND','Neu');
+// EOF - DokuMan - 2010-08-13 - set "PRODUCTS_ZUSTAND" by definition
 
 // BOF - DokuMan - 2010-12-14 - added simple caching for feed, thx to AgentJ
 // cache settings
@@ -31,16 +36,9 @@ if(file_exists(DIR_FS_DOCUMENT_ROOT.CACHEFILE)
 ob_start();
 // EOF - DokuMan - 2010-12-14 - added simple caching for feed, thx to AgentJ
 
-// BOF - DokuMan - 2010-08-13 - set "PRODUCTS_ZUSTAND" by definition
-define('PRODUCTS_ZUSTAND','Neu');
-// EOF - DokuMan - 2010-08-13 - set "PRODUCTS_ZUSTAND" by definition
-
-include ('includes/application_top.php');
-
 $Title = "Produkt Feed von " . HTTP_SERVER;
 $Description = "Alle Produkte von " . HTTP_SERVER;
 $copyright = HTTP_SERVER;
-
 $SiteLink = HTTP_SERVER .DIR_WS_CATALOG ;
 
 if(GOOGLE_RSS_FEED_REFID !='' && GOOGLE_RSS_FEED_REFID !='0')
