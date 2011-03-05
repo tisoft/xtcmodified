@@ -96,6 +96,14 @@
           $catsort    = 'c.sort_order, cd.categories_name ASC';
           $prodsort   = 'p.products_sort, pd.products_name ASC';
   }
+
+  // BOF DokuMan - 2011-03-05 - show category name in heading title
+  $category_query_name = xtc_db_query("select categories_name
+                                  from " . TABLE_CATEGORIES_DESCRIPTION . "
+                                  where categories_id = '" . $current_category_id . "'
+                                  and language_id = " . (int)$_SESSION['languages_id']);
+  $category_name = xtc_db_fetch_array($category_query_name);
+  // EOF DokuMan - 2011-03-05 - show category name in heading title
 ?>
     <!-- categories_view HTML part begin -->
     <tr>
@@ -103,7 +111,11 @@
         <table border="0" width="100%" cellspacing="0" cellpadding="0">
         <tr>
          <td class="pageHeading">
-            <?php echo HEADING_TITLE; ?>
+            <?php echo HEADING_TITLE;
+            // BOF DokuMan - 2011-03-05 - show category name in heading title
+            echo ' - '.$category_name['categories_name'];
+            // EOF DokuMan - 2011-03-05 - show category name in heading title
+            ?>
          </td>
          <td class="pageHeading" align="right">
             <?php echo xtc_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?>

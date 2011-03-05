@@ -19,7 +19,7 @@
 //define('TEXT_EDIT_STATUS', 'Status');
 define('TEXT_EDIT_STATUS', 'Status aktiv');
 // BOF - Tomcraft - 2009-11-02 - Admin language tabs
-define('HEADING_TITLE', 'Kategorien / Artikel');
+define('HEADING_TITLE', 'Kategorie');
 define('HEADING_TITLE_SEARCH', 'Suche: ');
 define('HEADING_TITLE_GOTO', 'Gehe zu:');
 
