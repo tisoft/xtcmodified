@@ -33,7 +33,7 @@
         $product_ids .= $orders['products_id'] . ',';
       }
       $product_ids = substr($product_ids, 0, -1);
-      $customer_orders_string = '<ul class="contentlist">';
+      $customer_orders_string = '<table border="0" width="100%" cellspacing="0" cellpadding="1">';
       $products_query = xtc_db_query("SELECT
                                              products_id,
                                              products_name
@@ -43,10 +43,12 @@
                                     ORDER BY products_name
                                       ");
       while ($products = xtc_db_fetch_array($products_query)) {
-        $customer_orders_string .= '<li><a href="' . xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products['products_id'],$products['products_name'])) . '">' . $products['products_name'] . '</a></td>' .
-                                   '    <td class="infoBoxContents" align="right" valign="top"><a href="' . xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']) . '">' . xtc_image(DIR_WS_ICONS . 'cart.gif', ICON_CART) . '</a></li>';
+        $customer_orders_string .= '  <tr>' .
+                                   '    <td class="infoBoxContents"><a href="' . xtc_href_link(FILENAME_PRODUCT_INFO, xtc_product_link($products['products_id'],$products['products_name'])) . '">' . $products['products_name'] . '</a></td>' .
+                                   '    <td class="infoBoxContents" align="right" valign="top"><a href="' . xtc_href_link(basename($PHP_SELF), xtc_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']) . '">' . xtc_image(DIR_WS_ICONS . 'cart.gif', ICON_CART) . '</a></td>' .
+                                   '  </tr>';
       }
-      $customer_orders_string .= '</ul>';
+      $customer_orders_string .= '</table>';
     }
   }
   $box_smarty->assign('BOX_CONTENT', $customer_orders_string);
