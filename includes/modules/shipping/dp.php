@@ -153,7 +153,7 @@
       }
       
       if ($number_of_zones >=1) {
-        xtc_db_query("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value = 'AD,AT,BE,CZ,DK,FO,FI,FR,GR,GL,IE,IT,LI,LU,MC,NL,PL,PT,SM,SK,SE,CH,VA,GB,SP' WHERE configuration_key = 'MODULE_SHIPPING_DP_COUNTRIES_1'");
+        xtc_db_query("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value = 'AD,AT,BE,CZ,DK,FO,FI,FR,GR,GL,IE,IT,LI,LU,MC,NL,PL,PT,SM,SK,SE,CH,VA,GB,ES' WHERE configuration_key = 'MODULE_SHIPPING_DP_COUNTRIES_1'"); // Tomcraft - 2011-03-11 - Fixed spanish ISO country Code2
         xtc_db_query("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value = '5:16.50,10:20.50,20:28.50' WHERE  configuration_key = 'MODULE_SHIPPING_DP_COST_1'");
       }
       if ($number_of_zones >=2) {
