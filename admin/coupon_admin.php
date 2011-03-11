@@ -548,16 +548,16 @@
                   <tr>
                     <td>
                       <?php echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cid=' . $_GET['cid']); ?>
-                        <?php // BOF - web28 - 2010-07-23 - new table design ?>
-                        <table class="main" border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                        <?php // BOF - web28 - 2011-03-11 - new table design ?>
+                        <table class="main borderall" border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
                           <?php
                             $languages = xtc_get_languages();
                             for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
                               $language_id = $languages[$i]['id'];
                               ?>
                               <tr>
-                                <td class="td_left"><?php echo COUPON_NAME . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
-                                <td class="td_right"><?php echo $_POST['coupon_name'][$language_id]; ?>&nbsp;</td>
+                                <td align="left"><?php echo COUPON_NAME . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+                                <td align="left"><?php echo $_POST['coupon_name'][$language_id]; ?>&nbsp;</td>
                               </tr>
                               <?php
                             }
@@ -566,36 +566,36 @@
                               $language_id = $languages[$i]['id'];
                               ?>
                               <tr>
-                                <td class="td_left"><?php echo COUPON_DESC . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
-                                <td class="td_right"><?php echo $_POST['coupon_desc'][$language_id]; ?>&nbsp;</td>
+                                <td align="left"><?php echo COUPON_DESC . '&nbsp;&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+                                <td align="left"><?php echo $_POST['coupon_desc'][$language_id]; ?>&nbsp;</td>
                               </tr>
                               <?php
                             }
                             ?>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_AMOUNT; ?></td>
-                              <td class="td_right"><?php echo $_POST['coupon_amount']; ?>&nbsp;</td>
+                              <td align="left"><?php echo COUPON_AMOUNT; ?></td>
+                              <td align="left"><?php echo $_POST['coupon_amount']; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_MIN_ORDER; ?></td>
-                              <td class="td_right"><?php echo $_POST['coupon_min_order']; ?>&nbsp;</td>
+                              <td align="left"><?php echo COUPON_MIN_ORDER; ?></td>
+                              <td align="left"><?php echo $_POST['coupon_min_order']; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_FREE_SHIP; ?></td>
+                              <td align="left"><?php echo COUPON_FREE_SHIP; ?></td>
                               <?php
                                 if ($_POST['coupon_free_ship']) {
                                   ?>
-                                  <td class="td_right"><?php echo TEXT_FREE_SHIPPING; ?></td>
+                                  <td align="left"><?php echo TEXT_FREE_SHIPPING; ?></td>
                                   <?php
                                 } else {
                                   ?>
-                                  <td class="td_right"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
+                                  <td align="left"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
                                   <?php
                                 }
                               ?>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_CODE; ?></td>
+                              <td align="left"><?php echo COUPON_CODE; ?></td>
                               <?php
                                 if ($_POST['coupon_code']) {
                                   $c_code = $_POST['coupon_code'];
@@ -603,43 +603,43 @@
                                   $c_code = $coupon_code;
                                 }
                               ?>
-                              <td class="td_right"><?php echo $coupon_code; ?>&nbsp;</td>
+                              <td align="left"><?php echo $coupon_code; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_USES_COUPON; ?></td>
-                              <td class="td_right"><?php echo $_POST['coupon_uses_coupon']; ?>&nbsp;</td>
+                              <td align="left"><?php echo COUPON_USES_COUPON; ?></td>
+                              <td align="left"><?php echo $_POST['coupon_uses_coupon']; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_USES_USER; ?></td>
-                              <td class="td_right"><?php echo $_POST['coupon_uses_user']; ?>&nbsp;</td>
+                              <td align="left"><?php echo COUPON_USES_USER; ?></td>
+                              <td align="left"><?php echo $_POST['coupon_uses_user']; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_PRODUCTS; ?></td>
-                              <td class="td_right"><?php echo $_POST['coupon_products']; ?>&nbsp;</td>
+                              <td align="left"><?php echo COUPON_PRODUCTS; ?></td>
+                              <td align="left"><?php echo $_POST['coupon_products']; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_CATEGORIES; ?></td>
-                              <td class="td_right"><?php echo $_POST['coupon_categories']; ?>&nbsp;</td>
+                              <td align="left"><?php echo COUPON_CATEGORIES; ?></td>
+                              <td align="left"><?php echo $_POST['coupon_categories']; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_STARTDATE; ?></td>
+                              <td align="left"><?php echo COUPON_STARTDATE; ?></td>
                               <?php
                                 // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                                 //$start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
                                 $start_date = xtc_date_short($_POST['coupon_startdate']);
                                 // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                               ?>
-                              <td class="td_right"><?php echo $start_date; ?>&nbsp;</td>
+                              <td align="left"><?php echo $start_date; ?>&nbsp;</td>
                             </tr>
                             <tr>
-                              <td class="td_left"><?php echo COUPON_FINISHDATE; ?></td>
+                              <td align="left"><?php echo COUPON_FINISHDATE; ?></td>
                               <?php
                                 // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                                 //$finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] ));
                                 $finish_date = xtc_date_short($_POST['coupon_finishdate']);
                                 // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                               ?>
-                              <td class="td_right"><?php echo $finish_date; ?>&nbsp;</td>
+                              <td align="left"><?php echo $finish_date; ?>&nbsp;</td>
                             </tr>
                             <?php
                               $languages = xtc_get_languages();
@@ -662,14 +662,13 @@
                               echo xtc_draw_hidden_field('coupon_startdate', $_POST['coupon_startdate']);
                               echo xtc_draw_hidden_field('coupon_finishdate', $_POST['coupon_finishdate']);
                               // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
-                            ?>
-                            <tr>
-                              <td align="left"><?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_CONFIRM . '"/>'; ?></td>
-                              <td align="left"><?php echo '<input type="submit" name="back" class="button" onclick="this.blur();" value="' . BUTTON_BACK . '"/>'; ?></td>
-                            </tr>
+                            ?>                            
                           </td>
                         </table>
-                        <?php // EOF - web28 - 2010-07-23 - new table design ?>
+                        <?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_CONFIRM . '"/>'; ?>
+                        <?php echo '<input type="submit" name="back" class="button" onclick="this.blur();" value="' . BUTTON_BACK . '"/>'; ?>
+                      </tr>
+                        <?php // EOF - web28 - 2011-03-11 - new table design ?>
                       </form>
                     </tr>
                   </table>
@@ -721,16 +720,16 @@
                       echo xtc_draw_form('coupon', 'coupon_admin.php', 'action=update&oldaction='.$_GET['action'] . '&cid=' . $_GET['cid'],'post', 'enctype="multipart/form-data"');
                         ?>
                         <?php // BOF - web28 - 2010-07-23 - new table design?>
-                        <table class="main" border="0" width="100%" cellspacing="0" cellpadding="6" style="border-collapse:collapse">
+                         <table class="main borderall" border="0" cellspacing="0" cellpadding="6">
                           <?php
                           $languages = xtc_get_languages();
                           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
                             $language_id = $languages[$i]['id'];
                             ?>
                             <tr>
-                              <td class="td_left"><?php if ($i==0) echo COUPON_NAME; ?></td>
-                              <td class="td_middle"><?php echo xtc_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id], 'style="width: 150px"') . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
-                              <td class="td_right"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
+                              <td align="left"><?php if ($i==0) echo COUPON_NAME; ?></td>
+                              <td align="left"><?php echo xtc_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id], 'style="width: 150px"') . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+                              <td align="left"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
                             </tr>
                             <?php
                           }
@@ -739,58 +738,58 @@
                             $language_id = $languages[$i]['id'];
                             ?>
                             <tr>
-                              <td class="td_left"><?php if ($i==0) echo COUPON_DESC; ?></td>
-                              <td class="td_middle"><nobr><?php echo xtc_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id], 'style="width: 250px"') . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?><nobr></td>
-                              <td class="td_right"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
+                              <td align="left"><?php if ($i==0) echo COUPON_DESC; ?></td>
+                              <td align="left"><nobr><?php echo xtc_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id], 'style="width: 250px"') . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?><nobr></td>
+                              <td align="left"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
                             </tr>
                             <?php
                           }
                           ?>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_AMOUNT; ?></td>
-                            <td class="td_middle"><?php echo xtc_draw_input_field('coupon_amount', $coupon_amount, 'style="width: 150px"'); ?></td>
-                            <td class="td_right"><?php echo COUPON_AMOUNT_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_AMOUNT; ?></td>
+                            <td align="left"><?php echo xtc_draw_input_field('coupon_amount', $coupon_amount, 'style="width: 150px"'); ?></td>
+                            <td align="left"><?php echo COUPON_AMOUNT_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_MIN_ORDER; ?></td>
-                            <td class="td_middle"><?php echo xtc_draw_input_field('coupon_min_order', $coupon_min_order, 'style="width: 150px"'); ?></td>
-                            <td class="td_right"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_MIN_ORDER; ?></td>
+                            <td align="left"><?php echo xtc_draw_input_field('coupon_min_order', $coupon_min_order, 'style="width: 150px"'); ?></td>
+                            <td align="left"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_FREE_SHIP; ?></td>
-                            <td class="td_middle"><?php echo xtc_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
-                            <td class="td_right"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_FREE_SHIP; ?></td>
+                            <td align="left"><?php echo xtc_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
+                            <td align="left"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_CODE; ?></td>
-                            <td class="td_middle"><?php echo xtc_draw_input_field('coupon_code', $coupon_code, 'style="width: 150px"'); ?></td>
-                            <td class="td_right"><?php echo COUPON_CODE_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_CODE; ?></td>
+                            <td align="left"><?php echo xtc_draw_input_field('coupon_code', $coupon_code, 'style="width: 150px"'); ?></td>
+                            <td align="left"><?php echo COUPON_CODE_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_USES_COUPON; ?></td>
-                            <td class="td_middle"><?php echo xtc_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon, 'style="width: 150px"'); ?></td>
-                            <td class="td_right"><?php echo COUPON_USES_COUPON_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_USES_COUPON; ?></td>
+                            <td align="left"><?php echo xtc_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon, 'style="width: 150px"'); ?></td>
+                            <td align="left"><?php echo COUPON_USES_COUPON_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_USES_USER; ?></td>
-                            <td class="td_middle"><?php echo xtc_draw_input_field('coupon_uses_user', $coupon_uses_user, 'style="width: 150px"'); ?></td>
-                            <td class="td_right"><?php echo COUPON_USES_USER_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_USES_USER; ?></td>
+                            <td align="left"><?php echo xtc_draw_input_field('coupon_uses_user', $coupon_uses_user, 'style="width: 150px"'); ?></td>
+                            <td align="left"><?php echo COUPON_USES_USER_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_PRODUCTS; ?></td>
+                            <td align="left"><?php echo COUPON_PRODUCTS; ?></td>
                             <?php // BOF - web28 - 2010-11-13 - FIX popup link ?>
-                            <!--td class="td_middle"><?php //echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <A HREF="validproducts.php" TARGET="_blank" ONCLICK="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td-->
-                            <td class="td_middle"><?php echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <a href="<?php echo xtc_href_link('validproducts.php', '' , 'NONSSL');?>" target="_blank" onclick="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false"><?php echo TEXT_VIEW_SHORT;?></a></td>
+                            <!--td align="left"><?php //echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <A HREF="validproducts.php" TARGET="_blank" ONCLICK="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td-->
+                            <td align="left"><?php echo xtc_draw_input_field('coupon_products', $coupon_products, 'style="width: 150px"'); ?> <a href="<?php echo xtc_href_link('validproducts.php', '' , 'NONSSL');?>" target="_blank" onclick="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false"><?php echo TEXT_VIEW_SHORT;?></a></td>
                             <?php // EOF - web28 - 2010-11-13 - FIX popup link ?>
-                            <td class="td_right"><?php echo COUPON_PRODUCTS_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_PRODUCTS_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_CATEGORIES; ?></td>
+                            <td align="left"><?php echo COUPON_CATEGORIES; ?></td>
                             <?php // BOF - web28 - 2010-11-13 - FIX popup link ?>
-                            <!--td class="td_middle"><?php //echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td-->
-                            <td class="td_middle"><?php echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <a href="<?php echo xtc_href_link('validcategories.php', '' , 'NONSSL');?>" target="_blank" onclick="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false"><?php echo TEXT_VIEW_SHORT;?></a></td>
+                            <!--td align="left"><?php //echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td-->
+                            <td align="left"><?php echo xtc_draw_input_field('coupon_categories', $coupon_categories, 'style="width: 150px"'); ?> <a href="<?php echo xtc_href_link('validcategories.php', '' , 'NONSSL');?>" target="_blank" onclick="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false"><?php echo TEXT_VIEW_SHORT;?></a></td>
                             <?php //EOF - web28 - 2010-11-13 - FIX popup link ?>
-                            <td class="td_right"><?php echo COUPON_CATEGORIES_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_CATEGORIES_HELP; ?></td>
                           </tr>
                           <tr>
                             <?php
@@ -818,8 +817,8 @@
                               // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                             }
                             ?>
-                            <td class="td_left"><?php echo COUPON_STARTDATE; ?></td>
-                            <td class="td_middle">
+                            <td align="left"><?php echo COUPON_STARTDATE; ?></td>
+                            <td align="left">
                               <?php
                               // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                               //echo xtc_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0], 0));
@@ -827,11 +826,11 @@
                               // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                               ?>
                             </td>
-                            <td class="td_right"><?php echo COUPON_STARTDATE_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_STARTDATE_HELP; ?></td>
                           </tr>
                           <tr>
-                            <td class="td_left"><?php echo COUPON_FINISHDATE; ?></td>
-                            <td class="td_middle">
+                            <td align="left"><?php echo COUPON_FINISHDATE; ?></td>
+                            <td align="left">
                               <?php
                                 // BOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                                 //echo xtc_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0], 0));
@@ -839,7 +838,7 @@
                                 // EOF - DokuMan - 2010-09-03 - Replace SPIFFY CAL by JqueryUI
                               ?>
                             </td>
-                            <td class="td_right"><?php echo COUPON_FINISHDATE_HELP; ?></td>
+                            <td align="left"><?php echo COUPON_FINISHDATE_HELP; ?></td>
                           </tr>
                           <tr>
                             <td align="left"><?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_PREVIEW . '"/>'; ?></td>
@@ -847,6 +846,9 @@
                             <td align="left">&nbsp;</td>
                           </tr>
                         </table>
+                        <?php echo '<input type="submit" class="button" onclick="this.blur();" value="' . BUTTON_PREVIEW . '"/>'; ?>
+                        <?php echo '&nbsp;&nbsp;<a class="button" onclick="this.blur();" href="' . xtc_href_link('coupon_admin.php', '') .'">'. BUTTON_CANCEL . '</a>'; ?>
+      
                         <?php // EOF - web28 - 2010-07-23 - new table design?>
                       </form>
                     </tr>
