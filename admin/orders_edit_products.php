@@ -43,6 +43,9 @@
         //BOF - web28 - 2011-01-16 - FIX missing sessions id
         echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
         //EOF - web28 - 2011-01-16 - FIX missing sessions id
+        //BOF - web28 - 2011-03-13 - FIX missing old_qty
+        echo xtc_draw_hidden_field('old_qty', $order->products[$i]['qty']);
+        //EOF - web28 - 2011-03-13 - FIX missing old_qty
         echo xtc_draw_hidden_field('oID', $_GET['oID']);
         echo xtc_draw_hidden_field('opID', $order->products[$i]['opid']);
         ?>
