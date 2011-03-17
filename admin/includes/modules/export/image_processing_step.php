@@ -1,44 +1,49 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: image_processing_step.php 950 2005-05-14 16:45:21Z mz $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
+   Copyright (c) 2010 xtcModified
    -----------------------------------------------------------------------------------------
-   based on: 
+   based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com 
+   (c) 2002-2003 osCommerce(cod.php,v 1.28 2003/02/14); www.oscommerce.com
    (c) 2003	 nextcommerce (invoice.php,v 1.6 2003/08/24); www.nextcommerce.org
-
+   (c) 2006 XT-Commerce (image_processing_step.php 950 2005-05-14; www.xt-commerce.com
    --------------------------------------------------------------
    Contribution
    image_processing_step (step-by-step Variante B) by INSEH 2008-03-26
+   
+   new javascript reload / only missing image/ max images  by web28 2011-03-17
 
-   Released under the GNU General Public License 
+   Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
 
-define('MODULE_STEP_IMAGE_PROCESS_TEXT_DESCRIPTION', 'Es werden alle Bilder in den Verzeichnissen<br /><br /> 
+define('MODULE_STEP_IMAGE_PROCESS_TEXT_DESCRIPTION', 'Es werden alle Bilder in den Verzeichnissen<br /><br />
 
-/images/product_images/popup_images/<br /> 
+/images/product_images/popup_images/<br />
 
-/images/product_images/info_images/<br /> 
+/images/product_images/info_images/<br />
 
-/images/product_images/thumbnail_images/ <br /> <br /> neu erstellt.<br /> <br /> 
+/images/product_images/thumbnail_images/ <br /> <br /> neu erstellt.<br /> <br />
 
-
-
-Hierzu verarbeitet das Script nur eine begrenzte Anzahl von 5 Bildern und ruft sich danach selbst wieder auf.<br /> <br />');
-define('MODULE_STEP_IMAGE_PROCESS_TEXT_TITLE', 'XT-Imageprocessing-New - Variante B ( EMPFOHLEN )');
+Hierzu verarbeitet das Script nur eine begrenzte Anzahl von %s Bildern und ruft sich danach selbst wieder auf.<br /> <br />');
+define('MODULE_STEP_IMAGE_PROCESS_TEXT_TITLE', 'XT-Imageprocessing-New-V2 - <b>Produktbilder</b>');
 define('MODULE_STEP_IMAGE_PROCESS_STATUS_DESC','Modulstatus');
 define('MODULE_STEP_IMAGE_PROCESS_STATUS_TITLE','Status');
 define('IMAGE_EXPORT','Dr&uuml;cken Sie Ok um die Stapelverarbeitung zu starten, dieser Vorgang kann einige Zeit dauern, auf keinen Fall unterbrechen!.');
 define('IMAGE_EXPORT_TYPE','<hr noshade><strong>Stapelverarbeitung:</strong>');
 
+define('IMAGE_STEP_INFO','Bilder erstellt: ');
+define('TEXT_MAX_IMAGES','max. Bilder pro Seitenreload');
+define('TEXT_ONLY_MISSING_IMAGES','Nur fehlende Bilder erstellen');
 
 
+
+if ( !class_exists( "image_processing_step" ) ) {
   class image_processing_step {
     var $code, $title, $description, $enabled;
 
@@ -48,55 +53,81 @@ define('IMAGE_EXPORT_TYPE','<hr noshade><strong>Stapelverarbeitung:</strong>');
 
       $this->code = 'image_processing_step';
       $this->title = MODULE_STEP_IMAGE_PROCESS_TEXT_TITLE;
-      $this->description = MODULE_STEP_IMAGE_PROCESS_TEXT_DESCRIPTION;
+      $this->description = sprintF(MODULE_STEP_IMAGE_PROCESS_TEXT_DESCRIPTION, $_GET['max']);
       $this->sort_order = MODULE_STEP_IMAGE_PROCESS_SORT_ORDER;
       $this->enabled = ((MODULE_STEP_IMAGE_PROCESS_STATUS == 'True') ? true : false);
 
     }
 
-// <neu>
+
     function process($file, $offset) {
-// </neu>
-    include ('includes/classes/'.FILENAME_IMAGEMANIPULATOR);  
-        @xtc_set_time_limit(0);
-        $files=array();
-        if ($dir= opendir(DIR_FS_CATALOG_ORIGINAL_IMAGES)){
-            while  ($file = readdir($dir)) {
-                     if (is_file(DIR_FS_CATALOG_ORIGINAL_IMAGES.$file) and ($file !="index.html") and (strtolower($file) != "thumbs.db")){
-                         $files[]=array(
-                                        'id' => $file,
-                                        'text' =>$file);
-                     }
-             }
-        closedir($dir);
+      global $limit, $selbstaufruf, $infotext, $count;
+
+      include ('includes/classes/'.FILENAME_IMAGEMANIPULATOR);
+          @xtc_set_time_limit(0);
+          $files=array();
+          if ($dir= opendir(DIR_FS_CATALOG_ORIGINAL_IMAGES)){
+              while  ($file = readdir($dir)) {
+                       if (is_file(DIR_FS_CATALOG_ORIGINAL_IMAGES.$file) and ($file !="index.html") and (strtolower($file) != "thumbs.db")){
+                           $files[]=array(
+                                          'id' => $file,
+                                          'text' =>$file);
+                       }
+               }
+          closedir($dir);
+          }
+
+      $max_files = sizeof($files);
+      $step = $_GET['max'];
+      $count = $_GET['count'];
+      $limit = $offset + $step;
+      for ($i=$offset; $i<$limit; $i++) {
+        if ($i >= $max_files) { // FERTIG
+          $infotext = urlencode(IMAGE_STEP_INFO . $count);
+          xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=image_processing_step&infotext='.$infotext. '&max='. $_GET['max'])); //FERTIG
         }
-// <neu> hier Bilderanzahl pro Durchgang
-    $step = 5;
-    $max_files = sizeof($files);
-    $limit = $offset + $step;
-    for ($i=$offset; $i<$limit; $i++) {
-      if ($i >= $max_files) 
-        xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=image_processing_step'));
-      $products_image_name = $files[$i]['text'];
-      if ($files[$i]['text'] != 'Thumbs.db' && $files[$i]['text'] != 'Index.html') {
-        require(DIR_WS_INCLUDES . 'product_thumbnail_images.php');
-        require(DIR_WS_INCLUDES . 'product_info_images.php');
-        require(DIR_WS_INCLUDES . 'product_popup_images.php');
+        $products_image_name = $files[$i]['text'];
+        if ($files[$i]['text'] != 'Thumbs.db' && $files[$i]['text'] != 'Index.html') {
+          if ($_GET['miss'] == 1) {
+            $flag = false;
+            if (!is_file(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_thumbnail_images.php'); $flag = true;}
+            if (!is_file(DIR_FS_CATALOG_INFO_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_info_images.php'); $flag = true; }
+            if (!is_file(DIR_FS_CATALOG_POPUP_IMAGES.$files[$i]['text'])) {    require(DIR_WS_INCLUDES . 'product_popup_images.php'); $flag = true; }
+            if ($flag) { $count += 1; }
+          } else {
+            require(DIR_WS_INCLUDES . 'product_thumbnail_images.php');
+            require(DIR_WS_INCLUDES . 'product_info_images.php');
+            require(DIR_WS_INCLUDES . 'product_popup_images.php');
+            $count += 1;
+          }
+        }
       }
-    }
-    xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&action=save&module=image_processing_step&start=' . $limit)); 
-// </neu>
+      //xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&action=save&module=image_processing_new_step&start=' . $limit));
+      //Animierte Gif-Datei und Hinweistext
+      $info_wait = '<img src="images/loading.gif"> ';
+      $infotext = '<div style="margin:10px; font-family:Verdana; font-size:15px; text-align:center;">'.$info_wait . IMAGE_STEP_INFO . $count.'</div>';
+      $selbstaufruf = '<script language="javascript" type="text/javascript">setTimeout("document.continue.submit()", 3000);</script>';
+
     }
 
     function display() {
+      
+      //Array für max. Bilder pro Seitenreload
+      $max_array = array (array ('id' => '5', 'text' => '5'));
+      $max_array[] = array ('id' => '10', 'text' => '10');
+      $max_array[] = array ('id' => '15', 'text' => '15');
+      $max_array[] = array ('id' => '20', 'text' => '20');
 
-
-    return array('text' =>
+      return array('text' =>
+                            xtc_draw_hidden_field('process','image_processing_do').
+                            xtc_draw_hidden_field('max_images1','5').                            
                             IMAGE_EXPORT_TYPE.'<br />'.
                             IMAGE_EXPORT.'<br />'.
-                            '<br />' . xtc_button(BUTTON_REVIEW_APPROVE) . '&nbsp;' .
-                            xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=image_processing_step')));
-
+                            '<br />' . xtc_draw_pull_down_menu('max_images', $max_array, '5'). ' ' . TEXT_MAX_IMAGES. '<br />'.
+                            '<br />' . xtc_draw_checkbox_field('only_missing_images', '1', false) . ' ' . TEXT_ONLY_MISSING_IMAGES. '<br />'.
+                            '<br />' . xtc_button(BUTTON_START). '&nbsp;' .
+                            xtc_button_link(BUTTON_CANCEL, xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=image_processing_step'))
+                   );
 
     }
 
@@ -121,4 +152,5 @@ define('IMAGE_EXPORT_TYPE','<hr noshade><strong>Stapelverarbeitung:</strong>');
     }
 
   }
+}
 ?>
