@@ -106,7 +106,7 @@ if ( !class_exists( "image_processing_step" ) ) {
       //Animierte Gif-Datei und Hinweistext
       $info_wait = '<img src="images/loading.gif"> ';
       $infotext = '<div style="margin:10px; font-family:Verdana; font-size:15px; text-align:center;">'.$info_wait . IMAGE_STEP_INFO . $count.'</div>';
-      $selbstaufruf = '<script language="javascript" type="text/javascript">setTimeout("document.continue.submit()", 3000);</script>';
+      $selbstaufruf = '<script language="javascript" type="text/javascript">setTimeout("document.img_continue.submit()", 3000);</script>';
 
     }
 

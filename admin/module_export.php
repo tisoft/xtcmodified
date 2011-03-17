@@ -112,7 +112,7 @@
     <!-- body //-->
     <?php
     //BOF NEW IMAGE PROCESSING
-    echo '<form name="continue" action="'.$link.'" method="POST"></form>';
+    echo '<form name="img_continue" action="'.$link.'" method="POST"></form>';
     echo $selbstaufruf;
     //EOF NEW IMAGE PROCESSING
     ?>
