@@ -1,6 +1,6 @@
 <?php
 /* --------------------------------------------------------------
-   $Id
+   $Id$
 
    xtcModified - community made shopping
    http://www.xtc-modified.org
@@ -14,9 +14,15 @@
    (c) 2006 xt:Commerce; www.xt-commerce.com
 
    Released under the GNU General Public License
-
+   
+   v.1.20 - 2011-03-17
    TODO Lagerbestand Attribute (Produkt löschen, Produkt Anzahl Änderung)
+              dazu muss die Tabelle orders_product_attributes um options_id und options_values_id erweitert werden
+              da ansonsten keine eindeutige Zuordnung möglich ist
+              Anpassung in checkout_process.php
    --------------------------------------------------------------*/
+   
+define('FORMAT_NEGATIVE', '<strong><font color="#ff0000">-%s</font></strong>');
 
 // Benötigte Funktionen und Klassen Anfang:
 require ('includes/application_top.php');
@@ -95,8 +101,7 @@ if ($action == 'product_edit') {
 
   //Produktpreise neu berechnen - Steuer hinzufügen
   if ($status['customers_status_show_price_tax'] == 1 && $product['allow_tax'] == 0) {
-    $_POST['products_price'] += $_POST['products_price'] /100 * $product['products_tax'];
-    $_POST['final_price'] += $_POST['final_price'] /100 * $product['products_tax'];
+    $_POST['products_price'] = $_POST['products_price'] /100 * $product['products_tax'];    
     //Optionspreise neu berechnen  - Steuer hinzufügen
     while ($products_a = xtc_db_fetch_array($products_a_query)) {
       if ($products_a['options_values_price'] > 0) {
@@ -107,8 +112,7 @@ if ($action == 'product_edit') {
   }
   //Produktpreise neu berechnen - Steuer abziehen
   if ($status['customers_status_show_price_tax'] == 0 && $product['allow_tax'] == 1) {
-    $_POST['products_price'] = $_POST['products_price'] * 100 /(100 + $product['products_tax']);
-    $_POST['final_price'] = $_POST['final_price'] * 100 /(100 + $product['products_tax']);
+    $_POST['products_price'] = $_POST['products_price'] * 100 /(100 + $product['products_tax']);    
     //Optionspreise neu berechnen  - Steuer abziehen
     while ($products_a = xtc_db_fetch_array($products_a_query)) {
       if ($products_a['options_values_price'] > 0) {
@@ -295,6 +299,7 @@ if ($action == 'product_option_ins') {
 
   }
 
+
   $products_old_price = $xtPrice->xtcGetPrice($products['products_id'], $format = false, $products['products_quantity'], '', '', '', $order->customer['ID']);
 
   $products_price = ($products_old_price + $options_values_price);
@@ -372,10 +377,11 @@ if ($action== 'ot_edit') {
 
     $text = $xtPrice->xtcFormat($_POST['value'], true);
 
+
     //BOF - web28 - 2011-01-15 - //FIX Formatierung negativer Coupon/Gutscheinwert
     if (in_array($_POST['class'], array('ot_coupon', 'ot_gv', 'ot_discount'))) {
       if ($_POST['value'] < 0 ) $_POST['value'] *= -1;
-      $text = '<strong><font color="#ff0000">-' . $xtPrice->xtcFormat($_POST['value'], true) . '</font></strong>';
+      $text = sprintf(FORMAT_NEGATIVE, $xtPrice->xtcFormat($_POST['value'], true));
     }
     //BOF - web28 - 2011-01-15 - //FIX Formatierung negativer Coupon/Gutscheinwert
 
@@ -393,7 +399,7 @@ if ($action== 'ot_edit') {
     //BOF - web28 - 2011-01-15 - //FIX Formatierung negativer Coupon/Gutscheinwert
     if (in_array($_POST['class'], array('ot_coupon', 'ot_gv', 'ot_discount'))) {
       if ($_POST['value'] < 0 ) $_POST['value'] *= -1;
-      $text = '<strong><font color="#ff0000">-' . $xtPrice->xtcFormat($_POST['value'], true). '</font></strong>';
+      $text = sprintf(FORMAT_NEGATIVE, $xtPrice->xtcFormat($_POST['value'], true));
     }
     //BOF - web28 - 2011-01-15 - //FIX Formatierung negativer Coupon/Gutscheinwert
 
@@ -546,6 +552,7 @@ if ($action == 'product_delete') {
   //BOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
   xtc_db_query("UPDATE ".TABLE_PRODUCTS." SET products_quantity = products_quantity + ".xtc_db_input($_POST['del_qty'])." WHERE products_id = " . (int)$_POST['del_pID']);
   //EOF - Dokuman - 2010-03-17 - calculate stock correctly when editing orders
+  
 
   xtc_redirect(xtc_href_link(FILENAME_ORDERS_EDIT, 'edit_action=products&oID='.(int)$_POST['oID']));
 }
@@ -680,7 +687,7 @@ if ($action == 'save_order') {
   $module_query = xtc_db_query("select value, class from ".TABLE_ORDERS_TOTAL." where orders_id = '".(int)$_POST['oID']."' and class!='ot_total' and class!='ot_subtotal_no_tax' and class!='ot_tax' and class!='ot_subtotal'");
   while ($module_value = xtc_db_fetch_array($module_query)) {
     $module_name = str_replace('ot_', '', $module_value['class']);
-
+    
     if ($module_name != 'discount') {
       if ($module_name != 'shipping') {
         $module_tax_class = constant(MODULE_ORDER_TOTAL_.strtoupper($module_name)._TAX_CLASS);
@@ -763,7 +770,8 @@ if ($action == 'save_order') {
 
     $insert_sql_data = array ('class' => $module_value['class']);
     $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
-    xtc_db_perform(TABLE_ORDERS_RECALCULATE, $sql_data_array);
+    xtc_db_perform(TABLE_ORDERS_RECALCULATE, $sql_data_array); 
+    
   }
   //EOF#######  Module  #######//
 
@@ -1082,7 +1090,8 @@ function calculate_tax($amount) {
               }
               if ((xtc_not_null($heading)) && (xtc_not_null($contents))) {
                 echo '            <td width="20%" valign="top">'."\n";
-                echo box::infoBoxSt($heading, $contents); // cYbercOsmOnauT - 2011-02-07 - Changed methods of the classes box and tableBox to static
+                $box = new box;
+                echo $box->infoBox($heading, $contents);
                 echo '            </td>'."\n";
               }
               ?>
