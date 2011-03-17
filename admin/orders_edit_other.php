@@ -1,6 +1,6 @@
 <?php
   /* --------------------------------------------------------------
-   $Id: orders_edit.php,v 1.0
+   $Id$
 
    XT-Commerce - community made shopping
    http://www.xt-commerce.com
