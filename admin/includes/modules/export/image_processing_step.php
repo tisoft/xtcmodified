@@ -38,6 +38,7 @@ define('IMAGE_EXPORT','Dr&uuml;cken Sie Ok um die Stapelverarbeitung zu starten,
 define('IMAGE_EXPORT_TYPE','<hr noshade><strong>Stapelverarbeitung:</strong>');
 
 define('IMAGE_STEP_INFO','Bilder erstellt: ');
+define('IMAGE_STEP_INFO_READY','<br /><br /> Fertig!');
 define('TEXT_MAX_IMAGES','max. Bilder pro Seitenreload');
 define('TEXT_ONLY_MISSING_IMAGES','Nur fehlende Bilder erstellen');
 
@@ -83,7 +84,7 @@ if ( !class_exists( "image_processing_step" ) ) {
       $limit = $offset + $step;
       for ($i=$offset; $i<$limit; $i++) {
         if ($i >= $max_files) { // FERTIG
-          $infotext = urlencode(IMAGE_STEP_INFO . $count);
+          $infotext = urlencode(IMAGE_STEP_INFO . $count. IMAGE_STEP_INFO_READY) ;
           xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=image_processing_step&infotext='.$infotext. '&max='. $_GET['max'])); //FERTIG
         }
         $products_image_name = $files[$i]['text'];
