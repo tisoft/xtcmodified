@@ -21,6 +21,7 @@ define('TABLE_HEADING_ONLINE', 'Online');
 define('TABLE_HEADING_CUSTOMER_ID', 'ID');
 define('TABLE_HEADING_FULL_NAME', 'Full Name');
 define('TABLE_HEADING_IP_ADDRESS', 'IP Adress');
+define('TABLE_HEADING_COUNTRY', 'Country');
 define('TABLE_HEADING_ENTRY_TIME', 'Entry Time');
 define('TABLE_HEADING_LAST_CLICK', 'Last Click');
 define('TABLE_HEADING_LAST_PAGE_URL', 'Last URL');

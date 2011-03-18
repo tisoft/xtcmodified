@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(whos_online.php,v 1.30 2002/11/22); www.oscommerce.com
-   (c) 2003	nextcommerce (whos_online.php,v 1.9 2003/08/18); www.nextcommerce.org
+   (c) 2003 nextcommerce (whos_online.php,v 1.9 2003/08/18); www.nextcommerce.org
    (c) 2006 XT-Commerce (whos_online.php 1133 2005-08-07)
 
    Released under the GNU General Public License
@@ -63,11 +63,12 @@
                     <td valign="top">
                       <table border="0" width="100%" cellspacing="0" cellpadding="2">
                         <tr class="dataTableHeadingRow">
-                          <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ONLINE; ?></td>
+                          <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_ONLINE; ?></td>
                           <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_CUSTOMER_ID; ?></td>
-                          <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FULL_NAME; ?></td>
-                          <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_IP_ADDRESS; ?></td>
-                          <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ENTRY_TIME; ?></td>
+                          <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_FULL_NAME; ?></td>
+                          <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_IP_ADDRESS; ?></td>
+                          <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_COUNTRY; ?></td>
+                          <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_ENTRY_TIME; ?></td>
                           <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LAST_CLICK; ?></td>
                           <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LAST_PAGE_URL; ?></td>
                           <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_HTTP_REFERER; ?></td>
@@ -86,33 +87,41 @@
                             echo '              <tr class="dataTableRowSelected">' . "\n";
                           //BOF - DokuMan - 2011-02-07 - don't show a link for users/bots without a session id
                           } elseif (($whos_online['session_id'] == '') || (substr($whos_online['session_id'],0,1) == '[')) {
-                              echo '              <tr class="dataTableRow">' . "\n";
+                            echo '              <tr class="dataTableRow">' . "\n";
                           //EOF - DokuMan - 2011-02-07 - don't show a link for users/bots without a session id
                           } else {
                             echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'pointer\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link(FILENAME_WHOS_ONLINE, xtc_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id'], 'NONSSL') . '\'">' . "\n";
                           }
-                            //BOF web28 2010-12-03 added Hostname to whois online
-                            $whos_online['ip_address'] = '<span style="white-space: nowrap;">'.$whos_online['ip_address'].'<span style="font-weight: normal; font-style: italic;"> ('.@gethostbyaddr($whos_online['ip_address']).')</span></span>';
-                            //EOF web28 2010-12-03 added Hostname to whois online   
+
+                          //BOF - DokuMan - 2011-03-16 - added GEOIP-function (show customers country)
+                          $data = array();
+                          $response = xtc_get_geoip_data($whos_online['ip_address']);
+                          $data = @unserialize($response);
+                          //BOF - DokuMan - 2011-03-16 - added GEOIP-function (show customers country)
+
+                          //BOF web28 2010-12-03 added Hostname to whois online
+                          $whos_online['ip_address'] = '<span style="white-space: nowrap;">'.$whos_online['ip_address'].'<span style="font-weight: normal; font-style: italic;"> ('.@gethostbyaddr($whos_online['ip_address']).')</span></span>';
+                          //EOF web28 2010-12-03 added Hostname to whois online
+                          ?>
+                          <td class="dataTableContent" align="center"><?php echo gmdate('H:i:s', $time_online); ?></td>
+                          <td class="dataTableContent" align="center"><?php echo $whos_online['customer_id']; ?></td>
+                          <td class="dataTableContent" align="center"><?php echo $whos_online['full_name']; ?></td>
+                          <td class="dataTableContent"><?php echo $whos_online['ip_address']; ?></td>
+                          <td class="dataTableContent" align="center"><?php echo $data['geoplugin_countryName'].' ('.$data['geoplugin_countryCode'].')'; ?></td>
+                          <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
+                          <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
+                          <td class="dataTableContent"><?php
+                            if (preg_match('/^(.*)' . xtc_session_name() . '=[a-f,0-9]+[&]*(.*)/i', $whos_online['last_page_url'], $array)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
+                              echo $array[1] . $array[2];
+                            } else {
+                              echo $whos_online['last_page_url'];
+                            }
                             ?>
-                            <td class="dataTableContent"><?php echo gmdate('H:i:s', $time_online); ?></td>
-                            <td class="dataTableContent" align="center"><?php echo $whos_online['customer_id']; ?></td>
-                            <td class="dataTableContent"><?php echo $whos_online['full_name']; ?></td>
-                            <td class="dataTableContent"><?php echo $whos_online['ip_address']; ?></td>
-                            <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
-                            <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
-                            <td class="dataTableContent"><?php
-                              if (preg_match('/^(.*)' . xtc_session_name() . '=[a-f,0-9]+[&]*(.*)/i', $whos_online['last_page_url'], $array)) { // Hetfield - 2009-08-19 - replaced deprecated function eregi with preg_match to be ready for PHP >= 5.3
-          											echo $array[1] . $array[2];
-          										} else {
-          											echo $whos_online['last_page_url'];
-                              }
-                              ?>
-                              &nbsp;
-                            </td>
-                            <td class="dataTableContent"><?php echo $whos_online['http_referer']; ?></td>
-                          </tr>
-                          <?php
+                            &nbsp;
+                          </td>
+                          <td class="dataTableContent"><?php echo $whos_online['http_referer']; ?></td>
+                        </tr>
+                        <?php
                         }
                         ?>
                         <tr>

@@ -2381,4 +2381,55 @@
     return $number;
   }
   //EOF - franky_n - 2011-01-17 - added value correction function for wrong input prices, weight, dicscount
+  
+  //BOF - DokuMan - 2011-03-16 - added GEOIP-function
+  /**
+   * xtc_get_geoip_data()
+   * 
+   * @param mixed $host
+   * @return
+   *
+   * Usage:
+   * $response = xtc_get_geoip_data(192.168.0.1);
+   * $data = unserialize($response);
+   * returns an array (
+      'geoplugin_city' => 'Mannheim',
+      'geoplugin_region' => 'Baden-Württemberg',
+      'geoplugin_areaCode' => '0',
+      'geoplugin_dmaCode' => '0',
+      'geoplugin_countryCode' => 'DE',
+      'geoplugin_countryName' => 'Germany',
+      'geoplugin_continentCode' => 'EU',
+      'geoplugin_latitude' => '49.488300323486',
+      'geoplugin_longitude' => '8.4646997451782',
+      'geoplugin_regionCode' => '01',
+      'geoplugin_regionName' => 'Baden-Württemberg',
+      'geoplugin_currencyCode' => 'EUR',
+      'geoplugin_currencySymbol' => '€',
+      'geoplugin_currencyConverter' => 0.7195162136,
+    )
+   *
+   */  
+  function xtc_get_geoip_data($ip) {
+    $host = 'http://www.geoplugin.net/php.gp?ip='.$ip;
+    if (function_exists('curl_init') ) {
+      //use cURL to fetch data
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $host);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_USERAGENT, 'geoPlugin PHP Class v1.0');
+      curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, '1');
+      $response = curl_exec($ch);
+      curl_close ($ch);
+      unset($ch);
+    } else if (ini_get('allow_url_fopen') ) {
+      //fall back to file_get_contents()
+      $response = file_get_contents($host, 'r');
+    } else {
+      trigger_error('geoPlugin class Error: Cannot retrieve data. Either compile PHP with cURL support or enable allow_url_fopen in php.ini ', E_USER_ERROR);
+      return;
+    }
+    return $response;
+  }
+  //EOF - DokuMan - 2011-01-06 - added GEOIP-function
 ?>
