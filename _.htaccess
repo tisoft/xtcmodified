@@ -86,12 +86,12 @@ RewriteCond %{REQUEST_URI} (.*):.:([_0-9]+)\.html$
 RewriteRule (.*):.:([0-9]+)\.html$ index.php?manufacturers_id=$2 [qsappend,L]
 
 ##-- Fehlerseiten auf die Sitemap lotsen
-ErrorDocument 400 sitemap.html?error=400
-ErrorDocument 401 sitemap.html?error=401
-ErrorDocument 402 sitemap.html?error=402
-ErrorDocument 403 sitemap.html?error=403
-ErrorDocument 404 sitemap.html?error=404
-ErrorDocument 500 sitemap.html?error=500
+ErrorDocument 400 /sitemap.html?error=400
+ErrorDocument 401 /sitemap.html?error=401
+ErrorDocument 402 /sitemap.html?error=402
+ErrorDocument 403 /sitemap.html?error=403
+ErrorDocument 404 /sitemap.html?error=404
+ErrorDocument 500 /sitemap.html?error=500
 
 ##-- BOF - Tomcraft - 2009-09-09 - Use canonical URLs
 ##-- (don't use if your shop runs on a subdomain like "shop.domain.de"!)
