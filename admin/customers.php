@@ -441,7 +441,9 @@
         break;
       default :
         $customers_query = xtc_db_query("
-        select c.customers_id,
+        select c.payment_unallowed, # Tomcraft 2011-03-18 - Added missing payment_unallowed
+               c.shipping_unallowed, # Tomcraft 2011-03-18 - Added missing payment_unallowed
+               c.customers_id,
                c.customers_cid,
                c.customers_gender,
                c.customers_firstname,
