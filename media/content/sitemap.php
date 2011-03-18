@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce; www.oscommerce.com
-   (c) 2003	nextcommerce; www.nextcommerce.org
+   (c) 2003 nextcommerce; www.nextcommerce.org
    (c) 2005 xtCommerce (sitemap.php 1278 2005-10-02); www.xt-commerce.com
 
    Released under the GNU General Public License
@@ -70,7 +70,7 @@ function get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $cate
  }
 
  if (GROUP_CHECK == 'true') {
- 	$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
+  $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
  }
 
  $categories_query = "
@@ -118,8 +118,14 @@ function get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $cate
       403 => "Error 403: Forbidden.",
       500 => "Error 500: Internal Server Error.");
     }
-    $module_smarty->assign('herror',$fehler[$_REQUEST['error']]);
-   
+  $module_smarty->assign('herror',$fehler[$_REQUEST['error']]);
+
+   //BOF - DokuMan - 2011-03-18 - also set HTTP status code to 404 (in order to be not crawled by search engines)
+   if ($_REQUEST['error'] == '404') {
+     header('HTTP/1.1 404 Not Found');
+   }
+   //BOF - DokuMan - 2011-03-18 - also set HTTP status code to 404 (in order to be not crawled by search engines)
+
    // set cache ID
    if (!CacheCheck()) {
      $module_smarty->caching = 0;
