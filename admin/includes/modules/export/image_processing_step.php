@@ -65,18 +65,25 @@ if ( !class_exists( "image_processing_step" ) ) {
       global $limit, $selbstaufruf, $infotext, $count;
 
       include ('includes/classes/'.FILENAME_IMAGEMANIPULATOR);
-          @xtc_set_time_limit(0);
-          $files=array();
-          if ($dir= opendir(DIR_FS_CATALOG_ORIGINAL_IMAGES)){
-              while  ($file = readdir($dir)) {
-                       if (is_file(DIR_FS_CATALOG_ORIGINAL_IMAGES.$file) and ($file !="index.html") and (strtolower($file) != "thumbs.db")){
-                           $files[]=array(
-                                          'id' => $file,
-                                          'text' =>$file);
-                       }
-               }
-          closedir($dir);
-          }
+      
+      $ext_array = array('gif','jpg','jpeg','png'); //Gültige Dateiendungen
+      
+      @xtc_set_time_limit(0);
+      $files=array();
+      if ($dir= opendir(DIR_FS_CATALOG_ORIGINAL_IMAGES)){
+        while  ($file = readdir($dir)) {
+         $tmp = explode('.',$file);
+         if(is_array($tmp)) {
+           $ext = strtolower($tmp[count($tmp)-1]);
+           if (is_file(DIR_FS_CATALOG_ORIGINAL_IMAGES.$file) && in_array($ext,$ext_array) ){
+             $files[]=array(
+                            'id' => $file,
+                            'text' =>$file);
+           } 
+         }         
+       }
+      closedir($dir);
+      }
 
       $max_files = sizeof($files);
       $step = $_GET['max'];
@@ -88,20 +95,20 @@ if ( !class_exists( "image_processing_step" ) ) {
           xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&module=image_processing_step&infotext='.$infotext. '&max='. $_GET['max'])); //FERTIG
         }
         $products_image_name = $files[$i]['text'];
-        if ($files[$i]['text'] != 'Thumbs.db' && $files[$i]['text'] != 'Index.html') {
-          if ($_GET['miss'] == 1) {
-            $flag = false;
-            if (!is_file(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_thumbnail_images.php'); $flag = true;}
-            if (!is_file(DIR_FS_CATALOG_INFO_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_info_images.php'); $flag = true; }
-            if (!is_file(DIR_FS_CATALOG_POPUP_IMAGES.$files[$i]['text'])) {    require(DIR_WS_INCLUDES . 'product_popup_images.php'); $flag = true; }
-            if ($flag) { $count += 1; }
-          } else {
-            require(DIR_WS_INCLUDES . 'product_thumbnail_images.php');
-            require(DIR_WS_INCLUDES . 'product_info_images.php');
-            require(DIR_WS_INCLUDES . 'product_popup_images.php');
-            $count += 1;
-          }
+        
+        if ($_GET['miss'] == 1) {
+          $flag = false;
+          if (!is_file(DIR_FS_CATALOG_THUMBNAIL_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_thumbnail_images.php'); $flag = true;}
+          if (!is_file(DIR_FS_CATALOG_INFO_IMAGES.$files[$i]['text'])) { require(DIR_WS_INCLUDES . 'product_info_images.php'); $flag = true; }
+          if (!is_file(DIR_FS_CATALOG_POPUP_IMAGES.$files[$i]['text'])) {    require(DIR_WS_INCLUDES . 'product_popup_images.php'); $flag = true; }
+          if ($flag) { $count += 1; }
+        } else {
+          require(DIR_WS_INCLUDES . 'product_thumbnail_images.php');
+          require(DIR_WS_INCLUDES . 'product_info_images.php');
+          require(DIR_WS_INCLUDES . 'product_popup_images.php');
+          $count += 1;
         }
+        
       }
       //xtc_redirect(xtc_href_link(FILENAME_MODULE_EXPORT, 'set=' . $_GET['set'] . '&action=save&module=image_processing_new_step&start=' . $limit));
       //Animierte Gif-Datei und Hinweistext
