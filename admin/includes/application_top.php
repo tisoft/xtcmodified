@@ -419,7 +419,6 @@ if (!isset($_SESSION['user_info']['user_ip'])) {
 	$_SESSION['user_info']['user_ip'] = $_SERVER['REMOTE_ADDR'];
 	// $user_info['user_ip_date'] =  value will be in fact added when login ;
 	$_SESSION['user_info']['user_host'] = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-	;
 	$_SESSION['user_info']['advertiser'] = isset($_GET['ad']) ? $_GET['ad'] : '';
 	$_SESSION['user_info']['referer_url'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 }
