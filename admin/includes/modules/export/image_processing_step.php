@@ -125,6 +125,7 @@ if ( !class_exists( "image_processing_step" ) ) {
       $max_array[] = array ('id' => '10', 'text' => '10');
       $max_array[] = array ('id' => '15', 'text' => '15');
       $max_array[] = array ('id' => '20', 'text' => '20');
+      $max_array[] = array ('id' => '50', 'text' => '50');
 
       return array('text' =>
                             xtc_draw_hidden_field('process','image_processing_do').
