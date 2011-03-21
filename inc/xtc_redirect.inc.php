@@ -1,16 +1,17 @@
 <?php
 /* -----------------------------------------------------------------------------------------
-   $Id: xtc_redirect.inc.php 1261 2005-09-29 19:01:49Z hhgag $
+   $Id$
 
-   XT-Commerce - community made shopping
-   http://www.xt-commerce.com
+   xtcModified - community made shopping
+   http://www.xtc-modified.org
 
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
+   Copyright (c) 2010 xtcModified
+   ----------------------------------------------------------------------------------------- 
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(general.php,v 1.225 2003/05/29); www.oscommerce.com 
    (c) 2003	 nextcommerce (xtc_redirect.inc.php,v 1.5 2003/08/13); www.nextcommerce.org
+   (c) 2003 XT-Commerce - www.xt-commerce.com
    
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -32,6 +33,10 @@
 		    $url = HTTPS_SERVER . substr($url, strlen(HTTP_SERVER)); // Change it to SSL
 		}
     }
+    
+    // BOF - GTB - 2011-03-21 - write referer to Session
+    $_SESSION['REFERER'] = basename(parse_url($_SERVER['SCRIPT_NAME'], PHP_URL_PATH));
+    // EOF - GTB - 2011-03-21 - write referer to Session
     
     // BOF - Hetfield - 2009-08-11 - replaced deprecated function eregi_replace with preg_replace to be ready for PHP >= 5.3
     header('Location: ' . preg_replace("/[\r\n]+(.*)$/i", "", html_entity_decode($url)));
