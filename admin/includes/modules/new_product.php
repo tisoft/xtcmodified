@@ -516,6 +516,12 @@ if (GROUP_CHECK == 'true') {
   for ($i = 0; $n = sizeof($customers_statuses_array), $i < $n; $i ++) {
     $code = '$id=$pInfo->group_permission_'.$customers_statuses_array[$i]['id'].';';
     eval ($code);
+    
+// -- BOF - Hendrik - 2011-03-21 - preselect admin for new product
+    if( !isset($_GET['pID']) && $customers_statuses_array[$i]['id']=='0' ) {
+      $id=1;
+    }   
+// -- EOF - Hendrik - 2011-03-21 - preselect admin for new product    
 
     if ($id==1) {
       $checked = 'checked ';
