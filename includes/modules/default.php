@@ -122,7 +122,7 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
     while ($categories = xtc_db_fetch_array($categories_query, true)) {
       $rows ++;
       $cPath_new = xtc_category_link($categories['categories_id'],$categories['categories_name']);
-      $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
+      //$width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%'; // web28 - 2011-03-20 - FIX MAX_DISPLAY_CATEGORIES_PER_ROW
       $image = '';
       if ($categories['categories_image'] != '') {
         $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
@@ -153,6 +153,17 @@ if (xtc_check_categories_status($current_category_id) >= 1) {
       $image = DIR_WS_BASE.$image;
       //EOF - GTB - 2010-08-03 - Security Fix - Base
     }
+    
+    // BOF - web28 - 2011-03-20 - FIX MAX_DISPLAY_CATEGORIES_PER_ROW
+    $max_per_row = MAX_DISPLAY_CATEGORIES_PER_ROW;  
+    if ($max_per_row > 0){
+      $width = (int) (100 / $max_per_row).'%';
+    }
+    
+    $default_smarty->assign('TR_COLS', $max_per_row);
+    $default_smarty->assign('TD_WIDTH', $width);
+    //EOF - web28 - 2011-03-20 - FIX MAX_DISPLAY_CATEGORIES_PER_ROW
+    
     $default_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
     $default_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
     $default_smarty->assign('CATEGORIES_IMAGE', $image);

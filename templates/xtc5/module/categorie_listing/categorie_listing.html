@@ -6,13 +6,13 @@
 {/if}
 {if $CATEGORIES_IMAGE}<img src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_NAME}" />{/if}
 {if $CATEGORIES_DESCRIPTION}<p>{$CATEGORIES_DESCRIPTION}</p>{/if}
-{if $module_content !=''} <strong>{#heading_more_categories#}</strong>
+{if $module_content !='' && $TR_COLS > 0} <strong>{#heading_more_categories#}</strong>
   <br />
   <table style="border-top: 2px solid; border-color: #d4d4d4;" width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-    {assign var="anzahl_spalten" value=3}
+    {assign var="anzahl_spalten" value=`$TR_COLS`}
     {foreach name=aussen item=module_data from=$module_content key=spalten} 
-      <td class="main">
+      <td class="categorie_listing" width="{$TD_WIDTH}">
         <table width="100%" border="0" cellpadding="0" cellspacing="4">
           <tr>
             <td align="center">{if $module_data.CATEGORIES_IMAGE}<a href="{$module_data.CATEGORIES_LINK}"><img src="{$module_data.CATEGORIES_IMAGE}" alt="{$module_data.CATEGORIES_NAME}" /></a>{/if}</td>
