@@ -52,10 +52,6 @@ ALTER TABLE orders MODIFY comments text;
 UPDATE tax_rates SET tax_description = '19%' WHERE tax_description = 'MwSt 19%';
 UPDATE tax_rates SET tax_description = '7%' WHERE tax_description = 'MwSt 7%';
 
-#DokuMan - 2010-10-12 - set session configuration to recommended settings
-UPDATE configuration SET configuration_value = 'True' WHERE configuration_key = 'SESSION_RECREATE';
-UPDATE configuration SET configuration_value = 'True' WHERE configuration_key = 'SESSION_CHECK_USER_AGENT';
-
 # DokuMan - 2010-10-13 - add index idx_categories_id
 ALTER TABLE products_to_categories
 ADD INDEX idx_categories_id (categories_id,products_id);
