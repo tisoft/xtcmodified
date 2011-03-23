@@ -641,7 +641,7 @@ if (DIR_WS_CATALOG == '/') {
   // BOF - web28/GTB - 2010-11-13 - change breadcrumb startpage link - GTB removed target="_blank"
   //$breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
   $breadcrumb->add(HEADER_TITLE_TOP, xtc_href_link('../'));
-  // BOF - web28/GTB - 2010-11-13 - change breadcrumb startpage link
+  // EOF - web28/GTB - 2010-11-13 - change breadcrumb startpage link
   $breadcrumb->add(HEADER_TITLE_CATALOG, xtc_href_link(FILENAME_DEFAULT));
   $link_index = HEADER_TITLE_CATALOG; //web28 - 2010-11-13 - define link_index
 }
