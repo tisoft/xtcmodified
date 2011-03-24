@@ -10,7 +10,7 @@
    based on:
    (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
    (c) 2002-2003 osCommerce(configuration.php,v 1.40 2002/12/29); www.oscommerce.com
-   (c) 2003   nextcommerce (configuration.php,v 1.16 2003/08/19); www.nextcommerce.org
+   (c) 2003 nextcommerce (configuration.php,v 1.16 2003/08/19); www.nextcommerce.org
    (c) 2006 XT-Commerce (configuration.php 229 2007-03-06)
 
    Released under the GNU General Public License
@@ -27,8 +27,8 @@
         if ($_GET['gID']=='31') {
           // email check
           if (isset($_POST['_PAYMENT_MONEYBOOKERS_EMAILID'])) {
-					// cYbercOsmOnauT - 2011-02-11 - encoded the emailid for security 
-					$url = 'https://www.moneybookers.com/app/email_check.pl?email=' . urlencode($_POST['_PAYMENT_MONEYBOOKERS_EMAILID']) . '&cust_id=8644877&password=1a28e429ac2fcd036aa7d789ebbfb3b0';
+          // cYbercOsmOnauT - 2011-02-11 - encoded the emailid for security
+          $url = 'https://www.moneybookers.com/app/email_check.pl?email=' . urlencode($_POST['_PAYMENT_MONEYBOOKERS_EMAILID']) . '&cust_id=8644877&password=1a28e429ac2fcd036aa7d789ebbfb3b0';
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -49,21 +49,21 @@
         //EOF - Dokuman - 2009-10-02 - added entries for new moneybookers payment module version 2.4
         $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
         while ($configuration = xtc_db_fetch_array($configuration_query))
-				// cYbercOsmOnauT - 2011-02-11 - escaped the confkey to prevent SQL Injection
-				xtc_db_query("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value='" . mysql_real_escape_string($_POST[$configuration['configuration_key']]) . "' where configuration_key='" . $configuration['configuration_key'] . "'");
-			// BOF cYbercOsmOnauT - 2011-02-11 - For the DB Cache System
-			if (isset($_POST['DB_CACHE']) && $_POST['DB_CACHE'] == 'false') {
-				// Cache deactivated.. clean all cachefiles
-				$handle = opendir(SQL_CACHEDIR);
-				while (($file = readdir($handle)) !== false) {
-					// Jump over files that are no sql-cache
-					if (strpos($file, 'sql_') !== 0) {
-						continue;
-					}
-					@unlink(SQL_CACHEDIR.$file);
-				}
-			}
-			// EOF cYbercOsmOnauT - 2011-02-11 - For the DB Cache System
+        // cYbercOsmOnauT - 2011-02-11 - escaped the confkey to prevent SQL Injection
+        xtc_db_query("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value='" . mysql_real_escape_string($_POST[$configuration['configuration_key']]) . "' where configuration_key='" . $configuration['configuration_key'] . "'");
+      // BOF cYbercOsmOnauT - 2011-02-11 - For the DB Cache System
+      if (isset($_POST['DB_CACHE']) && $_POST['DB_CACHE'] == 'false') {
+        // Cache deactivated.. clean all cachefiles
+        $handle = opendir(SQL_CACHEDIR);
+        while (($file = readdir($handle)) !== false) {
+          // Jump over files that are no sql-cache
+          if (strpos($file, 'sql_') !== 0) {
+            continue;
+          }
+          @unlink(SQL_CACHEDIR.$file);
+        }
+      }
+      // EOF cYbercOsmOnauT - 2011-02-11 - For the DB Cache System
         xtc_redirect(FILENAME_CONFIGURATION. '?gID=' . (int)$_GET['gID']);
         break;
         //BOF - Dokuman - 2010-02-04 - delete cache files in admin section
@@ -264,7 +264,7 @@
                                 $value_field = xtc_draw_input_field($configuration['configuration_key'], $configuration['configuration_value'],'size=40');
                               }
                               // add
-                              if (strstr($value_field,'configuration_value')) 
+                              if (strstr($value_field,'configuration_value'))
                                 $value_field=str_replace('configuration_value',$configuration['configuration_key'],$value_field);
                               // BOF vr - 2010-02-04 admin configuration pages 3 column layout
                                 /* echo '
