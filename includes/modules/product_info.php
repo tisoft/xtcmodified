@@ -68,7 +68,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$manufacturer = xtc_db_fetch_array($manufacturer_query);
 		$manufacturers_image='';
 		if (xtc_not_null($manufacturer['manufacturers_image'])) $manufacturers_image=DIR_WS_IMAGES . $manufacturer['manufacturers_image'];
-		$info_smarty->assign('MANUFACTURER_IMAGE',$manufacturers_image) ;
+		$info_smarty->assign('MANUFACTURER_IMAGE',$manufacturers_image);
 		$info_smarty->assign('MANUFACTURER',$manufacturer['manufacturers_name']);
 		$info_smarty->assign('MANUFACTURER_LINK',xtc_href_link(FILENAME_DEFAULT, xtc_manufacturer_link($manufacturer['manufacturers_id'],$manufacturer['manufacturers_name'])));
 	}
