@@ -1760,7 +1760,7 @@ INSERT INTO countries VALUES (200,'Suriname','SR','SUR',1,1);
 INSERT INTO countries VALUES (201,'Svalbard and Jan Mayen Islands','SJ','SJM',1,1);
 INSERT INTO countries VALUES (202,'Swaziland','SZ','SWZ',1,1);
 INSERT INTO countries VALUES (203,'Sweden','SE','SWE',1,1);
-INSERT INTO countries VALUES (204,'Switzerland','CH','CHE',1,1);
+INSERT INTO countries VALUES (204,'Switzerland','CH','CHE',5,1);
 INSERT INTO countries VALUES (205,'Syrian Arab Republic','SY','SYR',1,1);
 #DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
 INSERT INTO countries VALUES (206,'Taiwan','TW','TWN',6,1);

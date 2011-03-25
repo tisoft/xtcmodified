@@ -99,4 +99,8 @@ INSERT INTO orders_status VALUES ('',1,'Cancelled');
 INSERT INTO orders_status VALUES ('',2,'Storniert');
 # EOF - Tomcraft - 2011-03-02 - Added status for cancelled orders
 
+# BOF - Web28 - 2011-03-25 - Fix address_format_id Switzerland
+UPDATE countries SET address_format_id = '5' WHERE countries_id =204 LIMIT 1 ;
+# EOF - Web28 - 2011-03-25 - Fix address_format_id Switzerland
+
 # Keep an empty line at the end of this file for the db_updater to work properly
