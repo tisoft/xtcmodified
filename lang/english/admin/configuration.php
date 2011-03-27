@@ -674,4 +674,8 @@ define('GOOGLE_RSS_FEED_REFID_TITLE' , 'Google RSS Feed - refID');
 define('GOOGLE_RSS_FEED_REFID_DESC' , 'Enter your campaign ID here. It will be appended to every link of the Google RSS Feed automaticallyt.');
 // EOF - DokuMan - 2010-08-13 - set Google RSS Feed in admin section
 
+// BOF - web28 - 2010-08-17 -  Bildgrößenberechnung kleinerer Bilder
+define('PRODUCT_IMAGE_NO_ENLARGE_UNDER_DEFAULT_TITLE','Calculate Image Size (smaller images)');
+define('PRODUCT_IMAGE_NO_ENLARGE_UNDER_DEFAULT_DESC','If <strong>false</strong> is selected, smaller images will not be touched by image processing and also not enlarged to the default image settings for width and height. If you set the value to <strong>true</strong>, also smaller images will be enlarged to the default images size for width and height. In this case those images will be shown very blury.');
+// EOF - web28 - 2010-08-17 -  Bildgrößenberechnung kleinerer Bilder
 ?>

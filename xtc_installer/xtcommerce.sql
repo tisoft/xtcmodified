@@ -1234,6 +1234,10 @@ INSERT INTO configuration (configuration_id, configuration_key, configuration_va
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, '', NOW() , NULL, 'xtc_cfg_select_option(array(\'true\', \'false\'),');
 # EOF - Hendrik - 2010-08-11 - Thumbnails in admin products list
 
+# BOF - Web28 - 2011-03-27 - Option no enlarge product image under default
+INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_NO_ENLARGE_UNDER_DEFAULT', 'false', 4, 6, NULL, NOW(), NULL, 'xtc_cfg_select_option(array(''true'', ''false''), ');
+# EOF - Web28 - 2011-03-27 - Option no enlarge product image under default
+
 # configuration_group_id 2
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_FIRST_NAME_MIN_LENGTH', '2', 2, 1, '', NOW(), NULL, NULL);
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'ENTRY_LAST_NAME_MIN_LENGTH', '2', 2, 2, '', NOW(), NULL, NULL);
@@ -2742,7 +2746,7 @@ INSERT INTO zones VALUES ('',222,'WIL','Wiltshire');
 INSERT INTO zones VALUES ('',222,'WOR','Worcestershire');
 INSERT INTO zones VALUES ('',222,'YOR','York');
 
-# Data for table `payment_moneybookers_countries`
+# Data for table payment_moneybookers_countries
 INSERT INTO payment_moneybookers_countries VALUES (2, 'ALB');
 INSERT INTO payment_moneybookers_countries VALUES (3, 'ALG');
 INSERT INTO payment_moneybookers_countries VALUES (4, 'AME');
@@ -2941,7 +2945,7 @@ INSERT INTO payment_moneybookers_countries VALUES (236, 'YUG');
 INSERT INTO payment_moneybookers_countries VALUES (238, 'ZAM');
 INSERT INTO payment_moneybookers_countries VALUES (239, 'ZIM');
 
-# Data for table `payment_moneybookers_currencies`
+# Data for table payment_moneybookers_currencies
 INSERT INTO payment_moneybookers_currencies VALUES ('AUD', 'Australian Dollar');
 INSERT INTO payment_moneybookers_currencies VALUES ('BGN', 'Bulgarian Lev');
 INSERT INTO payment_moneybookers_currencies VALUES ('CAD', 'Canadian Dollar');

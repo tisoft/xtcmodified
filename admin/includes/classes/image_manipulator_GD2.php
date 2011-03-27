@@ -79,6 +79,14 @@
         $this->i = $this->h[0];
         $this->j = $this->h[1];
         $this->k = $this->h[2];
+        
+        //BOF -web28- 2011-03-27 - OPTION DO NOT ENLARGE SMALL PICTURES
+        if(PRODUCT_IMAGE_NO_ENLARGE_UNDER_DEFAULT == 'false'){
+          if($this->i < $this->m) {$this->m = $this->i;}
+          if($this->j < $this->n) {$this->n = $this->j;}
+        }
+        //EOF  -web28- 2011-03-27 - OPTION DO NOT ENLARGE SMALL PICTURES
+        
         if($this->m == '0'){
           $this->z = ($this->j / $this->n);
           $this->m = ($this->i / $this->z);
