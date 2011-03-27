@@ -29,13 +29,15 @@ $listing_split = new splitPageResults($listing_sql, (isset($_GET['page']) ? (int
 $module_content = array ();
 $category = array ();
 if ($listing_split->number_of_rows > 0) {
+  //BOF - web28 - 2011-03-27 - FIX page search results -> urlencode($_GET['keywords'])
 	$navigation = '
 		<table border="0" width="100%" cellspacing="0" cellpadding="2">
 		  <tr>
-		    <td class="smallText">'.$listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS).'</td>
-		    <td class="smallText" align="right">'.TEXT_RESULT_PAGE.' '.$listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y'))).'</td>
+		    <td class="smallText">'.$listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS).'</td>        
+		    <td class="smallText" align="right">'.TEXT_RESULT_PAGE.' '.$listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, xtc_get_all_get_params(array ('page', 'info', 'x', 'y', 'keywords')).'&keywords='. urlencode($_GET['keywords'])).'</td>
 		  </tr>
 		</table>';
+  //EOF - web28 - 2011-03-27 - FIX page search results -> urlencode($_GET['keywords'])
 	$group_check = '';
 	if (GROUP_CHECK == 'true') {
 		$group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
@@ -132,8 +134,11 @@ if ($result != false) {
 		$module_smarty->caching = 1;
 		$module_smarty->cache_lifetime = CACHE_LIFETIME;
 		$module_smarty->cache_modified_check = CACHE_CHECK;
-		$cache_id = $current_category_id.'_'.$_SESSION['language'].'_'.$_SESSION['customers_status']['customers_status_name'].'_'.$_SESSION['currency'].'_'.$_GET['manufacturers_id'].'_'.$_GET['filter_id'].'_'.$_GET['page'].'_'.$_GET['keywords'].'_'.$_GET['categories_id'].'_'.$_GET['pfrom'].'_'.$_GET['pto'].'_'.$_GET['x'].'_'.$_GET['y'];
-		$module = $module_smarty->fetch(CURRENT_TEMPLATE.'/module/product_listing/'.$category['listing_template'], $cache_id);
+    //BOF - web28 - 2011-03-27 - FIX page search results -> urlencode($_GET['keywords'])
+		//$cache_id = $current_category_id.'_'.$_SESSION['language'].'_'.$_SESSION['customers_status']['customers_status_name'].'_'.$_SESSION['currency'].'_'.$_GET['manufacturers_id'].'_'.$_GET['filter_id'].'_'.$_GET['page'].'_'.$_GET['keywords'].'_'.$_GET['categories_id'].'_'.$_GET['pfrom'].'_'.$_GET['pto'].'_'.$_GET['x'].'_'.$_GET['y'];
+		$cache_id = $current_category_id.'_'.$_SESSION['language'].'_'.$_SESSION['customers_status']['customers_status_name'].'_'.$_SESSION['currency'].'_'.$_GET['manufacturers_id'].'_'.$_GET['filter_id'].'_'.$_GET['page'].'_'.urlencode($_GET['keywords']).'_'.$_GET['categories_id'].'_'.$_GET['pfrom'].'_'.$_GET['pto'].'_'.$_GET['x'].'_'.$_GET['y'];
+		//EOF - web28 - 2011-03-27 - FIX page search results -> urlencode($_GET['keywords'])
+    $module = $module_smarty->fetch(CURRENT_TEMPLATE.'/module/product_listing/'.$category['listing_template'], $cache_id);
 	}
 	$smarty->assign('main_content', $module);
 } else {

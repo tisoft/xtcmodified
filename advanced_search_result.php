@@ -33,6 +33,9 @@ require_once (DIR_FS_INC.'xtc_get_currencies_values.inc.php');
 $error = 0; // reset error flag to false
 $errorno = 0;
 $keyerror = 0;
+
+$_GET['keywords'] = urldecode($_GET['keywords']); // web28 - 2011-03-27 - FIX page search results -> urldecode($_GET['keywords'])
+
 $_GET['keywords'] = trim($_GET['keywords']); //DokuMan - 2010-10-13
 if (isset ($_GET['keywords']) && empty ($_GET['keywords'])) {
   $keyerror = 1;
