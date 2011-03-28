@@ -20,7 +20,7 @@
    Credit Class/Gift Vouchers/Discount Coupons (Version 5.10)
    http://www.oscommerce.com/community/contributions,282
    Copyright (c) Strider | Strider@oscworks.com
-   Copyright (c)  Nick Stanko of UkiDev.com, nick@ukidev.com
+   Copyright (c) Nick Stanko of UkiDev.com, nick@ukidev.com
    Copyright (c) Andre ambidex@gmx.net
    Copyright (c) 2001,2002 Ian C Wilson http://www.phesis.org
 
@@ -498,12 +498,10 @@ if (ACCOUNT_DOB == 'true') {
 } else {
   $smarty->assign('birthdate', '0');
 }
-//BOF - Dokuman - 2009-08-28 - added ondragstart onselectstart to void duplication of the emailaddress by the user
-$smarty->assign('INPUT_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), '','ondragstart="return false" onselectstart="return false"'));
+$smarty->assign('INPUT_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), '',''));
 //BOF - Hetfield - 2009-08-15 - confirm e-mail at registration
-$smarty->assign('INPUT_CONFIRM_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'confirm_email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), '','ondragstart="return false" onselectstart="return false"'));
+$smarty->assign('INPUT_CONFIRM_EMAIL', xtc_draw_input_fieldNote(array ('name' => 'confirm_email_address', 'text' => '&nbsp;'. (xtc_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">'.ENTRY_EMAIL_ADDRESS_TEXT.'</span>' : '')), '',''));
 //EOF - Hetfield - 2009-08-15 - confirm e-mail at registration
-//EOF - Dokuman - 2009-08-28 - added ondragstart onselectstart to void duplication of the emailaddress by the user
 if (ACCOUNT_COMPANY == 'true') {
   $smarty->assign('company', '1');
   $smarty->assign('INPUT_COMPANY', xtc_draw_input_fieldNote(array (
