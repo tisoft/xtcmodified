@@ -33,12 +33,16 @@ DROP TABLE IF EXISTS gls_weight;
 #Hendrik - 2010-08-29 - Xajax Support in Backend
 ALTER TABLE admin_access ADD xajax INT(1) DEFAULT 1 NOT NULL;
 
-#DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
-# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany , 6 - Taiwan , 7 - China
-INSERT INTO address_format VALUES (6, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
-INSERT INTO address_format VALUES (7, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
+# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany , 6 - Ireland/Taiwan, 7 - China, 8 - UK/GB
+INSERT INTO address_format VALUES (6, '$firstname $lastname$cr$streets$cr$city $state $postcode$cr$country','$country / $city');
+INSERT INTO address_format VALUES (7, '$firstname $lastname$cr$streets, $city$cr$postcode $state$cr$country','$country / $city');
+INSERT INTO address_format VALUES (8, '$firstname $lastname$cr$streets$cr$city$cr$state$cr$postcode$cr$country','$postcode / $country');
+
 UPDATE countries SET address_format_id = 6 WHERE countries_id = 206;
+UPDATE countries SET address_format_id = 6 WHERE countries_id = 103;
 UPDATE countries SET address_format_id = 7 WHERE countries_id = 44;
+UPDATE countries SET address_format_id = 8 WHERE countries_id = 222;
 
 #DokuMan - 2010-09-21 - listing_template needs a default value
 ALTER TABLE categories MODIFY listing_template varchar(64) NOT NULL DEFAULT '';

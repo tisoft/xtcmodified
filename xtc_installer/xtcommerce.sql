@@ -1191,10 +1191,11 @@ INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, 
 INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$state / $country');
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
-# BOF - DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
-INSERT INTO address_format VALUES (6, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
-INSERT INTO address_format VALUES (7, '$firstname$lastname$cr$country$cr$postcode$city$cr$streets ','$country / $city');
-# EOF - DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
+# BOF - DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
+INSERT INTO address_format VALUES (6, '$firstname $lastname$cr$streets$cr$city $state $postcode$cr$country','$country / $city');
+INSERT INTO address_format VALUES (7, '$firstname $lastname$cr$streets, $city$cr$postcode $state$cr$country','$country / $city');
+INSERT INTO address_format VALUES (8, '$firstname $lastname$cr$streets$cr$city$cr$state$cr$postcode$cr$country','$postcode / $country');
+# EOF - DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
 
 # Web28 - 2010-11-13 - add entry for listproducts
 INSERT INTO admin_access VALUES ( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
@@ -1602,9 +1603,9 @@ INSERT INTO countries VALUES (40,'Cayman Islands','KY','CYM',1,1);
 INSERT INTO countries VALUES (41,'Central African Republic','CF','CAF',1,1);
 INSERT INTO countries VALUES (42,'Chad','TD','TCD',1,1);
 INSERT INTO countries VALUES (43,'Chile','CL','CHL',1,1);
-#DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
 INSERT INTO countries VALUES (44,'China','CN','CHN',7,1);
-#DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
 INSERT INTO countries VALUES (45,'Christmas Island','CX','CXR',1,1);
 INSERT INTO countries VALUES (46,'Cocos (Keeling) Islands','CC','CCK',1,1);
 INSERT INTO countries VALUES (47,'Colombia','CO','COL',1,1);
@@ -1663,7 +1664,9 @@ INSERT INTO countries VALUES (99,'India','IN','IND',1,1);
 INSERT INTO countries VALUES (100,'Indonesia','ID','IDN',1,1);
 INSERT INTO countries VALUES (101,'Iran (Islamic Republic of)','IR','IRN',1,1);
 INSERT INTO countries VALUES (102,'Iraq','IQ','IRQ',1,1);
-INSERT INTO countries VALUES (103,'Ireland','IE','IRL',1,1);
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
+INSERT INTO countries VALUES (103,'Ireland','IE','IRL',6,1);
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
 INSERT INTO countries VALUES (104,'Israel','IL','ISR',1,1);
 INSERT INTO countries VALUES (105,'Italy','IT','ITA',1,1);
 INSERT INTO countries VALUES (106,'Jamaica','JM','JAM',1,1);
@@ -1766,9 +1769,9 @@ INSERT INTO countries VALUES (202,'Swaziland','SZ','SWZ',1,1);
 INSERT INTO countries VALUES (203,'Sweden','SE','SWE',1,1);
 INSERT INTO countries VALUES (204,'Switzerland','CH','CHE',5,1);
 INSERT INTO countries VALUES (205,'Syrian Arab Republic','SY','SYR',1,1);
-#DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
 INSERT INTO countries VALUES (206,'Taiwan','TW','TWN',6,1);
-#DokuMan - 2010-09-01 - Added Taiwan and Chinese address_format
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
 INSERT INTO countries VALUES (207,'Tajikistan','TJ','TJK',1,1);
 INSERT INTO countries VALUES (208,'Tanzania, United Republic of','TZ','TZA',1,1);
 INSERT INTO countries VALUES (209,'Thailand','TH','THA',1,1);
@@ -1784,7 +1787,9 @@ INSERT INTO countries VALUES (218,'Tuvalu','TV','TUV',1,1);
 INSERT INTO countries VALUES (219,'Uganda','UG','UGA',1,1);
 INSERT INTO countries VALUES (220,'Ukraine','UA','UKR',1,1);
 INSERT INTO countries VALUES (221,'United Arab Emirates','AE','ARE',1,1);
-INSERT INTO countries VALUES (222,'United Kingdom','GB','GBR',1,1);
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
+INSERT INTO countries VALUES (222,'United Kingdom','GB','GBR',8,1);
+#DokuMan - 2011-03-28 - Added address_format for Taiwan, Ireland, China and Great Britain
 INSERT INTO countries VALUES (223,'United States','US','USA', '2','1');
 INSERT INTO countries VALUES (224,'United States Minor Outlying Islands','UM','UMI',1,1);
 INSERT INTO countries VALUES (225,'Uruguay','UY','URY',1,1);
