@@ -41,4 +41,10 @@
 
   if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO))  $product_info=$module;
   $smarty->assign('main_content',$module);
+  
+   //BOF - DokuMan - 2011-03-18 - also set HTTP status code for not found categories to 404 (in order to be not crawled by search engines)
+   if ($_REQUEST['error'] == '404') {
+     header('HTTP/1.1 404 Not Found');
+   }
+   //BOF - DokuMan - 2011-03-18 - also set HTTP status code for not found categories to 404 (in order to be not crawled by search engines)
 ?>
