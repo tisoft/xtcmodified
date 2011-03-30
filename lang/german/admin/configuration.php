@@ -430,10 +430,10 @@ define('EMAIL_BILLING_FORWARDING_STRING_DESC' , 'Geben Sie weitere Mailadressen 
 define('EMAIL_BILLING_REPLY_ADDRESS_TITLE' , 'Verrechnung - Antwortadresse');
 define('EMAIL_BILLING_REPLY_ADDRESS_DESC' , 'Bitte geben Sie eine E-Mailadresse ein, an die Ihre Kunden Antworten k&ouml;nnen.');
 define('EMAIL_BILLING_REPLY_ADDRESS_NAME_TITLE' , 'Verrechnung - Antwortadresse, Name');
-define('EMAIL_BILLING_REPLY_ADDRESS_NAME_DESC' , 'Absendername f&uuml;r replay E-Mails.');
+define('EMAIL_BILLING_REPLY_ADDRESS_NAME_DESC' , 'Absendername f&uuml;r Antwort E-Mails.');
 define('EMAIL_BILLING_SUBJECT_TITLE' , 'Verrechnung - E-Mail Betreff');
 define('EMAIL_BILLING_SUBJECT_DESC' , 'Geben Sie bitte einen E-Mailbetreff f&uuml;r E-Mails des <b>Verrechnungs-Systems</b> Ihres Shops ein.');
-define('EMAIL_BILLING_SUBJECT_ORDER_TITLE','Verrechnung - E-Mail Betreff');
+define('EMAIL_BILLING_SUBJECT_ORDER_TITLE','Verrechnung - E-Mail Betreff f&uuml;r Bestellungen');
 define('EMAIL_BILLING_SUBJECT_ORDER_DESC','Geben Sie bitte einen E-Mailbetreff f&uuml;r Ihre Bestellmails an. (zb: <b>Ihre Bestellung {$nr},am {$date}</b>) ps: folgende Variablen stehen zur Verf&uuml;gung, {$nr},{$date},{$firstname},{$lastname}');
 
 define('DOWNLOAD_ENABLED_TITLE' , 'Download von Artikeln erlauben');

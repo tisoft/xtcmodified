@@ -98,17 +98,17 @@ ALTER TABLE orders MODIFY customers_company VARCHAR(64);
 ALTER TABLE orders MODIFY delivery_company VARCHAR(64);
 ALTER TABLE orders MODIFY billing_company VARCHAR(64);
 
-# BOF - Tomcraft - 2011-03-02 - Added status for cancelled orders
+# Tomcraft - 2011-03-02 - Added status for cancelled orders
 INSERT INTO orders_status VALUES ('',1,'Cancelled');
 INSERT INTO orders_status VALUES ('',2,'Storniert');
-# EOF - Tomcraft - 2011-03-02 - Added status for cancelled orders
 
-# BOF - Web28 - 2011-03-25 - Fix address_format_id Switzerland
+# Web28 - 2011-03-25 - Fix address_format_id Switzerland
 UPDATE countries SET address_format_id = '5' WHERE countries_id =204 LIMIT 1 ;
-# EOF - Web28 - 2011-03-25 - Fix address_format_id Switzerland
 
-# BOF - Web28 - 2011-03-27 - Option no enlarge product image under default
+# Web28 - 2011-03-27 - Option no enlarge product image under default
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_NO_ENLARGE_UNDER_DEFAULT', 'false', 4, 6, NULL, NOW(), NULL, 'xtc_cfg_select_option(array(''true'', ''false''), ');
-# EOF - Web28 - 2011-03-27 - Option no enlarge product image under default
+
+# DokuMan - 2011-03-30 - preset text for billing email subject from admin backend
+UPDATE configuration SET configuration_value = 'Ihre Bestellung bei uns' WHERE configuration_key = 'EMAIL_BILLING_SUBJECT';
 
 # Keep an empty line at the end of this file for the db_updater to work properly
