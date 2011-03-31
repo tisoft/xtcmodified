@@ -77,7 +77,7 @@ function submitFunction() {
 function popupWindow(url) {
   window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
 }
-
+<?php
 // BOF - GTB - 2011-03-31 - function not needed any more
 /*
 function selectRowEffect(object, buttonSelect) {
@@ -102,7 +102,7 @@ function selectRowEffect(object, buttonSelect) {
 }
 */
 // EOF - GTB - 2011-03-31 - function not needed any more
-
+?>
 function rowOverEffect(object) {
   if (object.className == 'moduleRow') object.className = 'moduleRowOver';
 }
