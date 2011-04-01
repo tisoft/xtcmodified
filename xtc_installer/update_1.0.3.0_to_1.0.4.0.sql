@@ -96,7 +96,7 @@ INSERT INTO zones VALUES ('',222,'WOR','Worcestershire');
 INSERT INTO zones VALUES ('',222,'YOR','York');
 
 # BOF - DokuMan - 2010-02-11 - set default separator sign to semicolon ';' instead of tabulator '\t'
-UPDATE configuration SET configuration_value = ';' WHERE configuration_key = 'CSV_SEPERATOR';
+UPDATE configuration SET configuration_value = ';', last_modified = NOW() WHERE configuration_key = 'CSV_SEPERATOR';
 
 # BOF - Tomcraft - 2010-02-16 - Update Countries (delete Yugoslavia, add Serbia and Monetegro)
 # Fixed in update_1.0.4.0_to_1.0.5.0.sql
@@ -126,6 +126,6 @@ UPDATE content_manager SET content_id = 118 WHERE content_id = 18;
 UPDATE content_manager SET content_group = 999 WHERE content_id = 118;
 INSERT INTO content_manager VALUES (17, 0, 0, '', 1, 'Right of revocation', 'Right of revocation', '<p><strong>Right of revocation<br /></strong><br />Add your right of revocation here.</p>', 0, 1, '', 1, 9, 0, '', '', '');
 INSERT INTO content_manager VALUES (18, 0, 0, '', 2, 'Widerrufsrecht', 'Widerrufsrecht', '<p><strong>Widerrufsrecht<br /></strong><br />F&uuml;gen Sie hier das Widerrufsrecht ein.</p>', 0, 1, '', 1, 9, 0, '', '', '');
-UPDATE configuration SET configuration_value = 9 WHERE configuration_key = 'REVOCATION_ID';
+UPDATE configuration SET configuration_value = 9, last_modified = NOW() WHERE configuration_key = 'REVOCATION_ID';
 # EOF - Tomcraft - 2010-06-09 - Added right of revocation
 # Keep an empty line at the end of this file for the db_updater to work properly

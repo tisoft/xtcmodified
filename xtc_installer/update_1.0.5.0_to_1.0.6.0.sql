@@ -11,7 +11,7 @@
 UPDATE database_version SET version = 'xtcM_1.0.6.0';
 
 #DokuMan - 2010-08-05 - mark out of stock products red by default
-UPDATE configuration SET configuration_value = '<span style="color:red">***</span>' WHERE configuration_key = 'STOCK_MARK_PRODUCT_OUT_OF_STOCK';
+UPDATE configuration SET configuration_value = '<span style="color:red">***</span>', last_modified = NOW() WHERE configuration_key = 'STOCK_MARK_PRODUCT_OUT_OF_STOCK';
 
 #Hendrik - 2010-08-11 - Thumbnails in admin products list
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'USE_ADMIN_THUMBS_IN_LIST', 'true', 1, 32, '', NOW() , NULL , 'xtc_cfg_select_option(array(\'true\', \'false\'),');
@@ -53,8 +53,8 @@ ALTER TABLE orders MODIFY comments text;
 
 #DokuMan - 2010-09-28 - display VAT description multilingually
 #Updating only the German tax rates here
-UPDATE tax_rates SET tax_description = '19%' WHERE tax_description = 'MwSt 19%';
-UPDATE tax_rates SET tax_description = '7%' WHERE tax_description = 'MwSt 7%';
+UPDATE tax_rates SET tax_description = '19%', last_modified = NOW() WHERE tax_description = 'MwSt 19%';
+UPDATE tax_rates SET tax_description = '7%', last_modified = NOW() WHERE tax_description = 'MwSt 7%';
 
 # DokuMan - 2010-10-13 - add index idx_categories_id
 ALTER TABLE products_to_categories
@@ -109,6 +109,6 @@ UPDATE countries SET address_format_id = '5' WHERE countries_id =204 LIMIT 1 ;
 INSERT INTO configuration (configuration_id, configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('', 'PRODUCT_IMAGE_NO_ENLARGE_UNDER_DEFAULT', 'false', 4, 6, NULL, NOW(), NULL, 'xtc_cfg_select_option(array(''true'', ''false''), ');
 
 # DokuMan - 2011-03-30 - preset text for billing email subject from admin backend
-UPDATE configuration SET configuration_value = 'Ihre Bestellung bei uns' WHERE configuration_key = 'EMAIL_BILLING_SUBJECT';
+UPDATE configuration SET configuration_value = 'Ihre Bestellung bei uns', last_modified = NOW() WHERE configuration_key = 'EMAIL_BILLING_SUBJECT' AND last_modified IS NULL;
 
 # Keep an empty line at the end of this file for the db_updater to work properly

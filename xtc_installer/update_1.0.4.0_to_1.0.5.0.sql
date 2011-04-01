@@ -260,14 +260,14 @@ INSERT INTO countries VALUES (241, 'Montenegro','ME','MNE',1,1);
 # EOF - Tomcraft - 2010-07-02 - Bugfix on r763 (Update Countries (delete Yugoslavia, add Serbia and Monetegro))
 
 # BOF - DokuMan - 2010-07-07 - PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW, PRODUCT_IMAGE_INFO_DROP_SHADOW, PRODUCT_IMAGE_POPUP_DROP_SHADOW
-UPDATE configuration SET configuration_key = 'PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW' WHERE configuration_key = 'PRODUCT_IMAGE_THUMBNAIL_DROP_SHADDOW';
-UPDATE configuration SET configuration_key = 'PRODUCT_IMAGE_INFO_DROP_SHADOW' WHERE configuration_key = 'PRODUCT_IMAGE_INFO_DROP_SHADDOW';
-UPDATE configuration SET configuration_key = 'PRODUCT_IMAGE_POPUP_DROP_SHADOW' WHERE configuration_key = 'PRODUCT_IMAGE_POPUP_DROP_SHADDOW';
+UPDATE configuration SET configuration_key = 'PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW', last_modified = NOW() WHERE configuration_key = 'PRODUCT_IMAGE_THUMBNAIL_DROP_SHADDOW';
+UPDATE configuration SET configuration_key = 'PRODUCT_IMAGE_INFO_DROP_SHADOW', last_modified = NOW() WHERE configuration_key = 'PRODUCT_IMAGE_INFO_DROP_SHADDOW';
+UPDATE configuration SET configuration_key = 'PRODUCT_IMAGE_POPUP_DROP_SHADOW', last_modified = NOW() WHERE configuration_key = 'PRODUCT_IMAGE_POPUP_DROP_SHADDOW';
 # EOF - DokuMan - 2010-07-07 - PRODUCT_IMAGE_THUMBNAIL_DROP_SHADOW, PRODUCT_IMAGE_INFO_DROP_SHADOW, PRODUCT_IMAGE_POPUP_DROP_SHADOW
 
 # BOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
-UPDATE configuration SET set_function = 'xtc_cfg_select_option(array(\'true\', \'false\'),' WHERE configuration_key = 'PRODUCT_LIST_FILTER';
-UPDATE configuration SET configuration_value = 'true' WHERE configuration_key = 'PRODUCT_LIST_FILTER';
+UPDATE configuration SET set_function = 'xtc_cfg_select_option(array(\'true\', \'false\'),', last_modified = NOW() WHERE configuration_key = 'PRODUCT_LIST_FILTER';
+UPDATE configuration SET configuration_value = 'true', last_modified = NOW() WHERE configuration_key = 'PRODUCT_LIST_FILTER';
 # EOF - DokuMan - 2010-07-07 - change PRODUCT_FILTER_LIST to true/false
 
 # BOF - DokuMan - 2010-07-07 - whos_online table too short customer_id, session_id too long
