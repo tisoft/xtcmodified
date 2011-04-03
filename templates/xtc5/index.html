@@ -75,3 +75,8 @@ if(XAJAX_SUPPORT=='true' && XAJAX_SUPPORT_TEST=='true')
   </div>
   <p class="footer">{$smarty.const.TITLE} &copy; {$smarty.now|date_format:"%Y"} | Template &copy; 2009 by xtcModified eCommerce Shopsoftware</p>
 </div>
+{if $smarty.session.customers_status.customers_status_id != '0'}
+{* -- do not track admin actions in statistics -- *}
+{* piwik url=www.domain.de/piwik id=1 goal=1 *}
+{* googleanalytics account=UA-XXXXXXX-X trackorders=true *}
+{/if}
