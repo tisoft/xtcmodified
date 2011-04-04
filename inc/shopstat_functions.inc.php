@@ -16,12 +16,11 @@
 define('SEO_SEPARATOR',':');
 
 //Sonderzeichen
-define('SPECIAL_CHAR_FR', true);    //Französische Sonderzeichen
+define('SPECIAL_CHAR_FR', true);  //Französische Sonderzeichen
 define('SPECIAL_CHAR_ES', true);  //Spanische/Italienische/Portugisische Sonderzeichen (nur aktivieren wenn auch französiche Sonderzeichen aktiviert sind)
 define('SPECIAL_CHAR_MORE', true);  //Weitere Sonderzeichen
 
 //#################################
-
 
 //BOF - web28 - 2010-08-18 -- Definition für die Trennzeichen
 define('CAT_DIVIDER',SEO_SEPARATOR.SEO_SEPARATOR.SEO_SEPARATOR); //Kategorie ':::'
@@ -37,16 +36,12 @@ if (file_exists(DIR_FS_INC . 'search_replace_'.strtolower($_SESSION['language_ch
   include (DIR_FS_INC . 'search_replace_default.php');
 }
 
-if(!function_exists('xtDBquery'))
-    {
-    require_once(DIR_FS_INC . 'shopstat_functions_xtc2.inc.php');
-    }
 if(!function_exists('language'))
     {
     include_once (DIR_WS_CLASSES.'language.php');
     }
 
-function shopstat_getSEO(   $page               = '',
+function shopstat_getSEO(  $page               = '',
                             $parameters         = '',
                             $connection         = 'NONSSL',
                             $add_session_id     = true,
